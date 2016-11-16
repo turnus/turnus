@@ -1,0 +1,5 @@
+LICENCE
+--------
+
+The icons of this plugin are provided by link:http://p.yusukekamiyamane.com/[Yusuke Kamiyamane] and they are under a link:http://creativecommons.org/licenses/by/3.0/[Creative Commons Attribution 3.0 License]
+The original  

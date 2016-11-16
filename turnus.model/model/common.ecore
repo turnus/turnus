@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="common" nsURI="http://turnus.co/model/2015/common" nsPrefix="turnus.model.common">
+  <eClassifiers xsi:type="ecore:EClass" name="Attributable" instanceClassName="turnus.common.Attributable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributesTable" upperBound="-1"
+        eType="#//StringToObjectMap" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StringToObjectMap" instanceClassName="java.util.Map$Entry">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EOperator">
+    <eLiterals name="BINARY_BIT_AND" literal="BINARY_BIT_AND"/>
+    <eLiterals name="BINARY_BIT_OR" value="1" literal="BINARY_BIT_OR"/>
+    <eLiterals name="BINARY_BIT_XOR" value="2" literal="BINARY_BIT_XOR"/>
+    <eLiterals name="BINARY_DIV" value="3" literal="BINARY_DIV"/>
+    <eLiterals name="BINARY_DIV_INT" value="4" literal="BINARY_DIV_INT"/>
+    <eLiterals name="BINARY_EQ" value="5" literal="BINARY_EQ"/>
+    <eLiterals name="BINARY_EXP" value="6" literal="BINARY_EXP"/>
+    <eLiterals name="BINARY_GT" value="7" literal="BINARY_GT"/>
+    <eLiterals name="BINARY_GE" value="8" literal="BINARY_GE"/>
+    <eLiterals name="BINARY_LT" value="9" literal="BINARY_LT"/>
+    <eLiterals name="BINARY_LE" value="10" literal="BINARY_LE"/>
+    <eLiterals name="BINARY_LOGIC_OR" value="11" literal="BINARY_LOGIC_OR"/>
+    <eLiterals name="BINARY_LOGIC_AND" value="12" literal="BINARY_LOGIC_AND"/>
+    <eLiterals name="BINARY_MINUS" value="13" literal="BINARY_MINUS"/>
+    <eLiterals name="BINARY_PLUS" value="14" literal="BINARY_PLUS"/>
+    <eLiterals name="BINARY_MOD" value="15" literal="BINARY_MOD"/>
+    <eLiterals name="BINARY_TIMES" value="16" literal="BINARY_TIMES"/>
+    <eLiterals name="BINARY_NE" value="17" literal="BINARY_NE"/>
+    <eLiterals name="BINARY_SHIFT_LEFT" value="18" literal="BINARY_SHIFT_LEFT"/>
+    <eLiterals name="BINARY_SHIFT_RIGHT" value="19" literal="BINARY_SHIFT_RIGHT"/>
+    <eLiterals name="UNARY_BIT_NOT" value="100" literal="UNARY_BIT_NOT"/>
+    <eLiterals name="UNARY_LOGIC_NOT" value="101" literal="UNARY_LOGIC_NOT"/>
+    <eLiterals name="UNARY_MINUS" value="102" literal="UNARY_MINUS"/>
+    <eLiterals name="UNARY_NUM_ELTS" value="103" literal="UNARY_NUM_ELTS"/>
+    <eLiterals name="DATAHANDLING_STORE" value="200" literal="DATAHANDLING_STORE"/>
+    <eLiterals name="DATAHANDLING_ASSIGN" value="201" literal="DATAHANDLING_ASSIGN"/>
+    <eLiterals name="DATAHANDLING_CALL" value="202" literal="DATAHANDLING_CALL"/>
+    <eLiterals name="DATAHANDLING_LOAD" value="203" literal="DATAHANDLING_LOAD"/>
+    <eLiterals name="DATAHANDLING_LIST_LOAD" value="204" literal="DATAHANDLING_LIST_LOAD"/>
+    <eLiterals name="DATAHANDLING_LIST_STORE" value="205" literal="DATAHANDLING_LIST_STORE"/>
+    <eLiterals name="FLOWCONTROL_IF" value="300" literal="FLOWCONTROL_IF"/>
+    <eLiterals name="FLOWCONTROL_WHILE" value="301" literal="FLOWCONTROL_WHILE"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EScheduler">
+    <eLiterals name="FULL_PARALLEL" literal="FULL_PARALLEL"/>
+    <eLiterals name="ROUND_ROBIN" value="1" literal="ROUND_ROBIN"/>
+    <eLiterals name="NON_PREEMPTIVE" value="2" literal="NON_PREEMPTIVE"/>
+    <eLiterals name="STATIC" value="3" literal="STATIC"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EType">
+    <eLiterals name="INT" literal="INT"/>
+    <eLiterals name="UINT" value="1" literal="UINT"/>
+    <eLiterals name="DOUBLE" value="2"/>
+    <eLiterals name="BOOLEAN" value="3"/>
+    <eLiterals name="STRING" value="4"/>
+    <eLiterals name="LIST" value="5"/>
+    <eLiterals name="UNDEFINED" value="6"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StatisticalData">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="max" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mean" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="variance" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sum" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="samples" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sumOfLogs" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sumOfSquares" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="geometricMean" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="secondMoment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="standardDeviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+</ecore:EPackage>

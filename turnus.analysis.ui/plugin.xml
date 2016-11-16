@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+          <editor
+                class="turnus.analysis.ui.profiler.OperatorsCostEditor"
+                default="true"
+                extensions="ops"
+                icon="icon/odata-document.png"
+                id="turnus.ui.editor.profiling.operatorCost"
+                name="TURNUS Operators cost editor">
+          </editor>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="turnus.analysis.ui.profiler.NetworkAbstractWeightWizardHandler"
+            id="turnus.analysis.ui.command.abstractNetworkWeight"
+            name="Abstract network weight ">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.buffer.BoundedBufferAnalysisHandler"
+            id="turnus.analysis.ui.command.analysis.buffer.boundedBuffers"
+            name="Bounded buffer analysis">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.bottlenecks.AlgorithmicImpactAnalysisHandler"
+            id="turnus.analysis.ui.command.analysis.bottlenecks.algoImpactAnalysis"
+            name="Algorithmic impact analysis">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.bottlenecks.AlgorithmicPartialCriticalPathAnalysHandler"
+            id="turnus.analysis.ui.command.analysis.bottlenecks.partialCp"
+            name="Algorithmic bottleneck analysis with partial critical path propagation">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.partitioning.CommunicationCostPartitioningHandler"
+            id="turnus.analysis.ui.command.analysis.partitionig.comCost"
+            name="Communication cost partitioning (with KL algortithm)">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.pipelining.InternalVariablePipeliningAnalysisHandler"
+            id="turnus.analysis.ui.command.analysis.pipelining.varUtilisazion"
+            name="Pipelining analysis by variable utilization">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.trace.TraceComparatorAnalysisHandler"
+            id="turnus.analysis.ui.command.analysis.trace.comparator"
+            name="Trace comparator">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.trace.CompressedTraceAnalysisHandler"
+            id="turnus.analysis.ui.command.analysis.trace.compress"
+            name="Compressed trace analysis">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.trace.ActionsMarkowModelAnalysisHandler"
+            id="turnus.analysis.ui.command.analysis.trace.markovModel"
+            name="Actions markov model trace analysis">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.pipelining.PipeliningAlgorithmicImpactAnalysisHandler"
+            id="turnus.analysis.ui.command.analysis.pipelining.algoImpact"
+            name="Pipelining algorithmic impact analysis">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.partitioning.WorkloadBalancePartitioningHandler"
+            id="turnus.analysis.ui.command.analysis.partitionig.workloadBalance"
+            name="Workload balance partitioning">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.partitioning.BalancedPipelinePartitioningHandler"
+            id="turnus.analysis.ui.command.analysis.partitionig.balancedPipeline"
+            name="Balanced pipeline partitioning">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.partitioning.IdleLocalSearchHandler"
+            id="turnus.analysis.ui.command.analysis.partitionig.idleLocalSearch"
+            name="Idle local search partitioning">
+      </command>
+      <command
+            defaultHandler="turnus.analysis.ui.partitioning.CommFreqLocalSearchHandler"
+            id="turnus.analysis.ui.command.analysis.partitionig.commFreqLocalSearch"
+            name="Communication frequency local search partitioning">
+      </command>
+       <command
+            defaultHandler="turnus.analysis.ui.partitioning.TabuSearchPartitioningHandler"
+            id="turnus.analysis.ui.command.analysis.partitionig.tabuSearch"
+            name="Tabu Search partitioning">
+      </command>
+      <command
+             defaultHandler="turnus.analysis.ui.bottlenecks.ScheduledPartialCriticalPathAnalysisHandler"
+             id="turnus.analysis.ui.command.analysis.bottlenecks.scheduledPartialCp"
+             name="Scheduled bottleneck analysis with partial critical path propagation">
+      </command>
+      <command
+             defaultHandler="turnus.analysis.ui.profiling.IntraActionCommunicationAnalysisHandler"
+             id="turnus.analysis.ui.command.analysis.profiling.intraActionComm"
+             name="Intra-Action communication analysis">
+      </command>
+      <command
+             defaultHandler="turnus.analysis.ui.buffer.OptimalBufferSizeAnalysisHandler"
+             id="turnus.analysis.ui.command.analysis.buffer.optimalWithPartialCp"
+             name="Optimal Buffer size evaluation (with PCP propagation)">
+      </command>
+      <command
+             defaultHandler="turnus.analysis.ui.buffer.OptimalBufferSizeExporterHandler"
+             id="turnus.analysis.ui.command.analysis.buffer.optimalReport.configExporter"
+             name="Optimal Buffer size report configurations exporter">
+      </command>
+   </extension>
+   
+      <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=export">
+         <command
+               commandId="turnus.analysis.ui.command.abstractNetworkWeight"
+               icon="icon/odata-document.png"
+               label="Abstract network weight"
+               style="push"
+               tooltip="Generate abstract network weight">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeMenuSelection">
+                  <iterate
+                        ifEmpty="false">
+                     <adapt
+                           type="org.eclipse.core.resources.IResource">
+                        <test
+                              property="org.eclipse.core.resources.name"
+                              value="*.dprof">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="turnus.analysis.ui.command.analysis.buffer.optimalReport.configExporter"
+               icon="icon/odata-document.png"
+               label="Optimal Buffer size report configurations exporter"
+               style="push"
+               tooltip="Export the buffer size configurations">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeMenuSelection">
+                  <iterate
+                        ifEmpty="false">
+                     <adapt
+                           type="org.eclipse.core.resources.IResource">
+                        <test
+                              property="org.eclipse.core.resources.name"
+                              value="*.optimalbuffer">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:turnus.ui.menu.main.analysies">
+         <menu
+               id="turnus.ui.menu.main.analysies.bottlenecks"
+               label="Bottlenecks">
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.bottlenecks.partialCp"
+                  label="Algorithmic bottleneck analysis (with PCP propagation)"
+                  style="push"
+                  tooltip="Evaluate the algorithmic bottlenecks from a single trace">
+            </command>
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.bottlenecks.algoImpactAnalysis"
+                  label="Algorithmic impact analysis (with PCP propagation)"
+                  style="push"
+                  tooltip="Evaluate the algorithmic impact analysis from a single trace">
+            </command>
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.bottlenecks.scheduledPartialCp"
+                  label="Scheduled bottleneck analysis (with PCP propagation)"
+                  style="push"
+                  tooltip="Evaluate the scheduled bottlenecks from a single trace">
+            </command>
+         </menu>
+         <menu
+               id="turnus.ui.menu.main.analysies.buffers"
+               label="Buffers">
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.buffer.boundedBuffers"
+                  label="Bounded buffer analysis"
+                  style="push"
+                  tooltip="Evaluate a bounded buffer configuration from a single trace">
+            </command>
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.buffer.optimalWithPartialCp"
+                  label="Optimal Buffer size evaluation (with PCP propagation)"
+                  style="push"
+                  tooltip="Evaluate the optimal buffer size evaluation (with partial cp propagation)">
+            </command>
+         </menu>
+         <menu
+               id="turnus.ui.menu.main.analysies.partitioning"
+               label="Partitioning">
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.partitionig.comCost"
+                  label="Communication cost partitioning (with KL algortithm)"
+                  style="push"
+                  tooltip="Evaluate a partitioning configuration using the KL algorithm">
+            </command>
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.partitionig.workloadBalance"
+                  label="Workload balance partitioning"
+                  style="push"
+                  tooltip="Evaluate a partitioning configuration using the workload balance partitioning">
+            </command>
+             <command
+                  commandId="turnus.analysis.ui.command.analysis.partitionig.balancedPipeline"
+                  label="Balanced pipeline partitioning"
+                  style="push"
+                  tooltip="Evaluate a partitioning configuration using the balanced pipeline partitioning">
+            </command>
+             <command
+                  commandId="turnus.analysis.ui.command.analysis.partitionig.idleLocalSearch"
+                  label="Idle local search partitioning"
+                  style="push"
+                  tooltip="Evaluate and upgrade a partitioning configuration using the idle local search">
+            </command>
+             <command
+                  commandId="turnus.analysis.ui.command.analysis.partitionig.commFreqLocalSearch"
+                  label="Communication frequency local search partitioning"
+                  style="push"
+                  tooltip="Evaluate and upgrade a partitioning configuration using the communication frequency local search">
+            </command>
+             <command
+                  commandId="turnus.analysis.ui.command.analysis.partitionig.tabuSearch"
+                  label="Tabu Search partitioning"
+                  style="push"
+                  tooltip="Evaluate and upgrade a partitioning configuration using the tabu search">
+            </command>
+         </menu>
+         <menu
+               id="turnus.ui.menu.main.analysies.pipelining"
+               label="Pipelining">
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.pipelining.varUtilisazion"
+                  label="Pipelining analysis by variable utilization"
+                  style="push"
+                  tooltip="Evaluate the actions that can pipelined though a variable utilization analysis">
+            </command>
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.pipelining.algoImpact"
+                  label="Pipelining algorithmic impact analysis"
+                  style="push"
+                  tooltip="Evaluate the actions that can pipelined and that reduce the algorithmic critical path">
+            </command>
+         </menu>
+         <menu
+               id="turnus.ui.menu.main.analysies.profiling"
+               label="Profiling">
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.profiling.intraActionComm"
+                  label="Intra-Action communication analysis"
+                  style="push"
+                  tooltip="Run the Intra-Action communication analysis">
+            </command>
+         </menu>
+         <menu
+               id="turnus.ui.menu.main.analysies.trace"
+               label="Trace">
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.trace.compress"
+                  label="Compressed trace analysis"
+                  style="push">
+            </command>
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.trace.comparator"
+                  label="Compare a set of Execution Trace graphs"
+                  style="push">
+            </command>
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.trace.markovModel"
+                  label="Actions markov model trace analysis"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:turnus.ui.menu.main.utilities">
+         <command
+               commandId="turnus.analysis.ui.command.abstractNetworkWeight"
+               label="Evaluate an abstract network weight file"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+
+</plugin>

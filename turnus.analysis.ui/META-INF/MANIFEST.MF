@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ui
+Bundle-SymbolicName: turnus.analysis.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: turnus.analysis.ui.Activator
+Require-Bundle: 
+ turnus.common;bundle-version="1.0.0",
+ turnus.model;bundle-version="1.0.0",
+ turnus.ui;bundle-version="1.0.0",
+ turnus.analysis;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy

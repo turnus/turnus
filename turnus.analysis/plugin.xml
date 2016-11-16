@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="boundedBuffersAnalysis"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="any"
+            visible="true">
+         <run
+               class="turnus.analysis.buffer.BoundedBufferAnalysisCli">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="algorithmicImpactAnalysis"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="any"
+            visible="true">
+         <run
+               class="turnus.analysis.bottlenecks.AlgorithmicImpactAnalysisCli">
+         </run>
+      </application>
+   </extension>
+
+</plugin>

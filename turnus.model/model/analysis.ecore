@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="analysis" nsURI="http://turnus.co/model/2015/analysis" nsPrefix="turnus.model.analysis">
+  <eClassifiers xsi:type="ecore:EClass" name="AnalysisReport" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithm" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+  </eClassifiers>
+  <eSubpackages name="profiler" nsURI="http://turnus.co/model/2015/analysis/profiler"
+      nsPrefix="turnus.model.analysis.profiler">
+    <eClassifiers xsi:type="ecore:EClass" name="CodeProfilingReport" eSuperTypes="#//AnalysisReport">
+      <eOperations name="getActorClassData" eType="#//profiler/ComplexCodeData">
+        <eParameters name="actorClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actorClassesData" upperBound="-1"
+          eType="#//profiler/ComplexCodeData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="networkData" lowerBound="1"
+          eType="#//profiler/ComplexCodeData" changeable="false" volatile="true" transient="true"
+          derived="true" resolveProxies="false"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CodeData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="operatorsCount" upperBound="-1"
+          eType="#//map/StringToIntegerMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="operandsCount" upperBound="-1"
+          eType="#//map/StringToIntegerMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="blockName" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="nol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ComplexCodeData" eSuperTypes="#//profiler/CodeData">
+      <eOperations name="getActionData" eType="#//profiler/CodeData">
+        <eParameters name="action" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="getProcedureData" eType="#//profiler/CodeData">
+        <eParameters name="procedure" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionsData" upperBound="-1"
+          eType="#//profiler/CodeData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="proceduresData" upperBound="-1"
+          eType="#//profiler/CodeData"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DynamicProfilingReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actorsData" upperBound="-1"
+          eType="#//profiler/ActorDynamicData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="buffersData" upperBound="-1"
+          eType="#//profiler/BufferDynamicData" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActorDynamicData" eSuperTypes="#//profiler/ComplexDynamicData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actor" eType="ecore:EClass dataflow.ecore#//Actor"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionsData" upperBound="-1"
+          eType="#//profiler/ActionDynamicData" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActionDynamicData" eSuperTypes="#//profiler/ComplexDynamicData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass dataflow.ecore#//Action"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BufferDynamicData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="buffer" eType="ecore:EClass dataflow.ecore#//Buffer"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="reads" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="writes" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="occupancy" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionReads" upperBound="-1"
+          eType="#//map/ActionToStatisticalDataMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionWrites" upperBound="-1"
+          eType="#//map/ActionToStatisticalDataMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionPeeks" upperBound="-1"
+          eType="#//map/ActionToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionReadMisses" upperBound="-1"
+          eType="#//map/ActionToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionWriteMisses" upperBound="-1"
+          eType="#//map/ActionToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="unconsumedTokens" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ComplexDynamicData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="operandsCalls" upperBound="-1"
+          eType="#//map/EOperatorToStatisticalDataMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="proceduresCalls" upperBound="-1"
+          eType="#//map/ProcedureToStatisticalDataMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="variablesStores" upperBound="-1"
+          eType="#//map/VariableToStatisticalDataMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="variablesLoads" upperBound="-1"
+          eType="#//map/VariableToStatisticalDataMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="proceduresData" upperBound="-1"
+          eType="#//profiler/ProcedureToComplexDynamicDataMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="readTokens" upperBound="-1"
+          eType="#//map/BufferToStatisticalDataMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="writeTokens" upperBound="-1"
+          eType="#//map/BufferToStatisticalDataMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ProcedureToComplexDynamicDataMap"
+        instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Procedure"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//profiler/ComplexDynamicData"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MemoryProfilingReport" eSuperTypes="#//AnalysisReport">
+      <eOperations name="getActionData" eType="#//profiler/ActionMemoryProfilingData">
+        <eParameters name="actor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="action" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="networkName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionsData" upperBound="-1"
+          eType="#//profiler/ActionMemoryProfilingData" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActionMemoryProfilingData">
+      <eOperations name="getReadBufferData" eType="#//profiler/BufferAccessData">
+        <eParameters name="sourceActor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="sourcePort" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="targetActor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="targetPort" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="getWriteBufferData" eType="#//profiler/BufferAccessData">
+        <eParameters name="sourceActor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="sourcePort" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="targetActor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="targetPort" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="getReadStateVariableData" eType="#//profiler/StateVariableAccessData">
+        <eParameters name="variable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="getWriteStateVariableData" eType="#//profiler/StateVariableAccessData">
+        <eParameters name="variable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="getReadLocalVariableData" eType="#//profiler/LocalVariableAccessData">
+        <eParameters name="variable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="getWriteLocalVariableData" eType="#//profiler/LocalVariableAccessData">
+        <eParameters name="variable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="getReadSharedVariableData" eType="#//profiler/SharedVariableAccessData">
+        <eParameters name="variable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="getWriteSharedVariableData" eType="#//profiler/SharedVariableAccessData">
+        <eParameters name="variable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="actor" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="action" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="reads" upperBound="-1"
+          eType="#//profiler/MemoryAccessData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="writes" upperBound="-1"
+          eType="#//profiler/MemoryAccessData" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MemoryAccessData" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="accessesData" upperBound="-1"
+          eType="#//profiler/StringToAccessDataMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BufferAccessData" eSuperTypes="#//profiler/MemoryAccessData">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceActor" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourcePort" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetActor" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetPort" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StateVariableAccessData" eSuperTypes="#//profiler/MemoryAccessData">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LocalVariableAccessData" eSuperTypes="#//profiler/MemoryAccessData">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SharedVariableAccessData" eSuperTypes="#//profiler/MemoryAccessData">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AccessData">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="accesses" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="max" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="average" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+          changeable="false" volatile="true" transient="true" defaultValueLiteral="0"
+          derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="total" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StringToAccessDataMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//profiler/AccessData"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="map" nsURI="http://turnus.co/model/2015/analysis/map" nsPrefix="turnus.model.analysis.map">
+    <eClassifiers xsi:type="ecore:EClass" name="StringToIntegerMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActorToStatisticalDataMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Actor"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActionToStatisticalDataMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BufferToStatisticalDataMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Buffer"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ProcedureToStatisticalDataMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Procedure"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="VariableToStatisticalDataMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Variable"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActorClassToStatisticalDataMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//ActorClass"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="EOperatorToStatisticalDataMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EEnum common.ecore#//EOperator"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActionToLongMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActorToLongMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Actor"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BufferToLongMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Buffer"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StringToLongMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DoubleToDoubleMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="VariableToLongMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Variable"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="GuardToLongMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Guard"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PortToLongMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Port"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StringToDoubleMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActionToDoubleMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BufferToIntegerMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Buffer"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BufferToDoubleMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Buffer"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="trace" nsURI="http://turnus.co/model/2015/analysis/trace" nsPrefix="turnus.model.analysis.trace">
+    <eClassifiers xsi:type="ecore:EClass" name="TraceSizeReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionsFirings" upperBound="-1"
+          eType="#//map/ActionToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionsIncomings" upperBound="-1"
+          eType="#//map/ActionToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionsOutgoings" upperBound="-1"
+          eType="#//map/ActionToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actorsFirings" upperBound="-1"
+          eType="#//map/ActorToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actorsIncoming" upperBound="-1"
+          eType="#//map/ActorToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actorsOutgoings" upperBound="-1"
+          eType="#//map/ActorToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="firings" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="dependencies" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dependenciesKinds" upperBound="-1"
+          eType="#//map/StringToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CompressedTraceReport" eSuperTypes="#//AnalysisReport">
+      <eOperations name="getSteps" eType="#//trace/CompressedStep">
+        <eParameters name="action" eType="ecore:EClass dataflow.ecore#//Action"/>
+      </eOperations>
+      <eOperations name="getSteps" upperBound="-1" eType="#//trace/CompressedStep">
+        <eParameters name="actor" eType="ecore:EClass dataflow.ecore#//Actor"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="steps" upperBound="-1"
+          eType="#//trace/CompressedStep" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" upperBound="-1"
+          eType="#//trace/CompressedDependency" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="traceFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CompressedStep">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="incomings" upperBound="-1"
+          eType="#//trace/CompressedDependency" eOpposite="#//trace/CompressedDependency/target"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="outgoings" upperBound="-1"
+          eType="#//trace/CompressedDependency" eOpposite="#//trace/CompressedDependency/source"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="predecessors" upperBound="-1"
+          eType="#//trace/CompressedStep" changeable="false" volatile="true" transient="true"
+          derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="successors" upperBound="-1"
+          eType="#//trace/CompressedStep" changeable="false" volatile="true" transient="true"
+          derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="neighbors" upperBound="-1"
+          eType="#//trace/CompressedStep" changeable="false" volatile="true" transient="true"
+          derived="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CompressedDependency" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//trace/CompressedStep"
+          eOpposite="#//trace/CompressedStep/outgoings"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//trace/CompressedStep"
+          eOpposite="#//trace/CompressedStep/incomings"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CompressedFsmDependency" eSuperTypes="#//trace/CompressedDependency"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CompressedGuardDependency" eSuperTypes="#//trace/CompressedDependency">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="enableMap" upperBound="-1"
+          eType="#//map/GuardToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="disableMap" upperBound="-1"
+          eType="#//map/GuardToLongMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CompressedVariableDependency" eSuperTypes="#//trace/CompressedDependency">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="readReadMap" upperBound="-1"
+          eType="#//map/VariableToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="readWriteMap" upperBound="-1"
+          eType="#//map/VariableToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="writeReadMap" upperBound="-1"
+          eType="#//map/VariableToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="writeWriteMap" upperBound="-1"
+          eType="#//map/VariableToLongMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CompressedPortDependency" eSuperTypes="#//trace/CompressedDependency">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="readMap" upperBound="-1"
+          eType="#//map/PortToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="writeMap" upperBound="-1"
+          eType="#//map/PortToLongMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CompressedTokensDependency" eSuperTypes="#//trace/CompressedDependency">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="countMap" upperBound="-1"
+          eType="#//map/BufferToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="tokensMap" upperBound="-1"
+          eType="#//map/BufferToStatisticalDataMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TraceComparatorReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="#//trace/CompressedTraceReport"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="traces" upperBound="-1"
+          eType="#//trace/ComparedTrace" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ComparedTrace">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="compressedTrace" eType="#//trace/CompressedTraceReport"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="dSteps" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
+          changeable="false" volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="dDependencies" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
+          changeable="false" volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="containedReferenceActions"
+          upperBound="-1" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
+          eType="#//trace/ComparedAction" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="equal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          changeable="false" volatile="true" transient="true" defaultValueLiteral="false"
+          derived="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ComparedAction">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="found" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="dSteps" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="dIncomings" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="dOutgoings" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MarkowModelTraceReport" eSuperTypes="#//AnalysisReport">
+      <eOperations name="getData" upperBound="-1" eType="#//trace/MarkovModelActionData">
+        <eParameters name="actor" eType="ecore:EClass dataflow.ecore#//Actor"/>
+      </eOperations>
+      <eOperations name="getData" eType="#//trace/MarkovModelActionData">
+        <eParameters name="action" eType="ecore:EClass dataflow.ecore#//Action"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionsData" upperBound="-1"
+          eType="#//trace/MarkovModelActionData" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MarkovModelActionData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="first" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="successorsMap" upperBound="-1"
+          eType="#//map/ActionToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="successors" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="bottlenecks" nsURI="http://turnus.co/model/2015/analysis/bottlenecks"
+      nsPrefix="turnus.model.analysis.bottlenecks">
+    <eClassifiers xsi:type="ecore:EClass" name="BottlenecksReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionsData" upperBound="-1"
+          eType="#//bottlenecks/ActionBottlenecksData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpWeight" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+          changeable="false" volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpVariance" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+          changeable="false" volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalWeight" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+          changeable="false" volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalVariance" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+          changeable="false" volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpFirings" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" changeable="false"
+          volatile="true" transient="true" defaultValueLiteral="0" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalFirings" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" changeable="false"
+          volatile="true" transient="true" defaultValueLiteral="0" derived="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActionBottlenecksData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="slackMin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="slackMax" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpWeight" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpVariance" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalWeight" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalVariance" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpFirings" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalFirings" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ImpactAnalysisReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="classLevel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="impactData" upperBound="-1"
+          eType="#//bottlenecks/ImpactAnalysisData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="initialBottlenecks" eType="#//bottlenecks/BottlenecksReport"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ImpactAnalysisData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actions" lowerBound="1"
+          upperBound="-1" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actorClass" eType="ecore:EClass dataflow.ecore#//ActorClass"
+          changeable="false" volatile="true" transient="true" derived="true" resolveProxies="false"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cpReductionMap" upperBound="-1"
+          eType="#//map/DoubleToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="reportsMap" upperBound="-1"
+          eType="#//bottlenecks/DoubleToBottlenecksReportMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DoubleToBottlenecksReportMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//bottlenecks/BottlenecksReport"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BottlenecksWithSchedulingReport" eSuperTypes="#//AnalysisReport #//postprocessing/PostProcessingData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionsData" upperBound="-1"
+          eType="#//bottlenecks/ActionBottlenecksWithSchedulingData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpWeight" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+          changeable="false" volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalWeight" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+          changeable="false" volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpFirings" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" changeable="false"
+          volatile="true" transient="true" defaultValueLiteral="0" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalFirings" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" changeable="false"
+          volatile="true" transient="true" defaultValueLiteral="0" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionTime" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpBlockingTime" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+          changeable="false" volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cpPartitionsBlockingTime"
+          upperBound="-1" eType="#//map/StringToDoubleMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActionBottlenecksWithSchedulingData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpWeight" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalWeight" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpFirings" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalFirings" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="maxBlockedOutputTokens"
+          upperBound="-1" eType="#//map/BufferToIntegerMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="maxBlockedMultiplication"
+          upperBound="-1" eType="#//map/BufferToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="blockingInstances" upperBound="-1"
+          eType="#//map/BufferToIntegerMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ScheduledImpactAnalysisData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actions" lowerBound="1"
+          upperBound="-1" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actorClass" eType="ecore:EClass dataflow.ecore#//ActorClass"
+          changeable="false" volatile="true" transient="true" derived="true" resolveProxies="false"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cpReductionMap" upperBound="-1"
+          eType="#//map/DoubleToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="timeReductionMap" upperBound="-1"
+          eType="#//map/DoubleToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="reportsMap" upperBound="-1"
+          eType="#//bottlenecks/DoubleToBottlenecksWithSchedulingReportMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DoubleToBottlenecksWithSchedulingReportMap"
+        instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//bottlenecks/BottlenecksWithSchedulingReport"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ScheduledImpactAnalysisReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="classLevel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="scheduledImpactData"
+          upperBound="-1" eType="#//bottlenecks/ScheduledImpactAnalysisData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="initialBottlenecksWithScheduling"
+          eType="#//bottlenecks/BottlenecksWithSchedulingReport" containment="true"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="buffers" nsURI="http://turnus.co/model/2015/analysis/buffers"
+      nsPrefix="turnus.model.analysis.buffers">
+    <eClassifiers xsi:type="ecore:EClass" name="BoundedBuffersReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pow2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bitAccurate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="buffersData" upperBound="-1"
+          eType="#//buffers/BoundedBufferData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokenSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+          changeable="false" volatile="true" transient="true" defaultValueLiteral="0"
+          derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bitSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+          changeable="false" volatile="true" transient="true" defaultValueLiteral="0"
+          derived="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BoundedBufferData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="buffer" eType="ecore:EClass dataflow.ecore#//Buffer"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokenSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bitSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+          changeable="false" volatile="true" transient="true" defaultValueLiteral="0"
+          derived="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OptimalBuffersReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pow2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bitAccurate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="buffersData" upperBound="-1"
+          eType="#//buffers/OptimalBufferData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="initialBufferConfiguration"
+          lowerBound="1" eType="#//buffers/BoundedBuffersReport" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="initialBottlenecks" lowerBound="1"
+          eType="#//bottlenecks/BottlenecksWithSchedulingReport" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OptimalBufferData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="bufferData" eType="#//buffers/BoundedBuffersReport"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="bottlenecksData" eType="#//bottlenecks/BottlenecksWithSchedulingReport"
+          containment="true"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="partitioning" nsURI="http://turnus.co/model/2015/analysis/partitioning"
+      nsPrefix="turnus.model.analysis.partitioning">
+    <eClassifiers xsi:type="ecore:EClass" name="ComCostPartitioningReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bitAccurate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
+          eType="#//partitioning/ComCostPartition" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ComCostPartition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actors" upperBound="-1"
+          eType="ecore:EClass dataflow.ecore#//Actor"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="internalCostMap" upperBound="-1"
+          eType="#//map/ActorToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="externalCostMap" upperBound="-1"
+          eType="#//map/ActorToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="internalCost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
+          changeable="false" volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="externalCost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
+          changeable="false" volatile="true" transient="true" derived="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="WorkloadBalancePartition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actors" upperBound="-1"
+          eType="ecore:EClass dataflow.ecore#//Actor"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="workload" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="WorkloadBalancePartitioningReport"
+        eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
+          eType="#//partitioning/WorkloadBalancePartition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BalancedPipelinePartition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actors" upperBound="-1"
+          eType="ecore:EClass dataflow.ecore#//Actor"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="workload" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="preWorkload" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="commonPredAvg" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BalancedPipelinePartitioningReport"
+        eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
+          eType="#//partitioning/BalancedPipelinePartition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="pipelining" nsURI="http://turnus.co/model/2015/analysis/pipelining"
+      nsPrefix="turnus.model.analysis.pipelining">
+    <eClassifiers xsi:type="ecore:EClass" name="ActionsVariablePipeliningReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionsData" upperBound="-1"
+          eType="#//pipelining/ActionVariablePipeliningData" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActionVariablePipeliningData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="consecutiveFirings" lowerBound="1"
+          eType="ecore:EClass common.ecore#//StatisticalData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="pipelinableFirings" lowerBound="1"
+          eType="ecore:EClass common.ecore#//StatisticalData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pipelinable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          changeable="false" volatile="true" transient="true" defaultValueLiteral="false"
+          derived="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ImpactAnalysisReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="initialBottlenecks" eType="#//bottlenecks/BottlenecksReport"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="piplenablesActions" eType="#//pipelining/ActionsVariablePipeliningReport"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="impactData" upperBound="-1"
+          eType="#//pipelining/ImpactAnalysisData" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ImpactAnalysisData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="estimatedBottlenecks"
+          eType="#//bottlenecks/BottlenecksReport" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpReduction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actions" lowerBound="1"
+          upperBound="-1" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actorClass" eType="ecore:EClass dataflow.ecore#//ActorClass"
+          changeable="false" volatile="true" transient="true" derived="true" resolveProxies="false"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="postprocessing" nsURI="http://turnus.co/model/2015/analysis/postprocessing"
+      nsPrefix="turnus.model.analysis.postprocessing">
+    <eClassifiers xsi:type="ecore:EClass" name="PostProcessingReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="deadlock" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="reports" upperBound="-1"
+          eType="#//postprocessing/PostProcessingData"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PostProcessingData" abstract="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ActorStatisticsReport" eSuperTypes="#//postprocessing/PostProcessingData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
+          eType="#//postprocessing/StatisticalActorPartition"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="idleTimes" upperBound="-1"
+          eType="#//map/StringToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="blockedReadingTimes"
+          upperBound="-1" eType="#//map/StringToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="blockedWritingTimes"
+          upperBound="-1" eType="#//map/StringToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="processingTimes" upperBound="-1"
+          eType="#//map/StringToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="averageOccupancy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="occupancyDeviation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StatisticalActorPartition">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="actors" upperBound="-1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="occupancy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="schedulingPolicy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActionStatisticsReport" eSuperTypes="#//postprocessing/PostProcessingData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actors" upperBound="-1"
+          eType="ecore:EClass dataflow.ecore#//Actor"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="idleTimes" upperBound="-1"
+          eType="#//map/ActionToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="idleMinTimes" upperBound="-1"
+          eType="#//map/ActionToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="idleMaxTimes" upperBound="-1"
+          eType="#//map/ActionToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="blockedReadingTimes"
+          upperBound="-1" eType="#//map/ActionToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="blockedReadingMinTimes"
+          upperBound="-1" eType="#//map/ActionToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="blockedReadingMaxTimes"
+          upperBound="-1" eType="#//map/ActionToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="blockedWritingTimes"
+          upperBound="-1" eType="#//map/ActionToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="blockedWritingMinTimes"
+          upperBound="-1" eType="#//map/ActionToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="blockedWritingMaxTimes"
+          upperBound="-1" eType="#//map/ActionToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="processingTimes" upperBound="-1"
+          eType="#//map/ActionToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="executionCounts" upperBound="-1"
+          eType="#//map/ActionToLongMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SchedulerChecksReport" eSuperTypes="#//postprocessing/PostProcessingData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
+          eType="#//postprocessing/SchedulerChecksPartition"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SchedulerChecksPartition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="aggregatedCheckedData"
+          eType="ecore:EClass common.ecore#//StatisticalData"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="aggregatedFailedData"
+          eType="ecore:EClass common.ecore#//StatisticalData"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="checkedConditionsMap"
+          upperBound="-1" eType="#//map/ActorToStatisticalDataMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="failedConditionsMap"
+          upperBound="-1" eType="#//map/ActorToStatisticalDataMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BufferBlockingReport" eSuperTypes="#//postprocessing/PostProcessingData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="maxBlockedOutputTokens"
+          upperBound="-1" eType="#//map/BufferToIntegerMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="maxBlockedMultiplication"
+          upperBound="-1" eType="#//map/BufferToDoubleMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="blockingInstances" upperBound="-1"
+          eType="#//map/BufferToIntegerMap" containment="true"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="profiling" nsURI="http://turnus.co/model/2015/analysis/profiling"
+      nsPrefix="turnus.model.analysis.profiling">
+    <eClassifiers xsi:type="ecore:EClass" name="IntraActionCommunicationReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actorsData" upperBound="-1"
+          eType="#//profiling/IntraActorCommunicationData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="IntraActorCommunicationData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actor" eType="ecore:EClass dataflow.ecore#//Actor"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="consumedTokens" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="producedTokens" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="tokensProducersMap" upperBound="-1"
+          eType="#//map/ActorToStatisticalDataMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actionsData" upperBound="-1"
+          eType="#//profiling/IntraActionCommunicationData" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="IntraActionCommunicationData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="consumedTokens" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="producedTokens" eType="ecore:EClass common.ecore#//StatisticalData"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="tokensProducersMap" upperBound="-1"
+          eType="#//map/ActionToStatisticalDataMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ProfilingStatsReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actorsStatsData" upperBound="-1"
+          eType="#//profiling/ProfilingStatsActorData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="networkName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ProfilingStatsActorData">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="actorName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionsWeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="schedulerWeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionsWeightPercent"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="schedulerWeightPercent"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>

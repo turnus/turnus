@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/turnus.model/src" modelPluginID="turnus.model"
+    templateDirectory="/turnus.model/template" dynamicTemplates="true" modelName="Common"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" suppressEMFTypes="true"
+    codeFormatting="true" commentFormatting="true" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" operationReflection="true" importOrganizing="true"
+    cleanup="true">
+  <foreignModel>common.ecore</foreignModel>
+  <genPackages prefix="Common" basePackage="turnus.model" disposableProviderFactory="true"
+      ecorePackage="common.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="common.ecore#//EOperator">
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_BIT_AND"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_BIT_OR"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_BIT_XOR"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_DIV"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_DIV_INT"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_EQ"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_EXP"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_GT"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_GE"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_LT"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_LE"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_LOGIC_OR"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_LOGIC_AND"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_MINUS"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_PLUS"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_MOD"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_TIMES"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_NE"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_SHIFT_LEFT"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/BINARY_SHIFT_RIGHT"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/UNARY_BIT_NOT"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/UNARY_LOGIC_NOT"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/UNARY_MINUS"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/UNARY_NUM_ELTS"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/DATAHANDLING_STORE"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/DATAHANDLING_ASSIGN"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/DATAHANDLING_CALL"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/DATAHANDLING_LOAD"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/DATAHANDLING_LIST_LOAD"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/DATAHANDLING_LIST_STORE"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/FLOWCONTROL_IF"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EOperator/FLOWCONTROL_WHILE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="common.ecore#//EScheduler">
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/FULL_PARALLEL"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/ROUND_ROBIN"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/NON_PREEMPTIVE"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/STATIC"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="common.ecore#//EType">
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EType/INT"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EType/UINT"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EType/DOUBLE"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EType/BOOLEAN"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EType/STRING"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EType/LIST"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EType/UNDEFINED"/>
+    </genEnums>
+    <genClasses ecoreClass="common.ecore#//Attributable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference common.ecore#//Attributable/attributesTable"/>
+    </genClasses>
+    <genClasses ecoreClass="common.ecore#//StringToObjectMap">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StringToObjectMap/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StringToObjectMap/value"/>
+    </genClasses>
+    <genClasses ecoreClass="common.ecore#//StatisticalData">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StatisticalData/min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StatisticalData/max"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StatisticalData/mean"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StatisticalData/variance"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StatisticalData/sum"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StatisticalData/samples"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StatisticalData/sumOfLogs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StatisticalData/sumOfSquares"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StatisticalData/geometricMean"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StatisticalData/secondMoment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute common.ecore#//StatisticalData/standardDeviation"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

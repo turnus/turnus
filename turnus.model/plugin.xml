@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+   <extension-point id="versioner" name="turnus.model.versioner" schema="schema/versioner.exsd"/>
+   <extension-point id="traceLoader" name="turnus.model.traceLoader" schema="schema/traceLoader.exsd"/>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated common -->
+      <package
+            uri="http://turnus.co/model/2015/common"
+            class="turnus.model.common.CommonPackage"
+            genModel="model/common.genmodel"/>
+   </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated versioning -->
+      <package
+            uri="http://turnus.co/model/2015/versioning"
+            class="turnus.model.versioning.VersioningPackage"
+            genModel="model/versioning.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dataflow -->
+      <package
+            uri="http://turnus.co/model/2015/dataflow"
+            class="turnus.model.dataflow.DataflowPackage"
+            genModel="model/dataflow.genmodel"/>
+   </extension>
+
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated architecture -->
+      <package
+            uri="http://turnus.co/model/2015/architecture"
+            class="turnus.model.architecture.ArchitecturePackage"
+            genModel="model/architecture.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://turnus.co/model/2015/analysis"
+            class="turnus.model.analysis.AnalysisPackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://turnus.co/model/2015/analysis/profiler"
+            class="turnus.model.analysis.profiler.ProfilerPackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://turnus.co/model/2015/analysis/map"
+            class="turnus.model.analysis.map.MapPackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://turnus.co/model/2015/analysis/trace"
+            class="turnus.model.analysis.trace.TracePackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://turnus.co/model/2015/analysis/bottlenecks"
+            class="turnus.model.analysis.bottlenecks.BottlenecksPackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://turnus.co/model/2015/analysis/buffers"
+            class="turnus.model.analysis.buffers.BuffersPackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://turnus.co/model/2015/analysis/partitioning"
+            class="turnus.model.analysis.partitioning.PartitioningPackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://turnus.co/model/2015/analysis/pipelining"
+            class="turnus.model.analysis.pipelining.PipeliningPackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://turnus.co/model/2015/analysis/postprocessing"
+            class="turnus.model.analysis.postprocessing.PostprocessingPackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://turnus.co/model/2015/analysis/profiling"
+            class="turnus.model.analysis.profiling.ProfilingPackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
+
+   <extension
+         point="turnus.model.versioner">
+      <versioner
+            class="turnus.model.versioning.impl.GitVersioner"
+            name="Git">
+      </versioner>
+      <versioner
+            class="turnus.model.versioning.impl.FilePropertiesVersioner"
+            name="FileProperties">
+      </versioner>
+   </extension>
+   <extension
+         point="turnus.model.traceLoader">
+      <traceLoader
+            class="turnus.model.trace.impl.splitted.SplittedTraceLoader"
+            name="splitted">
+      </traceLoader>
+      <traceLoader
+            class="turnus.model.trace.impl.inmemory.InMemoryTraceLoader"
+            name="inmemory">
+      </traceLoader>
+   </extension>
+   <extension
+         point="turnus.common.fileExporter">
+      <exporter
+            class="turnus.model.analysis.trace.io.Tsize2XlsExporter"
+            input="tsize"
+            output="xls">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.trace.io.Tsize2MdExporter"
+            input="tsize"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.profiler.io.Cprof2XlsExporter"
+            input="cprof"
+            output="xls">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.profiler.io.Cprof2MdExporter"
+            input="cprof"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.profiler.io.Dprof2XlsExporter"
+            input="dprof"
+            output="xls">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.profiler.io.Dprof2MdExporter"
+            input="dprof"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.bottlenecks.io.Bottlenecks2XlsExporter"
+            input="bottlenecks"
+            output="xls">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.bottlenecks.io.Bottlenecks2MdExporter"
+            input="bottlenecks"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.bottlenecks.io.Impact2XlsExporter"
+            input="impact"
+            output="xls">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.bottlenecks.io.Impact2MdExporter"
+            input="impact"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.buffers.io.Boundbuffer2XlsEporter"
+            input="boundbuffer"
+            output="xls">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.buffers.io.Boundbuffer2MdExporter"
+            input="boundbuffer"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.partitioning.io.Pcomm2MdExporter"
+            input="pcomm"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.partitioning.io.Pcomm2XlsExporter"
+            input="pcomm"
+            output="xls">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.pipelining.io.Varpipe2MdExporter"
+            input="varpipe"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.pipelining.io.Varpipe2XlsExporter"
+            input="varpipe"
+            output="xls">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.trace.io.Ctrace2MdExporter"
+            input="ctrace"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.trace.io.Dtraces2MdExporter"
+            input="dtraces"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.profiler.io.Mprof2XlsExporter"
+            input="mprof"
+            output="xls">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.profiler.io.Mprof2MdExporter"
+            input="mprof"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.trace.io.Amtrace2MdExporter"
+            input="amtrace"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.trace.io.Amtrace2GraphmlExporter"
+            input="amtrace"
+            output="graphml">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.pipelining.io.Pimpact2MdExporter"
+            input="pimpact"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.bottlenecks.io.BottlenecksWithScheduling2MdExporter"
+            input="sbottlenecks"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.bottlenecks.io.BottlenecksWithScheduling2XlsExporter"
+            input="sbottlenecks"
+            output="xls">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.bottlenecks.io.ScheduledImpact2MdExporter"
+            input="simpact"
+            output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.bottlenecks.io.ScheduledImpact2XlsExporter"
+            input="simpact"
+            output="xls">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.buffers.io.Optimalbuffer2MdExporter"
+            input="optimalbuffer"
+            output="md">
+      </exporter>
+   </extension>
+</plugin>
