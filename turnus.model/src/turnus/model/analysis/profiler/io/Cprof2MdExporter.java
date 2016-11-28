@@ -48,6 +48,7 @@ import turnus.common.util.StringUtils;
 import turnus.model.analysis.profiler.CodeProfilingReport;
 import turnus.model.analysis.profiler.util.HalsteadCodeAnalysis;
 import turnus.model.analysis.profiler.util.HalsteadCodeAnalysis.HalsteadAnalysis;
+import turnus.model.dataflow.Network;
 
 /**
  * The {@link CodeProfilingReport} MD file exporter
@@ -65,10 +66,15 @@ public class Cprof2MdExporter implements FileExporter<CodeProfilingReport> {
 			HalsteadCodeAnalysis a = new HalsteadCodeAnalysis(data);
 			HalsteadAnalysis dN = a.getNetworkAnalysis();
 			StringBuffer b = new StringBuffer();
+			
 			b.append("# Halstead complexity analysis report\n");
 			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			// b.append(String.format("* **Algorithms**: %s\n",
-			// getAlgorithm()));
+			b.append("\n");
+			
+			b.append("| Actors | Classes | Buffers \n");
+			b.append("|:--- |:--- |:--- \n");
+			Network net = data.getNetwork();
+			b.append(String.format("| %d | %d | %d \n", net.getActors().size(), net.getActorClasses().size(), net.getBuffers().size()));
 			b.append("\n");
 
 			b.append("| NoL | n | n1 | n2 | N | N1 | N2 | D | V | B \n");
