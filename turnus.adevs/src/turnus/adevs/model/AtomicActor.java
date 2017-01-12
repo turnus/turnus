@@ -58,7 +58,7 @@ import turnus.model.trace.weighter.TraceWeighter;
 /**
  * This is the implementation of an {@link Atomic} {@link Actor}.
  * 
- * @author Simone Casale-Brunet 
+ * @author Simone Casale-Brunet
  * @author Malgorzata Michalska
  *
  */
@@ -127,10 +127,16 @@ public class AtomicActor extends Atomic<PortValue> {
 	private int writtenBuffers;
 
 	private Status status;
-	private boolean sendEndReading; // if the option below is false, this one should remain always false
+	private boolean sendEndReading; // if the option below is false, this one
+									// should remain always false
 	private boolean releaseAfterProcessing = false;
 
-	public AtomicActor(Actor actor, Iterator<Step> steps, TraceWeighter traceWeighter, SchedulingWeight schedulingWeight, TraceDecorator traceDecorator) {
+	// table used to store unprofiled transitions
+	private Set<Action> unprofiledDirectTransitions;
+	private Map<Action, Set<Action>> unprofiledJumpTransitions;
+
+	public AtomicActor(Actor actor, Iterator<Step> steps, TraceWeighter traceWeighter,
+			SchedulingWeight schedulingWeight, TraceDecorator traceDecorator) {
 		this.actor = actor;
 		this.steps = steps;
 		this.traceWeighter = traceWeighter;
@@ -139,7 +145,7 @@ public class AtomicActor extends Atomic<PortValue> {
 
 		init();
 	}
-	
+
 	public AtomicActor(Actor actor, Iterator<Step> steps, TraceWeighter traceWeighter, TraceDecorator traceDecorator) {
 		this.actor = actor;
 		this.steps = steps;
@@ -148,15 +154,22 @@ public class AtomicActor extends Atomic<PortValue> {
 
 		init();
 	}
-	
+
 	private void init() {
 		in_hasTokens = new HashMap<>();
 		out_missingSpace = new HashMap<>();
 		buffersToRelease = new HashSet<Buffer>();
 
+		// init the unprofiled transitions maps
+		unprofiledDirectTransitions = new HashSet<>();
+		unprofiledJumpTransitions = new HashMap<>();
+		for (Action action : actor.getActions()) {
+			unprofiledJumpTransitions.put(action, new HashSet<>());
+		}
+
 		incomingBuffersNumber = 0;
 		outgoingBuffersNumber = 0;
-		
+
 		writtenBuffers = 0;
 
 		status = Status.DISABLED;
@@ -180,30 +193,34 @@ public class AtomicActor extends Atomic<PortValue> {
 
 	@Override
 	public void delta_conf(Collection<PortValue> xb) {
-		//Logger.debug("delta_conf at %f : actor=%s", localTime, actor.toString());
+		// Logger.debug("delta_conf at %f : actor=%s", localTime,
+		// actor.toString());
 		delta_int();
 		delta_ext(0.0, xb);
 	}
 
 	@Override
 	public void delta_int() {
-		//Logger.debug("delta_int at %f : actor=%s", localTime, actor.toString());
+		// Logger.debug("delta_int at %f : actor=%s", localTime,
+		// actor.toString());
 
 		switch (status) {
 		case SCHEDULE_ACTION: {
 			localTime += ta();
 			status = Status.READING;
-			
+
 			break;
 		}
-		
+
 		case READING: {
 			localTime += ta();
-			if (in_tokensToRead.isEmpty()) { // a firing requires no input = no reading, no buffer release, go directly to processing
+			if (in_tokensToRead.isEmpty()) { // a firing requires no input = no
+												// reading, no buffer release,
+												// go directly to processing
 				dataLogger.logStartProcessing(currentAction, currentStep.getId(), localTime);
 				status = Status.PROCESSING;
 			}
-			
+
 			break;
 		}
 
@@ -212,8 +229,7 @@ public class AtomicActor extends Atomic<PortValue> {
 			dataLogger.logEndProcessing(currentAction, currentStep.getId(), localTime);
 			if (releaseAfterProcessing && !buffersToRelease.isEmpty()) {
 				status = Status.RELEASE_BUFFERS;
-			}
-			else if (out_tokensToWrite.isEmpty()) { // no writing required
+			} else if (out_tokensToWrite.isEmpty()) { // no writing required
 				dataLogger.logEndFiring(currentAction, currentStep.getId(), localTime);
 				status = Status.END_FIRING;
 			} else { // writing must be done
@@ -223,17 +239,17 @@ public class AtomicActor extends Atomic<PortValue> {
 			}
 			break;
 		}
-		
+
 		case RELEASE_BUFFERS: {
 			localTime += ta();
 			if (!releaseAfterProcessing) {
 				dataLogger.logStartProcessing(currentAction, currentStep.getId(), localTime);
 				status = Status.PROCESSING;
 			}
-			
+
 			break;
 		}
-		
+
 		default:
 			break;
 		}
@@ -270,14 +286,15 @@ public class AtomicActor extends Atomic<PortValue> {
 
 	@Override
 	public void delta_ext(double e, Collection<PortValue> xb) {
-		//Logger.debug("delta_ext at %f : actor=%s", localTime, actor.toString());
+		// Logger.debug("delta_ext at %f : actor=%s", localTime,
+		// actor.toString());
 		localTime += e;
 
 		for (PortValue inPortValue : xb) {
 			int port = inPortValue.getPort();
 			if (port == PORT_PARTITION_RECEIVE_ENABLE && status == Status.SCHEDULABLE) {
 				dataLogger.logIsEnabled(currentAction, currentStep.getId(), localTime);
-				lastActionFromPartition = (Action)inPortValue.getValue();
+				lastActionFromPartition = (Action) inPortValue.getValue();
 				status = Status.SCHEDULE_ACTION;
 			} else if (port == PORT_PARTITION_RECEIVE_ASK_SCHEDULABILITY) {
 				if (status == Status.DISABLED) {
@@ -301,7 +318,8 @@ public class AtomicActor extends Atomic<PortValue> {
 						boolean hasTokens = (boolean) inPortValue.getValue();
 						in_hasTokens.put(buffer, hasTokens);
 						if (in_hasTokens.size() == incomingBuffersNumber) {
-							dataLogger.logCheckedConditions(currentAction, currentStep.getId(), incomingBuffersNumber, true, localTime);
+							dataLogger.logCheckedConditions(currentAction, currentStep.getId(), incomingBuffersNumber,
+									true, localTime);
 							if (!in_hasTokens.containsValue(false)) {
 								dataLogger.logFailedConditions(currentAction, currentStep.getId(), 0, true, localTime);
 								if (!out_tokensToWrite.isEmpty()) {
@@ -318,7 +336,7 @@ public class AtomicActor extends Atomic<PortValue> {
 					}
 				} else if (port == PORT_IN_RECEIVE_TOKENS.get(buffer)) {
 					if (status == Status.AWAIT_TOKENS) {
-						int tokens = (int)inPortValue.getValue();
+						int tokens = (int) inPortValue.getValue();
 						dataLogger.logConsumeTokens(currentAction, currentStep.getId(), buffer, tokens, localTime);
 						in_tokensToRead.remove(buffer, tokens);
 						buffersToRelease.add(buffer);
@@ -326,7 +344,9 @@ public class AtomicActor extends Atomic<PortValue> {
 							if (releaseAfterProcessing) {
 								dataLogger.logStartProcessing(currentAction, currentStep.getId(), localTime);
 								status = Status.PROCESSING;
-							} else { // TODO: it should react every time a reading from fifo is finished (now only when ALL)
+							} else { // TODO: it should react every time a
+										// reading from fifo is finished (now
+										// only when ALL)
 								sendEndReading = true;
 								status = Status.RELEASE_BUFFERS;
 							}
@@ -336,7 +356,8 @@ public class AtomicActor extends Atomic<PortValue> {
 					if (status == Status.AWAIT_HAS_SPACE) {
 						out_missingSpace.put(buffer, (int) inPortValue.getValue());
 						if (out_missingSpace.size() == outgoingBuffersNumber) {
-							dataLogger.logCheckedConditions(currentAction, currentStep.getId(), outgoingBuffersNumber, false, localTime);
+							dataLogger.logCheckedConditions(currentAction, currentStep.getId(), outgoingBuffersNumber,
+									false, localTime);
 							boolean hasSpace = true;
 							for (int tokens : out_missingSpace.values()) {
 								if (tokens > 0) {
@@ -368,7 +389,8 @@ public class AtomicActor extends Atomic<PortValue> {
 
 	@Override
 	public void output_func(Collection<PortValue> yb) {
-		//Logger.debug("output_func at %f : actor=%s", localTime, actor.toString());
+		// Logger.debug("output_func at %f : actor=%s", localTime,
+		// actor.toString());
 
 		switch (status) {
 		case SEND_HAS_TOKENS: {
@@ -434,18 +456,19 @@ public class AtomicActor extends Atomic<PortValue> {
 			}
 			break;
 		}
-		
+
 		case RELEASE_BUFFERS: {
-			if (sendEndReading) { // notify partition that reading is done (only in the default mode)
+			if (sendEndReading) { // notify partition that reading is done (only
+									// in the default mode)
 				yb.add(new PortValue(PORT_PARTITION_SEND_END_OF_READING, true));
 			}
-		
+
 			for (Buffer buffer : buffersToRelease) {
 				int port = PORT_IN_RELEASE_BUFFER.get(buffer);
 				yb.add(new PortValue(port, true));
 			}
 			buffersToRelease.clear();
-			
+
 			if (releaseAfterProcessing) {
 				if (out_tokensToWrite.isEmpty()) { // no writing required
 					dataLogger.logEndFiring(currentAction, currentStep.getId(), localTime);
@@ -456,7 +479,7 @@ public class AtomicActor extends Atomic<PortValue> {
 					status = Status.WRITING;
 				}
 			}
-			
+
 			break;
 		}
 
@@ -482,7 +505,8 @@ public class AtomicActor extends Atomic<PortValue> {
 		case END_FIRING: {
 			firedSteps++;
 			loadNextStep();
-			// data to send to partition: last executed action and true/false if the actor has finished
+			// data to send to partition: last executed action and true/false if
+			// the actor has finished
 			Object[] endData = new Object[2];
 			endData[0] = lastExecutedAction;
 			if (hasFinished()) {
@@ -501,7 +525,7 @@ public class AtomicActor extends Atomic<PortValue> {
 
 		case SEND_SCHEDULABLE: {
 			yb.add(new PortValue(PORT_PARTITION_SEND_SCHEDULABILITY, 0));
-			status = Status.SCHEDULABLE;	
+			status = Status.SCHEDULABLE;
 			break;
 		}
 
@@ -560,24 +584,30 @@ public class AtomicActor extends Atomic<PortValue> {
 
 		return Double.MAX_VALUE;
 	}
-	
+
 	private double getSchedulingCost() {
-		if (schedulingWeight == null)
+		if (schedulingWeight == null) {
 			return 0;
-		else if (lastActionFromPartition == null || lastActionFromPartition.getOwner() != actor) {
-			if (schedulingWeight.contains(actor.getName(), currentAction.getName()))
+		} else if (lastActionFromPartition == null || lastActionFromPartition.getOwner() != actor) {
+			if (schedulingWeight.contains(actor.getName(), currentAction.getName())) {
 				return schedulingWeight.getWeight(actor.getName(), currentAction.getName()).getMeanClockCycles();
-			else
+			} else if (!unprofiledDirectTransitions.contains(currentAction)) {
+				unprofiledDirectTransitions.add(currentAction);
 				Logger.warning("No transition found for actor " + actor.getName() + ", action " + currentAction.getName());
-				
+			}
+
 			return 0;
-		}
-		else {
-			if (schedulingWeight.contains(actor.getName(), lastActionFromPartition.getName(), currentAction.getName()))
-				return schedulingWeight.getWeight(actor.getName(), lastActionFromPartition.getName(), currentAction.getName()).getMeanClockCycles();
-			else
+		} else {
+			if (schedulingWeight.contains(actor.getName(), lastActionFromPartition.getName(),
+					currentAction.getName())) {
+				return schedulingWeight
+						.getWeight(actor.getName(), lastActionFromPartition.getName(), currentAction.getName())
+						.getMeanClockCycles();
+			} else if(!unprofiledJumpTransitions.get(lastActionFromPartition).contains(currentAction)){
+				unprofiledJumpTransitions.get(lastActionFromPartition).add(currentAction);
 				Logger.warning("No transition found for actor " + actor.getName() + ", action " + currentAction.getName() + ", source action " + lastActionFromPartition.getName());
-				
+			}
+
 			return 0;
 		}
 	}
@@ -589,7 +619,7 @@ public class AtomicActor extends Atomic<PortValue> {
 	public Status getCurrentStatus() {
 		return status;
 	}
-	
+
 	public Action getLastExecutedAction() {
 		return lastExecutedAction;
 	}
@@ -597,7 +627,7 @@ public class AtomicActor extends Atomic<PortValue> {
 	public long getFiredStepsNumber() {
 		return firedSteps;
 	}
-	
+
 	public void setReleaseAfterProcessinng() {
 		this.releaseAfterProcessing = true;
 	}
