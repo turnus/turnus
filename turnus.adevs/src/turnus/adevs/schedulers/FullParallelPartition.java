@@ -49,7 +49,6 @@ public class FullParallelPartition extends AtomicActorPartition {
 
 	public FullParallelPartition(List<Actor> actors, String partitionId) {
 		super(actors, partitionId); 
-		sortActorsAlphabetical();
 	}
 
 	@Override

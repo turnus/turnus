@@ -40,6 +40,7 @@ import java.util.Map.Entry;
 import turnus.adevs.schedulers.FullParallelPartition;
 import turnus.adevs.schedulers.NonPreemptivePartition;
 import turnus.adevs.schedulers.RoundRobinPartition;
+import turnus.common.TurnusRuntimeException;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
@@ -141,7 +142,7 @@ public class AdevsModelBuilder {
 		// build actor partitions according to a NetworkPartitioning Object (read from file or given by an algorithm)
 		for (Entry<String, List<String>> partitionUnit : partitioning.asPartitionActorsMap().entrySet()) {
 			String component = partitionUnit.getKey();
-			List<Actor> targetActors = getActorObjectsList(partitionUnit.getValue(), network.getActors());
+			List<Actor> targetActors = getActorObjectsList(partitionUnit.getValue(), network);
 			
 			AtomicActorPartition actorPartition = getPartitionObject(partitioning.getScheduler(component), component, targetActors);
 			actorPartition.configure(portsIdentifier);
@@ -167,11 +168,15 @@ public class AdevsModelBuilder {
 		return model;
 	}
 	
-	private List<Actor> getActorObjectsList(List<String> targetNames, Collection<Actor> allActors) {
+	private List<Actor> getActorObjectsList(List<String> actorsName, Network network) {
 		List<Actor> targetActors = new ArrayList<Actor>();
-		for (Actor actor : allActors) {
-			if (targetNames.contains(actor.getName()))
-				targetActors.add(actor);
+		for(String actorName : actorsName){
+			Actor actor = network.getActor(actorName);
+			if(actor == null){
+				throw new TurnusRuntimeException("Actor "+actorName+" not found on this network");
+			}
+			targetActors.add(actor);
+			
 		}
 		
 		return targetActors;

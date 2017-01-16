@@ -51,7 +51,6 @@ public class RoundRobinPartition extends AtomicActorPartition {
 
 	public RoundRobinPartition(List<Actor> actors, String partitionId) {
 		super(actors, partitionId);
-		sortActorsAlphabetical();
 	}
 
 	@Override

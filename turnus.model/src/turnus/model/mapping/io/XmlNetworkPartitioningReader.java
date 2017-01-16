@@ -43,10 +43,15 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.events.XMLEvent;
+
+import com.google.common.collect.ImmutableList;
 
 import turnus.common.TurnusException;
 import turnus.common.io.Logger;
@@ -73,6 +78,9 @@ public class XmlNetworkPartitioningReader {
 		String component = null;
 		String scheduling = null;
 		String actor = null;
+		
+		final ArrayList<String> actorsOrder = new ArrayList<>();
+		
 		try {
 			while (reader.hasNext()) {
 				reader.next();
@@ -108,6 +116,7 @@ public class XmlNetworkPartitioningReader {
 						}
 
 						partitioning.setPartition(actor, component);
+						actorsOrder.add(actor);
 					}
 					break;
 				}
@@ -134,6 +143,25 @@ public class XmlNetworkPartitioningReader {
 			throw new TurnusException("File \"" + file.getAbsolutePath() + "\" cannot be parsed", e);
 		}
 
+		// create the actors sorter
+		Comparator<String> actorsSorter = new Comparator<String>() {
+			
+			private final List<String> actors = ImmutableList.copyOf(actorsOrder);
+			
+			@Override
+			public int compare(String o1, String o2) {
+				int v1 = actors.indexOf(o1);
+				int v2 = actors.indexOf(o2);
+				if(v1 == v2){
+					return o1.compareTo(o2);
+				}else{
+					return Integer.compare(v1, v2);
+				}
+			}
+		};
+		
+	 partitioning.setActorsSorter(actorsSorter);
+		
 		return partitioning;
 
 	}

@@ -33,6 +33,7 @@ package turnus.model.mapping;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -46,17 +47,27 @@ import turnus.model.dataflow.Network;
 
 public class NetworkPartitioning implements Cloneable {
 
+	private Comparator<String> actorsSorter;
 	private Map<String, String> partitionMap = new HashMap<>();
 	private Map<String, String> schedulingMap = new HashMap<>();
 
 	private String networkName;
 
 	public NetworkPartitioning(Network network) {
-		networkName = network.getName();
+		this(network.getName());
 	}
 
 	public NetworkPartitioning(String network) {
 		networkName = network;
+		
+		// by default use an alphabetical sorter
+		actorsSorter = new Comparator<String>() {
+
+			@Override
+			public int compare(String o1, String o2) {
+				return o1.compareTo(o2);
+			}
+		};
 	}
 
 	public Map<String, String> asActorPartitionMap() {
@@ -76,10 +87,16 @@ public class NetworkPartitioning implements Cloneable {
 			String component = e.getValue();
 			map.get(component).add(actor);
 		}
+		
+		for (String component : components) {
+			map.get(component).sort(actorsSorter);
+		}
 
 		return map;
 
 	}
+	
+	
 
 	public Map<String, String> asPartitionSchedulerMap() {
 		// check if all partitions are alive
@@ -134,6 +151,30 @@ public class NetworkPartitioning implements Cloneable {
 		return partitionMap.containsKey(actor);
 	}
 
+	public void setActorsSorter(Comparator<String> actorsSorter){
+		this.actorsSorter = actorsSorter;
+	}
+	
+	public void setActorsSorter(final List<String> orderedActors){
+		
+		actorsSorter = new Comparator<String>() {
+			
+			private final List<String> list = new ArrayList<>(orderedActors);
+			
+			@Override
+			public int compare(String o1, String o2) {
+				int v1 = list.indexOf(o1);
+				int v2 = list.indexOf(o2);
+				if(v1 == v2){
+					return o1.compareTo(o2);
+				}else{
+					return Integer.compare(v1, v2);
+				}
+			}
+		};
+		
+	}
+	
 	public void setPartition(Actor actor, String partition) {
 		setPartition(actor.getName(), partition);
 	}

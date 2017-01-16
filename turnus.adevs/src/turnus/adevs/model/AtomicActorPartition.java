@@ -33,12 +33,12 @@ package turnus.adevs.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import com.google.common.collect.ImmutableList;
 
 import adevs.Atomic;
 import adevs.Digraph.PortValue;
@@ -56,7 +56,8 @@ import turnus.model.dataflow.Actor;
 
 public abstract class AtomicActorPartition extends Atomic<PortValue> {
 
-	protected String partitionId;
+	protected final String partitionId;
+	protected final List<Actor> actors; // all actors belonging to this partition
 
 	protected AdevsDataLogger dataLogger;
 
@@ -76,7 +77,7 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 
 	protected Status status = Status.CHECK_SCHEDULABILITY;
 
-	protected List<Actor> actors; // all actors belonging to this partition
+	
 	protected List<Actor> runningActors = new ArrayList<Actor>();
 	protected List<Actor> schedulableActors = new ArrayList<Actor>();
 	
@@ -95,7 +96,7 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 	protected double lastPartitionFinishTime = 0;
 	
 	protected AtomicActorPartition(List<Actor> actors, String partitionId){
-		this.actors = new ArrayList<>(actors);
+		this.actors = ImmutableList.copyOf(actors);
 		this.aliveActors = new ArrayList<Actor>(actors);
 		this.partitionId = partitionId;
 		this.actorsToCheck.addAll(aliveActors);
@@ -281,15 +282,6 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 
 	public String getId() {
 		return partitionId;
-	}
-
-	public void sortActorsAlphabetical() {
-		Collections.sort(actors, new Comparator<Actor>() {
-			@Override
-			public int compare(Actor a1, Actor a2) {
-				return a1.getName().compareTo(a2.getName());
-			}
-		});
 	}
 
 	public void setDataLogger(AdevsDataLogger dataLogger) {
