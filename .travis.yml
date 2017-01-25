@@ -1,0 +1,11 @@
+language: java
+
+jdk: oraclejdk8
+
+os: linux
+  
+before_script:
+  - echo "MAVEN_OPTS='-Xmx2g -XX:MaxPermSize=512m'" > ~/.mavenrc
+  - git clone https://github.com/turnus/turnus.cli.git
+  
+script: ./turnus.cli/integration/build_turnus_core.sh $TRAVIS_BUILD_DIR/build $TRAVIS_BUILD_DIR/m2
