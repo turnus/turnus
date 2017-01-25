@@ -13,8 +13,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/adevs.jar,
  .
-Export-Package: adevs,
- turnus.adevs,
+Export-Package: turnus.adevs,
  turnus.adevs.logging,
  turnus.adevs.logging.impl,
  turnus.adevs.simulation
