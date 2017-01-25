@@ -31,7 +31,7 @@
 package adevs;
 import java.util.Collection;
 import java.util.ArrayList;
-
+import static adevs.LibraryLoader.loadAdevsLibrary;
 /**
  * This is a wrapper around the C++ Simulator class. It is used in exactly the
  * same way. The Java version of this simulator does not support parallel simulation
@@ -164,9 +164,10 @@ public class Simulator
 	/// Destroy the native simulator
 	private native void destroyCppSimulator(long Cpp_SimID);
 
-	/// Load the native code
+	/// Load the native library
 	static
 	{
-		System.loadLibrary("java_adevs");
+		//SCB: integrated in all this method
+		loadAdevsLibrary();
 	}
 }

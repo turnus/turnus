@@ -35,7 +35,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
-import adevs.AdevsLibraryLoader;
 import adevs.Simulator;
 import turnus.adevs.logging.AdevsDataLogger;
 import turnus.adevs.logging.DataCollector;
@@ -81,10 +80,6 @@ public class SimEngine {
 	private String simulationName = "Post-scheduling simulation";
 
 	private Collection<DataCollector> dataCollectors = new HashSet<DataCollector>();
-	
-	static{
-		AdevsLibraryLoader.loadAdevsLibrary();
-	}
 
 	public SimEngine() {
 	}

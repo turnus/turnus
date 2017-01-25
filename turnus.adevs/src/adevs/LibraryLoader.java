@@ -49,7 +49,7 @@ import turnus.common.TurnusRuntimeException;
  * @author Simone Casale-Brunet
  *
  */
-public class AdevsLibraryLoader {
+public class LibraryLoader {
 
 	/**
 	 * Load the ADEVS libraries
@@ -57,6 +57,7 @@ public class AdevsLibraryLoader {
 	public static void loadAdevsLibrary() {
 		try {
 			loadFile("libjava_adevs.so");
+			System.loadLibrary("java_adevs");
 		} catch (Exception e) {
 			throw new TurnusRuntimeException("ADEVS libraries cannot be loaded");
 		}
@@ -72,7 +73,7 @@ public class AdevsLibraryLoader {
 	 *            the path to add
 	 * @throws Exception
 	 */
-	public static void addLibraryPath(String pathToAdd) throws Exception {
+	private static void addLibraryPath(String pathToAdd) throws Exception {
 		final Field usrPathsField = ClassLoader.class.getDeclaredField("usr_paths");
 		usrPathsField.setAccessible(true);
 
@@ -100,7 +101,7 @@ public class AdevsLibraryLoader {
 	 * @throws Exception
 	 */
 	private static void loadFile(String fileName) throws Exception {
-		InputStream is = AdevsLibraryLoader.class.getResourceAsStream(fileName);
+		InputStream is = LibraryLoader.class.getResourceAsStream(fileName);
 		File path = Files.createTempDir();
 		path.deleteOnExit();
 		addLibraryPath(path.getAbsolutePath());
