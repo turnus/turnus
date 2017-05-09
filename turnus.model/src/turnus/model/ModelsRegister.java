@@ -48,6 +48,7 @@ import turnus.model.analysis.pipelining.PipeliningPackage;
 import turnus.model.analysis.postprocessing.PostprocessingPackage;
 import turnus.model.analysis.profiler.ProfilerPackage;
 import turnus.model.analysis.profiling.ProfilingPackage;
+import turnus.model.analysis.scheduling.SchedulingPackage;
 import turnus.model.architecture.ArchitecturePackage;
 import turnus.model.common.CommonPackage;
 import turnus.model.dataflow.DataflowPackage;
@@ -103,6 +104,7 @@ public class ModelsRegister {
 		m.put(SCHEDULER_CHECKS_REPORT, new XMIResourceFactoryImpl());
 		m.put(SCHEDULED_IMPACT_ANALYSIS_REPORT, new XMIResourceFactoryImpl());
 		m.put(PROFILING_STATS_REPORT, new XMIResourceFactoryImpl());
+		m.put(MARKOV_SCHEDULER, new XMIResourceFactoryImpl());
 
 		CommonPackage.eINSTANCE.eClass();
 		DataflowPackage.eINSTANCE.eClass();
@@ -117,6 +119,7 @@ public class ModelsRegister {
 		PipeliningPackage.eINSTANCE.eClass();
 		PostprocessingPackage.eINSTANCE.eClass();
 		ProfilingPackage.eINSTANCE.eClass();
+		SchedulingPackage.eINSTANCE.eClass();
 	}
 
 }

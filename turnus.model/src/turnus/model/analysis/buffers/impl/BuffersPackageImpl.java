@@ -67,6 +67,8 @@ import turnus.model.analysis.profiler.impl.ProfilerPackageImpl;
 
 import turnus.model.analysis.profiling.ProfilingPackage;
 import turnus.model.analysis.profiling.impl.ProfilingPackageImpl;
+import turnus.model.analysis.scheduling.SchedulingPackage;
+import turnus.model.analysis.scheduling.impl.SchedulingPackageImpl;
 import turnus.model.analysis.trace.TracePackage;
 
 import turnus.model.analysis.trace.impl.TracePackageImpl;
@@ -167,6 +169,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) instanceof PipeliningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) : PipeliningPackage.eINSTANCE);
 		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) : PostprocessingPackage.eINSTANCE);
 		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
+		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theBuffersPackage.createPackageContents();
@@ -179,6 +182,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 		thePipeliningPackage.createPackageContents();
 		thePostprocessingPackage.createPackageContents();
 		theProfilingPackage.createPackageContents();
+		theSchedulingPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theBuffersPackage.initializePackageContents();
@@ -191,6 +195,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 		thePipeliningPackage.initializePackageContents();
 		thePostprocessingPackage.initializePackageContents();
 		theProfilingPackage.initializePackageContents();
+		theSchedulingPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theBuffersPackage.freeze();

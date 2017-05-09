@@ -78,6 +78,8 @@ import turnus.model.analysis.profiler.impl.ProfilerPackageImpl;
 
 import turnus.model.analysis.profiling.ProfilingPackage;
 import turnus.model.analysis.profiling.impl.ProfilingPackageImpl;
+import turnus.model.analysis.scheduling.SchedulingPackage;
+import turnus.model.analysis.scheduling.impl.SchedulingPackageImpl;
 import turnus.model.analysis.trace.TracePackage;
 
 import turnus.model.analysis.trace.impl.TracePackageImpl;
@@ -207,6 +209,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) instanceof PartitioningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) : PartitioningPackage.eINSTANCE);
 		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) instanceof PipeliningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) : PipeliningPackage.eINSTANCE);
 		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
+		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		thePostprocessingPackage.createPackageContents();
@@ -219,6 +222,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		thePartitioningPackage.createPackageContents();
 		thePipeliningPackage.createPackageContents();
 		theProfilingPackage.createPackageContents();
+		theSchedulingPackage.createPackageContents();
 
 		// Initialize created meta-data
 		thePostprocessingPackage.initializePackageContents();
@@ -231,6 +235,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		thePartitioningPackage.initializePackageContents();
 		thePipeliningPackage.initializePackageContents();
 		theProfilingPackage.initializePackageContents();
+		theSchedulingPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		thePostprocessingPackage.freeze();

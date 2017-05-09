@@ -787,4 +787,39 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
   </eSubpackages>
+  <eSubpackages name="scheduling" nsURI="http://turnus.co/model/2015/analysis/scheduling"
+      nsPrefix="turnus.model.analysis.scheduling">
+    <eClassifiers xsi:type="ecore:EClass" name="MarkovSimpleSchedulerReport" eSuperTypes="#//AnalysisReport #//postprocessing/PostProcessingData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
+          eType="#//scheduling/MarkovPartitionScheduler" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MarkovPartitionScheduler">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actors" upperBound="-1"
+          eType="ecore:EClass dataflow.ecore#//Actor"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="partitionId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
+          eType="#//scheduling/MarkovSchedulingState" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
+          eType="#//scheduling/MarkovSchedulingTransition" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MarkovSchedulingState">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actor" lowerBound="1"
+          eType="ecore:EClass dataflow.ecore#//Actor"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="firings" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="outgoings" upperBound="-1"
+          eType="#//scheduling/MarkovSchedulingTransition" eOpposite="#//scheduling/MarkovSchedulingTransition/source"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="incomings" upperBound="-1"
+          eType="#//scheduling/MarkovSchedulingTransition" eOpposite="#//scheduling/MarkovSchedulingTransition/target"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MarkovSchedulingTransition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+          eType="#//scheduling/MarkovSchedulingState" eOpposite="#//scheduling/MarkovSchedulingState/outgoings"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+          eType="#//scheduling/MarkovSchedulingState" eOpposite="#//scheduling/MarkovSchedulingState/incomings"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="firings" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+  </eSubpackages>
 </ecore:EPackage>

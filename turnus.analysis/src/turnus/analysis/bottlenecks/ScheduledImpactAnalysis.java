@@ -350,15 +350,6 @@ public class ScheduledImpactAnalysis extends Analysis<ScheduledImpactAnalysisRep
 				e.printStackTrace();
 			} 
 		}
-		/*Logger.debug("Number of threads: %d", threads.size());
-
-		for (Thread thread : threads) {
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-
-			}
-		}*/
 
 		// generate the report
 		ScheduledImpactAnalysisReport report = BottlenecksFactory.eINSTANCE.createScheduledImpactAnalysisReport();

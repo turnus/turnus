@@ -164,4 +164,7 @@ public class TurnusExtensions {
 	
 	/** The Itra-Action communication analysis report file */
 	public static final String INTRA_ACTION_COMM_REPORT = "iacomm";
+	
+	/** Markov scheduler report file */
+	public static final String MARKOV_SCHEDULER = "mvsched";
 }

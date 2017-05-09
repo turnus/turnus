@@ -78,6 +78,8 @@ import turnus.model.analysis.profiling.ProfilingPackage;
 
 import turnus.model.analysis.profiling.ProfilingStatsActorData;
 import turnus.model.analysis.profiling.ProfilingStatsReport;
+import turnus.model.analysis.scheduling.SchedulingPackage;
+import turnus.model.analysis.scheduling.impl.SchedulingPackageImpl;
 import turnus.model.analysis.trace.TracePackage;
 
 import turnus.model.analysis.trace.impl.TracePackageImpl;
@@ -187,6 +189,7 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) instanceof PartitioningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) : PartitioningPackage.eINSTANCE);
 		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) instanceof PipeliningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) : PipeliningPackage.eINSTANCE);
 		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) : PostprocessingPackage.eINSTANCE);
+		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theProfilingPackage.createPackageContents();
@@ -199,6 +202,7 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		thePartitioningPackage.createPackageContents();
 		thePipeliningPackage.createPackageContents();
 		thePostprocessingPackage.createPackageContents();
+		theSchedulingPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theProfilingPackage.initializePackageContents();
@@ -211,6 +215,7 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		thePartitioningPackage.initializePackageContents();
 		thePipeliningPackage.initializePackageContents();
 		thePostprocessingPackage.initializePackageContents();
+		theSchedulingPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theProfilingPackage.freeze();

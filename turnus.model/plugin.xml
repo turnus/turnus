@@ -120,6 +120,14 @@
             genModel="model/analysis.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://turnus.co/model/2015/analysis/scheduling"
+            class="turnus.model.analysis.scheduling.SchedulingPackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
 
    <extension
          point="turnus.model.versioner">

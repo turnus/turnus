@@ -86,12 +86,12 @@ public class XmlNetworkPartitioningReader {
 				reader.next();
 				switch (reader.getEventType()) {
 				case XMLEvent.START_ELEMENT: {
-					String xmlElement = reader.getLocalName();
+					String xmlElement = reader.getLocalName().toLowerCase();
 					if (xmlElement.equals(CONFIGURATION)) {
 						String network = reader.getAttributeValue("", CONFIGURATION_NETWORK);
 						if (network == null) {
-							throw new TurnusException(
-									"Parsing error in \"" + file.getAbsolutePath() + "\": network name not specified");
+							Logger.warning("Network name not specified");
+							network = "unknown";
 						}
 						partitioning = new NetworkPartitioning(network);
 					} else if (xmlElement.equals(PARTITION)) {

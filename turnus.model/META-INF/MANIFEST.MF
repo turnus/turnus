@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.core.runtime,
  turnus.model;visibility:=reexport,
  turnus.common;bundle-version="1.0.0",
  org.eclipse.jgit;bundle-version="3.4.2"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: turnus.model,
  turnus.model.analysis,
  turnus.model.analysis.bottlenecks,
@@ -40,6 +40,9 @@ Export-Package: turnus.model,
  turnus.model.analysis.profiling,
  turnus.model.analysis.profiling.impl,
  turnus.model.analysis.profiling.util,
+ turnus.model.analysis.scheduling,
+ turnus.model.analysis.scheduling.impl,
+ turnus.model.analysis.scheduling.util,
  turnus.model.analysis.trace,
  turnus.model.analysis.trace.impl,
  turnus.model.analysis.trace.util,
