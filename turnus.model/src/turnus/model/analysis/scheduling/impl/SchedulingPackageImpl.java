@@ -33,6 +33,7 @@ package turnus.model.analysis.scheduling.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -295,6 +296,15 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EOperation getMarkovPartitionScheduler__GetAssociatedState__Actor() {
+		return markovPartitionSchedulerEClass.getEOperations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMarkovSchedulingState() {
 		return markovSchedulingStateEClass;
 	}
@@ -426,6 +436,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 		createEAttribute(markovPartitionSchedulerEClass, MARKOV_PARTITION_SCHEDULER__PARTITION_ID);
 		createEReference(markovPartitionSchedulerEClass, MARKOV_PARTITION_SCHEDULER__STATES);
 		createEReference(markovPartitionSchedulerEClass, MARKOV_PARTITION_SCHEDULER__TRANSITIONS);
+		createEOperation(markovPartitionSchedulerEClass, MARKOV_PARTITION_SCHEDULER___GET_ASSOCIATED_STATE__ACTOR);
 
 		markovSchedulingStateEClass = createEClass(MARKOV_SCHEDULING_STATE);
 		createEReference(markovSchedulingStateEClass, MARKOV_SCHEDULING_STATE__ACTOR);
@@ -487,6 +498,9 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 		initEAttribute(getMarkovPartitionScheduler_PartitionId(), ecorePackage.getEString(), "partitionId", null, 0, 1, MarkovPartitionScheduler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMarkovPartitionScheduler_States(), this.getMarkovSchedulingState(), null, "states", null, 0, -1, MarkovPartitionScheduler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMarkovPartitionScheduler_Transitions(), this.getMarkovSchedulingTransition(), null, "transitions", null, 0, -1, MarkovPartitionScheduler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		EOperation op = initEOperation(getMarkovPartitionScheduler__GetAssociatedState__Actor(), this.getMarkovSchedulingState(), "getAssociatedState", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theDataflowPackage.getActor(), "actor", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(markovSchedulingStateEClass, MarkovSchedulingState.class, "MarkovSchedulingState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMarkovSchedulingState_Actor(), theDataflowPackage.getActor(), null, "actor", null, 1, 1, MarkovSchedulingState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

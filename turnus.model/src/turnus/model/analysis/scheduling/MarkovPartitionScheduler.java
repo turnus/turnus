@@ -131,4 +131,12 @@ public interface MarkovPartitionScheduler extends EObject {
 	 */
 	List<MarkovSchedulingTransition> getTransitions();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	MarkovSchedulingState getAssociatedState(Actor actor);
+
 } // MarkovPartitionScheduler

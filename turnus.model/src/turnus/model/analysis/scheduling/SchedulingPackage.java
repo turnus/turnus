@@ -33,6 +33,7 @@ package turnus.model.analysis.scheduling;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import turnus.model.analysis.AnalysisPackage;
@@ -206,13 +207,22 @@ public interface SchedulingPackage extends EPackage {
 	int MARKOV_PARTITION_SCHEDULER_FEATURE_COUNT = 4;
 
 	/**
+	 * The operation id for the '<em>Get Associated State</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MARKOV_PARTITION_SCHEDULER___GET_ASSOCIATED_STATE__ACTOR = 0;
+
+	/**
 	 * The number of operations of the '<em>Markov Partition Scheduler</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MARKOV_PARTITION_SCHEDULER_OPERATION_COUNT = 0;
+	int MARKOV_PARTITION_SCHEDULER_OPERATION_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link turnus.model.analysis.scheduling.impl.MarkovSchedulingStateImpl <em>Markov Scheduling State</em>}' class.
@@ -439,6 +449,16 @@ public interface SchedulingPackage extends EPackage {
 	EReference getMarkovPartitionScheduler_Transitions();
 
 	/**
+	 * Returns the meta object for the '{@link turnus.model.analysis.scheduling.MarkovPartitionScheduler#getAssociatedState(turnus.model.dataflow.Actor) <em>Get Associated State</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Get Associated State</em>' operation.
+	 * @see turnus.model.analysis.scheduling.MarkovPartitionScheduler#getAssociatedState(turnus.model.dataflow.Actor)
+	 * @generated
+	 */
+	EOperation getMarkovPartitionScheduler__GetAssociatedState__Actor();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.scheduling.MarkovSchedulingState <em>Markov Scheduling State</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -647,6 +667,14 @@ public interface SchedulingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MARKOV_PARTITION_SCHEDULER__TRANSITIONS = eINSTANCE.getMarkovPartitionScheduler_Transitions();
+
+		/**
+		 * The meta object literal for the '<em><b>Get Associated State</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation MARKOV_PARTITION_SCHEDULER___GET_ASSOCIATED_STATE__ACTOR = eINSTANCE.getMarkovPartitionScheduler__GetAssociatedState__Actor();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.scheduling.impl.MarkovSchedulingStateImpl <em>Markov Scheduling State</em>}' class.

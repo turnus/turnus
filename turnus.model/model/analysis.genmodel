@@ -659,6 +659,9 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovPartitionScheduler/partitionId"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovPartitionScheduler/states"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovPartitionScheduler/transitions"/>
+        <genOperations ecoreOperation="analysis.ecore#//scheduling/MarkovPartitionScheduler/getAssociatedState">
+          <genParameters ecoreParameter="analysis.ecore#//scheduling/MarkovPartitionScheduler/getAssociatedState/actor"/>
+        </genOperations>
       </genClasses>
       <genClasses ecoreClass="analysis.ecore#//scheduling/MarkovSchedulingState">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"

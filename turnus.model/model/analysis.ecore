@@ -795,6 +795,9 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="MarkovPartitionScheduler">
+      <eOperations name="getAssociatedState" eType="#//scheduling/MarkovSchedulingState">
+        <eParameters name="actor" eType="ecore:EClass dataflow.ecore#//Actor"/>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="actors" upperBound="-1"
           eType="ecore:EClass dataflow.ecore#//Actor"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="partitionId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

@@ -31,6 +31,7 @@
  */
 package turnus.model.analysis.scheduling.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.List;
 
@@ -201,6 +202,21 @@ public class MarkovPartitionSchedulerImpl extends MinimalEObjectImpl.Container i
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public MarkovSchedulingState getAssociatedState(Actor actor) {
+		for(MarkovSchedulingState state : getStates()){
+			if(actor.equals(state.getActor())){
+				return state;
+			}
+		}
+		
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -304,6 +320,20 @@ public class MarkovPartitionSchedulerImpl extends MinimalEObjectImpl.Container i
 				return transitions != null && !transitions.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case SchedulingPackage.MARKOV_PARTITION_SCHEDULER___GET_ASSOCIATED_STATE__ACTOR:
+				return getAssociatedState((Actor)arguments.get(0));
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 	/**
