@@ -110,6 +110,11 @@
              id="turnus.analysis.ui.command.analysis.buffer.optimalReport.configExporter"
              name="Optimal Buffer size report configurations exporter">
       </command>
+      <command
+            defaultHandler="turnus.analysis.ui.scheduling.MarkovModelSchedulerHandler"
+            id="turnus.analysis.ui.command.analysis.scheduling.simpleMarkowScheduler"
+            name="Simple Markow Scheduler">
+      </command>
    </extension>
    
       <extension
@@ -243,6 +248,16 @@
                   label="Tabu Search partitioning"
                   style="push"
                   tooltip="Evaluate and upgrade a partitioning configuration using the tabu search">
+            </command>
+         </menu>
+         <menu
+               id="turnus.ui.menu.main.analysies.scheduling"
+               label="Scheduling">
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.scheduling.simpleMarkowScheduler"
+                  label="Simple Markow Scheduler"
+                  style="push"
+                  tooltip="Evaluate a simple Markov scheduler">
             </command>
          </menu>
          <menu

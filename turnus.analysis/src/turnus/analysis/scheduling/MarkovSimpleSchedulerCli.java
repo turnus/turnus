@@ -93,7 +93,7 @@ public class MarkovSimpleSchedulerCli implements IApplication{
 		}
 	}
 
-	private void run() throws Exception {
+	private void run() throws TurnusException {
 		monitor.beginTask("Scheduled Impact Analysis", IProgressMonitor.UNKNOWN);
 
 		TraceProject project = null;
@@ -164,7 +164,7 @@ public class MarkovSimpleSchedulerCli implements IApplication{
 		configuration = cliParser.parse(args);
 	}
 
-	public void start(Configuration configuration, IProgressMonitor monitor) throws Exception {
+	public void start(Configuration configuration, IProgressMonitor monitor) throws TurnusException {
 		this.configuration = configuration;
 		this.monitor = monitor;
 		run();
