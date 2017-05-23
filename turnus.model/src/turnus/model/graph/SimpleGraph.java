@@ -68,7 +68,7 @@ public class SimpleGraph<V> {
 	public boolean addEdge(V source, V target){
 		if (vertices.contains(source) && vertices.contains(target)) {
 			if(!edges.containsKey(source)){
-				edges.put(source, new HashSet<>());
+				edges.put(source, new HashSet<V>());
 			}
 			edges.get(source).add(target);
 			return true;
