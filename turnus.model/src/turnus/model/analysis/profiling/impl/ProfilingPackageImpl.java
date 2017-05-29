@@ -75,11 +75,17 @@ import turnus.model.analysis.profiling.IntraActionCommunicationReport;
 import turnus.model.analysis.profiling.IntraActorCommunicationData;
 import turnus.model.analysis.profiling.ProfilingFactory;
 import turnus.model.analysis.profiling.ProfilingPackage;
-
 import turnus.model.analysis.profiling.ProfilingStatsActorData;
 import turnus.model.analysis.profiling.ProfilingStatsReport;
+
 import turnus.model.analysis.scheduling.SchedulingPackage;
+
+import turnus.model.analysis.scheduling.caseoptimal.CaseoptimalPackage;
+
+import turnus.model.analysis.scheduling.caseoptimal.impl.CaseoptimalPackageImpl;
+
 import turnus.model.analysis.scheduling.impl.SchedulingPackageImpl;
+
 import turnus.model.analysis.trace.TracePackage;
 
 import turnus.model.analysis.trace.impl.TracePackageImpl;
@@ -190,6 +196,7 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) instanceof PipeliningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) : PipeliningPackage.eINSTANCE);
 		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) : PostprocessingPackage.eINSTANCE);
 		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
+		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) instanceof CaseoptimalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theProfilingPackage.createPackageContents();
@@ -203,6 +210,7 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		thePipeliningPackage.createPackageContents();
 		thePostprocessingPackage.createPackageContents();
 		theSchedulingPackage.createPackageContents();
+		theCaseoptimalPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theProfilingPackage.initializePackageContents();
@@ -216,6 +224,7 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		thePipeliningPackage.initializePackageContents();
 		thePostprocessingPackage.initializePackageContents();
 		theSchedulingPackage.initializePackageContents();
+		theCaseoptimalPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theProfilingPackage.freeze();

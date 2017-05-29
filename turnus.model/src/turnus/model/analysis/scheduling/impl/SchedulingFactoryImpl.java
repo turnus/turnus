@@ -32,6 +32,7 @@
 package turnus.model.analysis.scheduling.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -85,6 +86,18 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case SchedulingPackage.ACTOR_FIRE: return createActorFire();
+			case SchedulingPackage.FSM: return createFSM();
+			case SchedulingPackage.SEQUENCE: return createSequence();
+			case SchedulingPackage.FSM_VAR: return createFSMVar();
+			case SchedulingPackage.FSM_TRANSITION: return createFSMTransition();
+			case SchedulingPackage.FSM_STATE: return createFSMState();
+			case SchedulingPackage.FSM_VAR_UPDATE: return createFSMVarUpdate();
+			case SchedulingPackage.FSM_OPERATION: return createFSMOperation();
+			case SchedulingPackage.FSM_COMBINATION: return createFSMCombination();
+			case SchedulingPackage.FSM_CONDITION: return createFSMCondition();
+			case SchedulingPackage.FSM_TRANSITION_WITH_STATE: return createFSMTransitionWithState();
+			case SchedulingPackage.PARTITIONED_ACTOR_FIRE: return createPartitionedActorFire();
 			case SchedulingPackage.MARKOV_SIMPLE_SCHEDULER_REPORT: return createMarkovSimpleSchedulerReport();
 			case SchedulingPackage.MARKOV_PARTITION_SCHEDULER: return createMarkovPartitionScheduler();
 			case SchedulingPackage.MARKOV_SCHEDULING_STATE: return createMarkovSchedulingState();
@@ -92,6 +105,164 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+			case SchedulingPackage.FSM_OP:
+				return createFSMOpFromString(eDataType, initialValue);
+			case SchedulingPackage.FSM_COMPARATOR:
+				return createFSMComparatorFromString(eDataType, initialValue);
+			case SchedulingPackage.FSM_COMBINATOR:
+				return createFSMCombinatorFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+			case SchedulingPackage.FSM_OP:
+				return convertFSMOpToString(eDataType, instanceValue);
+			case SchedulingPackage.FSM_COMPARATOR:
+				return convertFSMComparatorToString(eDataType, instanceValue);
+			case SchedulingPackage.FSM_COMBINATOR:
+				return convertFSMCombinatorToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ActorFire createActorFire() {
+		ActorFireImpl actorFire = new ActorFireImpl();
+		return actorFire;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FSM createFSM() {
+		FSMImpl fsm = new FSMImpl();
+		return fsm;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Sequence createSequence() {
+		SequenceImpl sequence = new SequenceImpl();
+		return sequence;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FSMVar createFSMVar() {
+		FSMVarImpl fsmVar = new FSMVarImpl();
+		return fsmVar;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FSMTransition createFSMTransition() {
+		FSMTransitionImpl fsmTransition = new FSMTransitionImpl();
+		return fsmTransition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FSMState createFSMState() {
+		FSMStateImpl fsmState = new FSMStateImpl();
+		return fsmState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FSMVarUpdate createFSMVarUpdate() {
+		FSMVarUpdateImpl fsmVarUpdate = new FSMVarUpdateImpl();
+		return fsmVarUpdate;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FSMOperation createFSMOperation() {
+		FSMOperationImpl fsmOperation = new FSMOperationImpl();
+		return fsmOperation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FSMCombination createFSMCombination() {
+		FSMCombinationImpl fsmCombination = new FSMCombinationImpl();
+		return fsmCombination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FSMCondition createFSMCondition() {
+		FSMConditionImpl fsmCondition = new FSMConditionImpl();
+		return fsmCondition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FSMTransitionWithState createFSMTransitionWithState() {
+		FSMTransitionWithStateImpl fsmTransitionWithState = new FSMTransitionWithStateImpl();
+		return fsmTransitionWithState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PartitionedActorFire createPartitionedActorFire() {
+		PartitionedActorFireImpl partitionedActorFire = new PartitionedActorFireImpl();
+		return partitionedActorFire;
 	}
 
 	/**
@@ -132,6 +303,66 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	public MarkovSchedulingTransition createMarkovSchedulingTransition() {
 		MarkovSchedulingTransitionImpl markovSchedulingTransition = new MarkovSchedulingTransitionImpl();
 		return markovSchedulingTransition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FSMOp createFSMOpFromString(EDataType eDataType, String initialValue) {
+		FSMOp result = FSMOp.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFSMOpToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FSMComparator createFSMComparatorFromString(EDataType eDataType, String initialValue) {
+		FSMComparator result = FSMComparator.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFSMComparatorToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FSMCombinator createFSMCombinatorFromString(EDataType eDataType, String initialValue) {
+		FSMCombinator result = FSMCombinator.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFSMCombinatorToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

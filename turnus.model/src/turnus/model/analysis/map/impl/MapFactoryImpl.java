@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 import turnus.model.analysis.map.*;
 
+import turnus.model.analysis.scheduling.ActorSelectionSchedule;
 import turnus.model.common.EOperator;
 import turnus.model.common.StatisticalData;
 
@@ -119,6 +120,7 @@ public class MapFactoryImpl extends EFactoryImpl implements MapFactory {
 			case MapPackage.ACTION_TO_DOUBLE_MAP: return (EObject)createActionToDoubleMap();
 			case MapPackage.BUFFER_TO_INTEGER_MAP: return (EObject)createBufferToIntegerMap();
 			case MapPackage.BUFFER_TO_DOUBLE_MAP: return (EObject)createBufferToDoubleMap();
+			case MapPackage.PARTITION_TO_ACTOR_SELECTION_SCHEDULE_MAP: return (EObject)createPartitionToActorSelectionScheduleMap();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -322,6 +324,16 @@ public class MapFactoryImpl extends EFactoryImpl implements MapFactory {
 	public Map.Entry<Buffer, Double> createBufferToDoubleMap() {
 		BufferToDoubleMapImpl bufferToDoubleMap = new BufferToDoubleMapImpl();
 		return bufferToDoubleMap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map.Entry<String, ActorSelectionSchedule> createPartitionToActorSelectionScheduleMap() {
+		PartitionToActorSelectionScheduleMapImpl partitionToActorSelectionScheduleMap = new PartitionToActorSelectionScheduleMapImpl();
+		return partitionToActorSelectionScheduleMap;
 	}
 
 	/**

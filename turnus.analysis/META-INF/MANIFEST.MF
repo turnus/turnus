@@ -7,7 +7,11 @@ Bundle-Activator: turnus.analysis.Activator
 Bundle-Vendor: turnus
 Require-Bundle: org.eclipse.core.runtime,org.eclipse.ui,
  turnus.common;bundle-version="1.0.0",
- turnus.model;bundle-version="1.0.0"
+ turnus.model;bundle-version="1.0.0",
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: turnus.analysis,
@@ -25,6 +29,7 @@ Export-Package: turnus.analysis,
  turnus.analysis.profiler.dynamic.util,
  turnus.analysis.profiling,
  turnus.analysis.scheduling,
+ turnus.analysis.scheduling.caseoptimal,
  turnus.analysis.trace,
  turnus.analysis.trace.comparator,
  turnus.analysis.trace.compressor,

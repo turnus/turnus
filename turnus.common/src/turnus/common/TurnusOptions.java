@@ -32,6 +32,7 @@
 package turnus.common;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -133,6 +134,10 @@ public class TurnusOptions {
 
 	@Description("The trace file. Supported file extensions are: .trace and .tracez")
 	public static final Option<File> TRACE_FILE;
+	
+
+	@Description("The path to the actor selector schedule file. Supported file extensions are: assched")
+	public static final Option<String> ASSCHED_PATH;
 
 	@Description("A set of trace files. Supported file extensions are: .trace and .tracez")
 	public static final Option<List<String>> TRACE_FILES_SET;
@@ -208,6 +213,9 @@ public class TurnusOptions {
 	
 	@Description("Release the buffers after processing, not after the reading of data.")
 	public static final Option<Boolean> RELEASE_BUFFERS_AFTER_PROCESSING;
+	
+	@Description("The pipeline of optimisations to use in order to generate the compacted schedule")
+	public static final Option<String> SCHEDULE_OPTIMISATION_PIPELINE_STRING;
 
 	// options are initialized here in order to make this file more readable
 	static {
@@ -295,6 +303,12 @@ public class TurnusOptions {
 				setDescription("The trace file. Supported file extensions are: .trace and .tracez").//
 				setLongName("turnus.trace").//
 				setType(File.class).build();
+
+		ASSCHED_PATH = Option.create().//
+				setName("asssched").//
+				setDescription("The actorselection schedule file. Supported file extensions are: .assched").//
+				setLongName("turnus.assched").//
+				setType(String.class).build();
 
 		ACTION_WEIGHTS = Option.create().//
 				setName("weight").//
@@ -540,6 +554,13 @@ public class TurnusOptions {
 				setDescription("Release the space in fifos after processing, not after reading.").//
 				setLongName("turnus.analysis.release.after.processing").//
 				setType(Boolean.class).build();	 
+		SCHEDULE_OPTIMISATION_PIPELINE_STRING = Option.create()
+				.setName("pipeline")
+				.setDescription("The pipeline of optimisations to use in order to generate the compacted schedule")
+				.setLongName("turnus.analysis.scheduling.optimizerPipeline")
+				.setType(String.class)
+				.build()
+				;
 	}
 
 	/**

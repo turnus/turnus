@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import turnus.model.analysis.map.*;
 
+import turnus.model.analysis.scheduling.ActorSelectionSchedule;
 import turnus.model.common.EOperator;
 import turnus.model.common.StatisticalData;
 
@@ -189,6 +190,10 @@ public class MapAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseBufferToDoubleMap(Map.Entry<Buffer, Double> object) {
 				return createBufferToDoubleMapAdapter();
+			}
+			@Override
+			public Adapter casePartitionToActorSelectionScheduleMap(Map.Entry<String, ActorSelectionSchedule> object) {
+				return createPartitionToActorSelectionScheduleMapAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -487,6 +492,20 @@ public class MapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBufferToDoubleMapAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>Partition To Actor Selection Schedule Map</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see java.util.Map.Entry
+	 * @generated
+	 */
+	public Adapter createPartitionToActorSelectionScheduleMapAdapter() {
 		return null;
 	}
 

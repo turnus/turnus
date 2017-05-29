@@ -61,6 +61,7 @@ import turnus.model.analysis.partitioning.impl.PartitioningPackageImpl;
 import turnus.model.analysis.pipelining.PipeliningPackage;
 
 import turnus.model.analysis.pipelining.impl.PipeliningPackageImpl;
+
 import turnus.model.analysis.postprocessing.ActionStatisticsReport;
 import turnus.model.analysis.postprocessing.ActorStatisticsReport;
 import turnus.model.analysis.postprocessing.BufferBlockingReport;
@@ -68,23 +69,32 @@ import turnus.model.analysis.postprocessing.PostProcessingData;
 import turnus.model.analysis.postprocessing.PostProcessingReport;
 import turnus.model.analysis.postprocessing.PostprocessingFactory;
 import turnus.model.analysis.postprocessing.PostprocessingPackage;
-
 import turnus.model.analysis.postprocessing.SchedulerChecksPartition;
 import turnus.model.analysis.postprocessing.SchedulerChecksReport;
 import turnus.model.analysis.postprocessing.StatisticalActorPartition;
+
 import turnus.model.analysis.profiler.ProfilerPackage;
 
 import turnus.model.analysis.profiler.impl.ProfilerPackageImpl;
 
 import turnus.model.analysis.profiling.ProfilingPackage;
+
 import turnus.model.analysis.profiling.impl.ProfilingPackageImpl;
+
 import turnus.model.analysis.scheduling.SchedulingPackage;
+
+import turnus.model.analysis.scheduling.caseoptimal.CaseoptimalPackage;
+
+import turnus.model.analysis.scheduling.caseoptimal.impl.CaseoptimalPackageImpl;
+
 import turnus.model.analysis.scheduling.impl.SchedulingPackageImpl;
+
 import turnus.model.analysis.trace.TracePackage;
 
 import turnus.model.analysis.trace.impl.TracePackageImpl;
 
 import turnus.model.common.CommonPackage;
+
 import turnus.model.dataflow.DataflowPackage;
 
 /**
@@ -210,6 +220,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) instanceof PipeliningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) : PipeliningPackage.eINSTANCE);
 		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
 		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
+		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) instanceof CaseoptimalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		thePostprocessingPackage.createPackageContents();
@@ -223,6 +234,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		thePipeliningPackage.createPackageContents();
 		theProfilingPackage.createPackageContents();
 		theSchedulingPackage.createPackageContents();
+		theCaseoptimalPackage.createPackageContents();
 
 		// Initialize created meta-data
 		thePostprocessingPackage.initializePackageContents();
@@ -236,6 +248,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		thePipeliningPackage.initializePackageContents();
 		theProfilingPackage.initializePackageContents();
 		theSchedulingPackage.initializePackageContents();
+		theCaseoptimalPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		thePostprocessingPackage.freeze();

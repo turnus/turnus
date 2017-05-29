@@ -51,6 +51,114 @@ public interface SchedulingFactory extends EFactory {
 	SchedulingFactory eINSTANCE = turnus.model.analysis.scheduling.impl.SchedulingFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Actor Fire</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Actor Fire</em>'.
+	 * @generated
+	 */
+	ActorFire createActorFire();
+
+	/**
+	 * Returns a new object of class '<em>FSM</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>FSM</em>'.
+	 * @generated
+	 */
+	FSM createFSM();
+
+	/**
+	 * Returns a new object of class '<em>Sequence</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Sequence</em>'.
+	 * @generated
+	 */
+	Sequence createSequence();
+
+	/**
+	 * Returns a new object of class '<em>FSM Var</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>FSM Var</em>'.
+	 * @generated
+	 */
+	FSMVar createFSMVar();
+
+	/**
+	 * Returns a new object of class '<em>FSM Transition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>FSM Transition</em>'.
+	 * @generated
+	 */
+	FSMTransition createFSMTransition();
+
+	/**
+	 * Returns a new object of class '<em>FSM State</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>FSM State</em>'.
+	 * @generated
+	 */
+	FSMState createFSMState();
+
+	/**
+	 * Returns a new object of class '<em>FSM Var Update</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>FSM Var Update</em>'.
+	 * @generated
+	 */
+	FSMVarUpdate createFSMVarUpdate();
+
+	/**
+	 * Returns a new object of class '<em>FSM Operation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>FSM Operation</em>'.
+	 * @generated
+	 */
+	FSMOperation createFSMOperation();
+
+	/**
+	 * Returns a new object of class '<em>FSM Combination</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>FSM Combination</em>'.
+	 * @generated
+	 */
+	FSMCombination createFSMCombination();
+
+	/**
+	 * Returns a new object of class '<em>FSM Condition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>FSM Condition</em>'.
+	 * @generated
+	 */
+	FSMCondition createFSMCondition();
+
+	/**
+	 * Returns a new object of class '<em>FSM Transition With State</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>FSM Transition With State</em>'.
+	 * @generated
+	 */
+	FSMTransitionWithState createFSMTransitionWithState();
+
+	/**
+	 * Returns a new object of class '<em>Partitioned Actor Fire</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Partitioned Actor Fire</em>'.
+	 * @generated
+	 */
+	PartitionedActorFire createPartitionedActorFire();
+
+	/**
 	 * Returns a new object of class '<em>Markov Simple Scheduler Report</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

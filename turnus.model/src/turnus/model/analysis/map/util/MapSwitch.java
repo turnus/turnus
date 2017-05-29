@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.util.Switch;
 
 import turnus.model.analysis.map.*;
 
+import turnus.model.analysis.scheduling.ActorSelectionSchedule;
 import turnus.model.common.EOperator;
 import turnus.model.common.StatisticalData;
 
@@ -226,6 +227,12 @@ public class MapSwitch<T> extends Switch<T> {
 			case MapPackage.BUFFER_TO_DOUBLE_MAP: {
 				@SuppressWarnings("unchecked") Map.Entry<Buffer, Double> bufferToDoubleMap = (Map.Entry<Buffer, Double>)theEObject;
 				T result = caseBufferToDoubleMap(bufferToDoubleMap);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case MapPackage.PARTITION_TO_ACTOR_SELECTION_SCHEDULE_MAP: {
+				@SuppressWarnings("unchecked") Map.Entry<String, ActorSelectionSchedule> partitionToActorSelectionScheduleMap = (Map.Entry<String, ActorSelectionSchedule>)theEObject;
+				T result = casePartitionToActorSelectionScheduleMap(partitionToActorSelectionScheduleMap);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -530,6 +537,21 @@ public class MapSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseBufferToDoubleMap(Map.Entry<Buffer, Double> object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Partition To Actor Selection Schedule Map</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Partition To Actor Selection Schedule Map</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePartitionToActorSelectionScheduleMap(Map.Entry<String, ActorSelectionSchedule> object) {
 		return null;
 	}
 

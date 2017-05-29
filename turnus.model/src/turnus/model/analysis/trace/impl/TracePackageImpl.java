@@ -40,29 +40,49 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import turnus.model.analysis.AnalysisPackage;
+
 import turnus.model.analysis.bottlenecks.BottlenecksPackage;
+
 import turnus.model.analysis.bottlenecks.impl.BottlenecksPackageImpl;
+
 import turnus.model.analysis.buffers.BuffersPackage;
+
 import turnus.model.analysis.buffers.impl.BuffersPackageImpl;
+
 import turnus.model.analysis.impl.AnalysisPackageImpl;
+
 import turnus.model.analysis.map.MapPackage;
 
 import turnus.model.analysis.map.impl.MapPackageImpl;
 
 import turnus.model.analysis.partitioning.PartitioningPackage;
+
 import turnus.model.analysis.partitioning.impl.PartitioningPackageImpl;
+
 import turnus.model.analysis.pipelining.PipeliningPackage;
+
 import turnus.model.analysis.pipelining.impl.PipeliningPackageImpl;
+
 import turnus.model.analysis.postprocessing.PostprocessingPackage;
+
 import turnus.model.analysis.postprocessing.impl.PostprocessingPackageImpl;
+
 import turnus.model.analysis.profiler.ProfilerPackage;
 
 import turnus.model.analysis.profiler.impl.ProfilerPackageImpl;
 
 import turnus.model.analysis.profiling.ProfilingPackage;
+
 import turnus.model.analysis.profiling.impl.ProfilingPackageImpl;
+
 import turnus.model.analysis.scheduling.SchedulingPackage;
+
+import turnus.model.analysis.scheduling.caseoptimal.CaseoptimalPackage;
+
+import turnus.model.analysis.scheduling.caseoptimal.impl.CaseoptimalPackageImpl;
+
 import turnus.model.analysis.scheduling.impl.SchedulingPackageImpl;
+
 import turnus.model.analysis.trace.ComparedAction;
 import turnus.model.analysis.trace.ComparedTrace;
 import turnus.model.analysis.trace.CompressedDependency;
@@ -79,6 +99,7 @@ import turnus.model.analysis.trace.TraceComparatorReport;
 import turnus.model.analysis.trace.TraceFactory;
 import turnus.model.analysis.trace.TracePackage;
 import turnus.model.analysis.trace.TraceSizeReport;
+
 import turnus.model.dataflow.DataflowPackage;
 
 /**
@@ -94,84 +115,98 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * @generated
 	 */
 	private EClass traceSizeReportEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass compressedTraceReportEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass compressedStepEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass compressedDependencyEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass compressedFsmDependencyEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass compressedGuardDependencyEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass compressedVariableDependencyEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass compressedPortDependencyEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass compressedTokensDependencyEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass traceComparatorReportEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass comparedTraceEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass comparedActionEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass markowModelTraceReportEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass markovModelActionDataEClass = null;
+
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
@@ -232,6 +267,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) : PostprocessingPackage.eINSTANCE);
 		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
 		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
+		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) instanceof CaseoptimalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theTracePackage.createPackageContents();
@@ -245,6 +281,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 		thePostprocessingPackage.createPackageContents();
 		theProfilingPackage.createPackageContents();
 		theSchedulingPackage.createPackageContents();
+		theCaseoptimalPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theTracePackage.initializePackageContents();
@@ -258,6 +295,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 		thePostprocessingPackage.initializePackageContents();
 		theProfilingPackage.initializePackageContents();
 		theSchedulingPackage.initializePackageContents();
+		theCaseoptimalPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theTracePackage.freeze();

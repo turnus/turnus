@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
 import turnus.model.analysis.AnalysisReport;
 
 import turnus.model.analysis.postprocessing.PostProcessingData;
+
 import turnus.model.analysis.scheduling.*;
 
 /**
@@ -100,6 +101,58 @@ public class SchedulingAdapterFactory extends AdapterFactoryImpl {
 	protected SchedulingSwitch<Adapter> modelSwitch =
 		new SchedulingSwitch<Adapter>() {
 			@Override
+			public Adapter caseActorFire(ActorFire object) {
+				return createActorFireAdapter();
+			}
+			@Override
+			public Adapter caseFSM(FSM object) {
+				return createFSMAdapter();
+			}
+			@Override
+			public Adapter caseActorSelectionSchedule(ActorSelectionSchedule object) {
+				return createActorSelectionScheduleAdapter();
+			}
+			@Override
+			public Adapter caseSequence(Sequence object) {
+				return createSequenceAdapter();
+			}
+			@Override
+			public Adapter caseFSMVar(FSMVar object) {
+				return createFSMVarAdapter();
+			}
+			@Override
+			public Adapter caseFSMTransition(FSMTransition object) {
+				return createFSMTransitionAdapter();
+			}
+			@Override
+			public Adapter caseFSMState(FSMState object) {
+				return createFSMStateAdapter();
+			}
+			@Override
+			public Adapter caseFSMVarUpdate(FSMVarUpdate object) {
+				return createFSMVarUpdateAdapter();
+			}
+			@Override
+			public Adapter caseFSMOperation(FSMOperation object) {
+				return createFSMOperationAdapter();
+			}
+			@Override
+			public Adapter caseFSMCombination(FSMCombination object) {
+				return createFSMCombinationAdapter();
+			}
+			@Override
+			public Adapter caseFSMCondition(FSMCondition object) {
+				return createFSMConditionAdapter();
+			}
+			@Override
+			public Adapter caseFSMTransitionWithState(FSMTransitionWithState object) {
+				return createFSMTransitionWithStateAdapter();
+			}
+			@Override
+			public Adapter casePartitionedActorFire(PartitionedActorFire object) {
+				return createPartitionedActorFireAdapter();
+			}
+			@Override
 			public Adapter caseMarkovSimpleSchedulerReport(MarkovSimpleSchedulerReport object) {
 				return createMarkovSimpleSchedulerReportAdapter();
 			}
@@ -142,6 +195,188 @@ public class SchedulingAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.ActorFire <em>Actor Fire</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.ActorFire
+	 * @generated
+	 */
+	public Adapter createActorFireAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.FSM <em>FSM</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.FSM
+	 * @generated
+	 */
+	public Adapter createFSMAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.ActorSelectionSchedule <em>Actor Selection Schedule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.ActorSelectionSchedule
+	 * @generated
+	 */
+	public Adapter createActorSelectionScheduleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.Sequence <em>Sequence</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.Sequence
+	 * @generated
+	 */
+	public Adapter createSequenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.FSMVar <em>FSM Var</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.FSMVar
+	 * @generated
+	 */
+	public Adapter createFSMVarAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.FSMTransition <em>FSM Transition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.FSMTransition
+	 * @generated
+	 */
+	public Adapter createFSMTransitionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.FSMState <em>FSM State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.FSMState
+	 * @generated
+	 */
+	public Adapter createFSMStateAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.FSMVarUpdate <em>FSM Var Update</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.FSMVarUpdate
+	 * @generated
+	 */
+	public Adapter createFSMVarUpdateAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.FSMOperation <em>FSM Operation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.FSMOperation
+	 * @generated
+	 */
+	public Adapter createFSMOperationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.FSMCombination <em>FSM Combination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.FSMCombination
+	 * @generated
+	 */
+	public Adapter createFSMCombinationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.FSMCondition <em>FSM Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.FSMCondition
+	 * @generated
+	 */
+	public Adapter createFSMConditionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.FSMTransitionWithState <em>FSM Transition With State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.FSMTransitionWithState
+	 * @generated
+	 */
+	public Adapter createFSMTransitionWithStateAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.PartitionedActorFire <em>Partitioned Actor Fire</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.scheduling.PartitionedActorFire
+	 * @generated
+	 */
+	public Adapter createPartitionedActorFireAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.scheduling.MarkovSimpleSchedulerReport <em>Markov Simple Scheduler Report</em>}'.

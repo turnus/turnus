@@ -274,6 +274,12 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass dataflow.ecore#//Buffer"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PartitionToActorSelectionScheduleMap"
+        instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//scheduling/ActorSelectionSchedule"
+          containment="true"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="trace" nsURI="http://turnus.co/model/2015/analysis/trace" nsPrefix="turnus.model.analysis.trace">
     <eClassifiers xsi:type="ecore:EClass" name="TraceSizeReport" eSuperTypes="#//AnalysisReport">
@@ -787,8 +793,103 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="scheduling" nsURI="http://turnus.co/model/2015/analysis/scheduling"
+  <eSubpackages name="scheduling" nsURI="http://turnus.co/model/2017/analysis/scheduling"
       nsPrefix="turnus.model.analysis.scheduling">
+    <eClassifiers xsi:type="ecore:EClass" name="ActorFire" eSuperTypes="#//scheduling/ActorSelectionSchedule">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Actor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Times" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="partition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="dependencyPartitions"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FSM" eSuperTypes="#//scheduling/ActorSelectionSchedule">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
+          eType="#//scheduling/FSMState" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="vars" upperBound="-1"
+          eType="#//scheduling/FSMVar" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="startState" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="terminalState" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ActorSelectionSchedule" abstract="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Sequence" eSuperTypes="#//scheduling/ActorSelectionSchedule">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
+          eType="#//scheduling/ActorFire" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FSMVar">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="initialVal" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FSMTransition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cond" eType="#//scheduling/FSMCondition"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetStateEnumName"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceStateEnumName"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="transitionSchedule" eType="#//scheduling/Sequence"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FSMState">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enumName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="varUpdates" upperBound="-1"
+          eType="#//scheduling/FSMVarUpdate" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
+          eType="#//scheduling/FSMTransition" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FSMVarUpdate">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="operation" eType="#//scheduling/FSMOperation"
+          unsettable="true" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//scheduling/FSMCondition"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FSMOperation">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="#//scheduling/FSMOp"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="val" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="var" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="FSMOp">
+      <eLiterals name="ADD"/>
+      <eLiterals name="SET" value="1"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="FSMComparator">
+      <eLiterals name="EQ"/>
+      <eLiterals name="NEQ" value="1"/>
+      <eLiterals name="GREATER" value="2"/>
+      <eLiterals name="SMALLER" value="3"/>
+      <eLiterals name="GREQ" value="4"/>
+      <eLiterals name="SMEQ" value="5"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="FSMCombinator">
+      <eLiterals name="AND"/>
+      <eLiterals name="OR" value="1"/>
+      <eLiterals name="NAND" value="2"/>
+      <eLiterals name="NOR" value="3"/>
+      <eLiterals name="NOT" value="4" literal="NOT"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FSMCombination">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="combinator" eType="#//scheduling/FSMCombinator"
+          transient="true" unsettable="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="cond" eType="#//scheduling/FSMCondition"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FSMCondition">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="comp" eType="#//scheduling/FSMComparator"
+          defaultValueLiteral="EQ" unsettable="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="compval" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+          defaultValueLiteral="0"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="combinedCond" eType="#//scheduling/FSMCombination"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="valName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FSMTransitionWithState" eSuperTypes="#//scheduling/FSMTransition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="varStates" upperBound="-1"
+          eType="#//map/StringToIntegerMap" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PartitionedActorFire" eSuperTypes="#//scheduling/ActorFire"/>
     <eClassifiers xsi:type="ecore:EClass" name="MarkovSimpleSchedulerReport" eSuperTypes="#//AnalysisReport #//postprocessing/PostProcessingData">
       <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
           eType="#//scheduling/MarkovPartitionScheduler" containment="true"/>
@@ -824,5 +925,23 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="firings" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
+    <eSubpackages name="caseoptimal" nsURI="http://turnus.co/model/2017/analysis/scheduling/caseoptimal"
+        nsPrefix="turnus.model.analysis.scheduling.caseoptimal">
+      <eClassifiers xsi:type="ecore:EClass" name="CaseOptimalScheduleReport" eSuperTypes="#//AnalysisReport">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="partitionSchedules"
+            upperBound="-1" eType="#//map/PartitionToActorSelectionScheduleMap" containment="true"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="traceFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="pipeline" upperBound="-1"
+            eType="#//scheduling/caseoptimal/Optimizer"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="partitionFilePath"
+            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EEnum" name="Optimizer">
+        <eLiterals name="RLE"/>
+        <eLiterals name="KTAIL" value="1"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="CaseOptimalActorSelectionSchedule"
+          eSuperTypes="#//scheduling/ActorSelectionSchedule"/>
+    </eSubpackages>
   </eSubpackages>
 </ecore:EPackage>

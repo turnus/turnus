@@ -42,21 +42,33 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import turnus.model.analysis.AnalysisPackage;
+
 import turnus.model.analysis.bottlenecks.BottlenecksPackage;
+
 import turnus.model.analysis.bottlenecks.impl.BottlenecksPackageImpl;
+
 import turnus.model.analysis.buffers.BuffersPackage;
+
 import turnus.model.analysis.buffers.impl.BuffersPackageImpl;
+
 import turnus.model.analysis.impl.AnalysisPackageImpl;
+
 import turnus.model.analysis.map.MapPackage;
 
 import turnus.model.analysis.map.impl.MapPackageImpl;
 
 import turnus.model.analysis.partitioning.PartitioningPackage;
+
 import turnus.model.analysis.partitioning.impl.PartitioningPackageImpl;
+
 import turnus.model.analysis.pipelining.PipeliningPackage;
+
 import turnus.model.analysis.pipelining.impl.PipeliningPackageImpl;
+
 import turnus.model.analysis.postprocessing.PostprocessingPackage;
+
 import turnus.model.analysis.postprocessing.impl.PostprocessingPackageImpl;
+
 import turnus.model.analysis.profiler.AccessData;
 import turnus.model.analysis.profiler.ActionDynamicData;
 import turnus.model.analysis.profiler.ActionMemoryProfilingData;
@@ -75,12 +87,23 @@ import turnus.model.analysis.profiler.ProfilerFactory;
 import turnus.model.analysis.profiler.ProfilerPackage;
 import turnus.model.analysis.profiler.SharedVariableAccessData;
 import turnus.model.analysis.profiler.StateVariableAccessData;
+
 import turnus.model.analysis.profiling.ProfilingPackage;
+
 import turnus.model.analysis.profiling.impl.ProfilingPackageImpl;
+
 import turnus.model.analysis.scheduling.SchedulingPackage;
+
+import turnus.model.analysis.scheduling.caseoptimal.CaseoptimalPackage;
+
+import turnus.model.analysis.scheduling.caseoptimal.impl.CaseoptimalPackageImpl;
+
 import turnus.model.analysis.scheduling.impl.SchedulingPackageImpl;
+
 import turnus.model.analysis.trace.TracePackage;
+
 import turnus.model.analysis.trace.impl.TracePackageImpl;
+
 import turnus.model.common.CommonPackage;
 
 import turnus.model.dataflow.DataflowPackage;
@@ -278,6 +301,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) : PostprocessingPackage.eINSTANCE);
 		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
 		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
+		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) instanceof CaseoptimalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theProfilerPackage.createPackageContents();
@@ -291,6 +315,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 		thePostprocessingPackage.createPackageContents();
 		theProfilingPackage.createPackageContents();
 		theSchedulingPackage.createPackageContents();
+		theCaseoptimalPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theProfilerPackage.initializePackageContents();
@@ -304,6 +329,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 		thePostprocessingPackage.initializePackageContents();
 		theProfilingPackage.initializePackageContents();
 		theSchedulingPackage.initializePackageContents();
+		theCaseoptimalPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theProfilerPackage.freeze();

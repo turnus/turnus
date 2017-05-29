@@ -41,30 +41,52 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import turnus.model.analysis.AnalysisPackage;
+
 import turnus.model.analysis.bottlenecks.BottlenecksPackage;
+
 import turnus.model.analysis.bottlenecks.impl.BottlenecksPackageImpl;
+
 import turnus.model.analysis.buffers.BuffersPackage;
+
 import turnus.model.analysis.buffers.impl.BuffersPackageImpl;
+
 import turnus.model.analysis.impl.AnalysisPackageImpl;
+
 import turnus.model.analysis.map.MapFactory;
 import turnus.model.analysis.map.MapPackage;
 
 import turnus.model.analysis.partitioning.PartitioningPackage;
+
 import turnus.model.analysis.partitioning.impl.PartitioningPackageImpl;
+
 import turnus.model.analysis.pipelining.PipeliningPackage;
+
 import turnus.model.analysis.pipelining.impl.PipeliningPackageImpl;
+
 import turnus.model.analysis.postprocessing.PostprocessingPackage;
+
 import turnus.model.analysis.postprocessing.impl.PostprocessingPackageImpl;
+
 import turnus.model.analysis.profiler.ProfilerPackage;
 
 import turnus.model.analysis.profiler.impl.ProfilerPackageImpl;
 
 import turnus.model.analysis.profiling.ProfilingPackage;
+
 import turnus.model.analysis.profiling.impl.ProfilingPackageImpl;
+
 import turnus.model.analysis.scheduling.SchedulingPackage;
+
+import turnus.model.analysis.scheduling.caseoptimal.CaseoptimalPackage;
+
+import turnus.model.analysis.scheduling.caseoptimal.impl.CaseoptimalPackageImpl;
+
 import turnus.model.analysis.scheduling.impl.SchedulingPackageImpl;
+
 import turnus.model.analysis.trace.TracePackage;
+
 import turnus.model.analysis.trace.impl.TracePackageImpl;
+
 import turnus.model.common.CommonPackage;
 
 import turnus.model.dataflow.DataflowPackage;
@@ -217,6 +239,13 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	private EClass bufferToDoubleMapEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass partitionToActorSelectionScheduleMapEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -276,6 +305,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) : PostprocessingPackage.eINSTANCE);
 		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
 		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
+		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) instanceof CaseoptimalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theMapPackage.createPackageContents();
@@ -289,6 +319,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		thePostprocessingPackage.createPackageContents();
 		theProfilingPackage.createPackageContents();
 		theSchedulingPackage.createPackageContents();
+		theCaseoptimalPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theMapPackage.initializePackageContents();
@@ -302,6 +333,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		thePostprocessingPackage.initializePackageContents();
 		theProfilingPackage.initializePackageContents();
 		theSchedulingPackage.initializePackageContents();
+		theCaseoptimalPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theMapPackage.freeze();
@@ -857,6 +889,33 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPartitionToActorSelectionScheduleMap() {
+		return partitionToActorSelectionScheduleMapEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPartitionToActorSelectionScheduleMap_Key() {
+		return (EAttribute)partitionToActorSelectionScheduleMapEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPartitionToActorSelectionScheduleMap_Value() {
+		return (EReference)partitionToActorSelectionScheduleMapEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public MapFactory getMapFactory() {
 		return (MapFactory)getEFactoryInstance();
 	}
@@ -959,6 +1018,10 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		bufferToDoubleMapEClass = createEClass(BUFFER_TO_DOUBLE_MAP);
 		createEReference(bufferToDoubleMapEClass, BUFFER_TO_DOUBLE_MAP__KEY);
 		createEAttribute(bufferToDoubleMapEClass, BUFFER_TO_DOUBLE_MAP__VALUE);
+
+		partitionToActorSelectionScheduleMapEClass = createEClass(PARTITION_TO_ACTOR_SELECTION_SCHEDULE_MAP);
+		createEAttribute(partitionToActorSelectionScheduleMapEClass, PARTITION_TO_ACTOR_SELECTION_SCHEDULE_MAP__KEY);
+		createEReference(partitionToActorSelectionScheduleMapEClass, PARTITION_TO_ACTOR_SELECTION_SCHEDULE_MAP__VALUE);
 	}
 
 	/**
@@ -987,6 +1050,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		// Obtain other dependent packages
 		DataflowPackage theDataflowPackage = (DataflowPackage)EPackage.Registry.INSTANCE.getEPackage(DataflowPackage.eNS_URI);
 		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		SchedulingPackage theSchedulingPackage = (SchedulingPackage)EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -1074,6 +1138,10 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		initEClass(bufferToDoubleMapEClass, Map.Entry.class, "BufferToDoubleMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBufferToDoubleMap_Key(), theDataflowPackage.getBuffer(), null, "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBufferToDoubleMap_Value(), ecorePackage.getEDoubleObject(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(partitionToActorSelectionScheduleMapEClass, Map.Entry.class, "PartitionToActorSelectionScheduleMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPartitionToActorSelectionScheduleMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPartitionToActorSelectionScheduleMap_Value(), theSchedulingPackage.getActorSelectionSchedule(), null, "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //MapPackageImpl

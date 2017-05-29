@@ -254,6 +254,10 @@
             ecoreFeature="ecore:EReference analysis.ecore#//map/BufferToDoubleMap/key"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/BufferToDoubleMap/value"/>
       </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/PartitionToActorSelectionScheduleMap">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/PartitionToActorSelectionScheduleMap/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//map/PartitionToActorSelectionScheduleMap/value"/>
+      </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Trace" basePackage="turnus.model.analysis" disposableProviderFactory="true"
         ecorePackage="analysis.ecore#//trace">
@@ -648,6 +652,88 @@
     </nestedGenPackages>
     <nestedGenPackages prefix="Scheduling" basePackage="turnus.model.analysis" disposableProviderFactory="true"
         ecorePackage="analysis.ecore#//scheduling">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="analysis.ecore#//scheduling/FSMOp">
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMOp/ADD"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMOp/SET"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="analysis.ecore#//scheduling/FSMComparator">
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/EQ"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/NEQ"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/GREATER"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/SMALLER"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/GREQ"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/SMEQ"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="analysis.ecore#//scheduling/FSMCombinator">
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/AND"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/OR"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/NAND"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/NOR"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/NOT"/>
+      </genEnums>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/ActorFire">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/ActorFire/Actor"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/ActorFire/Times"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/ActorFire/partition"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/ActorFire/dependencyPartitions"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSM">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSM/states"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSM/vars"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSM/startState"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSM/terminalState"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/ActorSelectionSchedule"/>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/Sequence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/Sequence/actions"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMVar">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMVar/name"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMVar/initialVal"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMVar/type"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMTransition">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMTransition/cond"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMTransition/targetStateEnumName"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMTransition/sourceStateEnumName"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMTransition/transitionSchedule"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMState">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMState/enumName"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMState/varUpdates"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMState/transitions"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMVarUpdate">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMVarUpdate/operation"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMVarUpdate/condition"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMOperation">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMOperation/op"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMOperation/val"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMOperation/var"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMCombination">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMCombination/combinator"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMCombination/cond"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMCondition">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMCondition/comp"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMCondition/compval"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMCondition/combinedCond"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMCondition/valName"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMTransitionWithState">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMTransitionWithState/varStates"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/PartitionedActorFire"/>
       <genClasses ecoreClass="analysis.ecore#//scheduling/MarkovSimpleSchedulerReport">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSimpleSchedulerReport/partitions"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -667,18 +753,34 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingState/actor"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingState/firings"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingState/outgoings"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingState/outgoings"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingState/incomings"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingState/name"/>
       </genClasses>
       <genClasses ecoreClass="analysis.ecore#//scheduling/MarkovSchedulingTransition">
-        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingTransition/source"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingTransition/source"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingTransition/target"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingTransition/firings"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingTransition/name"/>
       </genClasses>
+      <nestedGenPackages prefix="Caseoptimal" basePackage="turnus.model.analysis.scheduling"
+          disposableProviderFactory="true" ecorePackage="analysis.ecore#//scheduling/caseoptimal">
+        <genEnums typeSafeEnumCompatible="false" ecoreEnum="analysis.ecore#//scheduling/caseoptimal/Optimizer">
+          <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/caseoptimal/Optimizer/RLE"/>
+          <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/caseoptimal/Optimizer/KTAIL"/>
+        </genEnums>
+        <genClasses ecoreClass="analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/partitionSchedules"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/traceFile"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/pipeline"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/partitionFilePath"/>
+        </genClasses>
+        <genClasses ecoreClass="analysis.ecore#//scheduling/caseoptimal/CaseOptimalActorSelectionSchedule"/>
+      </nestedGenPackages>
     </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>
