@@ -1,6 +1,5 @@
-package turnus.analysis.scheduling.caseoptimal
+package turnus.analysis.scheduling.caseoptimal.ktail
 
-import java.util.LinkedHashSet
 import java.util.Set
 
 public class KTails{

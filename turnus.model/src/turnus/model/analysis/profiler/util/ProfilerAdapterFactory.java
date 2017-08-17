@@ -174,6 +174,14 @@ public class ProfilerAdapterFactory extends AdapterFactoryImpl {
 				return createStringToAccessDataMapAdapter();
 			}
 			@Override
+			public Adapter caseBenchmarkReport(BenchmarkReport object) {
+				return createBenchmarkReportAdapter();
+			}
+			@Override
+			public Adapter caseTableRow(TableRow object) {
+				return createTableRowAdapter();
+			}
+			@Override
 			public Adapter caseAnalysisReport(AnalysisReport object) {
 				return createAnalysisReportAdapter();
 			}
@@ -446,6 +454,34 @@ public class ProfilerAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createStringToAccessDataMapAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.profiler.BenchmarkReport <em>Benchmark Report</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.profiler.BenchmarkReport
+	 * @generated
+	 */
+	public Adapter createBenchmarkReportAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.profiler.TableRow <em>Table Row</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.profiler.TableRow
+	 * @generated
+	 */
+	public Adapter createTableRowAdapter() {
 		return null;
 	}
 

@@ -1,11 +1,8 @@
-package turnus.analysis.scheduling.caseoptimal
+package turnus.analysis.scheduling.caseoptimal.ktail
 
-import turnus.model.analysis.scheduling.ActorSelectionSchedule
-import java.util.List
-import java.util.Map
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.Arrays
 import com.google.common.collect.ObjectArrays
+import java.util.Arrays
+import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors class Prefix {
 	final Integer[] pre;

@@ -71,7 +71,6 @@ public class LaunchWidgetSelectResource extends WidgetSelectResource implements 
 		return projectWidgetId;
 	}
 	
-	
 
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) throws CoreException {

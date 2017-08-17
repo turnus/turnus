@@ -1,13 +1,12 @@
-package turnus.analysis.scheduling.caseoptimal
+package turnus.analysis.scheduling.caseoptimal.ktail
 
+import com.google.common.collect.LinkedHashMultimap
+import java.util.Arrays
+import java.util.Iterator
+import java.util.LinkedHashMap
 import java.util.LinkedHashSet
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.LinkedHashMap
-import java.util.Iterator
-import com.google.common.collect.LinkedHashMultimap
-import java.util.EmptyStackException
 import turnus.common.io.Logger
-import java.util.Arrays
 
 @Accessors class InferenceFSM {
 	LinkedHashSet<InferenceState> states;
@@ -15,7 +14,7 @@ import java.util.Arrays
 	LinkedHashMap<Prefix,InferenceState> transientPrefixes;
 	final InferenceState entryState;
 	final InferenceState terminalState;
-	new(LinkedHashMultimap<InferenceState, Prefix> eqClasses, java.util.LinkedHashMap<Prefix, InferenceState> prefixes) {
+	new(LinkedHashMultimap<InferenceState, Prefix> eqClasses, LinkedHashMap<Prefix, InferenceState> prefixes) {
 		this.states= new LinkedHashSet<InferenceState>;
 		this.states.addAll(eqClasses.keySet);
 		this.reachablePrefixes = prefixes;

@@ -1,23 +1,19 @@
 package turnus.analysis.ui.scheduling.caseoptimal;
 
-import static turnus.common.TurnusExtensions.TRACE;
-import static turnus.common.TurnusExtensions.MAPPING;
-import static turnus.common.TurnusExtensions.TRACEZ;
 import static turnus.common.TurnusExtensions.ACTOR_SELECTION_SCHEDULE;
-import static turnus.common.TurnusOptions.TRACE_FILE;
+import static turnus.common.TurnusExtensions.MAPPING;
+import static turnus.common.TurnusExtensions.TRACE;
+import static turnus.common.TurnusExtensions.TRACEZ;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.SCHEDULE_OPTIMISATION_PIPELINE_STRING;
+import static turnus.common.TurnusOptions.TRACE_FILE;
 
 import java.io.File;
-import java.util.ArrayList;
 
-import org.apache.poi.ss.formula.eval.NotImplementedException;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.commands.RadioState;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.events.ModifyEvent;
@@ -27,10 +23,9 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
 
 import turnus.analysis.scheduling.caseoptimal.CaseOptimalActorSelectionAnalysisCli;
+
 import turnus.common.configuration.Configuration;
-import turnus.common.configuration.Option;
 import turnus.common.io.Logger;
-import turnus.model.analysis.scheduling.caseoptimal.Optimizer;
 import turnus.ui.util.EclipseUtils;
 import turnus.ui.widget.WidgetCheckBox;
 import turnus.ui.widget.WidgetSelectFile;

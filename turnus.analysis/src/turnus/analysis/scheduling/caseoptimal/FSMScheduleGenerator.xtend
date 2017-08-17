@@ -1,28 +1,27 @@
 package turnus.analysis.scheduling.caseoptimal
-import org.eclipse.xtend.lib.annotations.Data
 
-import turnus.model.analysis.scheduling.FSM
-import turnus.model.analysis.scheduling.FSMVarUpdate
-import turnus.model.analysis.scheduling.ActorSelectionSchedule
-import turnus.model.analysis.scheduling.impl.SchedulingFactoryImpl
-import turnus.model.analysis.scheduling.FSMComparator
-import java.util.HashMap
-import turnus.model.analysis.scheduling.FSMOp
-import turnus.model.analysis.scheduling.Sequence
-import turnus.model.analysis.scheduling.ActorFire
-import org.apache.poi.ss.formula.eval.NotImplementedException
-import java.util.List
-import java.util.LinkedHashSet
 import com.google.common.collect.LinkedHashMultimap
-import java.util.LinkedHashMap
-import turnus.common.io.Logger
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Arrays
+import java.util.LinkedHashMap
+import java.util.LinkedHashSet
 import java.util.Map
-import turnus.model.analysis.scheduling.FSMCombinator
-import turnus.analysis.scheduling.caseoptimal.MultiCondition
+import org.apache.poi.ss.formula.eval.NotImplementedException
 import org.eclipse.emf.ecore.util.EcoreUtil
-import turnus.common.util.EcoreUtils
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.xtend.lib.annotations.Data
+import turnus.analysis.scheduling.caseoptimal.ktail.BranchCondition
+import turnus.analysis.scheduling.caseoptimal.ktail.InferenceState
+import turnus.analysis.scheduling.caseoptimal.ktail.KTailConditionFuser
+import turnus.analysis.scheduling.caseoptimal.ktail.MultiCondition
+import turnus.analysis.scheduling.caseoptimal.ktail.Prefix
+import turnus.analysis.scheduling.caseoptimal.ktail.TraceReconstructor
+import turnus.analysis.scheduling.caseoptimal.ktail.Transition
+import turnus.common.io.Logger
+import turnus.model.analysis.scheduling.ActorFire
+import turnus.model.analysis.scheduling.FSM
+import turnus.model.analysis.scheduling.FSMCombinator
+import turnus.model.analysis.scheduling.FSMOp
+import turnus.model.analysis.scheduling.impl.SchedulingFactoryImpl
 
 @Data class ScheduleInferenceState{
 	String enumName;

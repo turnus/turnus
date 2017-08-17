@@ -246,6 +246,13 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	private EClass partitionToActorSelectionScheduleMapEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stringToStringMapEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -916,6 +923,33 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getStringToStringMap() {
+		return stringToStringMapEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStringToStringMap_Key() {
+		return (EAttribute)stringToStringMapEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStringToStringMap_Value() {
+		return (EAttribute)stringToStringMapEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public MapFactory getMapFactory() {
 		return (MapFactory)getEFactoryInstance();
 	}
@@ -1022,6 +1056,10 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		partitionToActorSelectionScheduleMapEClass = createEClass(PARTITION_TO_ACTOR_SELECTION_SCHEDULE_MAP);
 		createEAttribute(partitionToActorSelectionScheduleMapEClass, PARTITION_TO_ACTOR_SELECTION_SCHEDULE_MAP__KEY);
 		createEReference(partitionToActorSelectionScheduleMapEClass, PARTITION_TO_ACTOR_SELECTION_SCHEDULE_MAP__VALUE);
+
+		stringToStringMapEClass = createEClass(STRING_TO_STRING_MAP);
+		createEAttribute(stringToStringMapEClass, STRING_TO_STRING_MAP__KEY);
+		createEAttribute(stringToStringMapEClass, STRING_TO_STRING_MAP__VALUE);
 	}
 
 	/**
@@ -1142,6 +1180,10 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		initEClass(partitionToActorSelectionScheduleMapEClass, Map.Entry.class, "PartitionToActorSelectionScheduleMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPartitionToActorSelectionScheduleMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPartitionToActorSelectionScheduleMap_Value(), theSchedulingPackage.getActorSelectionSchedule(), null, "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stringToStringMapEClass, Map.Entry.class, "StringToStringMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStringToStringMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStringToStringMap_Value(), ecorePackage.getEString(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //MapPackageImpl

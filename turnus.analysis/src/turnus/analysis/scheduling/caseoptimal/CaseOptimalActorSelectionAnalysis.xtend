@@ -24,8 +24,8 @@ import turnus.model.trace.Trace
 import turnus.model.trace.TraceDecorator
 import turnus.model.trace.TraceProject
 import turnus.model.trace.impl.inmemory.InMemoryTraceLoader
-import turnus.analysis.scheduling.caseoptimal.KTailOptimizer
-import turnus.analysis.scheduling.caseoptimal.RunLengthOptimizer
+import turnus.analysis.scheduling.caseoptimal.ktail.KTailOptimizer
+import turnus.analysis.scheduling.caseoptimal.ktail.RunLengthOptimizer
 import turnus.model.mapping.io.XmlNetworkPartitioningReader
 import turnus.model.mapping.NetworkPartitioning
 import turnus.model.analysis.scheduling.Sequence

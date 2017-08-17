@@ -1,23 +1,16 @@
-package turnus.analysis.scheduling.caseoptimal
+package turnus.analysis.scheduling.caseoptimal.ktail
 
-import weka.classifiers.trees.J48
-import java.util.regex.Pattern
-import org.eclipse.xtend.lib.annotations.Data;
-import java.util.regex.Matcher
 import java.util.ArrayList
-import turnus.model.analysis.scheduling.FSMState
-import turnus.model.analysis.scheduling.SchedulingFactory
-import turnus.model.analysis.scheduling.impl.SchedulingFactoryImpl
-import turnus.model.analysis.scheduling.FSMCombinator
-import turnus.model.analysis.scheduling.FSMComparator
-import turnus.model.analysis.scheduling.FSMCondition
-import turnus.model.analysis.scheduling.FSMVarUpdate
-import java.util.Iterator
-import java.util.LinkedHashSet
-import turnus.model.analysis.scheduling.ActorSelectionSchedule
-import java.util.LinkedHashMap;
-import turnus.common.io.Logger
+import java.util.LinkedHashMap
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.xtend.lib.annotations.Data
+import turnus.analysis.scheduling.caseoptimal.ScheduleInfereceTransition
+import turnus.analysis.scheduling.caseoptimal.ScheduleInferenceState
+import turnus.common.io.Logger
+import turnus.model.analysis.scheduling.FSMComparator
+import weka.classifiers.trees.J48
 
 abstract class Node{
 	def abstract String subtreeToSource();

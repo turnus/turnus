@@ -186,6 +186,24 @@ public interface ProfilerFactory extends EFactory {
 	AccessData createAccessData();
 
 	/**
+	 * Returns a new object of class '<em>Benchmark Report</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Benchmark Report</em>'.
+	 * @generated
+	 */
+	BenchmarkReport createBenchmarkReport();
+
+	/**
+	 * Returns a new object of class '<em>Table Row</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Table Row</em>'.
+	 * @generated
+	 */
+	TableRow createTableRow();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

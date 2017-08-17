@@ -1,8 +1,7 @@
-package turnus.analysis.scheduling.caseoptimal
+package turnus.analysis.scheduling.caseoptimal.ktail
 
-import java.util.ArrayList
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.LinkedHashSet
+import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors class InferenceState {
 	

@@ -73,6 +73,7 @@ import turnus.model.analysis.profiler.AccessData;
 import turnus.model.analysis.profiler.ActionDynamicData;
 import turnus.model.analysis.profiler.ActionMemoryProfilingData;
 import turnus.model.analysis.profiler.ActorDynamicData;
+import turnus.model.analysis.profiler.BenchmarkReport;
 import turnus.model.analysis.profiler.BufferAccessData;
 import turnus.model.analysis.profiler.BufferDynamicData;
 import turnus.model.analysis.profiler.CodeData;
@@ -88,6 +89,7 @@ import turnus.model.analysis.profiler.ProfilerPackage;
 import turnus.model.analysis.profiler.SharedVariableAccessData;
 import turnus.model.analysis.profiler.StateVariableAccessData;
 
+import turnus.model.analysis.profiler.TableRow;
 import turnus.model.analysis.profiling.ProfilingPackage;
 
 import turnus.model.analysis.profiling.impl.ProfilingPackageImpl;
@@ -240,6 +242,20 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * @generated
 	 */
 	private EClass stringToAccessDataMapEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass benchmarkReportEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tableRowEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1110,6 +1126,51 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getBenchmarkReport() {
+		return benchmarkReportEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBenchmarkReport_Column_names() {
+		return (EAttribute)benchmarkReportEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBenchmarkReport_Rows() {
+		return (EReference)benchmarkReportEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTableRow() {
+		return tableRowEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTableRow_Cells() {
+		return (EReference)tableRowEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ProfilerFactory getProfilerFactory() {
 		return (ProfilerFactory)getEFactoryInstance();
 	}
@@ -1235,6 +1296,13 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 		stringToAccessDataMapEClass = createEClass(STRING_TO_ACCESS_DATA_MAP);
 		createEReference(stringToAccessDataMapEClass, STRING_TO_ACCESS_DATA_MAP__VALUE);
 		createEAttribute(stringToAccessDataMapEClass, STRING_TO_ACCESS_DATA_MAP__KEY);
+
+		benchmarkReportEClass = createEClass(BENCHMARK_REPORT);
+		createEAttribute(benchmarkReportEClass, BENCHMARK_REPORT__COLUMN_NAMES);
+		createEReference(benchmarkReportEClass, BENCHMARK_REPORT__ROWS);
+
+		tableRowEClass = createEClass(TABLE_ROW);
+		createEReference(tableRowEClass, TABLE_ROW__CELLS);
 	}
 
 	/**
@@ -1281,6 +1349,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 		stateVariableAccessDataEClass.getESuperTypes().add(this.getMemoryAccessData());
 		localVariableAccessDataEClass.getESuperTypes().add(this.getMemoryAccessData());
 		sharedVariableAccessDataEClass.getESuperTypes().add(this.getMemoryAccessData());
+		benchmarkReportEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisReport());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(codeProfilingReportEClass, CodeProfilingReport.class, "CodeProfilingReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1416,6 +1485,13 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 		initEClass(stringToAccessDataMapEClass, Map.Entry.class, "StringToAccessDataMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStringToAccessDataMap_Value(), this.getAccessData(), null, "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStringToAccessDataMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(benchmarkReportEClass, BenchmarkReport.class, "BenchmarkReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBenchmarkReport_Column_names(), ecorePackage.getEString(), "column_names", null, 0, -1, BenchmarkReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBenchmarkReport_Rows(), this.getTableRow(), null, "rows", null, 0, -1, BenchmarkReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(tableRowEClass, TableRow.class, "TableRow", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTableRow_Cells(), theMapPackage.getStringToStringMap(), null, "cells", null, 0, -1, TableRow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //ProfilerPackageImpl

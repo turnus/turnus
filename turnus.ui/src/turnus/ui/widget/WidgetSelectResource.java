@@ -79,7 +79,7 @@ public class WidgetSelectResource extends Widget<String> {
 
 		/**
 		 * Object Comparator class
-		 * 
+		 * _
 		 * @author Simone Casale Brunet
 		 * 
 		 */

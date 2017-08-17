@@ -1,4 +1,4 @@
-package turnus.analysis.scheduling.caseoptimal
+package turnus.analysis.scheduling.caseoptimal.ktail
 
 import com.google.common.collect.LinkedHashMultimap
 import java.util.LinkedHashMap

@@ -106,6 +106,8 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 			case ProfilerPackage.SHARED_VARIABLE_ACCESS_DATA: return createSharedVariableAccessData();
 			case ProfilerPackage.ACCESS_DATA: return createAccessData();
 			case ProfilerPackage.STRING_TO_ACCESS_DATA_MAP: return (EObject)createStringToAccessDataMap();
+			case ProfilerPackage.BENCHMARK_REPORT: return createBenchmarkReport();
+			case ProfilerPackage.TABLE_ROW: return createTableRow();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -279,6 +281,26 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	public Map.Entry<String, AccessData> createStringToAccessDataMap() {
 		StringToAccessDataMapImpl stringToAccessDataMap = new StringToAccessDataMapImpl();
 		return stringToAccessDataMap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BenchmarkReport createBenchmarkReport() {
+		BenchmarkReportImpl benchmarkReport = new BenchmarkReportImpl();
+		return benchmarkReport;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TableRow createTableRow() {
+		TableRowImpl tableRow = new TableRowImpl();
+		return tableRow;
 	}
 
 	/**

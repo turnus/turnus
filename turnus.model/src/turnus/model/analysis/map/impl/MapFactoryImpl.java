@@ -121,6 +121,7 @@ public class MapFactoryImpl extends EFactoryImpl implements MapFactory {
 			case MapPackage.BUFFER_TO_INTEGER_MAP: return (EObject)createBufferToIntegerMap();
 			case MapPackage.BUFFER_TO_DOUBLE_MAP: return (EObject)createBufferToDoubleMap();
 			case MapPackage.PARTITION_TO_ACTOR_SELECTION_SCHEDULE_MAP: return (EObject)createPartitionToActorSelectionScheduleMap();
+			case MapPackage.STRING_TO_STRING_MAP: return (EObject)createStringToStringMap();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -334,6 +335,16 @@ public class MapFactoryImpl extends EFactoryImpl implements MapFactory {
 	public Map.Entry<String, ActorSelectionSchedule> createPartitionToActorSelectionScheduleMap() {
 		PartitionToActorSelectionScheduleMapImpl partitionToActorSelectionScheduleMap = new PartitionToActorSelectionScheduleMapImpl();
 		return partitionToActorSelectionScheduleMap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map.Entry<String, String> createStringToStringMap() {
+		StringToStringMapImpl stringToStringMap = new StringToStringMapImpl();
+		return stringToStringMap;
 	}
 
 	/**

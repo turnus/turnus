@@ -1449,6 +1449,108 @@ public interface ProfilerPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link turnus.model.analysis.profiler.impl.BenchmarkReportImpl <em>Benchmark Report</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.analysis.profiler.impl.BenchmarkReportImpl
+	 * @see turnus.model.analysis.profiler.impl.ProfilerPackageImpl#getBenchmarkReport()
+	 * @generated
+	 */
+	int BENCHMARK_REPORT = 18;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BENCHMARK_REPORT__ALGORITHM = AnalysisPackage.ANALYSIS_REPORT__ALGORITHM;
+
+	/**
+	 * The feature id for the '<em><b>Date</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BENCHMARK_REPORT__DATE = AnalysisPackage.ANALYSIS_REPORT__DATE;
+
+	/**
+	 * The feature id for the '<em><b>Column names</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BENCHMARK_REPORT__COLUMN_NAMES = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Rows</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BENCHMARK_REPORT__ROWS = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Benchmark Report</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BENCHMARK_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Benchmark Report</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BENCHMARK_REPORT_OPERATION_COUNT = AnalysisPackage.ANALYSIS_REPORT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link turnus.model.analysis.profiler.impl.TableRowImpl <em>Table Row</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.analysis.profiler.impl.TableRowImpl
+	 * @see turnus.model.analysis.profiler.impl.ProfilerPackageImpl#getTableRow()
+	 * @generated
+	 */
+	int TABLE_ROW = 19;
+
+	/**
+	 * The feature id for the '<em><b>Cells</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE_ROW__CELLS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Table Row</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE_ROW_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Table Row</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE_ROW_OPERATION_COUNT = 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.profiler.CodeProfilingReport <em>Code Profiling Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2359,6 +2461,59 @@ public interface ProfilerPackage extends EPackage {
 	EAttribute getStringToAccessDataMap_Key();
 
 	/**
+	 * Returns the meta object for class '{@link turnus.model.analysis.profiler.BenchmarkReport <em>Benchmark Report</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Benchmark Report</em>'.
+	 * @see turnus.model.analysis.profiler.BenchmarkReport
+	 * @generated
+	 */
+	EClass getBenchmarkReport();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link turnus.model.analysis.profiler.BenchmarkReport#getColumn_names <em>Column names</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Column names</em>'.
+	 * @see turnus.model.analysis.profiler.BenchmarkReport#getColumn_names()
+	 * @see #getBenchmarkReport()
+	 * @generated
+	 */
+	EAttribute getBenchmarkReport_Column_names();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link turnus.model.analysis.profiler.BenchmarkReport#getRows <em>Rows</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Rows</em>'.
+	 * @see turnus.model.analysis.profiler.BenchmarkReport#getRows()
+	 * @see #getBenchmarkReport()
+	 * @generated
+	 */
+	EReference getBenchmarkReport_Rows();
+
+	/**
+	 * Returns the meta object for class '{@link turnus.model.analysis.profiler.TableRow <em>Table Row</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Table Row</em>'.
+	 * @see turnus.model.analysis.profiler.TableRow
+	 * @generated
+	 */
+	EClass getTableRow();
+
+	/**
+	 * Returns the meta object for the map '{@link turnus.model.analysis.profiler.TableRow#getCells <em>Cells</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Cells</em>'.
+	 * @see turnus.model.analysis.profiler.TableRow#getCells()
+	 * @see #getTableRow()
+	 * @generated
+	 */
+	EReference getTableRow_Cells();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3096,6 +3251,50 @@ public interface ProfilerPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute STRING_TO_ACCESS_DATA_MAP__KEY = eINSTANCE.getStringToAccessDataMap_Key();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.analysis.profiler.impl.BenchmarkReportImpl <em>Benchmark Report</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.analysis.profiler.impl.BenchmarkReportImpl
+		 * @see turnus.model.analysis.profiler.impl.ProfilerPackageImpl#getBenchmarkReport()
+		 * @generated
+		 */
+		EClass BENCHMARK_REPORT = eINSTANCE.getBenchmarkReport();
+
+		/**
+		 * The meta object literal for the '<em><b>Column names</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BENCHMARK_REPORT__COLUMN_NAMES = eINSTANCE.getBenchmarkReport_Column_names();
+
+		/**
+		 * The meta object literal for the '<em><b>Rows</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BENCHMARK_REPORT__ROWS = eINSTANCE.getBenchmarkReport_Rows();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.analysis.profiler.impl.TableRowImpl <em>Table Row</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.analysis.profiler.impl.TableRowImpl
+		 * @see turnus.model.analysis.profiler.impl.ProfilerPackageImpl#getTableRow()
+		 * @generated
+		 */
+		EClass TABLE_ROW = eINSTANCE.getTableRow();
+
+		/**
+		 * The meta object literal for the '<em><b>Cells</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TABLE_ROW__CELLS = eINSTANCE.getTableRow_Cells();
 
 	}
 

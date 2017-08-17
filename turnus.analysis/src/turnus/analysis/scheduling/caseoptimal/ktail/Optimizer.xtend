@@ -1,5 +1,4 @@
-package turnus.analysis.scheduling.caseoptimal
-
+package turnus.analysis.scheduling.caseoptimal.ktail
 import java.rmi.UnexpectedException
 import turnus.model.analysis.scheduling.ActorSelectionSchedule
 

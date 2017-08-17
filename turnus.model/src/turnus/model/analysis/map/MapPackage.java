@@ -1056,6 +1056,52 @@ public interface MapPackage extends EPackage {
 	int PARTITION_TO_ACTOR_SELECTION_SCHEDULE_MAP_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link turnus.model.analysis.map.impl.StringToStringMapImpl <em>String To String Map</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.analysis.map.impl.StringToStringMapImpl
+	 * @see turnus.model.analysis.map.impl.MapPackageImpl#getStringToStringMap()
+	 * @generated
+	 */
+	int STRING_TO_STRING_MAP = 21;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_TO_STRING_MAP__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_TO_STRING_MAP__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>String To String Map</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_TO_STRING_MAP_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>String To String Map</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_TO_STRING_MAP_OPERATION_COUNT = 0;
+
+	/**
 	 * Returns the meta object for class '{@link java.util.Map.Entry <em>String To Integer Map</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1770,6 +1816,40 @@ public interface MapPackage extends EPackage {
 	EReference getPartitionToActorSelectionScheduleMap_Value();
 
 	/**
+	 * Returns the meta object for class '{@link java.util.Map.Entry <em>String To String Map</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>String To String Map</em>'.
+	 * @see java.util.Map.Entry
+	 * @model keyDataType="org.eclipse.emf.ecore.EString"
+	 *        valueDataType="org.eclipse.emf.ecore.EString"
+	 * @generated
+	 */
+	EClass getStringToStringMap();
+
+	/**
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getStringToStringMap()
+	 * @generated
+	 */
+	EAttribute getStringToStringMap_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getStringToStringMap()
+	 * @generated
+	 */
+	EAttribute getStringToStringMap_Value();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2337,6 +2417,32 @@ public interface MapPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PARTITION_TO_ACTOR_SELECTION_SCHEDULE_MAP__VALUE = eINSTANCE.getPartitionToActorSelectionScheduleMap_Value();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.analysis.map.impl.StringToStringMapImpl <em>String To String Map</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.analysis.map.impl.StringToStringMapImpl
+		 * @see turnus.model.analysis.map.impl.MapPackageImpl#getStringToStringMap()
+		 * @generated
+		 */
+		EClass STRING_TO_STRING_MAP = eINSTANCE.getStringToStringMap();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STRING_TO_STRING_MAP__KEY = eINSTANCE.getStringToStringMap_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STRING_TO_STRING_MAP__VALUE = eINSTANCE.getStringToStringMap_Value();
 
 	}
 

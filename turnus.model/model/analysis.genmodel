@@ -156,6 +156,13 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/StringToAccessDataMap/value"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/StringToAccessDataMap/key"/>
       </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/BenchmarkReport">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BenchmarkReport/column_names"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/BenchmarkReport/rows"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/TableRow">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/TableRow/cells"/>
+      </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Map" basePackage="turnus.model.analysis" disposableProviderFactory="true"
         ecorePackage="analysis.ecore#//map">
@@ -257,6 +264,10 @@
       <genClasses ecoreClass="analysis.ecore#//map/PartitionToActorSelectionScheduleMap">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/PartitionToActorSelectionScheduleMap/key"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//map/PartitionToActorSelectionScheduleMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/StringToStringMap">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToStringMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToStringMap/value"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Trace" basePackage="turnus.model.analysis" disposableProviderFactory="true"

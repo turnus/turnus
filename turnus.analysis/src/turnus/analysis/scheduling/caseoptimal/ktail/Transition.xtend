@@ -1,11 +1,9 @@
-package turnus.analysis.scheduling.caseoptimal
+package turnus.analysis.scheduling.caseoptimal.ktail
 
-import turnus.model.analysis.scheduling.ActorSelectionSchedule
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
 import java.util.Arrays
-import org.eclipse.emf.ecore.xmi.IllegalValueException
 import org.apache.poi.ss.formula.eval.NotImplementedException
+import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors class Transition {
 	public final InferenceState sourceState;

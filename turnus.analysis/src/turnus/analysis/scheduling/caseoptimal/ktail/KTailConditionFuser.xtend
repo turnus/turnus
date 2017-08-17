@@ -1,19 +1,14 @@
-package turnus.analysis.scheduling.caseoptimal
+package turnus.analysis.scheduling.caseoptimal.ktail
 
-import turnus.model.analysis.scheduling.FSMState
-import weka.classifiers.trees.J48
-import weka.core.Instances;
-import weka.core.DenseInstance
-import turnus.model.analysis.scheduling.FSM
-import weka.core.FastVector
-import weka.core.Attribute;
-import java.util.LinkedHashMap;
-import turnus.common.io.Logger
-import turnus.model.analysis.scheduling.FSMTransitionWithState
 import java.util.ArrayList
-import turnus.model.analysis.scheduling.Sequence
-import turnus.model.analysis.scheduling.impl.SequenceImpl
 import java.util.HashSet
+import java.util.LinkedHashMap
+import turnus.analysis.scheduling.caseoptimal.ScheduleInferenceState
+import turnus.common.io.Logger
+import weka.core.Attribute
+import weka.core.DenseInstance
+import weka.core.FastVector
+import weka.core.Instances
 
 class KtailConditionFuseException extends Exception{
 	  //Parameterless Constructor
