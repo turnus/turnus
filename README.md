@@ -8,8 +8,10 @@ A design space exploration and optimization framework for dynamic dataflow progr
 
 The Eclipse plugins can be downloaded from this repository:
 
-- **Stable** : ```http://turnus.co/eclipse/```
-- **Nightly**: ```http://turnus.co/eclipse/nightly/```
+```
+http://scistimm.epfl.ch/turnus/eclipse/
+```
+
 
 Please make sure to use the latest [Eclipse Neon](http://www.eclipse.org/downloads/packages/eclipse-rcp-and-rap-developers/neon1a) *for RCP and RAP Developers*.
 
