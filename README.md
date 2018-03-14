@@ -28,7 +28,33 @@ cd turnus.p2
 mvn clean install
 ```
 
-# Contacts
+---
 
-Simon Casale-Brunet [casalebrunet@ieee.org](mailto:casalebrunet@ieee.org)
+# How to cite
+
+
+```
+@article{casalebrunet,
+      title = {Analysis and optimization of dynamic dataflow programs},
+      author = {Casale-Brunet, Simone},
+      institution = {IEL},
+      publisher = {EPFL},
+      address = {Lausanne},
+      year = {2015},
+}
+
+@inproceedings{turnus, 
+	author={S. Casale-Brunet and M. Mattavelli and J. Janneck}, 
+	booktitle={2013 IEEE International Symposium on Circuits and Systems (ISCAS2013)}, 
+	title={{TURNUS}: A design exploration framework for dataflow system design}, 
+	year={2013},  
+	pages={654-654},
+	doi={10.1109/ISCAS.2013.6571927}, 
+	ISSN={0271-4302}, 
+	month={May},
+}
+
+```
+
+
 
