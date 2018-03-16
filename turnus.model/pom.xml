@@ -11,4 +11,12 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.kie.modules</groupId>
+			<artifactId>org-apache-commons-math</artifactId>
+			<version>6.5.0.Final</version>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
 </project>

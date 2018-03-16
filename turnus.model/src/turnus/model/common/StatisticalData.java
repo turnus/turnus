@@ -33,8 +33,8 @@ package turnus.model.common;
 
 import java.util.Collection;
 
-import org.apache.commons.math.stat.descriptive.StatisticalSummary;
-import org.apache.commons.math.stat.descriptive.SummaryStatistics;
+import org.apache.commons.math3.stat.descriptive.StatisticalSummary;
+import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.eclipse.emf.ecore.EObject;
 
 /**
