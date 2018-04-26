@@ -283,6 +283,9 @@ class FSMScheduleGenerator {
 	
 	
 	def incrementKey(LinkedHashMap<String, Integer> map, String key) {
+		if(!map.containsKey(key)){
+			map.put(key,0)
+		}
 			map.put(key,map.get(key)+1);
 	}
 	

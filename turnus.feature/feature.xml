@@ -5,11 +5,11 @@
       version="1.0.0.qualifier"
       provider-name="EPFL SCI STI MM">
 
-   <description url="http://www.turnus.co">
+   <description url="http://scistimm.epfl.ch/turnus">
       TURNUS dataflow analysis framework
    </description>
 
-   <copyright url="http://www.turnus.co/copyright">
+   <copyright url="http://scistimm.epfl.ch/turnus/copyright">
       Copyright (C) 2010-2015 EPFL SCI STI MM
    </copyright>
 
@@ -19,7 +19,7 @@ This file is part of TURNUS. TURNUS is free software: you can redistribute it an
    </license>
 
    <url>
-      <update label="TURNUS Eclipse repository" url="http://www.turnus.co/eclipse"/>
+      <update label="TURNUS Eclipse repository" url="http://scistimm.epfl.ch/turnus/eclipse"/>
       <discovery label="xtext" url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
       <discovery label="mars" url="http://download.eclipse.org/releases/mars"/>
    </url>

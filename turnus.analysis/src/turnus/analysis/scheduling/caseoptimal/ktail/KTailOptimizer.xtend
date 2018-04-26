@@ -18,6 +18,70 @@ import turnus.model.analysis.scheduling.FSMCombinator
 import turnus.model.analysis.scheduling.FSMTransition
 import turnus.model.analysis.scheduling.Sequence
 import turnus.model.analysis.scheduling.impl.SchedulingFactoryImpl
+import java.util.HashSet
+
+class CheatKtails{
+	LinkedHashMap<Prefix,HashSet<ArrayList<Integer>>> ktails;
+	Integer k
+	new (LinkedHashMap<Prefix,InferenceState> prefixes,Integer k){
+		this.k=k
+		val len=prefixes.keySet.size();
+		this.ktails=new LinkedHashMap
+		
+		for (i: 0..<len){
+			val prefTails=new HashSet<ArrayList<Integer>>
+			val p0=prefixes.keySet.get(i)
+			
+			for(curK:1..this.k){
+			if(i+curK<len){
+				val p=prefixes.keySet.get(i+curK)
+				
+				val ktail=new ArrayList
+				//build ktail one by one,withcurK exclusive since the prefixes themselves will be built up 1 by 1 range since curK is already limiting
+				for(j:curK>..0){
+				ktail.add(p.full.get(p.full.combined_size-1-j))
+				}
+				prefTails.add(ktail)
+			}
+            }
+			ktails.put(p0,prefTails)
+		}
+		}
+		def Integer count(){
+		var count=0
+		for(e:this.ktails.entrySet){
+			count+=e.value.size
+		}
+		count
+	}
+	def boolean comparePrefixes(Prefix p1, Prefix p2){
+		val tail1=this.ktails.get(p1)
+		val tail2=this.ktails.get(p2)
+//		Logger.debug("Tail1 %s",tail1.Print())
+//		Logger.debug("Tail2 %s",tail2.Print())
+		if(tail1.size==tail2.size){
+			for (i:0..<tail1.size){
+				val t=tail1.get(i)
+				if(!tail2.contains(t)){
+					return false
+				}
+			}
+			return true
+		}else{
+			return false
+		}
+	}
+	
+	def String Print(HashSet<ArrayList<Integer>> lists) {
+		'''
+		«FOR l:lists»
+		«l»
+		«ENDFOR»
+		'''
+	}
+	
+}
+
 
 class KTailOptimizer implements Optimizer{
 	LinkedHashMap<Prefix,InferenceState> prefixes;
@@ -28,6 +92,7 @@ class KTailOptimizer implements Optimizer{
 	final SchedulingFactoryImpl schedfac;
 	final int k;
 	KTails ktails;
+	CheatKtails cheatTails
 	int nextClass;
 	
 	new(int k){
@@ -44,6 +109,12 @@ class KTailOptimizer implements Optimizer{
 	
 	//implement prefix so that it always has pre and tail, equals first checks tail, then pre...avoids copying and concatenating arrays
 	def boolean isEquivalent(Prefix p1, Prefix p2){
+		//hacking in cheatin ktails
+		val eq =this.cheatTails.comparePrefixes(p1,p2)
+//		Logger.info("Equal? %s",eq)
+		return eq
+		//endhack
+		/*
 		ktails.reset();
 		while(!ktails.done() ){
 					val Integer[] tail=ktails.next;
@@ -60,6 +131,7 @@ class KTailOptimizer implements Optimizer{
 					}
 				}
 		return true;
+		*/
 	}
 	
 	
@@ -93,10 +165,38 @@ class KTailOptimizer implements Optimizer{
 		Logger.info("Generating equivalence classes, #prefixes: %d",prefixes.size);
 		var progress=new ProgressPrinter("Classifying Prefixes: ",prefixes.size*prefixes.size);
 		//generate equivalence classes
+		//idea for parallelization: split the array into two sets: classified & unclassified. with N threads, we can pick N random unclassified prefixes,
+		// then sweep the unclassified set. since class is transitive, any time we find a match, we can immediately shring the search set. instead of N^2, this would run in numClass*N
+		//store the N selected in hashmap, (do initial comparison to reach N different ones, while we still have some in unclassified).
+		// then, can use multiple threads scanning over the array independently, since we will be guaranteed that they'll be searching for different prefixes
+		//modifiy set only between scans to minimize conamination
+		val unClassified = new HashSet<Prefix>
+		unClassified.addAll(prefixes.keySet)
+		while(unClassified.size>0){
+			val p= unClassified.get(0)
+			unClassified.remove(p)
+			val newClassified = new HashSet<Prefix>
+		
+			//by  definition, this doesn't yet have a class
+			val newState = new InferenceState(nextClass)
+			prefixes.put(p,newState)
+			newClassified.add(p)
+			for (p2:unClassified){
+				val equivalent=isEquivalent(p,p2);
+				if(equivalent){
+					newClassified.add(p2)
+					prefixes.put(p2,newState)
+				}
+			}
+			unClassified.removeAll(newClassified)
+			progress.increment(newClassified.size)
+			nextClass+=1
+		}
+		/* 
 		for(i:0..<prefixes.size){
-			val p1=prefixes.keySet.toArray.get(i) as Prefix;
+			val p1=prefixes.keySet.get(i) as Prefix;
 			for(j:i..<prefixes.size){
-				val p2=prefixes.keySet.toArray.get(j) as Prefix;
+				val p2=prefixes.keySet.get(j) as Prefix;
 				val equivalent=isEquivalent(p1,p2);
 				
 				if (equivalent){
@@ -118,11 +218,13 @@ class KTailOptimizer implements Optimizer{
 					nextClass+=1;
 				}
 				}
-				ktails.reset;
+				//ktails.reset;
 				progress.increment;
 				
 			}
 		}
+		*/
+	
 		progress.finish();
 		
 		Logger.info("Grouping by states, assigning non-equivalent prefixes to singleton states");
@@ -209,7 +311,7 @@ class KTailOptimizer implements Optimizer{
 		var step=0;
 		while(!curState.equals(fsm.terminalState)){
 			val s=fsmstates.get(curState);
-			Logger.info('''Got state «s.enumName» with transitions:
+			Logger.debug('''Got state «s.enumName» with transitions:
 			«FOR t:s.transitions»
 			«t.targetStateEnumName»
 			«ENDFOR»
@@ -225,7 +327,7 @@ class KTailOptimizer implements Optimizer{
 					case SET:{varstates.put(u.operation.^var, u.operation.^val)}
 				}
 			}
-			Logger.info('''Updated vars to «FOR v:varstates.entrySet»«v.key»:«v.value»«ENDFOR»''')
+			Logger.debug('''Updated vars to «FOR v:varstates.entrySet»«v.key»:«v.value»«ENDFOR»''')
 			for(t:s.transitions){
 				if(t.ConditionsFullfilled(varstates)){
 					transitionCand.add(t);
@@ -271,7 +373,7 @@ class KTailOptimizer implements Optimizer{
 	
 	def boolean ConditionsFullfilled(FSMTransition transition, Map<String,Integer> vars){
 		var c=transition.cond;
-		Logger.info('''Checking conditions in varstate:
+		Logger.debug('''Checking conditions in varstate:
 		«FOR e:vars.entrySet»
 		«e.key»:«e.value»
 		«ENDFOR»
@@ -294,16 +396,16 @@ class KTailOptimizer implements Optimizer{
 				case GREATER:{cv>v}
 				case SMALLER:{cv<v}
 			}){
-				Logger.info('''Condition «c.valName» «c.comp» «c.compval» fullfiled''')
+				Logger.debug('''Condition «c.valName» «c.comp» «c.compval» fullfiled''')
 				c=next_c
 		
 			}
 			else{
-				Logger.info('''Condition «c.valName» «c.comp» «c.compval» not fullfiled, exit''')
+				Logger.debug('''Condition «c.valName» «c.comp» «c.compval» not fullfiled, exit''')
 				return false
 			};
 		}
-		Logger.info("All conditions fullfilled, transition can go")
+		Logger.debug("All conditions fullfilled, transition can go")
 		return true;
 	}
 	
@@ -325,13 +427,16 @@ class KTailOptimizer implements Optimizer{
 			val intPrefix=new Prefix(intActions,i,k);
 			prefixes.put(intPrefix,null);//not in an equivalance class at creation
 		}
+		Logger.info("%d integer prefixes",prefixes.keySet.size);
 		
 		//generate all k-tails
 		val alpha=id_to_actors.keySet;
 		Logger.info("Generating ktails for alphabet of size %d, k=%d",alpha.size,k);
 		this.ktails = new KTails(k,alpha);
 		Logger.info("#ktails: %d",Math.round(Math.pow(k,alpha.size)));
-		
+		Logger.info("Generating cheating ktails");
+		this.cheatTails= new CheatKtails(this.prefixes,k)
+		Logger.info("#cheat ktails: %d",this.cheatTails.count());
 		
 		findStates();
 		
@@ -344,8 +449,10 @@ class KTailOptimizer implements Optimizer{
 		
 		fsmSchedGen.transient_states=stateFuser.fsm.transientPrefixes;
 		val fsm= fsmSchedGen.getSchedule();
+		val debug=false
+		if(debug){
 		DEBUG_check_unrolledFSM(fsm,actions);
-
+		}
 	
 		return fsm;
 	}

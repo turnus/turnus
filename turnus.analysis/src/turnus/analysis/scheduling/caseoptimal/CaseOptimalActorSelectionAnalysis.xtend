@@ -24,6 +24,7 @@ import turnus.model.trace.Trace
 import turnus.model.trace.TraceDecorator
 import turnus.model.trace.TraceProject
 import turnus.model.trace.impl.inmemory.InMemoryTraceLoader
+import turnus.model.trace.impl.splitted.SplittedTraceLoader
 import turnus.analysis.scheduling.caseoptimal.ktail.KTailOptimizer
 import turnus.analysis.scheduling.caseoptimal.ktail.RunLengthOptimizer
 import turnus.model.mapping.io.XmlNetworkPartitioningReader
@@ -120,7 +121,8 @@ class CaseOptimalActorSelectionAnalysis extends Analysis<CaseOptimalScheduleRepo
 		val mapFile=configuration.getValue(MAPPING_FILE);
 		val LinkedHashMap<String,ActorSelectionSchedule> scheds = if (project !== null) {
 			if (!project.isTraceLoaded()) {
-				project.loadTrace(new InMemoryTraceLoader(), configuration) 
+				project.loadTrace(new SplittedTraceLoader(), configuration) 
+//				project.loadTrace(new InMemoryTraceLoader(), configuration) 
 			}
 			network=project.getNetwork() 
 			trace=project.getTrace() 

@@ -11,6 +11,7 @@ import turnus.analysis.scheduling.caseoptimal.ScheduleInferenceState
 import turnus.common.io.Logger
 import turnus.model.analysis.scheduling.FSMComparator
 import weka.classifiers.trees.J48
+import org.eclipse.ui.dialogs.TwoArrayQuickSorter.StringComparator
 
 abstract class Node{
 	def abstract String subtreeToSource();
@@ -21,6 +22,8 @@ abstract class Node{
 abstract class Condition{
 	
 }
+
+
 
 @Data class MultiCondition {
 	ArrayList<BranchCondition> partials;
@@ -172,76 +175,69 @@ abstract class Condition{
 	BranchCondition rightCond;
 	Node left;
 	Node right;
-	static val leafFirstRegex='''^«Leaf.regex»«Branch.regex»$''';
-	static val nodeFirstRegex='''^«Branch.regex»«Leaf.regex»$''';
-	static val twoNodeRegex='''^«Branch.regex(1)»«Branch.regex(2)»$''';
-	static val twoLeafRegex='''^«Leaf.regex(1)»«Leaf.regex(2)»$''';
-	
-	static val leafFirstBranch=Pattern.compile(leafFirstRegex);
-	static val nodeFirstBranch=Pattern.compile(nodeFirstRegex);
-	static val twoNodeBranch=Pattern.compile(twoNodeRegex);
-	static val twoLeafBranch=Pattern.compile(twoLeafRegex);
-	
-	def public static String regex(){
-		regex(null)
-	}
-	
-	def public static String regex(Integer i){
+	//
+	static val branchRegex='''^\[(?<varname>[a-zA-Z0-9_]+):(?<condl> [<=>]+ [0-9.]+),(?<condr> [<=>]+ [0-9.]+)(?<branches>\[.+\])\]$'''
+	static val leafRegex='''^«Leaf.regex»$'''
 		
-		val varnameRegex='''(?<varname«i»>[a-zA-Z0-9_]+):''';
-		val branchesRegex='''(?<branches«i»>\[.+?\])''';
-		val twoBranches='''\[«varnameRegex»«BranchCondition.regex(1,i)»,«BranchCondition.regex(2,i)»«branchesRegex»\]''';
-		twoBranches	
+	static val branchPattern=Pattern.compile(branchRegex)
+	static val leafPattern=Pattern.compile(leafRegex)
+	
+	def splitFSA(String s){
+		Logger.info('''Splitting branches «s»''')
+		val startat =0
+		var started=false
+		var b=0
+		for (i:0..<s.length){
+			val char c=s.charAt(i)
+			val char openBracket='['
+			val char closeBracket=']'
+			if(c===openBracket){
+				b+=1
+				started=true
+			}else if(started && c===closeBracket){
+				b-=1
+			}
+			if(started &&b==0){
+				val splitind=startat+i+1
+				val left=s.subSequence(0,splitind)
+				val right=s.subSequence(splitind,s.length)
+				return left -> right
+			}
 		}
 		
+	}
+	//
+	
 	new(Matcher branchMatcher){
-			this(branchMatcher,null);
+		varname=branchMatcher.group('''varname''');
+		leftCond=new BranchCondition(varname,branchMatcher.group('''condl'''));
+		rightCond=new BranchCondition(varname,branchMatcher.group('''condr'''));
+		val branches=branchMatcher.group('''branches''');
+		
+		val left_right =splitFSA(branches)
+		val leftString = left_right.key
+		val rightString = left_right.value
+		Logger.info('''left:«leftString»''')
+		Logger.info('''right:«rightString»''')
+		val leafleft=leafPattern.matcher(leftString)
+		val branchleft=branchPattern.matcher(leftString)
+		
+		val leafright=leafPattern.matcher(rightString)
+		val branchright=branchPattern.matcher(rightString)
+		
+		left=if(leafleft.matches){
+			new Leaf(leafleft)
+		}else if(branchleft.matches){
+			new Branch(branchleft)
+		}
+		right=if(leafright.matches){
+			new Leaf(leafright)
+		}else if(branchright.matches){
+			new Branch(branchright)
+		}
 	}
 	
-	new(Matcher branchMatcher, Integer i) {
-
-			varname=branchMatcher.group('''varname«i»''');
-			leftCond=new BranchCondition(varname,branchMatcher.group('''cond1«i»'''));
-			rightCond=new BranchCondition(varname,branchMatcher.group('''cond2«i»'''));
-			val branches=branchMatcher.group('''branches«i»''');
-			Logger.info('''Descending into Branches
-			«branches»''');
-			val leafFirstMatcher= leafFirstBranch.matcher(branches);
-			val nodeFirstMatcher= nodeFirstBranch.matcher(branches);
-			val twoNodeMatcher= twoNodeBranch.matcher(branches);
-			val twoLeafMatcher= twoLeafBranch.matcher(branches);
-			Logger.info('''
-			Regexes used:
-			leafFrist«leafFirstRegex»:
-			nodeFirst:«nodeFirstRegex»
-			twoNode:«twoNodeRegex»
-			twoLeaf:'«twoLeafRegex»''');
-			
-			if(leafFirstMatcher.matches)
-			{
-				left=new Leaf(leafFirstMatcher);
-				right=new Branch(leafFirstMatcher);
-			}
-			else if(nodeFirstMatcher.matches)
-			{
-				left=new Branch(nodeFirstMatcher);
-				right=new Leaf(nodeFirstMatcher);
-			
-			}else if(twoNodeMatcher.matches){
-				left=new Branch(twoNodeMatcher,1);
-				right=new Branch(twoNodeMatcher,2);
-			}
-			else if(twoLeafMatcher.matches){
-				left=new Leaf(twoLeafMatcher,1);
-				right=new Leaf(twoLeafMatcher,2);
-			}
-			else{
-				left=null;
-				right=null;
-				throw new KtailFuseParseException('''Could not parse branches:
-				«branches»''')
-			}
-	}
+	
 	
 	@Override
 	def override subtreeToSource() {
@@ -294,7 +290,12 @@ abstract class Condition{
 			this.flattenToMultiBranch.fuseTransitions(state)
 		}
 	
+	def static getRegex() {
+		branchRegex
+	}
+	
 }
+
 @Data class Comparator{
 	@Accessors(PUBLIC_GETTER) String stringRepresentation;
 	def toFSMComparator(){
@@ -350,15 +351,20 @@ class KTailDecisionTreeClassifier extends J48 {
 		this.confidenceFactor = 1;//quivalent to not pruning, since we want deterministic decisions
 	}
 	def static getTransitionConds(String prefix){
-		val branch=Pattern.compile(Branch.regex);
-		val leaf=Pattern.compile(Leaf.regex);
+		val branchRegex = '''«Branch.regex»'''
+		val leafRegex = '''^«Leaf.regex»$'''
+		val branch=Pattern.compile(branchRegex);
+		val leaf=Pattern.compile(leafRegex);
 		var curString=prefix;
 	
 		val branch_matcher=branch.matcher(curString);
 		val leaf_matcher=leaf.matcher(curString);
 		Logger.info('''Parsing prefix:
-		«curString»''');
-		val Node root=if(branch_matcher.matches){
+		«curString»
+		branchRegex:«branchRegex»
+		leafRegex:«leafRegex»
+		''');
+		val Node root= if(branch_matcher.matches){
 				
 				new Branch(branch_matcher)
 			

@@ -25,5 +25,17 @@
          </run>
       </application>
    </extension>
+   <extension
+         id="caseOptimalActorSelection"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="any"
+            visible="true">
+         <run
+               class="turnus.analysis.scheduling.caseoptimal.CaseOptimalActorSelectionAnalysisCli">
+         </run>
+      </application>
+   </extension>
 
 </plugin>
