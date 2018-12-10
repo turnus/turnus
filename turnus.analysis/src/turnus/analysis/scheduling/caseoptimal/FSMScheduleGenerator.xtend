@@ -177,7 +177,7 @@ class FSMScheduleGenerator {
 			//TODO find a heuristic to choose...for now just take the last
 			return possiblePredecessors.last;
 		}else{
-			if(transient_states!=null){
+			if(transient_states!==null){
 			for(e:transient_states.entrySet){
 				for(t:e.value.outgoings){
 					if(t.goalState.prefixes.contains(curPrefix) && t.connects(t.sourceState,cur_state)){

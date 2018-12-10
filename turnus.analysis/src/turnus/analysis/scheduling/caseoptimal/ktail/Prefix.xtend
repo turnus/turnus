@@ -41,7 +41,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 	}
 	
 	new(Integer[] content, int i,int k){
-		if(content != null && content.size>=i){
+		if(content !== null && content.size>=i){
 			this.k=k;
 			this.ktail=null;
 			if(i>k){
@@ -66,10 +66,10 @@ import org.eclipse.xtend.lib.annotations.Accessors
 	new(Prefix p, Integer[] a){
 		this.k=p.k;
 		this.pre=p.pre;
-		if(p.tail==null){
+		if(p.tail===null){
 			this.tail=a;
 			this.ktail=null;
-		}else if(p.ktail==null){
+		}else if(p.ktail===null){
 			this.tail=p.tail;
 			this.ktail=a;
 		}else{

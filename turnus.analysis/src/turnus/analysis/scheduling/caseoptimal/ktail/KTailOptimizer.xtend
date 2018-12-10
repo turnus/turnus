@@ -102,14 +102,14 @@ class KTailOptimizer implements Optimizer{
 				if (equivalent){
 					val p1Class=prefixes.get(p1);
 					val p2Class=prefixes.get(p2);
-				if (p1Class !=null && p2Class!=null){
+				if (p1Class !==null && p2Class!==null){
 						if(p1Class!= p2Class){
 						throw new NotImplementedException("Two equivalent states have different equivalence classes!=null, this should never happen")
 						//else do nothing, it's fine
 						}
-				}else if(p1Class!=null && p2Class==null){
+				}else if(p1Class!==null && p2Class===null){
 					prefixes.put(p2,p1Class);
-				}else if(p1Class==null && p2Class!=null){
+				}else if(p1Class===null && p2Class!==null){
 					prefixes.put(p1,p2Class);
 				}else{
 					val newState=new InferenceState(nextClass);
@@ -131,9 +131,9 @@ class KTailOptimizer implements Optimizer{
 		
 		for(e:prefixes.entrySet){
 			val prefix=e.key;
-			val s= if(e.value==null){nextClass+=1;new InferenceState(nextClass-1)}else{e.value};
+			val s= if(e.value===null){nextClass+=1;new InferenceState(nextClass-1)}else{e.value};
 			eqClasses.put(s,prefix);
-			if(e.value==null){
+			if(e.value===null){
 			altered.put(prefix,s);
 			}
 		}
@@ -164,7 +164,7 @@ class KTailOptimizer implements Optimizer{
 					Logger.debug("Checking if prefix %s + token %d in known prefixes",p.toString,a);
 					
 					var next_state=prefixes.get(next_prefix);
-					if(next_state!=null){
+					if(next_state!==null){
 						
 						Logger.debug("Prefix found, generating transistion from %d->%d, with action %d",state.id,next_state.id,a);
 						val transition= new Transition(state,next_state,a);
@@ -276,17 +276,17 @@ class KTailOptimizer implements Optimizer{
 		«e.key»:«e.value»
 		«ENDFOR»
 		''')
-		while(c!=null){
+		while(c!==null){
 			val v=c.compval;
 			val cv=vars.get(c.valName);
-			val next_c=if(c.combinedCond!=null){
+			val next_c=if(c.combinedCond!==null){
 				if(c.combinedCond.combinator.equals(FSMCombinator.AND)){
 					c.combinedCond.cond
 				}else{
 					throw new NotImplementedException("Only support and chains");
 				}
 			}else{null};
-			if(c.valName ==null || switch c.comp{
+			if(c.valName ===null || switch c.comp{
 				case EQ:{cv==v}
 				case GREQ:{cv>=v}
 				case SMEQ:{cv<=v}

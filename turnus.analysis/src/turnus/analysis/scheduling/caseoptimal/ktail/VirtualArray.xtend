@@ -19,7 +19,7 @@ import java.util.Arrays
 		add(c);
 		}
 	def add(Integer[] a){
-		if(a!=null){
+		if(a!==null){
 		combined_size+=a.size;
 		arrays.add(a);
 		}
@@ -40,7 +40,7 @@ import java.util.Arrays
 		
 	def continuedHash(int hash,Integer[] arr){
 		var result=hash;
-		if(arr!=null && arr.size!=0){
+		if(arr!==null && arr.size!=0){
 			for(i:arr){
 				result=(result*31).bitwiseXor(i);
 			}
@@ -67,7 +67,7 @@ import java.util.Arrays
 	
 	@Override
 	override public boolean equals(Object o){
-		if(o!=null && o instanceof VirtualArray){
+		if(o!==null && o instanceof VirtualArray){
 			val oa=o as VirtualArray;
 			if(oa.combined_size==combined_size){
 				for(i:combined_size>..0){

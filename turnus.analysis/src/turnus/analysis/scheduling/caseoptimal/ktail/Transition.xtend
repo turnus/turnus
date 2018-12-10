@@ -37,7 +37,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 		
 	@Override
 	def override public boolean equals(Object o){
-		if(o!=null && o instanceof Transition){
+		if(o!==null && o instanceof Transition){
 			val ot= o as Transition;
 		if(this.goalState==ot.goalState && this.sourceState==ot.sourceState && Arrays.equals(this.actions.toArray,ot.actions.toArray())){
 		return true;
