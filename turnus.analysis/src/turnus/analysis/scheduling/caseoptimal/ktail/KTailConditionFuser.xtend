@@ -57,7 +57,7 @@ class KTailConditionFuser {
 //			«t.toKey»
 //			vars«FOR en:stateVars.entrySet SEPARATOR ','»«en.key»:«en.value»«ENDFOR»''')
 			for(v:vars.keySet){
-				if(t.vars.get(v)==null){
+				if(t.vars.get(v)===null){
 					t_inst.setValue(i,stateVars.get(v));
 				}else{
 					val newVal=t.vars.get(v);

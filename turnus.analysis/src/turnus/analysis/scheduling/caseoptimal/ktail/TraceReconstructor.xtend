@@ -23,7 +23,7 @@ class PrefixStuckException extends EmptyStackException{
     }
     @Override
     def override getMessage(){
-    	if(this.stuckPrefix==null){
+    	if(this.stuckPrefix===null){
     		"The fsm could not be traversed with the given prefix"
     	}else{
     		'''The fsm traversal got stuck at prefix 

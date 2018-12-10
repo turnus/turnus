@@ -109,7 +109,7 @@ import org.apache.poi.ss.formula.eval.NotImplementedException
 	def fuseStates(){
 		var Prefix finalPrefix=null;
 		for(p:fsm.reachablePrefixes.keySet){
-			if(finalPrefix==null || p.full.combined_size>finalPrefix.full.combined_size){
+			if(finalPrefix===null || p.full.combined_size>finalPrefix.full.combined_size){
 				finalPrefix=p;
 			}
 		}

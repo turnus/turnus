@@ -42,10 +42,10 @@ class CaseOptimalActorSelectionAnalysis extends Analysis<CaseOptimalScheduleRepo
 	}
 	
 	def  getInitialSchedFromTrace(Trace trace,File mappingFile){
-		val partitioning = if(mappingFile!=null){	val part_reader=new XmlNetworkPartitioningReader;
+		val partitioning = if(mappingFile!==null){	val part_reader=new XmlNetworkPartitioningReader;
 			part_reader.load(mappingFile)};
 		val scheds=new LinkedHashMap<String,ActorSelectionSchedule>;
-		if (partitioning==null){
+		if (partitioning===null){
 			scheds.put("main",new SequenceImpl(trace));
 			return scheds;
 		}else{
@@ -64,13 +64,13 @@ class CaseOptimalActorSelectionAnalysis extends Analysis<CaseOptimalScheduleRepo
 	}
 	
 	def getInitialSchedFromOldSched(Map<String, ActorSelectionSchedule> oldScheds, File mappingFile) {
-		val partitioning=if(mappingFile!=null){
+		val partitioning=if(mappingFile!==null){
 		val part_reader=new XmlNetworkPartitioningReader;
 			part_reader.load(mappingFile)
 		};
 		val scheds=new LinkedHashMap<String,ActorSelectionSchedule>;
 		
-		if(partitioning==null ){
+		if(partitioning===null ){
 			if(oldScheds.keySet.size==1&&oldScheds.keySet.last.equals("main")){
 			scheds.put("main",oldScheds.get("main"));
 			return scheds;

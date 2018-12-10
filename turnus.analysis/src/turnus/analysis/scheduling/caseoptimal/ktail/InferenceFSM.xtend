@@ -70,7 +70,7 @@ import turnus.common.io.Logger
 		 «FOR s:states»
 		 <TR><TD>n«s.id»</TD><TD>«FOR p:s.prefixes SEPARATOR ",<br/>"»«p.toString»«ENDFOR»</TD></TR>«ENDFOR»,
 		 labelloc=b, fontsize=12];
-		</TABLE>>];
+		 </TABLE>>];
 		«ENDIF»
 	}
 	'''	
