@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/bounce-0.18.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/weka-stable-3.8.1.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry exported="true" kind="lib" path="lib/poi-3.12.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/stax-utils-20070216.jar"/>
@@ -19,6 +16,9 @@
 	<classpathentry exported="true" kind="lib" path="lib/javax.json-1.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/parboiled-core-1.1.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-cli-1.2.jar"/>
-	<classpathentry kind="src" path="src/"/>
+	<classpathentry exported="true" kind="lib" path="lib/bounce-0.18.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/weka-stable-3.8.1.jar"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
