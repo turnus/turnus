@@ -11,7 +11,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<xtend-version>2.10.0</xtend-version>
+		<xtend-version>2.15.0</xtend-version>
 		<tycho-version>0.26.0</tycho-version>
 	</properties>
 
@@ -24,7 +24,7 @@
 		<repository>
 			<id>xtext</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.10.0/</url>
+			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.15.0/</url>
 		</repository>
 	</repositories>
 
