@@ -6,9 +6,10 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: turnus.adevs.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- turnus.bundle;bundle-version="1.0.0",
- turnus.common;bundle-version="1.0.0",
- turnus.model;bundle-version="1.0.0"
+ turnus.bundle;bundle-version="1.0.0";visibility:=reexport,
+ turnus.common;bundle-version="1.0.0";visibility:=reexport,
+ turnus.model;bundle-version="1.0.0";visibility:=reexport,
+ org.apache.commons.math;bundle-version="2.1.0";resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/adevs.jar,

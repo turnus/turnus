@@ -1,21 +1,22 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: model
 Bundle-SymbolicName: turnus.model;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Vendor: %providerName
+Bundle-Vendor: turnus
 Bundle-Localization: plugin
 Bundle-Activator: turnus.model.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- turnus.model;visibility:=reexport,
- turnus.common;bundle-version="1.0.0",
+ turnus.bundle;bundle-version="1.0.0";visibility:=reexport,
+ turnus.common;bundle-version="1.0.0";visibility:=reexport,
  org.eclipse.jgit;bundle-version="3.4.2",
  com.google.guava,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib,
- org.eclipse.xtend.lib.macro
+ org.eclipse.xtend.lib.macro,
+ org.apache.commons.math;bundle-version="2.1.0";resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: turnus.model,
  turnus.model.analysis,
