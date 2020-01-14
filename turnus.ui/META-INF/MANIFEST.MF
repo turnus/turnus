@@ -31,4 +31,5 @@ Export-Package: turnus.ui,
  turnus.ui.widget.launch,
  turnus.ui.wizard,
  turnus.ui.wizard.impl
+Automatic-Module-Name: turnus.ui
 

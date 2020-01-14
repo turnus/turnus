@@ -100,3 +100,4 @@ Export-Package: it.unimi.dsi.fastutil,
  weka.classifiers.trees,
  weka.classifiers.trees.j48,
  weka.core
+Automatic-Module-Name: turnus.bundle
