@@ -35,9 +35,6 @@ This file is part of TURNUS. TURNUS is free software: you can redistribute it an
       <import plugin="org.eclipse.emf.ecore" version="2.11.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.debug.core" version="3.9.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore.xmi" version="2.10.0" match="greaterOrEqual"/>
-      <import plugin="org.apache.commons.cli" version="1.2.0" match="greaterOrEqual"/>
-      <import plugin="org.apache.commons.math" version="2.1.0" match="greaterOrEqual"/>
-      <import plugin="org.apache.commons.compress" version="1.6.0" match="greaterOrEqual"/>
       <import plugin="com.google.guava" version="15.0.0" match="greaterOrEqual"/>
       <import plugin="org.apache.commons.io" version="2.2.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jgit" version="3.4.2" match="greaterOrEqual"/>

@@ -38,6 +38,8 @@ import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
+import org.apache.commons.lang3.SystemUtils;
+
 import com.google.common.io.Files;
 
 import turnus.common.TurnusRuntimeException;
@@ -56,7 +58,15 @@ public class LibraryLoader {
 	 */
 	public static void loadAdevsLibrary() {
 		try {
-			loadFile("libjava_adevs.so");
+
+			if (SystemUtils.IS_OS_LINUX) {
+				loadFile("libjava_adevs.so");
+			} else if (SystemUtils.IS_OS_MAC_OSX) {
+				loadFile("libjava_adevs.dylib");
+			}else {
+				throw new TurnusRuntimeException("ADEVS is not supported on this OS.");
+			}
+			
 			System.loadLibrary("java_adevs");
 		} catch (Exception e) {
 			throw new TurnusRuntimeException("ADEVS libraries cannot be loaded");
@@ -69,8 +79,7 @@ public class LibraryLoader {
 	 * Code copied from
 	 * {@link http://fahdshariff.blogspot.ch/2011/08/changing-java-library-path-at-runtime.html}
 	 *
-	 * @param pathToAdd
-	 *            the path to add
+	 * @param pathToAdd the path to add
 	 * @throws Exception
 	 */
 	private static void addLibraryPath(String pathToAdd) throws Exception {

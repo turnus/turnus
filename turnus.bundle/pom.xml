@@ -1,15 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>turnus.bundle</groupId>
 	<artifactId>turnus.bundle</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 
 	<parent>
 		<groupId>turnus</groupId>
 		<artifactId>turnus.core</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<build>
@@ -53,7 +53,7 @@
 
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
-				<version>2.3</version>
+				<version>3.1.0</version>
 				<configuration>
 					<filesets>
 						<fileset>
@@ -112,14 +112,29 @@
 			<version>1.5.0</version>
 		</dependency>
 		<dependency>
-				<groupId>nz.ac.waikato.cms.weka</groupId>
-				<artifactId>weka-stable</artifactId>
-				<version>3.8.1</version>
-			</dependency>
+			<groupId>nz.ac.waikato.cms.weka</groupId>
+			<artifactId>weka-stable</artifactId>
+			<version>3.8.1</version>
+		</dependency>
 		<dependency>
 			<groupId>nz.ac.waikato.cms.weka.thirdparty</groupId>
 			<artifactId>bounce</artifactId>
 			<version>0.18</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>1.19</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.10</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -31,6 +31,7 @@
  */
 package turnus.analysis.partitioning.test;
 
+import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.ANALYSIS_TIME;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_DEFAULT;
@@ -38,44 +39,30 @@ import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
 import static turnus.common.TurnusOptions.INITIAL_ALGORITHM;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
-import static turnus.common.TurnusOptions.RECORD_BUFFERS;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 import static turnus.common.TurnusOptions.TABU_P;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
-import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
-import turnus.adevs.logging.impl.ActionStatisticsCollector;
 import turnus.adevs.logging.impl.ActorStatisticsCollector;
 import turnus.adevs.simulation.SimEngine;
-import turnus.analysis.partitioning.BalancedPipelinePartitioning;
-import turnus.analysis.partitioning.CommFreqLocalSearch;
-import turnus.analysis.partitioning.CommunicationCostPartitioning;
-import turnus.analysis.partitioning.IdleLocalSearch;
 import turnus.analysis.partitioning.WorkloadBalancePartitioning;
-import turnus.analysis.partitioning.tabusearch.TabuSearch;
-import turnus.analysis.partitioning.util.PartitioningGenerator;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
-import turnus.common.configuration.Option;
 import turnus.common.configuration.Configuration.CliParser;
+import turnus.common.configuration.Option;
 import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
 import turnus.model.ModelsRegister;

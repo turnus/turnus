@@ -25,7 +25,7 @@ import turnus.common.io.Logger
 			if(p.full.combined_size==0){
 				entry=reachablePrefixes.get(p);
 			}
-			if(largestPrefix==null || largestPrefix.full.combined_size<p.full.combined_size){
+			if(largestPrefix===null || largestPrefix.full.combined_size<p.full.combined_size){
 				largestPrefix=p;
 			}
 		}

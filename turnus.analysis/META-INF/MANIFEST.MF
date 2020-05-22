@@ -37,3 +37,4 @@ Export-Package: turnus.analysis,
 Import-Package: turnus.adevs.logging,
  turnus.adevs.logging.impl,
  turnus.adevs.simulation
+Automatic-Module-Name: turnus.analysis

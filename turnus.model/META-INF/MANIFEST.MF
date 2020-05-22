@@ -78,3 +78,4 @@ Export-Package: turnus.model,
  turnus.model.versioning.impl,
  turnus.model.versioning.util
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: turnus.model

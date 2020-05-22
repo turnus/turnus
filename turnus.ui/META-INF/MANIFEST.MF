@@ -21,7 +21,7 @@ Require-Bundle: org.eclipse.debug.ui;visibility:=reexport,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: turnus.ui,
  turnus.ui.editor,
@@ -31,4 +31,5 @@ Export-Package: turnus.ui,
  turnus.ui.widget.launch,
  turnus.ui.wizard,
  turnus.ui.wizard.impl
+Automatic-Module-Name: turnus.ui
 
