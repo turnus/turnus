@@ -36,8 +36,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import javax.xml.bind.DatatypeConverter;
+//import javax.xml.bind.DatatypeConverter;
 
+import java.util.Base64;
 import turnus.common.TurnusException;
 import turnus.common.io.Logger;
 
@@ -69,7 +70,7 @@ public class ObjectUtils {
 		} catch (Exception e) {
 			throw new TurnusException("Object serialization error", e);
 		}
-		return DatatypeConverter.printBase64Binary(baos.toByteArray());
+		return Base64.getEncoder().encodeToString(baos.toByteArray());
 	}
 
 	/**
@@ -85,7 +86,7 @@ public class ObjectUtils {
 	@SuppressWarnings("unchecked")
 	public static <T> T deserialize(String string) throws TurnusException {
 		Object o = null;
-		byte[] data = DatatypeConverter.parseBase64Binary(string);
+		byte[] data = Base64.getDecoder().decode(string);
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
 			o = ois.readObject();
