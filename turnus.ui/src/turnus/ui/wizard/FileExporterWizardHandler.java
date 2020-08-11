@@ -80,12 +80,13 @@ public class FileExporterWizardHandler extends AbstractHandler {
 
 		File inputFile = null;
 		// check if it is an IFile
-		if (selection.getFirstElement() instanceof IFile) {
-			try {
+
+		try {
+			if (selection.getFirstElement() instanceof IFile) {
 				inputFile = FileUtils.getFile((IFile) selection.getFirstElement());
-			} catch (TurnusException e) {
-				e.printStackTrace();
 			}
+		} catch (TurnusException | NullPointerException e) {
+			e.printStackTrace();
 		}
 
 		// get only the required extension
