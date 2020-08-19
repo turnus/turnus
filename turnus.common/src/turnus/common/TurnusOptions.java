@@ -156,6 +156,12 @@ public class TurnusOptions {
 	@Description("The actions weights file. Supported file extensions is .exdf")
 	public static final Option<File> ACTION_WEIGHTS;
 	
+	@Description("The actions software weights file. Supported file extensions is .exdf")
+	public static final Option<File> ACTION_WEIGHTS_SW;
+	
+	@Description("The actions hardware weights file. Supported file extensions is .exdf")
+	public static final Option<File> ACTION_WEIGHTS_HW;
+	
 	@Description("The buffers weights file. Supported file extensions is .cxdf")
 	public static final Option<File> COMMUNICATION_WEIGHTS;
 	
@@ -230,6 +236,16 @@ public class TurnusOptions {
 	@Description("The list of markow scheduler reports generated during the analyis")
 	public static final Option<List<String>> MARKOV_SCHEDULER_REPORTS;
 
+	
+	@Description("Frequency in MHz. ")
+	public static final Option<Double> FREQ;
+	
+	@Description("Software Frequency in MHz. ")
+	public static final Option<Double> FREQ_SW;
+	
+	@Description("Hardware Frequency in MHz. ")
+	public static final Option<Double> FREQ_HW;
+	
 	// options are initialized here in order to make this file more readable
 	static {
 		BENCHMARK_N_LOOPS = Option.create()
@@ -354,6 +370,18 @@ public class TurnusOptions {
 				setName("weight").//
 				setDescription("The action weights file. Supported file extensions is .exdf").//
 				setLongName("turnus.weight").//
+				setType(File.class).build();
+		
+		ACTION_WEIGHTS_SW = Option.create().//
+				setName("weightSW").//
+				setDescription("The action software weights file. Supported file extensions is .exdf").//
+				setLongName("turnus.weight.sw").//
+				setType(File.class).build();
+		
+		ACTION_WEIGHTS_HW = Option.create().//
+				setName("weightHW").//
+				setDescription("The action hardware weights file. Supported file extensions is .exdf").//
+				setLongName("turnus.weight.hw").//
 				setType(File.class).build();
 		
 		COMMUNICATION_WEIGHTS = Option.create().//
@@ -607,6 +635,25 @@ public class TurnusOptions {
 				.setDescription("The list of markow scheduler reports generated during the analyis")//
 				.setType(List.class)//
 				.build();
+		
+		FREQ = Option.create().//
+				setName("freq").//
+				setDescription("The Frequency in MHz ")//
+				.setLongName("turnus.freq").//
+				setType(Double.class).build();
+		
+		FREQ_SW = Option.create().//
+				setName("freqSW").//
+				setDescription("The Software Frequency in MHz ")//
+				.setLongName("turnus.freq.sw").//
+				setType(Double.class).build();
+		
+		FREQ_HW = Option.create().//
+				setName("freqHW").//
+				setDescription("The Hardware Frequency in MHz ")//
+				.setLongName("turnus.freq.hw").//
+				setType(Double.class).build();
+		
 	}
 
 	/**

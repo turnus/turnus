@@ -56,18 +56,22 @@ public class XmlNetworkWeightReader {
 
 	boolean parseVarianceAttr = false;
 	boolean parseFiringAttr = false;
-	
+
 	public XmlNetworkWeightReader() {
 		this.parseVarianceAttr = false;
 		this.parseFiringAttr = false;
 	}
-	
+
 	public XmlNetworkWeightReader(Boolean parseVarianceAttr, Boolean parseFiringAttr) {
 		this.parseVarianceAttr = parseVarianceAttr;
 		this.parseFiringAttr = parseFiringAttr;
-	}	
+	}
 
 	public NetworkWeight load(File file) throws TurnusException {
+		return load(file, 1);
+	}
+
+	public NetworkWeight load(File file, double factor) throws TurnusException {
 		XMLStreamReader reader = null;
 		try {
 			InputStream stream = new BufferedInputStream(new FileInputStream(file));
@@ -105,10 +109,10 @@ public class XmlNetworkWeightReader {
 						}
 						String meanStr = reader.getAttributeValue("", CLOCK_MEAN);
 						String minStr = reader.getAttributeValue("", CLOCK_MIN);
-						String maxStr = reader.getAttributeValue("", CLOCK_MAX); 
+						String maxStr = reader.getAttributeValue("", CLOCK_MAX);
 
 						String varStr = null;
-						if(parseFiringAttr) {
+						if (parseFiringAttr) {
 							try {
 								varStr = reader.getAttributeValue("", CLOCK_VAR);
 							} catch (Exception e) {
@@ -116,12 +120,12 @@ public class XmlNetworkWeightReader {
 							}
 						}
 						String firingsStr = null;
-						if(parseFiringAttr) {
+						if (parseFiringAttr) {
 							try {
 								firingsStr = reader.getAttributeValue("", FIRINGS);
 							} catch (Exception e) {
 								Logger.error("Firings of <%s,%s> is not defined.");
-							}							
+							}
 						}
 
 						if (meanStr == null) {
@@ -129,11 +133,11 @@ public class XmlNetworkWeightReader {
 									+ "\": action weight not specified. Line " + reader.getLocation().getLineNumber());
 						}
 
-						double mean = Double.parseDouble(meanStr);
+						double mean = Double.parseDouble(meanStr) / factor;
 
 						double min = 0.0;
 						try {
-							min = Double.parseDouble(minStr);
+							min = Double.parseDouble(minStr) / factor;
 						} catch (Exception e) {
 							Logger.warning("Min weight of <%s,%s> is not defined. Set to %f", actor, action, mean);
 							min = mean;
@@ -141,7 +145,7 @@ public class XmlNetworkWeightReader {
 
 						double max = 0.0;
 						try {
-							max = Double.parseDouble(maxStr);
+							max = Double.parseDouble(maxStr) / factor;
 						} catch (Exception e) {
 							Logger.warning("Max weight of <%s,%s> is not defined. Set to %f", actor, action, mean);
 							max = mean;
@@ -157,8 +161,8 @@ public class XmlNetworkWeightReader {
 						w.setMeanClockCycles(mean);
 						w.setMinClockCycles(min);
 						w.setMaxClockCycles(max);
-						
-						if(parseVarianceAttr) {
+
+						if (parseVarianceAttr) {
 							double var = 0.0;
 							try {
 								var = Double.parseDouble(varStr);
@@ -167,8 +171,8 @@ public class XmlNetworkWeightReader {
 							}
 							w.setVarClockCycles(var);
 						}
-						
-						if(parseFiringAttr) {
+
+						if (parseFiringAttr) {
 							int firings = 0;
 							try {
 								firings = Integer.parseInt(firingsStr);
