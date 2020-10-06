@@ -246,6 +246,12 @@ public class TurnusOptions {
 	@Description("Hardware Frequency in MHz. ")
 	public static final Option<Double> FREQ_HW;
 	
+	@Description("Number of available CPU cores for partitioning")
+	public static final Option<Integer> NUM_CORES;
+	
+	@Description("Partition contstraint file")
+	public static final Option<File> PARTITION_CONSTRAINT;
+	
 	// options are initialized here in order to make this file more readable
 	static {
 		BENCHMARK_N_LOOPS = Option.create()
@@ -654,6 +660,17 @@ public class TurnusOptions {
 				.setLongName("turnus.freq.hw").//
 				setType(Double.class).build();
 		
+		NUM_CORES = Option.create().//
+				setName("numCores").//
+				setDescription("Number of available software cores for partitioning").//
+				setLongName("turnus.analysis.partitioning.cores").//
+				setType(Integer.class).build();
+		
+		PARTITION_CONSTRAINT = Option.create()
+				.setName("partitionConstraint")
+				.setDescription("The hardware/software partition contstraints")
+				.setLongName("turnus.analysis.partitioning.hetero.constraint")
+				.setType(File.class).build();
 	}
 
 	/**

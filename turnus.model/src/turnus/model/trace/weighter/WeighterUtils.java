@@ -37,7 +37,7 @@ import turnus.common.configuration.Configuration;
 import turnus.model.mapping.NetworkWeight;
 import turnus.model.trace.weighter.impl.AverageTraceWeighter;
 import turnus.model.trace.weighter.impl.NormalDistributionTraceWeighter;
-
+import turnus.model.mapping.NetworkPartitioning;
 /**
  * 
  * @author Simone Casale Brunet
@@ -59,4 +59,6 @@ public class WeighterUtils {
 			return new AverageTraceWeighter(weights);
 		}
 	}
+	
+	
 }
