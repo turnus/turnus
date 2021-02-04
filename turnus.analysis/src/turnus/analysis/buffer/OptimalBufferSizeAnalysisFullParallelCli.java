@@ -34,6 +34,7 @@ package turnus.analysis.buffer;
 import static turnus.common.TurnusOptions.MAX_ITERATIONS;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
+import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
@@ -203,6 +204,7 @@ public class OptimalBufferSizeAnalysisFullParallelCli implements IApplication{
 				.setOption(MAPPING_FILE, true)//
 				.setOption(ANALYSIS_BUFFER_POW2, false)//
 				.setOption(BUFFER_SIZE_FILE, false)//
+				.setOption(RELEASE_BUFFERS_AFTER_PROCESSING, false)//
 				.setOption(MAX_ITERATIONS, false);
 		configuration = cliParser.parse(args);
 	}

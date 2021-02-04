@@ -136,7 +136,7 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 				iteration++;
 			}
 
-			b.append("| Source-Actor | Source-Port | Target-Actor | Target-Port  | Nominal ");
+			b.append("| Source | Source-Port | Target | Target-Port  | Nominal ");
 			for (i = 1; i < iteration; i++) {
 				b.append("| Conf. " + i);
 			}

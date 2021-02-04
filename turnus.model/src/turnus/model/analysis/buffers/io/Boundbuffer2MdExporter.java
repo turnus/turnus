@@ -88,7 +88,7 @@ public class Boundbuffer2MdExporter implements FileExporter<BoundedBuffersReport
 
 			b.append("\n");
 
-			b.append("| source-actor | source-port | target-actor | target-port | type | tokens | bits\n");
+			b.append("| source | source-port | target | target-port | type | tokens | bits\n");
 			b.append("|:----|:----|:----|:----|:----|:----|:----\n");
 			for (BoundedBufferData bd : bdata) {
 				Buffer buffer = bd.getBuffer();

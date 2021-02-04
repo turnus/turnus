@@ -44,9 +44,9 @@ public class XmlBufferSizeMarkup {
 
 	public static final String BUFFER = "connection";
 	public static final String BUFFER_SIZE = "size";
-	public static final String BUFFER_SRC_ACTOR = "source-actor";
+	public static final String BUFFER_SRC_ACTOR = "source";
 	public static final String BUFFER_SRC_PORT = "source-port";
-	public static final String BUFFER_TGT_ACTOR = "target-actor";
+	public static final String BUFFER_TGT_ACTOR = "target";
 	public static final String BUFFER_TGT_PORT = "target-port";
 	public static final String BXDF = "bxdf";
 	public static final String BXDF_DEFAULT_SIZE = "default-size";
