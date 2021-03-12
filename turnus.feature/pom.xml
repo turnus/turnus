@@ -3,10 +3,29 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>turnus.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
-	
+	<version>1.0.0-SNAPSHOT</version>
+
 	<parent>
 		<groupId>turnus</groupId>
 		<artifactId>turnus.core</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
+
+	<properties>
+		<tycho-version>1.6.0</tycho-version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<pomDependencies>consider</pomDependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
