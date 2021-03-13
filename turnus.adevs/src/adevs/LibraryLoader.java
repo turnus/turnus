@@ -67,7 +67,7 @@ public class LibraryLoader {
 				throw new TurnusRuntimeException("ADEVS is not supported on this OS.");
 			}
 			
-			System.loadLibrary("java_adevs");
+//			System.loadLibrary("java_adevs"); this shouldn't be needed ?
 		} catch (Exception e) {
 			throw new TurnusRuntimeException("ADEVS libraries cannot be loaded");
 		}
@@ -113,7 +113,7 @@ public class LibraryLoader {
 		InputStream is = LibraryLoader.class.getResourceAsStream(fileName);
 		File path = Files.createTempDir();
 		path.deleteOnExit();
-		addLibraryPath(path.getAbsolutePath());
+//		addLibraryPath(path.getAbsolutePath()); this shouldn't be needed ?
 
 		File file = new File(path, fileName);
 
