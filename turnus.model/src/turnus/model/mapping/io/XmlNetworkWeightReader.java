@@ -112,7 +112,7 @@ public class XmlNetworkWeightReader {
 						String maxStr = reader.getAttributeValue("", CLOCK_MAX);
 
 						String varStr = null;
-						if (parseFiringAttr) {
+						if (parseVarianceAttr) {
 							try {
 								varStr = reader.getAttributeValue("", CLOCK_VAR);
 							} catch (Exception e) {
