@@ -82,6 +82,7 @@ public class XmlNetworkWeightReader {
 
 		NetworkWeight weights = null;
 		String actor = null;
+		double frequency = 1.0;
 		try {
 			while (reader.hasNext()) {
 				reader.next();
@@ -101,6 +102,7 @@ public class XmlNetworkWeightReader {
 							throw new TurnusException("Parsing error in \"" + file.getAbsolutePath()
 									+ "\": actor name not specified. Line " + reader.getLocation().getLineNumber());
 						}
+						frequency = Double.parseDouble(reader.getAttributeValue("", FREQUENCY))*1000;
 					} else if (xmlElement.equals(ACTION)) {
 						String action = reader.getAttributeValue("", ACTION_ID);
 						if (action == null) {
@@ -133,11 +135,11 @@ public class XmlNetworkWeightReader {
 									+ "\": action weight not specified. Line " + reader.getLocation().getLineNumber());
 						}
 
-						double mean = Double.parseDouble(meanStr) / factor;
+						double mean = Double.parseDouble(meanStr) / factor / frequency;
 
 						double min = 0.0;
 						try {
-							min = Double.parseDouble(minStr) / factor;
+							min = Double.parseDouble(minStr) / factor / frequency;
 						} catch (Exception e) {
 							Logger.warning("Min weight of <%s,%s> is not defined. Set to %f", actor, action, mean);
 							min = mean;
@@ -145,7 +147,7 @@ public class XmlNetworkWeightReader {
 
 						double max = 0.0;
 						try {
-							max = Double.parseDouble(maxStr) / factor;
+							max = Double.parseDouble(maxStr) / factor / frequency;
 						} catch (Exception e) {
 							Logger.warning("Max weight of <%s,%s> is not defined. Set to %f", actor, action, mean);
 							max = mean;
@@ -165,7 +167,7 @@ public class XmlNetworkWeightReader {
 						if (parseVarianceAttr) {
 							double var = 0.0;
 							try {
-								var = Double.parseDouble(varStr);
+								var = Double.parseDouble(varStr) / (frequency*frequency);
 							} catch (Exception e) {
 								Logger.warning("Variance of <%s,%s> is not defined. Set to %f", actor, action, 0.0);
 							}

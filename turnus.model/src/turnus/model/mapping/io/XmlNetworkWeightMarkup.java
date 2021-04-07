@@ -47,6 +47,7 @@ public class XmlNetworkWeightMarkup {
 
 	public static final String ACTOR = "actor";
 	public static final String ACTOR_ID = "id";
+	public static final String FREQUENCY = "frequency";
 
 	public static final String ACTION = "action";
 	public static final String ACTION_ID = "id";

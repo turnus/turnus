@@ -43,6 +43,7 @@ public class XmlSchedulingWeightMarkup {
 
 	public static final String ACTOR = "actor";
 	public static final String ACTOR_ID = "id";
+	public static final String FREQUENCY = "frequency";
 
 	public static final String SCHEDULING = "scheduling";
 	public static final String SCHEDULING_SOURCE = "source";

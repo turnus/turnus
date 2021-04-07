@@ -31,6 +31,7 @@
  */
 package turnus.model.mapping.io;
 
+import static turnus.model.mapping.io.XmlNetworkWeightMarkup.FREQUENCY;
 import static turnus.model.mapping.io.XmlSchedulingWeightMarkup.*;
 
 import java.io.BufferedInputStream;
@@ -78,6 +79,7 @@ public class XmlSchedulingWeightReader {
 
 		SchedulingWeight weights = null;
 		String actor = null;
+		double frequency = 1.0;
 		try {
 			while (reader.hasNext()) {
 				reader.next();
@@ -97,6 +99,7 @@ public class XmlSchedulingWeightReader {
 							throw new TurnusException("Parsing error in \"" + file.getAbsolutePath()
 									+ "\": actor name not specified. Line " + reader.getLocation().getLineNumber());
 						}
+						frequency = Double.parseDouble(reader.getAttributeValue("", FREQUENCY))*1000;
 					} else if (xmlElement.equals(SCHEDULING)) {
 						String source = reader.getAttributeValue("", SCHEDULING_SOURCE);
 						if (source == null) {
@@ -134,11 +137,11 @@ public class XmlSchedulingWeightReader {
 									+ "\": action weight not specified. Line " + reader.getLocation().getLineNumber());
 						}
 
-						double mean = Double.parseDouble(meanStr);
+						double mean = Double.parseDouble(meanStr) / frequency;
 
 						double min = 0.0;
 						try {
-							min = Double.parseDouble(minStr);
+							min = Double.parseDouble(minStr) / frequency;
 						} catch (Exception e) {
 							Logger.warning("Min weight in Line %d is not defined. Set to %f", reader.getLocation().getLineNumber(), mean);
 							min = mean;
@@ -146,7 +149,7 @@ public class XmlSchedulingWeightReader {
 
 						double max = 0.0;
 						try {
-							max = Double.parseDouble(maxStr);
+							max = Double.parseDouble(maxStr) / frequency;
 						} catch (Exception e) {
 							Logger.warning("Max weight in Line %d is not defined. Set to %f", reader.getLocation().getLineNumber(), mean);
 							max = mean;
@@ -166,7 +169,7 @@ public class XmlSchedulingWeightReader {
 						if(parseVarianceAttr) {
 							double var = 0.0;
 							try {
-								var = Double.parseDouble(varStr);
+								var = Double.parseDouble(varStr) / (frequency*frequency);
 							} catch (Exception e) {
 								Logger.warning("Variance in Line %d is not defined. Set to %f", reader.getLocation().getLineNumber(), 0.0);
 							}
