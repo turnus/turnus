@@ -55,4 +55,5 @@ public class XmlCommunicationWeightMarkup {
 	public static final String TYPE = "type";
 	public static final String PERCENTAGE = "percentage";
 	public static final String LATENCY = "latency";
+	public static final String FREQUENCY = "frequency";
 }

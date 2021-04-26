@@ -45,6 +45,7 @@ import static turnus.model.mapping.io.XmlCommunicationWeightMarkup.TARGET_ACTOR;
 import static turnus.model.mapping.io.XmlCommunicationWeightMarkup.TARGET_PORT;
 import static turnus.model.mapping.io.XmlCommunicationWeightMarkup.TYPE;
 import static turnus.model.mapping.io.XmlCommunicationWeightMarkup.WRITE;
+import static turnus.model.mapping.io.XmlNetworkWeightMarkup.FREQUENCY;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -98,6 +99,7 @@ public class XmlCommunicationWeightReader {
 		String networkName = null;
 		String sourceActor = null, sourcePort = null, targetActor = null, targetPort = null;
 		String level = null, type = null ;
+		double frequency = 1.0;
 		try {
 			while (reader.hasNext()) {
 				reader.next();
@@ -163,9 +165,11 @@ public class XmlCommunicationWeightReader {
 							throw new TurnusException("Parsing error in \"" + file.getAbsolutePath()
 									+ "\": latency not specified. Line " + reader.getLocation().getLineNumber());
 						}
-						
+
+						frequency = Double.parseDouble(reader.getAttributeValue("", FREQUENCY))*1000;
+
 						double percentageVal = Double.parseDouble(percentageStr);
-						double latencyVal = Double.parseDouble(latencyStr);
+						double latencyVal = Double.parseDouble(latencyStr) / frequency;
 						
 						readWeights.get(buffer).add(new MemoryAccess(level, "read", type, percentageVal, latencyVal));
 					} else if (xmlElement.equals(WRITE)) {
@@ -184,9 +188,11 @@ public class XmlCommunicationWeightReader {
 							throw new TurnusException("Parsing error in \"" + file.getAbsolutePath()
 									+ "\": latency not specified. Line " + reader.getLocation().getLineNumber());
 						}
-						
+
+						frequency = Double.parseDouble(reader.getAttributeValue("", FREQUENCY))*1000;
+
 						double percentageVal = Double.parseDouble(percentageStr);
-						double latencyVal = Double.parseDouble(latencyStr);
+						double latencyVal = Double.parseDouble(latencyStr) / frequency;
 						
 						writeWeights.get(buffer).add(new MemoryAccess(level, "write", type, percentageVal, latencyVal));
 					}
