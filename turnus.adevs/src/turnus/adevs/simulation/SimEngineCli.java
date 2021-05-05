@@ -38,6 +38,7 @@ import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -54,12 +55,17 @@ import turnus.common.util.EcoreUtils;
 import turnus.model.ModelsRegister;
 import turnus.model.analysis.postprocessing.ActorStatisticsReport;
 import turnus.model.analysis.postprocessing.PostProcessingReport;
+import turnus.model.dataflow.Action;
+import turnus.model.dataflow.Actor;
+import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
+import turnus.model.dataflow.Port;
 import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.CommunicationWeight;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.mapping.NetworkWeight;
 import turnus.model.mapping.SchedulingWeight;
+import turnus.model.mapping.data.ClockCycles;
 import turnus.model.mapping.io.XmlBufferSizeReader;
 import turnus.model.mapping.io.XmlBufferSizeWriter;
 import turnus.model.mapping.io.XmlCommunicationWeightReader;
@@ -103,6 +109,8 @@ public class SimEngineCli implements IApplication {
 
 	private IProgressMonitor monitor = new NullProgressMonitor();
 
+	private boolean HETEROGENEOUS_WEIGHT_FIX = false;
+
 	private void parse(String[] args) throws TurnusException {
 		CliParser cliParser = new CliParser().setOption(TRACE_FILE, true)//
 				.setOption(ACTION_WEIGHTS, true)//
@@ -130,7 +138,7 @@ public class SimEngineCli implements IApplication {
 		CommunicationWeight communication = null;
 		BufferSize bufferSize = null;
 		int defaultBufferSize = 0;
-		
+		NetworkWeight weights = null;
 		Network network = null;
 		PostProcessingReport report = null;
 		
@@ -147,7 +155,7 @@ public class SimEngineCli implements IApplication {
 
 			try {
 				File weightsFile = configuration.getValue(ACTION_WEIGHTS);
-				NetworkWeight weights = new XmlNetworkWeightReader().load(weightsFile);
+				weights = new XmlNetworkWeightReader().load(weightsFile);
 				tWeighter = WeighterUtils.getTraceWeighter(configuration, weights);
 			} catch (Exception e) {
 				throw new TurnusException("Weights file is not valid", e);
@@ -197,6 +205,49 @@ public class SimEngineCli implements IApplication {
 				File schWeightsFile = configuration.getValue(SCHEDULING_WEIGHTS);
 				schWeight = new XmlSchedulingWeightReader().load(schWeightsFile);
 			} 
+		}
+
+		{ // STEP 1.5 : action corrections
+			if (HETEROGENEOUS_WEIGHT_FIX) { // add communication weight in action
+				try {
+					Set<Buffer> buffers = communication.getBuffers();
+					for (Actor actor : network.getActors()) {
+						String actorName = actor.getName();
+						for (Action action: actor.getActions()) {
+							String actionName = action.getName();
+							for(Port port : action.getInputPorts()) {
+								Buffer buffer = buffers.stream()
+										.filter(b -> b.getTarget() == port)
+										.findFirst()
+										.orElseGet(() -> null);
+								if (buffer != null) {
+									double latency = communication.getReadWeights(buffer).get(0).getLatency();
+									ClockCycles cl = weights.getWeight(actorName, actionName);
+									cl.setMeanClockCycles(latency + cl.getMeanClockCycles());
+									cl.setMinClockCycles(latency + cl.getMinClockCycles());
+									cl.setMaxClockCycles(latency + cl.getMinClockCycles());
+								}
+							}
+							for(Port port : action.getOutputPorts()) {
+								Buffer buffer = buffers.stream()
+										.filter(b -> b.getSource() == port)
+										.findFirst().orElseGet(() -> null);
+								if (buffer != null) {
+									double latency = communication.getWriteWeights(buffer).get(0).getLatency();
+									ClockCycles cl = weights.getWeight(actorName, actionName);
+									cl.setMeanClockCycles(latency + cl.getMeanClockCycles());
+									cl.setMinClockCycles(latency + cl.getMinClockCycles());
+									cl.setMaxClockCycles(latency + cl.getMinClockCycles());
+								}
+							}
+						}
+					}
+					tWeighter = WeighterUtils.getTraceWeighter(configuration, weights);
+					communication = null;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		{ // STEP 2 : Run the analysis
