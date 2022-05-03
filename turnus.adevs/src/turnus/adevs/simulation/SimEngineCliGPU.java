@@ -39,6 +39,9 @@ import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
 import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -81,17 +84,18 @@ import turnus.model.trace.weighter.WeighterUtils;
  * 
  * @author Simone Casale-Brunet 
  * @author Malgorzata Michalska
+ * @author Aurelien Bloch
  *
  */
-public class SimEngineCli implements IApplication {
+public class SimEngineCliGPU implements IApplication {
 
 	public static void main(String[] args) throws TurnusException {
 		ModelsRegister.init();
 
-		SimEngineCli cliApp = null;
+		SimEngineCliGPU cliApp = null;
 
 		try {
-			cliApp = new SimEngineCli();
+			cliApp = new SimEngineCliGPU();
 			cliApp.parse(args);
 		} catch (TurnusException e) {
 			return;
@@ -100,6 +104,7 @@ public class SimEngineCli implements IApplication {
 		try {
 			cliApp.run();
 		} catch (Exception e) {
+			e.printStackTrace();
 			Logger.error("Application error: %s", e.getMessage());
 		}
 	}
@@ -109,7 +114,9 @@ public class SimEngineCli implements IApplication {
 
 	private IProgressMonitor monitor = new NullProgressMonitor();
 
-	private boolean HETEROGENEOUS_WEIGHT_FIX = false;
+	private boolean HETEROGENEOUS_WEIGHT_FIX = true;
+	
+	public enum FifoType {CPU, GPU, HOSTFIFO};
 
 	private void parse(String[] args) throws TurnusException {
 		CliParser cliParser = new CliParser().setOption(TRACE_FILE, true)//
@@ -127,6 +134,90 @@ public class SimEngineCli implements IApplication {
 				.setOption(OUTPUT_DIRECTORY, false);
 		configuration = cliParser.parse(args);
 	}
+	
+	
+	
+	class HeterComWeight {
+		
+		Network network;
+		NetworkPartitioning partitioning;
+		CommunicationWeight communicationCPU;
+		CommunicationWeight communicationGPU;
+		CommunicationWeight communicationCPUHostFifo; 
+		CommunicationWeight communicationGPUHostFifo;
+		
+		Map<Actor, Map<Port, FifoType>> mapHostFifo;
+		
+		HeterComWeight(Network network,
+					   NetworkPartitioning partitioning,
+					   CommunicationWeight communicationCPU, 
+					   CommunicationWeight communicationGPU, 
+					   CommunicationWeight communicationCPUHostFifo, 
+					   CommunicationWeight communicationGPUHostFifo) {
+			this.partitioning = partitioning;
+			this.network = network;
+			this.communicationCPU = communicationCPU;
+			this.communicationGPU = communicationGPU;
+			this.communicationCPUHostFifo = communicationCPUHostFifo;
+			this.communicationGPUHostFifo = communicationGPUHostFifo;
+			generateMapping();
+		}
+
+		private void generateMapping() {
+			mapHostFifo = new HashMap<Actor, Map<Port, FifoType> >();
+			
+			for (Actor actor : network.getActors()) {
+				Map<Port, FifoType> entry = new HashMap<Port, FifoType>();
+				for (Port port : actor.getOutputPorts() ) {
+					FifoType sTpe = (partitioning.getPartition(actor.getName()).equals("PG"))? FifoType.GPU : FifoType.CPU;
+					for (Actor oActor : port.getOutputs().stream().map((b) -> b.getTarget().getOwner()).toArray(Actor[]::new)) {
+						FifoType oTpe = (partitioning.getPartition(oActor.getName()).equals("PG"))? FifoType.GPU : FifoType.CPU;
+						if(sTpe != oTpe) {
+							sTpe = FifoType.HOSTFIFO;
+							break;
+						}
+					}
+					entry.put(port, sTpe);
+				}
+				mapHostFifo.put(actor, entry);
+			}
+		}
+
+		public double getWriteLatency(Actor actor, Port port) {
+			if(port.getOutputs().isEmpty()) { return 0; } 
+			switch(mapHostFifo.get(actor).get(port)) {
+				case CPU:
+					return communicationCPU.getWriteWeights(port.getOutputs().get(0)).get(0).getLatency();
+				case GPU:
+					return communicationGPU.getWriteWeights(port.getOutputs().get(0)).get(0).getLatency();
+				case HOSTFIFO:
+					if (partitioning.getPartition(actor.getName()).equals("PG")) {
+						return communicationGPUHostFifo.getWriteWeights(port.getOutputs().get(0)).get(0).getLatency();
+					} else {
+						return communicationCPUHostFifo.getWriteWeights(port.getOutputs().get(0)).get(0).getLatency();
+					}
+			}
+			return 0;
+		}
+
+		public double getReadLatency(Actor actor, Port port) {
+			Port sPort = port.getInput().getSource();
+			Actor sActor = sPort.getOwner();
+			switch(mapHostFifo.get(sActor).get(sPort)) {
+				case CPU:
+					return communicationCPU.getReadWeights(port.getInput()).get(0).getLatency();
+				case GPU:
+					return communicationGPU.getReadWeights(port.getInput()).get(0).getLatency();
+				case HOSTFIFO:
+					if (partitioning.getPartition(actor.getName()).equals("PG")) {
+						return communicationGPUHostFifo.getReadWeights(port.getInput()).get(0).getLatency();
+					} else {
+						return communicationCPUHostFifo.getReadWeights(port.getInput()).get(0).getLatency();
+					}
+			}
+			return 0;
+		}
+	}
 
 	private PostProcessingReport run() throws TurnusException {
 		monitor.beginTask("Post processing simulation", IProgressMonitor.UNKNOWN);
@@ -134,11 +225,20 @@ public class SimEngineCli implements IApplication {
 		TraceProject tProject = null;
 		TraceWeighter tWeighter = null;
 		SchedulingWeight schWeight = null;
+		SchedulingWeight schWeightCPU = null;
+		SchedulingWeight schWeightGPU = null;
 		NetworkPartitioning partitioning = null;
 		CommunicationWeight communication = null;
+		CommunicationWeight communicationCPU = null;
+		CommunicationWeight communicationGPU = null;
+		CommunicationWeight communicationCPUHostFifo = null;
+		CommunicationWeight communicationGPUHostFifo = null;
+		HeterComWeight heterComWeight = null;
 		BufferSize bufferSize = null;
 		int defaultBufferSize = 0;
 		NetworkWeight weights = null;
+		NetworkWeight weightsCPU = null;
+		NetworkWeight weightsGPU = null;
 		Network network = null;
 		PostProcessingReport report = null;
 		
@@ -155,8 +255,10 @@ public class SimEngineCli implements IApplication {
 
 			try {
 				File weightsFile = configuration.getValue(ACTION_WEIGHTS);
-				weights = new XmlNetworkWeightReader().load(weightsFile);
-				tWeighter = WeighterUtils.getTraceWeighter(configuration, weights);
+				File weightsFileCPU = new File(weightsFile.getPath() + "/weights-CPU.exdf");
+				File weightsFileGPU = new File(weightsFile.getPath() + "/weights-GPU.exdf");
+				weightsCPU = new XmlNetworkWeightReader().load(weightsFileCPU);
+				weightsGPU = new XmlNetworkWeightReader().load(weightsFileGPU);
 			} catch (Exception e) {
 				throw new TurnusException("Weights file is not valid", e);
 			}
@@ -190,55 +292,73 @@ public class SimEngineCli implements IApplication {
 			
 			if (configuration.hasValue(COMMUNICATION_WEIGHTS)) {
 				File communicationWeightsFile = configuration.getValue(COMMUNICATION_WEIGHTS);
-				XmlCommunicationWeightReader reader = new XmlCommunicationWeightReader(network);
-				communication = reader.load(communicationWeightsFile);
-				
-				if (configuration.hasValue(WRITE_HIT_CONSTANT)) {
-					communication.setWriteHitConstant(configuration.getValue(WRITE_HIT_CONSTANT));
-				}
-				if (configuration.hasValue(WRITE_MISS_CONSTANT)) {
-					communication.setWriteMissConstant(configuration.getValue(WRITE_MISS_CONSTANT));
-				}
+				File communicationWeightsFileCPU = new File(communicationWeightsFile.getPath() + "/weights-CPU.cxdf");
+				File communicationWeightsFileGPU = new File(communicationWeightsFile.getPath() + "/weights-GPU.cxdf");
+				File communicationWeightsFileCPUHostFifo = new File(communicationWeightsFile.getPath() + "/weights-CPU-HostFifo.cxdf");
+				File communicationWeightsFileGPUHostFifo = new File(communicationWeightsFile.getPath() + "/weights-GPU-HostFifo.cxdf");
+				communicationCPU = new XmlCommunicationWeightReader(network).load(communicationWeightsFileCPU);
+				communicationGPU = new XmlCommunicationWeightReader(network).load(communicationWeightsFileGPU);
+				communicationCPUHostFifo = new XmlCommunicationWeightReader(network).load(communicationWeightsFileCPUHostFifo);
+				communicationGPUHostFifo = new XmlCommunicationWeightReader(network).load(communicationWeightsFileGPUHostFifo);
+				heterComWeight = new HeterComWeight(network, partitioning, communicationCPU, communicationGPU, communicationCPUHostFifo, communicationGPUHostFifo);
 			} 
 			
 			if (configuration.hasValue(SCHEDULING_WEIGHTS)) {
 				File schWeightsFile = configuration.getValue(SCHEDULING_WEIGHTS);
-				schWeight = new XmlSchedulingWeightReader().load(schWeightsFile);
+				File schWeightsFileCPU = new File(schWeightsFile.getPath() + "/weights-CPU.sxdf");
+				File schWeightsFileGPU = new File(schWeightsFile.getPath() + "/weights-GPU.sxdf");
+				schWeightCPU = new XmlSchedulingWeightReader().load(schWeightsFileCPU);
+				schWeightGPU = new XmlSchedulingWeightReader().load(schWeightsFileGPU);
 			} 
 		}
 
 		{ // STEP 1.5 : action corrections
-			if (HETEROGENEOUS_WEIGHT_FIX) { // add communication weight in action
-				try {
-					Set<Buffer> buffers = communication.getBuffers();
+			if (HETEROGENEOUS_WEIGHT_FIX) { 
+				
+				schWeight = new SchedulingWeight(network);
+				weights = new NetworkWeight(network);
+				
+				for (Actor actor : network.getActors()) {
+					String actorName = actor.getName();
+					if (partitioning.getPartition(actorName).equals("PG")) {
+						for (Action action: actor.getActions()) {
+							weights.setWeight(action, weightsGPU.getWeight(action));
+						}
+						for (Entry<String, Map<String, ClockCycles>> map : schWeightGPU.asTable().row(actorName).entrySet()) {
+							for ( Entry<String, ClockCycles> entry : map.getValue().entrySet()) {
+								schWeight.setWeight(actorName, entry.getKey(), map.getKey(), entry.getValue());
+							}
+						}
+					} else {
+						for (Action action: actor.getActions()) {
+							weights.setWeight(action, weightsCPU.getWeight(action));
+						}
+						for (Entry<String, Map<String, ClockCycles>> map : schWeightCPU.asTable().row(actorName).entrySet()) {
+							for ( Entry<String, ClockCycles> entry : map.getValue().entrySet()) {
+								schWeight.setWeight(actorName, entry.getKey(), map.getKey(), entry.getValue());
+							}
+						}
+					}
+				}
+
+				try { // add communication weight in action
 					for (Actor actor : network.getActors()) {
 						String actorName = actor.getName();
 						for (Action action: actor.getActions()) {
 							String actionName = action.getName();
 							for(Port port : action.getInputPorts()) {
-								Buffer buffer = buffers.stream()
-										.filter(b -> b.getTarget() == port)
-										.findFirst()
-										.orElseGet(() -> null);
-								if (buffer != null) {
-									double latency = communication.getReadWeights(buffer).get(0).getLatency();
-									ClockCycles cl = weights.getWeight(actorName, actionName);
-									cl.setMeanClockCycles(latency + cl.getMeanClockCycles());
-									cl.setMinClockCycles(latency + cl.getMinClockCycles());
-									cl.setMaxClockCycles(latency + cl.getMaxClockCycles());
-								}
+								double latency = heterComWeight.getReadLatency(actor, port);
+								ClockCycles cl = weights.getWeight(actorName, actionName);
+								cl.setMeanClockCycles(latency + cl.getMeanClockCycles());
+								cl.setMinClockCycles(latency + cl.getMinClockCycles());
+								cl.setMaxClockCycles(latency + cl.getMaxClockCycles());
 							}
 							for(Port port : action.getOutputPorts()) {
-								Buffer buffer = buffers.stream()
-										.filter(b -> b.getSource() == port)
-										.findFirst().orElseGet(() -> null);
-								if (buffer != null) {
-									double latency = communication.getWriteWeights(buffer).get(0).getLatency();
-									ClockCycles cl = weights.getWeight(actorName, actionName);
-									cl.setMeanClockCycles(latency + cl.getMeanClockCycles());
-									cl.setMinClockCycles(latency + cl.getMinClockCycles());
-									cl.setMaxClockCycles(latency + cl.getMaxClockCycles());
-								}
+								double latency = heterComWeight.getWriteLatency(actor, port);
+								ClockCycles cl = weights.getWeight(actorName, actionName);
+								cl.setMeanClockCycles(latency + cl.getMeanClockCycles());
+								cl.setMinClockCycles(latency + cl.getMinClockCycles());
+								cl.setMaxClockCycles(latency + cl.getMaxClockCycles());
 							}
 						}
 					}
@@ -249,7 +369,7 @@ public class SimEngineCli implements IApplication {
 				}
 			}
 		}
-
+		
 		{ // STEP 2 : Run the analysis
 			monitor.subTask("Running the simulation");
 			try {

@@ -114,6 +114,17 @@ public class SchedulingWeight {
 
 	}
 
+	public void setWeight(String actor, String lastAction, String action, ClockCycles cl) {
+		Map<String, ClockCycles> map = actionSelectionTable.get(actor, action);
+
+		if (map == null) {
+			map = new HashMap<>();
+			actionSelectionTable.put(actor, action, map);
+		}
+
+		map.put(lastAction, cl);
+	}
+
 	public boolean contains(String actor, String action) {
 		return (actionSelectionTable.contains(actor, action) ? 
 					actionSelectionTable.get(actor, action).containsKey("") : false) ? 

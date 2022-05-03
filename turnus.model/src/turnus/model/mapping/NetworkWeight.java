@@ -95,6 +95,10 @@ public class NetworkWeight {
 		return getWeight(action.getOwner().getName(), action.getName());
 	}
 
+	public void setWeight(Action action, ClockCycles cl) {
+		setWeight(action.getOwner().getName(), action.getName(), cl);
+	}
+
 	public ClockCycles getWeight(String actor, String action) {
 		ClockCycles weight = weightsTable.get(actor, action);
 		if (weight == null) {
@@ -102,6 +106,10 @@ public class NetworkWeight {
 			weightsTable.put(actor, action, weight);
 		}
 		return weight;
+	}
+
+	public void setWeight(String actor, String action, ClockCycles cl) {
+		weightsTable.put(actor, action, cl);
 	}
 
 	public boolean contains(Action action) {

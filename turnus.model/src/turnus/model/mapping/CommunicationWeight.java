@@ -80,20 +80,20 @@ public class CommunicationWeight {
 		this.readWeights = weights;
 		this.buffers.addAll(weights.keySet());
 	}
-	
+
 	public void setWriteWeights(Map<Buffer, List<MemoryAccess>> weights) {
 		this.writeWeights = weights;
 		this.buffers.addAll(weights.keySet());
 	}
-	
+
 	public List<MemoryAccess> getReadWeights(Buffer buffer) {
 		return readWeights.get(buffer);
 	}
-	
+
 	public List<MemoryAccess> getWriteWeights(Buffer buffer) {
 		return writeWeights.get(buffer);
 	}
-	
+
 	public List<MemoryAccess> getReadAccessByLevel(Buffer buffer, String level) {
 		List<MemoryAccess> accesses = new ArrayList<MemoryAccess>();
 		if (readWeights.containsKey(buffer)) {
