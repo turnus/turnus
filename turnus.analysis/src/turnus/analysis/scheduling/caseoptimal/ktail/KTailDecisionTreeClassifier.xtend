@@ -31,8 +31,8 @@ abstract class Condition{
 	new(){
 		partials=new ArrayList;
 	}
-	@Override
-	def override String toString(){
+	
+	override String toString(){
 		'''«FOR p:partials SEPARATOR '&&'»«p.toString»«ENDFOR»'''
 	}
 }
@@ -59,8 +59,7 @@ abstract class Condition{
 	def String toKey(){
 		'''«source»->«stateName»--«transitionSched»'''
 	}
-	@Override
-	def override subtreeToSource() {
+	override subtreeToSource() {
 	'''
 		next_state=«stateName»;
 	'''

@@ -1,25 +1,21 @@
 package turnus.analysis.scheduling.caseoptimal.ktail
-import turnus.common.io.Logger
-import java.util.LinkedHashSet
-import java.util.Iterator
-import turnus.model.analysis.scheduling.Sequence
-import turnus.model.analysis.scheduling.impl.SequenceImpl
-import turnus.model.analysis.scheduling.impl.SchedulingFactoryImpl
 
-import org.eclipse.xtend.lib.annotations.Accessors
 import com.google.common.collect.LinkedHashMultimap
-import java.util.LinkedHashMap
 import java.util.ArrayList
 import java.util.Arrays
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.HashSet
+import java.util.Iterator
+import java.util.LinkedHashMap
+import java.util.LinkedHashSet
 import org.apache.poi.ss.formula.eval.NotImplementedException
+import org.eclipse.xtend.lib.annotations.Accessors
+import turnus.common.io.Logger
 
 @Accessors class KTailStateFuser {
 	@Accessors(PUBLIC_GETTER)  InferenceFSM fsm;
 	new(LinkedHashMultimap<InferenceState, Prefix> eqClasses,LinkedHashMap<Prefix, InferenceState> prefixes) {
 	this.fsm = new InferenceFSM(eqClasses,prefixes);
-	}
+	} 
 	new(InferenceFSM fsm){
 		this.fsm=fsm;
 	}

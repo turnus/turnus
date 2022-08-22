@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>turnus.bundle</groupId>
 	<artifactId>turnus.bundle</artifactId>
@@ -71,6 +69,17 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>9.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-tree</artifactId>
+			<version>9.3</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.12</version>
@@ -136,10 +145,5 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.10</version>
 		</dependency>
-        <dependency>
-            <groupId>p2.osgi.bundle</groupId>
-            <artifactId>org.eclipse.osgi</artifactId>
-            <version>3.15.200.v20200214-1600</version>
-        </dependency>
-    </dependencies>
+	</dependencies>
 </project>

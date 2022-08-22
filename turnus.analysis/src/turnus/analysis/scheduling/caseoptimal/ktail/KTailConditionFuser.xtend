@@ -7,27 +7,26 @@ import turnus.analysis.scheduling.caseoptimal.ScheduleInferenceState
 import turnus.common.io.Logger
 import weka.core.Attribute
 import weka.core.DenseInstance
-import weka.core.FastVector
 import weka.core.Instances
 
 class KtailConditionFuseException extends Exception{
 	  //Parameterless Constructor
-      public new() {}
+      new() {}
 
       //Constructor that accepts a message
-      public new(String message)
+      new(String message)
       {
-         super(message);
+         super(message); 
       }
 }
 class KTailConditionFuser {
 	// provides methods for inferring more complex state variable based on fixed_value transitions
 	def decisionTreeFuse(LinkedHashMap<InferenceState,ScheduleInferenceState> states, LinkedHashMap<String,Integer> vars){
 		
-		var attInfo= new FastVector;
+		var attInfo= new ArrayList;
 		var stateVars=new LinkedHashMap
 		for(v:vars.entrySet){
-		attInfo.addElement(new Attribute(v.key))
+		attInfo.add(new Attribute(v.key))
 		stateVars.put(v.key,0 as double);
 		}
 		
@@ -41,7 +40,7 @@ class KTailConditionFuser {
 		val classNameArr = new ArrayList;
 		classNameArr.addAll(classNameSet);
 		val stateNameNominal=new Attribute("transition",classNameArr);
-		attInfo.addElement(stateNameNominal);
+		attInfo.add(stateNameNominal);
 		val instance_cap=10;//TODO check if this needs to be set fixed or it can grow
 		for(e:states.entrySet){
 			val s=e.value;
