@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src/"/>
 	<classpathentry exported="true" kind="lib" path="lib/arpack_combined_all-0.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="/Users/endrix/git/turnus_22_06/turnus/turnus.bundle/lib/asm-9.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/asm-analysis-5.0.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="/Users/endrix/git/turnus_22_06/turnus/turnus.bundle/lib/asm-tree-9.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/asm-util-5.0.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/asm-9.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/asm-tree-9.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/bounce-0.18.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/com.ibm.icu-64.2.0.v20190507-1337.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-cli-1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-codec-1.9.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-compress-1.19.jar"/>
@@ -16,27 +20,65 @@
 	<classpathentry exported="true" kind="lib" path="lib/fastutil-7.0.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/java-cup-11b-2015.03.26.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/java-cup-11b-runtime-2015.03.26.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/javax.annotation-1.2.0.v201602091430.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/javax.inject-1.0.0.v20091030.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/javax.json-1.0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/javax.json-1.1.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jniloader-1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jsr305-2.0.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jsr305-3.0.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/mtj-1.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/native_ref-java-1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/native_system-java-1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/netlib-java-1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/parboiled-core-1.1.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/parboiled-java-1.1.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/pegdown-1.5.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/poi-3.12.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/stax-utils-20070216.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/weka-stable-3.8.1.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-all-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/autolink-0.10.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-util-data-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-util-ast-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-util-sequence-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-abbreviation-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-admonition-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-anchorlink-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-aside-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-attributes-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-autolink-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-definition-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-emoji-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-enumerated-reference-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-escaped-character-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-footnotes-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-gfm-issues-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-gfm-strikethrough-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-gfm-tasklist-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-gfm-users-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-gitlab-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-ins-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-jekyll-front-matter-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-jekyll-tag-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-macros-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-media-tags-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-resizable-image-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-superscript-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-tables-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-toc-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-typographic-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-wikilink-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-xwiki-macros-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-yaml-front-matter-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-ext-youtube-embedded-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-html2md-converter-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-jira-converter-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-pdf-converter-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-profile-pegdown-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-util-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-util-builder-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-util-collection-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-util-dependency-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-util-format-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-util-html-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-util-misc-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-util-options-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-util-visitor-0.64.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/flexmark-youtrack-converter-0.64.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

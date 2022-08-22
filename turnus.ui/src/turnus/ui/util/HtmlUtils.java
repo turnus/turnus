@@ -31,14 +31,20 @@
  */
 package turnus.ui.util;
 
-import static org.pegdown.Extensions.AUTOLINKS;
-import static org.pegdown.Extensions.FENCED_CODE_BLOCKS;
-import static org.pegdown.Extensions.HARDWRAPS;
-import static org.pegdown.Extensions.TABLES;
-
 import java.io.InputStream;
+import java.util.Arrays;
 
-import org.pegdown.PegDownProcessor;
+import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
+import com.vladsch.flexmark.ext.emoji.EmojiExtension;
+import com.vladsch.flexmark.ext.emoji.EmojiImageType;
+import com.vladsch.flexmark.ext.emoji.EmojiShortcutType;
+import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
+import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
+import com.vladsch.flexmark.ext.tables.TablesExtension;
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.ast.Node;
+import com.vladsch.flexmark.util.data.MutableDataSet;
 
 import turnus.common.io.Logger;
 import turnus.common.util.FileUtils;
@@ -54,11 +60,9 @@ public class HtmlUtils {
 	/**
 	 * Append the given java-script
 	 * 
-	 * @param htmlContent
-	 *            the current html string
-	 * @param js
-	 *            the list of java-script files name (with extension) inside the
-	 *            html project path
+	 * @param htmlContent the current html string
+	 * @param js          the list of java-script files name (with extension) inside
+	 *                    the html project path
 	 * @return
 	 */
 	public static String appendJs(String htmlContent, String... js) {
@@ -81,11 +85,9 @@ public class HtmlUtils {
 	/**
 	 * Append the given css styles
 	 * 
-	 * @param htmlContent
-	 *            the current html string
-	 * @param css
-	 *            the list of css files name (with extension) inside the html
-	 *            project path
+	 * @param htmlContent the current html string
+	 * @param css         the list of css files name (with extension) inside the
+	 *                    html project path
 	 * @return
 	 */
 	public static String appendStyle(String htmlContent, String... css) {
@@ -116,8 +118,29 @@ public class HtmlUtils {
 	 * @return
 	 */
 	public static String markdown2Html(String mdString) {
-		int SETTINGS = HARDWRAPS | AUTOLINKS | TABLES | FENCED_CODE_BLOCKS;
-		return new PegDownProcessor(SETTINGS).markdownToHtml(mdString);
+		// int SETTINGS = HARDWRAPS | AUTOLINKS | TABLES | FENCED_CODE_BLOCKS;
+		// return new PegDownProcessor(SETTINGS).markdownToHtml(mdString);
+		MutableDataSet options = new MutableDataSet()
+				.set(Parser.EXTENSIONS,
+						Arrays.asList(AutolinkExtension.create(), StrikethroughExtension.create(),
+								TaskListExtension.create(), TablesExtension.create()))
+
+				.set(TablesExtension.WITH_CAPTION, false)
+				.set(TablesExtension.COLUMN_SPANS, false)
+				.set(TablesExtension.MIN_HEADER_ROWS, 1)
+				.set(TablesExtension.MAX_HEADER_ROWS, 1)
+				.set(TablesExtension.APPEND_MISSING_COLUMNS, true)
+				.set(TablesExtension.DISCARD_EXTRA_COLUMNS, true)
+				.set(TablesExtension.HEADER_SEPARATOR_COLUMN_MATCH, true)
+
+		// other options
+		;
+
+		Parser parser = Parser.builder(options).build();
+		HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+		Node document = parser.parse(mdString);
+		return renderer.render(document);
+
 	}
 
 }
