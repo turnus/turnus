@@ -35,9 +35,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
-import com.vladsch.flexmark.ext.emoji.EmojiExtension;
-import com.vladsch.flexmark.ext.emoji.EmojiImageType;
-import com.vladsch.flexmark.ext.emoji.EmojiShortcutType;
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
 import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
@@ -118,29 +115,16 @@ public class HtmlUtils {
 	 * @return
 	 */
 	public static String markdown2Html(String mdString) {
-		// int SETTINGS = HARDWRAPS | AUTOLINKS | TABLES | FENCED_CODE_BLOCKS;
-		// return new PegDownProcessor(SETTINGS).markdownToHtml(mdString);
-		MutableDataSet options = new MutableDataSet()
-				.set(Parser.EXTENSIONS,
-						Arrays.asList(AutolinkExtension.create(), StrikethroughExtension.create(),
-								TaskListExtension.create(), TablesExtension.create()))
-
-				.set(TablesExtension.WITH_CAPTION, false)
-				.set(TablesExtension.COLUMN_SPANS, false)
-				.set(TablesExtension.MIN_HEADER_ROWS, 1)
-				.set(TablesExtension.MAX_HEADER_ROWS, 1)
-				.set(TablesExtension.APPEND_MISSING_COLUMNS, true)
-				.set(TablesExtension.DISCARD_EXTRA_COLUMNS, true)
-				.set(TablesExtension.HEADER_SEPARATOR_COLUMN_MATCH, true)
-
-		// other options
-		;
+		MutableDataSet options = new MutableDataSet().set(
+				Parser.EXTENSIONS, Arrays.asList(AutolinkExtension.create(),
+				StrikethroughExtension.create(), 
+				TaskListExtension.create(), 
+				TablesExtension.create()));
 
 		Parser parser = Parser.builder(options).build();
 		HtmlRenderer renderer = HtmlRenderer.builder(options).build();
 		Node document = parser.parse(mdString);
 		return renderer.render(document);
-
 	}
 
 }
