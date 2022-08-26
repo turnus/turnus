@@ -16,7 +16,7 @@
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<codehaus-version>3.0.0</codehaus-version>
-		<tycho-version>2.7.3</tycho-version>
+		<tycho-version>2.6.0</tycho-version>
 		<platformSystemProperties></platformSystemProperties>
 		<moduleProperties></moduleProperties>
 		<systemProperties></systemProperties>
