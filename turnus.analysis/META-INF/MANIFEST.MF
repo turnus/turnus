@@ -5,13 +5,15 @@ Bundle-SymbolicName: turnus.analysis;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: turnus.analysis.Activator
 Bundle-Vendor: turnus
-Require-Bundle: org.eclipse.core.runtime,org.eclipse.ui,
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
  turnus.common;bundle-version="1.0.0",
  turnus.model;bundle-version="1.0.0",
  com.google.guava,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib,
- org.eclipse.xtend.lib.macro
+ org.eclipse.xtend.lib.macro,
+ turnus.adevs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: turnus.analysis,
@@ -36,5 +38,6 @@ Export-Package: turnus.analysis,
  turnus.analysis.trace.markov
 Import-Package: turnus.adevs.logging,
  turnus.adevs.logging.impl,
- turnus.adevs.simulation
+ turnus.adevs.simulation,
+ turnus.adevs.simulation.Heter
 Automatic-Module-Name: turnus.analysis
