@@ -68,7 +68,6 @@ import turnus.model.mapping.io.XmlNetworkWeightReader;
 import turnus.model.mapping.io.XmlSchedulingWeightReader;
 import turnus.model.trace.TraceProject;
 import turnus.model.trace.impl.splitted.SplittedTraceLoader;
-import turnus.model.trace.weighter.TraceWeighter;
 
 public class SimEngineGPUStaticCli implements IApplication {
 
@@ -122,12 +121,9 @@ public class SimEngineGPUStaticCli implements IApplication {
 		monitor.beginTask("Post processing simulation", IProgressMonitor.UNKNOWN);
 
 		TraceProject tProject = null;
-		TraceWeighter tWeighter = null;
-		SchedulingWeight schWeight = null;
 		SchedulingWeight schWeightCPU = null;
 		SchedulingWeight schWeightGPU = null;
 		NetworkPartitioning partitioning = null;
-		CommunicationWeight communication = null;
 		CommunicationWeight communicationCPU = null;
 		CommunicationWeight communicationGPU = null;
 		CommunicationWeight communicationCPUHostFifo = null;
@@ -135,7 +131,6 @@ public class SimEngineGPUStaticCli implements IApplication {
 		HeterComWeight heterComWeight = null;
 		BufferSize bufferSize = null;
 		int defaultBufferSize = 0;
-		NetworkWeight weights = null;
 		NetworkWeight weightsCPU = null;
 		NetworkWeight weightsGPU = null;
 		Network network = null;

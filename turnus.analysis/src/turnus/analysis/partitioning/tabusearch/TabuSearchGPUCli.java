@@ -49,8 +49,6 @@ import static turnus.common.TurnusOptions.TABU_WDIR;
 import static turnus.common.TurnusOptions.TABU_P;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
-import static turnus.common.TurnusOptions.WRITE_HIT_CONSTANT;
-import static turnus.common.TurnusOptions.WRITE_MISS_CONSTANT;
 import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
 import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
@@ -66,7 +64,6 @@ import org.eclipse.equinox.app.IApplicationContext;
 
 import turnus.adevs.simulation.SimEngine;
 import turnus.adevs.simulation.Heter.HeterComWeight;
-import turnus.adevs.simulation.Heter.SimEngineGPU;
 import turnus.adevs.simulation.Heter.SimEngineGPUDynamic;
 import turnus.adevs.simulation.Heter.SimEngineGPUMeasured;
 import turnus.adevs.simulation.Heter.SimEngineGPUStatic;
@@ -93,7 +90,6 @@ import turnus.model.mapping.io.XmlSchedulingWeightReader;
 import turnus.model.trace.TraceProject;
 import turnus.model.trace.impl.splitted.SplittedTraceLoader;
 import turnus.model.trace.weighter.TraceWeighter;
-import turnus.model.trace.weighter.WeighterUtils;
 
 public class TabuSearchGPUCli implements IApplication {
 	
@@ -133,7 +129,7 @@ public class TabuSearchGPUCli implements IApplication {
 		String simulator = null;
 		String cmd = null;
 		String wDir = null;
-		SimEngine simulation;
+		SimEngine simulation = null;
 		ActorStatisticsReport report = null;
 
 		{ // STEP 1 : parse the configuration
@@ -246,7 +242,7 @@ public class TabuSearchGPUCli implements IApplication {
 				CommunicationWeight communicationGPUHostFifo = new XmlCommunicationWeightReader(project.getNetwork()).load(communicationWeightsFileGPUHostFifo);
 				HeterComWeight heterComWeight = new HeterComWeight(project.getNetwork(), partitioning, communicationCPU, communicationGPU, communicationCPUHostFifo, communicationGPUHostFifo);
 				
-				simulation = new SimEngineGPUStatic(configuration, weightsCPU, weightsGPU, schWeightCPU, schWeightGPU, null);
+				simulation = new SimEngineGPUStatic(configuration, weightsCPU, weightsGPU, schWeightCPU, schWeightGPU, heterComWeight);
 			}
 			
 			simulation.setTraceProject(project);

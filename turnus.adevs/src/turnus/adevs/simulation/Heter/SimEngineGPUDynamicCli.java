@@ -68,8 +68,6 @@ import turnus.model.mapping.io.XmlNetworkWeightReader;
 import turnus.model.mapping.io.XmlSchedulingWeightReader;
 import turnus.model.trace.TraceProject;
 import turnus.model.trace.impl.splitted.SplittedTraceLoader;
-import turnus.model.trace.weighter.TraceWeighter;
-import turnus.model.trace.weighter.WeighterUtils;
 
 public class SimEngineGPUDynamicCli implements IApplication {
 
@@ -118,7 +116,6 @@ public class SimEngineGPUDynamicCli implements IApplication {
 		monitor.beginTask("Post processing simulation", IProgressMonitor.UNKNOWN);
 
 		TraceProject tProject = null;
-		TraceWeighter tWeighter = null;
 		SchedulingWeight schWeight = null;
 		NetworkPartitioning partitioning = null;
 		CommunicationWeight communication = null;
@@ -142,7 +139,6 @@ public class SimEngineGPUDynamicCli implements IApplication {
 			try {
 				File weightsFile = configuration.getValue(ACTION_WEIGHTS);
 				weights = new XmlNetworkWeightReader().load(weightsFile);
-				tWeighter = WeighterUtils.getTraceWeighter(configuration, weights);
 			} catch (Exception e) {
 				throw new TurnusException("Weights file is not valid", e);
 			}
