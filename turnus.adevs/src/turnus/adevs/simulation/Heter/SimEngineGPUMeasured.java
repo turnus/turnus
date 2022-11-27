@@ -44,6 +44,7 @@ public class SimEngineGPUMeasured extends SimEngineGPU {
 
 	private File tmpF;
 	private String cmd;
+	private int time;
 
 	public SimEngineGPUMeasured(String cmd) {
 		this.cmd = cmd;
@@ -71,20 +72,21 @@ public class SimEngineGPUMeasured extends SimEngineGPU {
 	private PostProcessingReport generateReport() {
 		PostprocessingFactory f = PostprocessingFactory.eINSTANCE;
 		PostProcessingReport finalReport = f.createPostProcessingReport();
-		// TODO do we need to add stuff there
+		finalReport.setTime(time);
 		return finalReport;
 	}
 
+	// only work on linux at the moment
 	@Override
 	public PostProcessingReport run() throws TurnusException {
 		try {
 			// execute code
-			String cmd_tmp = "/usr/bin/time -f \"%e\" " + cmd + tmpF.getAbsolutePath();
+			String cmd_tmp = "{ /usr/bin/time -f \"%e\" " + cmd + tmpF.getAbsolutePath() + "2>&1 > /dev/null ; }";
 			Process process;
 			process = Runtime.getRuntime().exec(cmd_tmp);
 			process.waitFor();
 
-			// TODO get time back
+			time = process.getInputStream().read();
 
 			tmpF.delete();
 		} catch (IOException e) {
