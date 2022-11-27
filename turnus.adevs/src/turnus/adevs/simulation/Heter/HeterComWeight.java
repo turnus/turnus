@@ -21,7 +21,7 @@ public class HeterComWeight {
 	
 	Map<Actor, Map<Port, FifoType>> mapHostFifo;
 	
-	HeterComWeight(Network network,
+	public HeterComWeight(Network network,
 				   NetworkPartitioning partitioning,
 				   CommunicationWeight communicationCPU, 
 				   CommunicationWeight communicationGPU, 

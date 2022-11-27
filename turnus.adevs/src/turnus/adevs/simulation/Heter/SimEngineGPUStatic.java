@@ -44,12 +44,6 @@ import turnus.model.mapping.SchedulingWeight;
 import turnus.model.mapping.data.ClockCycles;
 import turnus.model.trace.weighter.WeighterUtils;
 
-/**
- * 
- * @author Simone Casale-Brunet 
- * @author Malgorzata Michalska
- *
- */
 public class SimEngineGPUStatic extends SimEngineGPU {
 
 	private Configuration configuration;

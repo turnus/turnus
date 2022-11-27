@@ -31,41 +31,9 @@
  */
 package turnus.adevs.simulation.Heter;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-
-import adevs.Simulator;
-import turnus.adevs.logging.AdevsDataLogger;
-import turnus.adevs.logging.DataCollector;
-import turnus.adevs.model.AdevsModel;
-import turnus.adevs.model.AdevsModelBuilder;
-import turnus.adevs.model.AtomicActor;
-import turnus.adevs.model.AtomicActor.Status;
 import turnus.adevs.simulation.SimEngine;
-import turnus.adevs.model.AtomicActorPartition;
-import turnus.adevs.model.AtomicBuffer;
-import turnus.common.TurnusException;
-import turnus.common.io.Logger;
-import turnus.common.io.ProgressPrinter;
-import turnus.common.util.MathUtils;
-import turnus.model.analysis.postprocessing.PostProcessingData;
-import turnus.model.analysis.postprocessing.PostProcessingReport;
-import turnus.model.analysis.postprocessing.PostprocessingFactory;
 import turnus.model.dataflow.Network;
-import turnus.model.mapping.BufferSize;
-import turnus.model.mapping.CommunicationWeight;
-import turnus.model.mapping.NetworkPartitioning;
-import turnus.model.mapping.SchedulingWeight;
-import turnus.model.trace.TraceProject;
-import turnus.model.trace.weighter.TraceWeighter;
 
-/**
- * 
- * @author Simone Casale-Brunet 
- * @author Malgorzata Michalska
- *
- */
 public abstract class SimEngineGPU extends SimEngine {
 
 	private Network network;

@@ -38,10 +38,6 @@ import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
-import java.util.Set;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
@@ -58,17 +54,12 @@ import turnus.common.util.EcoreUtils;
 import turnus.model.ModelsRegister;
 import turnus.model.analysis.postprocessing.ActorStatisticsReport;
 import turnus.model.analysis.postprocessing.PostProcessingReport;
-import turnus.model.dataflow.Action;
-import turnus.model.dataflow.Actor;
-import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
-import turnus.model.dataflow.Port;
 import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.CommunicationWeight;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.mapping.NetworkWeight;
 import turnus.model.mapping.SchedulingWeight;
-import turnus.model.mapping.data.ClockCycles;
 import turnus.model.mapping.io.XmlBufferSizeReader;
 import turnus.model.mapping.io.XmlBufferSizeWriter;
 import turnus.model.mapping.io.XmlCommunicationWeightReader;
@@ -78,15 +69,7 @@ import turnus.model.mapping.io.XmlSchedulingWeightReader;
 import turnus.model.trace.TraceProject;
 import turnus.model.trace.impl.splitted.SplittedTraceLoader;
 import turnus.model.trace.weighter.TraceWeighter;
-import turnus.model.trace.weighter.WeighterUtils;
 
-/**
- * 
- * @author Simone Casale-Brunet 
- * @author Malgorzata Michalska
- * @author Aurelien Bloch
- *
- */
 public class SimEngineGPUStaticCli implements IApplication {
 
 	public static void main(String[] args) throws TurnusException {
