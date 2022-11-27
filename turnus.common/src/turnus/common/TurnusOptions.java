@@ -201,9 +201,18 @@ public class TurnusOptions {
 	@Description("Number that will be used to initialize the random generators inside the tabu search. ")
 	public static final Option<Integer> TABU_SEED;
 	
-	@Description("Neighborhood generator to be used fir the tabu search. ")
+	@Description("Neighborhood generator to be used for the tabu search. ")
 	public static final Option<String> TABU_GENERATOR;
 	
+	@Description("Simulator to be used for evaluating partitions for the tabu search")
+	public static final Option<String> TABU_SIM;
+
+	@Description("User command to be used in some Simulator to evaluate partition")
+	public static final Option<String> TABU_CMD;
+
+	@Description("Working directory of the profiling project to generate new weights during tabu search. ")
+	public static final Option<String> TABU_WDIR;
+
 	@Description("Partitioning algorithm to specify the initial configuration for the local/tabu search methods. ")
 	public static final Option<String> INITIAL_ALGORITHM;
 	
@@ -598,7 +607,25 @@ public class TurnusOptions {
 				setDescription("Specifies the neighborhood generator to be used by tabu search: RANDOM, IDLE, COMM_FREQ, BALANCING, PROB, JOINT. ")//
 				.setLongName("turnus.analysis.partitioning.tabu.generator").//
 				setType(String.class).build();
-		
+
+		TABU_SIM = Option.create().//
+				setName("tabuSim").//
+				setDescription("Specifies the way the partitions are evaluated: STATIC, DYNAMIC, MEASURED.")//
+				.setLongName("turnus.analysis.partitioning.tabu.sim").//
+				setType(String.class).build();
+
+		TABU_CMD = Option.create().//
+				setName("tabuCmd").//
+				setDescription("Specifies the user defined command to be used during partition evaluation. ")//
+				.setLongName("turnus.analysis.partitioning.tabu.cmd").//
+				setType(String.class).build();
+
+		TABU_WDIR = Option.create().//
+				setName("tabuWDir").//
+				setDescription("Specifies the working directory of the profiling project to generate new weights")//
+				.setLongName("turnus.analysis.partitioning.tabu.wdir").//
+				setType(String.class).build();
+
 		WRITE_HIT_CONSTANT = Option.create().//
 				setName("writeHit").//
 				setDescription("Defines a constant to be assigned as latency for write hit.")//
