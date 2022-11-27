@@ -31,61 +31,56 @@
  */
 package turnus.adevs.simulation.Heter;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Set;
 
-import adevs.Simulator;
-import turnus.adevs.logging.AdevsDataLogger;
-import turnus.adevs.logging.DataCollector;
-import turnus.adevs.model.AdevsModel;
-import turnus.adevs.model.AdevsModelBuilder;
-import turnus.adevs.model.AtomicActor;
-import turnus.adevs.model.AtomicActor.Status;
-import turnus.adevs.model.AtomicActorPartition;
-import turnus.adevs.model.AtomicBuffer;
 import turnus.common.TurnusException;
 import turnus.common.configuration.Configuration;
-import turnus.common.io.Logger;
-import turnus.common.io.ProgressPrinter;
-import turnus.common.util.MathUtils;
-import turnus.model.analysis.postprocessing.PostProcessingData;
-import turnus.model.analysis.postprocessing.PostProcessingReport;
-import turnus.model.analysis.postprocessing.PostprocessingFactory;
 import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Port;
-import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.CommunicationWeight;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.mapping.NetworkWeight;
 import turnus.model.mapping.SchedulingWeight;
 import turnus.model.mapping.data.ClockCycles;
-import turnus.model.trace.TraceProject;
-import turnus.model.trace.weighter.TraceWeighter;
+import turnus.model.mapping.io.XmlCommunicationWeightReader;
+import turnus.model.mapping.io.XmlNetworkPartitioningWriter;
+import turnus.model.mapping.io.XmlNetworkWeightReader;
+import turnus.model.mapping.io.XmlSchedulingWeightReader;
 import turnus.model.trace.weighter.WeighterUtils;
 
-/**
- * 
- * @author Simone Casale-Brunet 
- * @author Malgorzata Michalska
- *
- */
+
 public class SimEngineGPUDynamic extends SimEngineGPU {
 
 	private Configuration configuration;
 	private NetworkWeight weights;
 	private CommunicationWeight communication;
+	private boolean isTabu;
+	private String cmd;
+	private String wDir;
 
 	public SimEngineGPUDynamic(Configuration configuration, NetworkWeight weights, SchedulingWeight schWeight, CommunicationWeight communication) {
 		this.configuration = configuration;
 		this.weights = weights;
 		setSchedulingWeight(schWeight);
 		this.communication = communication;
+		isTabu = false;
 	}
-	
+
+	public SimEngineGPUDynamic(Configuration configuration, NetworkWeight weights, SchedulingWeight schWeight, CommunicationWeight communication, String cmd, String wDir) {
+		this.configuration = configuration;
+		this.weights = weights;
+		setSchedulingWeight(schWeight);
+		this.communication = communication;
+		this.cmd = cmd;
+		this.wDir = wDir;
+		isTabu = true;
+	}
+
 	private void updateWeight() {
 		Set<Buffer> buffers = communication.getBuffers();
 		for (Actor actor : getNetwork().getActors()) {
@@ -123,10 +118,38 @@ public class SimEngineGPUDynamic extends SimEngineGPU {
 		// remove communication eights as they are integrated in the action weight itself
 		setCommunicationWeight(null); 
 	}
-	
+
+	// currently only compatible on Linux
+	private void generateWeights() {
+		try {
+			// create mapping file
+			File temp = new File(Files.createTempFile("m", ".xcf").toString());
+			new XmlNetworkPartitioningWriter().write(getNetworkPartitioning(), temp);
+
+			// execute code
+			String cmd_tmp = cmd + temp.getAbsolutePath();
+			Process process = Runtime.getRuntime().exec(cmd_tmp);
+			process.waitFor();
+
+			weights = new XmlNetworkWeightReader().load(new File(wDir + "/profiling/weights.exdf"));
+			communication = new XmlCommunicationWeightReader(getNetwork()).load(new File(wDir + "/profiling/weights.cxdf"));
+			setSchedulingWeight(new XmlSchedulingWeightReader().load(new File(wDir + "/profiling/weights.sxdf")));
+
+			temp.delete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TurnusException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void setNetworkPartitioning(NetworkPartitioning partitioning) {
 		super.setNetworkPartitioning(partitioning);
+		if (isTabu) { generateWeights(); }
 		updateWeight();
 	}
+
 }
