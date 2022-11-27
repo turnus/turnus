@@ -31,42 +31,68 @@
  */
 package turnus.adevs.simulation.Heter;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-
-import adevs.Simulator;
-import turnus.adevs.logging.AdevsDataLogger;
-import turnus.adevs.logging.DataCollector;
-import turnus.adevs.model.AdevsModel;
-import turnus.adevs.model.AdevsModelBuilder;
-import turnus.adevs.model.AtomicActor;
-import turnus.adevs.model.AtomicActor.Status;
-import turnus.adevs.model.AtomicActorPartition;
-import turnus.adevs.model.AtomicBuffer;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import turnus.common.TurnusException;
-import turnus.common.io.Logger;
-import turnus.common.io.ProgressPrinter;
-import turnus.common.util.MathUtils;
-import turnus.model.analysis.postprocessing.PostProcessingData;
 import turnus.model.analysis.postprocessing.PostProcessingReport;
 import turnus.model.analysis.postprocessing.PostprocessingFactory;
-import turnus.model.mapping.BufferSize;
-import turnus.model.mapping.CommunicationWeight;
 import turnus.model.mapping.NetworkPartitioning;
-import turnus.model.mapping.SchedulingWeight;
-import turnus.model.trace.TraceProject;
-import turnus.model.trace.weighter.TraceWeighter;
+import turnus.model.mapping.io.XmlNetworkPartitioningWriter;
 
-/**
- * 
- * @author Simone Casale-Brunet 
- * @author Malgorzata Michalska
- *
- */
 public class SimEngineGPUMeasured extends SimEngineGPU {
 
-	public SimEngineGPUMeasured() {
-		
+	private File tmpF;
+	private String cmd;
+
+	public SimEngineGPUMeasured(String cmd) {
+		this.cmd = cmd;
+	}
+
+	// currently only compatible on Linux
+	private void generateWeights() {
+		try {
+			// create mapping file
+			tmpF = new File(Files.createTempFile("m", ".xcf").toString());
+			new XmlNetworkPartitioningWriter().write(getNetworkPartitioning(), tmpF);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TurnusException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void setNetworkPartitioning(NetworkPartitioning partitioning) {
+		super.setNetworkPartitioning(partitioning);
+		generateWeights();
+	}
+
+	private PostProcessingReport generateReport() {
+		PostprocessingFactory f = PostprocessingFactory.eINSTANCE;
+		PostProcessingReport finalReport = f.createPostProcessingReport();
+		// TODO do we need to add stuff there
+		return finalReport;
+	}
+
+	@Override
+	public PostProcessingReport run() throws TurnusException {
+		try {
+			// execute code
+			String cmd_tmp = "/usr/bin/time -f \"%e\" " + cmd + tmpF.getAbsolutePath();
+			Process process;
+			process = Runtime.getRuntime().exec(cmd_tmp);
+			process.waitFor();
+
+			// TODO get time back
+
+			tmpF.delete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		return generateReport();
 	}
 }
