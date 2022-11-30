@@ -36,20 +36,27 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.util.Date;
+
+import turnus.adevs.logging.DataCollector;
 import turnus.common.TurnusException;
+import turnus.model.analysis.postprocessing.PostProcessingData;
 import turnus.model.analysis.postprocessing.PostProcessingReport;
 import turnus.model.analysis.postprocessing.PostprocessingFactory;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.mapping.io.XmlNetworkPartitioningWriter;
+import turnus.model.trace.TraceProject;
 
 public class SimEngineGPUMeasured extends SimEngineGPU {
 
 	private File tmpF;
 	private String cmd;
 	private double time;
+	private TraceProject tProject;
 
-	public SimEngineGPUMeasured(String cmd) {
+	public SimEngineGPUMeasured(String cmd, TraceProject tProject) {
 		this.cmd = cmd;
+		this.tProject = tProject;
 	}
 
 	// currently only compatible on Linux
@@ -74,7 +81,19 @@ public class SimEngineGPUMeasured extends SimEngineGPU {
 	private PostProcessingReport generateReport() {
 		PostprocessingFactory f = PostprocessingFactory.eINSTANCE;
 		PostProcessingReport finalReport = f.createPostProcessingReport();
+		finalReport.setAlgorithm("GPUMeasured");
+		finalReport.setDate(new Date());
+		finalReport.setNetwork(tProject.getNetwork());
 		finalReport.setTime(time);
+		finalReport.setDeadlock(false);
+
+		for (DataCollector collector : getDataCollector()) {
+			PostProcessingData data = collector.generateReport();
+			if (data != null) {
+				finalReport.getReports().add(data);
+			}
+		}
+
 		return finalReport;
 	}
 

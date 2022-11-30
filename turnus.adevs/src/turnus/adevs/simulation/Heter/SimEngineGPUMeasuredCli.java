@@ -47,6 +47,8 @@ import turnus.model.ModelsRegister;
 import turnus.model.analysis.postprocessing.PostProcessingReport;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.mapping.io.XmlNetworkPartitioningReader;
+import turnus.model.trace.TraceProject;
+import turnus.model.trace.impl.splitted.SplittedTraceLoader;
 
 public class SimEngineGPUMeasuredCli implements IApplication {
 
@@ -77,6 +79,7 @@ public class SimEngineGPUMeasuredCli implements IApplication {
 	
 	private void parse(String[] args) throws TurnusException {
 		CliParser cliParser = new CliParser()//
+				.setOption(TRACE_FILE, true)//
 				.setOption(MAPPING_FILE, true)//
 				.setOption(TABU_CMD, false)//
 				.setOption(OUTPUT_DIRECTORY, false);
@@ -86,11 +89,21 @@ public class SimEngineGPUMeasuredCli implements IApplication {
 	private PostProcessingReport run() throws TurnusException {
 		monitor.beginTask("Post processing simulation", IProgressMonitor.UNKNOWN);
 
+		TraceProject project = null;
 		NetworkPartitioning partitioning = null;
 		PostProcessingReport report = null;
 		String cmd = null;
 		{ // STEP 1 : parse the configuration
 			monitor.subTask("Parsing the configuration");
+			if (configuration.hasValue(TRACE_FILE)) {	
+				try {
+					File traceFile = configuration.getValue(TRACE_FILE);
+					project = TraceProject.open(traceFile);
+					project.loadTrace(new SplittedTraceLoader(), configuration);
+				} catch (Exception e) {
+					throw new TurnusException("The trace project cannot be loaded", e);
+				}
+			}
 			try {
 				File mappingFile = configuration.getValue(MAPPING_FILE);
 				XmlNetworkPartitioningReader reader = new XmlNetworkPartitioningReader();
@@ -107,7 +120,7 @@ public class SimEngineGPUMeasuredCli implements IApplication {
 		{ // STEP 2 : Run the analysis
 			monitor.subTask("Running the simulation");
 			try {
-				simulation = new SimEngineGPUMeasured(cmd);
+				simulation = new SimEngineGPUMeasured(cmd, project);
 				simulation.setNetworkPartitioning(partitioning);
 
 				report = simulation.run();
