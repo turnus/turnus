@@ -50,6 +50,7 @@ public class NetworkPartitioning implements Cloneable {
 	private Comparator<String> actorsSorter;
 	private Map<String, String> partitionMap = new HashMap<>();
 	private Map<String, String> schedulingMap = new HashMap<>();
+	private Set<String> partitions = new HashSet<String>();
 
 	private String networkName;
 
@@ -76,9 +77,8 @@ public class NetworkPartitioning implements Cloneable {
 
 	public Map<String, List<String>> asPartitionActorsMap() {
 		Map<String, List<String>> map = new HashMap<>();
-		Set<String> components = new HashSet<>(partitionMap.values());
 
-		for (String component : components) {
+		for (String component : partitions) {
 			map.put(component, new ArrayList<String>());
 		}
 
@@ -88,15 +88,13 @@ public class NetworkPartitioning implements Cloneable {
 			map.get(component).add(actor);
 		}
 		
-		for (String component : components) {
+		for (String component : partitions) {
 			map.get(component).sort(actorsSorter);
 		}
 
 		return map;
 
 	}
-	
-	
 
 	public Map<String, String> asPartitionSchedulerMap() {
 		// check if all partitions are alive
@@ -116,6 +114,7 @@ public class NetworkPartitioning implements Cloneable {
 		NetworkPartitioning copy = new NetworkPartitioning(networkName);
 		copy.partitionMap = new HashMap<String, String>(partitionMap);
 		copy.schedulingMap = new HashMap<String, String>(schedulingMap);
+		copy.partitions = new HashSet<String>(partitions);
 		return copy;
 	}
 
@@ -137,6 +136,10 @@ public class NetworkPartitioning implements Cloneable {
 			components.add(component);
 		}
 		return components;
+	}
+
+	public Set<String> getAllPartitions() {
+		return partitions;
 	}
 
 	public String getScheduler(String component) {
@@ -180,6 +183,7 @@ public class NetworkPartitioning implements Cloneable {
 	}
 
 	public void setPartition(String actor, String partition) {
+		partitions.add(partition);
 		partitionMap.put(actor, partition);
 
 		// check if the partition has already a scheduler

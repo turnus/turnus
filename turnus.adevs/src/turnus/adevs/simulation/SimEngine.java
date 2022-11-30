@@ -91,7 +91,11 @@ public class SimEngine {
 	public void addDataCollector(DataCollector collector) {
 		dataCollectors.add(collector);
 	}
-	
+
+	public Collection<DataCollector> getDataCollector() {
+		return dataCollectors;
+	}
+
 	private void printActorStatus(double timer) {
 		for (AtomicActor actor : model.getActors()) {
 			Logger.debug(timer + ": " + actor.getActor().getName() + ": " + actor.getCurrentStatus());
