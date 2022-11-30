@@ -29,7 +29,7 @@
  * for the parts of Eclipse libraries used as well as that of the  covered work.
  * 
  */
-package turnus.analysis.partitioning.tabusearch;
+package turnus.analysis.partitioning.tabusearch.gpu;
 
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
@@ -135,12 +135,14 @@ public class TabuSearchGPUCli implements IApplication {
 		{ // STEP 1 : parse the configuration
 			monitor.subTask("Parsing the configuration");
 			// trace and weights - mandatory
-			try {
-				File traceFile = configuration.getValue(TRACE_FILE);
-				project = TraceProject.open(traceFile);
-				project.loadTrace(new SplittedTraceLoader(), configuration);
-			} catch (Exception e) {
-				throw new TurnusException("The trace project cannot be loaded", e);
+			if (configuration.hasValue(TRACE_FILE)) {
+				try {
+					File traceFile = configuration.getValue(TRACE_FILE);
+					project = TraceProject.open(traceFile);
+					project.loadTrace(new SplittedTraceLoader(), configuration);
+				} catch (Exception e) {
+					throw new TurnusException("The trace project cannot be loaded", e);
+				}
 			}
 
 			// either the mapping configuration or the scheduling policy must be specified, if both, only the mapping is taken
@@ -169,9 +171,6 @@ public class TabuSearchGPUCli implements IApplication {
 				defaultBufferSize = configuration.getValue(BUFFER_SIZE_DEFAULT);
 				bufferSize = new BufferSize(project.getNetwork());
 				bufferSize.setDefaultSize(defaultBufferSize);
-			} 
-			else {
-				throw new TurnusException("Buffer sizes are not specified.");
 			}
 			
 			if (configuration.hasValue(TABU_GENERATOR)) { 
@@ -211,7 +210,7 @@ public class TabuSearchGPUCli implements IApplication {
 					
 					simulation = new SimEngineGPUDynamic(configuration, weights, schWeight, communication, cmd, wDir);
 				} else if (simulator.equals("MEASURED")) {
-					simulation = new SimEngineGPUMeasured(cmd);
+					simulation = new SimEngineGPUMeasured(cmd, project);
 				} else {
 					gpuStatic = true;
 					Logger.warning("Simulator %s not recognized, default engine will be used.", simulator);
@@ -267,7 +266,7 @@ public class TabuSearchGPUCli implements IApplication {
 					tabuSearch.loadPartitioning(partitioning);
 				}
 				report = tabuSearch.run();
-				Logger.infoRaw(report.toString());
+//				Logger.infoRaw(report.toString());
 			} catch (Exception e) {
 				throw new TurnusException("The analysis cannot be completed", e);
 			}
@@ -289,7 +288,7 @@ public class TabuSearchGPUCli implements IApplication {
 				Logger.info("Tabu search partitioning report stored in \"%s\"", reportFile);
 
 				File xcfFile = changeExtension(reportFile, TurnusExtensions.NETWORK_PARTITIONING);
-				new XmlNetworkPartitioningWriter().write(report.asNetworkPartitioning(), xcfFile);
+				new XmlNetworkPartitioningWriter().write(tabuSearch.getFinalPartition(), xcfFile);
 				Logger.info("Network partitioning configuration stored in \"%s\"", xcfFile);
 
 			} catch (Exception e) {
@@ -306,7 +305,7 @@ public class TabuSearchGPUCli implements IApplication {
 	private void parse(String[] args) throws TurnusException {
 		CliParser cliParser = new CliParser()
 				.setOption(TRACE_FILE, true)//
-				.setOption(ACTION_WEIGHTS, true)//
+				.setOption(ACTION_WEIGHTS, false)//
 				.setOption(TRACE_WEIGHTER, false)//
 				.setOption(COMMUNICATION_WEIGHTS, false)//
 				.setOption(SCHEDULING_WEIGHTS, false)//
