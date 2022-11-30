@@ -31,8 +31,10 @@
  */
 package turnus.adevs.simulation.Heter;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import turnus.common.TurnusException;
 import turnus.model.analysis.postprocessing.PostProcessingReport;
@@ -44,7 +46,7 @@ public class SimEngineGPUMeasured extends SimEngineGPU {
 
 	private File tmpF;
 	private String cmd;
-	private int time;
+	private double time;
 
 	public SimEngineGPUMeasured(String cmd) {
 		this.cmd = cmd;
@@ -81,12 +83,16 @@ public class SimEngineGPUMeasured extends SimEngineGPU {
 	public PostProcessingReport run() throws TurnusException {
 		try {
 			// execute code
-			String cmd_tmp = "{ /usr/bin/time -f \"%e\" " + cmd + tmpF.getAbsolutePath() + "2>&1 > /dev/null ; }";
+			String cmd_tmp = " /usr/bin/time -f %e " + cmd + " " + tmpF.getAbsolutePath() + " > /dev/null ; ";
+			System.out.println(cmd_tmp);
 			Process process;
 			process = Runtime.getRuntime().exec(cmd_tmp);
 			process.waitFor();
 
-			time = process.getInputStream().read();
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(process.getErrorStream()));
+			String sTime = reader.readLine();
+			time = Double.parseDouble(sTime);
 
 			tmpF.delete();
 		} catch (IOException e) {

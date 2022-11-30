@@ -609,19 +609,19 @@ public class TurnusOptions {
 				setType(String.class).build();
 
 		TABU_SIM = Option.create().//
-				setName("tabuSim").//
+				setName("sim").//
 				setDescription("Specifies the way the partitions are evaluated: STATIC, DYNAMIC, MEASURED.")//
 				.setLongName("turnus.analysis.partitioning.tabu.sim").//
 				setType(String.class).build();
 
 		TABU_CMD = Option.create().//
-				setName("tabuCmd").//
+				setName("cmd").//
 				setDescription("Specifies the user defined command to be used during partition evaluation. ")//
 				.setLongName("turnus.analysis.partitioning.tabu.cmd").//
 				setType(String.class).build();
 
 		TABU_WDIR = Option.create().//
-				setName("tabuWDir").//
+				setName("WDir").//
 				setDescription("Specifies the working directory of the profiling project to generate new weights")//
 				.setLongName("turnus.analysis.partitioning.tabu.wdir").//
 				setType(String.class).build();
