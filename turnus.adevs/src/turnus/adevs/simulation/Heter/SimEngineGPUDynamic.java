@@ -51,6 +51,7 @@ import turnus.model.mapping.io.XmlCommunicationWeightReader;
 import turnus.model.mapping.io.XmlNetworkPartitioningWriter;
 import turnus.model.mapping.io.XmlNetworkWeightReader;
 import turnus.model.mapping.io.XmlSchedulingWeightReader;
+import turnus.model.trace.TraceProject;
 import turnus.model.trace.weighter.WeighterUtils;
 
 
@@ -150,6 +151,12 @@ public class SimEngineGPUDynamic extends SimEngineGPU {
 		super.setNetworkPartitioning(partitioning);
 		if (isTabu) { generateWeights(); }
 		updateWeight();
+	}
+
+	@Override
+	public void setTraceProject(TraceProject tProject) {
+		setNetwork(tProject.getNetwork());
+		super.setTraceProject(tProject);
 	}
 
 }

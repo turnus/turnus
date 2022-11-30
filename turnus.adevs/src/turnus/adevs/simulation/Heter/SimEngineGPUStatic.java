@@ -42,6 +42,7 @@ import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.mapping.NetworkWeight;
 import turnus.model.mapping.SchedulingWeight;
 import turnus.model.mapping.data.ClockCycles;
+import turnus.model.trace.TraceProject;
 import turnus.model.trace.weighter.WeighterUtils;
 
 public class SimEngineGPUStatic extends SimEngineGPU {
@@ -72,6 +73,12 @@ public class SimEngineGPUStatic extends SimEngineGPU {
 		updateWeight();
 	}
 	
+	@Override
+	public void setTraceProject(TraceProject tProject) {
+		setNetwork(tProject.getNetwork());
+		super.setTraceProject(tProject);
+	}
+
 	private void updateWeight() {
 		
 		SchedulingWeight schWeight = new SchedulingWeight(getNetwork());
