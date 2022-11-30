@@ -621,7 +621,7 @@ public class TurnusOptions {
 				setType(String.class).build();
 
 		TABU_WDIR = Option.create().//
-				setName("WDir").//
+				setName("wDir").//
 				setDescription("Specifies the working directory of the profiling project to generate new weights")//
 				.setLongName("turnus.analysis.partitioning.tabu.wdir").//
 				setType(String.class).build();
