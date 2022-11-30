@@ -41,13 +41,13 @@ public class XmlNetworkPartitioningMarkup {
 	private XmlNetworkPartitioningMarkup() {
 	}
 
-	public static final String CONFIGURATION = "configuration";
+	public static final String CONFIGURATION = "Configuration";
 	public static final String CONFIGURATION_NETWORK = "network";
-	public static final String PARTITIONING = "partitioning";
-	public static final String PARTITION = "partition";
+	public static final String PARTITIONING = "Partitioning";
+	public static final String PARTITION = "Partition";
 	public static final String PARTITION_ID = "id";
 	public static final String SCHEDULING_POLICY = "scheduling";
-	public static final String ACTOR = "instance";
+	public static final String ACTOR = "Instance";
 	public static final String ACTOR_ID = "id";
 
 }

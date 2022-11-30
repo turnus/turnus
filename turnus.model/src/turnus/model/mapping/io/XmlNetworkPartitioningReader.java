@@ -86,7 +86,7 @@ public class XmlNetworkPartitioningReader {
 				reader.next();
 				switch (reader.getEventType()) {
 				case XMLEvent.START_ELEMENT: {
-					String xmlElement = reader.getLocalName().toLowerCase();
+					String xmlElement = reader.getLocalName();
 					if (xmlElement.equals(CONFIGURATION)) {
 						String network = reader.getAttributeValue("", CONFIGURATION_NETWORK);
 						if (network == null) {
