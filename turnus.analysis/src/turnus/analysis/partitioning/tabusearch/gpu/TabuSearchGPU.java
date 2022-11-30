@@ -29,7 +29,7 @@
  * for the parts of Eclipse libraries used as well as that of the  covered work.
  * 
  */
-package turnus.analysis.partitioning.tabusearch;
+package turnus.analysis.partitioning.tabusearch.gpu;
 
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.ANALYSIS_TIME;
@@ -37,23 +37,29 @@ import static turnus.common.TurnusOptions.INITIAL_ALGORITHM;
 import static turnus.common.TurnusOptions.TABU_P;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import turnus.adevs.logging.impl.ActorStatisticsCollector;
 import turnus.adevs.simulation.SimEngine;
-import turnus.analysis.partitioning.tabusearch.generators.BalancingMovesGenerator;
-import turnus.analysis.partitioning.tabusearch.generators.CommFreqMovesGenerator;
-import turnus.analysis.partitioning.tabusearch.generators.IdleMovesGenerator;
-import turnus.analysis.partitioning.tabusearch.generators.RandomMovesGenerator;
-import turnus.analysis.partitioning.tabusearch.generators.TabuSearchMovesGenerator;
-import turnus.analysis.partitioning.tabusearch.generators.TabuSearchMovesGenerator.GenericMove;
+import turnus.analysis.partitioning.tabusearch.TabuSearchAbstract;
+import turnus.analysis.partitioning.tabusearch.gpu.generators.BalancingMovesGenerator;
+import turnus.analysis.partitioning.tabusearch.gpu.generators.CommFreqMovesGenerator;
+import turnus.analysis.partitioning.tabusearch.gpu.generators.IdleMovesGenerator;
+import turnus.analysis.partitioning.tabusearch.gpu.generators.RandomMovesGenerator;
+import turnus.analysis.partitioning.tabusearch.gpu.generators.TabuSearchMovesGenerator;
+import turnus.analysis.partitioning.tabusearch.gpu.generators.TabuSearchMovesGenerator.GenericMove;
 import turnus.analysis.partitioning.util.PartitioningGenerator;
 import turnus.common.TurnusException;
 import turnus.common.io.Logger;
 import turnus.model.analysis.postprocessing.ActorStatisticsReport;
 import turnus.model.analysis.postprocessing.PostProcessingReport;
+import turnus.model.dataflow.Actor;
+import turnus.model.dataflow.Network;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.trace.TraceProject;
 import turnus.model.trace.weighter.TraceWeighter;
@@ -93,19 +99,22 @@ public class TabuSearchGPU extends TabuSearchAbstract {
 	
 	private int iteration, emptyIteration;
 	
+	private Set<Actor> CPUOnly;
+
 	public TabuSearchGPU(TraceProject tProject, TraceWeighter tWeighter) {
 		super(tProject);
 		this.project = tProject;
 		this.weighter = tWeighter;
+		this.CPUOnly = new HashSet<Actor>();
 	}
 	
 	public void setGenerator(String generator) {
 		if (generator == null) {
-			movesGenerator = new RandomMovesGenerator(project);
+			movesGenerator = new RandomMovesGenerator(project, CPUOnly);
 			Logger.warning("No neighborhood generator specified, random generator will be used.");
 		} else {
 			if (generator.equals("RANDOM"))
-				movesGenerator = new RandomMovesGenerator(project);
+				movesGenerator = new RandomMovesGenerator(project, CPUOnly);
 			else if (generator.equals("IDLE"))
 				movesGenerator = new IdleMovesGenerator(project);
 			else if (generator.equals("COMM_FREQ"))
@@ -113,7 +122,7 @@ public class TabuSearchGPU extends TabuSearchAbstract {
 			else if (generator.equals("BALANCING"))
 				movesGenerator = new BalancingMovesGenerator(project);
 			else {
-				movesGenerator = new RandomMovesGenerator(project);
+				movesGenerator = new RandomMovesGenerator(project, CPUOnly);
 				Logger.warning("Neighborhood generator %s not recognized, random generator will be used.", generator);
 			}
 		}
@@ -123,6 +132,10 @@ public class TabuSearchGPU extends TabuSearchAbstract {
 		this.simulation = simulation;
 	}
 	
+	public NetworkPartitioning getFinalPartition() {
+		return sStar;
+	}
+
 	public void generateInitialPartitioning(String scheduling) {
 		PartitioningGenerator partitioningGenerator = new PartitioningGenerator(project, weighter);
 		units = configuration.getValue(ANALYSIS_PARTITIONING_UNITS, DEFAULT_UNITS);
@@ -135,10 +148,26 @@ public class TabuSearchGPU extends TabuSearchAbstract {
 		}
 		
 		sCurrent.setSchedulerToAll(scheduling);
+		generateCPUOnly();
 	}
 	
 	public void loadPartitioning(NetworkPartitioning partitioning) {
 		sCurrent = partitioning;
+		generateCPUOnly();
+	}
+
+	private void generateCPUOnly() {
+		Network network = project.getNetwork();
+
+		Map<String, List<String>> pActors = sCurrent.asPartitionActorsMap();
+		if (pActors.containsKey("PG")) {
+			Set<String> GPUNames = new HashSet<String>(pActors.get("PG"));
+			for (Actor actor : network.getActors()) {
+				if (! GPUNames.contains(actor.getName())) {
+					CPUOnly.add(actor);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -179,6 +208,7 @@ public class TabuSearchGPU extends TabuSearchAbstract {
 		
 		// run the final simulation (output)
 		simulation.setNetworkPartitioning(sStar);
+		simulation.getDataCollector().clear();
 		simulation.addDataCollector(new ActorStatisticsCollector(project.getNetwork(), sStar));
 		PostProcessingReport endReport = simulation.run(); 
 		
