@@ -36,6 +36,11 @@ public class HeterComWeight {
 		generateMapping();
 	}
 
+	public void setPartition(NetworkPartitioning partitioning) {
+		this.partitioning = partitioning;
+		generateMapping();
+	}
+
 	private void generateMapping() {
 		mapHostFifo = new HashMap<Actor, Map<Port, FifoType> >();
 		

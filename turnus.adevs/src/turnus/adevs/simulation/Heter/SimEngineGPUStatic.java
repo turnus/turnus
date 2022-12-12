@@ -70,6 +70,7 @@ public class SimEngineGPUStatic extends SimEngineGPU {
 	@Override
 	public void setNetworkPartitioning(NetworkPartitioning partitioning) {
 		super.setNetworkPartitioning(partitioning);
+		heterComWeight.setPartition(partitioning);
 		updateWeight();
 	}
 	
