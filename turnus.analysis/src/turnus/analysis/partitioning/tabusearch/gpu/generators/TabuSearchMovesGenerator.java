@@ -158,7 +158,7 @@ public abstract class TabuSearchMovesGenerator {
 	
 	public void setupTabu(NetworkPartitioning initialPartitioning) {
 		Network network = tProject.getNetwork();
-		tabu = new int[network.getActors().size()][initialPartitioning.getPartitions().size()];
+		tabu = new int[network.getActors().size()][initialPartitioning.getAllPartitions().size()];
 		actorTabuTableId = new HashMap<Actor, Integer>();
 		partitionTabuTableId = new HashMap<String, Integer>();
 		
@@ -167,7 +167,7 @@ public abstract class TabuSearchMovesGenerator {
 		for (Actor actor : network.getActors()) {
 			actorTabuTableId.put(actor, i);
 			j = 0;
-			for (String component : initialPartitioning.getPartitions()) {
+			for (String component : initialPartitioning.getAllPartitions()) {
 				partitionTabuTableId.put(component, j);
 				tabu[i][j] = 0;
 				j++;

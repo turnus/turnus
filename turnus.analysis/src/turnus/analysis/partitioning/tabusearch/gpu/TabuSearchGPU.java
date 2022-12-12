@@ -116,7 +116,7 @@ public class TabuSearchGPU extends TabuSearchAbstract {
 			if (generator.equals("RANDOM"))
 				movesGenerator = new RandomMovesGenerator(project, CPUOnly);
 			else if (generator.equals("IDLE"))
-				movesGenerator = new IdleMovesGenerator(project);
+				movesGenerator = new IdleMovesGenerator(project, CPUOnly);
 			else if (generator.equals("COMM_FREQ"))
 				movesGenerator = new CommFreqMovesGenerator(project);
 			else if (generator.equals("BALANCING"))

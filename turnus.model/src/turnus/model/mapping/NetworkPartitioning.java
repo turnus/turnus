@@ -193,6 +193,7 @@ public class NetworkPartitioning implements Cloneable {
 	}
 
 	public void setScheduler(String component, String schedulingPolicy) {
+		partitions.add(component);
 		schedulingMap.put(component, schedulingPolicy);
 	}
 	

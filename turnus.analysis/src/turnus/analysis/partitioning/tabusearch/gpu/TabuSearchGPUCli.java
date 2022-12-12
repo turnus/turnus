@@ -257,7 +257,6 @@ public class TabuSearchGPUCli implements IApplication {
 			try {
 				tabuSearch = new TabuSearchGPU(project, weighter);
 				tabuSearch.setConfiguration(configuration);
-				tabuSearch.setGenerator(generator);
 				tabuSearch.setSimulation(simulation);
 				if (partitioning == null) {
 					tabuSearch.generateInitialPartitioning(scheduling);
@@ -265,6 +264,7 @@ public class TabuSearchGPUCli implements IApplication {
 				else {
 					tabuSearch.loadPartitioning(partitioning);
 				}
+				tabuSearch.setGenerator(generator);
 				report = tabuSearch.run();
 //				Logger.infoRaw(report.toString());
 			} catch (Exception e) {

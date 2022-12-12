@@ -34,10 +34,14 @@ package turnus.analysis.partitioning.tabusearch.gpu.generators;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
+import static java.util.stream.Collectors.toSet;
 
+import turnus.model.dataflow.Actor;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.trace.TraceProject;
 
@@ -49,13 +53,16 @@ import turnus.model.trace.TraceProject;
 public class IdleMovesGenerator extends TabuSearchMovesGenerator {
 	
 	private double lastExecutionTime;
+	Set<String> CPUOnly;
 	
-	public IdleMovesGenerator(TraceProject project) {
+	public IdleMovesGenerator(TraceProject project, Set<Actor> CPUOnly) {
 		super(project);
+		this.CPUOnly = new HashSet<String>(CPUOnly.stream().map( (a) -> a.getName()).collect(toSet()));
 	}
 	
-	public IdleMovesGenerator(TraceProject project, double admissionRate) {
+	public IdleMovesGenerator(TraceProject project, double admissionRate, Set<Actor> CPUOnly) {
 		super(project, admissionRate);
+		this.CPUOnly = new HashSet<String>(CPUOnly.stream().map( (a) -> a.getName()).collect(toSet()));
 	}
 	
 	@Override
@@ -82,23 +89,25 @@ public class IdleMovesGenerator extends TabuSearchMovesGenerator {
 		// sort actors by idle time (descending)
 		List<String> actorsSortedByIdleTime = sortDescendingByIdleTime(idleTimes); 
 		for (String actor : actorsSortedByIdleTime) {
-			if (startPartitioning.asPartitionActorsMap().get(startPartitioning.getPartition(actor)).size() > 1) {
+//			if (startPartitioning.asPartitionActorsMap().get(startPartitioning.getPartition(actor)).size() > 1) { // for at least one actor per partition
 				if (idleTimes.get(actor) > processingTimes.get(actor)) {
 					String mostIdlePartition = null;
 					double idleTime = 0;
+
 					for (Entry<String, Double> partition : partitionIdleTimes.entrySet()) {
 						if (!partition.getKey().equals(startPartitioning.getPartition(actor)) // not the current partition of this actor
 							&& partition.getValue() > idleTime  // the most idle one
-								&& tabu[actorTabuTableId.get(network.getActor(actor))][partitionTabuTableId.get(partition.getKey())] < iteration) { // not a tabu move
+								&& tabu[actorTabuTableId.get(network.getActor(actor))][partitionTabuTableId.get(partition.getKey())] < iteration && // not a tabu move
+							(!CPUOnly.contains(actor) || !partition.getKey().equals("PG"))) { // not moving CPU only actor to a GPU partition
 							idleTime = partition.getValue();
 							mostIdlePartition = partition.getKey();
 						}
-					}
+					} 
 					if (mostIdlePartition != null) {
 						moves.add(new SingleMove(network.getActor(actor), startPartitioning.getPartition(actor), mostIdlePartition));
 					}
 				}
-			}
+//			}
 		}
 		
 		return moves;
