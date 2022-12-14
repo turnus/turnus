@@ -37,6 +37,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.common.collect.HashMultiset;
 
@@ -59,13 +60,16 @@ public class CommFreqMovesGenerator extends TabuSearchMovesGenerator {
 	private Map<Actor, Map<Actor, Long>> communicationFrequency;
 	private Map<Actor, Map<String, Long>> partitionCommunicationFrequency;
 	private HashMultiset<Actor> totalCommunicationFrequency;
-
-	public CommFreqMovesGenerator(TraceProject tProject) {
+	private Set<Actor> CPUOnly;
+	
+	public CommFreqMovesGenerator(TraceProject tProject, Set<Actor> CPUOnly) {
 		super(tProject);
+		this.CPUOnly = CPUOnly;
 	}
 	
-	public CommFreqMovesGenerator(TraceProject tProject, double admissionRate) {
+	public CommFreqMovesGenerator(TraceProject tProject, double admissionRate, Set<Actor> CPUOnly) {
 		super(tProject, admissionRate);
+		this.CPUOnly = CPUOnly;
 	}
 	
 	/**
@@ -150,7 +154,8 @@ public class CommFreqMovesGenerator extends TabuSearchMovesGenerator {
 					if (!partition.equals(startPartitioning.getPartition(actor))) {
 						long externFreq = partitionCommunicationFrequency.get(actor).get(partition);
 						if (externFreq > internFreq // one specific partition with a higher communication frequency than with the current one
-								&& tabu[actorTabuTableId.get(actor)][partitionTabuTableId.get(partition)] < iteration) { // not a tabu move
+								&& tabu[actorTabuTableId.get(actor)][partitionTabuTableId.get(partition)] < iteration
+								&& (!CPUOnly.contains(actor) || !partition.equals("PG"))) { // not a tabu move
 							moves.add(new SingleMove(actor, startPartitioning.getPartition(actor), partition));
 						//	System.out.println("Single: " + actor + ", from " + startPartitioning.getPartition(actor) + " to " + partition);
 						}
