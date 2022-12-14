@@ -120,7 +120,7 @@ public class TabuSearchGPU extends TabuSearchAbstract {
 			else if (generator.equals("COMM_FREQ"))
 				movesGenerator = new CommFreqMovesGenerator(project);
 			else if (generator.equals("BALANCING"))
-				movesGenerator = new BalancingMovesGenerator(project);
+				movesGenerator = new BalancingMovesGenerator(project, CPUOnly);
 			else {
 				movesGenerator = new RandomMovesGenerator(project, CPUOnly);
 				Logger.warning("Neighborhood generator %s not recognized, random generator will be used.", generator);

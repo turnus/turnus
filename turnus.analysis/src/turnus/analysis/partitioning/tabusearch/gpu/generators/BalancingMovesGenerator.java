@@ -31,11 +31,17 @@
  */
 package turnus.analysis.partitioning.tabusearch.gpu.generators;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
+import turnus.model.dataflow.Actor;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.trace.TraceProject;
 
@@ -45,15 +51,18 @@ import turnus.model.trace.TraceProject;
  * 
  */
 public class BalancingMovesGenerator extends TabuSearchMovesGenerator {
-	
-	private double lastExecutionTime;
 
-	public BalancingMovesGenerator(TraceProject project) {
+	private double lastExecutionTime;
+	Set<String> CPUOnly;
+
+	public BalancingMovesGenerator(TraceProject project, Set<Actor> CPUOnly) {
 		super(project);
+		this.CPUOnly = new HashSet<String>(CPUOnly.stream().map( (a) -> a.getName()).collect(toSet()));
 	}
 	
-	public BalancingMovesGenerator(TraceProject project, double admissionRate) {
+	public BalancingMovesGenerator(TraceProject project, double admissionRate, Set<Actor> CPUOnly) {
 		super(project, admissionRate);
+		this.CPUOnly = new HashSet<String>(CPUOnly.stream().map( (a) -> a.getName()).collect(toSet()));
 	}
 	
 	@Override
@@ -63,7 +72,7 @@ public class BalancingMovesGenerator extends TabuSearchMovesGenerator {
 	@Override
 	public void generateMoves(NetworkPartitioning startPartitioning, int iteration) {
 		possibleMovesList = new ArrayList<GenericMove>();
-		possibleMovesList.addAll(getAllSwapMoves(startPartitioning, iteration));
+		possibleMovesList.addAll(getAllSingleMoves(startPartitioning, iteration));
 		
 		Collections.shuffle(possibleMovesList); // randomize the order
 		admitMoves();
@@ -71,7 +80,7 @@ public class BalancingMovesGenerator extends TabuSearchMovesGenerator {
 		possibleMovesIterator = possibleMovesList.iterator();
 	}
 	
-	/*private List<SingleMove> getAllSingleMoves(NetworkPartitioning startPartitioning, int iteration) {
+	private List<SingleMove> getAllSingleMoves(NetworkPartitioning startPartitioning, int iteration) {
 		List<SingleMove> moves = new ArrayList<SingleMove>();
 		Map<String, Double> partitionIdleTimes = actorStatsCollector.getPartitionIdleTimes(lastExecutionTime); 
 		String partitionMin = null, partitionMax = null;
@@ -88,17 +97,18 @@ public class BalancingMovesGenerator extends TabuSearchMovesGenerator {
 			}
 		}
 		
-		if (partitionMax != null) {
-			for (String actor : startPartitioning.asPartitionActorsMap().get(partitionMax)) {
-				if (startPartitioning.asPartitionActorsMap().get(partitionMax).size() > 1
-						&& tabu[actorTabuTableId.get(network.getActor(actor))][partitionTabuTableId.get(partitionMin)] < iteration) { // not a tabu move
-					moves.add(new SingleMove(network.getActor(actor), startPartitioning.getPartition(actor), partitionMin));
+		if (partitionMax != null && partitionMin != null) {
+			for (String actor : startPartitioning.asPartitionActorsMap().get(partitionMin)) {
+				if (//startPartitioning.asPartitionActorsMap().get(partitionMin).size() > 1 && 
+						(!CPUOnly.contains(actor) || !partitionMax.equals("PG")) &&
+						tabu[actorTabuTableId.get(network.getActor(actor))][partitionTabuTableId.get(partitionMax)] < iteration) { // not a tabu move
+					moves.add(new SingleMove(network.getActor(actor), startPartitioning.getPartition(actor), partitionMax));
 				}
 			}
 		}
 		
 		return moves;
-	}*/
+	}
 	
 	private List<MultipleMove> getAllSwapMoves(NetworkPartitioning startPartitioning, int iteration) {
 		List<MultipleMove> swapMoves = new ArrayList<MultipleMove>();
@@ -109,18 +119,20 @@ public class BalancingMovesGenerator extends TabuSearchMovesGenerator {
 		for (String actor1 : processingTimes.keySet()) {
 			for (String actor2 : processingTimes.keySet()) {
 				if (!startPartitioning.getPartition(actor1).equals(startPartitioning.getPartition(actor2))) { // actors in different partitions
-					if (processingTimes.get(actor1) < processingTimes.get(actor2)) {
-						double idleTime1 = partitionIdleTimes.get(startPartitioning.getPartition(actor1));
-						double idleTime2 = partitionIdleTimes.get(startPartitioning.getPartition(actor2));
-						if (idleTime1 > idleTime2) {
-							SingleMove sm1 = new SingleMove(network.getActor(actor1), startPartitioning.getPartition(actor1), startPartitioning.getPartition(actor2));
-							SingleMove sm2 = new SingleMove(network.getActor(actor2), startPartitioning.getPartition(actor2), startPartitioning.getPartition(actor1));
-							MultipleMove mm = new MultipleMove();
-							mm.addComponentMove(sm1);
-							mm.addComponentMove(sm2);
-							swapMoves.add(mm);
-							//System.out.println("Swap: " + sm1.getActor() + " from " + sm1.getSourcePartition() + " to " + sm1.getTargetPartition() + ", "
-								//	+ sm2.getActor() + " from " + sm2.getSourcePartition() + " to " + sm2.getTargetPartition());
+					if ((!CPUOnly.contains(actor1) || !startPartitioning.getPartition(actor2).equals("PG")) && (!CPUOnly.contains(actor2) || !startPartitioning.getPartition(actor1).equals("PG"))) {
+						if (processingTimes.get(actor1) < processingTimes.get(actor2)) {
+							double idleTime1 = partitionIdleTimes.get(startPartitioning.getPartition(actor1));
+							double idleTime2 = partitionIdleTimes.get(startPartitioning.getPartition(actor2));
+							if (idleTime1 > idleTime2) {
+								SingleMove sm1 = new SingleMove(network.getActor(actor1), startPartitioning.getPartition(actor1), startPartitioning.getPartition(actor2));
+								SingleMove sm2 = new SingleMove(network.getActor(actor2), startPartitioning.getPartition(actor2), startPartitioning.getPartition(actor1));
+								MultipleMove mm = new MultipleMove();
+								mm.addComponentMove(sm1);
+								mm.addComponentMove(sm2);
+								swapMoves.add(mm);
+								//System.out.println("Swap: " + sm1.getActor() + " from " + sm1.getSourcePartition() + " to " + sm1.getTargetPartition() + ", "
+									//	+ sm2.getActor() + " from " + sm2.getSourcePartition() + " to " + sm2.getTargetPartition());
+							}
 						}
 					}
 				}
