@@ -316,6 +316,10 @@ public class TabuSearchGPU extends TabuSearchAbstract {
 	}
 	
 	private double f(NetworkPartitioning solution) {
+		analysisCollector = new ActorStatisticsCollector(project.getNetwork(), solution);
+		movesGenerator.setActorStatisticsCollector(analysisCollector);
+		simulation.getDataCollector().clear();
+		simulation.addDataCollector(analysisCollector);
 		simulation.setNetworkPartitioning(solution);
 		try {
 			return simulation.run().getTime();
