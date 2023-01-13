@@ -40,16 +40,15 @@ import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
 import static turnus.common.TurnusOptions.INITIAL_ALGORITHM;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
+import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 import static turnus.common.TurnusOptions.SCHEDULING_WEIGHTS;
-import static turnus.common.TurnusOptions.TABU_GENERATOR;
 import static turnus.common.TurnusOptions.TABU_SIM;
 import static turnus.common.TurnusOptions.TABU_CMD;
 import static turnus.common.TurnusOptions.TABU_WDIR;
 import static turnus.common.TurnusOptions.TABU_P;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
-import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
 import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
@@ -91,19 +90,19 @@ import turnus.model.trace.TraceProject;
 import turnus.model.trace.impl.splitted.SplittedTraceLoader;
 import turnus.model.trace.weighter.TraceWeighter;
 
-public class TabuSearchGPUCli implements IApplication {
+public class TabuSearchGPUJOINTCli implements IApplication {
 	
 	private Configuration configuration;
-	private TabuSearchGPU tabuSearch;
+	private TabuSearchGPUJOINT tabuSearch;
 	private IProgressMonitor monitor = new NullProgressMonitor();
 	
 	public static void main(String[] args) {
 		ModelsRegister.init();
 
-		TabuSearchGPUCli cliApp = null;
+		TabuSearchGPUJOINTCli cliApp = null;
 
 		try {
-			cliApp = new TabuSearchGPUCli();
+			cliApp = new TabuSearchGPUJOINTCli();
 			cliApp.parse(args);
 		} catch (TurnusException e) {
 			return;
@@ -125,7 +124,6 @@ public class TabuSearchGPUCli implements IApplication {
 		String scheduling = null;
 		BufferSize bufferSize = null;
 		int defaultBufferSize = 0;
-		String generator = null;
 		String simulator = null;
 		String cmd = null;
 		String wDir = null;
@@ -171,19 +169,15 @@ public class TabuSearchGPUCli implements IApplication {
 				bufferSize = new BufferSize(project.getNetwork());
 				bufferSize.setDefaultSize(defaultBufferSize);
 			}
-			
-			if (configuration.hasValue(TABU_GENERATOR)) { 
-				generator = configuration.getValue(TABU_GENERATOR);
-			} 
-			
+
 			if (configuration.hasValue(TABU_SIM)) { 
 				simulator = configuration.getValue(TABU_SIM);
 			} 
-			
+
 			if (configuration.hasValue(TABU_CMD)) { 
 				cmd = configuration.getValue(TABU_CMD);
 			} 
-			
+
 			if (configuration.hasValue(TABU_WDIR)) { 
 				wDir = configuration.getValue(TABU_WDIR);
 			}
@@ -254,7 +248,7 @@ public class TabuSearchGPUCli implements IApplication {
 		{ // STEP 2 : Run the analysis
 			monitor.subTask("Running the analysis");
 			try {
-				tabuSearch = new TabuSearchGPU(project, weighter);
+				tabuSearch = new TabuSearchGPUJOINT(project, weighter, simulator);
 				tabuSearch.setConfiguration(configuration);
 				tabuSearch.setSimulation(simulation);
 				if (partitioning == null) {
@@ -263,7 +257,7 @@ public class TabuSearchGPUCli implements IApplication {
 				else {
 					tabuSearch.loadPartitioning(partitioning);
 				}
-				tabuSearch.setGenerator(generator);
+				
 				report = tabuSearch.run();
 //				Logger.infoRaw(report.toString());
 			} catch (Exception e) {
@@ -312,7 +306,6 @@ public class TabuSearchGPUCli implements IApplication {
 				.setOption(MAPPING_FILE, false)//
 				.setOption(SCHEDULING_POLICY, false)//
 				.setOption(INITIAL_ALGORITHM, false)//
-				.setOption(TABU_GENERATOR, false)//
 				.setOption(TABU_SIM, false)//
 				.setOption(TABU_CMD, false)//
 				.setOption(TABU_WDIR, false)//
@@ -367,4 +360,5 @@ public class TabuSearchGPUCli implements IApplication {
 		
 		return false;
 	}
+
 }
