@@ -102,7 +102,9 @@ public class XmlNetworkWeightReader {
 							throw new TurnusException("Parsing error in \"" + file.getAbsolutePath()
 									+ "\": actor name not specified. Line " + reader.getLocation().getLineNumber());
 						}
-						frequency = Double.parseDouble(reader.getAttributeValue("", FREQUENCY))*1000;
+						String freq = reader.getAttributeValue("", FREQUENCY);
+						if (freq != null)
+							frequency = Double.parseDouble(freq) * 1000;
 					} else if (xmlElement.equals(ACTION)) {
 						String action = reader.getAttributeValue("", ACTION_ID);
 						if (action == null) {
@@ -167,7 +169,7 @@ public class XmlNetworkWeightReader {
 						if (parseVarianceAttr) {
 							double var = 0.0;
 							try {
-								var = Double.parseDouble(varStr) / (frequency*frequency);
+								var = Double.parseDouble(varStr) / (frequency * frequency);
 							} catch (Exception e) {
 								Logger.warning("Variance of <%s,%s> is not defined. Set to %f", actor, action, 0.0);
 							}

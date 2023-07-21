@@ -1,6 +1,6 @@
-/* 
+/*
  * TURNUS - www.turnus.co
- * 
+ *
  * Copyright (C) 2010-2016 EPFL SCI STI MM
  *
  * This file is part of TURNUS.
@@ -17,17 +17,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with TURNUS.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * Additional permission under GNU GPL version 3 section 7
- * 
+ *
  * If you modify this Program, or any covered work, by linking or combining it
- * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or 
- * an Eclipse library), containing parts covered by the terms of the 
- * Eclipse Public License (EPL), the licensors of this Program grant you 
- * additional permission to convey the resulting work.  Corresponding Source 
- * for a non-source form of such a combination shall include the source code 
+ * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or
+ * an Eclipse library), containing parts covered by the terms of the
+ * Eclipse Public License (EPL), the licensors of this Program grant you
+ * additional permission to convey the resulting work.  Corresponding Source
+ * for a non-source form of such a combination shall include the source code
  * for the parts of Eclipse libraries used as well as that of the  covered work.
- * 
+ *
  */
 package turnus.model.common;
 
@@ -41,7 +41,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * <!-- begin-user-doc --> A representation of the literals of the enumeration '
  * <em><b>EType</b></em>', and utility methods for working with them. <!--
  * end-user-doc -->
- * 
+ *
  * @see turnus.model.common.CommonPackage#getEType()
  * @model
  * @generated
@@ -50,7 +50,7 @@ public enum EType implements Enumerator {
 	/**
 	 * The '<em><b>INT</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #INT_VALUE
 	 * @generated
 	 * @ordered
@@ -60,7 +60,7 @@ public enum EType implements Enumerator {
 	/**
 	 * The '<em><b>UINT</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #UINT_VALUE
 	 * @generated
 	 * @ordered
@@ -70,7 +70,7 @@ public enum EType implements Enumerator {
 	/**
 	 * The '<em><b>DOUBLE</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #DOUBLE_VALUE
 	 * @generated
 	 * @ordered
@@ -78,9 +78,9 @@ public enum EType implements Enumerator {
 	DOUBLE(2, "DOUBLE", "DOUBLE"),
 
 	/**
-	 * The '<em><b>BOOLEAN</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BOOLEAN</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
 	 * @see #BOOLEAN_VALUE
 	 * @generated
 	 * @ordered
@@ -90,7 +90,7 @@ public enum EType implements Enumerator {
 	/**
 	 * The '<em><b>STRING</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #STRING_VALUE
 	 * @generated
 	 * @ordered
@@ -100,21 +100,30 @@ public enum EType implements Enumerator {
 	/**
 	 * The '<em><b>LIST</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #LIST_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	LIST(5, "LIST",
-			"LIST"), /**
-						 * The '<em><b>UNDEFINED</b></em>' literal object. <!--
-						 * begin-user-doc --> <!-- end-user-doc -->
-						 * 
-						 * @see #UNDEFINED_VALUE
-						 * @generated
-						 * @ordered
-						 */
-	UNDEFINED(6, "UNDEFINED", "UNDEFINED");
+	LIST(5, "LIST", "LIST"),
+	/**
+	 * The '<em><b>TENSOR</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
+	 * @see #TENSOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	TENSOR(6, "TENSOR", "TENSOR"),
+	/**
+	 * The '<em><b>UNDEFINED</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
+	 * @see #UNDEFINED_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UNDEFINED(7, "UNDEFINED", "UNDEFINED");
 
 	/**
 	 * The '<em><b>INT</b></em>' literal value. <!-- begin-user-doc -->
@@ -123,7 +132,7 @@ public enum EType implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #INT
 	 * @model
 	 * @generated
@@ -134,11 +143,11 @@ public enum EType implements Enumerator {
 	/**
 	 * The '<em><b>UINT</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>UINT</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>UINT</b></em>' literal object isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #UINT
 	 * @model
 	 * @generated
@@ -149,11 +158,11 @@ public enum EType implements Enumerator {
 	/**
 	 * The '<em><b>DOUBLE</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>DOUBLE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>DOUBLE</b></em>' literal object isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #DOUBLE
 	 * @model
 	 * @generated
@@ -164,11 +173,11 @@ public enum EType implements Enumerator {
 	/**
 	 * The '<em><b>BOOLEAN</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>BOOLEAN</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>BOOLEAN</b></em>' literal object isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BOOLEAN
 	 * @model
 	 * @generated
@@ -179,11 +188,11 @@ public enum EType implements Enumerator {
 	/**
 	 * The '<em><b>STRING</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>STRING</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>STRING</b></em>' literal object isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #STRING
 	 * @model
 	 * @generated
@@ -194,11 +203,11 @@ public enum EType implements Enumerator {
 	/**
 	 * The '<em><b>LIST</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>LIST</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>LIST</b></em>' literal object isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #LIST
 	 * @model
 	 * @generated
@@ -207,48 +216,58 @@ public enum EType implements Enumerator {
 	public static final int LIST_VALUE = 5;
 
 	/**
+	 * The '<em><b>TENSOR</b></em>' literal value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
+	 * @see #TENSOR
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int TENSOR_VALUE = 6;
+
+	/**
 	 * The '<em><b>UNDEFINED</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>UNDEFINED</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #UNDEFINED
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int UNDEFINED_VALUE = 6;
+	public static final int UNDEFINED_VALUE = 7;
 
 	/**
-	 * An array of all the '<em><b>EType</b></em>' enumerators. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * An array of all the '<em><b>EType</b></em>' enumerators. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
-	private static final EType[] VALUES_ARRAY = new EType[] { INT, UINT, DOUBLE, BOOLEAN, STRING, LIST, UNDEFINED, };
+	private static final EType[] VALUES_ARRAY = new EType[] { INT, UINT, DOUBLE, BOOLEAN, STRING, LIST, TENSOR,
+			UNDEFINED, };
 
 	/**
-	 * A public read-only list of all the '<em><b>EType</b></em>' enumerators.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * A public read-only list of all the '<em><b>EType</b></em>' enumerators. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public static final List<EType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>EType</b></em>' literal with the specified literal
-	 * value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param literal
-	 *            the literal.
+	 * Returns the '<em><b>EType</b></em>' literal with the specified literal value.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param literal the literal.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static EType get(String literal) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			EType result = VALUES_ARRAY[i];
+		for (EType result : VALUES_ARRAY) {
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -259,12 +278,11 @@ public enum EType implements Enumerator {
 	/**
 	 * Returns the '<em><b>EType</b></em>' literal with the specified name. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static EType getByName(String name) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			EType result = VALUES_ARRAY[i];
+		for (EType result : VALUES_ARRAY) {
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -273,11 +291,10 @@ public enum EType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>EType</b></em>' literal with the specified integer
-	 * value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the integer value.
+	 * Returns the '<em><b>EType</b></em>' literal with the specified integer value.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param value the integer value.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
@@ -295,6 +312,8 @@ public enum EType implements Enumerator {
 			return STRING;
 		case LIST_VALUE:
 			return LIST;
+		case TENSOR_VALUE:
+			return TENSOR;
 		case UNDEFINED_VALUE:
 			return UNDEFINED;
 		}
@@ -303,21 +322,21 @@ public enum EType implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final int value;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final String name;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final String literal;
@@ -325,7 +344,7 @@ public enum EType implements Enumerator {
 	/**
 	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private EType(int value, String name, String literal) {
@@ -336,7 +355,7 @@ public enum EType implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -346,7 +365,7 @@ public enum EType implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -356,7 +375,7 @@ public enum EType implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -367,7 +386,7 @@ public enum EType implements Enumerator {
 	/**
 	 * Returns the literal value of the enumerator, which is its string
 	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

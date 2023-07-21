@@ -1,6 +1,6 @@
-/* 
+/*
  * TURNUS - www.turnus.co
- * 
+ *
  * Copyright (C) 2010-2016 EPFL SCI STI MM
  *
  * This file is part of TURNUS.
@@ -17,17 +17,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with TURNUS.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * Additional permission under GNU GPL version 3 section 7
- * 
+ *
  * If you modify this Program, or any covered work, by linking or combining it
- * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or 
- * an Eclipse library), containing parts covered by the terms of the 
- * Eclipse Public License (EPL), the licensors of this Program grant you 
- * additional permission to convey the resulting work.  Corresponding Source 
- * for a non-source form of such a combination shall include the source code 
+ * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or
+ * an Eclipse library), containing parts covered by the terms of the
+ * Eclipse Public License (EPL), the licensors of this Program grant you
+ * additional permission to convey the resulting work.  Corresponding Source
+ * for a non-source form of such a combination shall include the source code
  * for the parts of Eclipse libraries used as well as that of the  covered work.
- * 
+ *
  */
 package turnus.model.common;
 
@@ -48,19 +48,19 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link turnus.model.common.StatisticalData#getMin <em>Min</em>}</li>
  * <li>{@link turnus.model.common.StatisticalData#getMax <em>Max</em>}</li>
  * <li>{@link turnus.model.common.StatisticalData#getMean <em>Mean</em>}</li>
- * <li>{@link turnus.model.common.StatisticalData#getVariance <em>Variance</em>}
- * </li>
+ * <li>{@link turnus.model.common.StatisticalData#getVariance
+ * <em>Variance</em>}</li>
  * <li>{@link turnus.model.common.StatisticalData#getSum <em>Sum</em>}</li>
- * <li>{@link turnus.model.common.StatisticalData#getSamples <em>Samples</em>}
- * </li>
- * <li>{@link turnus.model.common.StatisticalData#getSumOfLogs
- * <em>Sum Of Logs</em>}</li>
- * <li>{@link turnus.model.common.StatisticalData#getSumOfSquares
- * <em>Sum Of Squares</em>}</li>
- * <li>{@link turnus.model.common.StatisticalData#getGeometricMean
- * <em>Geometric Mean</em>}</li>
- * <li>{@link turnus.model.common.StatisticalData#getSecondMoment
- * <em>Second Moment</em>}</li>
+ * <li>{@link turnus.model.common.StatisticalData#getSamples
+ * <em>Samples</em>}</li>
+ * <li>{@link turnus.model.common.StatisticalData#getSumOfLogs <em>Sum Of
+ * Logs</em>}</li>
+ * <li>{@link turnus.model.common.StatisticalData#getSumOfSquares <em>Sum Of
+ * Squares</em>}</li>
+ * <li>{@link turnus.model.common.StatisticalData#getGeometricMean <em>Geometric
+ * Mean</em>}</li>
+ * <li>{@link turnus.model.common.StatisticalData#getSecondMoment <em>Second
+ * Moment</em>}</li>
  * <li>{@link turnus.model.common.StatisticalData#getStandardDeviation
  * <em>Standard Deviation</em>}</li>
  * </ul>
@@ -70,16 +70,16 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface StatisticalData extends EObject {
-	
-	public static class Util{
-		
+
+	public static class Util {
+
 		/**
-		 * Sum a collection of {@link StatisticalData} collection. The results
-		 * contains the {@link StatisticalData#getMean()},
-		 * {@link StatisticalData#getMin()}, {@link StatisticalData#getMax()},
-		 * {@link StatisticalData#getSum()}, {@link StatisticalData#getSamples()()}.
-		 * The others values are set as {@link Double#NaN}
-		 * 
+		 * Sum a collection of {@link StatisticalData} collection. The results contains
+		 * the {@link StatisticalData#getMean()}, {@link StatisticalData#getMin()},
+		 * {@link StatisticalData#getMax()}, {@link StatisticalData#getSum()},
+		 * {@link StatisticalData#getSamples()()}. The others values are set as
+		 * {@link Double#NaN}
+		 *
 		 * @param data
 		 * @return
 		 */
@@ -112,8 +112,8 @@ public interface StatisticalData extends EObject {
 
 			return result;
 		}
-		
-		public static StatisticalData asStatisticalData(SummaryStatistics value){
+
+		public static StatisticalData asStatisticalData(SummaryStatistics value) {
 			StatisticalData d = CommonFactory.eINSTANCE.createStatisticalData();
 
 			long samples = value.getN();
@@ -145,8 +145,8 @@ public interface StatisticalData extends EObject {
 
 			return d;
 		}
-		
-		public static StatisticalData asAggregatedStatisticalData(StatisticalSummary value){
+
+		public static StatisticalData asAggregatedStatisticalData(StatisticalSummary value) {
 			StatisticalData d = CommonFactory.eINSTANCE.createStatisticalData();
 
 			long samples = value.getN();
@@ -174,18 +174,18 @@ public interface StatisticalData extends EObject {
 
 			return d;
 		}
-		
+
 	}
-	
+
 	/**
-	 * Returns the value of the '<em><b>Min</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Min</b></em>' attribute. <!-- begin-user-doc
+	 * -->
 	 * <p>
 	 * If the meaning of the '<em>Min</em>' attribute isn't clear, there really
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Min</em>' attribute.
 	 * @see #setMin(double)
 	 * @see turnus.model.common.CommonPackage#getStatisticalData_Min()
@@ -197,23 +197,22 @@ public interface StatisticalData extends EObject {
 	/**
 	 * Sets the value of the '{@link turnus.model.common.StatisticalData#getMin
 	 * <em>Min</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Min</em>' attribute.
+	 *
+	 * @param value the new value of the '<em>Min</em>' attribute.
 	 * @see #getMin()
 	 * @generated
 	 */
 	void setMin(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Max</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Max</b></em>' attribute. <!-- begin-user-doc
+	 * -->
 	 * <p>
 	 * If the meaning of the '<em>Max</em>' attribute isn't clear, there really
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Max</em>' attribute.
 	 * @see #setMax(double)
 	 * @see turnus.model.common.CommonPackage#getStatisticalData_Max()
@@ -225,9 +224,8 @@ public interface StatisticalData extends EObject {
 	/**
 	 * Sets the value of the '{@link turnus.model.common.StatisticalData#getMax
 	 * <em>Max</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Max</em>' attribute.
+	 *
+	 * @param value the new value of the '<em>Max</em>' attribute.
 	 * @see #getMax()
 	 * @generated
 	 */
@@ -241,7 +239,7 @@ public interface StatisticalData extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Mean</em>' attribute.
 	 * @see #setMean(double)
 	 * @see turnus.model.common.CommonPackage#getStatisticalData_Mean()
@@ -253,9 +251,8 @@ public interface StatisticalData extends EObject {
 	/**
 	 * Sets the value of the '{@link turnus.model.common.StatisticalData#getMean
 	 * <em>Mean</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Mean</em>' attribute.
+	 *
+	 * @param value the new value of the '<em>Mean</em>' attribute.
 	 * @see #getMean()
 	 * @generated
 	 */
@@ -265,11 +262,11 @@ public interface StatisticalData extends EObject {
 	 * Returns the value of the '<em><b>Variance</b></em>' attribute. <!--
 	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Variance</em>' attribute isn't clear, there
-	 * really should be more of a description here...
+	 * If the meaning of the '<em>Variance</em>' attribute isn't clear, there really
+	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Variance</em>' attribute.
 	 * @see #setVariance(double)
 	 * @see turnus.model.common.CommonPackage#getStatisticalData_Variance()
@@ -279,26 +276,24 @@ public interface StatisticalData extends EObject {
 	double getVariance();
 
 	/**
-	 * Sets the value of the '
-	 * {@link turnus.model.common.StatisticalData#getVariance <em>Variance</em>}
-	 * ' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Variance</em>' attribute.
+	 * Sets the value of the '{@link turnus.model.common.StatisticalData#getVariance
+	 * <em>Variance</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param value the new value of the '<em>Variance</em>' attribute.
 	 * @see #getVariance()
 	 * @generated
 	 */
 	void setVariance(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Sum</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Sum</b></em>' attribute. <!-- begin-user-doc
+	 * -->
 	 * <p>
 	 * If the meaning of the '<em>Sum</em>' attribute isn't clear, there really
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Sum</em>' attribute.
 	 * @see #setSum(double)
 	 * @see turnus.model.common.CommonPackage#getStatisticalData_Sum()
@@ -310,9 +305,8 @@ public interface StatisticalData extends EObject {
 	/**
 	 * Sets the value of the '{@link turnus.model.common.StatisticalData#getSum
 	 * <em>Sum</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Sum</em>' attribute.
+	 *
+	 * @param value the new value of the '<em>Sum</em>' attribute.
 	 * @see #getSum()
 	 * @generated
 	 */
@@ -322,11 +316,11 @@ public interface StatisticalData extends EObject {
 	 * Returns the value of the '<em><b>Samples</b></em>' attribute. <!--
 	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Samples</em>' attribute isn't clear, there
-	 * really should be more of a description here...
+	 * If the meaning of the '<em>Samples</em>' attribute isn't clear, there really
+	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Samples</em>' attribute.
 	 * @see #setSamples(long)
 	 * @see turnus.model.common.CommonPackage#getStatisticalData_Samples()
@@ -336,12 +330,10 @@ public interface StatisticalData extends EObject {
 	long getSamples();
 
 	/**
-	 * Sets the value of the '
-	 * {@link turnus.model.common.StatisticalData#getSamples <em>Samples</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Samples</em>' attribute.
+	 * Sets the value of the '{@link turnus.model.common.StatisticalData#getSamples
+	 * <em>Samples</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param value the new value of the '<em>Samples</em>' attribute.
 	 * @see #getSamples()
 	 * @generated
 	 */
@@ -355,7 +347,7 @@ public interface StatisticalData extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Sum Of Logs</em>' attribute.
 	 * @see #setSumOfLogs(double)
 	 * @see turnus.model.common.CommonPackage#getStatisticalData_SumOfLogs()
@@ -365,13 +357,11 @@ public interface StatisticalData extends EObject {
 	double getSumOfLogs();
 
 	/**
-	 * Sets the value of the '
-	 * {@link turnus.model.common.StatisticalData#getSumOfLogs
-	 * <em>Sum Of Logs</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Sum Of Logs</em>' attribute.
+	 * Sets the value of the
+	 * '{@link turnus.model.common.StatisticalData#getSumOfLogs <em>Sum Of
+	 * Logs</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param value the new value of the '<em>Sum Of Logs</em>' attribute.
 	 * @see #getSumOfLogs()
 	 * @generated
 	 */
@@ -381,11 +371,11 @@ public interface StatisticalData extends EObject {
 	 * Returns the value of the '<em><b>Sum Of Squares</b></em>' attribute. <!--
 	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Sum Of Squares</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Sum Of Squares</em>' attribute isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Sum Of Squares</em>' attribute.
 	 * @see #setSumOfSquares(double)
 	 * @see turnus.model.common.CommonPackage#getStatisticalData_SumOfSquares()
@@ -395,13 +385,11 @@ public interface StatisticalData extends EObject {
 	double getSumOfSquares();
 
 	/**
-	 * Sets the value of the '
-	 * {@link turnus.model.common.StatisticalData#getSumOfSquares
-	 * <em>Sum Of Squares</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Sum Of Squares</em>' attribute.
+	 * Sets the value of the
+	 * '{@link turnus.model.common.StatisticalData#getSumOfSquares <em>Sum Of
+	 * Squares</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param value the new value of the '<em>Sum Of Squares</em>' attribute.
 	 * @see #getSumOfSquares()
 	 * @generated
 	 */
@@ -411,11 +399,11 @@ public interface StatisticalData extends EObject {
 	 * Returns the value of the '<em><b>Geometric Mean</b></em>' attribute. <!--
 	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Geometric Mean</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Geometric Mean</em>' attribute isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Geometric Mean</em>' attribute.
 	 * @see #setGeometricMean(double)
 	 * @see turnus.model.common.CommonPackage#getStatisticalData_GeometricMean()
@@ -425,13 +413,11 @@ public interface StatisticalData extends EObject {
 	double getGeometricMean();
 
 	/**
-	 * Sets the value of the '
-	 * {@link turnus.model.common.StatisticalData#getGeometricMean
-	 * <em>Geometric Mean</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Geometric Mean</em>' attribute.
+	 * Sets the value of the
+	 * '{@link turnus.model.common.StatisticalData#getGeometricMean <em>Geometric
+	 * Mean</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param value the new value of the '<em>Geometric Mean</em>' attribute.
 	 * @see #getGeometricMean()
 	 * @generated
 	 */
@@ -441,11 +427,11 @@ public interface StatisticalData extends EObject {
 	 * Returns the value of the '<em><b>Second Moment</b></em>' attribute. <!--
 	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Second Moment</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Second Moment</em>' attribute isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Second Moment</em>' attribute.
 	 * @see #setSecondMoment(double)
 	 * @see turnus.model.common.CommonPackage#getStatisticalData_SecondMoment()
@@ -455,27 +441,25 @@ public interface StatisticalData extends EObject {
 	double getSecondMoment();
 
 	/**
-	 * Sets the value of the '
-	 * {@link turnus.model.common.StatisticalData#getSecondMoment
-	 * <em>Second Moment</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Second Moment</em>' attribute.
+	 * Sets the value of the
+	 * '{@link turnus.model.common.StatisticalData#getSecondMoment <em>Second
+	 * Moment</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param value the new value of the '<em>Second Moment</em>' attribute.
 	 * @see #getSecondMoment()
 	 * @generated
 	 */
 	void setSecondMoment(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Standard Deviation</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Standard Deviation</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Standard Deviation</em>' attribute isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of the '<em>Standard Deviation</em>' attribute isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Standard Deviation</em>' attribute.
 	 * @see #setStandardDeviation(double)
 	 * @see turnus.model.common.CommonPackage#getStatisticalData_StandardDeviation()
@@ -485,13 +469,11 @@ public interface StatisticalData extends EObject {
 	double getStandardDeviation();
 
 	/**
-	 * Sets the value of the '
-	 * {@link turnus.model.common.StatisticalData#getStandardDeviation
-	 * <em>Standard Deviation</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Standard Deviation</em>' attribute.
+	 * Sets the value of the
+	 * '{@link turnus.model.common.StatisticalData#getStandardDeviation <em>Standard
+	 * Deviation</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param value the new value of the '<em>Standard Deviation</em>' attribute.
 	 * @see #getStandardDeviation()
 	 * @generated
 	 */

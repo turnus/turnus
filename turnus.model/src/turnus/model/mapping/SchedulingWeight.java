@@ -92,6 +92,15 @@ public class SchedulingWeight {
 
 		}
 	}
+	
+	public String getSrcAction(String actor, String action) {
+		if (actionSelectionTable.contains(actor, action)) {
+			Map<String, ClockCycles> map = actionSelectionTable.get(actor, action);
+			return map.keySet().toString();
+		}
+		
+		return null;
+	}
 
 	public ClockCycles getWeight(String actor, String lastAction, String action) {
 		if (lastAction == null || lastAction.isEmpty()) {
@@ -159,6 +168,11 @@ public class SchedulingWeight {
 
 	public String getNetwork() {
 		return networkName;
+	}
+	
+	// TODO : implement me
+	public boolean isValid(Network network) {
+		return true;
 	}
 
 	public String toString() {

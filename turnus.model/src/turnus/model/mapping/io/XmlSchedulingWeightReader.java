@@ -99,7 +99,9 @@ public class XmlSchedulingWeightReader {
 							throw new TurnusException("Parsing error in \"" + file.getAbsolutePath()
 									+ "\": actor name not specified. Line " + reader.getLocation().getLineNumber());
 						}
-						frequency = Double.parseDouble(reader.getAttributeValue("", FREQUENCY))*1000;
+						String freq = reader.getAttributeValue("", FREQUENCY);
+						if (freq != null)
+							frequency = Double.parseDouble(freq)*1000;
 					} else if (xmlElement.equals(SCHEDULING)) {
 						String source = reader.getAttributeValue("", SCHEDULING_SOURCE);
 						if (source == null) {

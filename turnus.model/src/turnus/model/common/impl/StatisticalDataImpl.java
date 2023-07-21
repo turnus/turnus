@@ -1,6 +1,6 @@
-/* 
+/*
  * TURNUS - www.turnus.co
- * 
+ *
  * Copyright (C) 2010-2016 EPFL SCI STI MM
  *
  * This file is part of TURNUS.
@@ -17,24 +17,22 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with TURNUS.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * Additional permission under GNU GPL version 3 section 7
- * 
+ *
  * If you modify this Program, or any covered work, by linking or combining it
- * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or 
- * an Eclipse library), containing parts covered by the terms of the 
- * Eclipse Public License (EPL), the licensors of this Program grant you 
- * additional permission to convey the resulting work.  Corresponding Source 
- * for a non-source form of such a combination shall include the source code 
+ * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or
+ * an Eclipse library), containing parts covered by the terms of the
+ * Eclipse Public License (EPL), the licensors of this Program grant you
+ * additional permission to convey the resulting work.  Corresponding Source
+ * for a non-source form of such a combination shall include the source code
  * for the parts of Eclipse libraries used as well as that of the  covered work.
- * 
+ *
  */
 package turnus.model.common.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -48,20 +46,20 @@ import turnus.model.common.StatisticalData;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getMin <em>Min</em>}
- * </li>
- * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getMax <em>Max</em>}
- * </li>
- * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getMean <em>Mean</em>
- * }</li>
+ * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getMin
+ * <em>Min</em>}</li>
+ * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getMax
+ * <em>Max</em>}</li>
+ * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getMean
+ * <em>Mean</em>}</li>
  * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getVariance
  * <em>Variance</em>}</li>
- * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getSum <em>Sum</em>}
- * </li>
+ * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getSum
+ * <em>Sum</em>}</li>
  * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getSamples
  * <em>Samples</em>}</li>
- * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getSumOfLogs
- * <em>Sum Of Logs</em>}</li>
+ * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getSumOfLogs <em>Sum
+ * Of Logs</em>}</li>
  * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getSumOfSquares
  * <em>Sum Of Squares</em>}</li>
  * <li>{@link turnus.model.common.impl.StatisticalDataImpl#getGeometricMean
@@ -78,7 +76,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	/**
 	 * The default value of the '{@link #getMin() <em>Min</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getMin()
 	 * @generated
 	 * @ordered
@@ -88,7 +86,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	/**
 	 * The cached value of the '{@link #getMin() <em>Min</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getMin()
 	 * @generated
 	 * @ordered
@@ -98,7 +96,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	/**
 	 * The default value of the '{@link #getMax() <em>Max</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getMax()
 	 * @generated
 	 * @ordered
@@ -108,7 +106,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	/**
 	 * The cached value of the '{@link #getMax() <em>Max</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getMax()
 	 * @generated
 	 * @ordered
@@ -116,9 +114,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected double max = MAX_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getMean() <em>Mean</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getMean() <em>Mean</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getMean()
 	 * @generated
 	 * @ordered
@@ -126,9 +124,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected static final double MEAN_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getMean() <em>Mean</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getMean() <em>Mean</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getMean()
 	 * @generated
 	 * @ordered
@@ -138,7 +136,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	/**
 	 * The default value of the '{@link #getVariance() <em>Variance</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getVariance()
 	 * @generated
 	 * @ordered
@@ -146,9 +144,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected static final double VARIANCE_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getVariance() <em>Variance</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getVariance() <em>Variance</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getVariance()
 	 * @generated
 	 * @ordered
@@ -158,7 +156,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	/**
 	 * The default value of the '{@link #getSum() <em>Sum</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getSum()
 	 * @generated
 	 * @ordered
@@ -168,7 +166,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	/**
 	 * The cached value of the '{@link #getSum() <em>Sum</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getSum()
 	 * @generated
 	 * @ordered
@@ -176,9 +174,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected double sum = SUM_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getSamples() <em>Samples</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getSamples() <em>Samples</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getSamples()
 	 * @generated
 	 * @ordered
@@ -186,9 +184,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected static final long SAMPLES_EDEFAULT = 0L;
 
 	/**
-	 * The cached value of the '{@link #getSamples() <em>Samples</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getSamples() <em>Samples</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getSamples()
 	 * @generated
 	 * @ordered
@@ -198,7 +196,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	/**
 	 * The default value of the '{@link #getSumOfLogs() <em>Sum Of Logs</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getSumOfLogs()
 	 * @generated
 	 * @ordered
@@ -208,7 +206,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	/**
 	 * The cached value of the '{@link #getSumOfLogs() <em>Sum Of Logs</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getSumOfLogs()
 	 * @generated
 	 * @ordered
@@ -216,10 +214,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected double sumOfLogs = SUM_OF_LOGS_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getSumOfSquares()
-	 * <em>Sum Of Squares</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getSumOfSquares() <em>Sum Of Squares</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getSumOfSquares()
 	 * @generated
 	 * @ordered
@@ -227,10 +224,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected static final double SUM_OF_SQUARES_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getSumOfSquares()
-	 * <em>Sum Of Squares</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getSumOfSquares() <em>Sum Of Squares</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getSumOfSquares()
 	 * @generated
 	 * @ordered
@@ -238,10 +234,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected double sumOfSquares = SUM_OF_SQUARES_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getGeometricMean()
-	 * <em>Geometric Mean</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getGeometricMean() <em>Geometric
+	 * Mean</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getGeometricMean()
 	 * @generated
 	 * @ordered
@@ -249,10 +244,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected static final double GEOMETRIC_MEAN_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getGeometricMean()
-	 * <em>Geometric Mean</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getGeometricMean() <em>Geometric Mean</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getGeometricMean()
 	 * @generated
 	 * @ordered
@@ -260,10 +254,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected double geometricMean = GEOMETRIC_MEAN_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getSecondMoment()
-	 * <em>Second Moment</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getSecondMoment() <em>Second Moment</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getSecondMoment()
 	 * @generated
 	 * @ordered
@@ -271,9 +264,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected static final double SECOND_MOMENT_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getSecondMoment() <em>Second Moment</em>
-	 * }' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getSecondMoment() <em>Second Moment</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getSecondMoment()
 	 * @generated
 	 * @ordered
@@ -281,10 +274,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected double secondMoment = SECOND_MOMENT_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getStandardDeviation()
-	 * <em>Standard Deviation</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getStandardDeviation() <em>Standard
+	 * Deviation</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getStandardDeviation()
 	 * @generated
 	 * @ordered
@@ -292,10 +284,9 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 	protected static final double STANDARD_DEVIATION_EDEFAULT = 0.0;
 
 	/**
-	 * The cached value of the '{@link #getStandardDeviation()
-	 * <em>Standard Deviation</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getStandardDeviation() <em>Standard
+	 * Deviation</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getStandardDeviation()
 	 * @generated
 	 * @ordered
@@ -304,7 +295,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected StatisticalDataImpl() {
@@ -313,7 +304,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -323,7 +314,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -333,7 +324,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -346,7 +337,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -356,7 +347,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -369,7 +360,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -379,7 +370,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -392,7 +383,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -402,7 +393,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -416,7 +407,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -426,7 +417,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -439,7 +430,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -449,7 +440,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -463,7 +454,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -473,7 +464,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -487,7 +478,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -497,7 +488,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -511,7 +502,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -521,7 +512,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -535,7 +526,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -545,7 +536,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -559,7 +550,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -569,7 +560,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -583,7 +574,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -617,7 +608,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -662,7 +653,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -707,7 +698,7 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -741,12 +732,15 @@ public class StatisticalDataImpl extends MinimalEObjectImpl.Container implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		StringBuffer result = new StringBuffer();
+		if (eIsProxy())
+			return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (min: ");
 		result.append(min);
 		result.append(", max: ");

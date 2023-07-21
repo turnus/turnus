@@ -107,6 +107,9 @@ public class TurnusExtensions {
 
 	/** The network weights XML file */
 	public static final String NETWORK_WEIGHT = "exdf";
+	
+	/** The network scheduling weights XML file */
+	public static final String SCHEDULE_WEIGHT = "sxdf";
 
 	/** The NL CAL file */
 	public static final String NL = "nl";

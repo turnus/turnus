@@ -56,7 +56,8 @@
     <eLiterals name="BOOLEAN" value="3"/>
     <eLiterals name="STRING" value="4"/>
     <eLiterals name="LIST" value="5"/>
-    <eLiterals name="UNDEFINED" value="6"/>
+    <eLiterals name="TENSOR" value="6" literal="TENSOR"/>
+    <eLiterals name="UNDEFINED" value="7"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StatisticalData">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>

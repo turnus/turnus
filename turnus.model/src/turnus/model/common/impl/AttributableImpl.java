@@ -1,6 +1,6 @@
-/* 
+/*
  * TURNUS - www.turnus.co
- * 
+ *
  * Copyright (C) 2010-2016 EPFL SCI STI MM
  *
  * This file is part of TURNUS.
@@ -17,17 +17,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with TURNUS.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * Additional permission under GNU GPL version 3 section 7
- * 
+ *
  * If you modify this Program, or any covered work, by linking or combining it
- * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or 
- * an Eclipse library), containing parts covered by the terms of the 
- * Eclipse Public License (EPL), the licensors of this Program grant you 
- * additional permission to convey the resulting work.  Corresponding Source 
- * for a non-source form of such a combination shall include the source code 
+ * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or
+ * an Eclipse library), containing parts covered by the terms of the
+ * Eclipse Public License (EPL), the licensors of this Program grant you
+ * additional permission to convey the resulting work.  Corresponding Source
+ * for a non-source form of such a combination shall include the source code
  * for the parts of Eclipse libraries used as well as that of the  covered work.
- * 
+ *
  */
 package turnus.model.common.impl;
 
@@ -64,10 +64,9 @@ import turnus.model.common.CommonPackage;
 public class AttributableImpl extends MinimalEObjectImpl.Container implements Attributable {
 
 	/**
-	 * The cached value of the '{@link #getAttributesTable()
-	 * <em>Attributes Table</em>}' map. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getAttributesTable() <em>Attributes
+	 * Table</em>}' map. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @see #getAttributesTable()
 	 * @generated
 	 * @ordered
@@ -76,7 +75,7 @@ public class AttributableImpl extends MinimalEObjectImpl.Container implements At
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected AttributableImpl() {
@@ -85,7 +84,7 @@ public class AttributableImpl extends MinimalEObjectImpl.Container implements At
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -102,7 +101,7 @@ public class AttributableImpl extends MinimalEObjectImpl.Container implements At
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -117,7 +116,7 @@ public class AttributableImpl extends MinimalEObjectImpl.Container implements At
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -131,7 +130,7 @@ public class AttributableImpl extends MinimalEObjectImpl.Container implements At
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -147,7 +146,7 @@ public class AttributableImpl extends MinimalEObjectImpl.Container implements At
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -157,7 +156,7 @@ public class AttributableImpl extends MinimalEObjectImpl.Container implements At
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -172,12 +171,12 @@ public class AttributableImpl extends MinimalEObjectImpl.Container implements At
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public Map<String, Object> getAttributesTable() {
 		if (attributesTable == null) {
-			attributesTable = new EcoreEMap<String, Object>(CommonPackage.Literals.STRING_TO_OBJECT_MAP,
+			attributesTable = new EcoreEMap<>(CommonPackage.Literals.STRING_TO_OBJECT_MAP,
 					StringToObjectMapImpl.class, this, CommonPackage.ATTRIBUTABLE__ATTRIBUTES_TABLE);
 		}
 		return attributesTable.map();
@@ -219,10 +218,12 @@ public class AttributableImpl extends MinimalEObjectImpl.Container implements At
 		getAttributesTable().put(name, value);
 	}
 
+	@Override
 	public boolean hasAttributes() {
 		return !getAttributesTable().isEmpty();
 	}
 
+	@Override
 	public Map<String, Object> getAttributes() {
 		return new HashMap<>(getAttributes());
 	}

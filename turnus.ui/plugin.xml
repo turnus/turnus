@@ -180,6 +180,14 @@
             name="TURNUS Network weight editor">
       </editor>
       <editor
+            class="turnus.ui.editor.mapping.SchedulingWeightEditor"
+            default="true"
+            extensions="sxdf"
+            icon="icon/odata-document.png"
+            id="turnus.ui.editor.mapping.networkSchedulingWeight"
+            name="TURNUS Network scheduling weight editor">
+      </editor>
+      <editor
             class="turnus.ui.editor.mapping.BufferSizeEditor"
             default="true"
             extensions="bxdf"

@@ -40,7 +40,7 @@ import java.util.Arrays;
 
 import org.apache.commons.lang3.SystemUtils;
 
-import com.google.common.io.Files;
+import java.nio.file.Files;
 
 import turnus.common.TurnusRuntimeException;
 
@@ -48,6 +48,7 @@ import turnus.common.TurnusRuntimeException;
  * This class contains the method to dynamically load the ADEVS libraries at
  * runtime
  * 
+ * @author Endri Bezati
  * @author Simone Casale-Brunet
  *
  */
@@ -62,7 +63,7 @@ public class LibraryLoader {
 			if (SystemUtils.IS_OS_LINUX) {
 				loadFile("libjava_adevs.so");
 			} else if (SystemUtils.IS_OS_MAC_OSX) {
-				loadFile("libjava_adevs.dylib");
+				loadFile("libadevs.dylib");
 			}else {
 				throw new TurnusRuntimeException("ADEVS is not supported on this OS.");
 			}
@@ -82,6 +83,7 @@ public class LibraryLoader {
 	 * @param pathToAdd the path to add
 	 * @throws Exception
 	 */
+	@SuppressWarnings("unused")
 	private static void addLibraryPath(String pathToAdd) throws Exception {
 		final Field usrPathsField = ClassLoader.class.getDeclaredField("usr_paths");
 		usrPathsField.setAccessible(true);
@@ -111,7 +113,7 @@ public class LibraryLoader {
 	 */
 	private static void loadFile(String fileName) throws Exception {
 		InputStream is = LibraryLoader.class.getResourceAsStream(fileName);
-		File path = Files.createTempDir();
+		File path = Files.createTempDirectory("tmp").toFile();
 		path.deleteOnExit();
 //		addLibraryPath(path.getAbsolutePath()); this shouldn't be needed ?
 

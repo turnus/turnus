@@ -45,7 +45,10 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
+import turnus.adevs.logging.impl.ActionStatisticsCollector;
 import turnus.adevs.logging.impl.ActorStatisticsCollector;
+import turnus.adevs.logging.impl.BufferBlockingCollector;
+import turnus.adevs.logging.impl.SchedulerChecksCollector;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
@@ -53,8 +56,11 @@ import turnus.common.configuration.Configuration.CliParser;
 import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
 import turnus.model.ModelsRegister;
+import turnus.model.analysis.postprocessing.ActionStatisticsReport;
 import turnus.model.analysis.postprocessing.ActorStatisticsReport;
+import turnus.model.analysis.postprocessing.BufferBlockingReport;
 import turnus.model.analysis.postprocessing.PostProcessingReport;
+import turnus.model.analysis.postprocessing.SchedulerChecksReport;
 import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
@@ -254,9 +260,9 @@ public class SimEngineCli implements IApplication {
 			monitor.subTask("Running the simulation");
 			try {
 				ActorStatisticsCollector actorStatsCollector = new ActorStatisticsCollector(network, partitioning);
-				//ActionStatisticsCollector actionStatsCollector = new ActionStatisticsCollector(network);
-				//SchedulerChecksCollector schedulingCheckCollector = new SchedulerChecksCollector(network, partitioning);
-				//BufferBlockingCollector bufferCollector = new BufferBlockingCollector(network);
+				ActionStatisticsCollector actionStatsCollector = new ActionStatisticsCollector(network);
+				SchedulerChecksCollector schedulingCheckCollector = new SchedulerChecksCollector(network, partitioning);
+				BufferBlockingCollector bufferCollector = new BufferBlockingCollector(network);
 
 				simulation = new SimEngine();
 				simulation.setTraceProject(tProject);
@@ -269,9 +275,9 @@ public class SimEngineCli implements IApplication {
 					simulation.setReleaseAfterProcessing();
 				
 				simulation.addDataCollector(actorStatsCollector);
-				//simulation.addDataCollector(actionStatsCollector);
-				//simulation.addDataCollector(schedulingCheckCollector);
-				//simulation.addDataCollector(bufferCollector);
+				simulation.addDataCollector(actionStatsCollector);
+				simulation.addDataCollector(schedulingCheckCollector);
+				simulation.addDataCollector(bufferCollector);
 
 				report = simulation.run();
 			
@@ -303,7 +309,7 @@ public class SimEngineCli implements IApplication {
 				EcoreUtils.storeEObject(actorReport, tProject.getResourceSet(), reportFile);
 				Logger.info("Actor statistics report stored in \"%s\"", reportFile);
 			
-				/*
+				
 				// store the action report
 				ActionStatisticsReport actionReport = report.getReport(ActionStatisticsReport.class);
 				reportFile = changeExtension(reportFile, TurnusExtensions.POST_PROCESSING_ACTION_REPORT);
@@ -321,7 +327,7 @@ public class SimEngineCli implements IApplication {
 				reportFile = changeExtension(reportFile, TurnusExtensions.BUFFER_BLOCKING_REPORT);
 				EcoreUtils.storeEObject(bufferReport, tProject.getResourceSet(), reportFile);
 				Logger.info("Buffer blocking report stored in \"%s\"", reportFile);
-				*/
+				
 				
 				if (configuration.hasValue(RECORD_BUFFERS) && configuration.getValue(RECORD_BUFFERS)) {
 					File bxdfFile = changeExtension(reportFile, TurnusExtensions.BUFFER_SIZE);

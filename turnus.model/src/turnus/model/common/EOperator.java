@@ -1,6 +1,6 @@
-/* 
+/*
  * TURNUS - www.turnus.co
- * 
+ *
  * Copyright (C) 2010-2016 EPFL SCI STI MM
  *
  * This file is part of TURNUS.
@@ -17,17 +17,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with TURNUS.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * Additional permission under GNU GPL version 3 section 7
- * 
+ *
  * If you modify this Program, or any covered work, by linking or combining it
- * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or 
- * an Eclipse library), containing parts covered by the terms of the 
- * Eclipse Public License (EPL), the licensors of this Program grant you 
- * additional permission to convey the resulting work.  Corresponding Source 
- * for a non-source form of such a combination shall include the source code 
+ * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or
+ * an Eclipse library), containing parts covered by the terms of the
+ * Eclipse Public License (EPL), the licensors of this Program grant you
+ * additional permission to convey the resulting work.  Corresponding Source
+ * for a non-source form of such a combination shall include the source code
  * for the parts of Eclipse libraries used as well as that of the  covered work.
- * 
+ *
  */
 package turnus.model.common;
 
@@ -41,16 +41,16 @@ import org.eclipse.emf.common.util.Enumerator;
  * <!-- begin-user-doc --> A representation of the literals of the enumeration '
  * <em><b>EOperator</b></em>', and utility methods for working with them. <!--
  * end-user-doc -->
- * 
+ *
  * @see turnus.model.common.CommonPackage#getEOperator()
  * @model
  * @generated
  */
 public enum EOperator implements Enumerator {
 	/**
-	 * The '<em><b>BINARY BIT AND</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY BIT AND</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #BINARY_BIT_AND_VALUE
 	 * @generated
 	 * @ordered
@@ -58,9 +58,9 @@ public enum EOperator implements Enumerator {
 	BINARY_BIT_AND(0, "BINARY_BIT_AND", "BINARY_BIT_AND"),
 
 	/**
-	 * The '<em><b>BINARY BIT OR</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY BIT OR</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #BINARY_BIT_OR_VALUE
 	 * @generated
 	 * @ordered
@@ -68,9 +68,9 @@ public enum EOperator implements Enumerator {
 	BINARY_BIT_OR(1, "BINARY_BIT_OR", "BINARY_BIT_OR"),
 
 	/**
-	 * The '<em><b>BINARY BIT XOR</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY BIT XOR</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #BINARY_BIT_XOR_VALUE
 	 * @generated
 	 * @ordered
@@ -78,9 +78,9 @@ public enum EOperator implements Enumerator {
 	BINARY_BIT_XOR(2, "BINARY_BIT_XOR", "BINARY_BIT_XOR"),
 
 	/**
-	 * The '<em><b>BINARY DIV</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY DIV</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
 	 * @see #BINARY_DIV_VALUE
 	 * @generated
 	 * @ordered
@@ -88,9 +88,9 @@ public enum EOperator implements Enumerator {
 	BINARY_DIV(3, "BINARY_DIV", "BINARY_DIV"),
 
 	/**
-	 * The '<em><b>BINARY DIV INT</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY DIV INT</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #BINARY_DIV_INT_VALUE
 	 * @generated
 	 * @ordered
@@ -98,9 +98,9 @@ public enum EOperator implements Enumerator {
 	BINARY_DIV_INT(4, "BINARY_DIV_INT", "BINARY_DIV_INT"),
 
 	/**
-	 * The '<em><b>BINARY EQ</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY EQ</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
 	 * @see #BINARY_EQ_VALUE
 	 * @generated
 	 * @ordered
@@ -108,9 +108,9 @@ public enum EOperator implements Enumerator {
 	BINARY_EQ(5, "BINARY_EQ", "BINARY_EQ"),
 
 	/**
-	 * The '<em><b>BINARY EXP</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY EXP</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
 	 * @see #BINARY_EXP_VALUE
 	 * @generated
 	 * @ordered
@@ -118,9 +118,9 @@ public enum EOperator implements Enumerator {
 	BINARY_EXP(6, "BINARY_EXP", "BINARY_EXP"),
 
 	/**
-	 * The '<em><b>BINARY GT</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY GT</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
 	 * @see #BINARY_GT_VALUE
 	 * @generated
 	 * @ordered
@@ -128,9 +128,9 @@ public enum EOperator implements Enumerator {
 	BINARY_GT(7, "BINARY_GT", "BINARY_GT"),
 
 	/**
-	 * The '<em><b>BINARY GE</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY GE</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
 	 * @see #BINARY_GE_VALUE
 	 * @generated
 	 * @ordered
@@ -138,9 +138,9 @@ public enum EOperator implements Enumerator {
 	BINARY_GE(8, "BINARY_GE", "BINARY_GE"),
 
 	/**
-	 * The '<em><b>BINARY LT</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY LT</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
 	 * @see #BINARY_LT_VALUE
 	 * @generated
 	 * @ordered
@@ -148,9 +148,9 @@ public enum EOperator implements Enumerator {
 	BINARY_LT(9, "BINARY_LT", "BINARY_LT"),
 
 	/**
-	 * The '<em><b>BINARY LE</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY LE</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
 	 * @see #BINARY_LE_VALUE
 	 * @generated
 	 * @ordered
@@ -158,9 +158,9 @@ public enum EOperator implements Enumerator {
 	BINARY_LE(10, "BINARY_LE", "BINARY_LE"),
 
 	/**
-	 * The '<em><b>BINARY LOGIC OR</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY LOGIC OR</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #BINARY_LOGIC_OR_VALUE
 	 * @generated
 	 * @ordered
@@ -168,9 +168,9 @@ public enum EOperator implements Enumerator {
 	BINARY_LOGIC_OR(11, "BINARY_LOGIC_OR", "BINARY_LOGIC_OR"),
 
 	/**
-	 * The '<em><b>BINARY LOGIC AND</b></em>' literal object. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY LOGIC AND</b></em>' literal object. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 *
 	 * @see #BINARY_LOGIC_AND_VALUE
 	 * @generated
 	 * @ordered
@@ -178,9 +178,9 @@ public enum EOperator implements Enumerator {
 	BINARY_LOGIC_AND(12, "BINARY_LOGIC_AND", "BINARY_LOGIC_AND"),
 
 	/**
-	 * The '<em><b>BINARY MINUS</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY MINUS</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #BINARY_MINUS_VALUE
 	 * @generated
 	 * @ordered
@@ -190,7 +190,7 @@ public enum EOperator implements Enumerator {
 	/**
 	 * The '<em><b>BINARY PLUS</b></em>' literal object. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_PLUS_VALUE
 	 * @generated
 	 * @ordered
@@ -198,9 +198,9 @@ public enum EOperator implements Enumerator {
 	BINARY_PLUS(14, "BINARY_PLUS", "BINARY_PLUS"),
 
 	/**
-	 * The '<em><b>BINARY MOD</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY MOD</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
 	 * @see #BINARY_MOD_VALUE
 	 * @generated
 	 * @ordered
@@ -208,9 +208,9 @@ public enum EOperator implements Enumerator {
 	BINARY_MOD(15, "BINARY_MOD", "BINARY_MOD"),
 
 	/**
-	 * The '<em><b>BINARY TIMES</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY TIMES</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #BINARY_TIMES_VALUE
 	 * @generated
 	 * @ordered
@@ -218,9 +218,9 @@ public enum EOperator implements Enumerator {
 	BINARY_TIMES(16, "BINARY_TIMES", "BINARY_TIMES"),
 
 	/**
-	 * The '<em><b>BINARY NE</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY NE</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
 	 * @see #BINARY_NE_VALUE
 	 * @generated
 	 * @ordered
@@ -228,9 +228,9 @@ public enum EOperator implements Enumerator {
 	BINARY_NE(17, "BINARY_NE", "BINARY_NE"),
 
 	/**
-	 * The '<em><b>BINARY SHIFT LEFT</b></em>' literal object. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY SHIFT LEFT</b></em>' literal object. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 *
 	 * @see #BINARY_SHIFT_LEFT_VALUE
 	 * @generated
 	 * @ordered
@@ -238,9 +238,9 @@ public enum EOperator implements Enumerator {
 	BINARY_SHIFT_LEFT(18, "BINARY_SHIFT_LEFT", "BINARY_SHIFT_LEFT"),
 
 	/**
-	 * The '<em><b>BINARY SHIFT RIGHT</b></em>' literal object. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>BINARY SHIFT RIGHT</b></em>' literal object. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 *
 	 * @see #BINARY_SHIFT_RIGHT_VALUE
 	 * @generated
 	 * @ordered
@@ -248,9 +248,9 @@ public enum EOperator implements Enumerator {
 	BINARY_SHIFT_RIGHT(19, "BINARY_SHIFT_RIGHT", "BINARY_SHIFT_RIGHT"),
 
 	/**
-	 * The '<em><b>UNARY BIT NOT</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>UNARY BIT NOT</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #UNARY_BIT_NOT_VALUE
 	 * @generated
 	 * @ordered
@@ -258,9 +258,9 @@ public enum EOperator implements Enumerator {
 	UNARY_BIT_NOT(100, "UNARY_BIT_NOT", "UNARY_BIT_NOT"),
 
 	/**
-	 * The '<em><b>UNARY LOGIC NOT</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>UNARY LOGIC NOT</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #UNARY_LOGIC_NOT_VALUE
 	 * @generated
 	 * @ordered
@@ -270,7 +270,7 @@ public enum EOperator implements Enumerator {
 	/**
 	 * The '<em><b>UNARY MINUS</b></em>' literal object. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #UNARY_MINUS_VALUE
 	 * @generated
 	 * @ordered
@@ -278,9 +278,9 @@ public enum EOperator implements Enumerator {
 	UNARY_MINUS(102, "UNARY_MINUS", "UNARY_MINUS"),
 
 	/**
-	 * The '<em><b>UNARY NUM ELTS</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>UNARY NUM ELTS</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #UNARY_NUM_ELTS_VALUE
 	 * @generated
 	 * @ordered
@@ -288,9 +288,9 @@ public enum EOperator implements Enumerator {
 	UNARY_NUM_ELTS(103, "UNARY_NUM_ELTS", "UNARY_NUM_ELTS"),
 
 	/**
-	 * The '<em><b>DATAHANDLING STORE</b></em>' literal object. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>DATAHANDLING STORE</b></em>' literal object. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 *
 	 * @see #DATAHANDLING_STORE_VALUE
 	 * @generated
 	 * @ordered
@@ -298,9 +298,9 @@ public enum EOperator implements Enumerator {
 	DATAHANDLING_STORE(200, "DATAHANDLING_STORE", "DATAHANDLING_STORE"),
 
 	/**
-	 * The '<em><b>DATAHANDLING ASSIGN</b></em>' literal object. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>DATAHANDLING ASSIGN</b></em>' literal object. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 *
 	 * @see #DATAHANDLING_ASSIGN_VALUE
 	 * @generated
 	 * @ordered
@@ -308,9 +308,9 @@ public enum EOperator implements Enumerator {
 	DATAHANDLING_ASSIGN(201, "DATAHANDLING_ASSIGN", "DATAHANDLING_ASSIGN"),
 
 	/**
-	 * The '<em><b>DATAHANDLING CALL</b></em>' literal object. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>DATAHANDLING CALL</b></em>' literal object. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 *
 	 * @see #DATAHANDLING_CALL_VALUE
 	 * @generated
 	 * @ordered
@@ -318,9 +318,9 @@ public enum EOperator implements Enumerator {
 	DATAHANDLING_CALL(202, "DATAHANDLING_CALL", "DATAHANDLING_CALL"),
 
 	/**
-	 * The '<em><b>DATAHANDLING LOAD</b></em>' literal object. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>DATAHANDLING LOAD</b></em>' literal object. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 *
 	 * @see #DATAHANDLING_LOAD_VALUE
 	 * @generated
 	 * @ordered
@@ -330,7 +330,7 @@ public enum EOperator implements Enumerator {
 	/**
 	 * The '<em><b>DATAHANDLING LIST LOAD</b></em>' literal object. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #DATAHANDLING_LIST_LOAD_VALUE
 	 * @generated
 	 * @ordered
@@ -340,7 +340,7 @@ public enum EOperator implements Enumerator {
 	/**
 	 * The '<em><b>DATAHANDLING LIST STORE</b></em>' literal object. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #DATAHANDLING_LIST_STORE_VALUE
 	 * @generated
 	 * @ordered
@@ -348,9 +348,9 @@ public enum EOperator implements Enumerator {
 	DATAHANDLING_LIST_STORE(205, "DATAHANDLING_LIST_STORE", "DATAHANDLING_LIST_STORE"),
 
 	/**
-	 * The '<em><b>FLOWCONTROL IF</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>FLOWCONTROL IF</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #FLOWCONTROL_IF_VALUE
 	 * @generated
 	 * @ordered
@@ -358,9 +358,9 @@ public enum EOperator implements Enumerator {
 	FLOWCONTROL_IF(300, "FLOWCONTROL_IF", "FLOWCONTROL_IF"),
 
 	/**
-	 * The '<em><b>FLOWCONTROL WHILE</b></em>' literal object. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>FLOWCONTROL WHILE</b></em>' literal object. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 *
 	 * @see #FLOWCONTROL_WHILE_VALUE
 	 * @generated
 	 * @ordered
@@ -368,14 +368,13 @@ public enum EOperator implements Enumerator {
 	FLOWCONTROL_WHILE(301, "FLOWCONTROL_WHILE", "FLOWCONTROL_WHILE");
 
 	/**
-	 * The '<em><b>BINARY BIT AND</b></em>' literal value. <!-- begin-user-doc
-	 * -->
+	 * The '<em><b>BINARY BIT AND</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>BINARY BIT AND</b></em>' literal object isn't
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_BIT_AND
 	 * @model
 	 * @generated
@@ -384,14 +383,13 @@ public enum EOperator implements Enumerator {
 	public static final int BINARY_BIT_AND_VALUE = 0;
 
 	/**
-	 * The '<em><b>BINARY BIT OR</b></em>' literal value. <!-- begin-user-doc
-	 * -->
+	 * The '<em><b>BINARY BIT OR</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>BINARY BIT OR</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>BINARY BIT OR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_BIT_OR
 	 * @model
 	 * @generated
@@ -400,14 +398,13 @@ public enum EOperator implements Enumerator {
 	public static final int BINARY_BIT_OR_VALUE = 1;
 
 	/**
-	 * The '<em><b>BINARY BIT XOR</b></em>' literal value. <!-- begin-user-doc
-	 * -->
+	 * The '<em><b>BINARY BIT XOR</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>BINARY BIT XOR</b></em>' literal object isn't
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_BIT_XOR
 	 * @model
 	 * @generated
@@ -418,11 +415,11 @@ public enum EOperator implements Enumerator {
 	/**
 	 * The '<em><b>BINARY DIV</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>BINARY DIV</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>BINARY DIV</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_DIV
 	 * @model
 	 * @generated
@@ -431,14 +428,13 @@ public enum EOperator implements Enumerator {
 	public static final int BINARY_DIV_VALUE = 3;
 
 	/**
-	 * The '<em><b>BINARY DIV INT</b></em>' literal value. <!-- begin-user-doc
-	 * -->
+	 * The '<em><b>BINARY DIV INT</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>BINARY DIV INT</b></em>' literal object isn't
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_DIV_INT
 	 * @model
 	 * @generated
@@ -453,7 +449,7 @@ public enum EOperator implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_EQ
 	 * @model
 	 * @generated
@@ -464,11 +460,11 @@ public enum EOperator implements Enumerator {
 	/**
 	 * The '<em><b>BINARY EXP</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>BINARY EXP</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>BINARY EXP</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_EXP
 	 * @model
 	 * @generated
@@ -483,7 +479,7 @@ public enum EOperator implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_GT
 	 * @model
 	 * @generated
@@ -498,7 +494,7 @@ public enum EOperator implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_GE
 	 * @model
 	 * @generated
@@ -513,7 +509,7 @@ public enum EOperator implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_LT
 	 * @model
 	 * @generated
@@ -528,7 +524,7 @@ public enum EOperator implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_LE
 	 * @model
 	 * @generated
@@ -537,14 +533,13 @@ public enum EOperator implements Enumerator {
 	public static final int BINARY_LE_VALUE = 10;
 
 	/**
-	 * The '<em><b>BINARY LOGIC OR</b></em>' literal value. <!-- begin-user-doc
-	 * -->
+	 * The '<em><b>BINARY LOGIC OR</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>BINARY LOGIC OR</b></em>' literal object isn't
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_LOGIC_OR
 	 * @model
 	 * @generated
@@ -553,14 +548,13 @@ public enum EOperator implements Enumerator {
 	public static final int BINARY_LOGIC_OR_VALUE = 11;
 
 	/**
-	 * The '<em><b>BINARY LOGIC AND</b></em>' literal value. <!-- begin-user-doc
-	 * -->
+	 * The '<em><b>BINARY LOGIC AND</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>BINARY LOGIC AND</b></em>' literal object isn't
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_LOGIC_AND
 	 * @model
 	 * @generated
@@ -571,11 +565,11 @@ public enum EOperator implements Enumerator {
 	/**
 	 * The '<em><b>BINARY MINUS</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>BINARY MINUS</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>BINARY MINUS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_MINUS
 	 * @model
 	 * @generated
@@ -586,11 +580,11 @@ public enum EOperator implements Enumerator {
 	/**
 	 * The '<em><b>BINARY PLUS</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>BINARY PLUS</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>BINARY PLUS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_PLUS
 	 * @model
 	 * @generated
@@ -601,11 +595,11 @@ public enum EOperator implements Enumerator {
 	/**
 	 * The '<em><b>BINARY MOD</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>BINARY MOD</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>BINARY MOD</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_MOD
 	 * @model
 	 * @generated
@@ -616,11 +610,11 @@ public enum EOperator implements Enumerator {
 	/**
 	 * The '<em><b>BINARY TIMES</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>BINARY TIMES</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>BINARY TIMES</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_TIMES
 	 * @model
 	 * @generated
@@ -635,7 +629,7 @@ public enum EOperator implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_NE
 	 * @model
 	 * @generated
@@ -644,14 +638,14 @@ public enum EOperator implements Enumerator {
 	public static final int BINARY_NE_VALUE = 17;
 
 	/**
-	 * The '<em><b>BINARY SHIFT LEFT</b></em>' literal value. <!--
-	 * begin-user-doc -->
+	 * The '<em><b>BINARY SHIFT LEFT</b></em>' literal value. <!-- begin-user-doc
+	 * -->
 	 * <p>
-	 * If the meaning of '<em><b>BINARY SHIFT LEFT</b></em>' literal object
-	 * isn't clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>BINARY SHIFT LEFT</b></em>' literal object isn't
+	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_SHIFT_LEFT
 	 * @model
 	 * @generated
@@ -660,14 +654,14 @@ public enum EOperator implements Enumerator {
 	public static final int BINARY_SHIFT_LEFT_VALUE = 18;
 
 	/**
-	 * The '<em><b>BINARY SHIFT RIGHT</b></em>' literal value. <!--
-	 * begin-user-doc -->
+	 * The '<em><b>BINARY SHIFT RIGHT</b></em>' literal value. <!-- begin-user-doc
+	 * -->
 	 * <p>
-	 * If the meaning of '<em><b>BINARY SHIFT RIGHT</b></em>' literal object
-	 * isn't clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>BINARY SHIFT RIGHT</b></em>' literal object isn't
+	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BINARY_SHIFT_RIGHT
 	 * @model
 	 * @generated
@@ -676,14 +670,13 @@ public enum EOperator implements Enumerator {
 	public static final int BINARY_SHIFT_RIGHT_VALUE = 19;
 
 	/**
-	 * The '<em><b>UNARY BIT NOT</b></em>' literal value. <!-- begin-user-doc
-	 * -->
+	 * The '<em><b>UNARY BIT NOT</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>UNARY BIT NOT</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>UNARY BIT NOT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #UNARY_BIT_NOT
 	 * @model
 	 * @generated
@@ -692,14 +685,13 @@ public enum EOperator implements Enumerator {
 	public static final int UNARY_BIT_NOT_VALUE = 100;
 
 	/**
-	 * The '<em><b>UNARY LOGIC NOT</b></em>' literal value. <!-- begin-user-doc
-	 * -->
+	 * The '<em><b>UNARY LOGIC NOT</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>UNARY LOGIC NOT</b></em>' literal object isn't
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #UNARY_LOGIC_NOT
 	 * @model
 	 * @generated
@@ -710,11 +702,11 @@ public enum EOperator implements Enumerator {
 	/**
 	 * The '<em><b>UNARY MINUS</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>UNARY MINUS</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>UNARY MINUS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #UNARY_MINUS
 	 * @model
 	 * @generated
@@ -723,14 +715,13 @@ public enum EOperator implements Enumerator {
 	public static final int UNARY_MINUS_VALUE = 102;
 
 	/**
-	 * The '<em><b>UNARY NUM ELTS</b></em>' literal value. <!-- begin-user-doc
-	 * -->
+	 * The '<em><b>UNARY NUM ELTS</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>UNARY NUM ELTS</b></em>' literal object isn't
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #UNARY_NUM_ELTS
 	 * @model
 	 * @generated
@@ -739,14 +730,14 @@ public enum EOperator implements Enumerator {
 	public static final int UNARY_NUM_ELTS_VALUE = 103;
 
 	/**
-	 * The '<em><b>DATAHANDLING STORE</b></em>' literal value. <!--
-	 * begin-user-doc -->
+	 * The '<em><b>DATAHANDLING STORE</b></em>' literal value. <!-- begin-user-doc
+	 * -->
 	 * <p>
-	 * If the meaning of '<em><b>DATAHANDLING STORE</b></em>' literal object
-	 * isn't clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>DATAHANDLING STORE</b></em>' literal object isn't
+	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #DATAHANDLING_STORE
 	 * @model
 	 * @generated
@@ -755,14 +746,14 @@ public enum EOperator implements Enumerator {
 	public static final int DATAHANDLING_STORE_VALUE = 200;
 
 	/**
-	 * The '<em><b>DATAHANDLING ASSIGN</b></em>' literal value. <!--
-	 * begin-user-doc -->
+	 * The '<em><b>DATAHANDLING ASSIGN</b></em>' literal value. <!-- begin-user-doc
+	 * -->
 	 * <p>
-	 * If the meaning of '<em><b>DATAHANDLING ASSIGN</b></em>' literal object
-	 * isn't clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>DATAHANDLING ASSIGN</b></em>' literal object isn't
+	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #DATAHANDLING_ASSIGN
 	 * @model
 	 * @generated
@@ -771,14 +762,14 @@ public enum EOperator implements Enumerator {
 	public static final int DATAHANDLING_ASSIGN_VALUE = 201;
 
 	/**
-	 * The '<em><b>DATAHANDLING CALL</b></em>' literal value. <!--
-	 * begin-user-doc -->
+	 * The '<em><b>DATAHANDLING CALL</b></em>' literal value. <!-- begin-user-doc
+	 * -->
 	 * <p>
-	 * If the meaning of '<em><b>DATAHANDLING CALL</b></em>' literal object
-	 * isn't clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>DATAHANDLING CALL</b></em>' literal object isn't
+	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #DATAHANDLING_CALL
 	 * @model
 	 * @generated
@@ -787,14 +778,14 @@ public enum EOperator implements Enumerator {
 	public static final int DATAHANDLING_CALL_VALUE = 202;
 
 	/**
-	 * The '<em><b>DATAHANDLING LOAD</b></em>' literal value. <!--
-	 * begin-user-doc -->
+	 * The '<em><b>DATAHANDLING LOAD</b></em>' literal value. <!-- begin-user-doc
+	 * -->
 	 * <p>
-	 * If the meaning of '<em><b>DATAHANDLING LOAD</b></em>' literal object
-	 * isn't clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>DATAHANDLING LOAD</b></em>' literal object isn't
+	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #DATAHANDLING_LOAD
 	 * @model
 	 * @generated
@@ -810,7 +801,7 @@ public enum EOperator implements Enumerator {
 	 * isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #DATAHANDLING_LIST_LOAD
 	 * @model
 	 * @generated
@@ -822,11 +813,11 @@ public enum EOperator implements Enumerator {
 	 * The '<em><b>DATAHANDLING LIST STORE</b></em>' literal value. <!--
 	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>DATAHANDLING LIST STORE</b></em>' literal
-	 * object isn't clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>DATAHANDLING LIST STORE</b></em>' literal object
+	 * isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #DATAHANDLING_LIST_STORE
 	 * @model
 	 * @generated
@@ -835,14 +826,13 @@ public enum EOperator implements Enumerator {
 	public static final int DATAHANDLING_LIST_STORE_VALUE = 205;
 
 	/**
-	 * The '<em><b>FLOWCONTROL IF</b></em>' literal value. <!-- begin-user-doc
-	 * -->
+	 * The '<em><b>FLOWCONTROL IF</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>FLOWCONTROL IF</b></em>' literal object isn't
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #FLOWCONTROL_IF
 	 * @model
 	 * @generated
@@ -851,14 +841,14 @@ public enum EOperator implements Enumerator {
 	public static final int FLOWCONTROL_IF_VALUE = 300;
 
 	/**
-	 * The '<em><b>FLOWCONTROL WHILE</b></em>' literal value. <!--
-	 * begin-user-doc -->
+	 * The '<em><b>FLOWCONTROL WHILE</b></em>' literal value. <!-- begin-user-doc
+	 * -->
 	 * <p>
-	 * If the meaning of '<em><b>FLOWCONTROL WHILE</b></em>' literal object
-	 * isn't clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>FLOWCONTROL WHILE</b></em>' literal object isn't
+	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #FLOWCONTROL_WHILE
 	 * @model
 	 * @generated
@@ -869,7 +859,7 @@ public enum EOperator implements Enumerator {
 	/**
 	 * An array of all the '<em><b>EOperator</b></em>' enumerators. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private static final EOperator[] VALUES_ARRAY = new EOperator[] { BINARY_BIT_AND, BINARY_BIT_OR, BINARY_BIT_XOR,
@@ -880,25 +870,23 @@ public enum EOperator implements Enumerator {
 			DATAHANDLING_LIST_STORE, FLOWCONTROL_IF, FLOWCONTROL_WHILE, };
 
 	/**
-	 * A public read-only list of all the '<em><b>EOperator</b></em>'
-	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * A public read-only list of all the '<em><b>EOperator</b></em>' enumerators.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public static final List<EOperator> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>EOperator</b></em>' literal with the specified
-	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param literal
-	 *            the literal.
+	 * Returns the '<em><b>EOperator</b></em>' literal with the specified literal
+	 * value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param literal the literal.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static EOperator get(String literal) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			EOperator result = VALUES_ARRAY[i];
+		for (EOperator result : VALUES_ARRAY) {
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -907,17 +895,15 @@ public enum EOperator implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>EOperator</b></em>' literal with the specified name.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param name
-	 *            the name.
+	 * Returns the '<em><b>EOperator</b></em>' literal with the specified name. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param name the name.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static EOperator getByName(String name) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			EOperator result = VALUES_ARRAY[i];
+		for (EOperator result : VALUES_ARRAY) {
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -926,11 +912,10 @@ public enum EOperator implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>EOperator</b></em>' literal with the specified
-	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the integer value.
+	 * Returns the '<em><b>EOperator</b></em>' literal with the specified integer
+	 * value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param value the integer value.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
@@ -1006,21 +991,21 @@ public enum EOperator implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final int value;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final String name;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final String literal;
@@ -1028,7 +1013,7 @@ public enum EOperator implements Enumerator {
 	/**
 	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private EOperator(int value, String name, String literal) {
@@ -1039,7 +1024,7 @@ public enum EOperator implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -1049,7 +1034,7 @@ public enum EOperator implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -1059,7 +1044,7 @@ public enum EOperator implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -1070,7 +1055,7 @@ public enum EOperator implements Enumerator {
 	/**
 	 * Returns the literal value of the enumerator, which is its string
 	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

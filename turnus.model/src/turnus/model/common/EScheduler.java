@@ -1,6 +1,6 @@
-/* 
+/*
  * TURNUS - www.turnus.co
- * 
+ *
  * Copyright (C) 2010-2016 EPFL SCI STI MM
  *
  * This file is part of TURNUS.
@@ -17,17 +17,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with TURNUS.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * Additional permission under GNU GPL version 3 section 7
- * 
+ *
  * If you modify this Program, or any covered work, by linking or combining it
- * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or 
- * an Eclipse library), containing parts covered by the terms of the 
- * Eclipse Public License (EPL), the licensors of this Program grant you 
- * additional permission to convey the resulting work.  Corresponding Source 
- * for a non-source form of such a combination shall include the source code 
+ * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or
+ * an Eclipse library), containing parts covered by the terms of the
+ * Eclipse Public License (EPL), the licensors of this Program grant you
+ * additional permission to convey the resulting work.  Corresponding Source
+ * for a non-source form of such a combination shall include the source code
  * for the parts of Eclipse libraries used as well as that of the  covered work.
- * 
+ *
  */
 package turnus.model.common;
 
@@ -41,16 +41,16 @@ import org.eclipse.emf.common.util.Enumerator;
  * <!-- begin-user-doc --> A representation of the literals of the enumeration '
  * <em><b>EScheduler</b></em>', and utility methods for working with them. <!--
  * end-user-doc -->
- * 
+ *
  * @see turnus.model.common.CommonPackage#getEScheduler()
  * @model
  * @generated
  */
 public enum EScheduler implements Enumerator {
 	/**
-	 * The '<em><b>FULL PARALLEL</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>FULL PARALLEL</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #FULL_PARALLEL_VALUE
 	 * @generated
 	 * @ordered
@@ -60,7 +60,7 @@ public enum EScheduler implements Enumerator {
 	/**
 	 * The '<em><b>ROUND ROBIN</b></em>' literal object. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #ROUND_ROBIN_VALUE
 	 * @generated
 	 * @ordered
@@ -68,9 +68,9 @@ public enum EScheduler implements Enumerator {
 	ROUND_ROBIN(1, "ROUND_ROBIN", "ROUND_ROBIN"),
 
 	/**
-	 * The '<em><b>NON PREEMPTIVE</b></em>' literal object. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
+	 * The '<em><b>NON PREEMPTIVE</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @see #NON_PREEMPTIVE_VALUE
 	 * @generated
 	 * @ordered
@@ -80,7 +80,7 @@ public enum EScheduler implements Enumerator {
 	/**
 	 * The '<em><b>STATIC</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #STATIC_VALUE
 	 * @generated
 	 * @ordered
@@ -88,14 +88,13 @@ public enum EScheduler implements Enumerator {
 	STATIC(3, "STATIC", "STATIC");
 
 	/**
-	 * The '<em><b>FULL PARALLEL</b></em>' literal value. <!-- begin-user-doc
-	 * -->
+	 * The '<em><b>FULL PARALLEL</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>FULL PARALLEL</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>FULL PARALLEL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #FULL_PARALLEL
 	 * @model
 	 * @generated
@@ -106,11 +105,11 @@ public enum EScheduler implements Enumerator {
 	/**
 	 * The '<em><b>ROUND ROBIN</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>ROUND ROBIN</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>ROUND ROBIN</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #ROUND_ROBIN
 	 * @model
 	 * @generated
@@ -119,14 +118,13 @@ public enum EScheduler implements Enumerator {
 	public static final int ROUND_ROBIN_VALUE = 1;
 
 	/**
-	 * The '<em><b>NON PREEMPTIVE</b></em>' literal value. <!-- begin-user-doc
-	 * -->
+	 * The '<em><b>NON PREEMPTIVE</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>NON PREEMPTIVE</b></em>' literal object isn't
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #NON_PREEMPTIVE
 	 * @model
 	 * @generated
@@ -137,11 +135,11 @@ public enum EScheduler implements Enumerator {
 	/**
 	 * The '<em><b>STATIC</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>STATIC</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>STATIC</b></em>' literal object isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #STATIC
 	 * @model
 	 * @generated
@@ -152,32 +150,30 @@ public enum EScheduler implements Enumerator {
 	/**
 	 * An array of all the '<em><b>EScheduler</b></em>' enumerators. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private static final EScheduler[] VALUES_ARRAY = new EScheduler[] { FULL_PARALLEL, ROUND_ROBIN, NON_PREEMPTIVE,
 			STATIC, };
 
 	/**
-	 * A public read-only list of all the '<em><b>EScheduler</b></em>'
-	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * A public read-only list of all the '<em><b>EScheduler</b></em>' enumerators.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public static final List<EScheduler> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>EScheduler</b></em>' literal with the specified
-	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param literal
-	 *            the literal.
+	 * Returns the '<em><b>EScheduler</b></em>' literal with the specified literal
+	 * value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param literal the literal.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static EScheduler get(String literal) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			EScheduler result = VALUES_ARRAY[i];
+		for (EScheduler result : VALUES_ARRAY) {
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -188,15 +184,13 @@ public enum EScheduler implements Enumerator {
 	/**
 	 * Returns the '<em><b>EScheduler</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param name
-	 *            the name.
+	 *
+	 * @param name the name.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static EScheduler getByName(String name) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			EScheduler result = VALUES_ARRAY[i];
+		for (EScheduler result : VALUES_ARRAY) {
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -205,11 +199,10 @@ public enum EScheduler implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>EScheduler</b></em>' literal with the specified
-	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the integer value.
+	 * Returns the '<em><b>EScheduler</b></em>' literal with the specified integer
+	 * value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 *
+	 * @param value the integer value.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
@@ -229,21 +222,21 @@ public enum EScheduler implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final int value;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final String name;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final String literal;
@@ -251,7 +244,7 @@ public enum EScheduler implements Enumerator {
 	/**
 	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private EScheduler(int value, String name, String literal) {
@@ -262,7 +255,7 @@ public enum EScheduler implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -272,7 +265,7 @@ public enum EScheduler implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -282,7 +275,7 @@ public enum EScheduler implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -293,7 +286,7 @@ public enum EScheduler implements Enumerator {
 	/**
 	 * Returns the literal value of the enumerator, which is its string
 	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

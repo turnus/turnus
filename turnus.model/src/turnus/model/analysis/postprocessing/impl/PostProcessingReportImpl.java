@@ -408,7 +408,7 @@ public class PostProcessingReportImpl extends MinimalEObjectImpl.Container imple
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * ª
 	 * @generated NOT
 	 */
 	@Override
