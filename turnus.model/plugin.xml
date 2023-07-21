@@ -301,5 +301,10 @@
             input="optimalbuffer"
             output="md">
       </exporter>
+            <exporter
+            class="turnus.model.analysis.postprocessing.io.ActionStatistics2MdExporter"
+            input="pproan"
+            output="md">
+      </exporter>
    </extension>
 </plugin>
