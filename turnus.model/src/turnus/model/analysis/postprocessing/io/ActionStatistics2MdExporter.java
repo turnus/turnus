@@ -37,6 +37,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.poi.hssf.record.PageBreakRecord.Break;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import turnus.common.TurnusException;
@@ -85,26 +86,30 @@ public class ActionStatistics2MdExporter implements FileExporter<ActionStatistic
 //				}
 //			});
 			
-			// -- processing time
-			b.append("## Processing Time \n");
-			b.append("| Actor | Action | Counts | Time | \n");
+			// -- Global
+			b.append("## Global \n");
+			b.append("| Actor | Action | Counts | Processing | Schedulable | Blocked Reading | Blocked Writing | \n");
 			b.append("|:---- |:----  |:----\n");
 			for (Actor actor : actors) {
 				for (Action action : actor.getActions()) {
 					if (report.getIdleTimes().containsKey(action)) {
 						long counts = report.getExecutionCounts().get(action);
 						double time = report.getProcessingTimes().get(action);
+						double idle = report.getIdleTimes().get(action);
+						double bwrite = report.getBlockedReadingTimes().get(action);
+						double bread = report.getBlockedReadingTimes().get(action);
 						
-						b.append(String.format("| %s | %s | %s | %s |\n", actor.getName(), action.getName(),
-								counts, time));
+						b.append(String.format("| %s | %s | %s | %s | %s | %s | %s |\n", actor.getName(), action.getName(),
+								counts, time, idle, bwrite, bread));
 					}
 
 				}
 			}
-
 			
-			// -- idle time
-			b.append("## Idle Time \n");
+			
+			
+			// -- Schedulable time
+			b.append("## Schedulable Time \n");
 			b.append("| Actor | Action | Mean | Min | Max | \n");
 			b.append("|:---- |:----  |:----\n");
 			for (Actor actor : actors) {
