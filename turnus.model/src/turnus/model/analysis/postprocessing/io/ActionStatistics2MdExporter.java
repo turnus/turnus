@@ -33,11 +33,8 @@ package turnus.model.analysis.postprocessing.io;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import org.apache.poi.hssf.record.PageBreakRecord.Break;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import turnus.common.TurnusException;
