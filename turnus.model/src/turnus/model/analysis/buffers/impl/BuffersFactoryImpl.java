@@ -99,6 +99,7 @@ public class BuffersFactoryImpl extends EFactoryImpl implements BuffersFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BoundedBuffersReport createBoundedBuffersReport() {
 		BoundedBuffersReportImpl boundedBuffersReport = new BoundedBuffersReportImpl();
 		return boundedBuffersReport;
@@ -109,6 +110,7 @@ public class BuffersFactoryImpl extends EFactoryImpl implements BuffersFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BoundedBufferData createBoundedBufferData() {
 		BoundedBufferDataImpl boundedBufferData = new BoundedBufferDataImpl();
 		return boundedBufferData;
@@ -119,6 +121,7 @@ public class BuffersFactoryImpl extends EFactoryImpl implements BuffersFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OptimalBuffersReport createOptimalBuffersReport() {
 		OptimalBuffersReportImpl optimalBuffersReport = new OptimalBuffersReportImpl();
 		return optimalBuffersReport;
@@ -129,6 +132,7 @@ public class BuffersFactoryImpl extends EFactoryImpl implements BuffersFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OptimalBufferData createOptimalBufferData() {
 		OptimalBufferDataImpl optimalBufferData = new OptimalBufferDataImpl();
 		return optimalBufferData;
@@ -139,6 +143,7 @@ public class BuffersFactoryImpl extends EFactoryImpl implements BuffersFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BuffersPackage getBuffersPackage() {
 		return (BuffersPackage)getEPackage();
 	}

@@ -67,7 +67,7 @@ public interface CompressedTokensDependency extends CompressedDependency {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Count Map</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getCompressedTokensDependency_CountMap()
-	 * @model mapType="turnus.model.analysis.map.BufferToLongMap<turnus.model.dataflow.Buffer, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.BufferToLongMap&lt;turnus.model.dataflow.Buffer, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Buffer, Long> getCountMap();
@@ -84,7 +84,7 @@ public interface CompressedTokensDependency extends CompressedDependency {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tokens Map</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getCompressedTokensDependency_TokensMap()
-	 * @model mapType="turnus.model.analysis.map.BufferToStatisticalDataMap<turnus.model.dataflow.Buffer, turnus.model.common.StatisticalData>"
+	 * @model mapType="turnus.model.analysis.map.BufferToStatisticalDataMap&lt;turnus.model.dataflow.Buffer, turnus.model.common.StatisticalData&gt;"
 	 * @generated
 	 */
 	Map<Buffer, StatisticalData> getTokensMap();

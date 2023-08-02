@@ -128,6 +128,7 @@ public class CaseoptimalFactoryImpl extends EFactoryImpl implements CaseoptimalF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CaseOptimalScheduleReport createCaseOptimalScheduleReport() {
 		CaseOptimalScheduleReportImpl caseOptimalScheduleReport = new CaseOptimalScheduleReportImpl();
 		return caseOptimalScheduleReport;
@@ -138,6 +139,7 @@ public class CaseoptimalFactoryImpl extends EFactoryImpl implements CaseoptimalF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CaseOptimalActorSelectionSchedule createCaseOptimalActorSelectionSchedule() {
 		CaseOptimalActorSelectionScheduleImpl caseOptimalActorSelectionSchedule = new CaseOptimalActorSelectionScheduleImpl();
 		return caseOptimalActorSelectionSchedule;
@@ -168,6 +170,7 @@ public class CaseoptimalFactoryImpl extends EFactoryImpl implements CaseoptimalF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CaseoptimalPackage getCaseoptimalPackage() {
 		return (CaseoptimalPackage)getEPackage();
 	}

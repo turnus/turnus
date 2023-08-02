@@ -115,7 +115,7 @@ public interface ActorStatisticsReport extends PostProcessingData {
 	void setExecutionTime(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Partitions</b></em>' reference list.
+	 * Returns the value of the '<em><b>Partitions</b></em>' containment reference list.
 	 * The list contents are of type {@link turnus.model.analysis.postprocessing.StatisticalActorPartition}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -123,9 +123,9 @@ public interface ActorStatisticsReport extends PostProcessingData {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Partitions</em>' reference list.
+	 * @return the value of the '<em>Partitions</em>' containment reference list.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActorStatisticsReport_Partitions()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	List<StatisticalActorPartition> getPartitions();
@@ -142,7 +142,7 @@ public interface ActorStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Idle Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActorStatisticsReport_IdleTimes()
-	 * @model mapType="turnus.model.analysis.map.StringToDoubleMap<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.StringToDoubleMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<String, Double> getIdleTimes();
@@ -159,7 +159,7 @@ public interface ActorStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Blocked Reading Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActorStatisticsReport_BlockedReadingTimes()
-	 * @model mapType="turnus.model.analysis.map.StringToDoubleMap<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.StringToDoubleMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<String, Double> getBlockedReadingTimes();
@@ -176,7 +176,7 @@ public interface ActorStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Blocked Writing Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActorStatisticsReport_BlockedWritingTimes()
-	 * @model mapType="turnus.model.analysis.map.StringToDoubleMap<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.StringToDoubleMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<String, Double> getBlockedWritingTimes();
@@ -193,7 +193,7 @@ public interface ActorStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Processing Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActorStatisticsReport_ProcessingTimes()
-	 * @model mapType="turnus.model.analysis.map.StringToDoubleMap<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.StringToDoubleMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<String, Double> getProcessingTimes();

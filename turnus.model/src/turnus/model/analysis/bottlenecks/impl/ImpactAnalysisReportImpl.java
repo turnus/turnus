@@ -177,6 +177,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -185,6 +186,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -196,6 +198,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -204,6 +207,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -215,6 +219,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -239,6 +244,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -250,6 +256,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isClassLevel() {
 		return classLevel;
 	}
@@ -258,6 +265,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClassLevel(boolean newClassLevel) {
 		boolean oldClassLevel = classLevel;
 		classLevel = newClassLevel;
@@ -269,6 +277,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ImpactAnalysisData> getImpactData() {
 		if (impactData == null) {
 			impactData = new EObjectContainmentEList<ImpactAnalysisData>(ImpactAnalysisData.class, this, BottlenecksPackage.IMPACT_ANALYSIS_REPORT__IMPACT_DATA);
@@ -281,6 +290,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BottlenecksReport getInitialBottlenecks() {
 		return initialBottlenecks;
 	}
@@ -305,6 +315,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitialBottlenecks(BottlenecksReport newInitialBottlenecks) {
 		if (newInitialBottlenecks != initialBottlenecks) {
 			NotificationChain msgs = null;

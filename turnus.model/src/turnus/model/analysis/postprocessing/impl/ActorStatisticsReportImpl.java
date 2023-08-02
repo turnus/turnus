@@ -47,7 +47,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -114,7 +114,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	protected double executionTime = EXECUTION_TIME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPartitions() <em>Partitions</em>}' reference list.
+	 * The cached value of the '{@link #getPartitions() <em>Partitions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPartitions()
@@ -227,6 +227,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -253,6 +254,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -265,6 +267,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getExecutionTime() {
 		return executionTime;
 	}
@@ -274,6 +277,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExecutionTime(double newExecutionTime) {
 		double oldExecutionTime = executionTime;
 		executionTime = newExecutionTime;
@@ -286,9 +290,10 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<StatisticalActorPartition> getPartitions() {
 		if (partitions == null) {
-			partitions = new EObjectResolvingEList<StatisticalActorPartition>(StatisticalActorPartition.class, this, PostprocessingPackage.ACTOR_STATISTICS_REPORT__PARTITIONS);
+			partitions = new EObjectContainmentEList<StatisticalActorPartition>(StatisticalActorPartition.class, this, PostprocessingPackage.ACTOR_STATISTICS_REPORT__PARTITIONS);
 		}
 		return partitions;
 	}
@@ -298,6 +303,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, Double> getIdleTimes() {
 		if (idleTimes == null) {
 			idleTimes = new EcoreEMap<String,Double>(MapPackage.Literals.STRING_TO_DOUBLE_MAP, StringToDoubleMapImpl.class, this, PostprocessingPackage.ACTOR_STATISTICS_REPORT__IDLE_TIMES);
@@ -310,6 +316,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, Double> getBlockedReadingTimes() {
 		if (blockedReadingTimes == null) {
 			blockedReadingTimes = new EcoreEMap<String,Double>(MapPackage.Literals.STRING_TO_DOUBLE_MAP, StringToDoubleMapImpl.class, this, PostprocessingPackage.ACTOR_STATISTICS_REPORT__BLOCKED_READING_TIMES);
@@ -322,6 +329,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, Double> getBlockedWritingTimes() {
 		if (blockedWritingTimes == null) {
 			blockedWritingTimes = new EcoreEMap<String,Double>(MapPackage.Literals.STRING_TO_DOUBLE_MAP, StringToDoubleMapImpl.class, this, PostprocessingPackage.ACTOR_STATISTICS_REPORT__BLOCKED_WRITING_TIMES);
@@ -334,6 +342,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, Double> getProcessingTimes() {
 		if (processingTimes == null) {
 			processingTimes = new EcoreEMap<String,Double>(MapPackage.Literals.STRING_TO_DOUBLE_MAP, StringToDoubleMapImpl.class, this, PostprocessingPackage.ACTOR_STATISTICS_REPORT__PROCESSING_TIMES);
@@ -346,6 +355,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getAverageOccupancy() {
 		return averageOccupancy;
 	}
@@ -355,6 +365,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAverageOccupancy(double newAverageOccupancy) {
 		double oldAverageOccupancy = averageOccupancy;
 		averageOccupancy = newAverageOccupancy;
@@ -367,6 +378,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getOccupancyDeviation() {
 		return occupancyDeviation;
 	}
@@ -376,6 +388,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOccupancyDeviation(double newOccupancyDeviation) {
 		double oldOccupancyDeviation = occupancyDeviation;
 		occupancyDeviation = newOccupancyDeviation;
@@ -391,6 +404,8 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case PostprocessingPackage.ACTOR_STATISTICS_REPORT__PARTITIONS:
+				return ((InternalEList<?>)getPartitions()).basicRemove(otherEnd, msgs);
 			case PostprocessingPackage.ACTOR_STATISTICS_REPORT__IDLE_TIMES:
 				return ((InternalEList<?>)((EMap.InternalMapView<String, Double>)getIdleTimes()).eMap()).basicRemove(otherEnd, msgs);
 			case PostprocessingPackage.ACTOR_STATISTICS_REPORT__BLOCKED_READING_TIMES:

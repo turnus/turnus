@@ -155,6 +155,7 @@ public class BenchmarkReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -164,6 +165,7 @@ public class BenchmarkReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -176,6 +178,7 @@ public class BenchmarkReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -185,6 +188,7 @@ public class BenchmarkReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -197,6 +201,7 @@ public class BenchmarkReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getColumn_names() {
 		if (column_names == null) {
 			column_names = new EDataTypeUniqueEList<String>(String.class, this, ProfilerPackage.BENCHMARK_REPORT__COLUMN_NAMES);
@@ -209,6 +214,7 @@ public class BenchmarkReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<TableRow> getRows() {
 		if (rows == null) {
 			rows = new EObjectContainmentEList<TableRow>(TableRow.class, this, ProfilerPackage.BENCHMARK_REPORT__ROWS);
@@ -330,7 +336,7 @@ public class BenchmarkReportImpl extends MinimalEObjectImpl.Container implements
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (algorithm: ");
 		result.append(algorithm);
 		result.append(", date: ");

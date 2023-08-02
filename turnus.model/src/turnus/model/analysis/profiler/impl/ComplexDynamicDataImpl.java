@@ -177,6 +177,7 @@ public class ComplexDynamicDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<EOperator, StatisticalData> getOperandsCalls() {
 		if (operandsCalls == null) {
 			operandsCalls = new EcoreEMap<EOperator,StatisticalData>(MapPackage.Literals.EOPERATOR_TO_STATISTICAL_DATA_MAP, EOperatorToStatisticalDataMapImpl.class, this, ProfilerPackage.COMPLEX_DYNAMIC_DATA__OPERANDS_CALLS);
@@ -189,6 +190,7 @@ public class ComplexDynamicDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Procedure, StatisticalData> getProceduresCalls() {
 		if (proceduresCalls == null) {
 			proceduresCalls = new EcoreEMap<Procedure,StatisticalData>(MapPackage.Literals.PROCEDURE_TO_STATISTICAL_DATA_MAP, ProcedureToStatisticalDataMapImpl.class, this, ProfilerPackage.COMPLEX_DYNAMIC_DATA__PROCEDURES_CALLS);
@@ -201,6 +203,7 @@ public class ComplexDynamicDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Variable, StatisticalData> getVariablesStores() {
 		if (variablesStores == null) {
 			variablesStores = new EcoreEMap<Variable,StatisticalData>(MapPackage.Literals.VARIABLE_TO_STATISTICAL_DATA_MAP, VariableToStatisticalDataMapImpl.class, this, ProfilerPackage.COMPLEX_DYNAMIC_DATA__VARIABLES_STORES);
@@ -213,6 +216,7 @@ public class ComplexDynamicDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Variable, StatisticalData> getVariablesLoads() {
 		if (variablesLoads == null) {
 			variablesLoads = new EcoreEMap<Variable,StatisticalData>(MapPackage.Literals.VARIABLE_TO_STATISTICAL_DATA_MAP, VariableToStatisticalDataMapImpl.class, this, ProfilerPackage.COMPLEX_DYNAMIC_DATA__VARIABLES_LOADS);
@@ -225,6 +229,7 @@ public class ComplexDynamicDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Procedure, ComplexDynamicData> getProceduresData() {
 		if (proceduresData == null) {
 			proceduresData = new EcoreEMap<Procedure,ComplexDynamicData>(ProfilerPackage.Literals.PROCEDURE_TO_COMPLEX_DYNAMIC_DATA_MAP, ProcedureToComplexDynamicDataMapImpl.class, this, ProfilerPackage.COMPLEX_DYNAMIC_DATA__PROCEDURES_DATA);
@@ -237,6 +242,7 @@ public class ComplexDynamicDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Buffer, StatisticalData> getReadTokens() {
 		if (readTokens == null) {
 			readTokens = new EcoreEMap<Buffer,StatisticalData>(MapPackage.Literals.BUFFER_TO_STATISTICAL_DATA_MAP, BufferToStatisticalDataMapImpl.class, this, ProfilerPackage.COMPLEX_DYNAMIC_DATA__READ_TOKENS);
@@ -249,6 +255,7 @@ public class ComplexDynamicDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Buffer, StatisticalData> getWriteTokens() {
 		if (writeTokens == null) {
 			writeTokens = new EcoreEMap<Buffer,StatisticalData>(MapPackage.Literals.BUFFER_TO_STATISTICAL_DATA_MAP, BufferToStatisticalDataMapImpl.class, this, ProfilerPackage.COMPLEX_DYNAMIC_DATA__WRITE_TOKENS);

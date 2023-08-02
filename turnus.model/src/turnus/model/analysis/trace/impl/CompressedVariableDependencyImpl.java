@@ -133,6 +133,7 @@ public class CompressedVariableDependencyImpl extends CompressedDependencyImpl i
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Variable, Long> getReadReadMap() {
 		if (readReadMap == null) {
 			readReadMap = new EcoreEMap<Variable,Long>(MapPackage.Literals.VARIABLE_TO_LONG_MAP, VariableToLongMapImpl.class, this, TracePackage.COMPRESSED_VARIABLE_DEPENDENCY__READ_READ_MAP);
@@ -144,6 +145,7 @@ public class CompressedVariableDependencyImpl extends CompressedDependencyImpl i
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Variable, Long> getReadWriteMap() {
 		if (readWriteMap == null) {
 			readWriteMap = new EcoreEMap<Variable,Long>(MapPackage.Literals.VARIABLE_TO_LONG_MAP, VariableToLongMapImpl.class, this, TracePackage.COMPRESSED_VARIABLE_DEPENDENCY__READ_WRITE_MAP);
@@ -155,6 +157,7 @@ public class CompressedVariableDependencyImpl extends CompressedDependencyImpl i
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Variable, Long> getWriteReadMap() {
 		if (writeReadMap == null) {
 			writeReadMap = new EcoreEMap<Variable,Long>(MapPackage.Literals.VARIABLE_TO_LONG_MAP, VariableToLongMapImpl.class, this, TracePackage.COMPRESSED_VARIABLE_DEPENDENCY__WRITE_READ_MAP);
@@ -166,6 +169,7 @@ public class CompressedVariableDependencyImpl extends CompressedDependencyImpl i
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Variable, Long> getWriteWriteMap() {
 		if (writeWriteMap == null) {
 			writeWriteMap = new EcoreEMap<Variable,Long>(MapPackage.Literals.VARIABLE_TO_LONG_MAP, VariableToLongMapImpl.class, this, TracePackage.COMPRESSED_VARIABLE_DEPENDENCY__WRITE_WRITE_MAP);

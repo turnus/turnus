@@ -101,6 +101,7 @@ public class CompressedGuardDependencyImpl extends CompressedDependencyImpl impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Guard, Long> getEnableMap() {
 		if (enableMap == null) {
 			enableMap = new EcoreEMap<Guard,Long>(MapPackage.Literals.GUARD_TO_LONG_MAP, GuardToLongMapImpl.class, this, TracePackage.COMPRESSED_GUARD_DEPENDENCY__ENABLE_MAP);
@@ -112,6 +113,7 @@ public class CompressedGuardDependencyImpl extends CompressedDependencyImpl impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Guard, Long> getDisableMap() {
 		if (disableMap == null) {
 			disableMap = new EcoreEMap<Guard,Long>(MapPackage.Literals.GUARD_TO_LONG_MAP, GuardToLongMapImpl.class, this, TracePackage.COMPRESSED_GUARD_DEPENDENCY__DISABLE_MAP);

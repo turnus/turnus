@@ -280,6 +280,7 @@ public class VariableToStatisticalDataMapImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getHash() {
 		if (hash == -1) {
 			Object theKey = getKey();
@@ -293,6 +294,7 @@ public class VariableToStatisticalDataMapImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHash(int hash) {
 		this.hash = hash;
 	}
@@ -302,6 +304,7 @@ public class VariableToStatisticalDataMapImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Variable getKey() {
 		return getTypedKey();
 	}
@@ -311,6 +314,7 @@ public class VariableToStatisticalDataMapImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKey(Variable key) {
 		setTypedKey(key);
 	}
@@ -320,6 +324,7 @@ public class VariableToStatisticalDataMapImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData getValue() {
 		return getTypedValue();
 	}
@@ -329,6 +334,7 @@ public class VariableToStatisticalDataMapImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData setValue(StatisticalData value) {
 		StatisticalData oldValue = getValue();
 		setTypedValue(value);

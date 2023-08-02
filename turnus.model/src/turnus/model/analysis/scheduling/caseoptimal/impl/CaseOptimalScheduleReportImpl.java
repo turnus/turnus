@@ -206,6 +206,7 @@ public class CaseOptimalScheduleReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -215,6 +216,7 @@ public class CaseOptimalScheduleReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -227,6 +229,7 @@ public class CaseOptimalScheduleReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -236,6 +239,7 @@ public class CaseOptimalScheduleReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -248,6 +252,7 @@ public class CaseOptimalScheduleReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, ActorSelectionSchedule> getPartitionSchedules() {
 		if (partitionSchedules == null) {
 			partitionSchedules = new EcoreEMap<String,ActorSelectionSchedule>(MapPackage.Literals.PARTITION_TO_ACTOR_SELECTION_SCHEDULE_MAP, PartitionToActorSelectionScheduleMapImpl.class, this, CaseoptimalPackage.CASE_OPTIMAL_SCHEDULE_REPORT__PARTITION_SCHEDULES);
@@ -260,6 +265,7 @@ public class CaseOptimalScheduleReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTraceFile() {
 		return traceFile;
 	}
@@ -269,6 +275,7 @@ public class CaseOptimalScheduleReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTraceFile(String newTraceFile) {
 		String oldTraceFile = traceFile;
 		traceFile = newTraceFile;
@@ -281,6 +288,7 @@ public class CaseOptimalScheduleReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Optimizer> getPipeline() {
 		if (pipeline == null) {
 			pipeline = new EDataTypeUniqueEList<Optimizer>(Optimizer.class, this, CaseoptimalPackage.CASE_OPTIMAL_SCHEDULE_REPORT__PIPELINE);
@@ -293,6 +301,7 @@ public class CaseOptimalScheduleReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPartitionFilePath() {
 		return partitionFilePath;
 	}
@@ -302,6 +311,7 @@ public class CaseOptimalScheduleReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPartitionFilePath(String newPartitionFilePath) {
 		String oldPartitionFilePath = partitionFilePath;
 		partitionFilePath = newPartitionFilePath;
@@ -443,7 +453,7 @@ public class CaseOptimalScheduleReportImpl extends MinimalEObjectImpl.Container 
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (algorithm: ");
 		result.append(algorithm);
 		result.append(", date: ");

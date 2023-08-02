@@ -64,7 +64,7 @@ public interface MemoryAccessData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Accesses Data</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getMemoryAccessData_AccessesData()
-	 * @model mapType="turnus.model.analysis.profiler.StringToAccessDataMap<org.eclipse.emf.ecore.EString, turnus.model.analysis.profiler.AccessData>"
+	 * @model mapType="turnus.model.analysis.profiler.StringToAccessDataMap&lt;org.eclipse.emf.ecore.EString, turnus.model.analysis.profiler.AccessData&gt;"
 	 * @generated
 	 */
 	Map<String, AccessData> getAccessesData();

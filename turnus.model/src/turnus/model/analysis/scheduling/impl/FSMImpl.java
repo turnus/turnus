@@ -197,6 +197,7 @@ public class FSMImpl extends ActorSelectionScheduleImpl implements FSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<FSMState> getStates() {
 		if (states == null) {
 			states = new EObjectContainmentEList<FSMState>(FSMState.class, this, SchedulingPackage.FSM__STATES);
@@ -209,6 +210,7 @@ public class FSMImpl extends ActorSelectionScheduleImpl implements FSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<FSMVar> getVars() {
 		if (vars == null) {
 			vars = new EObjectContainmentEList<FSMVar>(FSMVar.class, this, SchedulingPackage.FSM__VARS);
@@ -221,6 +223,7 @@ public class FSMImpl extends ActorSelectionScheduleImpl implements FSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getStartState() {
 		return startState;
 	}
@@ -229,6 +232,7 @@ public class FSMImpl extends ActorSelectionScheduleImpl implements FSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStartState(String newStartState) {
 		String oldStartState = startState;
 		startState = newStartState;
@@ -240,6 +244,7 @@ public class FSMImpl extends ActorSelectionScheduleImpl implements FSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTerminalState() {
 		return terminalState;
 	}
@@ -248,6 +253,7 @@ public class FSMImpl extends ActorSelectionScheduleImpl implements FSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTerminalState(String newTerminalState) {
 		String oldTerminalState = terminalState;
 		terminalState = newTerminalState;
@@ -369,7 +375,7 @@ public class FSMImpl extends ActorSelectionScheduleImpl implements FSM {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (startState: ");
 		result.append(startState);
 		result.append(", terminalState: ");

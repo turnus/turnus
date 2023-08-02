@@ -238,6 +238,7 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -246,6 +247,7 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -257,6 +259,7 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -265,6 +268,7 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -276,6 +280,7 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -300,6 +305,7 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -311,6 +317,7 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ActionBottlenecksWithSchedulingData> getActionsData() {
 		if (actionsData == null) {
 			actionsData = new EObjectContainmentEList<ActionBottlenecksWithSchedulingData>(ActionBottlenecksWithSchedulingData.class, this, BottlenecksPackage.BOTTLENECKS_WITH_SCHEDULING_REPORT__ACTIONS_DATA);
@@ -375,6 +382,7 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getExecutionTime() {
 		return executionTime;
 	}
@@ -384,6 +392,7 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExecutionTime(double newExecutionTime) {
 		double oldExecutionTime = executionTime;
 		executionTime = newExecutionTime;
@@ -405,6 +414,7 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, Double> getCpPartitionsBlockingTime() {
 		if (cpPartitionsBlockingTime == null) {
 			cpPartitionsBlockingTime = new EcoreEMap<String,Double>(MapPackage.Literals.STRING_TO_DOUBLE_MAP, StringToDoubleMapImpl.class, this, BottlenecksPackage.BOTTLENECKS_WITH_SCHEDULING_REPORT__CP_PARTITIONS_BLOCKING_TIME);

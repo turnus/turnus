@@ -142,6 +142,7 @@ public class ActionsVariablePipeliningReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -150,6 +151,7 @@ public class ActionsVariablePipeliningReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -161,6 +163,7 @@ public class ActionsVariablePipeliningReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -169,6 +172,7 @@ public class ActionsVariablePipeliningReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -180,6 +184,7 @@ public class ActionsVariablePipeliningReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -204,6 +209,7 @@ public class ActionsVariablePipeliningReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -215,6 +221,7 @@ public class ActionsVariablePipeliningReportImpl extends MinimalEObjectImpl.Cont
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ActionVariablePipeliningData> getActionsData() {
 		if (actionsData == null) {
 			actionsData = new EObjectContainmentEList<ActionVariablePipeliningData>(ActionVariablePipeliningData.class, this, PipeliningPackage.ACTIONS_VARIABLE_PIPELINING_REPORT__ACTIONS_DATA);

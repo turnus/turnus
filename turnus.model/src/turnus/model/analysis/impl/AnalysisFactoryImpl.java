@@ -95,6 +95,7 @@ public class AnalysisFactoryImpl extends EFactoryImpl implements AnalysisFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AnalysisPackage getAnalysisPackage() {
 		return (AnalysisPackage)getEPackage();
 	}

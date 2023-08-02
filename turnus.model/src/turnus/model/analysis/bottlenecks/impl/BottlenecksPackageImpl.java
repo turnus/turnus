@@ -95,7 +95,9 @@ import turnus.model.analysis.trace.TracePackage;
 
 import turnus.model.analysis.trace.impl.TracePackageImpl;
 
+import turnus.model.common.CommonPackage;
 import turnus.model.dataflow.DataflowPackage;
+import turnus.model.versioning.VersioningPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -202,7 +204,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link BottlenecksPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -216,25 +218,39 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 		if (isInited) return (BottlenecksPackage)EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI);
 
 		// Obtain or create and register package
-		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof BottlenecksPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new BottlenecksPackageImpl());
+		Object registeredBottlenecksPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		BottlenecksPackageImpl theBottlenecksPackage = registeredBottlenecksPackage instanceof BottlenecksPackageImpl ? (BottlenecksPackageImpl)registeredBottlenecksPackage : new BottlenecksPackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
+		CommonPackage.eINSTANCE.eClass();
 		DataflowPackage.eINSTANCE.eClass();
+		VersioningPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
-		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI) instanceof ProfilerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI) : ProfilerPackage.eINSTANCE);
-		MapPackageImpl theMapPackage = (MapPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI) instanceof MapPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI) : MapPackage.eINSTANCE);
-		TracePackageImpl theTracePackage = (TracePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI) instanceof TracePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI) : TracePackage.eINSTANCE);
-		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI) instanceof BuffersPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI) : BuffersPackage.eINSTANCE);
-		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) instanceof PartitioningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) : PartitioningPackage.eINSTANCE);
-		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) instanceof PipeliningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) : PipeliningPackage.eINSTANCE);
-		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) : PostprocessingPackage.eINSTANCE);
-		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
-		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
-		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) instanceof CaseoptimalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) : CaseoptimalPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
+		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(registeredPackage instanceof AnalysisPackageImpl ? registeredPackage : AnalysisPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI);
+		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(registeredPackage instanceof ProfilerPackageImpl ? registeredPackage : ProfilerPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI);
+		MapPackageImpl theMapPackage = (MapPackageImpl)(registeredPackage instanceof MapPackageImpl ? registeredPackage : MapPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI);
+		TracePackageImpl theTracePackage = (TracePackageImpl)(registeredPackage instanceof TracePackageImpl ? registeredPackage : TracePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI);
+		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(registeredPackage instanceof BuffersPackageImpl ? registeredPackage : BuffersPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI);
+		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(registeredPackage instanceof PartitioningPackageImpl ? registeredPackage : PartitioningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI);
+		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(registeredPackage instanceof PipeliningPackageImpl ? registeredPackage : PipeliningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI);
+		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(registeredPackage instanceof PostprocessingPackageImpl ? registeredPackage : PostprocessingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI);
+		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
+		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(registeredPackage instanceof SchedulingPackageImpl ? registeredPackage : SchedulingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI);
+		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(registeredPackage instanceof CaseoptimalPackageImpl ? registeredPackage : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theBottlenecksPackage.createPackageContents();
@@ -267,7 +283,6 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 		// Mark meta-data to indicate it can't be changed
 		theBottlenecksPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(BottlenecksPackage.eNS_URI, theBottlenecksPackage);
 		return theBottlenecksPackage;
@@ -278,6 +293,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBottlenecksReport() {
 		return bottlenecksReportEClass;
 	}
@@ -287,6 +303,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBottlenecksReport_Network() {
 		return (EReference)bottlenecksReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -296,6 +313,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBottlenecksReport_ActionsData() {
 		return (EReference)bottlenecksReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -305,6 +323,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBottlenecksReport_CpWeight() {
 		return (EAttribute)bottlenecksReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -314,6 +333,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBottlenecksReport_CpVariance() {
 		return (EAttribute)bottlenecksReportEClass.getEStructuralFeatures().get(3);
 	}
@@ -323,6 +343,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBottlenecksReport_TotalWeight() {
 		return (EAttribute)bottlenecksReportEClass.getEStructuralFeatures().get(4);
 	}
@@ -332,6 +353,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBottlenecksReport_TotalVariance() {
 		return (EAttribute)bottlenecksReportEClass.getEStructuralFeatures().get(5);
 	}
@@ -341,6 +363,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBottlenecksReport_CpFirings() {
 		return (EAttribute)bottlenecksReportEClass.getEStructuralFeatures().get(6);
 	}
@@ -350,6 +373,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBottlenecksReport_TotalFirings() {
 		return (EAttribute)bottlenecksReportEClass.getEStructuralFeatures().get(7);
 	}
@@ -359,6 +383,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActionBottlenecksData() {
 		return actionBottlenecksDataEClass;
 	}
@@ -368,6 +393,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionBottlenecksData_Action() {
 		return (EReference)actionBottlenecksDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -377,6 +403,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionBottlenecksData_SlackMin() {
 		return (EAttribute)actionBottlenecksDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -386,6 +413,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionBottlenecksData_SlackMax() {
 		return (EAttribute)actionBottlenecksDataEClass.getEStructuralFeatures().get(2);
 	}
@@ -395,6 +423,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionBottlenecksData_CpWeight() {
 		return (EAttribute)actionBottlenecksDataEClass.getEStructuralFeatures().get(3);
 	}
@@ -404,6 +433,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionBottlenecksData_CpVariance() {
 		return (EAttribute)actionBottlenecksDataEClass.getEStructuralFeatures().get(4);
 	}
@@ -413,6 +443,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionBottlenecksData_TotalWeight() {
 		return (EAttribute)actionBottlenecksDataEClass.getEStructuralFeatures().get(5);
 	}
@@ -422,6 +453,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionBottlenecksData_TotalVariance() {
 		return (EAttribute)actionBottlenecksDataEClass.getEStructuralFeatures().get(6);
 	}
@@ -431,6 +463,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionBottlenecksData_CpFirings() {
 		return (EAttribute)actionBottlenecksDataEClass.getEStructuralFeatures().get(7);
 	}
@@ -440,6 +473,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionBottlenecksData_TotalFirings() {
 		return (EAttribute)actionBottlenecksDataEClass.getEStructuralFeatures().get(8);
 	}
@@ -449,6 +483,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getImpactAnalysisReport() {
 		return impactAnalysisReportEClass;
 	}
@@ -458,6 +493,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getImpactAnalysisReport_Network() {
 		return (EReference)impactAnalysisReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -467,6 +503,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getImpactAnalysisReport_ClassLevel() {
 		return (EAttribute)impactAnalysisReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -476,6 +513,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getImpactAnalysisReport_ImpactData() {
 		return (EReference)impactAnalysisReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -485,6 +523,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getImpactAnalysisReport_InitialBottlenecks() {
 		return (EReference)impactAnalysisReportEClass.getEStructuralFeatures().get(3);
 	}
@@ -494,6 +533,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getImpactAnalysisData() {
 		return impactAnalysisDataEClass;
 	}
@@ -503,6 +543,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getImpactAnalysisData_Actions() {
 		return (EReference)impactAnalysisDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -512,6 +553,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getImpactAnalysisData_ActorClass() {
 		return (EReference)impactAnalysisDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -521,6 +563,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getImpactAnalysisData_CpReductionMap() {
 		return (EReference)impactAnalysisDataEClass.getEStructuralFeatures().get(2);
 	}
@@ -530,6 +573,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getImpactAnalysisData_ReportsMap() {
 		return (EReference)impactAnalysisDataEClass.getEStructuralFeatures().get(3);
 	}
@@ -539,6 +583,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDoubleToBottlenecksReportMap() {
 		return doubleToBottlenecksReportMapEClass;
 	}
@@ -548,6 +593,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDoubleToBottlenecksReportMap_Key() {
 		return (EAttribute)doubleToBottlenecksReportMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -557,6 +603,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDoubleToBottlenecksReportMap_Value() {
 		return (EReference)doubleToBottlenecksReportMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -566,6 +613,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBottlenecksWithSchedulingReport() {
 		return bottlenecksWithSchedulingReportEClass;
 	}
@@ -575,6 +623,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBottlenecksWithSchedulingReport_Network() {
 		return (EReference)bottlenecksWithSchedulingReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -584,6 +633,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBottlenecksWithSchedulingReport_ActionsData() {
 		return (EReference)bottlenecksWithSchedulingReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -593,6 +643,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBottlenecksWithSchedulingReport_CpWeight() {
 		return (EAttribute)bottlenecksWithSchedulingReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -602,6 +653,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBottlenecksWithSchedulingReport_TotalWeight() {
 		return (EAttribute)bottlenecksWithSchedulingReportEClass.getEStructuralFeatures().get(3);
 	}
@@ -611,6 +663,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBottlenecksWithSchedulingReport_CpFirings() {
 		return (EAttribute)bottlenecksWithSchedulingReportEClass.getEStructuralFeatures().get(4);
 	}
@@ -620,6 +673,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBottlenecksWithSchedulingReport_TotalFirings() {
 		return (EAttribute)bottlenecksWithSchedulingReportEClass.getEStructuralFeatures().get(5);
 	}
@@ -629,6 +683,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBottlenecksWithSchedulingReport_ExecutionTime() {
 		return (EAttribute)bottlenecksWithSchedulingReportEClass.getEStructuralFeatures().get(6);
 	}
@@ -638,6 +693,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBottlenecksWithSchedulingReport_CpBlockingTime() {
 		return (EAttribute)bottlenecksWithSchedulingReportEClass.getEStructuralFeatures().get(7);
 	}
@@ -647,6 +703,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBottlenecksWithSchedulingReport_CpPartitionsBlockingTime() {
 		return (EReference)bottlenecksWithSchedulingReportEClass.getEStructuralFeatures().get(8);
 	}
@@ -656,6 +713,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActionBottlenecksWithSchedulingData() {
 		return actionBottlenecksWithSchedulingDataEClass;
 	}
@@ -665,6 +723,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionBottlenecksWithSchedulingData_Action() {
 		return (EReference)actionBottlenecksWithSchedulingDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -674,6 +733,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionBottlenecksWithSchedulingData_CpWeight() {
 		return (EAttribute)actionBottlenecksWithSchedulingDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -683,6 +743,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionBottlenecksWithSchedulingData_TotalWeight() {
 		return (EAttribute)actionBottlenecksWithSchedulingDataEClass.getEStructuralFeatures().get(2);
 	}
@@ -692,6 +753,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionBottlenecksWithSchedulingData_CpFirings() {
 		return (EAttribute)actionBottlenecksWithSchedulingDataEClass.getEStructuralFeatures().get(3);
 	}
@@ -701,6 +763,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionBottlenecksWithSchedulingData_TotalFirings() {
 		return (EAttribute)actionBottlenecksWithSchedulingDataEClass.getEStructuralFeatures().get(4);
 	}
@@ -710,6 +773,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionBottlenecksWithSchedulingData_MaxBlockedOutputTokens() {
 		return (EReference)actionBottlenecksWithSchedulingDataEClass.getEStructuralFeatures().get(5);
 	}
@@ -719,6 +783,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionBottlenecksWithSchedulingData_MaxBlockedMultiplication() {
 		return (EReference)actionBottlenecksWithSchedulingDataEClass.getEStructuralFeatures().get(6);
 	}
@@ -728,6 +793,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionBottlenecksWithSchedulingData_BlockingInstances() {
 		return (EReference)actionBottlenecksWithSchedulingDataEClass.getEStructuralFeatures().get(7);
 	}
@@ -737,6 +803,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getScheduledImpactAnalysisData() {
 		return scheduledImpactAnalysisDataEClass;
 	}
@@ -746,6 +813,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getScheduledImpactAnalysisData_Actions() {
 		return (EReference)scheduledImpactAnalysisDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -755,6 +823,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getScheduledImpactAnalysisData_ActorClass() {
 		return (EReference)scheduledImpactAnalysisDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -764,6 +833,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getScheduledImpactAnalysisData_CpReductionMap() {
 		return (EReference)scheduledImpactAnalysisDataEClass.getEStructuralFeatures().get(2);
 	}
@@ -773,6 +843,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getScheduledImpactAnalysisData_TimeReductionMap() {
 		return (EReference)scheduledImpactAnalysisDataEClass.getEStructuralFeatures().get(3);
 	}
@@ -782,6 +853,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getScheduledImpactAnalysisData_ReportsMap() {
 		return (EReference)scheduledImpactAnalysisDataEClass.getEStructuralFeatures().get(4);
 	}
@@ -791,6 +863,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDoubleToBottlenecksWithSchedulingReportMap() {
 		return doubleToBottlenecksWithSchedulingReportMapEClass;
 	}
@@ -800,6 +873,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDoubleToBottlenecksWithSchedulingReportMap_Key() {
 		return (EAttribute)doubleToBottlenecksWithSchedulingReportMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -809,6 +883,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDoubleToBottlenecksWithSchedulingReportMap_Value() {
 		return (EReference)doubleToBottlenecksWithSchedulingReportMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -818,6 +893,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getScheduledImpactAnalysisReport() {
 		return scheduledImpactAnalysisReportEClass;
 	}
@@ -827,6 +903,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getScheduledImpactAnalysisReport_Network() {
 		return (EReference)scheduledImpactAnalysisReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -836,6 +913,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getScheduledImpactAnalysisReport_ClassLevel() {
 		return (EAttribute)scheduledImpactAnalysisReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -845,6 +923,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getScheduledImpactAnalysisReport_ScheduledImpactData() {
 		return (EReference)scheduledImpactAnalysisReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -854,6 +933,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getScheduledImpactAnalysisReport_InitialBottlenecksWithScheduling() {
 		return (EReference)scheduledImpactAnalysisReportEClass.getEStructuralFeatures().get(3);
 	}
@@ -863,6 +943,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BottlenecksFactory getBottlenecksFactory() {
 		return (BottlenecksFactory)getEFactoryInstance();
 	}

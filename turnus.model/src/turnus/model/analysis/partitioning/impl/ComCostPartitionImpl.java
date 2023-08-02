@@ -146,6 +146,7 @@ public class ComCostPartitionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Actor> getActors() {
 		if (actors == null) {
 			actors = new EObjectResolvingEList<Actor>(Actor.class, this, PartitioningPackage.COM_COST_PARTITION__ACTORS);
@@ -157,6 +158,7 @@ public class ComCostPartitionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Actor, Long> getInternalCostMap() {
 		if (internalCostMap == null) {
 			internalCostMap = new EcoreEMap<Actor,Long>(MapPackage.Literals.ACTOR_TO_LONG_MAP, ActorToLongMapImpl.class, this, PartitioningPackage.COM_COST_PARTITION__INTERNAL_COST_MAP);
@@ -168,6 +170,7 @@ public class ComCostPartitionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Actor, Long> getExternalCostMap() {
 		if (externalCostMap == null) {
 			externalCostMap = new EcoreEMap<Actor,Long>(MapPackage.Literals.ACTOR_TO_LONG_MAP, ActorToLongMapImpl.class, this, PartitioningPackage.COM_COST_PARTITION__EXTERNAL_COST_MAP);

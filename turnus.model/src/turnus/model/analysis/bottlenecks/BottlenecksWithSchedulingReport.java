@@ -222,7 +222,7 @@ public interface BottlenecksWithSchedulingReport extends AnalysisReport, PostPro
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Cp Partitions Blocking Time</em>' map.
 	 * @see turnus.model.analysis.bottlenecks.BottlenecksPackage#getBottlenecksWithSchedulingReport_CpPartitionsBlockingTime()
-	 * @model mapType="turnus.model.analysis.map.StringToDoubleMap<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.StringToDoubleMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<String, Double> getCpPartitionsBlockingTime();

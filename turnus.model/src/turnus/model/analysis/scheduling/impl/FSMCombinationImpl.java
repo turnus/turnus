@@ -123,6 +123,7 @@ public class FSMCombinationImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMCombinator getCombinator() {
 		return combinator;
 	}
@@ -132,6 +133,7 @@ public class FSMCombinationImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCombinator(FSMCombinator newCombinator) {
 		FSMCombinator oldCombinator = combinator;
 		combinator = newCombinator == null ? COMBINATOR_EDEFAULT : newCombinator;
@@ -146,6 +148,7 @@ public class FSMCombinationImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetCombinator() {
 		FSMCombinator oldCombinator = combinator;
 		boolean oldCombinatorESet = combinatorESet;
@@ -160,6 +163,7 @@ public class FSMCombinationImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetCombinator() {
 		return combinatorESet;
 	}
@@ -169,6 +173,7 @@ public class FSMCombinationImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMCondition getCond() {
 		return cond;
 	}
@@ -193,6 +198,7 @@ public class FSMCombinationImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCond(FSMCondition newCond) {
 		if (newCond != cond) {
 			NotificationChain msgs = null;
@@ -298,7 +304,7 @@ public class FSMCombinationImpl extends MinimalEObjectImpl.Container implements 
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (combinator: ");
 		if (combinatorESet) result.append(combinator); else result.append("<unset>");
 		result.append(')');

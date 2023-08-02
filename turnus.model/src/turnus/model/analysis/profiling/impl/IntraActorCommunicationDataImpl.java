@@ -156,6 +156,7 @@ public class IntraActorCommunicationDataImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Actor getActor() {
 		if (actor != null && actor.eIsProxy()) {
 			InternalEObject oldActor = (InternalEObject)actor;
@@ -182,6 +183,7 @@ public class IntraActorCommunicationDataImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActor(Actor newActor) {
 		Actor oldActor = actor;
 		actor = newActor;
@@ -194,6 +196,7 @@ public class IntraActorCommunicationDataImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData getConsumedTokens() {
 		return consumedTokens;
 	}
@@ -218,6 +221,7 @@ public class IntraActorCommunicationDataImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConsumedTokens(StatisticalData newConsumedTokens) {
 		if (newConsumedTokens != consumedTokens) {
 			NotificationChain msgs = null;
@@ -237,6 +241,7 @@ public class IntraActorCommunicationDataImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData getProducedTokens() {
 		return producedTokens;
 	}
@@ -261,6 +266,7 @@ public class IntraActorCommunicationDataImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProducedTokens(StatisticalData newProducedTokens) {
 		if (newProducedTokens != producedTokens) {
 			NotificationChain msgs = null;
@@ -280,6 +286,7 @@ public class IntraActorCommunicationDataImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Actor, StatisticalData> getTokensProducersMap() {
 		if (tokensProducersMap == null) {
 			tokensProducersMap = new EcoreEMap<Actor,StatisticalData>(MapPackage.Literals.ACTOR_TO_STATISTICAL_DATA_MAP, ActorToStatisticalDataMapImpl.class, this, ProfilingPackage.INTRA_ACTOR_COMMUNICATION_DATA__TOKENS_PRODUCERS_MAP);
@@ -292,6 +299,7 @@ public class IntraActorCommunicationDataImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IntraActionCommunicationData> getActionsData() {
 		if (actionsData == null) {
 			actionsData = new EObjectContainmentEList<IntraActionCommunicationData>(IntraActionCommunicationData.class, this, ProfilingPackage.INTRA_ACTOR_COMMUNICATION_DATA__ACTIONS_DATA);

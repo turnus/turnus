@@ -102,7 +102,7 @@ public interface ImpactAnalysisData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Cp Reduction Map</em>' map.
 	 * @see turnus.model.analysis.bottlenecks.BottlenecksPackage#getImpactAnalysisData_CpReductionMap()
-	 * @model mapType="turnus.model.analysis.map.DoubleToDoubleMap<org.eclipse.emf.ecore.EDoubleObject, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.DoubleToDoubleMap&lt;org.eclipse.emf.ecore.EDoubleObject, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Double, Double> getCpReductionMap();
@@ -119,7 +119,7 @@ public interface ImpactAnalysisData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Reports Map</em>' map.
 	 * @see turnus.model.analysis.bottlenecks.BottlenecksPackage#getImpactAnalysisData_ReportsMap()
-	 * @model mapType="turnus.model.analysis.bottlenecks.DoubleToBottlenecksReportMap<org.eclipse.emf.ecore.EDoubleObject, turnus.model.analysis.bottlenecks.BottlenecksReport>"
+	 * @model mapType="turnus.model.analysis.bottlenecks.DoubleToBottlenecksReportMap&lt;org.eclipse.emf.ecore.EDoubleObject, turnus.model.analysis.bottlenecks.BottlenecksReport&gt;"
 	 * @generated
 	 */
 	Map<Double, BottlenecksReport> getReportsMap();

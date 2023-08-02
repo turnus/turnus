@@ -70,7 +70,7 @@ public interface CaseOptimalScheduleReport extends AnalysisReport {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Partition Schedules</em>' map.
 	 * @see turnus.model.analysis.scheduling.caseoptimal.CaseoptimalPackage#getCaseOptimalScheduleReport_PartitionSchedules()
-	 * @model mapType="turnus.model.analysis.map.PartitionToActorSelectionScheduleMap<org.eclipse.emf.ecore.EString, turnus.model.analysis.scheduling.ActorSelectionSchedule>"
+	 * @model mapType="turnus.model.analysis.map.PartitionToActorSelectionScheduleMap&lt;org.eclipse.emf.ecore.EString, turnus.model.analysis.scheduling.ActorSelectionSchedule&gt;"
 	 * @generated
 	 */
 	Map<String, ActorSelectionSchedule> getPartitionSchedules();

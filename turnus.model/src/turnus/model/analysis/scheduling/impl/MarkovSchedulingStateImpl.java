@@ -165,6 +165,7 @@ public class MarkovSchedulingStateImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Actor getActor() {
 		if (actor != null && actor.eIsProxy()) {
 			InternalEObject oldActor = (InternalEObject)actor;
@@ -191,6 +192,7 @@ public class MarkovSchedulingStateImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActor(Actor newActor) {
 		Actor oldActor = actor;
 		actor = newActor;
@@ -203,6 +205,7 @@ public class MarkovSchedulingStateImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getFirings() {
 		return firings;
 	}
@@ -212,6 +215,7 @@ public class MarkovSchedulingStateImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFirings(long newFirings) {
 		long oldFirings = firings;
 		firings = newFirings;
@@ -224,6 +228,7 @@ public class MarkovSchedulingStateImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MarkovSchedulingTransition> getOutgoings() {
 		if (outgoings == null) {
 			outgoings = new EObjectWithInverseResolvingEList<MarkovSchedulingTransition>(MarkovSchedulingTransition.class, this, SchedulingPackage.MARKOV_SCHEDULING_STATE__OUTGOINGS, SchedulingPackage.MARKOV_SCHEDULING_TRANSITION__SOURCE);
@@ -236,6 +241,7 @@ public class MarkovSchedulingStateImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MarkovSchedulingTransition> getIncomings() {
 		if (incomings == null) {
 			incomings = new EObjectWithInverseResolvingEList<MarkovSchedulingTransition>(MarkovSchedulingTransition.class, this, SchedulingPackage.MARKOV_SCHEDULING_STATE__INCOMINGS, SchedulingPackage.MARKOV_SCHEDULING_TRANSITION__TARGET);
@@ -248,6 +254,7 @@ public class MarkovSchedulingStateImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -257,6 +264,7 @@ public class MarkovSchedulingStateImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -408,7 +416,7 @@ public class MarkovSchedulingStateImpl extends MinimalEObjectImpl.Container impl
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (firings: ");
 		result.append(firings);
 		result.append(", name: ");

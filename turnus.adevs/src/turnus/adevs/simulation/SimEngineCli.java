@@ -31,7 +31,19 @@
  */
 package turnus.adevs.simulation;
 
-import static turnus.common.TurnusOptions.*;
+import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
+import static turnus.common.TurnusOptions.BUFFER_SIZE_DEFAULT;
+import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
+import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
+import static turnus.common.TurnusOptions.MAPPING_FILE;
+import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
+import static turnus.common.TurnusOptions.RECORD_BUFFERS;
+import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
+import static turnus.common.TurnusOptions.SCHEDULING_WEIGHTS;
+import static turnus.common.TurnusOptions.TRACE_FILE;
+import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
+import static turnus.common.TurnusOptions.WRITE_HIT_CONSTANT;
+import static turnus.common.TurnusOptions.WRITE_MISS_CONSTANT;
 import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
@@ -299,35 +311,37 @@ public class SimEngineCli implements IApplication {
 				
 				Logger.infoRaw(report.toString());
 				
-				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.POST_PROCESSING_REPORT);
-				EcoreUtils.storeEObject(report, tProject.getResourceSet(), reportFile);
-				Logger.info("Post processing report stored in \"%s\"", reportFile);
+			
+				// store the scheduler checks report
+				File reportFileSched = createFileWithTimeStamp(outputPath, TurnusExtensions.SCHEDULER_CHECKS_REPORT);
+				SchedulerChecksReport schedulerReport = report.getReport(SchedulerChecksReport.class);	
+				EcoreUtils.storeEObject(schedulerReport, tProject.getResourceSet(), reportFileSched);
+				Logger.info("Scheduler checks report stored in \"%s\"", reportFileSched);
+				
+				// store the buffer blocking report
+				File reportFileBuff = createFileWithTimeStamp(outputPath, TurnusExtensions.BUFFER_BLOCKING_REPORT);
+				BufferBlockingReport bufferReport = report.getReport(BufferBlockingReport.class);	
+				EcoreUtils.storeEObject(bufferReport, tProject.getResourceSet(), reportFileBuff);
+				Logger.info("Buffer blocking report stored in \"%s\"", reportFileBuff);
+				
 				
 				// store the actor report
+				File reportFileActors = createFileWithTimeStamp(outputPath, TurnusExtensions.POST_PROCESSING_ACTOR_REPORT);
 				ActorStatisticsReport actorReport = report.getReport(ActorStatisticsReport.class);
-				reportFile = changeExtension(reportFile, TurnusExtensions.POST_PROCESSING_ACTOR_REPORT);
-				EcoreUtils.storeEObject(actorReport, tProject.getResourceSet(), reportFile);
-				Logger.info("Actor statistics report stored in \"%s\"", reportFile);
+				EcoreUtils.storeEObject(actorReport, tProject.getResourceSet(), reportFileActors);
+				Logger.info("Actor statistics report stored in \"%s\"", reportFileActors);
 			
 				
 				// store the action report
+				File reportFileActions = createFileWithTimeStamp(outputPath, TurnusExtensions.POST_PROCESSING_ACTION_REPORT);
 				ActionStatisticsReport actionReport = report.getReport(ActionStatisticsReport.class);
-				reportFile = changeExtension(reportFile, TurnusExtensions.POST_PROCESSING_ACTION_REPORT);
-				EcoreUtils.storeEObject(actionReport, tProject.getResourceSet(), reportFile);
-				Logger.info("Action statistics report stored in \"%s\"", reportFile);
+				EcoreUtils.storeEObject(actionReport, tProject.getResourceSet(), reportFileActions);
+				Logger.info("Action statistics report stored in \"%s\"", reportFileActions);
 				
-				// store the scheduler checks report
-				SchedulerChecksReport schedulerReport = report.getReport(SchedulerChecksReport.class);	
-				reportFile = changeExtension(reportFile, TurnusExtensions.SCHEDULER_CHECKS_REPORT);
-				EcoreUtils.storeEObject(schedulerReport, tProject.getResourceSet(), reportFile);
-				Logger.info("Scheduler checks report stored in \"%s\"", reportFile);
 				
-				// store the buffer blocking report
-				BufferBlockingReport bufferReport = report.getReport(BufferBlockingReport.class);	
-				reportFile = changeExtension(reportFile, TurnusExtensions.BUFFER_BLOCKING_REPORT);
-				EcoreUtils.storeEObject(bufferReport, tProject.getResourceSet(), reportFile);
-				Logger.info("Buffer blocking report stored in \"%s\"", reportFile);
-				
+				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.POST_PROCESSING_REPORT);
+				EcoreUtils.storeEObject(report, tProject.getResourceSet(), reportFile);
+				Logger.info("Post processing report stored in \"%s\"", reportFile);
 				
 				if (configuration.hasValue(RECORD_BUFFERS) && configuration.getValue(RECORD_BUFFERS)) {
 					File bxdfFile = changeExtension(reportFile, TurnusExtensions.BUFFER_SIZE);

@@ -164,6 +164,7 @@ public class ProfilingStatsReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -173,6 +174,7 @@ public class ProfilingStatsReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -185,6 +187,7 @@ public class ProfilingStatsReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -194,6 +197,7 @@ public class ProfilingStatsReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -206,6 +210,7 @@ public class ProfilingStatsReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ProfilingStatsActorData> getActorsStatsData() {
 		if (actorsStatsData == null) {
 			actorsStatsData = new EObjectContainmentEList<ProfilingStatsActorData>(ProfilingStatsActorData.class, this, ProfilingPackage.PROFILING_STATS_REPORT__ACTORS_STATS_DATA);
@@ -218,6 +223,7 @@ public class ProfilingStatsReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getNetworkName() {
 		return networkName;
 	}
@@ -227,6 +233,7 @@ public class ProfilingStatsReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetworkName(String newNetworkName) {
 		String oldNetworkName = networkName;
 		networkName = newNetworkName;
@@ -347,7 +354,7 @@ public class ProfilingStatsReportImpl extends MinimalEObjectImpl.Container imple
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (algorithm: ");
 		result.append(algorithm);
 		result.append(", date: ");

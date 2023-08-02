@@ -152,6 +152,7 @@ public class DynamicProfilingReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -160,6 +161,7 @@ public class DynamicProfilingReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -171,6 +173,7 @@ public class DynamicProfilingReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -179,6 +182,7 @@ public class DynamicProfilingReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -190,6 +194,7 @@ public class DynamicProfilingReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -214,6 +219,7 @@ public class DynamicProfilingReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -225,6 +231,7 @@ public class DynamicProfilingReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ActorDynamicData> getActorsData() {
 		if (actorsData == null) {
 			actorsData = new EObjectContainmentEList<ActorDynamicData>(ActorDynamicData.class, this, ProfilerPackage.DYNAMIC_PROFILING_REPORT__ACTORS_DATA);
@@ -236,6 +243,7 @@ public class DynamicProfilingReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<BufferDynamicData> getBuffersData() {
 		if (buffersData == null) {
 			buffersData = new EObjectContainmentEList<BufferDynamicData>(BufferDynamicData.class, this, ProfilerPackage.DYNAMIC_PROFILING_REPORT__BUFFERS_DATA);
@@ -364,7 +372,7 @@ public class DynamicProfilingReportImpl extends MinimalEObjectImpl.Container imp
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (algorithm: ");
 		result.append(algorithm);
 		result.append(", date: ");

@@ -152,6 +152,7 @@ public class CodeProfilingReportImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -160,6 +161,7 @@ public class CodeProfilingReportImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -171,6 +173,7 @@ public class CodeProfilingReportImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -179,6 +182,7 @@ public class CodeProfilingReportImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -190,6 +194,7 @@ public class CodeProfilingReportImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -214,6 +219,7 @@ public class CodeProfilingReportImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -225,6 +231,7 @@ public class CodeProfilingReportImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ComplexCodeData> getActorClassesData() {
 		if (actorClassesData == null) {
 			actorClassesData = new EObjectContainmentEList<ComplexCodeData>(ComplexCodeData.class, this, ProfilerPackage.CODE_PROFILING_REPORT__ACTOR_CLASSES_DATA);
@@ -414,7 +421,7 @@ public class CodeProfilingReportImpl extends MinimalEObjectImpl.Container implem
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (algorithm: ");
 		result.append(algorithm);
 		result.append(", date: ");

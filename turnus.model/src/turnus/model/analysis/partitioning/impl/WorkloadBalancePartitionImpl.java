@@ -119,6 +119,7 @@ public class WorkloadBalancePartitionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Actor> getActors() {
 		if (actors == null) {
 			actors = new EObjectResolvingEList<Actor>(Actor.class, this, PartitioningPackage.WORKLOAD_BALANCE_PARTITION__ACTORS);
@@ -131,6 +132,7 @@ public class WorkloadBalancePartitionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getWorkload() {
 		return workload;
 	}
@@ -140,6 +142,7 @@ public class WorkloadBalancePartitionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWorkload(double newWorkload) {
 		double oldWorkload = workload;
 		workload = newWorkload;
@@ -226,7 +229,7 @@ public class WorkloadBalancePartitionImpl extends MinimalEObjectImpl.Container i
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (workload: ");
 		result.append(workload);
 		result.append(')');

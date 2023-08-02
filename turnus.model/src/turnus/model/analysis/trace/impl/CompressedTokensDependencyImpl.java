@@ -110,6 +110,7 @@ public class CompressedTokensDependencyImpl extends CompressedDependencyImpl imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Buffer, Long> getCountMap() {
 		if (countMap == null) {
 			countMap = new EcoreEMap<Buffer,Long>(MapPackage.Literals.BUFFER_TO_LONG_MAP, BufferToLongMapImpl.class, this, TracePackage.COMPRESSED_TOKENS_DEPENDENCY__COUNT_MAP);
@@ -121,6 +122,7 @@ public class CompressedTokensDependencyImpl extends CompressedDependencyImpl imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Buffer, StatisticalData> getTokensMap() {
 		if (tokensMap == null) {
 			tokensMap = new EcoreEMap<Buffer,StatisticalData>(MapPackage.Literals.BUFFER_TO_STATISTICAL_DATA_MAP, BufferToStatisticalDataMapImpl.class, this, TracePackage.COMPRESSED_TOKENS_DEPENDENCY__TOKENS_MAP);

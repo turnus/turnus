@@ -33,6 +33,7 @@ package turnus.common.util;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -209,6 +210,30 @@ public class EcoreUtils {
 			return false;
 		}
 	}
+	
+	/**
+	 * Store an {@link EObject} using the given {@link ResourceSet} and
+	 * {@link File}. If the object cannot be store, <code>false</code> is
+	 * returned without throwing any exceptions.
+	 * 
+	 * @param object
+	 *            the object
+	 * @param set
+	 *            the resource set
+	 * @param file
+	 *            the file
+	 * @return <code>true</code> if the object has been stored,
+	 *         <code>false</code> otherwise
+	 */
+	public static boolean storeEObject(Collection<? extends EObject> object, ResourceSet set, File file) {
+		try {
+			URI uri = FileUtils.createFileURI(file);
+			return storeEObject(object, set, uri);
+		} catch (Exception e) {
+			Logger.debug("Store Object to file \"%s\" exception: %s", file, e);
+			return false;
+		}
+	}
 
 	/**
 	 * Store an {@link EObject} using the given {@link ResourceSet} and
@@ -252,6 +277,18 @@ public class EcoreUtils {
 		try {
 			Resource resource = set.createResource(uri);
 			resource.getContents().add(object);
+			resource.save(Collections.EMPTY_MAP);
+			return true;
+		} catch (Exception e) {
+			Logger.debug("StoreObject to URI \"%s\" exception: %s", uri, e);
+			return false;
+		}
+	}
+	
+	public static boolean storeEObject(Collection<? extends EObject> object, ResourceSet set, URI uri) {
+		try {
+			Resource resource = set.createResource(uri);
+			resource.getContents().addAll(object);
 			resource.save(Collections.EMPTY_MAP);
 			return true;
 		} catch (Exception e) {

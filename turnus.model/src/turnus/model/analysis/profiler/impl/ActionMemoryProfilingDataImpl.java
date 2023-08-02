@@ -148,6 +148,7 @@ public class ActionMemoryProfilingDataImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getActor() {
 		return actor;
 	}
@@ -156,6 +157,7 @@ public class ActionMemoryProfilingDataImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActor(String newActor) {
 		String oldActor = actor;
 		actor = newActor;
@@ -167,6 +169,7 @@ public class ActionMemoryProfilingDataImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAction() {
 		return action;
 	}
@@ -175,6 +178,7 @@ public class ActionMemoryProfilingDataImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAction(String newAction) {
 		String oldAction = action;
 		action = newAction;
@@ -186,6 +190,7 @@ public class ActionMemoryProfilingDataImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MemoryAccessData> getReads() {
 		if (reads == null) {
 			reads = new EObjectContainmentEList<MemoryAccessData>(MemoryAccessData.class, this, ProfilerPackage.ACTION_MEMORY_PROFILING_DATA__READS);
@@ -197,6 +202,7 @@ public class ActionMemoryProfilingDataImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MemoryAccessData> getWrites() {
 		if (writes == null) {
 			writes = new EObjectContainmentEList<MemoryAccessData>(MemoryAccessData.class, this, ProfilerPackage.ACTION_MEMORY_PROFILING_DATA__WRITES);
@@ -481,7 +487,7 @@ public class ActionMemoryProfilingDataImpl extends MinimalEObjectImpl.Container 
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (actor: ");
 		result.append(actor);
 		result.append(", action: ");

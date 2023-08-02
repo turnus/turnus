@@ -154,6 +154,7 @@ public class MemoryProfilingReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -162,6 +163,7 @@ public class MemoryProfilingReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -173,6 +175,7 @@ public class MemoryProfilingReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -181,6 +184,7 @@ public class MemoryProfilingReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -192,6 +196,7 @@ public class MemoryProfilingReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getNetworkName() {
 		return networkName;
 	}
@@ -200,6 +205,7 @@ public class MemoryProfilingReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetworkName(String newNetworkName) {
 		String oldNetworkName = networkName;
 		networkName = newNetworkName;
@@ -211,6 +217,7 @@ public class MemoryProfilingReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ActionMemoryProfilingData> getActionsData() {
 		if (actionsData == null) {
 			actionsData = new EObjectContainmentEList<ActionMemoryProfilingData>(ActionMemoryProfilingData.class, this, ProfilerPackage.MEMORY_PROFILING_REPORT__ACTIONS_DATA);
@@ -352,7 +359,7 @@ public class MemoryProfilingReportImpl extends MinimalEObjectImpl.Container impl
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (algorithm: ");
 		result.append(algorithm);
 		result.append(", date: ");

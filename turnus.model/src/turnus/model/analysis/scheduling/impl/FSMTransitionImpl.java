@@ -140,6 +140,7 @@ public class FSMTransitionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMCondition getCond() {
 		return cond;
 	}
@@ -164,6 +165,7 @@ public class FSMTransitionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCond(FSMCondition newCond) {
 		if (newCond != cond) {
 			NotificationChain msgs = null;
@@ -183,6 +185,7 @@ public class FSMTransitionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTargetStateEnumName() {
 		return targetStateEnumName;
 	}
@@ -192,6 +195,7 @@ public class FSMTransitionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTargetStateEnumName(String newTargetStateEnumName) {
 		String oldTargetStateEnumName = targetStateEnumName;
 		targetStateEnumName = newTargetStateEnumName;
@@ -204,6 +208,7 @@ public class FSMTransitionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSourceStateEnumName() {
 		return sourceStateEnumName;
 	}
@@ -213,6 +218,7 @@ public class FSMTransitionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSourceStateEnumName(String newSourceStateEnumName) {
 		String oldSourceStateEnumName = sourceStateEnumName;
 		sourceStateEnumName = newSourceStateEnumName;
@@ -225,6 +231,7 @@ public class FSMTransitionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Sequence getTransitionSchedule() {
 		return transitionSchedule;
 	}
@@ -249,6 +256,7 @@ public class FSMTransitionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransitionSchedule(Sequence newTransitionSchedule) {
 		if (newTransitionSchedule != transitionSchedule) {
 			NotificationChain msgs = null;
@@ -376,7 +384,7 @@ public class FSMTransitionImpl extends MinimalEObjectImpl.Container implements F
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (targetStateEnumName: ");
 		result.append(targetStateEnumName);
 		result.append(", sourceStateEnumName: ");

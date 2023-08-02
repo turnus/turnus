@@ -113,6 +113,7 @@ public class FSMVarUpdateImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMOperation getOperation() {
 		return operation;
 	}
@@ -139,6 +140,7 @@ public class FSMVarUpdateImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOperation(FSMOperation newOperation) {
 		if (newOperation != operation) {
 			NotificationChain msgs = null;
@@ -179,6 +181,7 @@ public class FSMVarUpdateImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetOperation() {
 		if (operation != null) {
 			NotificationChain msgs = null;
@@ -199,6 +202,7 @@ public class FSMVarUpdateImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOperation() {
 		return operationESet;
 	}
@@ -208,6 +212,7 @@ public class FSMVarUpdateImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMCondition getCondition() {
 		return condition;
 	}
@@ -232,6 +237,7 @@ public class FSMVarUpdateImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCondition(FSMCondition newCondition) {
 		if (newCondition != condition) {
 			NotificationChain msgs = null;

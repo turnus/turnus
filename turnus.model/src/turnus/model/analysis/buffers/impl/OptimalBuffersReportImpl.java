@@ -212,6 +212,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -220,6 +221,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -231,6 +233,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -239,6 +242,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -250,6 +254,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -274,6 +279,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -285,6 +291,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isPow2() {
 		return pow2;
 	}
@@ -293,6 +300,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPow2(boolean newPow2) {
 		boolean oldPow2 = pow2;
 		pow2 = newPow2;
@@ -304,6 +312,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isBitAccurate() {
 		return bitAccurate;
 	}
@@ -312,6 +321,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBitAccurate(boolean newBitAccurate) {
 		boolean oldBitAccurate = bitAccurate;
 		bitAccurate = newBitAccurate;
@@ -323,6 +333,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<OptimalBufferData> getBuffersData() {
 		if (buffersData == null) {
 			buffersData = new EObjectContainmentEList<OptimalBufferData>(OptimalBufferData.class, this, BuffersPackage.OPTIMAL_BUFFERS_REPORT__BUFFERS_DATA);
@@ -334,6 +345,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BoundedBuffersReport getInitialBufferConfiguration() {
 		return initialBufferConfiguration;
 	}
@@ -357,6 +369,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitialBufferConfiguration(BoundedBuffersReport newInitialBufferConfiguration) {
 		if (newInitialBufferConfiguration != initialBufferConfiguration) {
 			NotificationChain msgs = null;
@@ -375,6 +388,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BottlenecksWithSchedulingReport getInitialBottlenecks() {
 		return initialBottlenecks;
 	}
@@ -398,6 +412,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitialBottlenecks(BottlenecksWithSchedulingReport newInitialBottlenecks) {
 		if (newInitialBottlenecks != initialBottlenecks) {
 			NotificationChain msgs = null;

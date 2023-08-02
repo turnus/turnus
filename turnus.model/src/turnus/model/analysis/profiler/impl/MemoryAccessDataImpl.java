@@ -98,6 +98,7 @@ public abstract class MemoryAccessDataImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, AccessData> getAccessesData() {
 		if (accessesData == null) {
 			accessesData = new EcoreEMap<String,AccessData>(ProfilerPackage.Literals.STRING_TO_ACCESS_DATA_MAP, StringToAccessDataMapImpl.class, this, ProfilerPackage.MEMORY_ACCESS_DATA__ACCESSES_DATA);

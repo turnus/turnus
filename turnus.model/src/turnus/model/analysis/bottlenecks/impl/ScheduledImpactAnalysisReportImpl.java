@@ -193,6 +193,7 @@ public class ScheduledImpactAnalysisReportImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -202,6 +203,7 @@ public class ScheduledImpactAnalysisReportImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -214,6 +216,7 @@ public class ScheduledImpactAnalysisReportImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -223,6 +226,7 @@ public class ScheduledImpactAnalysisReportImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -235,6 +239,7 @@ public class ScheduledImpactAnalysisReportImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -261,6 +266,7 @@ public class ScheduledImpactAnalysisReportImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -273,6 +279,7 @@ public class ScheduledImpactAnalysisReportImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isClassLevel() {
 		return classLevel;
 	}
@@ -282,6 +289,7 @@ public class ScheduledImpactAnalysisReportImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClassLevel(boolean newClassLevel) {
 		boolean oldClassLevel = classLevel;
 		classLevel = newClassLevel;
@@ -294,6 +302,7 @@ public class ScheduledImpactAnalysisReportImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ScheduledImpactAnalysisData> getScheduledImpactData() {
 		if (scheduledImpactData == null) {
 			scheduledImpactData = new EObjectContainmentEList<ScheduledImpactAnalysisData>(ScheduledImpactAnalysisData.class, this, BottlenecksPackage.SCHEDULED_IMPACT_ANALYSIS_REPORT__SCHEDULED_IMPACT_DATA);
@@ -306,6 +315,7 @@ public class ScheduledImpactAnalysisReportImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BottlenecksWithSchedulingReport getInitialBottlenecksWithScheduling() {
 		return initialBottlenecksWithScheduling;
 	}
@@ -330,6 +340,7 @@ public class ScheduledImpactAnalysisReportImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitialBottlenecksWithScheduling(BottlenecksWithSchedulingReport newInitialBottlenecksWithScheduling) {
 		if (newInitialBottlenecksWithScheduling != initialBottlenecksWithScheduling) {
 			NotificationChain msgs = null;

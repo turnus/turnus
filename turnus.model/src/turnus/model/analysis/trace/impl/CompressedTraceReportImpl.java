@@ -184,6 +184,7 @@ public class CompressedTraceReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -192,6 +193,7 @@ public class CompressedTraceReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -203,6 +205,7 @@ public class CompressedTraceReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -211,6 +214,7 @@ public class CompressedTraceReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -222,6 +226,7 @@ public class CompressedTraceReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -246,6 +251,7 @@ public class CompressedTraceReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -257,6 +263,7 @@ public class CompressedTraceReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<CompressedStep> getSteps() {
 		if (steps == null) {
 			steps = new EObjectContainmentEList<CompressedStep>(CompressedStep.class, this, TracePackage.COMPRESSED_TRACE_REPORT__STEPS);
@@ -268,6 +275,7 @@ public class CompressedTraceReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<CompressedDependency> getDependencies() {
 		if (dependencies == null) {
 			dependencies = new EObjectContainmentEList<CompressedDependency>(CompressedDependency.class, this, TracePackage.COMPRESSED_TRACE_REPORT__DEPENDENCIES);
@@ -280,6 +288,7 @@ public class CompressedTraceReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTraceFile() {
 		return traceFile;
 	}
@@ -289,6 +298,7 @@ public class CompressedTraceReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTraceFile(String newTraceFile) {
 		String oldTraceFile = traceFile;
 		traceFile = newTraceFile;

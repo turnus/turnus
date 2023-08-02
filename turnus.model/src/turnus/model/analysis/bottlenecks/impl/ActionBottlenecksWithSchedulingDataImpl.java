@@ -219,6 +219,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Action getAction() {
 		if (action != null && action.eIsProxy()) {
 			InternalEObject oldAction = (InternalEObject)action;
@@ -245,6 +246,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAction(Action newAction) {
 		Action oldAction = action;
 		action = newAction;
@@ -257,6 +259,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getCpWeight() {
 		return cpWeight;
 	}
@@ -266,6 +269,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCpWeight(double newCpWeight) {
 		double oldCpWeight = cpWeight;
 		cpWeight = newCpWeight;
@@ -278,6 +282,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getTotalWeight() {
 		return totalWeight;
 	}
@@ -287,6 +292,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTotalWeight(double newTotalWeight) {
 		double oldTotalWeight = totalWeight;
 		totalWeight = newTotalWeight;
@@ -299,6 +305,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getCpFirings() {
 		return cpFirings;
 	}
@@ -308,6 +315,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCpFirings(long newCpFirings) {
 		long oldCpFirings = cpFirings;
 		cpFirings = newCpFirings;
@@ -320,6 +328,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getTotalFirings() {
 		return totalFirings;
 	}
@@ -329,6 +338,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTotalFirings(long newTotalFirings) {
 		long oldTotalFirings = totalFirings;
 		totalFirings = newTotalFirings;
@@ -341,6 +351,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Buffer, Integer> getMaxBlockedOutputTokens() {
 		if (maxBlockedOutputTokens == null) {
 			maxBlockedOutputTokens = new EcoreEMap<Buffer,Integer>(MapPackage.Literals.BUFFER_TO_INTEGER_MAP, BufferToIntegerMapImpl.class, this, BottlenecksPackage.ACTION_BOTTLENECKS_WITH_SCHEDULING_DATA__MAX_BLOCKED_OUTPUT_TOKENS);
@@ -353,6 +364,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Buffer, Double> getMaxBlockedMultiplication() {
 		if (maxBlockedMultiplication == null) {
 			maxBlockedMultiplication = new EcoreEMap<Buffer,Double>(MapPackage.Literals.BUFFER_TO_DOUBLE_MAP, BufferToDoubleMapImpl.class, this, BottlenecksPackage.ACTION_BOTTLENECKS_WITH_SCHEDULING_DATA__MAX_BLOCKED_MULTIPLICATION);
@@ -365,6 +377,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Buffer, Integer> getBlockingInstances() {
 		if (blockingInstances == null) {
 			blockingInstances = new EcoreEMap<Buffer,Integer>(MapPackage.Literals.BUFFER_TO_INTEGER_MAP, BufferToIntegerMapImpl.class, this, BottlenecksPackage.ACTION_BOTTLENECKS_WITH_SCHEDULING_DATA__BLOCKING_INSTANCES);
@@ -531,7 +544,7 @@ public class ActionBottlenecksWithSchedulingDataImpl extends MinimalEObjectImpl.
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (cpWeight: ");
 		result.append(cpWeight);
 		result.append(", totalWeight: ");

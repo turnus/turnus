@@ -155,6 +155,7 @@ public class IntraActionCommunicationReportImpl extends MinimalEObjectImpl.Conta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -164,6 +165,7 @@ public class IntraActionCommunicationReportImpl extends MinimalEObjectImpl.Conta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -176,6 +178,7 @@ public class IntraActionCommunicationReportImpl extends MinimalEObjectImpl.Conta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -185,6 +188,7 @@ public class IntraActionCommunicationReportImpl extends MinimalEObjectImpl.Conta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -197,6 +201,7 @@ public class IntraActionCommunicationReportImpl extends MinimalEObjectImpl.Conta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IntraActorCommunicationData> getActorsData() {
 		if (actorsData == null) {
 			actorsData = new EObjectContainmentEList<IntraActorCommunicationData>(IntraActorCommunicationData.class, this, ProfilingPackage.INTRA_ACTION_COMMUNICATION_REPORT__ACTORS_DATA);
@@ -209,6 +214,7 @@ public class IntraActionCommunicationReportImpl extends MinimalEObjectImpl.Conta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -235,6 +241,7 @@ public class IntraActionCommunicationReportImpl extends MinimalEObjectImpl.Conta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -356,7 +363,7 @@ public class IntraActionCommunicationReportImpl extends MinimalEObjectImpl.Conta
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (algorithm: ");
 		result.append(algorithm);
 		result.append(", date: ");

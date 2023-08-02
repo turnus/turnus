@@ -162,6 +162,7 @@ public class ComCostPartitioningReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -170,6 +171,7 @@ public class ComCostPartitioningReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -181,6 +183,7 @@ public class ComCostPartitioningReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -189,6 +192,7 @@ public class ComCostPartitioningReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -200,6 +204,7 @@ public class ComCostPartitioningReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -224,6 +229,7 @@ public class ComCostPartitioningReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -235,6 +241,7 @@ public class ComCostPartitioningReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isBitAccurate() {
 		return bitAccurate;
 	}
@@ -243,6 +250,7 @@ public class ComCostPartitioningReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBitAccurate(boolean newBitAccurate) {
 		boolean oldBitAccurate = bitAccurate;
 		bitAccurate = newBitAccurate;
@@ -254,6 +262,7 @@ public class ComCostPartitioningReportImpl extends MinimalEObjectImpl.Container 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ComCostPartition> getPartitions() {
 		if (partitions == null) {
 			partitions = new EObjectContainmentEList<ComCostPartition>(ComCostPartition.class, this, PartitioningPackage.COM_COST_PARTITIONING_REPORT__PARTITIONS);

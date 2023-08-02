@@ -154,6 +154,7 @@ public class SequenceImpl extends ActorSelectionScheduleImpl implements Sequence
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ActorFire> getActions() {
 		if (actions == null) {
 			actions = new EObjectContainmentEList<ActorFire>(ActorFire.class, this, SchedulingPackage.SEQUENCE__ACTIONS);

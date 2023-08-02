@@ -226,7 +226,7 @@ public interface PostprocessingPackage extends EPackage {
 	int ACTOR_STATISTICS_REPORT__EXECUTION_TIME = POST_PROCESSING_DATA_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Partitions</b></em>' reference list.
+	 * The feature id for the '<em><b>Partitions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -480,13 +480,22 @@ public interface PostprocessingPackage extends EPackage {
 	int ACTION_STATISTICS_REPORT__EXECUTION_COUNTS = POST_PROCESSING_DATA_FEATURE_COUNT + 11;
 
 	/**
+	 * The feature id for the '<em><b>Network</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTION_STATISTICS_REPORT__NETWORK = POST_PROCESSING_DATA_FEATURE_COUNT + 12;
+
+	/**
 	 * The number of structural features of the '<em>Action Statistics Report</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION_STATISTICS_REPORT_FEATURE_COUNT = POST_PROCESSING_DATA_FEATURE_COUNT + 12;
+	int ACTION_STATISTICS_REPORT_FEATURE_COUNT = POST_PROCESSING_DATA_FEATURE_COUNT + 13;
 
 	/**
 	 * The number of operations of the '<em>Action Statistics Report</em>' class.
@@ -508,7 +517,7 @@ public interface PostprocessingPackage extends EPackage {
 	int SCHEDULER_CHECKS_REPORT = 5;
 
 	/**
-	 * The feature id for the '<em><b>Partitions</b></em>' reference list.
+	 * The feature id for the '<em><b>Partitions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -545,7 +554,7 @@ public interface PostprocessingPackage extends EPackage {
 	int SCHEDULER_CHECKS_PARTITION = 6;
 
 	/**
-	 * The feature id for the '<em><b>Aggregated Checked Data</b></em>' reference.
+	 * The feature id for the '<em><b>Aggregated Checked Data</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -554,7 +563,7 @@ public interface PostprocessingPackage extends EPackage {
 	int SCHEDULER_CHECKS_PARTITION__AGGREGATED_CHECKED_DATA = 0;
 
 	/**
-	 * The feature id for the '<em><b>Aggregated Failed Data</b></em>' reference.
+	 * The feature id for the '<em><b>Aggregated Failed Data</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -759,10 +768,10 @@ public interface PostprocessingPackage extends EPackage {
 	EAttribute getActorStatisticsReport_ExecutionTime();
 
 	/**
-	 * Returns the meta object for the reference list '{@link turnus.model.analysis.postprocessing.ActorStatisticsReport#getPartitions <em>Partitions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link turnus.model.analysis.postprocessing.ActorStatisticsReport#getPartitions <em>Partitions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Partitions</em>'.
+	 * @return the meta object for the containment reference list '<em>Partitions</em>'.
 	 * @see turnus.model.analysis.postprocessing.ActorStatisticsReport#getPartitions()
 	 * @see #getActorStatisticsReport()
 	 * @generated
@@ -1021,6 +1030,17 @@ public interface PostprocessingPackage extends EPackage {
 	EReference getActionStatisticsReport_ExecutionCounts();
 
 	/**
+	 * Returns the meta object for the reference '{@link turnus.model.analysis.postprocessing.ActionStatisticsReport#getNetwork <em>Network</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Network</em>'.
+	 * @see turnus.model.analysis.postprocessing.ActionStatisticsReport#getNetwork()
+	 * @see #getActionStatisticsReport()
+	 * @generated
+	 */
+	EReference getActionStatisticsReport_Network();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.postprocessing.SchedulerChecksReport <em>Scheduler Checks Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1031,10 +1051,10 @@ public interface PostprocessingPackage extends EPackage {
 	EClass getSchedulerChecksReport();
 
 	/**
-	 * Returns the meta object for the reference list '{@link turnus.model.analysis.postprocessing.SchedulerChecksReport#getPartitions <em>Partitions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link turnus.model.analysis.postprocessing.SchedulerChecksReport#getPartitions <em>Partitions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Partitions</em>'.
+	 * @return the meta object for the containment reference list '<em>Partitions</em>'.
 	 * @see turnus.model.analysis.postprocessing.SchedulerChecksReport#getPartitions()
 	 * @see #getSchedulerChecksReport()
 	 * @generated
@@ -1052,10 +1072,10 @@ public interface PostprocessingPackage extends EPackage {
 	EClass getSchedulerChecksPartition();
 
 	/**
-	 * Returns the meta object for the reference '{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getAggregatedCheckedData <em>Aggregated Checked Data</em>}'.
+	 * Returns the meta object for the containment reference '{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getAggregatedCheckedData <em>Aggregated Checked Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Aggregated Checked Data</em>'.
+	 * @return the meta object for the containment reference '<em>Aggregated Checked Data</em>'.
 	 * @see turnus.model.analysis.postprocessing.SchedulerChecksPartition#getAggregatedCheckedData()
 	 * @see #getSchedulerChecksPartition()
 	 * @generated
@@ -1063,10 +1083,10 @@ public interface PostprocessingPackage extends EPackage {
 	EReference getSchedulerChecksPartition_AggregatedCheckedData();
 
 	/**
-	 * Returns the meta object for the reference '{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getAggregatedFailedData <em>Aggregated Failed Data</em>}'.
+	 * Returns the meta object for the containment reference '{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getAggregatedFailedData <em>Aggregated Failed Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Aggregated Failed Data</em>'.
+	 * @return the meta object for the containment reference '<em>Aggregated Failed Data</em>'.
 	 * @see turnus.model.analysis.postprocessing.SchedulerChecksPartition#getAggregatedFailedData()
 	 * @see #getSchedulerChecksPartition()
 	 * @generated
@@ -1251,7 +1271,7 @@ public interface PostprocessingPackage extends EPackage {
 		EAttribute ACTOR_STATISTICS_REPORT__EXECUTION_TIME = eINSTANCE.getActorStatisticsReport_ExecutionTime();
 
 		/**
-		 * The meta object literal for the '<em><b>Partitions</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Partitions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1447,6 +1467,14 @@ public interface PostprocessingPackage extends EPackage {
 		EReference ACTION_STATISTICS_REPORT__EXECUTION_COUNTS = eINSTANCE.getActionStatisticsReport_ExecutionCounts();
 
 		/**
+		 * The meta object literal for the '<em><b>Network</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTION_STATISTICS_REPORT__NETWORK = eINSTANCE.getActionStatisticsReport_Network();
+
+		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.postprocessing.impl.SchedulerChecksReportImpl <em>Scheduler Checks Report</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1457,7 +1485,7 @@ public interface PostprocessingPackage extends EPackage {
 		EClass SCHEDULER_CHECKS_REPORT = eINSTANCE.getSchedulerChecksReport();
 
 		/**
-		 * The meta object literal for the '<em><b>Partitions</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Partitions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1475,7 +1503,7 @@ public interface PostprocessingPackage extends EPackage {
 		EClass SCHEDULER_CHECKS_PARTITION = eINSTANCE.getSchedulerChecksPartition();
 
 		/**
-		 * The meta object literal for the '<em><b>Aggregated Checked Data</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Aggregated Checked Data</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1483,7 +1511,7 @@ public interface PostprocessingPackage extends EPackage {
 		EReference SCHEDULER_CHECKS_PARTITION__AGGREGATED_CHECKED_DATA = eINSTANCE.getSchedulerChecksPartition_AggregatedCheckedData();
 
 		/**
-		 * The meta object literal for the '<em><b>Aggregated Failed Data</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Aggregated Failed Data</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

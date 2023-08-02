@@ -124,6 +124,7 @@ public abstract class CompressedDependencyImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getCount() {
 		return count;
 	}
@@ -133,6 +134,7 @@ public abstract class CompressedDependencyImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCount(long newCount) {
 		long oldCount = count;
 		count = newCount;
@@ -145,6 +147,7 @@ public abstract class CompressedDependencyImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompressedStep getSource() {
 		if (source != null && source.eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject)source;
@@ -186,6 +189,7 @@ public abstract class CompressedDependencyImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSource(CompressedStep newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
@@ -205,6 +209,7 @@ public abstract class CompressedDependencyImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompressedStep getTarget() {
 		if (target != null && target.eIsProxy()) {
 			InternalEObject oldTarget = (InternalEObject)target;
@@ -246,6 +251,7 @@ public abstract class CompressedDependencyImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTarget(CompressedStep newTarget) {
 		if (newTarget != target) {
 			NotificationChain msgs = null;
@@ -385,7 +391,7 @@ public abstract class CompressedDependencyImpl extends MinimalEObjectImpl.Contai
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (count: ");
 		result.append(count);
 		result.append(')');

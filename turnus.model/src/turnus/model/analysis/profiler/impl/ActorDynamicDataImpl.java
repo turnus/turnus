@@ -112,6 +112,7 @@ public class ActorDynamicDataImpl extends ComplexDynamicDataImpl implements Acto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Actor getActor() {
 		if (actor != null && actor.eIsProxy()) {
 			InternalEObject oldActor = (InternalEObject)actor;
@@ -138,6 +139,7 @@ public class ActorDynamicDataImpl extends ComplexDynamicDataImpl implements Acto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActor(Actor newActor) {
 		Actor oldActor = actor;
 		actor = newActor;
@@ -150,6 +152,7 @@ public class ActorDynamicDataImpl extends ComplexDynamicDataImpl implements Acto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ActionDynamicData> getActionsData() {
 		if (actionsData == null) {
 			actionsData = new EObjectContainmentEList<ActionDynamicData>(ActionDynamicData.class, this, ProfilerPackage.ACTOR_DYNAMIC_DATA__ACTIONS_DATA);

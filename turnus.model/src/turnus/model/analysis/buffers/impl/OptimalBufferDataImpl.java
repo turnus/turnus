@@ -105,6 +105,7 @@ public class OptimalBufferDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BoundedBuffersReport getBufferData() {
 		return bufferData;
 	}
@@ -129,6 +130,7 @@ public class OptimalBufferDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBufferData(BoundedBuffersReport newBufferData) {
 		if (newBufferData != bufferData) {
 			NotificationChain msgs = null;
@@ -148,6 +150,7 @@ public class OptimalBufferDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BottlenecksWithSchedulingReport getBottlenecksData() {
 		return bottlenecksData;
 	}
@@ -172,6 +175,7 @@ public class OptimalBufferDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBottlenecksData(BottlenecksWithSchedulingReport newBottlenecksData) {
 		if (newBottlenecksData != bottlenecksData) {
 			NotificationChain msgs = null;

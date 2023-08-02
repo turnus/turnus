@@ -116,6 +116,7 @@ public class BoundedBufferDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Buffer getBuffer() {
 		if (buffer != null && buffer.eIsProxy()) {
 			InternalEObject oldBuffer = (InternalEObject)buffer;
@@ -140,6 +141,7 @@ public class BoundedBufferDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBuffer(Buffer newBuffer) {
 		Buffer oldBuffer = buffer;
 		buffer = newBuffer;
@@ -151,6 +153,7 @@ public class BoundedBufferDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getTokenSize() {
 		return tokenSize;
 	}
@@ -159,6 +162,7 @@ public class BoundedBufferDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTokenSize(int newTokenSize) {
 		int oldTokenSize = tokenSize;
 		tokenSize = newTokenSize;
@@ -253,7 +257,7 @@ public class BoundedBufferDataImpl extends MinimalEObjectImpl.Container implemen
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (tokenSize: ");
 		result.append(tokenSize);
 		result.append(')');

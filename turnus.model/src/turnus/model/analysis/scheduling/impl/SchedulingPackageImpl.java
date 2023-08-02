@@ -106,7 +106,9 @@ import turnus.model.analysis.trace.TracePackage;
 
 import turnus.model.analysis.trace.impl.TracePackageImpl;
 
+import turnus.model.common.CommonPackage;
 import turnus.model.dataflow.DataflowPackage;
+import turnus.model.versioning.VersioningPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -283,7 +285,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link SchedulingPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -297,25 +299,39 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 		if (isInited) return (SchedulingPackage)EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
 
 		// Obtain or create and register package
-		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new SchedulingPackageImpl());
+		Object registeredSchedulingPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		SchedulingPackageImpl theSchedulingPackage = registeredSchedulingPackage instanceof SchedulingPackageImpl ? (SchedulingPackageImpl)registeredSchedulingPackage : new SchedulingPackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
+		CommonPackage.eINSTANCE.eClass();
 		DataflowPackage.eINSTANCE.eClass();
+		VersioningPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
-		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI) instanceof ProfilerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI) : ProfilerPackage.eINSTANCE);
-		MapPackageImpl theMapPackage = (MapPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI) instanceof MapPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI) : MapPackage.eINSTANCE);
-		TracePackageImpl theTracePackage = (TracePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI) instanceof TracePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI) : TracePackage.eINSTANCE);
-		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI) instanceof BottlenecksPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI) : BottlenecksPackage.eINSTANCE);
-		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI) instanceof BuffersPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI) : BuffersPackage.eINSTANCE);
-		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) instanceof PartitioningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) : PartitioningPackage.eINSTANCE);
-		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) instanceof PipeliningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) : PipeliningPackage.eINSTANCE);
-		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) : PostprocessingPackage.eINSTANCE);
-		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
-		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) instanceof CaseoptimalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) : CaseoptimalPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
+		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(registeredPackage instanceof AnalysisPackageImpl ? registeredPackage : AnalysisPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI);
+		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(registeredPackage instanceof ProfilerPackageImpl ? registeredPackage : ProfilerPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI);
+		MapPackageImpl theMapPackage = (MapPackageImpl)(registeredPackage instanceof MapPackageImpl ? registeredPackage : MapPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI);
+		TracePackageImpl theTracePackage = (TracePackageImpl)(registeredPackage instanceof TracePackageImpl ? registeredPackage : TracePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI);
+		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(registeredPackage instanceof BottlenecksPackageImpl ? registeredPackage : BottlenecksPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI);
+		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(registeredPackage instanceof BuffersPackageImpl ? registeredPackage : BuffersPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI);
+		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(registeredPackage instanceof PartitioningPackageImpl ? registeredPackage : PartitioningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI);
+		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(registeredPackage instanceof PipeliningPackageImpl ? registeredPackage : PipeliningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI);
+		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(registeredPackage instanceof PostprocessingPackageImpl ? registeredPackage : PostprocessingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI);
+		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI);
+		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(registeredPackage instanceof CaseoptimalPackageImpl ? registeredPackage : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theSchedulingPackage.createPackageContents();
@@ -348,7 +364,6 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 		// Mark meta-data to indicate it can't be changed
 		theSchedulingPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(SchedulingPackage.eNS_URI, theSchedulingPackage);
 		return theSchedulingPackage;
@@ -359,6 +374,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActorFire() {
 		return actorFireEClass;
 	}
@@ -368,6 +384,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActorFire_Actor() {
 		return (EAttribute)actorFireEClass.getEStructuralFeatures().get(0);
 	}
@@ -377,6 +394,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActorFire_Times() {
 		return (EAttribute)actorFireEClass.getEStructuralFeatures().get(1);
 	}
@@ -386,6 +404,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActorFire_Partition() {
 		return (EAttribute)actorFireEClass.getEStructuralFeatures().get(2);
 	}
@@ -395,6 +414,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActorFire_DependencyPartitions() {
 		return (EAttribute)actorFireEClass.getEStructuralFeatures().get(3);
 	}
@@ -404,6 +424,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFSM() {
 		return fsmEClass;
 	}
@@ -413,6 +434,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFSM_States() {
 		return (EReference)fsmEClass.getEStructuralFeatures().get(0);
 	}
@@ -422,6 +444,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFSM_Vars() {
 		return (EReference)fsmEClass.getEStructuralFeatures().get(1);
 	}
@@ -431,6 +454,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSM_StartState() {
 		return (EAttribute)fsmEClass.getEStructuralFeatures().get(2);
 	}
@@ -440,6 +464,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSM_TerminalState() {
 		return (EAttribute)fsmEClass.getEStructuralFeatures().get(3);
 	}
@@ -449,6 +474,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActorSelectionSchedule() {
 		return actorSelectionScheduleEClass;
 	}
@@ -458,6 +484,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSequence() {
 		return sequenceEClass;
 	}
@@ -467,6 +494,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSequence_Actions() {
 		return (EReference)sequenceEClass.getEStructuralFeatures().get(0);
 	}
@@ -476,6 +504,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFSMVar() {
 		return fsmVarEClass;
 	}
@@ -485,6 +514,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMVar_Name() {
 		return (EAttribute)fsmVarEClass.getEStructuralFeatures().get(0);
 	}
@@ -494,6 +524,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMVar_InitialVal() {
 		return (EAttribute)fsmVarEClass.getEStructuralFeatures().get(1);
 	}
@@ -503,6 +534,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMVar_Type() {
 		return (EAttribute)fsmVarEClass.getEStructuralFeatures().get(2);
 	}
@@ -512,6 +544,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFSMTransition() {
 		return fsmTransitionEClass;
 	}
@@ -521,6 +554,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFSMTransition_Cond() {
 		return (EReference)fsmTransitionEClass.getEStructuralFeatures().get(0);
 	}
@@ -530,6 +564,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMTransition_TargetStateEnumName() {
 		return (EAttribute)fsmTransitionEClass.getEStructuralFeatures().get(1);
 	}
@@ -539,6 +574,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMTransition_SourceStateEnumName() {
 		return (EAttribute)fsmTransitionEClass.getEStructuralFeatures().get(2);
 	}
@@ -548,6 +584,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFSMTransition_TransitionSchedule() {
 		return (EReference)fsmTransitionEClass.getEStructuralFeatures().get(3);
 	}
@@ -557,6 +594,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFSMState() {
 		return fsmStateEClass;
 	}
@@ -566,6 +604,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMState_EnumName() {
 		return (EAttribute)fsmStateEClass.getEStructuralFeatures().get(0);
 	}
@@ -575,6 +614,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFSMState_VarUpdates() {
 		return (EReference)fsmStateEClass.getEStructuralFeatures().get(1);
 	}
@@ -584,6 +624,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFSMState_Transitions() {
 		return (EReference)fsmStateEClass.getEStructuralFeatures().get(2);
 	}
@@ -593,6 +634,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFSMVarUpdate() {
 		return fsmVarUpdateEClass;
 	}
@@ -602,6 +644,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFSMVarUpdate_Operation() {
 		return (EReference)fsmVarUpdateEClass.getEStructuralFeatures().get(0);
 	}
@@ -611,6 +654,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFSMVarUpdate_Condition() {
 		return (EReference)fsmVarUpdateEClass.getEStructuralFeatures().get(1);
 	}
@@ -620,6 +664,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFSMOperation() {
 		return fsmOperationEClass;
 	}
@@ -629,6 +674,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMOperation_Op() {
 		return (EAttribute)fsmOperationEClass.getEStructuralFeatures().get(0);
 	}
@@ -638,6 +684,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMOperation_Val() {
 		return (EAttribute)fsmOperationEClass.getEStructuralFeatures().get(1);
 	}
@@ -647,6 +694,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMOperation_Var() {
 		return (EAttribute)fsmOperationEClass.getEStructuralFeatures().get(2);
 	}
@@ -656,6 +704,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFSMCombination() {
 		return fsmCombinationEClass;
 	}
@@ -665,6 +714,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMCombination_Combinator() {
 		return (EAttribute)fsmCombinationEClass.getEStructuralFeatures().get(0);
 	}
@@ -674,6 +724,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFSMCombination_Cond() {
 		return (EReference)fsmCombinationEClass.getEStructuralFeatures().get(1);
 	}
@@ -683,6 +734,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFSMCondition() {
 		return fsmConditionEClass;
 	}
@@ -692,6 +744,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMCondition_Comp() {
 		return (EAttribute)fsmConditionEClass.getEStructuralFeatures().get(0);
 	}
@@ -701,6 +754,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMCondition_Compval() {
 		return (EAttribute)fsmConditionEClass.getEStructuralFeatures().get(1);
 	}
@@ -710,6 +764,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFSMCondition_CombinedCond() {
 		return (EReference)fsmConditionEClass.getEStructuralFeatures().get(2);
 	}
@@ -719,6 +774,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFSMCondition_ValName() {
 		return (EAttribute)fsmConditionEClass.getEStructuralFeatures().get(3);
 	}
@@ -728,6 +784,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFSMTransitionWithState() {
 		return fsmTransitionWithStateEClass;
 	}
@@ -737,6 +794,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFSMTransitionWithState_VarStates() {
 		return (EReference)fsmTransitionWithStateEClass.getEStructuralFeatures().get(0);
 	}
@@ -746,6 +804,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPartitionedActorFire() {
 		return partitionedActorFireEClass;
 	}
@@ -755,6 +814,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMarkovSimpleSchedulerReport() {
 		return markovSimpleSchedulerReportEClass;
 	}
@@ -764,6 +824,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkovSimpleSchedulerReport_Partitions() {
 		return (EReference)markovSimpleSchedulerReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -773,6 +834,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkovSimpleSchedulerReport_Network() {
 		return (EReference)markovSimpleSchedulerReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -782,6 +844,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMarkovPartitionScheduler() {
 		return markovPartitionSchedulerEClass;
 	}
@@ -791,6 +854,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkovPartitionScheduler_Actors() {
 		return (EReference)markovPartitionSchedulerEClass.getEStructuralFeatures().get(0);
 	}
@@ -800,6 +864,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMarkovPartitionScheduler_PartitionId() {
 		return (EAttribute)markovPartitionSchedulerEClass.getEStructuralFeatures().get(1);
 	}
@@ -809,6 +874,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkovPartitionScheduler_States() {
 		return (EReference)markovPartitionSchedulerEClass.getEStructuralFeatures().get(2);
 	}
@@ -818,6 +884,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkovPartitionScheduler_Transitions() {
 		return (EReference)markovPartitionSchedulerEClass.getEStructuralFeatures().get(3);
 	}
@@ -827,6 +894,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getMarkovPartitionScheduler__GetAssociatedState__Actor() {
 		return markovPartitionSchedulerEClass.getEOperations().get(0);
 	}
@@ -836,6 +904,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMarkovSchedulingState() {
 		return markovSchedulingStateEClass;
 	}
@@ -845,6 +914,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkovSchedulingState_Actor() {
 		return (EReference)markovSchedulingStateEClass.getEStructuralFeatures().get(0);
 	}
@@ -854,6 +924,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMarkovSchedulingState_Firings() {
 		return (EAttribute)markovSchedulingStateEClass.getEStructuralFeatures().get(1);
 	}
@@ -863,6 +934,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkovSchedulingState_Outgoings() {
 		return (EReference)markovSchedulingStateEClass.getEStructuralFeatures().get(2);
 	}
@@ -872,6 +944,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkovSchedulingState_Incomings() {
 		return (EReference)markovSchedulingStateEClass.getEStructuralFeatures().get(3);
 	}
@@ -881,6 +954,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMarkovSchedulingState_Name() {
 		return (EAttribute)markovSchedulingStateEClass.getEStructuralFeatures().get(4);
 	}
@@ -890,6 +964,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMarkovSchedulingTransition() {
 		return markovSchedulingTransitionEClass;
 	}
@@ -899,6 +974,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkovSchedulingTransition_Source() {
 		return (EReference)markovSchedulingTransitionEClass.getEStructuralFeatures().get(0);
 	}
@@ -908,6 +984,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkovSchedulingTransition_Target() {
 		return (EReference)markovSchedulingTransitionEClass.getEStructuralFeatures().get(1);
 	}
@@ -917,6 +994,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMarkovSchedulingTransition_Firings() {
 		return (EAttribute)markovSchedulingTransitionEClass.getEStructuralFeatures().get(2);
 	}
@@ -926,6 +1004,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMarkovSchedulingTransition_Name() {
 		return (EAttribute)markovSchedulingTransitionEClass.getEStructuralFeatures().get(3);
 	}
@@ -935,6 +1014,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getFSMOp() {
 		return fsmOpEEnum;
 	}
@@ -944,6 +1024,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getFSMComparator() {
 		return fsmComparatorEEnum;
 	}
@@ -953,6 +1034,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getFSMCombinator() {
 		return fsmCombinatorEEnum;
 	}
@@ -962,6 +1044,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SchedulingFactory getSchedulingFactory() {
 		return (SchedulingFactory)getEFactoryInstance();
 	}

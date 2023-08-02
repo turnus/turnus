@@ -149,7 +149,7 @@ public interface IntraActionCommunicationData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tokens Producers Map</em>' map.
 	 * @see turnus.model.analysis.profiling.ProfilingPackage#getIntraActionCommunicationData_TokensProducersMap()
-	 * @model mapType="turnus.model.analysis.map.ActionToStatisticalDataMap<turnus.model.dataflow.Action, turnus.model.common.StatisticalData>"
+	 * @model mapType="turnus.model.analysis.map.ActionToStatisticalDataMap&lt;turnus.model.dataflow.Action, turnus.model.common.StatisticalData&gt;"
 	 * @generated
 	 */
 	Map<Action, StatisticalData> getTokensProducersMap();

@@ -301,10 +301,25 @@
             input="optimalbuffer"
             output="md">
       </exporter>
-            <exporter
-            class="turnus.model.analysis.postprocessing.io.ActionStatistics2MdExporter"
-            input="pproan"
-            output="md">
+      <exporter
+        	class="turnus.model.analysis.postprocessing.io.ActionStatistics2MdExporter"
+        	input="pproan"
+        	output="md">
+      </exporter>
+	  <exporter
+        	class="turnus.model.analysis.postprocessing.io.ActorStatistics2MdExporter"
+        	input="pproar"
+        	output="md">
+      </exporter>
+	  <exporter
+        	class="turnus.model.analysis.postprocessing.io.BufferBlocking2MdExporter"
+        	input="bbreport"
+        	output="md">
+      </exporter>
+  	  <exporter
+        	class="turnus.model.analysis.postprocessing.io.SchedulerChecks2MdExporter"
+        	input="screport"
+        	output="md">
       </exporter>
    </extension>
 </plugin>

@@ -100,7 +100,9 @@ import turnus.model.analysis.trace.TraceFactory;
 import turnus.model.analysis.trace.TracePackage;
 import turnus.model.analysis.trace.TraceSizeReport;
 
+import turnus.model.common.CommonPackage;
 import turnus.model.dataflow.DataflowPackage;
+import turnus.model.versioning.VersioningPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -235,7 +237,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link TracePackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -249,25 +251,39 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 		if (isInited) return (TracePackage)EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI);
 
 		// Obtain or create and register package
-		TracePackageImpl theTracePackage = (TracePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof TracePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new TracePackageImpl());
+		Object registeredTracePackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		TracePackageImpl theTracePackage = registeredTracePackage instanceof TracePackageImpl ? (TracePackageImpl)registeredTracePackage : new TracePackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
+		CommonPackage.eINSTANCE.eClass();
 		DataflowPackage.eINSTANCE.eClass();
+		VersioningPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
-		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI) instanceof ProfilerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI) : ProfilerPackage.eINSTANCE);
-		MapPackageImpl theMapPackage = (MapPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI) instanceof MapPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI) : MapPackage.eINSTANCE);
-		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI) instanceof BottlenecksPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI) : BottlenecksPackage.eINSTANCE);
-		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI) instanceof BuffersPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI) : BuffersPackage.eINSTANCE);
-		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) instanceof PartitioningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) : PartitioningPackage.eINSTANCE);
-		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) instanceof PipeliningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) : PipeliningPackage.eINSTANCE);
-		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) : PostprocessingPackage.eINSTANCE);
-		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
-		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
-		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) instanceof CaseoptimalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) : CaseoptimalPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
+		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(registeredPackage instanceof AnalysisPackageImpl ? registeredPackage : AnalysisPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI);
+		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(registeredPackage instanceof ProfilerPackageImpl ? registeredPackage : ProfilerPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI);
+		MapPackageImpl theMapPackage = (MapPackageImpl)(registeredPackage instanceof MapPackageImpl ? registeredPackage : MapPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI);
+		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(registeredPackage instanceof BottlenecksPackageImpl ? registeredPackage : BottlenecksPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI);
+		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(registeredPackage instanceof BuffersPackageImpl ? registeredPackage : BuffersPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI);
+		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(registeredPackage instanceof PartitioningPackageImpl ? registeredPackage : PartitioningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI);
+		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(registeredPackage instanceof PipeliningPackageImpl ? registeredPackage : PipeliningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI);
+		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(registeredPackage instanceof PostprocessingPackageImpl ? registeredPackage : PostprocessingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI);
+		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
+		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(registeredPackage instanceof SchedulingPackageImpl ? registeredPackage : SchedulingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI);
+		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(registeredPackage instanceof CaseoptimalPackageImpl ? registeredPackage : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theTracePackage.createPackageContents();
@@ -300,7 +316,6 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 		// Mark meta-data to indicate it can't be changed
 		theTracePackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(TracePackage.eNS_URI, theTracePackage);
 		return theTracePackage;
@@ -311,6 +326,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTraceSizeReport() {
 		return traceSizeReportEClass;
 	}
@@ -320,6 +336,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTraceSizeReport_ActionsFirings() {
 		return (EReference)traceSizeReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -329,6 +346,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTraceSizeReport_ActionsIncomings() {
 		return (EReference)traceSizeReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -338,6 +356,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTraceSizeReport_ActionsOutgoings() {
 		return (EReference)traceSizeReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -347,6 +366,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTraceSizeReport_ActorsFirings() {
 		return (EReference)traceSizeReportEClass.getEStructuralFeatures().get(3);
 	}
@@ -356,6 +376,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTraceSizeReport_ActorsIncoming() {
 		return (EReference)traceSizeReportEClass.getEStructuralFeatures().get(4);
 	}
@@ -365,6 +386,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTraceSizeReport_ActorsOutgoings() {
 		return (EReference)traceSizeReportEClass.getEStructuralFeatures().get(5);
 	}
@@ -374,6 +396,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTraceSizeReport_Firings() {
 		return (EAttribute)traceSizeReportEClass.getEStructuralFeatures().get(6);
 	}
@@ -383,6 +406,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTraceSizeReport_Dependencies() {
 		return (EAttribute)traceSizeReportEClass.getEStructuralFeatures().get(7);
 	}
@@ -392,6 +416,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTraceSizeReport_DependenciesKinds() {
 		return (EReference)traceSizeReportEClass.getEStructuralFeatures().get(8);
 	}
@@ -401,6 +426,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTraceSizeReport_Network() {
 		return (EReference)traceSizeReportEClass.getEStructuralFeatures().get(9);
 	}
@@ -410,6 +436,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCompressedTraceReport() {
 		return compressedTraceReportEClass;
 	}
@@ -419,6 +446,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedTraceReport_Network() {
 		return (EReference)compressedTraceReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -428,6 +456,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedTraceReport_Steps() {
 		return (EReference)compressedTraceReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -437,6 +466,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedTraceReport_Dependencies() {
 		return (EReference)compressedTraceReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -446,6 +476,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCompressedTraceReport_TraceFile() {
 		return (EAttribute)compressedTraceReportEClass.getEStructuralFeatures().get(3);
 	}
@@ -455,6 +486,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getCompressedTraceReport__GetSteps__Action() {
 		return compressedTraceReportEClass.getEOperations().get(0);
 	}
@@ -464,6 +496,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getCompressedTraceReport__GetSteps__Actor() {
 		return compressedTraceReportEClass.getEOperations().get(1);
 	}
@@ -473,6 +506,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCompressedStep() {
 		return compressedStepEClass;
 	}
@@ -482,6 +516,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedStep_Action() {
 		return (EReference)compressedStepEClass.getEStructuralFeatures().get(0);
 	}
@@ -491,6 +526,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCompressedStep_Count() {
 		return (EAttribute)compressedStepEClass.getEStructuralFeatures().get(1);
 	}
@@ -500,6 +536,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedStep_Incomings() {
 		return (EReference)compressedStepEClass.getEStructuralFeatures().get(2);
 	}
@@ -509,6 +546,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedStep_Outgoings() {
 		return (EReference)compressedStepEClass.getEStructuralFeatures().get(3);
 	}
@@ -518,6 +556,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedStep_Predecessors() {
 		return (EReference)compressedStepEClass.getEStructuralFeatures().get(4);
 	}
@@ -527,6 +566,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedStep_Successors() {
 		return (EReference)compressedStepEClass.getEStructuralFeatures().get(5);
 	}
@@ -536,6 +576,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedStep_Neighbors() {
 		return (EReference)compressedStepEClass.getEStructuralFeatures().get(6);
 	}
@@ -545,6 +586,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCompressedDependency() {
 		return compressedDependencyEClass;
 	}
@@ -554,6 +596,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCompressedDependency_Count() {
 		return (EAttribute)compressedDependencyEClass.getEStructuralFeatures().get(0);
 	}
@@ -563,6 +606,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedDependency_Source() {
 		return (EReference)compressedDependencyEClass.getEStructuralFeatures().get(1);
 	}
@@ -572,6 +616,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedDependency_Target() {
 		return (EReference)compressedDependencyEClass.getEStructuralFeatures().get(2);
 	}
@@ -581,6 +626,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCompressedFsmDependency() {
 		return compressedFsmDependencyEClass;
 	}
@@ -590,6 +636,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCompressedGuardDependency() {
 		return compressedGuardDependencyEClass;
 	}
@@ -599,6 +646,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedGuardDependency_EnableMap() {
 		return (EReference)compressedGuardDependencyEClass.getEStructuralFeatures().get(0);
 	}
@@ -608,6 +656,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedGuardDependency_DisableMap() {
 		return (EReference)compressedGuardDependencyEClass.getEStructuralFeatures().get(1);
 	}
@@ -617,6 +666,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCompressedVariableDependency() {
 		return compressedVariableDependencyEClass;
 	}
@@ -626,6 +676,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedVariableDependency_ReadReadMap() {
 		return (EReference)compressedVariableDependencyEClass.getEStructuralFeatures().get(0);
 	}
@@ -635,6 +686,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedVariableDependency_ReadWriteMap() {
 		return (EReference)compressedVariableDependencyEClass.getEStructuralFeatures().get(1);
 	}
@@ -644,6 +696,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedVariableDependency_WriteReadMap() {
 		return (EReference)compressedVariableDependencyEClass.getEStructuralFeatures().get(2);
 	}
@@ -653,6 +706,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedVariableDependency_WriteWriteMap() {
 		return (EReference)compressedVariableDependencyEClass.getEStructuralFeatures().get(3);
 	}
@@ -662,6 +716,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCompressedPortDependency() {
 		return compressedPortDependencyEClass;
 	}
@@ -671,6 +726,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedPortDependency_ReadMap() {
 		return (EReference)compressedPortDependencyEClass.getEStructuralFeatures().get(0);
 	}
@@ -680,6 +736,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedPortDependency_WriteMap() {
 		return (EReference)compressedPortDependencyEClass.getEStructuralFeatures().get(1);
 	}
@@ -689,6 +746,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCompressedTokensDependency() {
 		return compressedTokensDependencyEClass;
 	}
@@ -698,6 +756,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedTokensDependency_CountMap() {
 		return (EReference)compressedTokensDependencyEClass.getEStructuralFeatures().get(0);
 	}
@@ -707,6 +766,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompressedTokensDependency_TokensMap() {
 		return (EReference)compressedTokensDependencyEClass.getEStructuralFeatures().get(1);
 	}
@@ -716,6 +776,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTraceComparatorReport() {
 		return traceComparatorReportEClass;
 	}
@@ -725,6 +786,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTraceComparatorReport_Reference() {
 		return (EReference)traceComparatorReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -734,6 +796,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTraceComparatorReport_Traces() {
 		return (EReference)traceComparatorReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -743,6 +806,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getComparedTrace() {
 		return comparedTraceEClass;
 	}
@@ -752,6 +816,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComparedTrace_CompressedTrace() {
 		return (EReference)comparedTraceEClass.getEStructuralFeatures().get(0);
 	}
@@ -761,6 +826,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComparedTrace_DSteps() {
 		return (EAttribute)comparedTraceEClass.getEStructuralFeatures().get(1);
 	}
@@ -770,6 +836,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComparedTrace_DDependencies() {
 		return (EAttribute)comparedTraceEClass.getEStructuralFeatures().get(2);
 	}
@@ -779,6 +846,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComparedTrace_ContainedReferenceActions() {
 		return (EReference)comparedTraceEClass.getEStructuralFeatures().get(3);
 	}
@@ -788,6 +856,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComparedTrace_Actions() {
 		return (EReference)comparedTraceEClass.getEStructuralFeatures().get(4);
 	}
@@ -797,6 +866,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComparedTrace_Equal() {
 		return (EAttribute)comparedTraceEClass.getEStructuralFeatures().get(5);
 	}
@@ -806,6 +876,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getComparedAction() {
 		return comparedActionEClass;
 	}
@@ -815,6 +886,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComparedAction_Action() {
 		return (EReference)comparedActionEClass.getEStructuralFeatures().get(0);
 	}
@@ -824,6 +896,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComparedAction_Found() {
 		return (EAttribute)comparedActionEClass.getEStructuralFeatures().get(1);
 	}
@@ -833,6 +906,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComparedAction_DSteps() {
 		return (EAttribute)comparedActionEClass.getEStructuralFeatures().get(2);
 	}
@@ -842,6 +916,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComparedAction_DIncomings() {
 		return (EAttribute)comparedActionEClass.getEStructuralFeatures().get(3);
 	}
@@ -851,6 +926,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComparedAction_DOutgoings() {
 		return (EAttribute)comparedActionEClass.getEStructuralFeatures().get(4);
 	}
@@ -860,6 +936,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMarkowModelTraceReport() {
 		return markowModelTraceReportEClass;
 	}
@@ -869,6 +946,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkowModelTraceReport_Network() {
 		return (EReference)markowModelTraceReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -878,6 +956,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkowModelTraceReport_ActionsData() {
 		return (EReference)markowModelTraceReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -887,6 +966,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getMarkowModelTraceReport__GetData__Actor() {
 		return markowModelTraceReportEClass.getEOperations().get(0);
 	}
@@ -896,6 +976,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getMarkowModelTraceReport__GetData__Action() {
 		return markowModelTraceReportEClass.getEOperations().get(1);
 	}
@@ -905,6 +986,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMarkovModelActionData() {
 		return markovModelActionDataEClass;
 	}
@@ -914,6 +996,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkovModelActionData_Action() {
 		return (EReference)markovModelActionDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -923,6 +1006,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMarkovModelActionData_First() {
 		return (EAttribute)markovModelActionDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -932,6 +1016,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMarkovModelActionData_SuccessorsMap() {
 		return (EReference)markovModelActionDataEClass.getEStructuralFeatures().get(2);
 	}
@@ -941,6 +1026,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMarkovModelActionData_Successors() {
 		return (EAttribute)markovModelActionDataEClass.getEStructuralFeatures().get(3);
 	}
@@ -950,6 +1036,7 @@ public class TracePackageImpl extends EPackageImpl implements TracePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceFactory getTraceFactory() {
 		return (TraceFactory)getEFactoryInstance();
 	}

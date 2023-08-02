@@ -138,6 +138,7 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getActors() {
 		if (actors == null) {
 			actors = new EDataTypeUniqueEList<String>(String.class, this, PostprocessingPackage.STATISTICAL_ACTOR_PARTITION__ACTORS);
@@ -150,6 +151,7 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getOccupancy() {
 		return occupancy;
 	}
@@ -159,6 +161,7 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOccupancy(double newOccupancy) {
 		double oldOccupancy = occupancy;
 		occupancy = newOccupancy;
@@ -171,6 +174,7 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSchedulingPolicy() {
 		return schedulingPolicy;
 	}
@@ -180,6 +184,7 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSchedulingPolicy(String newSchedulingPolicy) {
 		String oldSchedulingPolicy = schedulingPolicy;
 		schedulingPolicy = newSchedulingPolicy;
@@ -276,7 +281,7 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (actors: ");
 		result.append(actors);
 		result.append(", occupancy: ");

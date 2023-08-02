@@ -352,6 +352,7 @@ public class MapFactoryImpl extends EFactoryImpl implements MapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MapPackage getMapPackage() {
 		return (MapPackage)getEPackage();
 	}

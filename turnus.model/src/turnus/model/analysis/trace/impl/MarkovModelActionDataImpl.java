@@ -158,6 +158,7 @@ public class MarkovModelActionDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Action getAction() {
 		if (action != null && action.eIsProxy()) {
 			InternalEObject oldAction = (InternalEObject)action;
@@ -184,6 +185,7 @@ public class MarkovModelActionDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAction(Action newAction) {
 		Action oldAction = action;
 		action = newAction;
@@ -196,6 +198,7 @@ public class MarkovModelActionDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isFirst() {
 		return first;
 	}
@@ -205,6 +208,7 @@ public class MarkovModelActionDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFirst(boolean newFirst) {
 		boolean oldFirst = first;
 		first = newFirst;
@@ -217,6 +221,7 @@ public class MarkovModelActionDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Long> getSuccessorsMap() {
 		if (successorsMap == null) {
 			successorsMap = new EcoreEMap<Action,Long>(MapPackage.Literals.ACTION_TO_LONG_MAP, ActionToLongMapImpl.class, this, TracePackage.MARKOV_MODEL_ACTION_DATA__SUCCESSORS_MAP);
@@ -229,6 +234,7 @@ public class MarkovModelActionDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getSuccessors() {
 		return successors;
 	}
@@ -238,6 +244,7 @@ public class MarkovModelActionDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSuccessors(long newSuccessors) {
 		long oldSuccessors = successors;
 		successors = newSuccessors;
@@ -358,7 +365,7 @@ public class MarkovModelActionDataImpl extends MinimalEObjectImpl.Container impl
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (first: ");
 		result.append(first);
 		result.append(", successors: ");

@@ -156,6 +156,7 @@ public class CodeDataImpl extends MinimalEObjectImpl.Container implements CodeDa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, Integer> getOperatorsCount() {
 		if (operatorsCount == null) {
 			operatorsCount = new EcoreEMap<String,Integer>(MapPackage.Literals.STRING_TO_INTEGER_MAP, StringToIntegerMapImpl.class, this, ProfilerPackage.CODE_DATA__OPERATORS_COUNT);
@@ -168,6 +169,7 @@ public class CodeDataImpl extends MinimalEObjectImpl.Container implements CodeDa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, Integer> getOperandsCount() {
 		if (operandsCount == null) {
 			operandsCount = new EcoreEMap<String,Integer>(MapPackage.Literals.STRING_TO_INTEGER_MAP, StringToIntegerMapImpl.class, this, ProfilerPackage.CODE_DATA__OPERANDS_COUNT);
@@ -180,6 +182,7 @@ public class CodeDataImpl extends MinimalEObjectImpl.Container implements CodeDa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getBlockName() {
 		return blockName;
 	}
@@ -189,6 +192,7 @@ public class CodeDataImpl extends MinimalEObjectImpl.Container implements CodeDa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBlockName(String newBlockName) {
 		String oldBlockName = blockName;
 		blockName = newBlockName;
@@ -201,6 +205,7 @@ public class CodeDataImpl extends MinimalEObjectImpl.Container implements CodeDa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getNol() {
 		return nol;
 	}
@@ -210,6 +215,7 @@ public class CodeDataImpl extends MinimalEObjectImpl.Container implements CodeDa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNol(long newNol) {
 		long oldNol = nol;
 		nol = newNol;
@@ -332,7 +338,7 @@ public class CodeDataImpl extends MinimalEObjectImpl.Container implements CodeDa
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (blockName: ");
 		result.append(blockName);
 		result.append(", nol: ");

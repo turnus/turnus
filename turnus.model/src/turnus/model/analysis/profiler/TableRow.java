@@ -64,7 +64,7 @@ public interface TableRow extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Cells</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getTableRow_Cells()
-	 * @model mapType="turnus.model.analysis.map.StringToStringMap<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
+	 * @model mapType="turnus.model.analysis.map.StringToStringMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString&gt;"
 	 * @generated
 	 */
 	Map<String, String> getCells();

@@ -123,6 +123,7 @@ public class ActionVariablePipeliningDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Action getAction() {
 		if (action != null && action.eIsProxy()) {
 			InternalEObject oldAction = (InternalEObject)action;
@@ -147,6 +148,7 @@ public class ActionVariablePipeliningDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAction(Action newAction) {
 		Action oldAction = action;
 		action = newAction;
@@ -158,6 +160,7 @@ public class ActionVariablePipeliningDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData getConsecutiveFirings() {
 		return consecutiveFirings;
 	}
@@ -180,6 +183,7 @@ public class ActionVariablePipeliningDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConsecutiveFirings(StatisticalData newConsecutiveFirings) {
 		if (newConsecutiveFirings != consecutiveFirings) {
 			NotificationChain msgs = null;
@@ -198,6 +202,7 @@ public class ActionVariablePipeliningDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData getPipelinableFirings() {
 		return pipelinableFirings;
 	}
@@ -220,6 +225,7 @@ public class ActionVariablePipeliningDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPipelinableFirings(StatisticalData newPipelinableFirings) {
 		if (newPipelinableFirings != pipelinableFirings) {
 			NotificationChain msgs = null;

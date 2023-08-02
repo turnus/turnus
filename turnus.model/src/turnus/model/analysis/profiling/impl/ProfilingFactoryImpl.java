@@ -100,6 +100,7 @@ public class ProfilingFactoryImpl extends EFactoryImpl implements ProfilingFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public IntraActionCommunicationReport createIntraActionCommunicationReport() {
 		IntraActionCommunicationReportImpl intraActionCommunicationReport = new IntraActionCommunicationReportImpl();
 		return intraActionCommunicationReport;
@@ -110,6 +111,7 @@ public class ProfilingFactoryImpl extends EFactoryImpl implements ProfilingFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public IntraActorCommunicationData createIntraActorCommunicationData() {
 		IntraActorCommunicationDataImpl intraActorCommunicationData = new IntraActorCommunicationDataImpl();
 		return intraActorCommunicationData;
@@ -120,6 +122,7 @@ public class ProfilingFactoryImpl extends EFactoryImpl implements ProfilingFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public IntraActionCommunicationData createIntraActionCommunicationData() {
 		IntraActionCommunicationDataImpl intraActionCommunicationData = new IntraActionCommunicationDataImpl();
 		return intraActionCommunicationData;
@@ -130,6 +133,7 @@ public class ProfilingFactoryImpl extends EFactoryImpl implements ProfilingFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProfilingStatsReport createProfilingStatsReport() {
 		ProfilingStatsReportImpl profilingStatsReport = new ProfilingStatsReportImpl();
 		return profilingStatsReport;
@@ -140,6 +144,7 @@ public class ProfilingFactoryImpl extends EFactoryImpl implements ProfilingFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProfilingStatsActorData createProfilingStatsActorData() {
 		ProfilingStatsActorDataImpl profilingStatsActorData = new ProfilingStatsActorDataImpl();
 		return profilingStatsActorData;
@@ -150,6 +155,7 @@ public class ProfilingFactoryImpl extends EFactoryImpl implements ProfilingFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProfilingPackage getProfilingPackage() {
 		return (ProfilingPackage)getEPackage();
 	}

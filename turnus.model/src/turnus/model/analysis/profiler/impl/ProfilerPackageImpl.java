@@ -109,6 +109,7 @@ import turnus.model.analysis.trace.impl.TracePackageImpl;
 import turnus.model.common.CommonPackage;
 
 import turnus.model.dataflow.DataflowPackage;
+import turnus.model.versioning.VersioningPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -285,7 +286,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link ProfilerPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -299,25 +300,39 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 		if (isInited) return (ProfilerPackage)EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI);
 
 		// Obtain or create and register package
-		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ProfilerPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ProfilerPackageImpl());
+		Object registeredProfilerPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		ProfilerPackageImpl theProfilerPackage = registeredProfilerPackage instanceof ProfilerPackageImpl ? (ProfilerPackageImpl)registeredProfilerPackage : new ProfilerPackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
+		CommonPackage.eINSTANCE.eClass();
 		DataflowPackage.eINSTANCE.eClass();
+		VersioningPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
-		MapPackageImpl theMapPackage = (MapPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI) instanceof MapPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI) : MapPackage.eINSTANCE);
-		TracePackageImpl theTracePackage = (TracePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI) instanceof TracePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI) : TracePackage.eINSTANCE);
-		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI) instanceof BottlenecksPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI) : BottlenecksPackage.eINSTANCE);
-		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI) instanceof BuffersPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI) : BuffersPackage.eINSTANCE);
-		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) instanceof PartitioningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) : PartitioningPackage.eINSTANCE);
-		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) instanceof PipeliningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) : PipeliningPackage.eINSTANCE);
-		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) : PostprocessingPackage.eINSTANCE);
-		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
-		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
-		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) instanceof CaseoptimalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) : CaseoptimalPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
+		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(registeredPackage instanceof AnalysisPackageImpl ? registeredPackage : AnalysisPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI);
+		MapPackageImpl theMapPackage = (MapPackageImpl)(registeredPackage instanceof MapPackageImpl ? registeredPackage : MapPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI);
+		TracePackageImpl theTracePackage = (TracePackageImpl)(registeredPackage instanceof TracePackageImpl ? registeredPackage : TracePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI);
+		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(registeredPackage instanceof BottlenecksPackageImpl ? registeredPackage : BottlenecksPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI);
+		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(registeredPackage instanceof BuffersPackageImpl ? registeredPackage : BuffersPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI);
+		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(registeredPackage instanceof PartitioningPackageImpl ? registeredPackage : PartitioningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI);
+		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(registeredPackage instanceof PipeliningPackageImpl ? registeredPackage : PipeliningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI);
+		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(registeredPackage instanceof PostprocessingPackageImpl ? registeredPackage : PostprocessingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI);
+		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
+		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(registeredPackage instanceof SchedulingPackageImpl ? registeredPackage : SchedulingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI);
+		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(registeredPackage instanceof CaseoptimalPackageImpl ? registeredPackage : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theProfilerPackage.createPackageContents();
@@ -350,7 +365,6 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 		// Mark meta-data to indicate it can't be changed
 		theProfilerPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(ProfilerPackage.eNS_URI, theProfilerPackage);
 		return theProfilerPackage;
@@ -361,6 +375,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCodeProfilingReport() {
 		return codeProfilingReportEClass;
 	}
@@ -370,6 +385,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCodeProfilingReport_Network() {
 		return (EReference)codeProfilingReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -379,6 +395,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCodeProfilingReport_ActorClassesData() {
 		return (EReference)codeProfilingReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -388,6 +405,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCodeProfilingReport_NetworkData() {
 		return (EReference)codeProfilingReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -397,6 +415,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getCodeProfilingReport__GetActorClassData__String() {
 		return codeProfilingReportEClass.getEOperations().get(0);
 	}
@@ -406,6 +425,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCodeData() {
 		return codeDataEClass;
 	}
@@ -415,6 +435,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCodeData_OperatorsCount() {
 		return (EReference)codeDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -424,6 +445,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCodeData_OperandsCount() {
 		return (EReference)codeDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -433,6 +455,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCodeData_BlockName() {
 		return (EAttribute)codeDataEClass.getEStructuralFeatures().get(2);
 	}
@@ -442,6 +465,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCodeData_Nol() {
 		return (EAttribute)codeDataEClass.getEStructuralFeatures().get(3);
 	}
@@ -451,6 +475,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getComplexCodeData() {
 		return complexCodeDataEClass;
 	}
@@ -460,6 +485,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComplexCodeData_ActionsData() {
 		return (EReference)complexCodeDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -469,6 +495,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComplexCodeData_ProceduresData() {
 		return (EReference)complexCodeDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -478,6 +505,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getComplexCodeData__GetActionData__String() {
 		return complexCodeDataEClass.getEOperations().get(0);
 	}
@@ -487,6 +515,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getComplexCodeData__GetProcedureData__String() {
 		return complexCodeDataEClass.getEOperations().get(1);
 	}
@@ -496,6 +525,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDynamicProfilingReport() {
 		return dynamicProfilingReportEClass;
 	}
@@ -505,6 +535,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDynamicProfilingReport_Network() {
 		return (EReference)dynamicProfilingReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -514,6 +545,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDynamicProfilingReport_ActorsData() {
 		return (EReference)dynamicProfilingReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -523,6 +555,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDynamicProfilingReport_BuffersData() {
 		return (EReference)dynamicProfilingReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -532,6 +565,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActorDynamicData() {
 		return actorDynamicDataEClass;
 	}
@@ -541,6 +575,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorDynamicData_Actor() {
 		return (EReference)actorDynamicDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -550,6 +585,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorDynamicData_ActionsData() {
 		return (EReference)actorDynamicDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -559,6 +595,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActionDynamicData() {
 		return actionDynamicDataEClass;
 	}
@@ -568,6 +605,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionDynamicData_Action() {
 		return (EReference)actionDynamicDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -577,6 +615,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBufferDynamicData() {
 		return bufferDynamicDataEClass;
 	}
@@ -586,6 +625,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferDynamicData_Buffer() {
 		return (EReference)bufferDynamicDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -595,6 +635,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferDynamicData_Reads() {
 		return (EReference)bufferDynamicDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -604,6 +645,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferDynamicData_Writes() {
 		return (EReference)bufferDynamicDataEClass.getEStructuralFeatures().get(2);
 	}
@@ -613,6 +655,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferDynamicData_Occupancy() {
 		return (EReference)bufferDynamicDataEClass.getEStructuralFeatures().get(3);
 	}
@@ -622,6 +665,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferDynamicData_ActionReads() {
 		return (EReference)bufferDynamicDataEClass.getEStructuralFeatures().get(4);
 	}
@@ -631,6 +675,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferDynamicData_ActionWrites() {
 		return (EReference)bufferDynamicDataEClass.getEStructuralFeatures().get(5);
 	}
@@ -640,6 +685,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferDynamicData_ActionPeeks() {
 		return (EReference)bufferDynamicDataEClass.getEStructuralFeatures().get(6);
 	}
@@ -649,6 +695,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferDynamicData_ActionReadMisses() {
 		return (EReference)bufferDynamicDataEClass.getEStructuralFeatures().get(7);
 	}
@@ -658,6 +705,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferDynamicData_ActionWriteMisses() {
 		return (EReference)bufferDynamicDataEClass.getEStructuralFeatures().get(8);
 	}
@@ -667,6 +715,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBufferDynamicData_UnconsumedTokens() {
 		return (EAttribute)bufferDynamicDataEClass.getEStructuralFeatures().get(9);
 	}
@@ -676,6 +725,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getComplexDynamicData() {
 		return complexDynamicDataEClass;
 	}
@@ -685,6 +735,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComplexDynamicData_OperandsCalls() {
 		return (EReference)complexDynamicDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -694,6 +745,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComplexDynamicData_ProceduresCalls() {
 		return (EReference)complexDynamicDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -703,6 +755,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComplexDynamicData_VariablesStores() {
 		return (EReference)complexDynamicDataEClass.getEStructuralFeatures().get(2);
 	}
@@ -712,6 +765,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComplexDynamicData_VariablesLoads() {
 		return (EReference)complexDynamicDataEClass.getEStructuralFeatures().get(3);
 	}
@@ -721,6 +775,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComplexDynamicData_ProceduresData() {
 		return (EReference)complexDynamicDataEClass.getEStructuralFeatures().get(4);
 	}
@@ -730,6 +785,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComplexDynamicData_ReadTokens() {
 		return (EReference)complexDynamicDataEClass.getEStructuralFeatures().get(5);
 	}
@@ -739,6 +795,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComplexDynamicData_WriteTokens() {
 		return (EReference)complexDynamicDataEClass.getEStructuralFeatures().get(6);
 	}
@@ -748,6 +805,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getProcedureToComplexDynamicDataMap() {
 		return procedureToComplexDynamicDataMapEClass;
 	}
@@ -757,6 +815,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getProcedureToComplexDynamicDataMap_Key() {
 		return (EReference)procedureToComplexDynamicDataMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -766,6 +825,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getProcedureToComplexDynamicDataMap_Value() {
 		return (EReference)procedureToComplexDynamicDataMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -775,6 +835,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMemoryProfilingReport() {
 		return memoryProfilingReportEClass;
 	}
@@ -784,6 +845,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMemoryProfilingReport_NetworkName() {
 		return (EAttribute)memoryProfilingReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -793,6 +855,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMemoryProfilingReport_ActionsData() {
 		return (EReference)memoryProfilingReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -802,6 +865,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getMemoryProfilingReport__GetActionData__String_String() {
 		return memoryProfilingReportEClass.getEOperations().get(0);
 	}
@@ -811,6 +875,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActionMemoryProfilingData() {
 		return actionMemoryProfilingDataEClass;
 	}
@@ -820,6 +885,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionMemoryProfilingData_Actor() {
 		return (EAttribute)actionMemoryProfilingDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -829,6 +895,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionMemoryProfilingData_Action() {
 		return (EAttribute)actionMemoryProfilingDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -838,6 +905,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionMemoryProfilingData_Reads() {
 		return (EReference)actionMemoryProfilingDataEClass.getEStructuralFeatures().get(2);
 	}
@@ -847,6 +915,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionMemoryProfilingData_Writes() {
 		return (EReference)actionMemoryProfilingDataEClass.getEStructuralFeatures().get(3);
 	}
@@ -856,6 +925,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActionMemoryProfilingData__GetReadBufferData__String_String_String_String() {
 		return actionMemoryProfilingDataEClass.getEOperations().get(0);
 	}
@@ -865,6 +935,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActionMemoryProfilingData__GetWriteBufferData__String_String_String_String() {
 		return actionMemoryProfilingDataEClass.getEOperations().get(1);
 	}
@@ -874,6 +945,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActionMemoryProfilingData__GetReadStateVariableData__String() {
 		return actionMemoryProfilingDataEClass.getEOperations().get(2);
 	}
@@ -883,6 +955,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActionMemoryProfilingData__GetWriteStateVariableData__String() {
 		return actionMemoryProfilingDataEClass.getEOperations().get(3);
 	}
@@ -892,6 +965,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActionMemoryProfilingData__GetReadLocalVariableData__String() {
 		return actionMemoryProfilingDataEClass.getEOperations().get(4);
 	}
@@ -901,6 +975,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActionMemoryProfilingData__GetWriteLocalVariableData__String() {
 		return actionMemoryProfilingDataEClass.getEOperations().get(5);
 	}
@@ -910,6 +985,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActionMemoryProfilingData__GetReadSharedVariableData__String() {
 		return actionMemoryProfilingDataEClass.getEOperations().get(6);
 	}
@@ -919,6 +995,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActionMemoryProfilingData__GetWriteSharedVariableData__String() {
 		return actionMemoryProfilingDataEClass.getEOperations().get(7);
 	}
@@ -928,6 +1005,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMemoryAccessData() {
 		return memoryAccessDataEClass;
 	}
@@ -937,6 +1015,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMemoryAccessData_AccessesData() {
 		return (EReference)memoryAccessDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -946,6 +1025,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBufferAccessData() {
 		return bufferAccessDataEClass;
 	}
@@ -955,6 +1035,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBufferAccessData_SourceActor() {
 		return (EAttribute)bufferAccessDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -964,6 +1045,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBufferAccessData_SourcePort() {
 		return (EAttribute)bufferAccessDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -973,6 +1055,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBufferAccessData_TargetActor() {
 		return (EAttribute)bufferAccessDataEClass.getEStructuralFeatures().get(2);
 	}
@@ -982,6 +1065,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBufferAccessData_TargetPort() {
 		return (EAttribute)bufferAccessDataEClass.getEStructuralFeatures().get(3);
 	}
@@ -991,6 +1075,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStateVariableAccessData() {
 		return stateVariableAccessDataEClass;
 	}
@@ -1000,6 +1085,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStateVariableAccessData_Name() {
 		return (EAttribute)stateVariableAccessDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -1009,6 +1095,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLocalVariableAccessData() {
 		return localVariableAccessDataEClass;
 	}
@@ -1018,6 +1105,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLocalVariableAccessData_Name() {
 		return (EAttribute)localVariableAccessDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -1027,6 +1115,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSharedVariableAccessData() {
 		return sharedVariableAccessDataEClass;
 	}
@@ -1036,6 +1125,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSharedVariableAccessData_Name() {
 		return (EAttribute)sharedVariableAccessDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -1045,6 +1135,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAccessData() {
 		return accessDataEClass;
 	}
@@ -1054,6 +1145,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAccessData_Accesses() {
 		return (EAttribute)accessDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -1063,6 +1155,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAccessData_Min() {
 		return (EAttribute)accessDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -1072,6 +1165,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAccessData_Max() {
 		return (EAttribute)accessDataEClass.getEStructuralFeatures().get(2);
 	}
@@ -1081,6 +1175,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAccessData_Average() {
 		return (EAttribute)accessDataEClass.getEStructuralFeatures().get(3);
 	}
@@ -1090,6 +1185,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAccessData_Total() {
 		return (EAttribute)accessDataEClass.getEStructuralFeatures().get(4);
 	}
@@ -1099,6 +1195,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStringToAccessDataMap() {
 		return stringToAccessDataMapEClass;
 	}
@@ -1108,6 +1205,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getStringToAccessDataMap_Value() {
 		return (EReference)stringToAccessDataMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -1117,6 +1215,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStringToAccessDataMap_Key() {
 		return (EAttribute)stringToAccessDataMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -1126,6 +1225,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBenchmarkReport() {
 		return benchmarkReportEClass;
 	}
@@ -1135,6 +1235,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBenchmarkReport_Column_names() {
 		return (EAttribute)benchmarkReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -1144,6 +1245,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBenchmarkReport_Rows() {
 		return (EReference)benchmarkReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -1153,6 +1255,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTableRow() {
 		return tableRowEClass;
 	}
@@ -1162,6 +1265,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTableRow_Cells() {
 		return (EReference)tableRowEClass.getEStructuralFeatures().get(0);
 	}
@@ -1171,6 +1275,7 @@ public class ProfilerPackageImpl extends EPackageImpl implements ProfilerPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProfilerFactory getProfilerFactory() {
 		return (ProfilerFactory)getEFactoryInstance();
 	}

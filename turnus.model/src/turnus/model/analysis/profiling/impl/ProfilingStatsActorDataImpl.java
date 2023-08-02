@@ -181,6 +181,7 @@ public class ProfilingStatsActorDataImpl extends MinimalEObjectImpl.Container im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getActorName() {
 		return actorName;
 	}
@@ -190,6 +191,7 @@ public class ProfilingStatsActorDataImpl extends MinimalEObjectImpl.Container im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActorName(String newActorName) {
 		String oldActorName = actorName;
 		actorName = newActorName;
@@ -202,6 +204,7 @@ public class ProfilingStatsActorDataImpl extends MinimalEObjectImpl.Container im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getActionsWeight() {
 		return actionsWeight;
 	}
@@ -211,6 +214,7 @@ public class ProfilingStatsActorDataImpl extends MinimalEObjectImpl.Container im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActionsWeight(double newActionsWeight) {
 		double oldActionsWeight = actionsWeight;
 		actionsWeight = newActionsWeight;
@@ -223,6 +227,7 @@ public class ProfilingStatsActorDataImpl extends MinimalEObjectImpl.Container im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getSchedulerWeight() {
 		return schedulerWeight;
 	}
@@ -232,6 +237,7 @@ public class ProfilingStatsActorDataImpl extends MinimalEObjectImpl.Container im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSchedulerWeight(double newSchedulerWeight) {
 		double oldSchedulerWeight = schedulerWeight;
 		schedulerWeight = newSchedulerWeight;
@@ -244,6 +250,7 @@ public class ProfilingStatsActorDataImpl extends MinimalEObjectImpl.Container im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getActionsWeightPercent() {
 		return actionsWeightPercent;
 	}
@@ -253,6 +260,7 @@ public class ProfilingStatsActorDataImpl extends MinimalEObjectImpl.Container im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActionsWeightPercent(double newActionsWeightPercent) {
 		double oldActionsWeightPercent = actionsWeightPercent;
 		actionsWeightPercent = newActionsWeightPercent;
@@ -265,6 +273,7 @@ public class ProfilingStatsActorDataImpl extends MinimalEObjectImpl.Container im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getSchedulerWeightPercent() {
 		return schedulerWeightPercent;
 	}
@@ -274,6 +283,7 @@ public class ProfilingStatsActorDataImpl extends MinimalEObjectImpl.Container im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSchedulerWeightPercent(double newSchedulerWeightPercent) {
 		double oldSchedulerWeightPercent = schedulerWeightPercent;
 		schedulerWeightPercent = newSchedulerWeightPercent;
@@ -388,7 +398,7 @@ public class ProfilingStatsActorDataImpl extends MinimalEObjectImpl.Container im
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (actorName: ");
 		result.append(actorName);
 		result.append(", actionsWeight: ");

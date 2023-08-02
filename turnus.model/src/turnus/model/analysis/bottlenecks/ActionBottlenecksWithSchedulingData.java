@@ -203,7 +203,7 @@ public interface ActionBottlenecksWithSchedulingData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Max Blocked Output Tokens</em>' map.
 	 * @see turnus.model.analysis.bottlenecks.BottlenecksPackage#getActionBottlenecksWithSchedulingData_MaxBlockedOutputTokens()
-	 * @model mapType="turnus.model.analysis.map.BufferToIntegerMap<turnus.model.dataflow.Buffer, org.eclipse.emf.ecore.EIntegerObject>"
+	 * @model mapType="turnus.model.analysis.map.BufferToIntegerMap&lt;turnus.model.dataflow.Buffer, org.eclipse.emf.ecore.EIntegerObject&gt;"
 	 * @generated
 	 */
 	Map<Buffer, Integer> getMaxBlockedOutputTokens();
@@ -220,7 +220,7 @@ public interface ActionBottlenecksWithSchedulingData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Max Blocked Multiplication</em>' map.
 	 * @see turnus.model.analysis.bottlenecks.BottlenecksPackage#getActionBottlenecksWithSchedulingData_MaxBlockedMultiplication()
-	 * @model mapType="turnus.model.analysis.map.BufferToDoubleMap<turnus.model.dataflow.Buffer, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.BufferToDoubleMap&lt;turnus.model.dataflow.Buffer, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Buffer, Double> getMaxBlockedMultiplication();
@@ -237,7 +237,7 @@ public interface ActionBottlenecksWithSchedulingData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Blocking Instances</em>' map.
 	 * @see turnus.model.analysis.bottlenecks.BottlenecksPackage#getActionBottlenecksWithSchedulingData_BlockingInstances()
-	 * @model mapType="turnus.model.analysis.map.BufferToIntegerMap<turnus.model.dataflow.Buffer, org.eclipse.emf.ecore.EIntegerObject>"
+	 * @model mapType="turnus.model.analysis.map.BufferToIntegerMap&lt;turnus.model.dataflow.Buffer, org.eclipse.emf.ecore.EIntegerObject&gt;"
 	 * @generated
 	 */
 	Map<Buffer, Integer> getBlockingInstances();

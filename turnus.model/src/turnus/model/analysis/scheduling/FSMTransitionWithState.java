@@ -62,7 +62,7 @@ public interface FSMTransitionWithState extends FSMTransition {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Var States</em>' map.
 	 * @see turnus.model.analysis.scheduling.SchedulingPackage#getFSMTransitionWithState_VarStates()
-	 * @model mapType="turnus.model.analysis.map.StringToIntegerMap<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EIntegerObject>"
+	 * @model mapType="turnus.model.analysis.map.StringToIntegerMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EIntegerObject&gt;"
 	 * @generated
 	 */
 	Map<String, Integer> getVarStates();

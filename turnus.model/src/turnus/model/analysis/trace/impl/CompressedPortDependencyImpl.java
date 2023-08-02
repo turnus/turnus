@@ -113,6 +113,7 @@ public class CompressedPortDependencyImpl extends CompressedDependencyImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Port, Long> getReadMap() {
 		if (readMap == null) {
 			readMap = new EcoreEMap<Port,Long>(MapPackage.Literals.PORT_TO_LONG_MAP, PortToLongMapImpl.class, this, TracePackage.COMPRESSED_PORT_DEPENDENCY__READ_MAP);
@@ -125,6 +126,7 @@ public class CompressedPortDependencyImpl extends CompressedDependencyImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Port, Long> getWriteMap() {
 		if (writeMap == null) {
 			writeMap = new EcoreEMap<Port,Long>(MapPackage.Literals.PORT_TO_LONG_MAP, PortToLongMapImpl.class, this, TracePackage.COMPRESSED_PORT_DEPENDENCY__WRITE_MAP);

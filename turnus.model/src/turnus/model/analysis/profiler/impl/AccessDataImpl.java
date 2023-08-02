@@ -162,6 +162,7 @@ public class AccessDataImpl extends MinimalEObjectImpl.Container implements Acce
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getAccesses() {
 		return accesses;
 	}
@@ -170,6 +171,7 @@ public class AccessDataImpl extends MinimalEObjectImpl.Container implements Acce
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAccesses(double newAccesses) {
 		double oldAccesses = accesses;
 		accesses = newAccesses;
@@ -181,6 +183,7 @@ public class AccessDataImpl extends MinimalEObjectImpl.Container implements Acce
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getMin() {
 		return min;
 	}
@@ -189,6 +192,7 @@ public class AccessDataImpl extends MinimalEObjectImpl.Container implements Acce
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMin(double newMin) {
 		double oldMin = min;
 		min = newMin;
@@ -200,6 +204,7 @@ public class AccessDataImpl extends MinimalEObjectImpl.Container implements Acce
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getMax() {
 		return max;
 	}
@@ -208,6 +213,7 @@ public class AccessDataImpl extends MinimalEObjectImpl.Container implements Acce
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMax(double newMax) {
 		double oldMax = max;
 		max = newMax;
@@ -228,6 +234,7 @@ public class AccessDataImpl extends MinimalEObjectImpl.Container implements Acce
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getTotal() {
 		return total;
 	}
@@ -236,6 +243,7 @@ public class AccessDataImpl extends MinimalEObjectImpl.Container implements Acce
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTotal(double newTotal) {
 		double oldTotal = total;
 		total = newTotal;
@@ -339,7 +347,7 @@ public class AccessDataImpl extends MinimalEObjectImpl.Container implements Acce
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (accesses: ");
 		result.append(accesses);
 		result.append(", min: ");

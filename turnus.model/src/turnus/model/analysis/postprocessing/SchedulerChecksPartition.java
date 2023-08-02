@@ -60,52 +60,52 @@ import turnus.model.dataflow.Actor;
  */
 public interface SchedulerChecksPartition extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Aggregated Checked Data</b></em>' reference.
+	 * Returns the value of the '<em><b>Aggregated Checked Data</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Aggregated Checked Data</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Aggregated Checked Data</em>' reference.
+	 * @return the value of the '<em>Aggregated Checked Data</em>' containment reference.
 	 * @see #setAggregatedCheckedData(StatisticalData)
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getSchedulerChecksPartition_AggregatedCheckedData()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	StatisticalData getAggregatedCheckedData();
 
 	/**
-	 * Sets the value of the '{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getAggregatedCheckedData <em>Aggregated Checked Data</em>}' reference.
+	 * Sets the value of the '{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getAggregatedCheckedData <em>Aggregated Checked Data</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Aggregated Checked Data</em>' reference.
+	 * @param value the new value of the '<em>Aggregated Checked Data</em>' containment reference.
 	 * @see #getAggregatedCheckedData()
 	 * @generated
 	 */
 	void setAggregatedCheckedData(StatisticalData value);
 
 	/**
-	 * Returns the value of the '<em><b>Aggregated Failed Data</b></em>' reference.
+	 * Returns the value of the '<em><b>Aggregated Failed Data</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Aggregated Failed Data</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Aggregated Failed Data</em>' reference.
+	 * @return the value of the '<em>Aggregated Failed Data</em>' containment reference.
 	 * @see #setAggregatedFailedData(StatisticalData)
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getSchedulerChecksPartition_AggregatedFailedData()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	StatisticalData getAggregatedFailedData();
 
 	/**
-	 * Sets the value of the '{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getAggregatedFailedData <em>Aggregated Failed Data</em>}' reference.
+	 * Sets the value of the '{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getAggregatedFailedData <em>Aggregated Failed Data</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Aggregated Failed Data</em>' reference.
+	 * @param value the new value of the '<em>Aggregated Failed Data</em>' containment reference.
 	 * @see #getAggregatedFailedData()
 	 * @generated
 	 */
@@ -123,7 +123,7 @@ public interface SchedulerChecksPartition extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Checked Conditions Map</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getSchedulerChecksPartition_CheckedConditionsMap()
-	 * @model mapType="turnus.model.analysis.map.ActorToStatisticalDataMap<turnus.model.dataflow.Actor, turnus.model.common.StatisticalData>"
+	 * @model mapType="turnus.model.analysis.map.ActorToStatisticalDataMap&lt;turnus.model.dataflow.Actor, turnus.model.common.StatisticalData&gt;"
 	 * @generated
 	 */
 	Map<Actor, StatisticalData> getCheckedConditionsMap();
@@ -140,7 +140,7 @@ public interface SchedulerChecksPartition extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Failed Conditions Map</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getSchedulerChecksPartition_FailedConditionsMap()
-	 * @model mapType="turnus.model.analysis.map.ActorToStatisticalDataMap<turnus.model.dataflow.Actor, turnus.model.common.StatisticalData>"
+	 * @model mapType="turnus.model.analysis.map.ActorToStatisticalDataMap&lt;turnus.model.dataflow.Actor, turnus.model.common.StatisticalData&gt;"
 	 * @generated
 	 */
 	Map<Actor, StatisticalData> getFailedConditionsMap();

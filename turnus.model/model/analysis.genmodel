@@ -606,6 +606,8 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedWritingMaxTimes"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/processingTimes"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/executionCounts"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/network"/>
       </genClasses>
       <genClasses ecoreClass="analysis.ecore#//postprocessing/SchedulerChecksReport">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"

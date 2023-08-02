@@ -91,6 +91,7 @@ public class ActionDynamicDataImpl extends ComplexDynamicDataImpl implements Act
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Action getAction() {
 		if (action != null && action.eIsProxy()) {
 			InternalEObject oldAction = (InternalEObject)action;
@@ -117,6 +118,7 @@ public class ActionDynamicDataImpl extends ComplexDynamicDataImpl implements Act
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAction(Action newAction) {
 		Action oldAction = action;
 		action = newAction;

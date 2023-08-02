@@ -268,7 +268,7 @@ public class EOperatorToStatisticalDataMapImpl extends MinimalEObjectImpl.Contai
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (key: ");
 		result.append(key);
 		result.append(')');
@@ -287,6 +287,7 @@ public class EOperatorToStatisticalDataMapImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getHash() {
 		if (hash == -1) {
 			Object theKey = getKey();
@@ -300,6 +301,7 @@ public class EOperatorToStatisticalDataMapImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHash(int hash) {
 		this.hash = hash;
 	}
@@ -309,6 +311,7 @@ public class EOperatorToStatisticalDataMapImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperator getKey() {
 		return getTypedKey();
 	}
@@ -318,6 +321,7 @@ public class EOperatorToStatisticalDataMapImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKey(EOperator key) {
 		setTypedKey(key);
 	}
@@ -327,6 +331,7 @@ public class EOperatorToStatisticalDataMapImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData getValue() {
 		return getTypedValue();
 	}
@@ -336,6 +341,7 @@ public class EOperatorToStatisticalDataMapImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData setValue(StatisticalData value) {
 		StatisticalData oldValue = getValue();
 		setTypedValue(value);

@@ -140,6 +140,7 @@ public class IntraActionCommunicationDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Action getAction() {
 		if (action != null && action.eIsProxy()) {
 			InternalEObject oldAction = (InternalEObject)action;
@@ -166,6 +167,7 @@ public class IntraActionCommunicationDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAction(Action newAction) {
 		Action oldAction = action;
 		action = newAction;
@@ -178,6 +180,7 @@ public class IntraActionCommunicationDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData getConsumedTokens() {
 		return consumedTokens;
 	}
@@ -202,6 +205,7 @@ public class IntraActionCommunicationDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConsumedTokens(StatisticalData newConsumedTokens) {
 		if (newConsumedTokens != consumedTokens) {
 			NotificationChain msgs = null;
@@ -221,6 +225,7 @@ public class IntraActionCommunicationDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData getProducedTokens() {
 		return producedTokens;
 	}
@@ -245,6 +250,7 @@ public class IntraActionCommunicationDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProducedTokens(StatisticalData newProducedTokens) {
 		if (newProducedTokens != producedTokens) {
 			NotificationChain msgs = null;
@@ -264,6 +270,7 @@ public class IntraActionCommunicationDataImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, StatisticalData> getTokensProducersMap() {
 		if (tokensProducersMap == null) {
 			tokensProducersMap = new EcoreEMap<Action,StatisticalData>(MapPackage.Literals.ACTION_TO_STATISTICAL_DATA_MAP, ActionToStatisticalDataMapImpl.class, this, ProfilingPackage.INTRA_ACTION_COMMUNICATION_DATA__TOKENS_PRODUCERS_MAP);

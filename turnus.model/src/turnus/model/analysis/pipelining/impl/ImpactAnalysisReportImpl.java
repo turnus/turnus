@@ -181,6 +181,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -190,6 +191,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -202,6 +204,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -211,6 +214,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -223,6 +227,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -249,6 +254,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -261,6 +267,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BottlenecksReport getInitialBottlenecks() {
 		return initialBottlenecks;
 	}
@@ -285,6 +292,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitialBottlenecks(BottlenecksReport newInitialBottlenecks) {
 		if (newInitialBottlenecks != initialBottlenecks) {
 			NotificationChain msgs = null;
@@ -304,6 +312,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActionsVariablePipeliningReport getPiplenablesActions() {
 		return piplenablesActions;
 	}
@@ -328,6 +337,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPiplenablesActions(ActionsVariablePipeliningReport newPiplenablesActions) {
 		if (newPiplenablesActions != piplenablesActions) {
 			NotificationChain msgs = null;
@@ -347,6 +357,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ImpactAnalysisData> getImpactData() {
 		if (impactData == null) {
 			impactData = new EObjectContainmentEList<ImpactAnalysisData>(ImpactAnalysisData.class, this, PipeliningPackage.IMPACT_ANALYSIS_REPORT__IMPACT_DATA);
@@ -492,7 +503,7 @@ public class ImpactAnalysisReportImpl extends MinimalEObjectImpl.Container imple
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (algorithm: ");
 		result.append(algorithm);
 		result.append(", date: ");

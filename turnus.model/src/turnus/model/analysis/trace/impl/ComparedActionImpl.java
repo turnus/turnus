@@ -176,6 +176,7 @@ public class ComparedActionImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Action getAction() {
 		if (action != null && action.eIsProxy()) {
 			InternalEObject oldAction = (InternalEObject)action;
@@ -202,6 +203,7 @@ public class ComparedActionImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAction(Action newAction) {
 		Action oldAction = action;
 		action = newAction;
@@ -214,6 +216,7 @@ public class ComparedActionImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isFound() {
 		return found;
 	}
@@ -223,6 +226,7 @@ public class ComparedActionImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFound(boolean newFound) {
 		boolean oldFound = found;
 		found = newFound;
@@ -235,6 +239,7 @@ public class ComparedActionImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getDSteps() {
 		return dSteps;
 	}
@@ -244,6 +249,7 @@ public class ComparedActionImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDSteps(long newDSteps) {
 		long oldDSteps = dSteps;
 		dSteps = newDSteps;
@@ -256,6 +262,7 @@ public class ComparedActionImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getDIncomings() {
 		return dIncomings;
 	}
@@ -265,6 +272,7 @@ public class ComparedActionImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDIncomings(long newDIncomings) {
 		long oldDIncomings = dIncomings;
 		dIncomings = newDIncomings;
@@ -277,6 +285,7 @@ public class ComparedActionImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getDOutgoings() {
 		return dOutgoings;
 	}
@@ -286,6 +295,7 @@ public class ComparedActionImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDOutgoings(long newDOutgoings) {
 		long oldDOutgoings = dOutgoings;
 		dOutgoings = newDOutgoings;
@@ -401,7 +411,7 @@ public class ComparedActionImpl extends MinimalEObjectImpl.Container implements 
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (found: ");
 		result.append(found);
 		result.append(", dSteps: ");

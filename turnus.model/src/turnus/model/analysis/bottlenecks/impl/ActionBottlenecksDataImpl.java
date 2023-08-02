@@ -258,6 +258,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Action getAction() {
 		if (action != null && action.eIsProxy()) {
 			InternalEObject oldAction = (InternalEObject)action;
@@ -284,6 +285,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAction(Action newAction) {
 		Action oldAction = action;
 		action = newAction;
@@ -296,6 +298,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getCpWeight() {
 		return cpWeight;
 	}
@@ -305,6 +308,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCpWeight(double newCpWeight) {
 		double oldCpWeight = cpWeight;
 		cpWeight = newCpWeight;
@@ -317,6 +321,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getCpVariance() {
 		return cpVariance;
 	}
@@ -326,6 +331,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCpVariance(double newCpVariance) {
 		double oldCpVariance = cpVariance;
 		cpVariance = newCpVariance;
@@ -338,6 +344,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getTotalWeight() {
 		return totalWeight;
 	}
@@ -347,6 +354,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTotalWeight(double newTotalWeight) {
 		double oldTotalWeight = totalWeight;
 		totalWeight = newTotalWeight;
@@ -359,6 +367,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getTotalVariance() {
 		return totalVariance;
 	}
@@ -368,6 +377,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTotalVariance(double newTotalVariance) {
 		double oldTotalVariance = totalVariance;
 		totalVariance = newTotalVariance;
@@ -380,6 +390,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getCpFirings() {
 		return cpFirings;
 	}
@@ -389,6 +400,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCpFirings(long newCpFirings) {
 		long oldCpFirings = cpFirings;
 		cpFirings = newCpFirings;
@@ -401,6 +413,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getTotalFirings() {
 		return totalFirings;
 	}
@@ -410,6 +423,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTotalFirings(long newTotalFirings) {
 		long oldTotalFirings = totalFirings;
 		totalFirings = newTotalFirings;
@@ -422,6 +436,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getSlackMin() {
 		return slackMin;
 	}
@@ -431,6 +446,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSlackMin(double newSlackMin) {
 		double oldSlackMin = slackMin;
 		slackMin = newSlackMin;
@@ -443,6 +459,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getSlackMax() {
 		return slackMax;
 	}
@@ -452,6 +469,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSlackMax(double newSlackMax) {
 		double oldSlackMax = slackMax;
 		slackMax = newSlackMax;
@@ -607,7 +625,7 @@ public class ActionBottlenecksDataImpl extends MinimalEObjectImpl.Container impl
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (slackMin: ");
 		result.append(slackMin);
 		result.append(", slackMax: ");

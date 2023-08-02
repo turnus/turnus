@@ -34,6 +34,7 @@ package turnus.model.analysis.postprocessing.impl;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -42,6 +43,7 @@ import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -56,6 +58,7 @@ import turnus.model.analysis.postprocessing.PostprocessingPackage;
 
 import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
+import turnus.model.dataflow.Network;
 
 /**
  * <!-- begin-user-doc -->
@@ -77,6 +80,7 @@ import turnus.model.dataflow.Actor;
  *   <li>{@link turnus.model.analysis.postprocessing.impl.ActionStatisticsReportImpl#getBlockedWritingMaxTimes <em>Blocked Writing Max Times</em>}</li>
  *   <li>{@link turnus.model.analysis.postprocessing.impl.ActionStatisticsReportImpl#getProcessingTimes <em>Processing Times</em>}</li>
  *   <li>{@link turnus.model.analysis.postprocessing.impl.ActionStatisticsReportImpl#getExecutionCounts <em>Execution Counts</em>}</li>
+ *   <li>{@link turnus.model.analysis.postprocessing.impl.ActionStatisticsReportImpl#getNetwork <em>Network</em>}</li>
  * </ul>
  *
  * @generated
@@ -203,6 +207,16 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	protected EMap<Action, Long> executionCounts;
 
 	/**
+	 * The cached value of the '{@link #getNetwork() <em>Network</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNetwork()
+	 * @generated
+	 * @ordered
+	 */
+	protected Network network;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -226,6 +240,7 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Actor> getActors() {
 		if (actors == null) {
 			actors = new EObjectResolvingEList<Actor>(Actor.class, this, PostprocessingPackage.ACTION_STATISTICS_REPORT__ACTORS);
@@ -238,6 +253,7 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Double> getIdleTimes() {
 		if (idleTimes == null) {
 			idleTimes = new EcoreEMap<Action,Double>(MapPackage.Literals.ACTION_TO_DOUBLE_MAP, ActionToDoubleMapImpl.class, this, PostprocessingPackage.ACTION_STATISTICS_REPORT__IDLE_TIMES);
@@ -250,6 +266,7 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Double> getIdleMinTimes() {
 		if (idleMinTimes == null) {
 			idleMinTimes = new EcoreEMap<Action,Double>(MapPackage.Literals.ACTION_TO_DOUBLE_MAP, ActionToDoubleMapImpl.class, this, PostprocessingPackage.ACTION_STATISTICS_REPORT__IDLE_MIN_TIMES);
@@ -262,6 +279,7 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Double> getIdleMaxTimes() {
 		if (idleMaxTimes == null) {
 			idleMaxTimes = new EcoreEMap<Action,Double>(MapPackage.Literals.ACTION_TO_DOUBLE_MAP, ActionToDoubleMapImpl.class, this, PostprocessingPackage.ACTION_STATISTICS_REPORT__IDLE_MAX_TIMES);
@@ -274,6 +292,7 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Double> getBlockedReadingTimes() {
 		if (blockedReadingTimes == null) {
 			blockedReadingTimes = new EcoreEMap<Action,Double>(MapPackage.Literals.ACTION_TO_DOUBLE_MAP, ActionToDoubleMapImpl.class, this, PostprocessingPackage.ACTION_STATISTICS_REPORT__BLOCKED_READING_TIMES);
@@ -286,6 +305,7 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Double> getBlockedReadingMinTimes() {
 		if (blockedReadingMinTimes == null) {
 			blockedReadingMinTimes = new EcoreEMap<Action,Double>(MapPackage.Literals.ACTION_TO_DOUBLE_MAP, ActionToDoubleMapImpl.class, this, PostprocessingPackage.ACTION_STATISTICS_REPORT__BLOCKED_READING_MIN_TIMES);
@@ -298,6 +318,7 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Double> getBlockedReadingMaxTimes() {
 		if (blockedReadingMaxTimes == null) {
 			blockedReadingMaxTimes = new EcoreEMap<Action,Double>(MapPackage.Literals.ACTION_TO_DOUBLE_MAP, ActionToDoubleMapImpl.class, this, PostprocessingPackage.ACTION_STATISTICS_REPORT__BLOCKED_READING_MAX_TIMES);
@@ -310,6 +331,7 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Double> getBlockedWritingTimes() {
 		if (blockedWritingTimes == null) {
 			blockedWritingTimes = new EcoreEMap<Action,Double>(MapPackage.Literals.ACTION_TO_DOUBLE_MAP, ActionToDoubleMapImpl.class, this, PostprocessingPackage.ACTION_STATISTICS_REPORT__BLOCKED_WRITING_TIMES);
@@ -322,6 +344,7 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Double> getBlockedWritingMinTimes() {
 		if (blockedWritingMinTimes == null) {
 			blockedWritingMinTimes = new EcoreEMap<Action,Double>(MapPackage.Literals.ACTION_TO_DOUBLE_MAP, ActionToDoubleMapImpl.class, this, PostprocessingPackage.ACTION_STATISTICS_REPORT__BLOCKED_WRITING_MIN_TIMES);
@@ -334,6 +357,7 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Double> getBlockedWritingMaxTimes() {
 		if (blockedWritingMaxTimes == null) {
 			blockedWritingMaxTimes = new EcoreEMap<Action,Double>(MapPackage.Literals.ACTION_TO_DOUBLE_MAP, ActionToDoubleMapImpl.class, this, PostprocessingPackage.ACTION_STATISTICS_REPORT__BLOCKED_WRITING_MAX_TIMES);
@@ -346,6 +370,7 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Double> getProcessingTimes() {
 		if (processingTimes == null) {
 			processingTimes = new EcoreEMap<Action,Double>(MapPackage.Literals.ACTION_TO_DOUBLE_MAP, ActionToDoubleMapImpl.class, this, PostprocessingPackage.ACTION_STATISTICS_REPORT__PROCESSING_TIMES);
@@ -358,11 +383,52 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Long> getExecutionCounts() {
 		if (executionCounts == null) {
 			executionCounts = new EcoreEMap<Action,Long>(MapPackage.Literals.ACTION_TO_LONG_MAP, ActionToLongMapImpl.class, this, PostprocessingPackage.ACTION_STATISTICS_REPORT__EXECUTION_COUNTS);
 		}
 		return executionCounts.map();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Network getNetwork() {
+		if (network != null && network.eIsProxy()) {
+			InternalEObject oldNetwork = (InternalEObject)network;
+			network = (Network)eResolveProxy(oldNetwork);
+			if (network != oldNetwork) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PostprocessingPackage.ACTION_STATISTICS_REPORT__NETWORK, oldNetwork, network));
+			}
+		}
+		return network;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Network basicGetNetwork() {
+		return network;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setNetwork(Network newNetwork) {
+		Network oldNetwork = network;
+		network = newNetwork;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PostprocessingPackage.ACTION_STATISTICS_REPORT__NETWORK, oldNetwork, network));
 	}
 
 	/**
@@ -442,6 +508,9 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 			case PostprocessingPackage.ACTION_STATISTICS_REPORT__EXECUTION_COUNTS:
 				if (coreType) return ((EMap.InternalMapView<Action, Long>)getExecutionCounts()).eMap();
 				else return getExecutionCounts();
+			case PostprocessingPackage.ACTION_STATISTICS_REPORT__NETWORK:
+				if (resolve) return getNetwork();
+				return basicGetNetwork();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -492,6 +561,9 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 			case PostprocessingPackage.ACTION_STATISTICS_REPORT__EXECUTION_COUNTS:
 				((EStructuralFeature.Setting)((EMap.InternalMapView<Action, Long>)getExecutionCounts()).eMap()).set(newValue);
 				return;
+			case PostprocessingPackage.ACTION_STATISTICS_REPORT__NETWORK:
+				setNetwork((Network)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -540,6 +612,9 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 			case PostprocessingPackage.ACTION_STATISTICS_REPORT__EXECUTION_COUNTS:
 				getExecutionCounts().clear();
 				return;
+			case PostprocessingPackage.ACTION_STATISTICS_REPORT__NETWORK:
+				setNetwork((Network)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -576,6 +651,8 @@ public class ActionStatisticsReportImpl extends PostProcessingDataImpl implement
 				return processingTimes != null && !processingTimes.isEmpty();
 			case PostprocessingPackage.ACTION_STATISTICS_REPORT__EXECUTION_COUNTS:
 				return executionCounts != null && !executionCounts.isEmpty();
+			case PostprocessingPackage.ACTION_STATISTICS_REPORT__NETWORK:
+				return network != null;
 		}
 		return super.eIsSet(featureID);
 	}

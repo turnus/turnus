@@ -697,7 +697,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
-          eType="#//postprocessing/StatisticalActorPartition"/>
+          eType="#//postprocessing/StatisticalActorPartition" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="idleTimes" upperBound="-1"
           eType="#//map/StringToDoubleMap" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="blockedReadingTimes"
@@ -740,16 +740,17 @@
           eType="#//map/ActionToDoubleMap" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="executionCounts" upperBound="-1"
           eType="#//map/ActionToLongMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="SchedulerChecksReport" eSuperTypes="#//postprocessing/PostProcessingData">
       <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
-          eType="#//postprocessing/SchedulerChecksPartition"/>
+          eType="#//postprocessing/SchedulerChecksPartition" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="SchedulerChecksPartition">
       <eStructuralFeatures xsi:type="ecore:EReference" name="aggregatedCheckedData"
-          eType="ecore:EClass common.ecore#//StatisticalData"/>
+          eType="ecore:EClass common.ecore#//StatisticalData" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="aggregatedFailedData"
-          eType="ecore:EClass common.ecore#//StatisticalData"/>
+          eType="ecore:EClass common.ecore#//StatisticalData" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="checkedConditionsMap"
           upperBound="-1" eType="#//map/ActorToStatisticalDataMap" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="failedConditionsMap"

@@ -150,6 +150,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActorFire createActorFire() {
 		ActorFireImpl actorFire = new ActorFireImpl();
 		return actorFire;
@@ -160,6 +161,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSM createFSM() {
 		FSMImpl fsm = new FSMImpl();
 		return fsm;
@@ -170,6 +172,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Sequence createSequence() {
 		SequenceImpl sequence = new SequenceImpl();
 		return sequence;
@@ -180,6 +183,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMVar createFSMVar() {
 		FSMVarImpl fsmVar = new FSMVarImpl();
 		return fsmVar;
@@ -190,6 +194,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMTransition createFSMTransition() {
 		FSMTransitionImpl fsmTransition = new FSMTransitionImpl();
 		return fsmTransition;
@@ -200,6 +205,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMState createFSMState() {
 		FSMStateImpl fsmState = new FSMStateImpl();
 		return fsmState;
@@ -210,6 +216,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMVarUpdate createFSMVarUpdate() {
 		FSMVarUpdateImpl fsmVarUpdate = new FSMVarUpdateImpl();
 		return fsmVarUpdate;
@@ -220,6 +227,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMOperation createFSMOperation() {
 		FSMOperationImpl fsmOperation = new FSMOperationImpl();
 		return fsmOperation;
@@ -230,6 +238,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMCombination createFSMCombination() {
 		FSMCombinationImpl fsmCombination = new FSMCombinationImpl();
 		return fsmCombination;
@@ -240,6 +249,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMCondition createFSMCondition() {
 		FSMConditionImpl fsmCondition = new FSMConditionImpl();
 		return fsmCondition;
@@ -250,6 +260,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMTransitionWithState createFSMTransitionWithState() {
 		FSMTransitionWithStateImpl fsmTransitionWithState = new FSMTransitionWithStateImpl();
 		return fsmTransitionWithState;
@@ -260,6 +271,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PartitionedActorFire createPartitionedActorFire() {
 		PartitionedActorFireImpl partitionedActorFire = new PartitionedActorFireImpl();
 		return partitionedActorFire;
@@ -270,6 +282,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MarkovSimpleSchedulerReport createMarkovSimpleSchedulerReport() {
 		MarkovSimpleSchedulerReportImpl markovSimpleSchedulerReport = new MarkovSimpleSchedulerReportImpl();
 		return markovSimpleSchedulerReport;
@@ -280,6 +293,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MarkovPartitionScheduler createMarkovPartitionScheduler() {
 		MarkovPartitionSchedulerImpl markovPartitionScheduler = new MarkovPartitionSchedulerImpl();
 		return markovPartitionScheduler;
@@ -290,6 +304,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MarkovSchedulingState createMarkovSchedulingState() {
 		MarkovSchedulingStateImpl markovSchedulingState = new MarkovSchedulingStateImpl();
 		return markovSchedulingState;
@@ -300,6 +315,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MarkovSchedulingTransition createMarkovSchedulingTransition() {
 		MarkovSchedulingTransitionImpl markovSchedulingTransition = new MarkovSchedulingTransitionImpl();
 		return markovSchedulingTransition;
@@ -370,6 +386,7 @@ public class SchedulingFactoryImpl extends EFactoryImpl implements SchedulingFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SchedulingPackage getSchedulingPackage() {
 		return (SchedulingPackage)getEPackage();
 	}

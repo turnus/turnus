@@ -139,6 +139,7 @@ public class CompressedStepImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Action getAction() {
 		if (action != null && action.eIsProxy()) {
 			InternalEObject oldAction = (InternalEObject)action;
@@ -163,6 +164,7 @@ public class CompressedStepImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAction(Action newAction) {
 		Action oldAction = action;
 		action = newAction;
@@ -174,6 +176,7 @@ public class CompressedStepImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getCount() {
 		return count;
 	}
@@ -182,6 +185,7 @@ public class CompressedStepImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCount(long newCount) {
 		long oldCount = count;
 		count = newCount;
@@ -193,6 +197,7 @@ public class CompressedStepImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<CompressedDependency> getIncomings() {
 		if (incomings == null) {
 			incomings = new EObjectWithInverseResolvingEList<CompressedDependency>(CompressedDependency.class, this, TracePackage.COMPRESSED_STEP__INCOMINGS, TracePackage.COMPRESSED_DEPENDENCY__TARGET);
@@ -204,6 +209,7 @@ public class CompressedStepImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<CompressedDependency> getOutgoings() {
 		if (outgoings == null) {
 			outgoings = new EObjectWithInverseResolvingEList<CompressedDependency>(CompressedDependency.class, this, TracePackage.COMPRESSED_STEP__OUTGOINGS, TracePackage.COMPRESSED_DEPENDENCY__SOURCE);
@@ -397,7 +403,7 @@ public class CompressedStepImpl extends MinimalEObjectImpl.Container implements 
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (count: ");
 		result.append(count);
 		result.append(')');

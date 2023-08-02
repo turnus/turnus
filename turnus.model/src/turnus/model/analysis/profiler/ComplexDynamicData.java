@@ -77,7 +77,7 @@ public interface ComplexDynamicData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Operands Calls</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getComplexDynamicData_OperandsCalls()
-	 * @model mapType="turnus.model.analysis.map.EOperatorToStatisticalDataMap<turnus.model.common.EOperator, turnus.model.common.StatisticalData>"
+	 * @model mapType="turnus.model.analysis.map.EOperatorToStatisticalDataMap&lt;turnus.model.common.EOperator, turnus.model.common.StatisticalData&gt;"
 	 * @generated
 	 */
 	Map<EOperator, StatisticalData> getOperandsCalls();
@@ -94,7 +94,7 @@ public interface ComplexDynamicData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Procedures Calls</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getComplexDynamicData_ProceduresCalls()
-	 * @model mapType="turnus.model.analysis.map.ProcedureToStatisticalDataMap<turnus.model.dataflow.Procedure, turnus.model.common.StatisticalData>"
+	 * @model mapType="turnus.model.analysis.map.ProcedureToStatisticalDataMap&lt;turnus.model.dataflow.Procedure, turnus.model.common.StatisticalData&gt;"
 	 * @generated
 	 */
 	Map<Procedure, StatisticalData> getProceduresCalls();
@@ -111,7 +111,7 @@ public interface ComplexDynamicData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Variables Stores</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getComplexDynamicData_VariablesStores()
-	 * @model mapType="turnus.model.analysis.map.VariableToStatisticalDataMap<turnus.model.dataflow.Variable, turnus.model.common.StatisticalData>"
+	 * @model mapType="turnus.model.analysis.map.VariableToStatisticalDataMap&lt;turnus.model.dataflow.Variable, turnus.model.common.StatisticalData&gt;"
 	 * @generated
 	 */
 	Map<Variable, StatisticalData> getVariablesStores();
@@ -128,7 +128,7 @@ public interface ComplexDynamicData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Variables Loads</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getComplexDynamicData_VariablesLoads()
-	 * @model mapType="turnus.model.analysis.map.VariableToStatisticalDataMap<turnus.model.dataflow.Variable, turnus.model.common.StatisticalData>"
+	 * @model mapType="turnus.model.analysis.map.VariableToStatisticalDataMap&lt;turnus.model.dataflow.Variable, turnus.model.common.StatisticalData&gt;"
 	 * @generated
 	 */
 	Map<Variable, StatisticalData> getVariablesLoads();
@@ -145,7 +145,7 @@ public interface ComplexDynamicData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Procedures Data</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getComplexDynamicData_ProceduresData()
-	 * @model mapType="turnus.model.analysis.profiler.ProcedureToComplexDynamicDataMap<turnus.model.dataflow.Procedure, turnus.model.analysis.profiler.ComplexDynamicData>"
+	 * @model mapType="turnus.model.analysis.profiler.ProcedureToComplexDynamicDataMap&lt;turnus.model.dataflow.Procedure, turnus.model.analysis.profiler.ComplexDynamicData&gt;"
 	 * @generated
 	 */
 	Map<Procedure, ComplexDynamicData> getProceduresData();
@@ -162,7 +162,7 @@ public interface ComplexDynamicData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Read Tokens</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getComplexDynamicData_ReadTokens()
-	 * @model mapType="turnus.model.analysis.map.BufferToStatisticalDataMap<turnus.model.dataflow.Buffer, turnus.model.common.StatisticalData>"
+	 * @model mapType="turnus.model.analysis.map.BufferToStatisticalDataMap&lt;turnus.model.dataflow.Buffer, turnus.model.common.StatisticalData&gt;"
 	 * @generated
 	 */
 	Map<Buffer, StatisticalData> getReadTokens();
@@ -179,7 +179,7 @@ public interface ComplexDynamicData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Write Tokens</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getComplexDynamicData_WriteTokens()
-	 * @model mapType="turnus.model.analysis.map.BufferToStatisticalDataMap<turnus.model.dataflow.Buffer, turnus.model.common.StatisticalData>"
+	 * @model mapType="turnus.model.analysis.map.BufferToStatisticalDataMap&lt;turnus.model.dataflow.Buffer, turnus.model.common.StatisticalData&gt;"
 	 * @generated
 	 */
 	Map<Buffer, StatisticalData> getWriteTokens();

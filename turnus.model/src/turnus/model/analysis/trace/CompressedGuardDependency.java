@@ -65,7 +65,7 @@ public interface CompressedGuardDependency extends CompressedDependency {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Enable Map</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getCompressedGuardDependency_EnableMap()
-	 * @model mapType="turnus.model.analysis.map.GuardToLongMap<turnus.model.dataflow.Guard, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.GuardToLongMap&lt;turnus.model.dataflow.Guard, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Guard, Long> getEnableMap();
@@ -82,7 +82,7 @@ public interface CompressedGuardDependency extends CompressedDependency {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Disable Map</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getCompressedGuardDependency_DisableMap()
-	 * @model mapType="turnus.model.analysis.map.GuardToLongMap<turnus.model.dataflow.Guard, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.GuardToLongMap&lt;turnus.model.dataflow.Guard, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Guard, Long> getDisableMap();

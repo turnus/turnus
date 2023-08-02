@@ -138,6 +138,7 @@ public class FSMStateImpl extends MinimalEObjectImpl.Container implements FSMSta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEnumName() {
 		return enumName;
 	}
@@ -147,6 +148,7 @@ public class FSMStateImpl extends MinimalEObjectImpl.Container implements FSMSta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnumName(String newEnumName) {
 		String oldEnumName = enumName;
 		enumName = newEnumName;
@@ -159,6 +161,7 @@ public class FSMStateImpl extends MinimalEObjectImpl.Container implements FSMSta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<FSMVarUpdate> getVarUpdates() {
 		if (varUpdates == null) {
 			varUpdates = new EObjectContainmentEList<FSMVarUpdate>(FSMVarUpdate.class, this, SchedulingPackage.FSM_STATE__VAR_UPDATES);
@@ -171,6 +174,7 @@ public class FSMStateImpl extends MinimalEObjectImpl.Container implements FSMSta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<FSMTransition> getTransitions() {
 		if (transitions == null) {
 			transitions = new EObjectContainmentEList<FSMTransition>(FSMTransition.class, this, SchedulingPackage.FSM_STATE__TRANSITIONS);
@@ -284,7 +288,7 @@ public class FSMStateImpl extends MinimalEObjectImpl.Container implements FSMSta
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (enumName: ");
 		result.append(enumName);
 		result.append(')');

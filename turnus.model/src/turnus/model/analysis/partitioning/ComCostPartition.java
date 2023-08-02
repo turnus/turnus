@@ -87,7 +87,7 @@ public interface ComCostPartition extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Internal Cost Map</em>' map.
 	 * @see turnus.model.analysis.partitioning.PartitioningPackage#getComCostPartition_InternalCostMap()
-	 * @model mapType="turnus.model.analysis.map.ActorToLongMap<turnus.model.dataflow.Actor, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActorToLongMap&lt;turnus.model.dataflow.Actor, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Actor, Long> getInternalCostMap();
@@ -104,7 +104,7 @@ public interface ComCostPartition extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>External Cost Map</em>' map.
 	 * @see turnus.model.analysis.partitioning.PartitioningPackage#getComCostPartition_ExternalCostMap()
-	 * @model mapType="turnus.model.analysis.map.ActorToLongMap<turnus.model.dataflow.Actor, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActorToLongMap&lt;turnus.model.dataflow.Actor, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Actor, Long> getExternalCostMap();

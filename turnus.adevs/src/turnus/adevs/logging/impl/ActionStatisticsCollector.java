@@ -184,6 +184,10 @@ public class ActionStatisticsCollector implements ActorDataCollector {
 		PostprocessingFactory f = PostprocessingFactory.eINSTANCE;
 		ActionStatisticsReport report = f.createActionStatisticsReport();
 		
+		report.setNetwork(network);
+		
+		report.getActors().addAll(network.getActors());
+		
 		for (Entry<Action, Double> entry : getIdleTimes().entrySet()) {
 			report.getIdleTimes().put(entry.getKey(), entry.getValue());
 		}
@@ -220,9 +224,7 @@ public class ActionStatisticsCollector implements ActorDataCollector {
 		for (Entry<Action, Long> entry : getExecutionCounts().entrySet()) {
 			report.getExecutionCounts().put(entry.getKey(), entry.getValue());
 		}
-
-		report.getActors().addAll(network.getActors());
-
+		
 		return report;
 	}
 	

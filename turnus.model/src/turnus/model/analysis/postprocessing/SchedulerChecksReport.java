@@ -51,7 +51,7 @@ import java.util.List;
  */
 public interface SchedulerChecksReport extends PostProcessingData {
 	/**
-	 * Returns the value of the '<em><b>Partitions</b></em>' reference list.
+	 * Returns the value of the '<em><b>Partitions</b></em>' containment reference list.
 	 * The list contents are of type {@link turnus.model.analysis.postprocessing.SchedulerChecksPartition}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -59,9 +59,9 @@ public interface SchedulerChecksReport extends PostProcessingData {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Partitions</em>' reference list.
+	 * @return the value of the '<em>Partitions</em>' containment reference list.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getSchedulerChecksReport_Partitions()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	List<SchedulerChecksPartition> getPartitions();

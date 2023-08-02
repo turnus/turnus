@@ -201,6 +201,7 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -209,6 +210,7 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -220,6 +222,7 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -228,6 +231,7 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -239,6 +243,7 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -263,6 +268,7 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -274,6 +280,7 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isPow2() {
 		return pow2;
 	}
@@ -282,6 +289,7 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPow2(boolean newPow2) {
 		boolean oldPow2 = pow2;
 		pow2 = newPow2;
@@ -293,6 +301,7 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isBitAccurate() {
 		return bitAccurate;
 	}
@@ -301,6 +310,7 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBitAccurate(boolean newBitAccurate) {
 		boolean oldBitAccurate = bitAccurate;
 		bitAccurate = newBitAccurate;
@@ -312,6 +322,7 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<BoundedBufferData> getBuffersData() {
 		if (buffersData == null) {
 			buffersData = new EObjectContainmentEList<BoundedBufferData>(BoundedBufferData.class, this, BuffersPackage.BOUNDED_BUFFERS_REPORT__BUFFERS_DATA);

@@ -32,7 +32,6 @@
 package turnus.model.analysis.scheduling;
 
 import java.util.List;
-import turnus.model.analysis.scheduling.ActorSelectionSchedule;
 
 /**
  * <!-- begin-user-doc -->

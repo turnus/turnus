@@ -132,6 +132,7 @@ public class BufferBlockingReportImpl extends PostProcessingDataImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -158,6 +159,7 @@ public class BufferBlockingReportImpl extends PostProcessingDataImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -170,6 +172,7 @@ public class BufferBlockingReportImpl extends PostProcessingDataImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Buffer, Integer> getMaxBlockedOutputTokens() {
 		if (maxBlockedOutputTokens == null) {
 			maxBlockedOutputTokens = new EcoreEMap<Buffer,Integer>(MapPackage.Literals.BUFFER_TO_INTEGER_MAP, BufferToIntegerMapImpl.class, this, PostprocessingPackage.BUFFER_BLOCKING_REPORT__MAX_BLOCKED_OUTPUT_TOKENS);
@@ -182,6 +185,7 @@ public class BufferBlockingReportImpl extends PostProcessingDataImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Buffer, Double> getMaxBlockedMultiplication() {
 		if (maxBlockedMultiplication == null) {
 			maxBlockedMultiplication = new EcoreEMap<Buffer,Double>(MapPackage.Literals.BUFFER_TO_DOUBLE_MAP, BufferToDoubleMapImpl.class, this, PostprocessingPackage.BUFFER_BLOCKING_REPORT__MAX_BLOCKED_MULTIPLICATION);
@@ -194,6 +198,7 @@ public class BufferBlockingReportImpl extends PostProcessingDataImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Buffer, Integer> getBlockingInstances() {
 		if (blockingInstances == null) {
 			blockingInstances = new EcoreEMap<Buffer,Integer>(MapPackage.Literals.BUFFER_TO_INTEGER_MAP, BufferToIntegerMapImpl.class, this, PostprocessingPackage.BUFFER_BLOCKING_REPORT__BLOCKING_INSTANCES);

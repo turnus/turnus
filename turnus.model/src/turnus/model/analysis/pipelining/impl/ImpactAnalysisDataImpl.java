@@ -130,6 +130,7 @@ public class ImpactAnalysisDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BottlenecksReport getEstimatedBottlenecks() {
 		return estimatedBottlenecks;
 	}
@@ -153,6 +154,7 @@ public class ImpactAnalysisDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEstimatedBottlenecks(BottlenecksReport newEstimatedBottlenecks) {
 		if (newEstimatedBottlenecks != estimatedBottlenecks) {
 			NotificationChain msgs = null;
@@ -171,6 +173,7 @@ public class ImpactAnalysisDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getCpReduction() {
 		return cpReduction;
 	}
@@ -179,6 +182,7 @@ public class ImpactAnalysisDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCpReduction(double newCpReduction) {
 		double oldCpReduction = cpReduction;
 		cpReduction = newCpReduction;
@@ -190,6 +194,7 @@ public class ImpactAnalysisDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Action> getActions() {
 		if (actions == null) {
 			actions = new EObjectResolvingEList<Action>(Action.class, this, PipeliningPackage.IMPACT_ANALYSIS_DATA__ACTIONS);
@@ -310,7 +315,7 @@ public class ImpactAnalysisDataImpl extends MinimalEObjectImpl.Container impleme
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (cpReduction: ");
 		result.append(cpReduction);
 		result.append(')');

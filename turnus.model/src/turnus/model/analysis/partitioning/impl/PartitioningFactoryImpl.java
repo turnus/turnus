@@ -101,6 +101,7 @@ public class PartitioningFactoryImpl extends EFactoryImpl implements Partitionin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComCostPartitioningReport createComCostPartitioningReport() {
 		ComCostPartitioningReportImpl comCostPartitioningReport = new ComCostPartitioningReportImpl();
 		return comCostPartitioningReport;
@@ -111,6 +112,7 @@ public class PartitioningFactoryImpl extends EFactoryImpl implements Partitionin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComCostPartition createComCostPartition() {
 		ComCostPartitionImpl comCostPartition = new ComCostPartitionImpl();
 		return comCostPartition;
@@ -121,6 +123,7 @@ public class PartitioningFactoryImpl extends EFactoryImpl implements Partitionin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WorkloadBalancePartition createWorkloadBalancePartition() {
 		WorkloadBalancePartitionImpl workloadBalancePartition = new WorkloadBalancePartitionImpl();
 		return workloadBalancePartition;
@@ -131,6 +134,7 @@ public class PartitioningFactoryImpl extends EFactoryImpl implements Partitionin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WorkloadBalancePartitioningReport createWorkloadBalancePartitioningReport() {
 		WorkloadBalancePartitioningReportImpl workloadBalancePartitioningReport = new WorkloadBalancePartitioningReportImpl();
 		return workloadBalancePartitioningReport;
@@ -141,6 +145,7 @@ public class PartitioningFactoryImpl extends EFactoryImpl implements Partitionin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BalancedPipelinePartition createBalancedPipelinePartition() {
 		BalancedPipelinePartitionImpl balancedPipelinePartition = new BalancedPipelinePartitionImpl();
 		return balancedPipelinePartition;
@@ -151,6 +156,7 @@ public class PartitioningFactoryImpl extends EFactoryImpl implements Partitionin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BalancedPipelinePartitioningReport createBalancedPipelinePartitioningReport() {
 		BalancedPipelinePartitioningReportImpl balancedPipelinePartitioningReport = new BalancedPipelinePartitioningReportImpl();
 		return balancedPipelinePartitioningReport;
@@ -161,6 +167,7 @@ public class PartitioningFactoryImpl extends EFactoryImpl implements Partitionin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PartitioningPackage getPartitioningPackage() {
 		return (PartitioningPackage)getEPackage();
 	}

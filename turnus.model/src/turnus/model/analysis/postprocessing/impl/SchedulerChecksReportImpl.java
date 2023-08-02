@@ -33,9 +33,12 @@ package turnus.model.analysis.postprocessing.impl;
 
 import java.util.Collection;
 import java.util.List;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import turnus.model.analysis.postprocessing.PostprocessingPackage;
 import turnus.model.analysis.postprocessing.SchedulerChecksPartition;
 import turnus.model.analysis.postprocessing.SchedulerChecksReport;
@@ -56,7 +59,7 @@ import turnus.model.dataflow.Actor;
  */
 public class SchedulerChecksReportImpl extends PostProcessingDataImpl implements SchedulerChecksReport {
 	/**
-	 * The cached value of the '{@link #getPartitions() <em>Partitions</em>}' reference list.
+	 * The cached value of the '{@link #getPartitions() <em>Partitions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPartitions()
@@ -88,11 +91,26 @@ public class SchedulerChecksReportImpl extends PostProcessingDataImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<SchedulerChecksPartition> getPartitions() {
 		if (partitions == null) {
-			partitions = new EObjectResolvingEList<SchedulerChecksPartition>(SchedulerChecksPartition.class, this, PostprocessingPackage.SCHEDULER_CHECKS_REPORT__PARTITIONS);
+			partitions = new EObjectContainmentEList<SchedulerChecksPartition>(SchedulerChecksPartition.class, this, PostprocessingPackage.SCHEDULER_CHECKS_REPORT__PARTITIONS);
 		}
 		return partitions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case PostprocessingPackage.SCHEDULER_CHECKS_REPORT__PARTITIONS:
+				return ((InternalEList<?>)getPartitions()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

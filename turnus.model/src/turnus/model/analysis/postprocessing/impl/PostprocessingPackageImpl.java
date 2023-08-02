@@ -96,6 +96,7 @@ import turnus.model.analysis.trace.impl.TracePackageImpl;
 import turnus.model.common.CommonPackage;
 
 import turnus.model.dataflow.DataflowPackage;
+import turnus.model.versioning.VersioningPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -188,7 +189,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link PostprocessingPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -202,25 +203,39 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		if (isInited) return (PostprocessingPackage)EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI);
 
 		// Obtain or create and register package
-		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new PostprocessingPackageImpl());
+		Object registeredPostprocessingPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		PostprocessingPackageImpl thePostprocessingPackage = registeredPostprocessingPackage instanceof PostprocessingPackageImpl ? (PostprocessingPackageImpl)registeredPostprocessingPackage : new PostprocessingPackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
+		CommonPackage.eINSTANCE.eClass();
 		DataflowPackage.eINSTANCE.eClass();
+		VersioningPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
-		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI) instanceof ProfilerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI) : ProfilerPackage.eINSTANCE);
-		MapPackageImpl theMapPackage = (MapPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI) instanceof MapPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI) : MapPackage.eINSTANCE);
-		TracePackageImpl theTracePackage = (TracePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI) instanceof TracePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI) : TracePackage.eINSTANCE);
-		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI) instanceof BottlenecksPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI) : BottlenecksPackage.eINSTANCE);
-		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI) instanceof BuffersPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI) : BuffersPackage.eINSTANCE);
-		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) instanceof PartitioningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) : PartitioningPackage.eINSTANCE);
-		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) instanceof PipeliningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) : PipeliningPackage.eINSTANCE);
-		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
-		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
-		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) instanceof CaseoptimalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) : CaseoptimalPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
+		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(registeredPackage instanceof AnalysisPackageImpl ? registeredPackage : AnalysisPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI);
+		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(registeredPackage instanceof ProfilerPackageImpl ? registeredPackage : ProfilerPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI);
+		MapPackageImpl theMapPackage = (MapPackageImpl)(registeredPackage instanceof MapPackageImpl ? registeredPackage : MapPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI);
+		TracePackageImpl theTracePackage = (TracePackageImpl)(registeredPackage instanceof TracePackageImpl ? registeredPackage : TracePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI);
+		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(registeredPackage instanceof BottlenecksPackageImpl ? registeredPackage : BottlenecksPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI);
+		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(registeredPackage instanceof BuffersPackageImpl ? registeredPackage : BuffersPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI);
+		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(registeredPackage instanceof PartitioningPackageImpl ? registeredPackage : PartitioningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI);
+		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(registeredPackage instanceof PipeliningPackageImpl ? registeredPackage : PipeliningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI);
+		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
+		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(registeredPackage instanceof SchedulingPackageImpl ? registeredPackage : SchedulingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI);
+		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(registeredPackage instanceof CaseoptimalPackageImpl ? registeredPackage : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		thePostprocessingPackage.createPackageContents();
@@ -253,7 +268,6 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		// Mark meta-data to indicate it can't be changed
 		thePostprocessingPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(PostprocessingPackage.eNS_URI, thePostprocessingPackage);
 		return thePostprocessingPackage;
@@ -264,6 +278,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPostProcessingReport() {
 		return postProcessingReportEClass;
 	}
@@ -273,6 +288,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPostProcessingReport_Network() {
 		return (EReference)postProcessingReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -282,6 +298,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPostProcessingReport_Time() {
 		return (EAttribute)postProcessingReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -291,6 +308,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPostProcessingReport_Deadlock() {
 		return (EAttribute)postProcessingReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -300,6 +318,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPostProcessingReport_Reports() {
 		return (EReference)postProcessingReportEClass.getEStructuralFeatures().get(3);
 	}
@@ -309,6 +328,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPostProcessingData() {
 		return postProcessingDataEClass;
 	}
@@ -318,6 +338,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActorStatisticsReport() {
 		return actorStatisticsReportEClass;
 	}
@@ -327,6 +348,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorStatisticsReport_Network() {
 		return (EReference)actorStatisticsReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -336,6 +358,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActorStatisticsReport_ExecutionTime() {
 		return (EAttribute)actorStatisticsReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -345,6 +368,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorStatisticsReport_Partitions() {
 		return (EReference)actorStatisticsReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -354,6 +378,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorStatisticsReport_IdleTimes() {
 		return (EReference)actorStatisticsReportEClass.getEStructuralFeatures().get(3);
 	}
@@ -363,6 +388,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorStatisticsReport_BlockedReadingTimes() {
 		return (EReference)actorStatisticsReportEClass.getEStructuralFeatures().get(4);
 	}
@@ -372,6 +398,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorStatisticsReport_BlockedWritingTimes() {
 		return (EReference)actorStatisticsReportEClass.getEStructuralFeatures().get(5);
 	}
@@ -381,6 +408,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorStatisticsReport_ProcessingTimes() {
 		return (EReference)actorStatisticsReportEClass.getEStructuralFeatures().get(6);
 	}
@@ -390,6 +418,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActorStatisticsReport_AverageOccupancy() {
 		return (EAttribute)actorStatisticsReportEClass.getEStructuralFeatures().get(7);
 	}
@@ -399,6 +428,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActorStatisticsReport_OccupancyDeviation() {
 		return (EAttribute)actorStatisticsReportEClass.getEStructuralFeatures().get(8);
 	}
@@ -408,6 +438,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStatisticalActorPartition() {
 		return statisticalActorPartitionEClass;
 	}
@@ -417,6 +448,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStatisticalActorPartition_Actors() {
 		return (EAttribute)statisticalActorPartitionEClass.getEStructuralFeatures().get(0);
 	}
@@ -426,6 +458,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStatisticalActorPartition_Occupancy() {
 		return (EAttribute)statisticalActorPartitionEClass.getEStructuralFeatures().get(1);
 	}
@@ -435,6 +468,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStatisticalActorPartition_SchedulingPolicy() {
 		return (EAttribute)statisticalActorPartitionEClass.getEStructuralFeatures().get(2);
 	}
@@ -444,6 +478,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActionStatisticsReport() {
 		return actionStatisticsReportEClass;
 	}
@@ -453,6 +488,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionStatisticsReport_Actors() {
 		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -462,6 +498,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionStatisticsReport_IdleTimes() {
 		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -471,6 +508,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionStatisticsReport_IdleMinTimes() {
 		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -480,6 +518,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionStatisticsReport_IdleMaxTimes() {
 		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(3);
 	}
@@ -489,6 +528,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionStatisticsReport_BlockedReadingTimes() {
 		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(4);
 	}
@@ -498,6 +538,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionStatisticsReport_BlockedReadingMinTimes() {
 		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(5);
 	}
@@ -507,6 +548,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionStatisticsReport_BlockedReadingMaxTimes() {
 		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(6);
 	}
@@ -516,6 +558,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionStatisticsReport_BlockedWritingTimes() {
 		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(7);
 	}
@@ -525,6 +568,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionStatisticsReport_BlockedWritingMinTimes() {
 		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(8);
 	}
@@ -534,6 +578,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionStatisticsReport_BlockedWritingMaxTimes() {
 		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(9);
 	}
@@ -543,6 +588,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionStatisticsReport_ProcessingTimes() {
 		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(10);
 	}
@@ -552,6 +598,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionStatisticsReport_ExecutionCounts() {
 		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(11);
 	}
@@ -561,6 +608,17 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EReference getActionStatisticsReport_Network() {
+		return (EReference)actionStatisticsReportEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getSchedulerChecksReport() {
 		return schedulerChecksReportEClass;
 	}
@@ -570,6 +628,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSchedulerChecksReport_Partitions() {
 		return (EReference)schedulerChecksReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -579,6 +638,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSchedulerChecksPartition() {
 		return schedulerChecksPartitionEClass;
 	}
@@ -588,6 +648,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSchedulerChecksPartition_AggregatedCheckedData() {
 		return (EReference)schedulerChecksPartitionEClass.getEStructuralFeatures().get(0);
 	}
@@ -597,6 +658,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSchedulerChecksPartition_AggregatedFailedData() {
 		return (EReference)schedulerChecksPartitionEClass.getEStructuralFeatures().get(1);
 	}
@@ -606,6 +668,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSchedulerChecksPartition_CheckedConditionsMap() {
 		return (EReference)schedulerChecksPartitionEClass.getEStructuralFeatures().get(2);
 	}
@@ -615,6 +678,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSchedulerChecksPartition_FailedConditionsMap() {
 		return (EReference)schedulerChecksPartitionEClass.getEStructuralFeatures().get(3);
 	}
@@ -624,6 +688,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBufferBlockingReport() {
 		return bufferBlockingReportEClass;
 	}
@@ -633,6 +698,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferBlockingReport_Network() {
 		return (EReference)bufferBlockingReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -642,6 +708,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferBlockingReport_MaxBlockedOutputTokens() {
 		return (EReference)bufferBlockingReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -651,6 +718,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferBlockingReport_MaxBlockedMultiplication() {
 		return (EReference)bufferBlockingReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -660,6 +728,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferBlockingReport_BlockingInstances() {
 		return (EReference)bufferBlockingReportEClass.getEStructuralFeatures().get(3);
 	}
@@ -669,6 +738,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PostprocessingFactory getPostprocessingFactory() {
 		return (PostprocessingFactory)getEFactoryInstance();
 	}
@@ -729,6 +799,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		createEReference(actionStatisticsReportEClass, ACTION_STATISTICS_REPORT__BLOCKED_WRITING_MAX_TIMES);
 		createEReference(actionStatisticsReportEClass, ACTION_STATISTICS_REPORT__PROCESSING_TIMES);
 		createEReference(actionStatisticsReportEClass, ACTION_STATISTICS_REPORT__EXECUTION_COUNTS);
+		createEReference(actionStatisticsReportEClass, ACTION_STATISTICS_REPORT__NETWORK);
 
 		schedulerChecksReportEClass = createEClass(SCHEDULER_CHECKS_REPORT);
 		createEReference(schedulerChecksReportEClass, SCHEDULER_CHECKS_REPORT__PARTITIONS);
@@ -798,7 +869,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		initEClass(actorStatisticsReportEClass, ActorStatisticsReport.class, "ActorStatisticsReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getActorStatisticsReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getActorStatisticsReport_ExecutionTime(), ecorePackage.getEDouble(), "executionTime", null, 0, 1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getActorStatisticsReport_Partitions(), this.getStatisticalActorPartition(), null, "partitions", null, 0, -1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getActorStatisticsReport_Partitions(), this.getStatisticalActorPartition(), null, "partitions", null, 0, -1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActorStatisticsReport_IdleTimes(), theMapPackage.getStringToDoubleMap(), null, "idleTimes", null, 0, -1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActorStatisticsReport_BlockedReadingTimes(), theMapPackage.getStringToDoubleMap(), null, "blockedReadingTimes", null, 0, -1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActorStatisticsReport_BlockedWritingTimes(), theMapPackage.getStringToDoubleMap(), null, "blockedWritingTimes", null, 0, -1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -824,13 +895,14 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		initEReference(getActionStatisticsReport_BlockedWritingMaxTimes(), theMapPackage.getActionToDoubleMap(), null, "blockedWritingMaxTimes", null, 0, -1, ActionStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActionStatisticsReport_ProcessingTimes(), theMapPackage.getActionToDoubleMap(), null, "processingTimes", null, 0, -1, ActionStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActionStatisticsReport_ExecutionCounts(), theMapPackage.getActionToLongMap(), null, "executionCounts", null, 0, -1, ActionStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getActionStatisticsReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, ActionStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(schedulerChecksReportEClass, SchedulerChecksReport.class, "SchedulerChecksReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSchedulerChecksReport_Partitions(), this.getSchedulerChecksPartition(), null, "partitions", null, 0, -1, SchedulerChecksReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSchedulerChecksReport_Partitions(), this.getSchedulerChecksPartition(), null, "partitions", null, 0, -1, SchedulerChecksReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(schedulerChecksPartitionEClass, SchedulerChecksPartition.class, "SchedulerChecksPartition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSchedulerChecksPartition_AggregatedCheckedData(), theCommonPackage.getStatisticalData(), null, "aggregatedCheckedData", null, 0, 1, SchedulerChecksPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSchedulerChecksPartition_AggregatedFailedData(), theCommonPackage.getStatisticalData(), null, "aggregatedFailedData", null, 0, 1, SchedulerChecksPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSchedulerChecksPartition_AggregatedCheckedData(), theCommonPackage.getStatisticalData(), null, "aggregatedCheckedData", null, 0, 1, SchedulerChecksPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSchedulerChecksPartition_AggregatedFailedData(), theCommonPackage.getStatisticalData(), null, "aggregatedFailedData", null, 0, 1, SchedulerChecksPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSchedulerChecksPartition_CheckedConditionsMap(), theMapPackage.getActorToStatisticalDataMap(), null, "checkedConditionsMap", null, 0, -1, SchedulerChecksPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSchedulerChecksPartition_FailedConditionsMap(), theMapPackage.getActorToStatisticalDataMap(), null, "failedConditionsMap", null, 0, -1, SchedulerChecksPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

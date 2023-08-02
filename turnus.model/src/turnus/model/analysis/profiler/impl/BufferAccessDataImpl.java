@@ -161,6 +161,7 @@ public class BufferAccessDataImpl extends MemoryAccessDataImpl implements Buffer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSourceActor() {
 		return sourceActor;
 	}
@@ -170,6 +171,7 @@ public class BufferAccessDataImpl extends MemoryAccessDataImpl implements Buffer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSourceActor(String newSourceActor) {
 		String oldSourceActor = sourceActor;
 		sourceActor = newSourceActor;
@@ -182,6 +184,7 @@ public class BufferAccessDataImpl extends MemoryAccessDataImpl implements Buffer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSourcePort() {
 		return sourcePort;
 	}
@@ -191,6 +194,7 @@ public class BufferAccessDataImpl extends MemoryAccessDataImpl implements Buffer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSourcePort(String newSourcePort) {
 		String oldSourcePort = sourcePort;
 		sourcePort = newSourcePort;
@@ -203,6 +207,7 @@ public class BufferAccessDataImpl extends MemoryAccessDataImpl implements Buffer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTargetActor() {
 		return targetActor;
 	}
@@ -212,6 +217,7 @@ public class BufferAccessDataImpl extends MemoryAccessDataImpl implements Buffer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTargetActor(String newTargetActor) {
 		String oldTargetActor = targetActor;
 		targetActor = newTargetActor;
@@ -224,6 +230,7 @@ public class BufferAccessDataImpl extends MemoryAccessDataImpl implements Buffer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTargetPort() {
 		return targetPort;
 	}
@@ -233,6 +240,7 @@ public class BufferAccessDataImpl extends MemoryAccessDataImpl implements Buffer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTargetPort(String newTargetPort) {
 		String oldTargetPort = targetPort;
 		targetPort = newTargetPort;
@@ -337,7 +345,7 @@ public class BufferAccessDataImpl extends MemoryAccessDataImpl implements Buffer
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (sourceActor: ");
 		result.append(sourceActor);
 		result.append(", sourcePort: ");

@@ -154,6 +154,7 @@ public class MarkowModelTraceReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -162,6 +163,7 @@ public class MarkowModelTraceReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -173,6 +175,7 @@ public class MarkowModelTraceReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -181,6 +184,7 @@ public class MarkowModelTraceReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -192,6 +196,7 @@ public class MarkowModelTraceReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -216,6 +221,7 @@ public class MarkowModelTraceReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -227,6 +233,7 @@ public class MarkowModelTraceReportImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MarkovModelActionData> getActionsData() {
 		if (actionsData == null) {
 			actionsData = new EObjectContainmentEList<MarkovModelActionData>(MarkovModelActionData.class, this, TracePackage.MARKOW_MODEL_TRACE_REPORT__ACTIONS_DATA);

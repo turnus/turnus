@@ -105,6 +105,7 @@ public class ComplexCodeDataImpl extends CodeDataImpl implements ComplexCodeData
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<CodeData> getActionsData() {
 		if (actionsData == null) {
 			actionsData = new EObjectContainmentEList<CodeData>(CodeData.class, this, ProfilerPackage.COMPLEX_CODE_DATA__ACTIONS_DATA);
@@ -116,6 +117,7 @@ public class ComplexCodeDataImpl extends CodeDataImpl implements ComplexCodeData
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<CodeData> getProceduresData() {
 		if (proceduresData == null) {
 			proceduresData = new EObjectResolvingEList<CodeData>(CodeData.class, this, ProfilerPackage.COMPLEX_CODE_DATA__PROCEDURES_DATA);

@@ -144,6 +144,7 @@ public class MarkovSchedulingTransitionImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MarkovSchedulingState getSource() {
 		if (source != null && source.eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject)source;
@@ -185,6 +186,7 @@ public class MarkovSchedulingTransitionImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSource(MarkovSchedulingState newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
@@ -204,6 +206,7 @@ public class MarkovSchedulingTransitionImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MarkovSchedulingState getTarget() {
 		if (target != null && target.eIsProxy()) {
 			InternalEObject oldTarget = (InternalEObject)target;
@@ -245,6 +248,7 @@ public class MarkovSchedulingTransitionImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTarget(MarkovSchedulingState newTarget) {
 		if (newTarget != target) {
 			NotificationChain msgs = null;
@@ -264,6 +268,7 @@ public class MarkovSchedulingTransitionImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getFirings() {
 		return firings;
 	}
@@ -273,6 +278,7 @@ public class MarkovSchedulingTransitionImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFirings(long newFirings) {
 		long oldFirings = firings;
 		firings = newFirings;
@@ -285,6 +291,7 @@ public class MarkovSchedulingTransitionImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -294,6 +301,7 @@ public class MarkovSchedulingTransitionImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -436,7 +444,7 @@ public class MarkovSchedulingTransitionImpl extends MinimalEObjectImpl.Container
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (firings: ");
 		result.append(firings);
 		result.append(", name: ");

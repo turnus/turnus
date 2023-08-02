@@ -103,7 +103,7 @@ public interface ScheduledImpactAnalysisData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Cp Reduction Map</em>' map.
 	 * @see turnus.model.analysis.bottlenecks.BottlenecksPackage#getScheduledImpactAnalysisData_CpReductionMap()
-	 * @model mapType="turnus.model.analysis.map.DoubleToDoubleMap<org.eclipse.emf.ecore.EDoubleObject, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.DoubleToDoubleMap&lt;org.eclipse.emf.ecore.EDoubleObject, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Double, Double> getCpReductionMap();
@@ -120,7 +120,7 @@ public interface ScheduledImpactAnalysisData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Time Reduction Map</em>' map.
 	 * @see turnus.model.analysis.bottlenecks.BottlenecksPackage#getScheduledImpactAnalysisData_TimeReductionMap()
-	 * @model mapType="turnus.model.analysis.map.DoubleToDoubleMap<org.eclipse.emf.ecore.EDoubleObject, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.DoubleToDoubleMap&lt;org.eclipse.emf.ecore.EDoubleObject, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Double, Double> getTimeReductionMap();
@@ -137,7 +137,7 @@ public interface ScheduledImpactAnalysisData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Reports Map</em>' map.
 	 * @see turnus.model.analysis.bottlenecks.BottlenecksPackage#getScheduledImpactAnalysisData_ReportsMap()
-	 * @model mapType="turnus.model.analysis.bottlenecks.DoubleToBottlenecksWithSchedulingReportMap<org.eclipse.emf.ecore.EDoubleObject, turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport>"
+	 * @model mapType="turnus.model.analysis.bottlenecks.DoubleToBottlenecksWithSchedulingReportMap&lt;org.eclipse.emf.ecore.EDoubleObject, turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport&gt;"
 	 * @generated
 	 */
 	Map<Double, BottlenecksWithSchedulingReport> getReportsMap();

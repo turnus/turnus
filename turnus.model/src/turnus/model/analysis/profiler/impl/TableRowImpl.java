@@ -101,6 +101,7 @@ public class TableRowImpl extends MinimalEObjectImpl.Container implements TableR
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, String> getCells() {
 		if (cells == null) {
 			cells = new EcoreEMap<String,String>(MapPackage.Literals.STRING_TO_STRING_MAP, StringToStringMapImpl.class, this, ProfilerPackage.TABLE_ROW__CELLS);

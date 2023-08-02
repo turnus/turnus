@@ -89,7 +89,9 @@ import turnus.model.analysis.trace.TracePackage;
 
 import turnus.model.analysis.trace.impl.TracePackageImpl;
 
+import turnus.model.common.CommonPackage;
 import turnus.model.dataflow.DataflowPackage;
+import turnus.model.versioning.VersioningPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -154,7 +156,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link BuffersPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -168,25 +170,39 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 		if (isInited) return (BuffersPackage)EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI);
 
 		// Obtain or create and register package
-		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof BuffersPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new BuffersPackageImpl());
+		Object registeredBuffersPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		BuffersPackageImpl theBuffersPackage = registeredBuffersPackage instanceof BuffersPackageImpl ? (BuffersPackageImpl)registeredBuffersPackage : new BuffersPackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
+		CommonPackage.eINSTANCE.eClass();
 		DataflowPackage.eINSTANCE.eClass();
+		VersioningPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
-		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI) instanceof ProfilerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI) : ProfilerPackage.eINSTANCE);
-		MapPackageImpl theMapPackage = (MapPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI) instanceof MapPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI) : MapPackage.eINSTANCE);
-		TracePackageImpl theTracePackage = (TracePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI) instanceof TracePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI) : TracePackage.eINSTANCE);
-		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI) instanceof BottlenecksPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI) : BottlenecksPackage.eINSTANCE);
-		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) instanceof PartitioningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) : PartitioningPackage.eINSTANCE);
-		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) instanceof PipeliningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) : PipeliningPackage.eINSTANCE);
-		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) : PostprocessingPackage.eINSTANCE);
-		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
-		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
-		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) instanceof CaseoptimalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) : CaseoptimalPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
+		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(registeredPackage instanceof AnalysisPackageImpl ? registeredPackage : AnalysisPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI);
+		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(registeredPackage instanceof ProfilerPackageImpl ? registeredPackage : ProfilerPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI);
+		MapPackageImpl theMapPackage = (MapPackageImpl)(registeredPackage instanceof MapPackageImpl ? registeredPackage : MapPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI);
+		TracePackageImpl theTracePackage = (TracePackageImpl)(registeredPackage instanceof TracePackageImpl ? registeredPackage : TracePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI);
+		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(registeredPackage instanceof BottlenecksPackageImpl ? registeredPackage : BottlenecksPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI);
+		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(registeredPackage instanceof PartitioningPackageImpl ? registeredPackage : PartitioningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI);
+		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(registeredPackage instanceof PipeliningPackageImpl ? registeredPackage : PipeliningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI);
+		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(registeredPackage instanceof PostprocessingPackageImpl ? registeredPackage : PostprocessingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI);
+		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
+		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(registeredPackage instanceof SchedulingPackageImpl ? registeredPackage : SchedulingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI);
+		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(registeredPackage instanceof CaseoptimalPackageImpl ? registeredPackage : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theBuffersPackage.createPackageContents();
@@ -219,7 +235,6 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 		// Mark meta-data to indicate it can't be changed
 		theBuffersPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(BuffersPackage.eNS_URI, theBuffersPackage);
 		return theBuffersPackage;
@@ -230,6 +245,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBoundedBuffersReport() {
 		return boundedBuffersReportEClass;
 	}
@@ -239,6 +255,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBoundedBuffersReport_Network() {
 		return (EReference)boundedBuffersReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -248,6 +265,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBoundedBuffersReport_Pow2() {
 		return (EAttribute)boundedBuffersReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -257,6 +275,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBoundedBuffersReport_BitAccurate() {
 		return (EAttribute)boundedBuffersReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -266,6 +285,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBoundedBuffersReport_BuffersData() {
 		return (EReference)boundedBuffersReportEClass.getEStructuralFeatures().get(3);
 	}
@@ -275,6 +295,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBoundedBuffersReport_TokenSize() {
 		return (EAttribute)boundedBuffersReportEClass.getEStructuralFeatures().get(4);
 	}
@@ -284,6 +305,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBoundedBuffersReport_BitSize() {
 		return (EAttribute)boundedBuffersReportEClass.getEStructuralFeatures().get(5);
 	}
@@ -293,6 +315,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBoundedBufferData() {
 		return boundedBufferDataEClass;
 	}
@@ -302,6 +325,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBoundedBufferData_Buffer() {
 		return (EReference)boundedBufferDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -311,6 +335,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBoundedBufferData_TokenSize() {
 		return (EAttribute)boundedBufferDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -320,6 +345,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBoundedBufferData_BitSize() {
 		return (EAttribute)boundedBufferDataEClass.getEStructuralFeatures().get(2);
 	}
@@ -329,6 +355,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOptimalBuffersReport() {
 		return optimalBuffersReportEClass;
 	}
@@ -338,6 +365,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOptimalBuffersReport_Network() {
 		return (EReference)optimalBuffersReportEClass.getEStructuralFeatures().get(0);
 	}
@@ -347,6 +375,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOptimalBuffersReport_Pow2() {
 		return (EAttribute)optimalBuffersReportEClass.getEStructuralFeatures().get(1);
 	}
@@ -356,6 +385,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOptimalBuffersReport_BitAccurate() {
 		return (EAttribute)optimalBuffersReportEClass.getEStructuralFeatures().get(2);
 	}
@@ -365,6 +395,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOptimalBuffersReport_BuffersData() {
 		return (EReference)optimalBuffersReportEClass.getEStructuralFeatures().get(3);
 	}
@@ -374,6 +405,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOptimalBuffersReport_InitialBufferConfiguration() {
 		return (EReference)optimalBuffersReportEClass.getEStructuralFeatures().get(4);
 	}
@@ -383,6 +415,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOptimalBuffersReport_InitialBottlenecks() {
 		return (EReference)optimalBuffersReportEClass.getEStructuralFeatures().get(5);
 	}
@@ -392,6 +425,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOptimalBufferData() {
 		return optimalBufferDataEClass;
 	}
@@ -401,6 +435,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOptimalBufferData_BufferData() {
 		return (EReference)optimalBufferDataEClass.getEStructuralFeatures().get(0);
 	}
@@ -410,6 +445,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOptimalBufferData_BottlenecksData() {
 		return (EReference)optimalBufferDataEClass.getEStructuralFeatures().get(1);
 	}
@@ -419,6 +455,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BuffersFactory getBuffersFactory() {
 		return (BuffersFactory)getEFactoryInstance();
 	}

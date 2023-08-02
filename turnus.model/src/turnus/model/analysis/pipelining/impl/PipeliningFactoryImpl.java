@@ -99,6 +99,7 @@ public class PipeliningFactoryImpl extends EFactoryImpl implements PipeliningFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActionsVariablePipeliningReport createActionsVariablePipeliningReport() {
 		ActionsVariablePipeliningReportImpl actionsVariablePipeliningReport = new ActionsVariablePipeliningReportImpl();
 		return actionsVariablePipeliningReport;
@@ -109,6 +110,7 @@ public class PipeliningFactoryImpl extends EFactoryImpl implements PipeliningFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActionVariablePipeliningData createActionVariablePipeliningData() {
 		ActionVariablePipeliningDataImpl actionVariablePipeliningData = new ActionVariablePipeliningDataImpl();
 		return actionVariablePipeliningData;
@@ -119,6 +121,7 @@ public class PipeliningFactoryImpl extends EFactoryImpl implements PipeliningFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ImpactAnalysisReport createImpactAnalysisReport() {
 		ImpactAnalysisReportImpl impactAnalysisReport = new ImpactAnalysisReportImpl();
 		return impactAnalysisReport;
@@ -129,6 +132,7 @@ public class PipeliningFactoryImpl extends EFactoryImpl implements PipeliningFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ImpactAnalysisData createImpactAnalysisData() {
 		ImpactAnalysisDataImpl impactAnalysisData = new ImpactAnalysisDataImpl();
 		return impactAnalysisData;
@@ -139,6 +143,7 @@ public class PipeliningFactoryImpl extends EFactoryImpl implements PipeliningFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PipeliningPackage getPipeliningPackage() {
 		return (PipeliningPackage)getEPackage();
 	}

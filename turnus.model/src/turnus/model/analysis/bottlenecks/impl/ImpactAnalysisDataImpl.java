@@ -127,6 +127,7 @@ public class ImpactAnalysisDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Action> getActions() {
 		if (actions == null) {
 			actions = new EObjectResolvingEList<Action>(Action.class, this, BottlenecksPackage.IMPACT_ANALYSIS_DATA__ACTIONS);
@@ -147,6 +148,7 @@ public class ImpactAnalysisDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Double, Double> getCpReductionMap() {
 		if (cpReductionMap == null) {
 			cpReductionMap = new EcoreEMap<Double,Double>(MapPackage.Literals.DOUBLE_TO_DOUBLE_MAP, DoubleToDoubleMapImpl.class, this, BottlenecksPackage.IMPACT_ANALYSIS_DATA__CP_REDUCTION_MAP);
@@ -159,6 +161,7 @@ public class ImpactAnalysisDataImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Double, BottlenecksReport> getReportsMap() {
 		if (reportsMap == null) {
 			reportsMap = new EcoreEMap<Double,BottlenecksReport>(BottlenecksPackage.Literals.DOUBLE_TO_BOTTLENECKS_REPORT_MAP, DoubleToBottlenecksReportMapImpl.class, this, BottlenecksPackage.IMPACT_ANALYSIS_DATA__REPORTS_MAP);

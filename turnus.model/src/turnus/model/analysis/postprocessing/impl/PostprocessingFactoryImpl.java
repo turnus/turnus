@@ -102,6 +102,7 @@ public class PostprocessingFactoryImpl extends EFactoryImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PostProcessingReport createPostProcessingReport() {
 		PostProcessingReportImpl postProcessingReport = new PostProcessingReportImpl();
 		return postProcessingReport;
@@ -112,6 +113,7 @@ public class PostprocessingFactoryImpl extends EFactoryImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActorStatisticsReport createActorStatisticsReport() {
 		ActorStatisticsReportImpl actorStatisticsReport = new ActorStatisticsReportImpl();
 		return actorStatisticsReport;
@@ -122,6 +124,7 @@ public class PostprocessingFactoryImpl extends EFactoryImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalActorPartition createStatisticalActorPartition() {
 		StatisticalActorPartitionImpl statisticalActorPartition = new StatisticalActorPartitionImpl();
 		return statisticalActorPartition;
@@ -132,6 +135,7 @@ public class PostprocessingFactoryImpl extends EFactoryImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActionStatisticsReport createActionStatisticsReport() {
 		ActionStatisticsReportImpl actionStatisticsReport = new ActionStatisticsReportImpl();
 		return actionStatisticsReport;
@@ -142,6 +146,7 @@ public class PostprocessingFactoryImpl extends EFactoryImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SchedulerChecksReport createSchedulerChecksReport() {
 		SchedulerChecksReportImpl schedulerChecksReport = new SchedulerChecksReportImpl();
 		return schedulerChecksReport;
@@ -152,6 +157,7 @@ public class PostprocessingFactoryImpl extends EFactoryImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SchedulerChecksPartition createSchedulerChecksPartition() {
 		SchedulerChecksPartitionImpl schedulerChecksPartition = new SchedulerChecksPartitionImpl();
 		return schedulerChecksPartition;
@@ -162,6 +168,7 @@ public class PostprocessingFactoryImpl extends EFactoryImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BufferBlockingReport createBufferBlockingReport() {
 		BufferBlockingReportImpl bufferBlockingReport = new BufferBlockingReportImpl();
 		return bufferBlockingReport;
@@ -172,6 +179,7 @@ public class PostprocessingFactoryImpl extends EFactoryImpl implements Postproce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PostprocessingPackage getPostprocessingPackage() {
 		return (PostprocessingPackage)getEPackage();
 	}

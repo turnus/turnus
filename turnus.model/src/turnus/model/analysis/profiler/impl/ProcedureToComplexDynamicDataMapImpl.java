@@ -279,6 +279,7 @@ public class ProcedureToComplexDynamicDataMapImpl extends MinimalEObjectImpl.Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getHash() {
 		if (hash == -1) {
 			Object theKey = getKey();
@@ -292,6 +293,7 @@ public class ProcedureToComplexDynamicDataMapImpl extends MinimalEObjectImpl.Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHash(int hash) {
 		this.hash = hash;
 	}
@@ -301,6 +303,7 @@ public class ProcedureToComplexDynamicDataMapImpl extends MinimalEObjectImpl.Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Procedure getKey() {
 		return getTypedKey();
 	}
@@ -310,6 +313,7 @@ public class ProcedureToComplexDynamicDataMapImpl extends MinimalEObjectImpl.Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKey(Procedure key) {
 		setTypedKey(key);
 	}
@@ -319,6 +323,7 @@ public class ProcedureToComplexDynamicDataMapImpl extends MinimalEObjectImpl.Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComplexDynamicData getValue() {
 		return getTypedValue();
 	}
@@ -328,6 +333,7 @@ public class ProcedureToComplexDynamicDataMapImpl extends MinimalEObjectImpl.Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComplexDynamicData setValue(ComplexDynamicData value) {
 		ComplexDynamicData oldValue = getValue();
 		setTypedValue(value);

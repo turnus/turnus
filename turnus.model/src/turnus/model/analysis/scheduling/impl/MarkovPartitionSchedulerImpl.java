@@ -147,6 +147,7 @@ public class MarkovPartitionSchedulerImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Actor> getActors() {
 		if (actors == null) {
 			actors = new EObjectResolvingEList<Actor>(Actor.class, this, SchedulingPackage.MARKOV_PARTITION_SCHEDULER__ACTORS);
@@ -159,6 +160,7 @@ public class MarkovPartitionSchedulerImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPartitionId() {
 		return partitionId;
 	}
@@ -168,6 +170,7 @@ public class MarkovPartitionSchedulerImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPartitionId(String newPartitionId) {
 		String oldPartitionId = partitionId;
 		partitionId = newPartitionId;
@@ -180,6 +183,7 @@ public class MarkovPartitionSchedulerImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MarkovSchedulingState> getStates() {
 		if (states == null) {
 			states = new EObjectContainmentEList<MarkovSchedulingState>(MarkovSchedulingState.class, this, SchedulingPackage.MARKOV_PARTITION_SCHEDULER__STATES);
@@ -192,6 +196,7 @@ public class MarkovPartitionSchedulerImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MarkovSchedulingTransition> getTransitions() {
 		if (transitions == null) {
 			transitions = new EObjectContainmentEList<MarkovSchedulingTransition>(MarkovSchedulingTransition.class, this, SchedulingPackage.MARKOV_PARTITION_SCHEDULER__TRANSITIONS);
@@ -345,7 +350,7 @@ public class MarkovPartitionSchedulerImpl extends MinimalEObjectImpl.Container i
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (partitionId: ");
 		result.append(partitionId);
 		result.append(')');

@@ -182,7 +182,7 @@ public interface BufferDynamicData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Action Reads</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getBufferDynamicData_ActionReads()
-	 * @model mapType="turnus.model.analysis.map.ActionToStatisticalDataMap<turnus.model.dataflow.Action, turnus.model.common.StatisticalData>"
+	 * @model mapType="turnus.model.analysis.map.ActionToStatisticalDataMap&lt;turnus.model.dataflow.Action, turnus.model.common.StatisticalData&gt;"
 	 * @generated
 	 */
 	Map<Action, StatisticalData> getActionReads();
@@ -199,7 +199,7 @@ public interface BufferDynamicData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Action Writes</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getBufferDynamicData_ActionWrites()
-	 * @model mapType="turnus.model.analysis.map.ActionToStatisticalDataMap<turnus.model.dataflow.Action, turnus.model.common.StatisticalData>"
+	 * @model mapType="turnus.model.analysis.map.ActionToStatisticalDataMap&lt;turnus.model.dataflow.Action, turnus.model.common.StatisticalData&gt;"
 	 * @generated
 	 */
 	Map<Action, StatisticalData> getActionWrites();
@@ -216,7 +216,7 @@ public interface BufferDynamicData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Action Peeks</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getBufferDynamicData_ActionPeeks()
-	 * @model mapType="turnus.model.analysis.map.ActionToLongMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToLongMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Long> getActionPeeks();
@@ -233,7 +233,7 @@ public interface BufferDynamicData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Action Read Misses</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getBufferDynamicData_ActionReadMisses()
-	 * @model mapType="turnus.model.analysis.map.ActionToLongMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToLongMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Long> getActionReadMisses();
@@ -250,7 +250,7 @@ public interface BufferDynamicData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Action Write Misses</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getBufferDynamicData_ActionWriteMisses()
-	 * @model mapType="turnus.model.analysis.map.ActionToLongMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToLongMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Long> getActionWriteMisses();

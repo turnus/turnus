@@ -75,7 +75,7 @@ public interface TraceSizeReport extends AnalysisReport {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Actions Firings</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getTraceSizeReport_ActionsFirings()
-	 * @model mapType="turnus.model.analysis.map.ActionToLongMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToLongMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Long> getActionsFirings();
@@ -92,7 +92,7 @@ public interface TraceSizeReport extends AnalysisReport {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Actions Incomings</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getTraceSizeReport_ActionsIncomings()
-	 * @model mapType="turnus.model.analysis.map.ActionToLongMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToLongMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Long> getActionsIncomings();
@@ -109,7 +109,7 @@ public interface TraceSizeReport extends AnalysisReport {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Actions Outgoings</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getTraceSizeReport_ActionsOutgoings()
-	 * @model mapType="turnus.model.analysis.map.ActionToLongMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToLongMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Long> getActionsOutgoings();
@@ -126,7 +126,7 @@ public interface TraceSizeReport extends AnalysisReport {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Actors Firings</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getTraceSizeReport_ActorsFirings()
-	 * @model mapType="turnus.model.analysis.map.ActorToLongMap<turnus.model.dataflow.Actor, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActorToLongMap&lt;turnus.model.dataflow.Actor, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Actor, Long> getActorsFirings();
@@ -143,7 +143,7 @@ public interface TraceSizeReport extends AnalysisReport {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Actors Incoming</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getTraceSizeReport_ActorsIncoming()
-	 * @model mapType="turnus.model.analysis.map.ActorToLongMap<turnus.model.dataflow.Actor, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActorToLongMap&lt;turnus.model.dataflow.Actor, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Actor, Long> getActorsIncoming();
@@ -160,7 +160,7 @@ public interface TraceSizeReport extends AnalysisReport {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Actors Outgoings</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getTraceSizeReport_ActorsOutgoings()
-	 * @model mapType="turnus.model.analysis.map.ActorToLongMap<turnus.model.dataflow.Actor, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActorToLongMap&lt;turnus.model.dataflow.Actor, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Actor, Long> getActorsOutgoings();
@@ -229,7 +229,7 @@ public interface TraceSizeReport extends AnalysisReport {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Dependencies Kinds</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getTraceSizeReport_DependenciesKinds()
-	 * @model mapType="turnus.model.analysis.map.StringToLongMap<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.StringToLongMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<String, Long> getDependenciesKinds();

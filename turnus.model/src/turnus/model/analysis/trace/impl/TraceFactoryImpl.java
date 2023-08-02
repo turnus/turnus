@@ -108,6 +108,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceSizeReport createTraceSizeReport() {
 		TraceSizeReportImpl traceSizeReport = new TraceSizeReportImpl();
 		return traceSizeReport;
@@ -118,6 +119,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompressedTraceReport createCompressedTraceReport() {
 		CompressedTraceReportImpl compressedTraceReport = new CompressedTraceReportImpl();
 		return compressedTraceReport;
@@ -128,6 +130,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompressedStep createCompressedStep() {
 		CompressedStepImpl compressedStep = new CompressedStepImpl();
 		return compressedStep;
@@ -138,6 +141,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompressedFsmDependency createCompressedFsmDependency() {
 		CompressedFsmDependencyImpl compressedFsmDependency = new CompressedFsmDependencyImpl();
 		return compressedFsmDependency;
@@ -148,6 +152,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompressedGuardDependency createCompressedGuardDependency() {
 		CompressedGuardDependencyImpl compressedGuardDependency = new CompressedGuardDependencyImpl();
 		return compressedGuardDependency;
@@ -158,6 +163,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompressedVariableDependency createCompressedVariableDependency() {
 		CompressedVariableDependencyImpl compressedVariableDependency = new CompressedVariableDependencyImpl();
 		return compressedVariableDependency;
@@ -168,6 +174,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompressedPortDependency createCompressedPortDependency() {
 		CompressedPortDependencyImpl compressedPortDependency = new CompressedPortDependencyImpl();
 		return compressedPortDependency;
@@ -178,6 +185,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompressedTokensDependency createCompressedTokensDependency() {
 		CompressedTokensDependencyImpl compressedTokensDependency = new CompressedTokensDependencyImpl();
 		return compressedTokensDependency;
@@ -188,6 +196,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceComparatorReport createTraceComparatorReport() {
 		TraceComparatorReportImpl traceComparatorReport = new TraceComparatorReportImpl();
 		return traceComparatorReport;
@@ -198,6 +207,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComparedTrace createComparedTrace() {
 		ComparedTraceImpl comparedTrace = new ComparedTraceImpl();
 		return comparedTrace;
@@ -208,6 +218,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComparedAction createComparedAction() {
 		ComparedActionImpl comparedAction = new ComparedActionImpl();
 		return comparedAction;
@@ -218,6 +229,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MarkowModelTraceReport createMarkowModelTraceReport() {
 		MarkowModelTraceReportImpl markowModelTraceReport = new MarkowModelTraceReportImpl();
 		return markowModelTraceReport;
@@ -228,6 +240,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MarkovModelActionData createMarkovModelActionData() {
 		MarkovModelActionDataImpl markovModelActionData = new MarkovModelActionDataImpl();
 		return markovModelActionData;
@@ -238,6 +251,7 @@ public class TraceFactoryImpl extends EFactoryImpl implements TraceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TracePackage getTracePackage() {
 		return (TracePackage)getEPackage();
 	}

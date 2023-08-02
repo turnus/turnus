@@ -67,7 +67,7 @@ public interface CompressedVariableDependency extends CompressedDependency {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Read Read Map</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getCompressedVariableDependency_ReadReadMap()
-	 * @model mapType="turnus.model.analysis.map.VariableToLongMap<turnus.model.dataflow.Variable, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.VariableToLongMap&lt;turnus.model.dataflow.Variable, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Variable, Long> getReadReadMap();
@@ -84,7 +84,7 @@ public interface CompressedVariableDependency extends CompressedDependency {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Read Write Map</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getCompressedVariableDependency_ReadWriteMap()
-	 * @model mapType="turnus.model.analysis.map.VariableToLongMap<turnus.model.dataflow.Variable, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.VariableToLongMap&lt;turnus.model.dataflow.Variable, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Variable, Long> getReadWriteMap();
@@ -101,7 +101,7 @@ public interface CompressedVariableDependency extends CompressedDependency {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Write Read Map</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getCompressedVariableDependency_WriteReadMap()
-	 * @model mapType="turnus.model.analysis.map.VariableToLongMap<turnus.model.dataflow.Variable, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.VariableToLongMap&lt;turnus.model.dataflow.Variable, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Variable, Long> getWriteReadMap();
@@ -118,7 +118,7 @@ public interface CompressedVariableDependency extends CompressedDependency {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Write Write Map</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getCompressedVariableDependency_WriteWriteMap()
-	 * @model mapType="turnus.model.analysis.map.VariableToLongMap<turnus.model.dataflow.Variable, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.VariableToLongMap&lt;turnus.model.dataflow.Variable, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Variable, Long> getWriteWriteMap();

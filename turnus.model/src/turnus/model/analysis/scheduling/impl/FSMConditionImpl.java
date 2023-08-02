@@ -165,6 +165,7 @@ public class FSMConditionImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMComparator getComp() {
 		return comp;
 	}
@@ -174,6 +175,7 @@ public class FSMConditionImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setComp(FSMComparator newComp) {
 		FSMComparator oldComp = comp;
 		comp = newComp == null ? COMP_EDEFAULT : newComp;
@@ -188,6 +190,7 @@ public class FSMConditionImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetComp() {
 		FSMComparator oldComp = comp;
 		boolean oldCompESet = compESet;
@@ -202,6 +205,7 @@ public class FSMConditionImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetComp() {
 		return compESet;
 	}
@@ -211,6 +215,7 @@ public class FSMConditionImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Integer getCompval() {
 		return compval;
 	}
@@ -220,6 +225,7 @@ public class FSMConditionImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCompval(Integer newCompval) {
 		Integer oldCompval = compval;
 		compval = newCompval;
@@ -232,6 +238,7 @@ public class FSMConditionImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMCombination getCombinedCond() {
 		return combinedCond;
 	}
@@ -256,6 +263,7 @@ public class FSMConditionImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCombinedCond(FSMCombination newCombinedCond) {
 		if (newCombinedCond != combinedCond) {
 			NotificationChain msgs = null;
@@ -275,6 +283,7 @@ public class FSMConditionImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getValName() {
 		return valName;
 	}
@@ -284,6 +293,7 @@ public class FSMConditionImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValName(String newValName) {
 		String oldValName = valName;
 		valName = newValName;
@@ -402,7 +412,7 @@ public class FSMConditionImpl extends MinimalEObjectImpl.Container implements FS
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (comp: ");
 		if (compESet) result.append(comp); else result.append("<unset>");
 		result.append(", compval: ");

@@ -69,7 +69,7 @@ import turnus.model.dataflow.Actor;
  */
 public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container implements SchedulerChecksPartition {
 	/**
-	 * The cached value of the '{@link #getAggregatedCheckedData() <em>Aggregated Checked Data</em>}' reference.
+	 * The cached value of the '{@link #getAggregatedCheckedData() <em>Aggregated Checked Data</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getAggregatedCheckedData()
@@ -79,7 +79,7 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 	protected StatisticalData aggregatedCheckedData;
 
 	/**
-	 * The cached value of the '{@link #getAggregatedFailedData() <em>Aggregated Failed Data</em>}' reference.
+	 * The cached value of the '{@link #getAggregatedFailedData() <em>Aggregated Failed Data</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getAggregatedFailedData()
@@ -132,15 +132,8 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData getAggregatedCheckedData() {
-		if (aggregatedCheckedData != null && aggregatedCheckedData.eIsProxy()) {
-			InternalEObject oldAggregatedCheckedData = (InternalEObject)aggregatedCheckedData;
-			aggregatedCheckedData = (StatisticalData)eResolveProxy(oldAggregatedCheckedData);
-			if (aggregatedCheckedData != oldAggregatedCheckedData) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_CHECKED_DATA, oldAggregatedCheckedData, aggregatedCheckedData));
-			}
-		}
 		return aggregatedCheckedData;
 	}
 
@@ -149,36 +142,43 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StatisticalData basicGetAggregatedCheckedData() {
-		return aggregatedCheckedData;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAggregatedCheckedData(StatisticalData newAggregatedCheckedData) {
+	public NotificationChain basicSetAggregatedCheckedData(StatisticalData newAggregatedCheckedData, NotificationChain msgs) {
 		StatisticalData oldAggregatedCheckedData = aggregatedCheckedData;
 		aggregatedCheckedData = newAggregatedCheckedData;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_CHECKED_DATA, oldAggregatedCheckedData, aggregatedCheckedData));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public StatisticalData getAggregatedFailedData() {
-		if (aggregatedFailedData != null && aggregatedFailedData.eIsProxy()) {
-			InternalEObject oldAggregatedFailedData = (InternalEObject)aggregatedFailedData;
-			aggregatedFailedData = (StatisticalData)eResolveProxy(oldAggregatedFailedData);
-			if (aggregatedFailedData != oldAggregatedFailedData) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_FAILED_DATA, oldAggregatedFailedData, aggregatedFailedData));
-			}
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_CHECKED_DATA, oldAggregatedCheckedData, newAggregatedCheckedData);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setAggregatedCheckedData(StatisticalData newAggregatedCheckedData) {
+		if (newAggregatedCheckedData != aggregatedCheckedData) {
+			NotificationChain msgs = null;
+			if (aggregatedCheckedData != null)
+				msgs = ((InternalEObject)aggregatedCheckedData).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_CHECKED_DATA, null, msgs);
+			if (newAggregatedCheckedData != null)
+				msgs = ((InternalEObject)newAggregatedCheckedData).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_CHECKED_DATA, null, msgs);
+			msgs = basicSetAggregatedCheckedData(newAggregatedCheckedData, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_CHECKED_DATA, newAggregatedCheckedData, newAggregatedCheckedData));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public StatisticalData getAggregatedFailedData() {
 		return aggregatedFailedData;
 	}
 
@@ -187,20 +187,14 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StatisticalData basicGetAggregatedFailedData() {
-		return aggregatedFailedData;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAggregatedFailedData(StatisticalData newAggregatedFailedData) {
+	public NotificationChain basicSetAggregatedFailedData(StatisticalData newAggregatedFailedData, NotificationChain msgs) {
 		StatisticalData oldAggregatedFailedData = aggregatedFailedData;
 		aggregatedFailedData = newAggregatedFailedData;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_FAILED_DATA, oldAggregatedFailedData, aggregatedFailedData));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_FAILED_DATA, oldAggregatedFailedData, newAggregatedFailedData);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -208,6 +202,27 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public void setAggregatedFailedData(StatisticalData newAggregatedFailedData) {
+		if (newAggregatedFailedData != aggregatedFailedData) {
+			NotificationChain msgs = null;
+			if (aggregatedFailedData != null)
+				msgs = ((InternalEObject)aggregatedFailedData).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_FAILED_DATA, null, msgs);
+			if (newAggregatedFailedData != null)
+				msgs = ((InternalEObject)newAggregatedFailedData).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_FAILED_DATA, null, msgs);
+			msgs = basicSetAggregatedFailedData(newAggregatedFailedData, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_FAILED_DATA, newAggregatedFailedData, newAggregatedFailedData));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Map<Actor, StatisticalData> getCheckedConditionsMap() {
 		if (checkedConditionsMap == null) {
 			checkedConditionsMap = new EcoreEMap<Actor,StatisticalData>(MapPackage.Literals.ACTOR_TO_STATISTICAL_DATA_MAP, ActorToStatisticalDataMapImpl.class, this, PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__CHECKED_CONDITIONS_MAP);
@@ -220,6 +235,7 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Actor, StatisticalData> getFailedConditionsMap() {
 		if (failedConditionsMap == null) {
 			failedConditionsMap = new EcoreEMap<Actor,StatisticalData>(MapPackage.Literals.ACTOR_TO_STATISTICAL_DATA_MAP, ActorToStatisticalDataMapImpl.class, this, PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__FAILED_CONDITIONS_MAP);
@@ -235,6 +251,10 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_CHECKED_DATA:
+				return basicSetAggregatedCheckedData(null, msgs);
+			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_FAILED_DATA:
+				return basicSetAggregatedFailedData(null, msgs);
 			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__CHECKED_CONDITIONS_MAP:
 				return ((InternalEList<?>)((EMap.InternalMapView<Actor, StatisticalData>)getCheckedConditionsMap()).eMap()).basicRemove(otherEnd, msgs);
 			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__FAILED_CONDITIONS_MAP:
@@ -252,11 +272,9 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_CHECKED_DATA:
-				if (resolve) return getAggregatedCheckedData();
-				return basicGetAggregatedCheckedData();
+				return getAggregatedCheckedData();
 			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_FAILED_DATA:
-				if (resolve) return getAggregatedFailedData();
-				return basicGetAggregatedFailedData();
+				return getAggregatedFailedData();
 			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__CHECKED_CONDITIONS_MAP:
 				if (coreType) return ((EMap.InternalMapView<Actor, StatisticalData>)getCheckedConditionsMap()).eMap();
 				else return getCheckedConditionsMap();

@@ -90,6 +90,7 @@ import turnus.model.analysis.trace.impl.TracePackageImpl;
 import turnus.model.common.CommonPackage;
 
 import turnus.model.dataflow.DataflowPackage;
+import turnus.model.versioning.VersioningPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -280,7 +281,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link MapPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -294,25 +295,39 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		if (isInited) return (MapPackage)EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI);
 
 		// Obtain or create and register package
-		MapPackageImpl theMapPackage = (MapPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof MapPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new MapPackageImpl());
+		Object registeredMapPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		MapPackageImpl theMapPackage = registeredMapPackage instanceof MapPackageImpl ? (MapPackageImpl)registeredMapPackage : new MapPackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
+		CommonPackage.eINSTANCE.eClass();
 		DataflowPackage.eINSTANCE.eClass();
+		VersioningPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) instanceof AnalysisPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI) : AnalysisPackage.eINSTANCE);
-		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI) instanceof ProfilerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI) : ProfilerPackage.eINSTANCE);
-		TracePackageImpl theTracePackage = (TracePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI) instanceof TracePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI) : TracePackage.eINSTANCE);
-		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI) instanceof BottlenecksPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI) : BottlenecksPackage.eINSTANCE);
-		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI) instanceof BuffersPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI) : BuffersPackage.eINSTANCE);
-		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) instanceof PartitioningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI) : PartitioningPackage.eINSTANCE);
-		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) instanceof PipeliningPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI) : PipeliningPackage.eINSTANCE);
-		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) instanceof PostprocessingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI) : PostprocessingPackage.eINSTANCE);
-		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) instanceof ProfilingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI) : ProfilingPackage.eINSTANCE);
-		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) instanceof SchedulingPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI) : SchedulingPackage.eINSTANCE);
-		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) instanceof CaseoptimalPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI) : CaseoptimalPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
+		AnalysisPackageImpl theAnalysisPackage = (AnalysisPackageImpl)(registeredPackage instanceof AnalysisPackageImpl ? registeredPackage : AnalysisPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilerPackage.eNS_URI);
+		ProfilerPackageImpl theProfilerPackage = (ProfilerPackageImpl)(registeredPackage instanceof ProfilerPackageImpl ? registeredPackage : ProfilerPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(TracePackage.eNS_URI);
+		TracePackageImpl theTracePackage = (TracePackageImpl)(registeredPackage instanceof TracePackageImpl ? registeredPackage : TracePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BottlenecksPackage.eNS_URI);
+		BottlenecksPackageImpl theBottlenecksPackage = (BottlenecksPackageImpl)(registeredPackage instanceof BottlenecksPackageImpl ? registeredPackage : BottlenecksPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BuffersPackage.eNS_URI);
+		BuffersPackageImpl theBuffersPackage = (BuffersPackageImpl)(registeredPackage instanceof BuffersPackageImpl ? registeredPackage : BuffersPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI);
+		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl)(registeredPackage instanceof PartitioningPackageImpl ? registeredPackage : PartitioningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PipeliningPackage.eNS_URI);
+		PipeliningPackageImpl thePipeliningPackage = (PipeliningPackageImpl)(registeredPackage instanceof PipeliningPackageImpl ? registeredPackage : PipeliningPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI);
+		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(registeredPackage instanceof PostprocessingPackageImpl ? registeredPackage : PostprocessingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI);
+		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
+		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(registeredPackage instanceof SchedulingPackageImpl ? registeredPackage : SchedulingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI);
+		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(registeredPackage instanceof CaseoptimalPackageImpl ? registeredPackage : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theMapPackage.createPackageContents();
@@ -345,7 +360,6 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		// Mark meta-data to indicate it can't be changed
 		theMapPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(MapPackage.eNS_URI, theMapPackage);
 		return theMapPackage;
@@ -356,6 +370,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStringToIntegerMap() {
 		return stringToIntegerMapEClass;
 	}
@@ -365,6 +380,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStringToIntegerMap_Key() {
 		return (EAttribute)stringToIntegerMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -374,6 +390,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStringToIntegerMap_Value() {
 		return (EAttribute)stringToIntegerMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -383,6 +400,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActorToStatisticalDataMap() {
 		return actorToStatisticalDataMapEClass;
 	}
@@ -392,6 +410,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorToStatisticalDataMap_Key() {
 		return (EReference)actorToStatisticalDataMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -401,6 +420,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorToStatisticalDataMap_Value() {
 		return (EReference)actorToStatisticalDataMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -410,6 +430,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActionToStatisticalDataMap() {
 		return actionToStatisticalDataMapEClass;
 	}
@@ -419,6 +440,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionToStatisticalDataMap_Key() {
 		return (EReference)actionToStatisticalDataMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -428,6 +450,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionToStatisticalDataMap_Value() {
 		return (EReference)actionToStatisticalDataMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -437,6 +460,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBufferToStatisticalDataMap() {
 		return bufferToStatisticalDataMapEClass;
 	}
@@ -446,6 +470,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferToStatisticalDataMap_Key() {
 		return (EReference)bufferToStatisticalDataMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -455,6 +480,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferToStatisticalDataMap_Value() {
 		return (EReference)bufferToStatisticalDataMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -464,6 +490,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getProcedureToStatisticalDataMap() {
 		return procedureToStatisticalDataMapEClass;
 	}
@@ -473,6 +500,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getProcedureToStatisticalDataMap_Key() {
 		return (EReference)procedureToStatisticalDataMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -482,6 +510,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getProcedureToStatisticalDataMap_Value() {
 		return (EReference)procedureToStatisticalDataMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -491,6 +520,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getVariableToStatisticalDataMap() {
 		return variableToStatisticalDataMapEClass;
 	}
@@ -500,6 +530,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVariableToStatisticalDataMap_Key() {
 		return (EReference)variableToStatisticalDataMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -509,6 +540,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVariableToStatisticalDataMap_Value() {
 		return (EReference)variableToStatisticalDataMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -518,6 +550,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActorClassToStatisticalDataMap() {
 		return actorClassToStatisticalDataMapEClass;
 	}
@@ -527,6 +560,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorClassToStatisticalDataMap_Key() {
 		return (EReference)actorClassToStatisticalDataMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -536,6 +570,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorClassToStatisticalDataMap_Value() {
 		return (EReference)actorClassToStatisticalDataMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -545,6 +580,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEOperatorToStatisticalDataMap() {
 		return eOperatorToStatisticalDataMapEClass;
 	}
@@ -554,6 +590,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEOperatorToStatisticalDataMap_Key() {
 		return (EAttribute)eOperatorToStatisticalDataMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -563,6 +600,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEOperatorToStatisticalDataMap_Value() {
 		return (EReference)eOperatorToStatisticalDataMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -572,6 +610,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActionToLongMap() {
 		return actionToLongMapEClass;
 	}
@@ -581,6 +620,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionToLongMap_Key() {
 		return (EReference)actionToLongMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -590,6 +630,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionToLongMap_Value() {
 		return (EAttribute)actionToLongMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -599,6 +640,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActorToLongMap() {
 		return actorToLongMapEClass;
 	}
@@ -608,6 +650,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorToLongMap_Key() {
 		return (EReference)actorToLongMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -617,6 +660,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActorToLongMap_Value() {
 		return (EAttribute)actorToLongMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -626,6 +670,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBufferToLongMap() {
 		return bufferToLongMapEClass;
 	}
@@ -635,6 +680,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferToLongMap_Key() {
 		return (EReference)bufferToLongMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -644,6 +690,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBufferToLongMap_Value() {
 		return (EAttribute)bufferToLongMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -653,6 +700,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStringToLongMap() {
 		return stringToLongMapEClass;
 	}
@@ -662,6 +710,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStringToLongMap_Key() {
 		return (EAttribute)stringToLongMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -671,6 +720,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStringToLongMap_Value() {
 		return (EAttribute)stringToLongMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -680,6 +730,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDoubleToDoubleMap() {
 		return doubleToDoubleMapEClass;
 	}
@@ -689,6 +740,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDoubleToDoubleMap_Key() {
 		return (EAttribute)doubleToDoubleMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -698,6 +750,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDoubleToDoubleMap_Value() {
 		return (EAttribute)doubleToDoubleMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -707,6 +760,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getVariableToLongMap() {
 		return variableToLongMapEClass;
 	}
@@ -716,6 +770,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVariableToLongMap_Key() {
 		return (EReference)variableToLongMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -725,6 +780,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVariableToLongMap_Value() {
 		return (EAttribute)variableToLongMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -734,6 +790,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getGuardToLongMap() {
 		return guardToLongMapEClass;
 	}
@@ -743,6 +800,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getGuardToLongMap_Key() {
 		return (EReference)guardToLongMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -752,6 +810,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGuardToLongMap_Value() {
 		return (EAttribute)guardToLongMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -761,6 +820,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPortToLongMap() {
 		return portToLongMapEClass;
 	}
@@ -770,6 +830,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPortToLongMap_Key() {
 		return (EReference)portToLongMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -779,6 +840,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPortToLongMap_Value() {
 		return (EAttribute)portToLongMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -788,6 +850,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStringToDoubleMap() {
 		return stringToDoubleMapEClass;
 	}
@@ -797,6 +860,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStringToDoubleMap_Key() {
 		return (EAttribute)stringToDoubleMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -806,6 +870,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStringToDoubleMap_Value() {
 		return (EAttribute)stringToDoubleMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -815,6 +880,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActionToDoubleMap() {
 		return actionToDoubleMapEClass;
 	}
@@ -824,6 +890,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActionToDoubleMap_Key() {
 		return (EReference)actionToDoubleMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -833,6 +900,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActionToDoubleMap_Value() {
 		return (EAttribute)actionToDoubleMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -842,6 +910,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBufferToIntegerMap() {
 		return bufferToIntegerMapEClass;
 	}
@@ -851,6 +920,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferToIntegerMap_Key() {
 		return (EReference)bufferToIntegerMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -860,6 +930,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBufferToIntegerMap_Value() {
 		return (EAttribute)bufferToIntegerMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -869,6 +940,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBufferToDoubleMap() {
 		return bufferToDoubleMapEClass;
 	}
@@ -878,6 +950,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBufferToDoubleMap_Key() {
 		return (EReference)bufferToDoubleMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -887,6 +960,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBufferToDoubleMap_Value() {
 		return (EAttribute)bufferToDoubleMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -896,6 +970,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPartitionToActorSelectionScheduleMap() {
 		return partitionToActorSelectionScheduleMapEClass;
 	}
@@ -905,6 +980,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPartitionToActorSelectionScheduleMap_Key() {
 		return (EAttribute)partitionToActorSelectionScheduleMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -914,6 +990,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPartitionToActorSelectionScheduleMap_Value() {
 		return (EReference)partitionToActorSelectionScheduleMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -923,6 +1000,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStringToStringMap() {
 		return stringToStringMapEClass;
 	}
@@ -932,6 +1010,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStringToStringMap_Key() {
 		return (EAttribute)stringToStringMapEClass.getEStructuralFeatures().get(0);
 	}
@@ -941,6 +1020,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStringToStringMap_Value() {
 		return (EAttribute)stringToStringMapEClass.getEStructuralFeatures().get(1);
 	}
@@ -950,6 +1030,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MapFactory getMapFactory() {
 		return (MapFactory)getEFactoryInstance();
 	}

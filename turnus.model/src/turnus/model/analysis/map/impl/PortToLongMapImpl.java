@@ -248,7 +248,7 @@ public class PortToLongMapImpl extends MinimalEObjectImpl.Container implements B
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (value: ");
 		result.append(value);
 		result.append(')');
@@ -267,6 +267,7 @@ public class PortToLongMapImpl extends MinimalEObjectImpl.Container implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getHash() {
 		if (hash == -1) {
 			Object theKey = getKey();
@@ -280,6 +281,7 @@ public class PortToLongMapImpl extends MinimalEObjectImpl.Container implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHash(int hash) {
 		this.hash = hash;
 	}
@@ -289,6 +291,7 @@ public class PortToLongMapImpl extends MinimalEObjectImpl.Container implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Port getKey() {
 		return getTypedKey();
 	}
@@ -298,6 +301,7 @@ public class PortToLongMapImpl extends MinimalEObjectImpl.Container implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKey(Port key) {
 		setTypedKey(key);
 	}
@@ -307,6 +311,7 @@ public class PortToLongMapImpl extends MinimalEObjectImpl.Container implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Long getValue() {
 		return getTypedValue();
 	}
@@ -316,6 +321,7 @@ public class PortToLongMapImpl extends MinimalEObjectImpl.Container implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Long setValue(Long value) {
 		Long oldValue = getValue();
 		setTypedValue(value);

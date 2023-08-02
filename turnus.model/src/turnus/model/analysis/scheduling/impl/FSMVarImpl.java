@@ -139,6 +139,7 @@ public class FSMVarImpl extends MinimalEObjectImpl.Container implements FSMVar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -148,6 +149,7 @@ public class FSMVarImpl extends MinimalEObjectImpl.Container implements FSMVar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -160,6 +162,7 @@ public class FSMVarImpl extends MinimalEObjectImpl.Container implements FSMVar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getInitialVal() {
 		return initialVal;
 	}
@@ -169,6 +172,7 @@ public class FSMVarImpl extends MinimalEObjectImpl.Container implements FSMVar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitialVal(String newInitialVal) {
 		String oldInitialVal = initialVal;
 		initialVal = newInitialVal;
@@ -181,6 +185,7 @@ public class FSMVarImpl extends MinimalEObjectImpl.Container implements FSMVar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getType() {
 		return type;
 	}
@@ -190,6 +195,7 @@ public class FSMVarImpl extends MinimalEObjectImpl.Container implements FSMVar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(String newType) {
 		String oldType = type;
 		type = newType;
@@ -285,7 +291,7 @@ public class FSMVarImpl extends MinimalEObjectImpl.Container implements FSMVar {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(", initialVal: ");

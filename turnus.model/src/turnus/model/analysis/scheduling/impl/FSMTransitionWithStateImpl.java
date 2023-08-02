@@ -99,6 +99,7 @@ public class FSMTransitionWithStateImpl extends FSMTransitionImpl implements FSM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, Integer> getVarStates() {
 		if (varStates == null) {
 			varStates = new EcoreEMap<String,Integer>(MapPackage.Literals.STRING_TO_INTEGER_MAP, StringToIntegerMapImpl.class, this, SchedulingPackage.FSM_TRANSITION_WITH_STATE__VAR_STATES);

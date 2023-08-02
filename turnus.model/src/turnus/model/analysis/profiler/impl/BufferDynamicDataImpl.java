@@ -218,6 +218,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Buffer getBuffer() {
 		if (buffer != null && buffer.eIsProxy()) {
 			InternalEObject oldBuffer = (InternalEObject)buffer;
@@ -244,6 +245,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBuffer(Buffer newBuffer) {
 		Buffer oldBuffer = buffer;
 		buffer = newBuffer;
@@ -256,6 +258,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData getReads() {
 		return reads;
 	}
@@ -280,6 +283,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReads(StatisticalData newReads) {
 		if (newReads != reads) {
 			NotificationChain msgs = null;
@@ -299,6 +303,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData getWrites() {
 		return writes;
 	}
@@ -323,6 +328,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWrites(StatisticalData newWrites) {
 		if (newWrites != writes) {
 			NotificationChain msgs = null;
@@ -342,6 +348,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatisticalData getOccupancy() {
 		return occupancy;
 	}
@@ -366,6 +373,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOccupancy(StatisticalData newOccupancy) {
 		if (newOccupancy != occupancy) {
 			NotificationChain msgs = null;
@@ -385,6 +393,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, StatisticalData> getActionReads() {
 		if (actionReads == null) {
 			actionReads = new EcoreEMap<Action,StatisticalData>(MapPackage.Literals.ACTION_TO_STATISTICAL_DATA_MAP, ActionToStatisticalDataMapImpl.class, this, ProfilerPackage.BUFFER_DYNAMIC_DATA__ACTION_READS);
@@ -397,6 +406,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, StatisticalData> getActionWrites() {
 		if (actionWrites == null) {
 			actionWrites = new EcoreEMap<Action,StatisticalData>(MapPackage.Literals.ACTION_TO_STATISTICAL_DATA_MAP, ActionToStatisticalDataMapImpl.class, this, ProfilerPackage.BUFFER_DYNAMIC_DATA__ACTION_WRITES);
@@ -409,6 +419,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Long> getActionPeeks() {
 		if (actionPeeks == null) {
 			actionPeeks = new EcoreEMap<Action,Long>(MapPackage.Literals.ACTION_TO_LONG_MAP, ActionToLongMapImpl.class, this, ProfilerPackage.BUFFER_DYNAMIC_DATA__ACTION_PEEKS);
@@ -421,6 +432,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Long> getActionReadMisses() {
 		if (actionReadMisses == null) {
 			actionReadMisses = new EcoreEMap<Action,Long>(MapPackage.Literals.ACTION_TO_LONG_MAP, ActionToLongMapImpl.class, this, ProfilerPackage.BUFFER_DYNAMIC_DATA__ACTION_READ_MISSES);
@@ -433,6 +445,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Long> getActionWriteMisses() {
 		if (actionWriteMisses == null) {
 			actionWriteMisses = new EcoreEMap<Action,Long>(MapPackage.Literals.ACTION_TO_LONG_MAP, ActionToLongMapImpl.class, this, ProfilerPackage.BUFFER_DYNAMIC_DATA__ACTION_WRITE_MISSES);
@@ -445,6 +458,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getUnconsumedTokens() {
 		return unconsumedTokens;
 	}
@@ -454,6 +468,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUnconsumedTokens(int newUnconsumedTokens) {
 		int oldUnconsumedTokens = unconsumedTokens;
 		unconsumedTokens = newUnconsumedTokens;
@@ -652,7 +667,7 @@ public class BufferDynamicDataImpl extends MinimalEObjectImpl.Container implemen
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (unconsumedTokens: ");
 		result.append(unconsumedTokens);
 		result.append(')');

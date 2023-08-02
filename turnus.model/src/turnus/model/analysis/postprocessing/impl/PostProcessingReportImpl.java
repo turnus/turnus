@@ -181,6 +181,7 @@ public class PostProcessingReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -189,6 +190,7 @@ public class PostProcessingReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -200,6 +202,7 @@ public class PostProcessingReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -208,6 +211,7 @@ public class PostProcessingReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -219,6 +223,7 @@ public class PostProcessingReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -243,6 +248,7 @@ public class PostProcessingReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -254,6 +260,7 @@ public class PostProcessingReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getTime() {
 		return time;
 	}
@@ -262,6 +269,7 @@ public class PostProcessingReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTime(double newTime) {
 		double oldTime = time;
 		time = newTime;
@@ -273,6 +281,7 @@ public class PostProcessingReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isDeadlock() {
 		return deadlock;
 	}
@@ -281,6 +290,7 @@ public class PostProcessingReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDeadlock(boolean newDeadlock) {
 		boolean oldDeadlock = deadlock;
 		deadlock = newDeadlock;
@@ -292,6 +302,7 @@ public class PostProcessingReportImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PostProcessingData> getReports() {
 		if (reports == null) {
 			reports = new EObjectResolvingEList<PostProcessingData>(PostProcessingData.class, this, PostprocessingPackage.POST_PROCESSING_REPORT__REPORTS);

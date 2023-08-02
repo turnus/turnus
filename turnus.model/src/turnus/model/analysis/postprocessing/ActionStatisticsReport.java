@@ -36,6 +36,7 @@ import java.util.Map;
 
 import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
+import turnus.model.dataflow.Network;
 
 /**
  * <!-- begin-user-doc -->
@@ -58,6 +59,7 @@ import turnus.model.dataflow.Actor;
  *   <li>{@link turnus.model.analysis.postprocessing.ActionStatisticsReport#getBlockedWritingMaxTimes <em>Blocked Writing Max Times</em>}</li>
  *   <li>{@link turnus.model.analysis.postprocessing.ActionStatisticsReport#getProcessingTimes <em>Processing Times</em>}</li>
  *   <li>{@link turnus.model.analysis.postprocessing.ActionStatisticsReport#getExecutionCounts <em>Execution Counts</em>}</li>
+ *   <li>{@link turnus.model.analysis.postprocessing.ActionStatisticsReport#getNetwork <em>Network</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport()
@@ -93,7 +95,7 @@ public interface ActionStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Idle Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport_IdleTimes()
-	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Double> getIdleTimes();
@@ -110,7 +112,7 @@ public interface ActionStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Idle Min Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport_IdleMinTimes()
-	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Double> getIdleMinTimes();
@@ -127,7 +129,7 @@ public interface ActionStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Idle Max Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport_IdleMaxTimes()
-	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Double> getIdleMaxTimes();
@@ -144,7 +146,7 @@ public interface ActionStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Blocked Reading Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport_BlockedReadingTimes()
-	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Double> getBlockedReadingTimes();
@@ -161,7 +163,7 @@ public interface ActionStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Blocked Reading Min Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport_BlockedReadingMinTimes()
-	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Double> getBlockedReadingMinTimes();
@@ -178,7 +180,7 @@ public interface ActionStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Blocked Reading Max Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport_BlockedReadingMaxTimes()
-	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Double> getBlockedReadingMaxTimes();
@@ -195,7 +197,7 @@ public interface ActionStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Blocked Writing Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport_BlockedWritingTimes()
-	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Double> getBlockedWritingTimes();
@@ -212,7 +214,7 @@ public interface ActionStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Blocked Writing Min Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport_BlockedWritingMinTimes()
-	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Double> getBlockedWritingMinTimes();
@@ -229,7 +231,7 @@ public interface ActionStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Blocked Writing Max Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport_BlockedWritingMaxTimes()
-	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Double> getBlockedWritingMaxTimes();
@@ -246,7 +248,7 @@ public interface ActionStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Processing Times</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport_ProcessingTimes()
-	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToDoubleMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.EDoubleObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Double> getProcessingTimes();
@@ -263,9 +265,31 @@ public interface ActionStatisticsReport extends PostProcessingData {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Execution Counts</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport_ExecutionCounts()
-	 * @model mapType="turnus.model.analysis.map.ActionToLongMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToLongMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Long> getExecutionCounts();
+
+	/**
+	 * Returns the value of the '<em><b>Network</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Network</em>' reference.
+	 * @see #setNetwork(Network)
+	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActionStatisticsReport_Network()
+	 * @model
+	 * @generated
+	 */
+	Network getNetwork();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.postprocessing.ActionStatisticsReport#getNetwork <em>Network</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Network</em>' reference.
+	 * @see #getNetwork()
+	 * @generated
+	 */
+	void setNetwork(Network value);
 
 } // ActionStatisticsReport

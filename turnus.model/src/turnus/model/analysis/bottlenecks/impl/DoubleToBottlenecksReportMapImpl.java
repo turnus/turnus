@@ -266,7 +266,7 @@ public class DoubleToBottlenecksReportMapImpl extends MinimalEObjectImpl.Contain
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (key: ");
 		result.append(key);
 		result.append(')');
@@ -285,6 +285,7 @@ public class DoubleToBottlenecksReportMapImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getHash() {
 		if (hash == -1) {
 			Object theKey = getKey();
@@ -298,6 +299,7 @@ public class DoubleToBottlenecksReportMapImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHash(int hash) {
 		this.hash = hash;
 	}
@@ -307,6 +309,7 @@ public class DoubleToBottlenecksReportMapImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Double getKey() {
 		return getTypedKey();
 	}
@@ -316,6 +319,7 @@ public class DoubleToBottlenecksReportMapImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKey(Double key) {
 		setTypedKey(key);
 	}
@@ -325,6 +329,7 @@ public class DoubleToBottlenecksReportMapImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BottlenecksReport getValue() {
 		return getTypedValue();
 	}
@@ -334,6 +339,7 @@ public class DoubleToBottlenecksReportMapImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BottlenecksReport setValue(BottlenecksReport value) {
 		BottlenecksReport oldValue = getValue();
 		setTypedValue(value);

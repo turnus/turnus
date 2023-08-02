@@ -169,6 +169,7 @@ public class ActorFireImpl extends ActorSelectionScheduleImpl implements ActorFi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getActor() {
 		return actor;
 	}
@@ -214,6 +215,7 @@ public class ActorFireImpl extends ActorSelectionScheduleImpl implements ActorFi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActor(String newActor) {
 		String oldActor = actor;
 		actor = newActor;
@@ -226,6 +228,7 @@ public class ActorFireImpl extends ActorSelectionScheduleImpl implements ActorFi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getTimes() {
 		return times;
 	}
@@ -235,6 +238,7 @@ public class ActorFireImpl extends ActorSelectionScheduleImpl implements ActorFi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTimes(int newTimes) {
 		int oldTimes = times;
 		times = newTimes;
@@ -247,6 +251,7 @@ public class ActorFireImpl extends ActorSelectionScheduleImpl implements ActorFi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Integer getPartition() {
 		return partition;
 	}
@@ -256,6 +261,7 @@ public class ActorFireImpl extends ActorSelectionScheduleImpl implements ActorFi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPartition(Integer newPartition) {
 		Integer oldPartition = partition;
 		partition = newPartition;
@@ -268,6 +274,7 @@ public class ActorFireImpl extends ActorSelectionScheduleImpl implements ActorFi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Integer> getDependencyPartitions() {
 		if (dependencyPartitions == null) {
 			dependencyPartitions = new EDataTypeUniqueEList<Integer>(Integer.class, this, SchedulingPackage.ACTOR_FIRE__DEPENDENCY_PARTITIONS);
@@ -374,7 +381,7 @@ public class ActorFireImpl extends ActorSelectionScheduleImpl implements ActorFi
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (Actor: ");
 		result.append(actor);
 		result.append(", Times: ");

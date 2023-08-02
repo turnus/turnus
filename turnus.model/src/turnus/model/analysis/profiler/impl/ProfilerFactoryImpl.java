@@ -118,6 +118,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CodeProfilingReport createCodeProfilingReport() {
 		CodeProfilingReportImpl codeProfilingReport = new CodeProfilingReportImpl();
 		return codeProfilingReport;
@@ -128,6 +129,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CodeData createCodeData() {
 		CodeDataImpl codeData = new CodeDataImpl();
 		return codeData;
@@ -138,6 +140,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComplexCodeData createComplexCodeData() {
 		ComplexCodeDataImpl complexCodeData = new ComplexCodeDataImpl();
 		return complexCodeData;
@@ -148,6 +151,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DynamicProfilingReport createDynamicProfilingReport() {
 		DynamicProfilingReportImpl dynamicProfilingReport = new DynamicProfilingReportImpl();
 		return dynamicProfilingReport;
@@ -158,6 +162,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActorDynamicData createActorDynamicData() {
 		ActorDynamicDataImpl actorDynamicData = new ActorDynamicDataImpl();
 		return actorDynamicData;
@@ -168,6 +173,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActionDynamicData createActionDynamicData() {
 		ActionDynamicDataImpl actionDynamicData = new ActionDynamicDataImpl();
 		return actionDynamicData;
@@ -178,6 +184,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BufferDynamicData createBufferDynamicData() {
 		BufferDynamicDataImpl bufferDynamicData = new BufferDynamicDataImpl();
 		return bufferDynamicData;
@@ -188,6 +195,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComplexDynamicData createComplexDynamicData() {
 		ComplexDynamicDataImpl complexDynamicData = new ComplexDynamicDataImpl();
 		return complexDynamicData;
@@ -208,6 +216,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MemoryProfilingReport createMemoryProfilingReport() {
 		MemoryProfilingReportImpl memoryProfilingReport = new MemoryProfilingReportImpl();
 		return memoryProfilingReport;
@@ -218,6 +227,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActionMemoryProfilingData createActionMemoryProfilingData() {
 		ActionMemoryProfilingDataImpl actionMemoryProfilingData = new ActionMemoryProfilingDataImpl();
 		return actionMemoryProfilingData;
@@ -228,6 +238,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BufferAccessData createBufferAccessData() {
 		BufferAccessDataImpl bufferAccessData = new BufferAccessDataImpl();
 		return bufferAccessData;
@@ -238,6 +249,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StateVariableAccessData createStateVariableAccessData() {
 		StateVariableAccessDataImpl stateVariableAccessData = new StateVariableAccessDataImpl();
 		return stateVariableAccessData;
@@ -248,6 +260,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LocalVariableAccessData createLocalVariableAccessData() {
 		LocalVariableAccessDataImpl localVariableAccessData = new LocalVariableAccessDataImpl();
 		return localVariableAccessData;
@@ -258,6 +271,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SharedVariableAccessData createSharedVariableAccessData() {
 		SharedVariableAccessDataImpl sharedVariableAccessData = new SharedVariableAccessDataImpl();
 		return sharedVariableAccessData;
@@ -268,6 +282,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AccessData createAccessData() {
 		AccessDataImpl accessData = new AccessDataImpl();
 		return accessData;
@@ -288,6 +303,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BenchmarkReport createBenchmarkReport() {
 		BenchmarkReportImpl benchmarkReport = new BenchmarkReportImpl();
 		return benchmarkReport;
@@ -298,6 +314,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TableRow createTableRow() {
 		TableRowImpl tableRow = new TableRowImpl();
 		return tableRow;
@@ -308,6 +325,7 @@ public class ProfilerFactoryImpl extends EFactoryImpl implements ProfilerFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProfilerPackage getProfilerPackage() {
 		return (ProfilerPackage)getEPackage();
 	}

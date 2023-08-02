@@ -153,6 +153,7 @@ public class ComparedTraceImpl extends MinimalEObjectImpl.Container implements C
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompressedTraceReport getCompressedTrace() {
 		return compressedTrace;
 	}
@@ -175,6 +176,7 @@ public class ComparedTraceImpl extends MinimalEObjectImpl.Container implements C
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCompressedTrace(CompressedTraceReport newCompressedTrace) {
 		if (newCompressedTrace != compressedTrace) {
 			NotificationChain msgs = null;
@@ -219,6 +221,7 @@ public class ComparedTraceImpl extends MinimalEObjectImpl.Container implements C
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Action> getContainedReferenceActions() {
 		if (containedReferenceActions == null) {
 			containedReferenceActions = new EObjectResolvingEList<Action>(Action.class, this, TracePackage.COMPARED_TRACE__CONTAINED_REFERENCE_ACTIONS);
@@ -230,6 +233,7 @@ public class ComparedTraceImpl extends MinimalEObjectImpl.Container implements C
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ComparedAction> getActions() {
 		if (actions == null) {
 			actions = new EObjectContainmentEList<ComparedAction>(ComparedAction.class, this, TracePackage.COMPARED_TRACE__ACTIONS);

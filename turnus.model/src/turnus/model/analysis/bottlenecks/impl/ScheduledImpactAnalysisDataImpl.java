@@ -143,6 +143,7 @@ public class ScheduledImpactAnalysisDataImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Action> getActions() {
 		if (actions == null) {
 			actions = new EObjectResolvingEList<Action>(Action.class, this, BottlenecksPackage.SCHEDULED_IMPACT_ANALYSIS_DATA__ACTIONS);
@@ -164,6 +165,7 @@ public class ScheduledImpactAnalysisDataImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Double, Double> getCpReductionMap() {
 		if (cpReductionMap == null) {
 			cpReductionMap = new EcoreEMap<Double,Double>(MapPackage.Literals.DOUBLE_TO_DOUBLE_MAP, DoubleToDoubleMapImpl.class, this, BottlenecksPackage.SCHEDULED_IMPACT_ANALYSIS_DATA__CP_REDUCTION_MAP);
@@ -176,6 +178,7 @@ public class ScheduledImpactAnalysisDataImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Double, Double> getTimeReductionMap() {
 		if (timeReductionMap == null) {
 			timeReductionMap = new EcoreEMap<Double,Double>(MapPackage.Literals.DOUBLE_TO_DOUBLE_MAP, DoubleToDoubleMapImpl.class, this, BottlenecksPackage.SCHEDULED_IMPACT_ANALYSIS_DATA__TIME_REDUCTION_MAP);
@@ -188,6 +191,7 @@ public class ScheduledImpactAnalysisDataImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Double, BottlenecksWithSchedulingReport> getReportsMap() {
 		if (reportsMap == null) {
 			reportsMap = new EcoreEMap<Double,BottlenecksWithSchedulingReport>(BottlenecksPackage.Literals.DOUBLE_TO_BOTTLENECKS_WITH_SCHEDULING_REPORT_MAP, DoubleToBottlenecksWithSchedulingReportMapImpl.class, this, BottlenecksPackage.SCHEDULED_IMPACT_ANALYSIS_DATA__REPORTS_MAP);

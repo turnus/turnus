@@ -65,7 +65,7 @@ public interface CompressedPortDependency extends CompressedDependency {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Read Map</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getCompressedPortDependency_ReadMap()
-	 * @model mapType="turnus.model.analysis.map.PortToLongMap<turnus.model.dataflow.Port, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.PortToLongMap&lt;turnus.model.dataflow.Port, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Port, Long> getReadMap();
@@ -82,7 +82,7 @@ public interface CompressedPortDependency extends CompressedDependency {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Write Map</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getCompressedPortDependency_WriteMap()
-	 * @model mapType="turnus.model.analysis.map.PortToLongMap<turnus.model.dataflow.Port, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.PortToLongMap&lt;turnus.model.dataflow.Port, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Port, Long> getWriteMap();

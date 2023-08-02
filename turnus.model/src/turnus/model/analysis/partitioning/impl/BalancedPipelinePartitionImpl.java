@@ -161,6 +161,7 @@ public class BalancedPipelinePartitionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Actor> getActors() {
 		if (actors == null) {
 			actors = new EObjectResolvingEList<Actor>(Actor.class, this, PartitioningPackage.BALANCED_PIPELINE_PARTITION__ACTORS);
@@ -173,6 +174,7 @@ public class BalancedPipelinePartitionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getWorkload() {
 		return workload;
 	}
@@ -182,6 +184,7 @@ public class BalancedPipelinePartitionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWorkload(double newWorkload) {
 		double oldWorkload = workload;
 		workload = newWorkload;
@@ -194,6 +197,7 @@ public class BalancedPipelinePartitionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getPreWorkload() {
 		return preWorkload;
 	}
@@ -203,6 +207,7 @@ public class BalancedPipelinePartitionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPreWorkload(double newPreWorkload) {
 		double oldPreWorkload = preWorkload;
 		preWorkload = newPreWorkload;
@@ -215,6 +220,7 @@ public class BalancedPipelinePartitionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getCommonPredAvg() {
 		return commonPredAvg;
 	}
@@ -224,6 +230,7 @@ public class BalancedPipelinePartitionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCommonPredAvg(double newCommonPredAvg) {
 		double oldCommonPredAvg = commonPredAvg;
 		commonPredAvg = newCommonPredAvg;
@@ -330,7 +337,7 @@ public class BalancedPipelinePartitionImpl extends MinimalEObjectImpl.Container 
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (workload: ");
 		result.append(workload);
 		result.append(", preWorkload: ");

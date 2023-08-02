@@ -67,7 +67,7 @@ public interface CodeData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Operators Count</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getCodeData_OperatorsCount()
-	 * @model mapType="turnus.model.analysis.map.StringToIntegerMap<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EIntegerObject>"
+	 * @model mapType="turnus.model.analysis.map.StringToIntegerMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EIntegerObject&gt;"
 	 * @generated
 	 */
 	Map<String, Integer> getOperatorsCount();
@@ -84,7 +84,7 @@ public interface CodeData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Operands Count</em>' map.
 	 * @see turnus.model.analysis.profiler.ProfilerPackage#getCodeData_OperandsCount()
-	 * @model mapType="turnus.model.analysis.map.StringToIntegerMap<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EIntegerObject>"
+	 * @model mapType="turnus.model.analysis.map.StringToIntegerMap&lt;org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EIntegerObject&gt;"
 	 * @generated
 	 */
 	Map<String, Integer> getOperandsCount();

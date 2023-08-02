@@ -121,7 +121,7 @@ public interface MarkovModelActionData extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Successors Map</em>' map.
 	 * @see turnus.model.analysis.trace.TracePackage#getMarkovModelActionData_SuccessorsMap()
-	 * @model mapType="turnus.model.analysis.map.ActionToLongMap<turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject>"
+	 * @model mapType="turnus.model.analysis.map.ActionToLongMap&lt;turnus.model.dataflow.Action, org.eclipse.emf.ecore.ELongObject&gt;"
 	 * @generated
 	 */
 	Map<Action, Long> getSuccessorsMap();

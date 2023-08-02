@@ -254,6 +254,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -262,6 +263,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -273,6 +275,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -281,6 +284,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -292,6 +296,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Long> getActionsFirings() {
 		if (actionsFirings == null) {
 			actionsFirings = new EcoreEMap<Action,Long>(MapPackage.Literals.ACTION_TO_LONG_MAP, ActionToLongMapImpl.class, this, TracePackage.TRACE_SIZE_REPORT__ACTIONS_FIRINGS);
@@ -303,6 +308,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Long> getActionsIncomings() {
 		if (actionsIncomings == null) {
 			actionsIncomings = new EcoreEMap<Action,Long>(MapPackage.Literals.ACTION_TO_LONG_MAP, ActionToLongMapImpl.class, this, TracePackage.TRACE_SIZE_REPORT__ACTIONS_INCOMINGS);
@@ -314,6 +320,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Action, Long> getActionsOutgoings() {
 		if (actionsOutgoings == null) {
 			actionsOutgoings = new EcoreEMap<Action,Long>(MapPackage.Literals.ACTION_TO_LONG_MAP, ActionToLongMapImpl.class, this, TracePackage.TRACE_SIZE_REPORT__ACTIONS_OUTGOINGS);
@@ -325,6 +332,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Actor, Long> getActorsFirings() {
 		if (actorsFirings == null) {
 			actorsFirings = new EcoreEMap<Actor,Long>(MapPackage.Literals.ACTOR_TO_LONG_MAP, ActorToLongMapImpl.class, this, TracePackage.TRACE_SIZE_REPORT__ACTORS_FIRINGS);
@@ -336,6 +344,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Actor, Long> getActorsIncoming() {
 		if (actorsIncoming == null) {
 			actorsIncoming = new EcoreEMap<Actor,Long>(MapPackage.Literals.ACTOR_TO_LONG_MAP, ActorToLongMapImpl.class, this, TracePackage.TRACE_SIZE_REPORT__ACTORS_INCOMING);
@@ -347,6 +356,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<Actor, Long> getActorsOutgoings() {
 		if (actorsOutgoings == null) {
 			actorsOutgoings = new EcoreEMap<Actor,Long>(MapPackage.Literals.ACTOR_TO_LONG_MAP, ActorToLongMapImpl.class, this, TracePackage.TRACE_SIZE_REPORT__ACTORS_OUTGOINGS);
@@ -358,6 +368,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getFirings() {
 		return firings;
 	}
@@ -366,6 +377,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFirings(long newFirings) {
 		long oldFirings = firings;
 		firings = newFirings;
@@ -377,6 +389,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getDependencies() {
 		return dependencies;
 	}
@@ -385,6 +398,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDependencies(long newDependencies) {
 		long oldDependencies = dependencies;
 		dependencies = newDependencies;
@@ -396,6 +410,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, Long> getDependenciesKinds() {
 		if (dependenciesKinds == null) {
 			dependenciesKinds = new EcoreEMap<String,Long>(MapPackage.Literals.STRING_TO_LONG_MAP, StringToLongMapImpl.class, this, TracePackage.TRACE_SIZE_REPORT__DEPENDENCIES_KINDS);
@@ -407,6 +422,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -431,6 +447,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;
@@ -643,7 +660,7 @@ public class TraceSizeReportImpl extends MinimalEObjectImpl.Container implements
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (algorithm: ");
 		result.append(algorithm);
 		result.append(", date: ");

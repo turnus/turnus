@@ -151,6 +151,7 @@ public class MarkovSimpleSchedulerReportImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -160,6 +161,7 @@ public class MarkovSimpleSchedulerReportImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -172,6 +174,7 @@ public class MarkovSimpleSchedulerReportImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -181,6 +184,7 @@ public class MarkovSimpleSchedulerReportImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -193,6 +197,7 @@ public class MarkovSimpleSchedulerReportImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MarkovPartitionScheduler> getPartitions() {
 		if (partitions == null) {
 			partitions = new EObjectContainmentEList<MarkovPartitionScheduler>(MarkovPartitionScheduler.class, this, SchedulingPackage.MARKOV_SIMPLE_SCHEDULER_REPORT__PARTITIONS);
@@ -205,6 +210,7 @@ public class MarkovSimpleSchedulerReportImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network getNetwork() {
 		if (network != null && network.eIsProxy()) {
 			InternalEObject oldNetwork = (InternalEObject)network;
@@ -231,6 +237,7 @@ public class MarkovSimpleSchedulerReportImpl extends MinimalEObjectImpl.Containe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNetwork(Network newNetwork) {
 		Network oldNetwork = network;
 		network = newNetwork;

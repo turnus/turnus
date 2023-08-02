@@ -106,6 +106,7 @@ public class BottlenecksFactoryImpl extends EFactoryImpl implements BottlenecksF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BottlenecksReport createBottlenecksReport() {
 		BottlenecksReportImpl bottlenecksReport = new BottlenecksReportImpl();
 		return bottlenecksReport;
@@ -116,6 +117,7 @@ public class BottlenecksFactoryImpl extends EFactoryImpl implements BottlenecksF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActionBottlenecksData createActionBottlenecksData() {
 		ActionBottlenecksDataImpl actionBottlenecksData = new ActionBottlenecksDataImpl();
 		return actionBottlenecksData;
@@ -126,6 +128,7 @@ public class BottlenecksFactoryImpl extends EFactoryImpl implements BottlenecksF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ImpactAnalysisReport createImpactAnalysisReport() {
 		ImpactAnalysisReportImpl impactAnalysisReport = new ImpactAnalysisReportImpl();
 		return impactAnalysisReport;
@@ -136,6 +139,7 @@ public class BottlenecksFactoryImpl extends EFactoryImpl implements BottlenecksF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ImpactAnalysisData createImpactAnalysisData() {
 		ImpactAnalysisDataImpl impactAnalysisData = new ImpactAnalysisDataImpl();
 		return impactAnalysisData;
@@ -156,6 +160,7 @@ public class BottlenecksFactoryImpl extends EFactoryImpl implements BottlenecksF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BottlenecksWithSchedulingReport createBottlenecksWithSchedulingReport() {
 		BottlenecksWithSchedulingReportImpl bottlenecksWithSchedulingReport = new BottlenecksWithSchedulingReportImpl();
 		return bottlenecksWithSchedulingReport;
@@ -166,6 +171,7 @@ public class BottlenecksFactoryImpl extends EFactoryImpl implements BottlenecksF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActionBottlenecksWithSchedulingData createActionBottlenecksWithSchedulingData() {
 		ActionBottlenecksWithSchedulingDataImpl actionBottlenecksWithSchedulingData = new ActionBottlenecksWithSchedulingDataImpl();
 		return actionBottlenecksWithSchedulingData;
@@ -176,6 +182,7 @@ public class BottlenecksFactoryImpl extends EFactoryImpl implements BottlenecksF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ScheduledImpactAnalysisData createScheduledImpactAnalysisData() {
 		ScheduledImpactAnalysisDataImpl scheduledImpactAnalysisData = new ScheduledImpactAnalysisDataImpl();
 		return scheduledImpactAnalysisData;
@@ -196,6 +203,7 @@ public class BottlenecksFactoryImpl extends EFactoryImpl implements BottlenecksF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ScheduledImpactAnalysisReport createScheduledImpactAnalysisReport() {
 		ScheduledImpactAnalysisReportImpl scheduledImpactAnalysisReport = new ScheduledImpactAnalysisReportImpl();
 		return scheduledImpactAnalysisReport;
@@ -206,6 +214,7 @@ public class BottlenecksFactoryImpl extends EFactoryImpl implements BottlenecksF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BottlenecksPackage getBottlenecksPackage() {
 		return (BottlenecksPackage)getEPackage();
 	}

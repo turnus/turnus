@@ -140,6 +140,7 @@ public class FSMOperationImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FSMOp getOp() {
 		return op;
 	}
@@ -149,6 +150,7 @@ public class FSMOperationImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOp(FSMOp newOp) {
 		FSMOp oldOp = op;
 		op = newOp == null ? OP_EDEFAULT : newOp;
@@ -161,6 +163,7 @@ public class FSMOperationImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Integer getVal() {
 		return val;
 	}
@@ -170,6 +173,7 @@ public class FSMOperationImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVal(Integer newVal) {
 		Integer oldVal = val;
 		val = newVal;
@@ -182,6 +186,7 @@ public class FSMOperationImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVar() {
 		return var;
 	}
@@ -191,6 +196,7 @@ public class FSMOperationImpl extends MinimalEObjectImpl.Container implements FS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVar(String newVar) {
 		String oldVar = var;
 		var = newVar;
@@ -285,7 +291,7 @@ public class FSMOperationImpl extends MinimalEObjectImpl.Container implements FS
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (op: ");
 		result.append(op);
 		result.append(", val: ");

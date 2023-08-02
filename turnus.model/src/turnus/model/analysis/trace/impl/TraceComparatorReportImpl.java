@@ -143,6 +143,7 @@ public class TraceComparatorReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlgorithm() {
 		return algorithm;
 	}
@@ -151,6 +152,7 @@ public class TraceComparatorReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlgorithm(String newAlgorithm) {
 		String oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
@@ -162,6 +164,7 @@ public class TraceComparatorReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -170,6 +173,7 @@ public class TraceComparatorReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDate(Date newDate) {
 		Date oldDate = date;
 		date = newDate;
@@ -181,6 +185,7 @@ public class TraceComparatorReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompressedTraceReport getReference() {
 		return reference;
 	}
@@ -203,6 +208,7 @@ public class TraceComparatorReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReference(CompressedTraceReport newReference) {
 		if (newReference != reference) {
 			NotificationChain msgs = null;
@@ -221,6 +227,7 @@ public class TraceComparatorReportImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ComparedTrace> getTraces() {
 		if (traces == null) {
 			traces = new EObjectContainmentEList<ComparedTrace>(ComparedTrace.class, this, TracePackage.TRACE_COMPARATOR_REPORT__TRACES);

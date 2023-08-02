@@ -1,3 +1,34 @@
+/* 
+ * TURNUS - www.turnus.co
+ * 
+ * Copyright (C) Endri Bezati
+ *
+ * This file is part of TURNUS.
+ *
+ * TURNUS is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TURNUS is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TURNUS.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * Additional permission under GNU GPL version 3 section 7
+ * 
+ * If you modify this Program, or any covered work, by linking or combining it
+ * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or 
+ * an Eclipse library), containing parts covered by the terms of the 
+ * Eclipse Public License (EPL), the licensors of this Program grant you 
+ * additional permission to convey the resulting work.  Corresponding Source 
+ * for a non-source form of such a combination shall include the source code 
+ * for the parts of Eclipse libraries used as well as that of the  covered work.
+ * 
+ */
 package turnus.model.analysis.postprocessing.io;
 
 import java.io.File;
@@ -28,7 +59,7 @@ public class ActorStatistics2MdExporter implements FileExporter<ActorStatisticsR
 			throw new TurnusException("The input file \"" + input + "\" is not a valid analysis file");
 		}
 		export(data, output);
-		
+
 	}
 
 	@Override
@@ -39,39 +70,40 @@ public class ActorStatistics2MdExporter implements FileExporter<ActorStatisticsR
 
 			// -- Title
 			b.append("# Post Processing - Actor Statistics report");
-			// b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
 			b.append("\n");
 			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
 			b.append(String.format("* **Number of partitions**: %s\n", data.getPartitions().size()));
 			b.append(String.format("* **Execution Time**: %f\n", data.getExecutionTime()));
-			b.append(String.format("* **Average occupancy**: %.2f", data.getAverageOccupancy())+"%\n");
-			b.append(String.format("* **Standard deviation of occupancy**: %.2f", data.getOccupancyDeviation())+"%\n");
+			b.append(String.format("* **Average occupancy**: %.2f", data.getAverageOccupancy()) + "%\n");
+			b.append(
+					String.format("* **Standard deviation of occupancy**: %.2f", data.getOccupancyDeviation()) + "%\n");
 			b.append("\n");
-			
+
 			int pNumber = 1;
 			for (StatisticalActorPartition partition : data.getPartitions()) {
-				b.append(String.format("\n Partition (%d):\n", pNumber++));
-				b.append(String.format("\t occupancy: %.2f", partition.getOccupancy()));
-				b.append("%\n Actors:\n");
+				b.append(String.format("## Partition - %d\n", pNumber++, partition.getOccupancy()));
+				b.append("\n");
+				b.append(String.format("* **Occupancy**: %.2f", partition.getOccupancy()) + "%\n");
+				b.append(String.format("* **Scheduling Policy**: %s\n", partition.getSchedulingPolicy()));
+				b.append("\n");
+				b.append("| Actor | Processing | Schedulable | Blocked Reading | Blocked Writing | \n");
+				b.append("|:---- |:----  |:----\n");
 				for (String actorName : partition.getActors()) {
-					b.append("\t " + actorName + ": \n");
-					b.append("\t\t processing time: " + data.getProcessingTimes().get(actorName) + "\n");
-					b.append("\t\t schedulable time: " + data.getIdleTimes().get(actorName) + "\n");
-					b.append("\t\t blocked reading time: " + data.getBlockedReadingTimes().get(actorName) + "\n");
-					b.append("\t\t blocked writing time: " + data.getBlockedWritingTimes().get(actorName) + "\n");
+					double time = data.getProcessingTimes().get(actorName);
+					double idle = data.getIdleTimes().get(actorName);
+					double bwrite = data.getBlockedReadingTimes().get(actorName);
+					double bread = data.getBlockedWritingTimes().get(actorName);
+					b.append(String.format("| %s | %s | %s | %s | %s |\n", actorName, time, idle, bwrite,
+							bread));
 				}
 			}
-			
-			
-			
+
 			writer.write(b.toString());
 			writer.close();
 		} catch (IOException e) {
 			Logger.warning("The \"" + output + "\" output file has not been correctly written");
 		}
 
-
-		
 	}
 
 }
