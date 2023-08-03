@@ -36,11 +36,11 @@ import static turnus.common.util.PoiUtils.setBold;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import turnus.common.TurnusException;
@@ -75,7 +75,7 @@ public class Boundbuffer2XlsEporter implements FileExporter<BoundedBuffersReport
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		HSSFWorkbook workbook = new HSSFWorkbook();
+		XSSFWorkbook workbook = new XSSFWorkbook();
 		write(workbook, report);
 
 		try {
@@ -92,13 +92,13 @@ public class Boundbuffer2XlsEporter implements FileExporter<BoundedBuffersReport
 
 	}
 
-	private void write(HSSFWorkbook workbook, BoundedBuffersReport report) {
-		HSSFSheet worksheet = workbook.createSheet("Summary");
+	private void write(XSSFWorkbook workbook, BoundedBuffersReport report) {
+		XSSFSheet worksheet = workbook.createSheet("Summary");
 
 		// row 0: title
 		int cRow = 0;
-		HSSFRow row = worksheet.createRow(cRow);
-		HSSFCell cell = row.createCell(0);
+		XSSFRow row = worksheet.createRow(cRow);
+		XSSFCell cell = row.createCell(0);
 		cell.setCellValue("Bounded buffer size analysis report");
 		setBold(workbook, cell, (short) 14);
 

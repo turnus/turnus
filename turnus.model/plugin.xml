@@ -164,7 +164,7 @@
       <exporter
             class="turnus.model.analysis.trace.io.Tsize2XlsExporter"
             input="tsize"
-            output="xls">
+            output="xlsx">
       </exporter>
       <exporter
             class="turnus.model.analysis.trace.io.Tsize2MdExporter"
@@ -174,7 +174,7 @@
       <exporter
             class="turnus.model.analysis.profiler.io.Cprof2XlsExporter"
             input="cprof"
-            output="xls">
+            output="xlsx">
       </exporter>
       <exporter
             class="turnus.model.analysis.profiler.io.Cprof2MdExporter"
@@ -184,7 +184,7 @@
       <exporter
             class="turnus.model.analysis.profiler.io.Dprof2XlsExporter"
             input="dprof"
-            output="xls">
+            output="xlsx">
       </exporter>
       <exporter
             class="turnus.model.analysis.profiler.io.Dprof2MdExporter"
@@ -194,7 +194,7 @@
       <exporter
             class="turnus.model.analysis.bottlenecks.io.Bottlenecks2XlsExporter"
             input="bottlenecks"
-            output="xls">
+            output="xlsx">
       </exporter>
       <exporter
             class="turnus.model.analysis.bottlenecks.io.Bottlenecks2MdExporter"
@@ -204,7 +204,7 @@
       <exporter
             class="turnus.model.analysis.bottlenecks.io.Impact2XlsExporter"
             input="impact"
-            output="xls">
+            output="xlsx">
       </exporter>
       <exporter
             class="turnus.model.analysis.bottlenecks.io.Impact2MdExporter"
@@ -214,7 +214,7 @@
       <exporter
             class="turnus.model.analysis.buffers.io.Boundbuffer2XlsEporter"
             input="boundbuffer"
-            output="xls">
+            output="xlsx">
       </exporter>
       <exporter
             class="turnus.model.analysis.buffers.io.Boundbuffer2MdExporter"
@@ -229,7 +229,7 @@
       <exporter
             class="turnus.model.analysis.partitioning.io.Pcomm2XlsExporter"
             input="pcomm"
-            output="xls">
+            output="xlsx">
       </exporter>
       <exporter
             class="turnus.model.analysis.pipelining.io.Varpipe2MdExporter"
@@ -239,7 +239,7 @@
       <exporter
             class="turnus.model.analysis.pipelining.io.Varpipe2XlsExporter"
             input="varpipe"
-            output="xls">
+            output="xlsx">
       </exporter>
       <exporter
             class="turnus.model.analysis.trace.io.Ctrace2MdExporter"
@@ -254,7 +254,7 @@
       <exporter
             class="turnus.model.analysis.profiler.io.Mprof2XlsExporter"
             input="mprof"
-            output="xls">
+            output="xlsx">
       </exporter>
       <exporter
             class="turnus.model.analysis.profiler.io.Mprof2MdExporter"
@@ -284,7 +284,7 @@
       <exporter
             class="turnus.model.analysis.bottlenecks.io.BottlenecksWithScheduling2XlsExporter"
             input="sbottlenecks"
-            output="xls">
+            output="xlsx">
       </exporter>
       <exporter
             class="turnus.model.analysis.bottlenecks.io.ScheduledImpact2MdExporter"
@@ -294,7 +294,7 @@
       <exporter
             class="turnus.model.analysis.bottlenecks.io.ScheduledImpact2XlsExporter"
             input="simpact"
-            output="xls">
+            output="xlsx">
       </exporter>
       <exporter
             class="turnus.model.analysis.buffers.io.Optimalbuffer2MdExporter"

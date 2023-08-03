@@ -39,11 +39,11 @@ import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Hyperlink;
+import org.apache.poi.common.usermodel.HyperlinkType;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import turnus.common.TurnusException;
@@ -85,7 +85,7 @@ public class Tsize2XlsExporter implements FileExporter<TraceSizeReport> {
 		}
 
 		TraceSizeAnalysis size = new TraceSizeAnalysis(data);
-		HSSFWorkbook workbook = new HSSFWorkbook();
+		XSSFWorkbook workbook = new XSSFWorkbook();
 		writeSummary(workbook, size);
 		writeDetails(workbook, size);
 
@@ -103,8 +103,8 @@ public class Tsize2XlsExporter implements FileExporter<TraceSizeReport> {
 
 	}
 
-	private void writeDetails(HSSFWorkbook workbook, TraceSizeAnalysis data) {
-		HSSFSheet worksheet = null;
+	private void writeDetails(XSSFWorkbook workbook, TraceSizeAnalysis data) {
+		XSSFSheet worksheet = null;
 		List<ActorTraceSize> actorsData = data.getActorsData();
 
 		for (ActorTraceSize actorData : actorsData) {
@@ -112,8 +112,8 @@ public class Tsize2XlsExporter implements FileExporter<TraceSizeReport> {
 
 			// row 0: actor name
 			int cRow = 0;
-			HSSFRow row = worksheet.createRow(cRow);
-			HSSFCell cell = row.createCell(0);
+			XSSFRow row = worksheet.createRow(cRow);
+			XSSFCell cell = row.createCell(0);
 			cell.setCellValue(actorData.getActor().getName());
 			setBold(workbook, cell, (short) 14);
 
@@ -163,13 +163,13 @@ public class Tsize2XlsExporter implements FileExporter<TraceSizeReport> {
 
 	}
 
-	private void writeSummary(HSSFWorkbook workbook, TraceSizeAnalysis data) {
-		HSSFSheet worksheet = workbook.createSheet("Summary");
+	private void writeSummary(XSSFWorkbook workbook, TraceSizeAnalysis data) {
+		XSSFSheet worksheet = workbook.createSheet("Summary");
 
 		// row 0: title
 		int cRow = 0;
-		HSSFRow row = worksheet.createRow(cRow);
-		HSSFCell cell = row.createCell(0);
+		XSSFRow row = worksheet.createRow(cRow);
+		XSSFCell cell = row.createCell(0);
 		cell.setCellValue("Trace size");
 		setBold(workbook, cell, (short) 14);
 
@@ -264,7 +264,7 @@ public class Tsize2XlsExporter implements FileExporter<TraceSizeReport> {
 				row = worksheet.createRow(cRow);
 				cell = row.createCell(0);
 				cell.setCellValue(actorSize.getActor().getName());
-				setLink(workbook, cell, "'Actor(" + actorsData.indexOf(actorSize) + ")'!A1", Hyperlink.LINK_DOCUMENT);
+				setLink(workbook, cell, "'Actor(" + actorsData.indexOf(actorSize) + ")'!A1", HyperlinkType.DOCUMENT);
 				cell = row.createCell(1);
 				cell.setCellValue(actorSize.getFirings().v1);
 				cell = row.createCell(2);

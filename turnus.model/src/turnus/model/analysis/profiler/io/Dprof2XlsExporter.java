@@ -31,8 +31,8 @@
  */
 package turnus.model.analysis.profiler.io;
 
-import static turnus.model.common.StatisticalData.Util.sum;
 import static turnus.common.util.PoiUtils.setBold;
+import static turnus.model.common.StatisticalData.Util.sum;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,11 +40,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import turnus.common.TurnusException;
@@ -84,7 +84,7 @@ public class Dprof2XlsExporter implements FileExporter<DynamicProfilingReport> {
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		HSSFWorkbook workbook = new HSSFWorkbook();
+		XSSFWorkbook workbook = new XSSFWorkbook();
 		writeActorsSummary(workbook, data.getActorsData());
 		writeBuffersSummary(workbook, data.getBuffersData());
 
@@ -102,13 +102,13 @@ public class Dprof2XlsExporter implements FileExporter<DynamicProfilingReport> {
 
 	}
 
-	private void writeBuffersSummary(HSSFWorkbook workbook, List<BufferDynamicData> buffersData) {
-		HSSFSheet worksheet = workbook.createSheet("Buffers summary");
+	private void writeBuffersSummary(XSSFWorkbook workbook, List<BufferDynamicData> buffersData) {
+		XSSFSheet worksheet = workbook.createSheet("Buffers summary");
 
 		// row 0: title
 		int cRow = 0;
-		HSSFRow row = worksheet.createRow(cRow);
-		HSSFCell cell = row.createCell(0);
+		XSSFRow row = worksheet.createRow(cRow);
+		XSSFCell cell = row.createCell(0);
 		cell.setCellValue("Buffer utilisation");
 		setBold(workbook, cell, (short) 14);
 
@@ -220,13 +220,13 @@ public class Dprof2XlsExporter implements FileExporter<DynamicProfilingReport> {
 
 	}
 
-	private void writeActorsSummary(HSSFWorkbook workbook, List<ActorDynamicData> actorsData) {
-		HSSFSheet worksheet = workbook.createSheet("Actors Summary");
+	private void writeActorsSummary(XSSFWorkbook workbook, List<ActorDynamicData> actorsData) {
+		XSSFSheet worksheet = workbook.createSheet("Actors Summary");
 
 		// row 0: title
 		int cRow = 0;
-		HSSFRow row = worksheet.createRow(cRow);
-		HSSFCell cell = row.createCell(0);
+		XSSFRow row = worksheet.createRow(cRow);
+		XSSFCell cell = row.createCell(0);
 		cell.setCellValue("Actors and actions operator calls");
 		setBold(workbook, cell, (short) 14);
 

@@ -40,11 +40,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import turnus.common.TurnusException;
@@ -78,7 +79,7 @@ public class BottlenecksWithScheduling2XlsExporter implements FileExporter<Bottl
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		HSSFWorkbook workbook = new HSSFWorkbook();
+		XSSFWorkbook workbook = new XSSFWorkbook();
 		writeSummary(workbook, report);
 		writeActionsData(workbook, report);
 
@@ -96,13 +97,13 @@ public class BottlenecksWithScheduling2XlsExporter implements FileExporter<Bottl
 		
 	}
 	
-	private void writeSummary(HSSFWorkbook workbook, BottlenecksWithSchedulingReport report) {
-		HSSFSheet worksheet = workbook.createSheet("Summary");
+	private void writeSummary(XSSFWorkbook workbook, BottlenecksWithSchedulingReport report) {
+		XSSFSheet worksheet = workbook.createSheet("Summary");
 
 		// row 0: title
 		int cRow = 0;
-		HSSFRow row = worksheet.createRow(cRow);
-		HSSFCell cell = row.createCell(0);
+		XSSFRow row = worksheet.createRow(cRow);
+		XSSFCell cell = row.createCell(0);
 		cell.setCellValue("Bottlenecks with scheduling analysis report");
 		setBold(workbook, cell, (short) 14);
 
@@ -180,8 +181,8 @@ public class BottlenecksWithScheduling2XlsExporter implements FileExporter<Bottl
 		row.createCell(1).setCellValue(report.getTotalWeight() / report.getExecutionTime());
 	}
 
-	private void writeActionsData(HSSFWorkbook workbook, BottlenecksWithSchedulingReport report) {
-		HSSFSheet worksheet = workbook.createSheet("Actions data");
+	private void writeActionsData(XSSFWorkbook workbook, BottlenecksWithSchedulingReport report) {
+		XSSFSheet worksheet = workbook.createSheet("Actions data");
 
 		List<ActionBottlenecksWithSchedulingData> actionsData = new ArrayList<>(report.getActionsData());
 		Collections.sort(actionsData, new Comparator<ActionBottlenecksWithSchedulingData>() {
@@ -222,8 +223,8 @@ public class BottlenecksWithScheduling2XlsExporter implements FileExporter<Bottl
 			int cpWeight = 6;
 			int cpPc = 7;
 			int cpFraction = 8;
-			HSSFRow row = worksheet.createRow(cRow);
-			HSSFCell cell = row.createCell(actor);
+			XSSFRow row = worksheet.createRow(cRow);
+			XSSFCell cell = row.createCell(actor);
 			cell.setCellValue("Actor");
 			setBold(workbook, cell);
 			worksheet.addMergedRegion(new CellRangeAddress(cRow, cRow + 1, 0, 0));

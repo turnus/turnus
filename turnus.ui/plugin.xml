@@ -66,12 +66,12 @@
                commandId="turnus.ui.command.fileExporter"
                icon="icon/report-excel.png"
                id="turnus.ui.command.fileExporter.toXls"
-               label="Export to XLS"
+               label="Export to XLSX"
                style="push"
-               tooltip="Export the data to xls">
+               tooltip="Export the data to xlsx">
             <parameter
                   name="turnus.ui.command.fileExporter.outExtension"
-                  value="xls">
+                  value="xlsx">
             </parameter>
             <visibleWhen
                   checkEnabled="false">

@@ -40,11 +40,11 @@ import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Hyperlink;
+import org.apache.poi.common.usermodel.HyperlinkType;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import turnus.common.TurnusException;
@@ -73,7 +73,7 @@ public class Cprof2XlsExporter implements FileExporter<CodeProfilingReport> {
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		HSSFWorkbook workbook = new HSSFWorkbook();
+		XSSFWorkbook workbook = new XSSFWorkbook();
 		writeSummary(workbook, data.getNetwork(), report);
 		writeDetails(workbook, report);
 
@@ -106,8 +106,8 @@ public class Cprof2XlsExporter implements FileExporter<CodeProfilingReport> {
 	 * @param workbook
 	 * @param report
 	 */
-	private void writeDetails(HSSFWorkbook workbook, HalsteadCodeAnalysis report) {
-		HSSFSheet worksheet = null;
+	private void writeDetails(XSSFWorkbook workbook, HalsteadCodeAnalysis report) {
+		XSSFSheet worksheet = null;
 
 		List<HalsteadAnalysis> classesData = report.getActorClassesAnalysis();
 
@@ -116,8 +116,8 @@ public class Cprof2XlsExporter implements FileExporter<CodeProfilingReport> {
 
 			// row 0: class name
 			int cRow = 0;
-			HSSFRow row = worksheet.createRow(cRow);
-			HSSFCell cell = row.createCell(0);
+			XSSFRow row = worksheet.createRow(cRow);
+			XSSFCell cell = row.createCell(0);
 			cell.setCellValue(classData.blockName());
 			setBold(workbook, cell, (short) 14);
 
@@ -169,13 +169,13 @@ public class Cprof2XlsExporter implements FileExporter<CodeProfilingReport> {
 	 * @param network
 	 * @param report
 	 */
-	private void writeSummary(HSSFWorkbook workbook, Network network, HalsteadCodeAnalysis report) {
-		HSSFSheet worksheet = workbook.createSheet("Summary");
+	private void writeSummary(XSSFWorkbook workbook, Network network, HalsteadCodeAnalysis report) {
+		XSSFSheet worksheet = workbook.createSheet("Summary");
 
 		// row 0: title
 		int cRow = 0;
-		HSSFRow row = worksheet.createRow(cRow);
-		HSSFCell cell = row.createCell(0);
+		XSSFRow row = worksheet.createRow(cRow);
+		XSSFCell cell = row.createCell(0);
 		cell.setCellValue("Static code profiling report");
 		setBold(workbook, cell, (short) 14);
 
@@ -349,7 +349,7 @@ public class Cprof2XlsExporter implements FileExporter<CodeProfilingReport> {
 				row = worksheet.createRow(cRow);
 				cell = row.createCell(iClass);
 				cell.setCellValue(classData.blockName());
-				setLink(workbook, cell, "'Class(" + classesData.indexOf(classData) + ")'!A1", Hyperlink.LINK_DOCUMENT);
+				setLink(workbook, cell, "'Class(" + classesData.indexOf(classData) + ")'!A1", HyperlinkType.DOCUMENT);
 				row.createCell(iNOL).setCellValue(classData.NoL());
 				row.createCell(in).setCellValue(classData.n());
 				row.createCell(in1).setCellValue(classData.n1());

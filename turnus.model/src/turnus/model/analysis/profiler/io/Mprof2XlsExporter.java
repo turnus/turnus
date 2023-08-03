@@ -42,10 +42,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import turnus.common.TurnusException;
@@ -82,7 +82,7 @@ public class Mprof2XlsExporter implements FileExporter<MemoryProfilingReport> {
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		HSSFWorkbook workbook = new HSSFWorkbook();
+		XSSFWorkbook workbook = new XSSFWorkbook();
 
 		List<ActionMemoryProfilingData> actionsData = new ArrayList<>(report.getActionsData());
 		Collections.sort(actionsData, new Comparator<ActionMemoryProfilingData>() {
@@ -118,11 +118,11 @@ public class Mprof2XlsExporter implements FileExporter<MemoryProfilingReport> {
 
 	}
 
-	private void writeBuffers(HSSFWorkbook workbook, List<ActionMemoryProfilingData> actionsData) {
-		HSSFSheet worksheet = workbook.createSheet("Buffers");
+	private void writeBuffers(XSSFWorkbook workbook, List<ActionMemoryProfilingData> actionsData) {
+		XSSFSheet worksheet = workbook.createSheet("Buffers");
 		int cRow = 0;
-		HSSFRow row = null;
-		HSSFCell cell = null;
+		XSSFRow row = null;
+		XSSFCell cell = null;
 		for (ActionMemoryProfilingData data : actionsData) {
 			// row 0: title
 			cRow++;
@@ -189,11 +189,11 @@ public class Mprof2XlsExporter implements FileExporter<MemoryProfilingReport> {
 
 	}
 
-	private void writeLocalVariables(HSSFWorkbook workbook, List<ActionMemoryProfilingData> actionsData) {
-		HSSFSheet worksheet = workbook.createSheet("Local Variables");
+	private void writeLocalVariables(XSSFWorkbook workbook, List<ActionMemoryProfilingData> actionsData) {
+		XSSFSheet worksheet = workbook.createSheet("Local Variables");
 		int cRow = 0;
-		HSSFRow row = null;
-		HSSFCell cell = null;
+		XSSFRow row = null;
+		XSSFCell cell = null;
 		for (ActionMemoryProfilingData data : actionsData) {
 			// row 0: title
 			cRow++;
@@ -251,11 +251,11 @@ public class Mprof2XlsExporter implements FileExporter<MemoryProfilingReport> {
 
 	}
 
-	private void writeStateVariables(HSSFWorkbook workbook, List<ActionMemoryProfilingData> actionsData) {
-		HSSFSheet worksheet = workbook.createSheet("State Variables");
+	private void writeStateVariables(XSSFWorkbook workbook, List<ActionMemoryProfilingData> actionsData) {
+		XSSFSheet worksheet = workbook.createSheet("State Variables");
 		int cRow = 0;
-		HSSFRow row = null;
-		HSSFCell cell = null;
+		XSSFRow row = null;
+		XSSFCell cell = null;
 		for (ActionMemoryProfilingData data : actionsData) {
 			// row 0: title
 			cRow++;
@@ -313,11 +313,11 @@ public class Mprof2XlsExporter implements FileExporter<MemoryProfilingReport> {
 
 	}
 
-	private void writeSharedVariables(HSSFWorkbook workbook, List<ActionMemoryProfilingData> actionsData) {
-		HSSFSheet worksheet = workbook.createSheet("Shared Variables");
+	private void writeSharedVariables(XSSFWorkbook workbook, List<ActionMemoryProfilingData> actionsData) {
+		XSSFSheet worksheet = workbook.createSheet("Shared Variables");
 		int cRow = 0;
-		HSSFRow row = null;
-		HSSFCell cell = null;
+		XSSFRow row = null;
+		XSSFCell cell = null;
 		for (ActionMemoryProfilingData data : actionsData) {
 			// row 0: title
 			cRow++;
@@ -375,14 +375,14 @@ public class Mprof2XlsExporter implements FileExporter<MemoryProfilingReport> {
 
 	}
 
-	private void writeSummary(HSSFWorkbook workbook, String algo, String network, Date date,
+	private void writeSummary(XSSFWorkbook workbook, String algo, String network, Date date,
 			List<ActionMemoryProfilingData> actionsData) {
-		HSSFSheet worksheet = workbook.createSheet("Summary");
+		XSSFSheet worksheet = workbook.createSheet("Summary");
 
 		// row 0: title
 		int cRow = 0;
-		HSSFRow row = worksheet.createRow(cRow);
-		HSSFCell cell = row.createCell(0);
+		XSSFRow row = worksheet.createRow(cRow);
+		XSSFCell cell = row.createCell(0);
 		cell.setCellValue("Memory Profiling report");
 		setBold(workbook, cell, (short) 14);
 

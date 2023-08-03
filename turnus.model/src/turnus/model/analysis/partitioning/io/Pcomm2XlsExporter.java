@@ -37,11 +37,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import turnus.common.TurnusException;
@@ -77,7 +77,7 @@ public class Pcomm2XlsExporter implements FileExporter<ComCostPartitioningReport
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		HSSFWorkbook workbook = new HSSFWorkbook();
+		XSSFWorkbook workbook = new XSSFWorkbook();
 		writeSummary(workbook, report);
 
 		try {
@@ -94,13 +94,13 @@ public class Pcomm2XlsExporter implements FileExporter<ComCostPartitioningReport
 
 	}
 
-	private void writeSummary(HSSFWorkbook workbook, ComCostPartitioningReport report) {
-		HSSFSheet worksheet = workbook.createSheet("Summary");
+	private void writeSummary(XSSFWorkbook workbook, ComCostPartitioningReport report) {
+		XSSFSheet worksheet = workbook.createSheet("Summary");
 
 		// row 0: title
 		int cRow = 0;
-		HSSFRow row = worksheet.createRow(cRow);
-		HSSFCell cell = row.createCell(0);
+		XSSFRow row = worksheet.createRow(cRow);
+		XSSFCell cell = row.createCell(0);
 		cell.setCellValue("Pipelining with variable utilization analysis report");
 		setBold(workbook, cell, (short) 14);
 

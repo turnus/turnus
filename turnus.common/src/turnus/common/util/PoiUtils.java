@@ -31,7 +31,8 @@
  */
 package turnus.common.util;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.common.usermodel.HyperlinkType;
+import org.apache.poi.ss.usermodel.CellBase;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.Comment;
@@ -60,7 +61,7 @@ public class PoiUtils {
 	 * @param cell
 	 *            the cell where the text is contained
 	 */
-	public static void setBold(Workbook wb, HSSFCell cell) {
+	public static void setBold(Workbook wb, CellBase cell) {
 		setBold(wb, cell, (short) 10);
 	}
 
@@ -74,7 +75,7 @@ public class PoiUtils {
 	 * @param size
 	 *            the size in pt of the text
 	 */
-	public static void setBold(Workbook wb, HSSFCell cell, short size) {
+	public static void setBold(Workbook wb, CellBase cell, short size) {
 		Font font = wb.createFont();
 		font.setFontHeightInPoints((short) size);
 		font.setFontName("Arial");
@@ -95,7 +96,7 @@ public class PoiUtils {
 	 * @param message
 	 *            the comment message
 	 */
-	public static void setComment(HSSFCell cell, String message) {
+	public static void setComment(CellBase cell, String message) {
 		Drawing drawing = cell.getSheet().createDrawingPatriarch();
 		CreationHelper factory = cell.getSheet().getWorkbook().getCreationHelper();
 
@@ -131,7 +132,7 @@ public class PoiUtils {
 	 * @param linkType
 	 *            the type selected among {@link Hyperlink}
 	 */
-	public static void setLink(Workbook wb, HSSFCell cell, String address, int linkType) {
+	public static void setLink(Workbook wb, CellBase cell, String address, HyperlinkType linkType) {
 		CreationHelper helper = wb.getCreationHelper();
 		CellStyle style = wb.createCellStyle();
 		Font font = wb.createFont();

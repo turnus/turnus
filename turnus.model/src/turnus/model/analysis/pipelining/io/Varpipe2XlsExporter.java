@@ -40,11 +40,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import turnus.common.TurnusException;
@@ -78,7 +78,7 @@ public class Varpipe2XlsExporter implements FileExporter<ActionsVariablePipelini
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		HSSFWorkbook workbook = new HSSFWorkbook();
+		XSSFWorkbook workbook = new XSSFWorkbook();
 		writeSummary(workbook, report);
 
 		try {
@@ -95,7 +95,7 @@ public class Varpipe2XlsExporter implements FileExporter<ActionsVariablePipelini
 
 	}
 
-	private void writeSummary(HSSFWorkbook workbook, ActionsVariablePipeliningReport report) {
+	private void writeSummary(XSSFWorkbook workbook, ActionsVariablePipeliningReport report) {
 		List<ActionVariablePipeliningData> actionsData = new ArrayList<>(report.getActionsData());
 
 		Collections.sort(actionsData, new Comparator<ActionVariablePipeliningData>() {
@@ -138,12 +138,12 @@ public class Varpipe2XlsExporter implements FileExporter<ActionsVariablePipelini
 			}
 		});
 
-		HSSFSheet worksheet = workbook.createSheet("Summary");
+		XSSFSheet worksheet = workbook.createSheet("Summary");
 
 		// row 0: title
 		int cRow = 0;
-		HSSFRow row = worksheet.createRow(cRow);
-		HSSFCell cell = row.createCell(0);
+		XSSFRow row = worksheet.createRow(cRow);
+		XSSFCell cell = row.createCell(0);
 		cell.setCellValue("Pipelining with variable utilization analysis report");
 		setBold(workbook, cell, (short) 14);
 

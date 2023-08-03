@@ -47,6 +47,6 @@ public class XlsFileExporterWizard extends AbstractFileExporterWizard {
 	 * Create a new XLS file exporter wizard.
 	 */
 	public XlsFileExporterWizard() {
-		super("xls");
+		super("xlsx");
 	}
 }

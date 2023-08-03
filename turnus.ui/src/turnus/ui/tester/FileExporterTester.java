@@ -49,7 +49,7 @@ public class FileExporterTester extends PropertyTester {
 			if (receiver instanceof IFile) {
 				IFile file = (IFile) receiver;
 				String ext = file.getFileExtension();
-				return FileExporterFactory.INSTANCE.hasExporter(ext, "xls");
+				return FileExporterFactory.INSTANCE.hasExporter(ext, "xlsx");
 			}
 		} else if ("toGRAPHML".equals(property)) {
 			if (receiver instanceof IFile) {

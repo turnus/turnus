@@ -96,7 +96,7 @@ public class FileExporterWizardHandler extends AbstractHandler {
 
 		switch (outExtension) {
 		// according to the output file extension, select the right wizard
-		case "xls":
+		case "xlsx":
 			wizard = new XlsFileExporterWizard();
 			break;
 		case "graphml":

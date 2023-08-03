@@ -40,10 +40,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import turnus.common.TurnusException;
@@ -79,7 +79,7 @@ public class Impact2XlsExporter implements FileExporter<ImpactAnalysisReport> {
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		HSSFWorkbook workbook = new HSSFWorkbook();
+		XSSFWorkbook workbook = new XSSFWorkbook();
 		write(workbook, report);
 
 		try {
@@ -96,14 +96,14 @@ public class Impact2XlsExporter implements FileExporter<ImpactAnalysisReport> {
 
 	}
 
-	private void write(HSSFWorkbook workbook, ImpactAnalysisReport report) {
-		HSSFSheet worksheet = workbook.createSheet("Summary");
+	private void write(XSSFWorkbook workbook, ImpactAnalysisReport report) {
+		XSSFSheet worksheet = workbook.createSheet("Summary");
 		boolean classLevel = report.isClassLevel();
 
 		// row 0: title
 		int cRow = 0;
-		HSSFRow row = worksheet.createRow(cRow);
-		HSSFCell cell = row.createCell(0);
+		XSSFRow row = worksheet.createRow(cRow);
+		XSSFCell cell = row.createCell(0);
 		cell.setCellValue("Impact analysis report");
 		setBold(workbook, cell, (short) 14);
 
