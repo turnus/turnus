@@ -68,35 +68,7 @@ public class ActorStatistics2MdExporter implements FileExporter<ActorStatisticsR
 			FileWriter writer = new FileWriter(output);
 			StringBuffer b = new StringBuffer();
 
-			// -- Title
-			b.append("# Post Processing - Actor Statistics report");
-			b.append("\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append(String.format("* **Number of partitions**: %s\n", data.getPartitions().size()));
-			b.append(String.format("* **Execution Time**: %f\n", data.getExecutionTime()));
-			b.append(String.format("* **Average occupancy**: %.2f", data.getAverageOccupancy()) + "%\n");
-			b.append(
-					String.format("* **Standard deviation of occupancy**: %.2f", data.getOccupancyDeviation()) + "%\n");
-			b.append("\n");
-
-			int pNumber = 1;
-			for (StatisticalActorPartition partition : data.getPartitions()) {
-				b.append(String.format("## Partition - %d\n", pNumber++, partition.getOccupancy()));
-				b.append("\n");
-				b.append(String.format("* **Occupancy**: %.2f", partition.getOccupancy()) + "%\n");
-				b.append(String.format("* **Scheduling Policy**: %s\n", partition.getSchedulingPolicy()));
-				b.append("\n");
-				b.append("| Actor | Processing | Schedulable | Blocked Reading | Blocked Writing | \n");
-				b.append("|:---- |:----  |:----\n");
-				for (String actorName : partition.getActors()) {
-					double time = data.getProcessingTimes().get(actorName);
-					double idle = data.getIdleTimes().get(actorName);
-					double bwrite = data.getBlockedReadingTimes().get(actorName);
-					double bread = data.getBlockedWritingTimes().get(actorName);
-					b.append(String.format("| %s | %s | %s | %s | %s |\n", actorName, time, idle, bwrite,
-							bread));
-				}
-			}
+			b.append(report(data, true));
 
 			writer.write(b.toString());
 			writer.close();
@@ -104,6 +76,59 @@ public class ActorStatistics2MdExporter implements FileExporter<ActorStatisticsR
 			Logger.warning("The \"" + output + "\" output file has not been correctly written");
 		}
 
+	}
+
+	/**
+	 * Return the {@link ActorStatisticsReport} as a {@link StringBuffer}
+	 * 
+	 * @param data
+	 * @param isParent
+	 * @return
+	 */
+	public static StringBuffer report(ActorStatisticsReport data, boolean isParent) {
+
+		StringBuffer b = new StringBuffer();
+		// -- Title
+		if (isParent) {
+			b.append("# Post Processing - Actor Statistics report");
+			b.append("\n");
+			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+		} else {
+			b.append("## Actor Statistics");
+			b.append("\n");
+		}
+		b.append(String.format("* **Number of partitions**: %s\n", data.getPartitions().size()));
+
+		if (isParent) {
+			b.append(String.format("* **Execution Time**: %.2f\n", data.getExecutionTime()));
+		}
+		b.append(String.format("* **Average occupancy**: %.2f", data.getAverageOccupancy()) + "%\n");
+		b.append(String.format("* **Standard deviation of occupancy**: %.2f", data.getOccupancyDeviation()) + "%\n");
+		b.append("\n");
+
+		int pNumber = 1;
+		for (StatisticalActorPartition partition : data.getPartitions()) {
+			if (isParent) {
+				b.append(String.format("## Partition - %d\n", pNumber++, partition.getOccupancy()));
+			} else {
+				b.append(String.format("### Partition - %d\n", pNumber++, partition.getOccupancy()));
+			}
+			b.append("\n");
+			b.append(String.format("* **Occupancy**: %.2f", partition.getOccupancy()) + "%\n");
+			b.append(String.format("* **Scheduling Policy**: %s\n", partition.getSchedulingPolicy()));
+			b.append("\n");
+			b.append("| Actor | Processing | Schedulable | Blocked Reading | Blocked Writing \n");
+			b.append("|:--    | --:        | --:         | --:             | --:             \n");
+			for (String actorName : partition.getActors()) {
+				double time = data.getProcessingTimes().get(actorName);
+				double idle = data.getIdleTimes().get(actorName);
+				double bwrite = data.getBlockedReadingTimes().get(actorName);
+				double bread = data.getBlockedWritingTimes().get(actorName);
+				b.append(String.format("| %s | %.2f | %.2f | %.2f | %.2f \n", actorName, time, idle, bwrite, bread));
+			}
+		}
+
+		return b;
 	}
 
 }

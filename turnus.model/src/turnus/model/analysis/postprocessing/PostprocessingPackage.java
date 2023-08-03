@@ -526,13 +526,22 @@ public interface PostprocessingPackage extends EPackage {
 	int SCHEDULER_CHECKS_REPORT__PARTITIONS = POST_PROCESSING_DATA_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Network</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCHEDULER_CHECKS_REPORT__NETWORK = POST_PROCESSING_DATA_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Scheduler Checks Report</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULER_CHECKS_REPORT_FEATURE_COUNT = POST_PROCESSING_DATA_FEATURE_COUNT + 1;
+	int SCHEDULER_CHECKS_REPORT_FEATURE_COUNT = POST_PROCESSING_DATA_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Scheduler Checks Report</em>' class.
@@ -1062,6 +1071,17 @@ public interface PostprocessingPackage extends EPackage {
 	EReference getSchedulerChecksReport_Partitions();
 
 	/**
+	 * Returns the meta object for the reference '{@link turnus.model.analysis.postprocessing.SchedulerChecksReport#getNetwork <em>Network</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Network</em>'.
+	 * @see turnus.model.analysis.postprocessing.SchedulerChecksReport#getNetwork()
+	 * @see #getSchedulerChecksReport()
+	 * @generated
+	 */
+	EReference getSchedulerChecksReport_Network();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition <em>Scheduler Checks Partition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1491,6 +1511,14 @@ public interface PostprocessingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SCHEDULER_CHECKS_REPORT__PARTITIONS = eINSTANCE.getSchedulerChecksReport_Partitions();
+
+		/**
+		 * The meta object literal for the '<em><b>Network</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SCHEDULER_CHECKS_REPORT__NETWORK = eINSTANCE.getSchedulerChecksReport_Network();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.postprocessing.impl.SchedulerChecksPartitionImpl <em>Scheduler Checks Partition</em>}' class.

@@ -41,20 +41,23 @@ import turnus.common.TurnusException;
 import turnus.common.io.FileExporter;
 import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
+import turnus.model.analysis.postprocessing.ActionStatisticsReport;
+import turnus.model.analysis.postprocessing.ActorStatisticsReport;
 import turnus.model.analysis.postprocessing.BufferBlockingReport;
-import turnus.model.dataflow.Buffer;
+import turnus.model.analysis.postprocessing.PostProcessingReport;
+import turnus.model.analysis.postprocessing.SchedulerChecksReport;
 
 /**
- * {@link BufferBlockingReport} MD file exporter
+ * {@link PostProcessingReport} MD file exporter
  * 
  * @author Endri Bezati
  *
  */
-public class BufferBlocking2MdExporter implements FileExporter<BufferBlockingReport> {
+public class PostProcessing2MdExporter implements FileExporter<PostProcessingReport> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
-		BufferBlockingReport data = EcoreUtils.loadEObject(new ResourceSetImpl(), input);
+		PostProcessingReport data = EcoreUtils.loadEObject(new ResourceSetImpl(), input);
 		if (data == null) {
 			throw new TurnusException("The input file \"" + input + "\" is not a valid analysis file");
 		}
@@ -63,53 +66,40 @@ public class BufferBlocking2MdExporter implements FileExporter<BufferBlockingRep
 	}
 
 	@Override
-	public void export(BufferBlockingReport data, File output) throws TurnusException {
+	public void export(PostProcessingReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
 			StringBuffer b = new StringBuffer();
 
-			b.append(report(data, true));
+			// -- Title
+			b.append("# Post Processing report");
+			b.append("\n");
+			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+			b.append(String.format("* **Execution Time**: %.2f\n", data.getTime()));
+			b.append(String.format("* **Deadlock**: %s\n", data.isDeadlock()));
+
+			// -- Actor Statistics report
+			b.append(ActorStatistics2MdExporter.report(data.getReport(ActorStatisticsReport.class), false));
+			b.append("\n");
+
+			// -- Action Statistics report
+			b.append(ActionStatistics2MdExporter.report(data.getReport(ActionStatisticsReport.class), false));
+			b.append("\n");
+
+			// -- Scheduling Checks report
+			b.append(SchedulerChecks2MdExporter.report(data.getReport(SchedulerChecksReport.class), false));
+			b.append("\n");
+
+			// -- Buffer Blocking report
+			// -- Action Statistics report
+			b.append(BufferBlocking2MdExporter.report(data.getReport(BufferBlockingReport.class), false));
+			b.append("\n");
 
 			writer.write(b.toString());
 			writer.close();
 		} catch (IOException e) {
 			Logger.warning("The \"" + output + "\" output file has not been correctly written");
 		}
-
-	}
-
-	/**
-	 * Return the {@link BufferBlockingReport} as a {@link StringBuffer}
-	 * 
-	 * @param data
-	 * @param isParent
-	 * @return
-	 */
-	public static StringBuffer report(BufferBlockingReport data, boolean isParent) {
-		StringBuffer b = new StringBuffer();
-
-		if (isParent) {
-			// -- Title
-			b.append("# Post Processing - Buffer Blocking report");
-			b.append("\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append("\n");
-		}
-		
-		b.append("## Blocked Buffers \n");
-
-		b.append("| Source || Target || Max Nbr Tokens | Max Time | Nbr of Blockings \n");
-		b.append("| Actor | Port | Actor | Port | -   |  -  |  -    \n");
-		b.append("|:--    | :--  | :--   | :--  | --: | --: |  --:  \n");
-
-		for (Buffer buffer : data.getMaxBlockedOutputTokens().keySet()) {
-			b.append(String.format("| %s | %s | %s | %s |  %d | %.2f | %d  \n", buffer.getSource().getOwner().getName(),
-					buffer.getSource().getName(), buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(),
-					data.getMaxBlockedOutputTokens().get(buffer), data.getMaxBlockedMultiplication().get(buffer),
-					data.getBlockingInstances().get(buffer)));
-
-		}
-		return b;
 	}
 
 }

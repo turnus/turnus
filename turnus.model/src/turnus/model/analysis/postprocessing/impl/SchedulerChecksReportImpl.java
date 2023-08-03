@@ -33,16 +33,19 @@ package turnus.model.analysis.postprocessing.impl;
 
 import java.util.Collection;
 import java.util.List;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import turnus.model.analysis.postprocessing.PostprocessingPackage;
 import turnus.model.analysis.postprocessing.SchedulerChecksPartition;
 import turnus.model.analysis.postprocessing.SchedulerChecksReport;
 import turnus.model.dataflow.Actor;
+import turnus.model.dataflow.Network;
 
 /**
  * <!-- begin-user-doc -->
@@ -53,6 +56,7 @@ import turnus.model.dataflow.Actor;
  * </p>
  * <ul>
  *   <li>{@link turnus.model.analysis.postprocessing.impl.SchedulerChecksReportImpl#getPartitions <em>Partitions</em>}</li>
+ *   <li>{@link turnus.model.analysis.postprocessing.impl.SchedulerChecksReportImpl#getNetwork <em>Network</em>}</li>
  * </ul>
  *
  * @generated
@@ -67,6 +71,15 @@ public class SchedulerChecksReportImpl extends PostProcessingDataImpl implements
 	 * @ordered
 	 */
 	protected EList<SchedulerChecksPartition> partitions;
+	/**
+	 * The cached value of the '{@link #getNetwork() <em>Network</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNetwork()
+	 * @generated
+	 * @ordered
+	 */
+	protected Network network;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -105,6 +118,46 @@ public class SchedulerChecksReportImpl extends PostProcessingDataImpl implements
 	 * @generated
 	 */
 	@Override
+	public Network getNetwork() {
+		if (network != null && network.eIsProxy()) {
+			InternalEObject oldNetwork = (InternalEObject)network;
+			network = (Network)eResolveProxy(oldNetwork);
+			if (network != oldNetwork) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PostprocessingPackage.SCHEDULER_CHECKS_REPORT__NETWORK, oldNetwork, network));
+			}
+		}
+		return network;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Network basicGetNetwork() {
+		return network;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setNetwork(Network newNetwork) {
+		Network oldNetwork = network;
+		network = newNetwork;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PostprocessingPackage.SCHEDULER_CHECKS_REPORT__NETWORK, oldNetwork, network));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case PostprocessingPackage.SCHEDULER_CHECKS_REPORT__PARTITIONS:
@@ -123,6 +176,9 @@ public class SchedulerChecksReportImpl extends PostProcessingDataImpl implements
 		switch (featureID) {
 			case PostprocessingPackage.SCHEDULER_CHECKS_REPORT__PARTITIONS:
 				return getPartitions();
+			case PostprocessingPackage.SCHEDULER_CHECKS_REPORT__NETWORK:
+				if (resolve) return getNetwork();
+				return basicGetNetwork();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -140,6 +196,9 @@ public class SchedulerChecksReportImpl extends PostProcessingDataImpl implements
 				getPartitions().clear();
 				getPartitions().addAll((Collection<? extends SchedulerChecksPartition>)newValue);
 				return;
+			case PostprocessingPackage.SCHEDULER_CHECKS_REPORT__NETWORK:
+				setNetwork((Network)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -155,6 +214,9 @@ public class SchedulerChecksReportImpl extends PostProcessingDataImpl implements
 			case PostprocessingPackage.SCHEDULER_CHECKS_REPORT__PARTITIONS:
 				getPartitions().clear();
 				return;
+			case PostprocessingPackage.SCHEDULER_CHECKS_REPORT__NETWORK:
+				setNetwork((Network)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -169,6 +231,8 @@ public class SchedulerChecksReportImpl extends PostProcessingDataImpl implements
 		switch (featureID) {
 			case PostprocessingPackage.SCHEDULER_CHECKS_REPORT__PARTITIONS:
 				return partitions != null && !partitions.isEmpty();
+			case PostprocessingPackage.SCHEDULER_CHECKS_REPORT__NETWORK:
+				return network != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -745,6 +745,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="SchedulerChecksReport" eSuperTypes="#//postprocessing/PostProcessingData">
       <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
           eType="#//postprocessing/SchedulerChecksPartition" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="SchedulerChecksPartition">
       <eStructuralFeatures xsi:type="ecore:EReference" name="aggregatedCheckedData"

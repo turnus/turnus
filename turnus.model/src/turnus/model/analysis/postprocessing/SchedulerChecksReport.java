@@ -32,6 +32,7 @@
 package turnus.model.analysis.postprocessing;
 
 import java.util.List;
+import turnus.model.dataflow.Network;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,6 +44,7 @@ import java.util.List;
  * </p>
  * <ul>
  *   <li>{@link turnus.model.analysis.postprocessing.SchedulerChecksReport#getPartitions <em>Partitions</em>}</li>
+ *   <li>{@link turnus.model.analysis.postprocessing.SchedulerChecksReport#getNetwork <em>Network</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getSchedulerChecksReport()
@@ -65,5 +67,27 @@ public interface SchedulerChecksReport extends PostProcessingData {
 	 * @generated
 	 */
 	List<SchedulerChecksPartition> getPartitions();
+
+	/**
+	 * Returns the value of the '<em><b>Network</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Network</em>' reference.
+	 * @see #setNetwork(Network)
+	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getSchedulerChecksReport_Network()
+	 * @model
+	 * @generated
+	 */
+	Network getNetwork();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.postprocessing.SchedulerChecksReport#getNetwork <em>Network</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Network</em>' reference.
+	 * @see #getNetwork()
+	 * @generated
+	 */
+	void setNetwork(Network value);
 
 } // SchedulerChecksReport

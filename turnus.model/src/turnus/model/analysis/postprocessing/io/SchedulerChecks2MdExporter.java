@@ -32,71 +32,99 @@ public class SchedulerChecks2MdExporter implements FileExporter<SchedulerChecksR
 			FileWriter writer = new FileWriter(output);
 			StringBuffer b = new StringBuffer();
 
-			// -- Title
-			b.append("# Post Processing - Scheduler Checks report");
-			b.append("\n");
-			// b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append("\n");
-
-			int partition = 1;
-			for (SchedulerChecksPartition part : data.getPartitions()) {
-				b.append(String.format("## Partition - %d\n", partition++));
-				b.append("\n");
-
-				
-				b.append(String.format("### Global \n"));
-				b.append("\n");
-				
-				b.append("| Conditions | Total | Average | Max | Min \n");
-				b.append("|:------|:------|:----|:-----|:----\n");
-				b.append(String.format("| Checked | %.2f | %.2f | %.2f |  %.2f \n",
-						part.getAggregatedCheckedData().getSum(), part.getAggregatedCheckedData().getMean(),
-						part.getAggregatedCheckedData().getMax(), part.getAggregatedCheckedData().getMin()));
-				b.append(String.format("| Failed | %.2f | %.2f | %.2f |  %.2f \n",
-						part.getAggregatedFailedData().getSum(), part.getAggregatedFailedData().getMean(),
-						part.getAggregatedFailedData().getMax(), part.getAggregatedFailedData().getMin()));
-				
-				
-				b.append(String.format("### Conditions Checked \n"));
-				b.append("\n");
-				
-				b.append("| Actor | Total | Average | Max | Min \n");
-				b.append("|:------|:------|:----|:-----|:----\n");
-				
-				for(Actor actor : part.getCheckedConditionsMap().keySet()) {
-	
-					
-					b.append(String.format("| %s | %.2f | %.2f | %.2f |  %.2f \n",
-							actor.getName(),
-							part.getCheckedConditionsMap().get(actor).getSum(), part.getCheckedConditionsMap().get(actor).getMean(),
-							part.getCheckedConditionsMap().get(actor).getMax(), part.getCheckedConditionsMap().get(actor).getMin()));
-					
-				}
-				
-				b.append(String.format("### Conditions Failed \n"));
-				b.append("\n");
-				
-				
-				b.append("| Actor | Total | Average | Max | Min \n");
-				b.append("|:------|:------|:----|:-----|:----\n");
-				for(Actor actor : part.getFailedConditionsMap().keySet()) {
-
-					
-					b.append(String.format("| %s | %.2f | %.2f | %.2f |  %.2f \n",
-							actor.getName(),
-							part.getFailedConditionsMap().get(actor).getSum(), part.getFailedConditionsMap().get(actor).getMean(),
-							part.getFailedConditionsMap().get(actor).getMax(), part.getFailedConditionsMap().get(actor).getMin()));
-					
-				}
-
-			}
+			b.append(report(data, true));
 
 			writer.write(b.toString());
 			writer.close();
 		} catch (IOException e) {
 			Logger.warning("The \"" + output + "\" output file has not been correctly written");
 		}
+	}
 
+	/**
+	 * Return the {@link SchedulerChecksReport} as a {@link StringBuffer}
+	 * 
+	 * @param data
+	 * @param isParent
+	 * @return
+	 */
+	public static StringBuffer report(SchedulerChecksReport data, boolean isParent) {
+		StringBuffer b = new StringBuffer();
+		// -- Title
+		if (isParent) {
+			b.append("# Post Processing - Scheduler Checks report");
+			b.append("\n");
+			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+
+		} else {
+			b.append("## Scheduler Checks");
+		}
+
+		b.append("\n");
+		int partition = 1;
+		for (SchedulerChecksPartition part : data.getPartitions()) {
+			if (isParent) {
+				b.append(String.format("## Partition - %d\n", partition++));
+			} else {
+				b.append(String.format("### Partition - %d\n", partition++));
+			}
+
+			if (isParent) {
+				b.append(String.format("### Overview \n"));
+			} else {
+				b.append(String.format("#### Overview \n"));
+			}
+
+			b.append("\n");
+
+			b.append("| Conditions | Total | Average | Max | Min \n");
+			b.append("|:--         | --:   | --:     | --: | --:\n");
+			b.append(String.format("| Hit | %.2f | %.2f | %.2f |  %.2f \n", part.getAggregatedCheckedData().getSum(),
+					part.getAggregatedCheckedData().getMean(), part.getAggregatedCheckedData().getMax(),
+					part.getAggregatedCheckedData().getMin()));
+			b.append(String.format("| Miss | %.2f | %.2f | %.2f |  %.2f \n", part.getAggregatedFailedData().getSum(),
+					part.getAggregatedFailedData().getMean(), part.getAggregatedFailedData().getMax(),
+					part.getAggregatedFailedData().getMin()));
+
+			if (isParent) {
+				b.append(String.format("### Conditions Hit \n"));
+			} else {
+				b.append(String.format("#### Conditions Hit \n"));
+			}
+			b.append("\n");
+
+			b.append("| Actor | Total | Average | Max | Min \n");
+			b.append("| :--   | --:   | --:     | --: | --: \n");
+
+			for (Actor actor : part.getCheckedConditionsMap().keySet()) {
+				b.append(String.format("| %s | %.2f | %.2f | %.2f |  %.2f \n", actor.getName(),
+						part.getCheckedConditionsMap().get(actor).getSum(),
+						part.getCheckedConditionsMap().get(actor).getMean(),
+						part.getCheckedConditionsMap().get(actor).getMax(),
+						part.getCheckedConditionsMap().get(actor).getMin()));
+
+			}
+
+			if (isParent) {
+				b.append(String.format("### Conditions Miss \n"));
+			} else {
+				b.append(String.format("#### Conditions Miss \n"));
+			}
+			b.append("\n");
+
+			b.append("| Actor | Total | Average | Max | Min \n");
+			b.append("| :--   | --:   | --:     | --: | --: \n");
+			for (Actor actor : part.getFailedConditionsMap().keySet()) {
+				b.append(String.format("| %s | %.2f | %.2f | %.2f |  %.2f \n", actor.getName(),
+						part.getFailedConditionsMap().get(actor).getSum(),
+						part.getFailedConditionsMap().get(actor).getMean(),
+						part.getFailedConditionsMap().get(actor).getMax(),
+						part.getFailedConditionsMap().get(actor).getMin()));
+
+			}
+		}
+
+		return b;
 	}
 
 }

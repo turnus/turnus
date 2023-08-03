@@ -321,5 +321,10 @@
         	input="screport"
         	output="md">
       </exporter>
+      <exporter
+        	class="turnus.model.analysis.postprocessing.io.PostProcessing2MdExporter"
+        	input="ppreport"
+        	output="md">
+      </exporter>
    </extension>
 </plugin>

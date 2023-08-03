@@ -639,6 +639,16 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * @generated
 	 */
 	@Override
+	public EReference getSchedulerChecksReport_Network() {
+		return (EReference)schedulerChecksReportEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getSchedulerChecksPartition() {
 		return schedulerChecksPartitionEClass;
 	}
@@ -803,6 +813,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 
 		schedulerChecksReportEClass = createEClass(SCHEDULER_CHECKS_REPORT);
 		createEReference(schedulerChecksReportEClass, SCHEDULER_CHECKS_REPORT__PARTITIONS);
+		createEReference(schedulerChecksReportEClass, SCHEDULER_CHECKS_REPORT__NETWORK);
 
 		schedulerChecksPartitionEClass = createEClass(SCHEDULER_CHECKS_PARTITION);
 		createEReference(schedulerChecksPartitionEClass, SCHEDULER_CHECKS_PARTITION__AGGREGATED_CHECKED_DATA);
@@ -899,6 +910,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 
 		initEClass(schedulerChecksReportEClass, SchedulerChecksReport.class, "SchedulerChecksReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSchedulerChecksReport_Partitions(), this.getSchedulerChecksPartition(), null, "partitions", null, 0, -1, SchedulerChecksReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSchedulerChecksReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, SchedulerChecksReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(schedulerChecksPartitionEClass, SchedulerChecksPartition.class, "SchedulerChecksPartition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSchedulerChecksPartition_AggregatedCheckedData(), theCommonPackage.getStatisticalData(), null, "aggregatedCheckedData", null, 0, 1, SchedulerChecksPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

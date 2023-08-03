@@ -64,58 +64,76 @@ public class ActionStatistics2MdExporter implements FileExporter<ActionStatistic
 	}
 
 	@Override
-	public void export(ActionStatisticsReport report, File output) throws TurnusException {
+	public void export(ActionStatisticsReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
 
 			StringBuffer b = new StringBuffer();
 
+			b.append(report(data, true));
+
+			writer.write(b.toString());
+			writer.close();
+		} catch (Exception e) {
+			Logger.warning("The \"" + output + "\" output file has not been correctly written");
+		}
+	}
+
+	
+	/**
+	 * Return the {@link ActionStatisticsReport} as a {@link StringBuffer}
+	 * 
+	 * @param data
+	 * @param isParent
+	 * @return
+	 */
+	public static StringBuffer report(ActionStatisticsReport data, boolean isParent) {
+		StringBuffer b = new StringBuffer();
+
+		if (isParent) {
 			// -- Title
 			b.append("# Post Processing - Action Statistics report");
-			// b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+			b.append("\n");
+			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
 			b.append("\n");
 
-			List<Actor> actors = report.getActors();
-//			Collections.sort(actors, new Comparator<Actor>() {
-//				@Override
-//				public int compare(Actor o1, Actor o2) {
-//					return o1.getName().compareTo(o2.getName());
-//				}
-//			});
-			
-			// -- Global
-			b.append("## Global \n");
-			b.append("| Actor | Action | Counts | Processing | Schedulable | Blocked Reading | Blocked Writing | \n");
-			b.append("|:---- |:----  |:----\n");
-			for (Actor actor : actors) {
-				for (Action action : actor.getActions()) {
-					if (report.getIdleTimes().containsKey(action)) {
-						long counts = report.getExecutionCounts().get(action);
-						double time = report.getProcessingTimes().get(action);
-						double idle = report.getIdleTimes().get(action);
-						double bwrite = report.getBlockedReadingTimes().get(action);
-						double bread = report.getBlockedReadingTimes().get(action);
-						
-						b.append(String.format("| %s | %s | %s | %s | %s | %s | %s |\n", actor.getName(), action.getName(),
-								counts, time, idle, bwrite, bread));
-					}
+			// -- Overview
+			b.append("## Overview \n");
+		} else {
+			b.append("## Action Statistics \n");
+		}
 
+		List<Actor> actors = data.getActors();
+		b.append("| Actor | Action | Counts | Processing | Schedulable | Blocked Reading | Blocked Writing  \n");
+		b.append("| :--   | :--    | --:    | --:        | --:         | --:             | --:              \n");
+		for (Actor actor : actors) {
+			for (Action action : actor.getActions()) {
+				if (data.getIdleTimes().containsKey(action)) {
+					long counts = data.getExecutionCounts().get(action);
+					double time = data.getProcessingTimes().get(action);
+					double idle = data.getIdleTimes().get(action);
+					double bwrite = data.getBlockedReadingTimes().get(action);
+					double bread = data.getBlockedReadingTimes().get(action);
+
+					b.append(String.format("| %s | %s | %d | %.2f | %.2f | %.2f | %.2f \n", actor.getName(),
+							action.getName(), counts, time, idle, bwrite, bread));
 				}
+
 			}
-			
-			
-			
+		}
+
+		if (isParent) {
 			// -- Schedulable time
 			b.append("## Schedulable Time \n");
 			b.append("| Actor | Action | Mean | Min | Max | \n");
-			b.append("|:---- |:----  |:----\n");
+			b.append("|:--    |:--     | --:  | --: | --: \n");
 			for (Actor actor : actors) {
 				for (Action action : actor.getActions()) {
-					if (report.getIdleTimes().containsKey(action)) {
-						double mean_cycles = report.getIdleTimes().get(action);
-						double min_cycles = report.getIdleMinTimes().get(action);
-						double max_cycles = report.getIdleMaxTimes().get(action);
-						b.append(String.format("| %s | %s | %s | %s | %s |\n", actor.getName(), action.getName(),
+					if (data.getIdleTimes().containsKey(action)) {
+						double mean_cycles = data.getIdleTimes().get(action);
+						double min_cycles = data.getIdleMinTimes().get(action);
+						double max_cycles = data.getIdleMaxTimes().get(action);
+						b.append(String.format("| %s | %s | %.2f | %.2f | %.2f \n", actor.getName(), action.getName(),
 								mean_cycles, min_cycles, max_cycles));
 					}
 
@@ -125,42 +143,39 @@ public class ActionStatistics2MdExporter implements FileExporter<ActionStatistic
 			// -- block reading
 			b.append("## Blocked reading \n");
 			b.append("| Actor | Action | Mean | Min | Max | \n");
-			b.append("|:---- |:----  |:----\n");
+			b.append("|:--    |:--     | --:  | --: | --: \n");
 			for (Actor actor : actors) {
 				for (Action action : actor.getActions()) {
-					if (report.getIdleTimes().containsKey(action)) {
-						double mean_cycles = report.getBlockedReadingTimes().get(action);
-						double min_cycles = report.getBlockedReadingMinTimes().get(action);
-						double max_cycles = report.getBlockedReadingMaxTimes().get(action);
-						b.append(String.format("| %s | %s | %s | %s | %s |\n", actor.getName(), action.getName(),
+					if (data.getIdleTimes().containsKey(action)) {
+						double mean_cycles = data.getBlockedReadingTimes().get(action);
+						double min_cycles = data.getBlockedReadingMinTimes().get(action);
+						double max_cycles = data.getBlockedReadingMaxTimes().get(action);
+						b.append(String.format("| %s | %s | %.2f | %.2f | %.2f \n", actor.getName(), action.getName(),
 								mean_cycles, min_cycles, max_cycles));
 					}
 
 				}
 			}
-			
+
 			// -- block writing
 			b.append("## Blocked writing \n");
-			b.append("| Actor | Action | Mean | Min | Max | \n");
-			b.append("|:---- |:----  |:----\n");
+			b.append("| Actor | Action | Mean | Min | Max \n");
+			b.append("|:--    |:--     | --:  | --: | --: \n");
 			for (Actor actor : actors) {
 				for (Action action : actor.getActions()) {
-					if (report.getIdleTimes().containsKey(action)) {
-						double mean_cycles = report.getBlockedWritingTimes().get(action);
-						double min_cycles = report.getBlockedWritingMinTimes().get(action);
-						double max_cycles = report.getBlockedWritingMaxTimes().get(action);
-						b.append(String.format("| %s | %s | %s | %s | %s |\n", actor.getName(), action.getName(),
+					if (data.getIdleTimes().containsKey(action)) {
+						double mean_cycles = data.getBlockedWritingTimes().get(action);
+						double min_cycles = data.getBlockedWritingMinTimes().get(action);
+						double max_cycles = data.getBlockedWritingMaxTimes().get(action);
+						b.append(String.format("| %s | %s | %.2f | %.2f | %.2f \n", actor.getName(), action.getName(),
 								mean_cycles, min_cycles, max_cycles));
 					}
 
 				}
 			}
-
-			writer.write(b.toString());
-			writer.close();
-		} catch (Exception e) {
-			Logger.warning("The \"" + output + "\" output file has not been correctly written");
 		}
+
+		return b;
 	}
 
 }

@@ -164,6 +164,7 @@ public class SchedulerChecksCollector implements ActorPartitionDataCollector {
 		PostprocessingFactory f = PostprocessingFactory.eINSTANCE;
 		SchedulerChecksReport report = f.createSchedulerChecksReport();
 		
+		report.setNetwork(network);
 		
 		for (String partition : partitioning.getPartitions()) {
 			List<SummaryStatistics> checkedStats = new ArrayList<SummaryStatistics>();
