@@ -60,8 +60,11 @@ import turnus.model.trace.weighter.TraceWeighter;
 
 /**
  * 
+ * Adevs execution trace graph simulation engine
+ * 
  * @author Simone Casale-Brunet 
  * @author Malgorzata Michalska
+ * @author Endri Bezati
  *
  */
 public class SimEngine {
@@ -74,6 +77,7 @@ public class SimEngine {
 	private CommunicationWeight communicationWeight = null;
 	private SchedulingWeight schedulingWeight = null;
 	private boolean releaseAfterProcessing = false;
+	private boolean printActorStatus = false;
 
 	private double timer = 0;
 	private boolean deadlock = false;
@@ -181,7 +185,8 @@ public class SimEngine {
 		// main simulation loop
 		while (nextUpdateTime < Double.MAX_VALUE) {
 			timer = nextUpdateTime;
-			printActorStatus(timer);
+			if(printActorStatus)
+				printActorStatus(timer);
 			simulator.execNextEvent();
 			nextUpdateTime = simulator.nextEventTime();
 		}
@@ -230,6 +235,10 @@ public class SimEngine {
 		this.releaseAfterProcessing = true;
 	}
 
+	public void setPrintActorStatus(boolean value) {
+		this.printActorStatus = value;
+	}
+	
 	public void setCommunicationWeight(CommunicationWeight communicationWeight) {
 		this.communicationWeight = communicationWeight;
 	}
