@@ -309,9 +309,8 @@ public class SimEngineCli implements IApplication {
 					outputPath = createOutputDirectory("post-processing", configuration);
 				}
 				
-				Logger.infoRaw(report.toString());
+				//Logger.infoRaw(report.toString());
 				
-			
 				// store the scheduler checks report
 				File reportFileSched = createFileWithTimeStamp(outputPath, TurnusExtensions.SCHEDULER_CHECKS_REPORT);
 				SchedulerChecksReport schedulerReport = report.getReport(SchedulerChecksReport.class);	

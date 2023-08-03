@@ -95,7 +95,7 @@ public class SimEngine {
 	public void addDataCollector(DataCollector collector) {
 		dataCollectors.add(collector);
 	}
-	
+
 	private void printActorStatus(double timer) {
 		for (AtomicActor actor : model.getActors()) {
 			Logger.debug(timer + ": " + actor.getActor().getName() + ": " + actor.getCurrentStatus());
@@ -106,6 +106,17 @@ public class SimEngine {
 		for (AtomicActor actor : model.getActors()) {
 			if (actor.getCurrentStatus() != Status.TERMINATED) {
 				Logger.warning("DEADLOCK at time: %f", timer);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean checkDeadlock(double timer, boolean withlog) {
+		for (AtomicActor actor : model.getActors()) {
+			if (actor.getCurrentStatus() != Status.TERMINATED) {
+				if (withlog)
+					Logger.warning("DEADLOCK at time: %f", timer);
 				return true;
 			}
 		}
@@ -140,7 +151,8 @@ public class SimEngine {
 	}
 
 	private void printStatus() {
-		Logger.info("%s: estimated time %f", simulationName, timer);
+		Logger.info("%s: estimated time: %.2f", simulationName, timer);
+		Logger.info("%s: deadlock: %s", simulationName, checkDeadlock(timer, false));
 
 		Logger.debug("--- [%s] post-processing information ---", simulationName);
 		for (AtomicActor actor : model.getActors()) {
@@ -151,11 +163,12 @@ public class SimEngine {
 	}
 
 	public PostProcessingReport run() throws TurnusException {
-		if (tProject == null || tWeighter == null || partitioning == null){
+		if (tProject == null || tWeighter == null || partitioning == null) {
 			throw new TurnusException("SimEngine not configured properly.");
 		}
 
-		this.model = new AdevsModelBuilder(tProject, tWeighter, partitioning, bufferSize, communicationWeight, schedulingWeight, releaseAfterProcessing).build();
+		this.model = new AdevsModelBuilder(tProject, tWeighter, partitioning, bufferSize, communicationWeight,
+				schedulingWeight, releaseAfterProcessing).build();
 		Simulator simulator = new Simulator(model);
 		double nextUpdateTime = simulator.nextEventTime();
 		timer = 0;
@@ -185,7 +198,7 @@ public class SimEngine {
 		// main simulation loop
 		while (nextUpdateTime < Double.MAX_VALUE) {
 			timer = nextUpdateTime;
-			if(printActorStatus)
+			if (printActorStatus)
 				printActorStatus(timer);
 			simulator.execNextEvent();
 			nextUpdateTime = simulator.nextEventTime();
@@ -197,16 +210,16 @@ public class SimEngine {
 
 		return generateReport();
 	}
-	
+
 	public BufferSize getMaxBufferSizeRecorded() {
 		BufferSize recordedMaxBuffers = new BufferSize(tProject.getNetwork());
 		for (AtomicBuffer buffer : model.getBuffers()) { // By default the sizes are rounded to pow 2
 			recordedMaxBuffers.setSize(buffer.getBuffer(), MathUtils.nearestPowTwo(buffer.getMaxTokensInFifo()));
 		}
-		
+
 		return recordedMaxBuffers;
 	}
-	
+
 	public AdevsModel getAdevsModel() {
 		return model;
 	}
@@ -230,7 +243,7 @@ public class SimEngine {
 	public void setBufferSize(BufferSize bufferSize) {
 		this.bufferSize = bufferSize;
 	}
-	
+
 	public void setReleaseAfterProcessing() {
 		this.releaseAfterProcessing = true;
 	}
@@ -238,11 +251,11 @@ public class SimEngine {
 	public void setPrintActorStatus(boolean value) {
 		this.printActorStatus = value;
 	}
-	
+
 	public void setCommunicationWeight(CommunicationWeight communicationWeight) {
 		this.communicationWeight = communicationWeight;
 	}
-	
+
 	public void setSchedulingWeight(SchedulingWeight schedulingWeight) {
 		this.schedulingWeight = schedulingWeight;
 	}
