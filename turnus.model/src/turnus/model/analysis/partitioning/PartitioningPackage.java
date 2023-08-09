@@ -317,7 +317,7 @@ public interface PartitioningPackage extends EPackage {
 	int WORKLOAD_BALANCE_PARTITIONING_REPORT__NETWORK = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Partitions</b></em>' reference list.
+	 * The feature id for the '<em><b>Partitions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -437,7 +437,7 @@ public interface PartitioningPackage extends EPackage {
 	int BALANCED_PIPELINE_PARTITIONING_REPORT__DATE = AnalysisPackage.ANALYSIS_REPORT__DATE;
 
 	/**
-	 * The feature id for the '<em><b>Partitions</b></em>' reference list.
+	 * The feature id for the '<em><b>Partitions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -635,10 +635,10 @@ public interface PartitioningPackage extends EPackage {
 	EReference getWorkloadBalancePartitioningReport_Network();
 
 	/**
-	 * Returns the meta object for the reference list '{@link turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport#getPartitions <em>Partitions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport#getPartitions <em>Partitions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Partitions</em>'.
+	 * @return the meta object for the containment reference list '<em>Partitions</em>'.
 	 * @see turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport#getPartitions()
 	 * @see #getWorkloadBalancePartitioningReport()
 	 * @generated
@@ -710,10 +710,10 @@ public interface PartitioningPackage extends EPackage {
 	EClass getBalancedPipelinePartitioningReport();
 
 	/**
-	 * Returns the meta object for the reference list '{@link turnus.model.analysis.partitioning.BalancedPipelinePartitioningReport#getPartitions <em>Partitions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link turnus.model.analysis.partitioning.BalancedPipelinePartitioningReport#getPartitions <em>Partitions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Partitions</em>'.
+	 * @return the meta object for the containment reference list '<em>Partitions</em>'.
 	 * @see turnus.model.analysis.partitioning.BalancedPipelinePartitioningReport#getPartitions()
 	 * @see #getBalancedPipelinePartitioningReport()
 	 * @generated
@@ -883,7 +883,7 @@ public interface PartitioningPackage extends EPackage {
 		EReference WORKLOAD_BALANCE_PARTITIONING_REPORT__NETWORK = eINSTANCE.getWorkloadBalancePartitioningReport_Network();
 
 		/**
-		 * The meta object literal for the '<em><b>Partitions</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Partitions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -943,7 +943,7 @@ public interface PartitioningPackage extends EPackage {
 		EClass BALANCED_PIPELINE_PARTITIONING_REPORT = eINSTANCE.getBalancedPipelinePartitioningReport();
 
 		/**
-		 * The meta object literal for the '<em><b>Partitions</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Partitions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

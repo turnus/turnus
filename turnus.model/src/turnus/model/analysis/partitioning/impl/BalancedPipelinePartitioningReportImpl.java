@@ -37,6 +37,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -45,8 +46,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import turnus.model.analysis.partitioning.BalancedPipelinePartition;
 import turnus.model.analysis.partitioning.BalancedPipelinePartitioningReport;
 import turnus.model.analysis.partitioning.PartitioningPackage;
@@ -112,7 +113,7 @@ public class BalancedPipelinePartitioningReportImpl extends MinimalEObjectImpl.C
 	protected Date date = DATE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPartitions() <em>Partitions</em>}' reference list.
+	 * The cached value of the '{@link #getPartitions() <em>Partitions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPartitions()
@@ -204,7 +205,7 @@ public class BalancedPipelinePartitioningReportImpl extends MinimalEObjectImpl.C
 	@Override
 	public List<BalancedPipelinePartition> getPartitions() {
 		if (partitions == null) {
-			partitions = new EObjectResolvingEList<BalancedPipelinePartition>(BalancedPipelinePartition.class, this, PartitioningPackage.BALANCED_PIPELINE_PARTITIONING_REPORT__PARTITIONS);
+			partitions = new EObjectContainmentEList<BalancedPipelinePartition>(BalancedPipelinePartition.class, this, PartitioningPackage.BALANCED_PIPELINE_PARTITIONING_REPORT__PARTITIONS);
 		}
 		return partitions;
 	}
@@ -247,6 +248,20 @@ public class BalancedPipelinePartitioningReportImpl extends MinimalEObjectImpl.C
 		network = newNetwork;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, PartitioningPackage.BALANCED_PIPELINE_PARTITIONING_REPORT__NETWORK, oldNetwork, network));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case PartitioningPackage.BALANCED_PIPELINE_PARTITIONING_REPORT__PARTITIONS:
+				return ((InternalEList<?>)getPartitions()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

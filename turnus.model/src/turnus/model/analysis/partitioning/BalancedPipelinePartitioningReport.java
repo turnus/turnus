@@ -57,7 +57,7 @@ import turnus.model.mapping.NetworkPartitioning;
  */
 public interface BalancedPipelinePartitioningReport extends AnalysisReport {
 	/**
-	 * Returns the value of the '<em><b>Partitions</b></em>' reference list.
+	 * Returns the value of the '<em><b>Partitions</b></em>' containment reference list.
 	 * The list contents are of type {@link turnus.model.analysis.partitioning.BalancedPipelinePartition}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -65,9 +65,9 @@ public interface BalancedPipelinePartitioningReport extends AnalysisReport {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Partitions</em>' reference list.
+	 * @return the value of the '<em>Partitions</em>' containment reference list.
 	 * @see turnus.model.analysis.partitioning.PartitioningPackage#getBalancedPipelinePartitioningReport_Partitions()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	List<BalancedPipelinePartition> getPartitions();

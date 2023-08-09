@@ -612,7 +612,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 
 		initEClass(workloadBalancePartitioningReportEClass, WorkloadBalancePartitioningReport.class, "WorkloadBalancePartitioningReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getWorkloadBalancePartitioningReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, WorkloadBalancePartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getWorkloadBalancePartitioningReport_Partitions(), this.getWorkloadBalancePartition(), null, "partitions", null, 0, -1, WorkloadBalancePartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWorkloadBalancePartitioningReport_Partitions(), this.getWorkloadBalancePartition(), null, "partitions", null, 0, -1, WorkloadBalancePartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(balancedPipelinePartitionEClass, BalancedPipelinePartition.class, "BalancedPipelinePartition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBalancedPipelinePartition_Actors(), theDataflowPackage.getActor(), null, "actors", null, 0, -1, BalancedPipelinePartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -621,7 +621,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		initEAttribute(getBalancedPipelinePartition_CommonPredAvg(), ecorePackage.getEDouble(), "commonPredAvg", null, 0, 1, BalancedPipelinePartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(balancedPipelinePartitioningReportEClass, BalancedPipelinePartitioningReport.class, "BalancedPipelinePartitioningReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBalancedPipelinePartitioningReport_Partitions(), this.getBalancedPipelinePartition(), null, "partitions", null, 0, -1, BalancedPipelinePartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBalancedPipelinePartitioningReport_Partitions(), this.getBalancedPipelinePartition(), null, "partitions", null, 0, -1, BalancedPipelinePartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBalancedPipelinePartitioningReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, BalancedPipelinePartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 

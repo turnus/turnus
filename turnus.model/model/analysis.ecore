@@ -631,7 +631,7 @@
         eSuperTypes="#//AnalysisReport">
       <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
-          eType="#//partitioning/WorkloadBalancePartition"/>
+          eType="#//partitioning/WorkloadBalancePartition" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BalancedPipelinePartition">
       <eStructuralFeatures xsi:type="ecore:EReference" name="actors" upperBound="-1"
@@ -643,7 +643,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="BalancedPipelinePartitioningReport"
         eSuperTypes="#//AnalysisReport">
       <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
-          eType="#//partitioning/BalancedPipelinePartition"/>
+          eType="#//partitioning/BalancedPipelinePartition" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
     </eClassifiers>
   </eSubpackages>

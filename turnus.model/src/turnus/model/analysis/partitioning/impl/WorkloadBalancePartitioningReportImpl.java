@@ -37,6 +37,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -45,8 +46,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import turnus.model.analysis.partitioning.PartitioningPackage;
 import turnus.model.analysis.partitioning.WorkloadBalancePartition;
 import turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport;
@@ -122,7 +123,7 @@ public class WorkloadBalancePartitioningReportImpl extends MinimalEObjectImpl.Co
 	protected Network network;
 
 	/**
-	 * The cached value of the '{@link #getPartitions() <em>Partitions</em>}' reference list.
+	 * The cached value of the '{@link #getPartitions() <em>Partitions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPartitions()
@@ -244,9 +245,23 @@ public class WorkloadBalancePartitioningReportImpl extends MinimalEObjectImpl.Co
 	@Override
 	public List<WorkloadBalancePartition> getPartitions() {
 		if (partitions == null) {
-			partitions = new EObjectResolvingEList<WorkloadBalancePartition>(WorkloadBalancePartition.class, this, PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT__PARTITIONS);
+			partitions = new EObjectContainmentEList<WorkloadBalancePartition>(WorkloadBalancePartition.class, this, PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT__PARTITIONS);
 		}
 		return partitions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT__PARTITIONS:
+				return ((InternalEList<?>)getPartitions()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

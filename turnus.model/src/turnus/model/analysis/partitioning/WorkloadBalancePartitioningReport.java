@@ -81,7 +81,7 @@ public interface WorkloadBalancePartitioningReport extends AnalysisReport {
 	void setNetwork(Network value);
 
 	/**
-	 * Returns the value of the '<em><b>Partitions</b></em>' reference list.
+	 * Returns the value of the '<em><b>Partitions</b></em>' containment reference list.
 	 * The list contents are of type {@link turnus.model.analysis.partitioning.WorkloadBalancePartition}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -89,9 +89,9 @@ public interface WorkloadBalancePartitioningReport extends AnalysisReport {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Partitions</em>' reference list.
+	 * @return the value of the '<em>Partitions</em>' containment reference list.
 	 * @see turnus.model.analysis.partitioning.PartitioningPackage#getWorkloadBalancePartitioningReport_Partitions()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	List<WorkloadBalancePartition> getPartitions();
