@@ -51,6 +51,7 @@ import turnus.ui.util.EclipseUtils;
 import turnus.ui.widget.WidgetCreateFile;
 import turnus.ui.widget.WidgetSelectFile;
 
+import org.apache.commons.io.FilenameUtils;
 /**
  * This class defines an abstract File exporter wizard. The superclass should
  * provide the output file extension. Input file extensions are handled by the
@@ -86,7 +87,12 @@ public abstract class AbstractFileExporterWizard extends Wizard implements IWork
 			wInputFile = new WidgetSelectFile("File", "Input file to be exported", inputs, inputFile, container);
 			addWidget(wInputFile);
 
-			wOutputFile = new WidgetCreateFile("Output", "Output file", output, null, container);
+					
+			String intialOutputFileName = FilenameUtils.removeExtension(inputFile.getAbsolutePath()) + "." + output[0];
+	
+			
+			File initialOutputFile = new File(intialOutputFileName);
+			wOutputFile = new WidgetCreateFile("Output", "Output file", output, initialOutputFile, container);
 			addWidget(wOutputFile);
 
 		}

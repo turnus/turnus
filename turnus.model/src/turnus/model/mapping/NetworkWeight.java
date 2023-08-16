@@ -121,7 +121,7 @@ public class NetworkWeight {
 	}
 
 	public boolean isValid(Network network) {
-		if (networkName.equals(network.getName())) {
+		if (!networkName.equals(network.getName())) {
 			return false;
 		}
 

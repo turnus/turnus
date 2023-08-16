@@ -112,11 +112,11 @@ public class ActionStatistics2MdExporter implements FileExporter<ActionStatistic
 					long counts = data.getExecutionCounts().get(action);
 					double time = data.getProcessingTimes().get(action);
 					double idle = data.getIdleTimes().get(action);
-					double bwrite = data.getBlockedReadingTimes().get(action);
 					double bread = data.getBlockedReadingTimes().get(action);
+					double bwrite = data.getBlockedWritingTimes().get(action);
 
 					b.append(String.format("| %s | %s | %d | %.2f | %.2f | %.2f | %.2f \n", actor.getName(),
-							action.getName(), counts, time, idle, bwrite, bread));
+							action.getName(), counts, time, idle, bread, bwrite));
 				}
 
 			}

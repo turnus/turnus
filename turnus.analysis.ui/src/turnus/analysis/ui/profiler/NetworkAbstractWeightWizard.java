@@ -294,7 +294,9 @@ public class NetworkAbstractWeightWizard extends Wizard implements IWorkbenchWiz
 			addWidget(wInputFile);
 
 			String[] output = { NETWORK_WEIGHT };
-			wOutputFile = new WidgetCreateFile("Output", "Output file", output, null, container);
+			String outputPath = inputFile.getAbsolutePath().replace(".dprof", ".abstract.exdf");
+			File initialOutputFile = new File(outputPath);
+			wOutputFile = new WidgetCreateFile("Output", "Output file", output, initialOutputFile, container);
 			addWidget(wOutputFile);
 
 		}

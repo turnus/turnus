@@ -144,9 +144,12 @@ public class WorkloadBalancePartitioning extends Analysis<WorkloadBalancePartiti
 			public int compare(Actor a1, Actor a2) {
 				if (unsortedWorkloads.get(a1) < unsortedWorkloads.get(a2)) {
 					return 1;
-				} else {
+				} else if (unsortedWorkloads.get(a1) > unsortedWorkloads.get(a2)) {
 					return -1;
+				}else {
+					return 0;
 				}
+				
 			}
 		});
 

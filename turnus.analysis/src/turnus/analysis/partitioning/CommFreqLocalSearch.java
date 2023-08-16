@@ -189,6 +189,7 @@ public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 		
 		// initialize the values of objective function
 		if (useEstimation) {
+			calculateFrequencies();
 			simulation.setNetworkPartitioning(currentPartitioning);
 			objectiveFunctionLocal = simulation.run().getTime();
 			objectiveFunctionBest = objectiveFunctionLocal;
