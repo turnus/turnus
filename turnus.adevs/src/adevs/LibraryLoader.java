@@ -63,7 +63,7 @@ public class LibraryLoader {
 			if (SystemUtils.IS_OS_LINUX) {
 				loadFile("libjava_adevs.so");
 			} else if (SystemUtils.IS_OS_MAC_OSX) {
-				loadFile("libadevs.dylib");
+				loadFile("libjava_adevs.dylib");
 			}else {
 				throw new TurnusRuntimeException("ADEVS is not supported on this OS.");
 			}

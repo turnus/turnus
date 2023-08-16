@@ -281,8 +281,8 @@ public class NetworkWeightEditor extends EditorPart {
 	}
 
 	/**
-	 * This class defines a content comparator for sorting instances by the
-	 * selected column values.
+	 * This class defines a content comparator for sorting instances by the selected
+	 * column values.
 	 * 
 	 * @author Simone Casale Brunet
 	 * 
@@ -299,13 +299,27 @@ public class NetworkWeightEditor extends EditorPart {
 
 		@Override
 		public int compare(Viewer viewer, Object o1, Object o2) {
-
 			int rc = 0;
 
+			if((o1 instanceof Pair) &&  (o2 instanceof Pair)) {
+				Pair<String, String> p1 = (Pair<String, String>) o1;
+				Pair<String, String> p2 = (Pair<String, String>) o2;
+				rc = p1.v2.compareTo(p2.v2);
+			}else {
+			
+				String s1 = (String) o1;
+				String s2 = (String) o2;
+				rc = s1.compareTo(s2);
+			}
+			
+			
+			
 			// If descending order, flip the direction
 			if (direction == DESCENDING) {
 				rc = -rc;
 			}
+			
+
 			return rc;
 		}
 
@@ -604,13 +618,11 @@ public class NetworkWeightEditor extends EditorPart {
 	}
 
 	/**
-	 * Create a new {@link SelectionAdapter} for adding the sorting facility to
-	 * the column
+	 * Create a new {@link SelectionAdapter} for adding the sorting facility to the
+	 * column
 	 * 
-	 * @param column
-	 *            the table column
-	 * @param index
-	 *            the column number index
+	 * @param column the table column
+	 * @param index  the column number index
 	 * @return
 	 */
 	private SelectionAdapter getSelectionAdapter(final TreeColumn column, final int index) {
