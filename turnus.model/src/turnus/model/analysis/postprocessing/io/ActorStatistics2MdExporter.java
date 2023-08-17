@@ -109,9 +109,9 @@ public class ActorStatistics2MdExporter implements FileExporter<ActorStatisticsR
 		int pNumber = 1;
 		for (StatisticalActorPartition partition : data.getPartitions()) {
 			if (isParent) {
-				b.append(String.format("## Partition - %d\n", pNumber++, partition.getOccupancy()));
+				b.append(String.format("## Partition - %d\n", pNumber++));
 			} else {
-				b.append(String.format("### Partition - %d\n", pNumber++, partition.getOccupancy()));
+				b.append(String.format("### Partition - %d\n", pNumber++));
 			}
 			b.append("\n");
 			b.append(String.format("* **Occupancy**: %.2f", partition.getOccupancy()) + "%\n");
