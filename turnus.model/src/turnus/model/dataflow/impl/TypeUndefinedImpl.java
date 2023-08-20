@@ -131,6 +131,7 @@ public class TypeUndefinedImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getSize() {
 		return size;
 	}
@@ -140,6 +141,7 @@ public class TypeUndefinedImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSize(int newSize) {
 		int oldSize = size;
 		size = newSize;

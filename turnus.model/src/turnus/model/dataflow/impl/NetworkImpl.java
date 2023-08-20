@@ -233,6 +233,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -241,6 +242,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -252,6 +254,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSourceFile() {
 		return sourceFile;
 	}
@@ -260,6 +263,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSourceFile(String newSourceFile) {
 		String oldSourceFile = sourceFile;
 		sourceFile = newSourceFile;
@@ -271,6 +275,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getProject() {
 		return project;
 	}
@@ -279,6 +284,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProject(String newProject) {
 		String oldProject = project;
 		project = newProject;
@@ -290,6 +296,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Actor> getActors() {
 		if (actors == null) {
 			actors = new EObjectContainmentEList<Actor>(Actor.class, this, DataflowPackage.NETWORK__ACTORS);
@@ -301,6 +308,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ActorClass> getActorClasses() {
 		if (actorClasses == null) {
 			actorClasses = new EObjectContainmentEList<ActorClass>(ActorClass.class, this, DataflowPackage.NETWORK__ACTOR_CLASSES);
@@ -312,6 +320,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Buffer> getBuffers() {
 		if (buffers == null) {
 			buffers = new EObjectContainmentEList<Buffer>(Buffer.class, this, DataflowPackage.NETWORK__BUFFERS);
@@ -323,6 +332,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Port> getInputPorts() {
 		if (inputPorts == null) {
 			inputPorts = new EObjectContainmentEList<Port>(Port.class, this, DataflowPackage.NETWORK__INPUT_PORTS);
@@ -334,6 +344,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Port> getOutputPorts() {
 		if (outputPorts == null) {
 			outputPorts = new EObjectContainmentEList<Port>(Port.class, this, DataflowPackage.NETWORK__OUTPUT_PORTS);
@@ -366,6 +377,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Version getVersion() {
 		return version;
 	}
@@ -389,6 +401,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(Version newVersion) {
 		if (newVersion != version) {
 			NotificationChain msgs = null;
@@ -662,7 +675,7 @@ public class NetworkImpl extends AttributableImpl implements Network {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(", sourceFile: ");

@@ -187,6 +187,7 @@ public class ActorClassImpl extends AttributableImpl implements ActorClass {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -195,6 +196,7 @@ public class ActorClassImpl extends AttributableImpl implements ActorClass {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -206,6 +208,7 @@ public class ActorClassImpl extends AttributableImpl implements ActorClass {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSourceFile() {
 		return sourceFile;
 	}
@@ -214,6 +217,7 @@ public class ActorClassImpl extends AttributableImpl implements ActorClass {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSourceFile(String newSourceFile) {
 		String oldSourceFile = sourceFile;
 		sourceFile = newSourceFile;
@@ -225,6 +229,7 @@ public class ActorClassImpl extends AttributableImpl implements ActorClass {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getNameSpace() {
 		return nameSpace;
 	}
@@ -233,6 +238,7 @@ public class ActorClassImpl extends AttributableImpl implements ActorClass {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNameSpace(String newNameSpace) {
 		String oldNameSpace = nameSpace;
 		nameSpace = newNameSpace;
@@ -244,6 +250,7 @@ public class ActorClassImpl extends AttributableImpl implements ActorClass {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Actor> getActors() {
 		if (actors == null) {
 			actors = new EObjectWithInverseResolvingEList<Actor>(Actor.class, this, DataflowPackage.ACTOR_CLASS__ACTORS, DataflowPackage.ACTOR__ACTOR_CLASS);
@@ -255,6 +262,7 @@ public class ActorClassImpl extends AttributableImpl implements ActorClass {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Version getVersion() {
 		return version;
 	}
@@ -277,6 +285,7 @@ public class ActorClassImpl extends AttributableImpl implements ActorClass {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(Version newVersion) {
 		if (newVersion != version) {
 			NotificationChain msgs = null;

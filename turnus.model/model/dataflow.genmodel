@@ -98,6 +98,7 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute dataflow.ecore#//Variable/shared"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataflow.ecore#//Variable/type"/>
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference dataflow.ecore#//Variable/owner"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute dataflow.ecore#//Variable/constant"/>
     </genClasses>
     <genClasses ecoreClass="dataflow.ecore#//SharedVariable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataflow.ecore#//SharedVariable/tag"/>

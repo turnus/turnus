@@ -224,7 +224,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link DataflowPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -238,11 +238,13 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		if (isInited) return (DataflowPackage)EPackage.Registry.INSTANCE.getEPackage(DataflowPackage.eNS_URI);
 
 		// Obtain or create and register package
-		DataflowPackageImpl theDataflowPackage = (DataflowPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof DataflowPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new DataflowPackageImpl());
+		Object registeredDataflowPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		DataflowPackageImpl theDataflowPackage = registeredDataflowPackage instanceof DataflowPackageImpl ? (DataflowPackageImpl)registeredDataflowPackage : new DataflowPackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
+		CommonPackage.eINSTANCE.eClass();
 		VersioningPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
@@ -254,7 +256,6 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		// Mark meta-data to indicate it can't be changed
 		theDataflowPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(DataflowPackage.eNS_URI, theDataflowPackage);
 		return theDataflowPackage;
@@ -265,6 +266,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getNetwork() {
 		return networkEClass;
 	}
@@ -274,6 +276,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNetwork_Name() {
 		return (EAttribute)networkEClass.getEStructuralFeatures().get(0);
 	}
@@ -283,6 +286,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNetwork_SourceFile() {
 		return (EAttribute)networkEClass.getEStructuralFeatures().get(1);
 	}
@@ -292,6 +296,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNetwork_Project() {
 		return (EAttribute)networkEClass.getEStructuralFeatures().get(2);
 	}
@@ -301,6 +306,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNetwork_Actors() {
 		return (EReference)networkEClass.getEStructuralFeatures().get(3);
 	}
@@ -310,6 +316,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNetwork_ActorClasses() {
 		return (EReference)networkEClass.getEStructuralFeatures().get(4);
 	}
@@ -319,6 +326,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNetwork_Buffers() {
 		return (EReference)networkEClass.getEStructuralFeatures().get(5);
 	}
@@ -328,6 +336,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNetwork_InputPorts() {
 		return (EReference)networkEClass.getEStructuralFeatures().get(6);
 	}
@@ -337,6 +346,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNetwork_OutputPorts() {
 		return (EReference)networkEClass.getEStructuralFeatures().get(7);
 	}
@@ -346,6 +356,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNetwork_SharedVariables() {
 		return (EReference)networkEClass.getEStructuralFeatures().get(8);
 	}
@@ -355,6 +366,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNetwork_Version() {
 		return (EReference)networkEClass.getEStructuralFeatures().get(9);
 	}
@@ -364,6 +376,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getNetwork__GetActor__String() {
 		return networkEClass.getEOperations().get(0);
 	}
@@ -373,6 +386,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getNetwork__GetActorClass__String() {
 		return networkEClass.getEOperations().get(1);
 	}
@@ -382,6 +396,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getNetwork__GetInputPort__String() {
 		return networkEClass.getEOperations().get(2);
 	}
@@ -391,6 +406,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getNetwork__GetOutputPort__String() {
 		return networkEClass.getEOperations().get(3);
 	}
@@ -400,6 +416,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getNetwork__GetSharedVariables__String() {
 		return networkEClass.getEOperations().get(4);
 	}
@@ -409,6 +426,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActorClass() {
 		return actorClassEClass;
 	}
@@ -418,6 +436,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActorClass_Name() {
 		return (EAttribute)actorClassEClass.getEStructuralFeatures().get(0);
 	}
@@ -427,6 +446,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActorClass_SourceFile() {
 		return (EAttribute)actorClassEClass.getEStructuralFeatures().get(1);
 	}
@@ -436,6 +456,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActorClass_NameSpace() {
 		return (EAttribute)actorClassEClass.getEStructuralFeatures().get(2);
 	}
@@ -445,6 +466,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorClass_Actors() {
 		return (EReference)actorClassEClass.getEStructuralFeatures().get(3);
 	}
@@ -454,6 +476,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorClass_Version() {
 		return (EReference)actorClassEClass.getEStructuralFeatures().get(4);
 	}
@@ -463,6 +486,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActorClass_Owner() {
 		return (EReference)actorClassEClass.getEStructuralFeatures().get(5);
 	}
@@ -472,6 +496,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActorClass_SourceCode() {
 		return (EAttribute)actorClassEClass.getEStructuralFeatures().get(6);
 	}
@@ -481,6 +506,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActor() {
 		return actorEClass;
 	}
@@ -490,6 +516,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActor_Name() {
 		return (EAttribute)actorEClass.getEStructuralFeatures().get(0);
 	}
@@ -499,6 +526,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActor_InputPorts() {
 		return (EReference)actorEClass.getEStructuralFeatures().get(1);
 	}
@@ -508,6 +536,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActor_OutputPorts() {
 		return (EReference)actorEClass.getEStructuralFeatures().get(2);
 	}
@@ -517,6 +546,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActor_Variables() {
 		return (EReference)actorEClass.getEStructuralFeatures().get(3);
 	}
@@ -526,6 +556,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActor_ActorClass() {
 		return (EReference)actorEClass.getEStructuralFeatures().get(4);
 	}
@@ -535,6 +566,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActor_Actions() {
 		return (EReference)actorEClass.getEStructuralFeatures().get(5);
 	}
@@ -544,6 +576,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActor_Procedures() {
 		return (EReference)actorEClass.getEStructuralFeatures().get(6);
 	}
@@ -553,6 +586,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActor_Owner() {
 		return (EReference)actorEClass.getEStructuralFeatures().get(7);
 	}
@@ -562,6 +596,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActor_Buffers() {
 		return (EReference)actorEClass.getEStructuralFeatures().get(8);
 	}
@@ -571,6 +606,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActor_IncomingBuffers() {
 		return (EReference)actorEClass.getEStructuralFeatures().get(9);
 	}
@@ -580,6 +616,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActor_OutgoingBuffers() {
 		return (EReference)actorEClass.getEStructuralFeatures().get(10);
 	}
@@ -589,6 +626,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActor_Predecessors() {
 		return (EReference)actorEClass.getEStructuralFeatures().get(11);
 	}
@@ -598,6 +636,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActor_Successors() {
 		return (EReference)actorEClass.getEStructuralFeatures().get(12);
 	}
@@ -607,6 +646,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActor__GetAction__String() {
 		return actorEClass.getEOperations().get(0);
 	}
@@ -616,6 +656,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActor__GetInputPort__String() {
 		return actorEClass.getEOperations().get(1);
 	}
@@ -625,6 +666,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActor__GetOutputPort__String() {
 		return actorEClass.getEOperations().get(2);
 	}
@@ -634,6 +676,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActor__GetVariable__String() {
 		return actorEClass.getEOperations().get(3);
 	}
@@ -643,6 +686,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActor__GetProcedure__String() {
 		return actorEClass.getEOperations().get(4);
 	}
@@ -652,6 +696,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getActor__GetSharedVariable__String() {
 		return actorEClass.getEOperations().get(5);
 	}
@@ -661,6 +706,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAction() {
 		return actionEClass;
 	}
@@ -670,6 +716,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAction_Name() {
 		return (EAttribute)actionEClass.getEStructuralFeatures().get(0);
 	}
@@ -679,6 +726,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAction_InputPorts() {
 		return (EReference)actionEClass.getEStructuralFeatures().get(1);
 	}
@@ -688,6 +736,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAction_OutputPorts() {
 		return (EReference)actionEClass.getEStructuralFeatures().get(2);
 	}
@@ -697,6 +746,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAction_Guards() {
 		return (EReference)actionEClass.getEStructuralFeatures().get(3);
 	}
@@ -706,6 +756,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAction_Owner() {
 		return (EReference)actionEClass.getEStructuralFeatures().get(4);
 	}
@@ -715,6 +766,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getAction__GetGuard__String() {
 		return actionEClass.getEOperations().get(0);
 	}
@@ -724,6 +776,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getProcedure() {
 		return procedureEClass;
 	}
@@ -733,6 +786,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getProcedure_Name() {
 		return (EAttribute)procedureEClass.getEStructuralFeatures().get(0);
 	}
@@ -742,6 +796,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getProcedure_Variables() {
 		return (EReference)procedureEClass.getEStructuralFeatures().get(1);
 	}
@@ -751,6 +806,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getProcedure_Owner() {
 		return (EReference)procedureEClass.getEStructuralFeatures().get(2);
 	}
@@ -760,6 +816,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getVariable() {
 		return variableEClass;
 	}
@@ -769,6 +826,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVariable_Name() {
 		return (EAttribute)variableEClass.getEStructuralFeatures().get(0);
 	}
@@ -778,6 +836,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVariable_Shared() {
 		return (EAttribute)variableEClass.getEStructuralFeatures().get(1);
 	}
@@ -787,6 +846,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVariable_Type() {
 		return (EReference)variableEClass.getEStructuralFeatures().get(2);
 	}
@@ -796,6 +856,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVariable_Owner() {
 		return (EReference)variableEClass.getEStructuralFeatures().get(3);
 	}
@@ -805,6 +866,17 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EAttribute getVariable_Constant() {
+		return (EAttribute)variableEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getSharedVariable() {
 		return sharedVariableEClass;
 	}
@@ -814,6 +886,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSharedVariable_Tag() {
 		return (EAttribute)sharedVariableEClass.getEStructuralFeatures().get(0);
 	}
@@ -823,6 +896,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPort() {
 		return portEClass;
 	}
@@ -832,6 +906,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPort_Name() {
 		return (EAttribute)portEClass.getEStructuralFeatures().get(0);
 	}
@@ -841,6 +916,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPort_Writers() {
 		return (EReference)portEClass.getEStructuralFeatures().get(1);
 	}
@@ -850,6 +926,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPort_Readers() {
 		return (EReference)portEClass.getEStructuralFeatures().get(2);
 	}
@@ -859,6 +936,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPort_Input() {
 		return (EReference)portEClass.getEStructuralFeatures().get(3);
 	}
@@ -868,6 +946,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPort_Outputs() {
 		return (EReference)portEClass.getEStructuralFeatures().get(4);
 	}
@@ -877,6 +956,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPort_Owner() {
 		return (EReference)portEClass.getEStructuralFeatures().get(5);
 	}
@@ -886,6 +966,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBuffer() {
 		return bufferEClass;
 	}
@@ -895,6 +976,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBuffer_Source() {
 		return (EReference)bufferEClass.getEStructuralFeatures().get(0);
 	}
@@ -904,6 +986,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBuffer_Target() {
 		return (EReference)bufferEClass.getEStructuralFeatures().get(1);
 	}
@@ -913,6 +996,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBuffer_Type() {
 		return (EReference)bufferEClass.getEStructuralFeatures().get(2);
 	}
@@ -922,6 +1006,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBuffer_Owner() {
 		return (EReference)bufferEClass.getEStructuralFeatures().get(3);
 	}
@@ -931,6 +1016,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getGuard() {
 		return guardEClass;
 	}
@@ -940,6 +1026,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGuard_Tag() {
 		return (EAttribute)guardEClass.getEStructuralFeatures().get(0);
 	}
@@ -949,6 +1036,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getGuard_Owner() {
 		return (EReference)guardEClass.getEStructuralFeatures().get(1);
 	}
@@ -958,6 +1046,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getType() {
 		return typeEClass;
 	}
@@ -967,6 +1056,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getType_Etype() {
 		return (EAttribute)typeEClass.getEStructuralFeatures().get(0);
 	}
@@ -976,6 +1066,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getType_Bits() {
 		return (EAttribute)typeEClass.getEStructuralFeatures().get(1);
 	}
@@ -985,6 +1076,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTypeUint() {
 		return typeUintEClass;
 	}
@@ -994,6 +1086,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTypeUint_Size() {
 		return (EAttribute)typeUintEClass.getEStructuralFeatures().get(0);
 	}
@@ -1003,6 +1096,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTypeInt() {
 		return typeIntEClass;
 	}
@@ -1012,6 +1106,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTypeInt_Size() {
 		return (EAttribute)typeIntEClass.getEStructuralFeatures().get(0);
 	}
@@ -1021,6 +1116,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTypeString() {
 		return typeStringEClass;
 	}
@@ -1030,6 +1126,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTypeString_Size() {
 		return (EAttribute)typeStringEClass.getEStructuralFeatures().get(0);
 	}
@@ -1039,6 +1136,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTypeList() {
 		return typeListEClass;
 	}
@@ -1048,6 +1146,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTypeList_Elements() {
 		return (EAttribute)typeListEClass.getEStructuralFeatures().get(0);
 	}
@@ -1057,6 +1156,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTypeList_ListType() {
 		return (EReference)typeListEClass.getEStructuralFeatures().get(1);
 	}
@@ -1066,6 +1166,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTypeBoolean() {
 		return typeBooleanEClass;
 	}
@@ -1075,6 +1176,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTypeBoolean_Size() {
 		return (EAttribute)typeBooleanEClass.getEStructuralFeatures().get(0);
 	}
@@ -1084,6 +1186,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTypeDouble() {
 		return typeDoubleEClass;
 	}
@@ -1093,6 +1196,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTypeDouble_Size() {
 		return (EAttribute)typeDoubleEClass.getEStructuralFeatures().get(0);
 	}
@@ -1102,6 +1206,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTypeUndefined() {
 		return typeUndefinedEClass;
 	}
@@ -1111,6 +1216,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTypeUndefined_Size() {
 		return (EAttribute)typeUndefinedEClass.getEStructuralFeatures().get(0);
 	}
@@ -1120,6 +1226,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataflowFactory getDataflowFactory() {
 		return (DataflowFactory)getEFactoryInstance();
 	}
@@ -1208,6 +1315,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		createEAttribute(variableEClass, VARIABLE__SHARED);
 		createEReference(variableEClass, VARIABLE__TYPE);
 		createEReference(variableEClass, VARIABLE__OWNER);
+		createEAttribute(variableEClass, VARIABLE__CONSTANT);
 
 		sharedVariableEClass = createEClass(SHARED_VARIABLE);
 		createEAttribute(sharedVariableEClass, SHARED_VARIABLE__TAG);
@@ -1394,9 +1502,10 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 
 		initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getVariable_Name(), ecorePackage.getEString(), "name", null, 1, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getVariable_Shared(), ecorePackage.getEBoolean(), "shared", null, 0, 1, Variable.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVariable_Shared(), ecorePackage.getEBoolean(), "shared", null, 0, 1, Variable.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariable_Type(), this.getType(), null, "type", null, 1, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariable_Owner(), this.getActor(), null, "owner", null, 0, 1, Variable.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVariable_Constant(), ecorePackage.getEBoolean(), "constant", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(sharedVariableEClass, SharedVariable.class, "SharedVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSharedVariable_Tag(), ecorePackage.getEString(), "tag", null, 1, 1, SharedVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

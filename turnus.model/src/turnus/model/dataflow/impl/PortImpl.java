@@ -158,6 +158,7 @@ public class PortImpl extends AttributableImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -167,6 +168,7 @@ public class PortImpl extends AttributableImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -179,6 +181,7 @@ public class PortImpl extends AttributableImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Action> getWriters() {
 		if (writers == null) {
 			writers = new EObjectWithInverseResolvingEList.ManyInverse<Action>(Action.class, this, DataflowPackage.PORT__WRITERS, DataflowPackage.ACTION__OUTPUT_PORTS);
@@ -191,6 +194,7 @@ public class PortImpl extends AttributableImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Action> getReaders() {
 		if (readers == null) {
 			readers = new EObjectWithInverseResolvingEList.ManyInverse<Action>(Action.class, this, DataflowPackage.PORT__READERS, DataflowPackage.ACTION__INPUT_PORTS);
@@ -203,6 +207,7 @@ public class PortImpl extends AttributableImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Buffer getInput() {
 		if (input != null && input.eIsProxy()) {
 			InternalEObject oldInput = (InternalEObject)input;
@@ -244,6 +249,7 @@ public class PortImpl extends AttributableImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInput(Buffer newInput) {
 		if (newInput != input) {
 			NotificationChain msgs = null;
@@ -263,6 +269,7 @@ public class PortImpl extends AttributableImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Buffer> getOutputs() {
 		if (outputs == null) {
 			outputs = new EObjectWithInverseResolvingEList<Buffer>(Buffer.class, this, DataflowPackage.PORT__OUTPUTS, DataflowPackage.BUFFER__SOURCE);
@@ -438,7 +445,7 @@ public class PortImpl extends AttributableImpl implements Port {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(')');

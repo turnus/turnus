@@ -48,6 +48,7 @@ import turnus.common.Attributable;
  *   <li>{@link turnus.model.dataflow.Variable#isShared <em>Shared</em>}</li>
  *   <li>{@link turnus.model.dataflow.Variable#getType <em>Type</em>}</li>
  *   <li>{@link turnus.model.dataflow.Variable#getOwner <em>Owner</em>}</li>
+ *   <li>{@link turnus.model.dataflow.Variable#isConstant <em>Constant</em>}</li>
  * </ul>
  *
  * @see turnus.model.dataflow.DataflowPackage#getVariable()
@@ -91,7 +92,7 @@ public interface Variable extends EObject, Attributable {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Shared</em>' attribute.
 	 * @see turnus.model.dataflow.DataflowPackage#getVariable_Shared()
-	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @model transient="true" changeable="false" volatile="true"
 	 * @generated
 	 */
 	boolean isShared();
@@ -136,5 +137,16 @@ public interface Variable extends EObject, Attributable {
 	 * @generated
 	 */
 	Actor getOwner();
+
+	/**
+	 * Returns the value of the '<em><b>Constant</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Constant</em>' attribute.
+	 * @see turnus.model.dataflow.DataflowPackage#getVariable_Constant()
+	 * @model changeable="false"
+	 * @generated
+	 */
+	boolean isConstant();
 
 } // Variable

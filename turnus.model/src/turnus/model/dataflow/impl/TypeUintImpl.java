@@ -133,6 +133,7 @@ public class TypeUintImpl extends MinimalEObjectImpl.Container implements TypeUi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getSize() {
 		return size;
 	}
@@ -142,6 +143,7 @@ public class TypeUintImpl extends MinimalEObjectImpl.Container implements TypeUi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSize(int newSize) {
 		int oldSize = size;
 		size = newSize;

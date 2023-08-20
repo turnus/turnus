@@ -125,6 +125,7 @@ public class TypeDoubleImpl extends MinimalEObjectImpl.Container implements Type
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getSize() {
 		return size;
 	}
@@ -133,6 +134,7 @@ public class TypeDoubleImpl extends MinimalEObjectImpl.Container implements Type
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSize(int newSize) {
 		int oldSize = size;
 		size = newSize;

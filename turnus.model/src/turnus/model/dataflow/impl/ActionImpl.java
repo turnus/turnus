@@ -148,6 +148,7 @@ public class ActionImpl extends AttributableImpl implements Action {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -156,6 +157,7 @@ public class ActionImpl extends AttributableImpl implements Action {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -167,6 +169,7 @@ public class ActionImpl extends AttributableImpl implements Action {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Port> getInputPorts() {
 		if (inputPorts == null) {
 			inputPorts = new EObjectWithInverseResolvingEList.ManyInverse<Port>(Port.class, this, DataflowPackage.ACTION__INPUT_PORTS, DataflowPackage.PORT__READERS);
@@ -178,6 +181,7 @@ public class ActionImpl extends AttributableImpl implements Action {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Port> getOutputPorts() {
 		if (outputPorts == null) {
 			outputPorts = new EObjectWithInverseResolvingEList.ManyInverse<Port>(Port.class, this, DataflowPackage.ACTION__OUTPUT_PORTS, DataflowPackage.PORT__WRITERS);
@@ -189,6 +193,7 @@ public class ActionImpl extends AttributableImpl implements Action {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Guard> getGuards() {
 		if (guards == null) {
 			guards = new EObjectContainmentEList<Guard>(Guard.class, this, DataflowPackage.ACTION__GUARDS);

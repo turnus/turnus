@@ -118,6 +118,7 @@ public class BufferImpl extends AttributableImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Port getSource() {
 		if (source != null && source.eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject)source;
@@ -159,6 +160,7 @@ public class BufferImpl extends AttributableImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSource(Port newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
@@ -178,6 +180,7 @@ public class BufferImpl extends AttributableImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Port getTarget() {
 		if (target != null && target.eIsProxy()) {
 			InternalEObject oldTarget = (InternalEObject)target;
@@ -219,6 +222,7 @@ public class BufferImpl extends AttributableImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTarget(Port newTarget) {
 		if (newTarget != target) {
 			NotificationChain msgs = null;
@@ -238,6 +242,7 @@ public class BufferImpl extends AttributableImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Type getType() {
 		return type;
 	}
@@ -262,6 +267,7 @@ public class BufferImpl extends AttributableImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(Type newType) {
 		if (newType != type) {
 			NotificationChain msgs = null;

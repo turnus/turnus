@@ -112,6 +112,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Network createNetwork() {
 		NetworkImpl network = new NetworkImpl();
 		return network;
@@ -122,6 +123,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActorClass createActorClass() {
 		ActorClassImpl actorClass = new ActorClassImpl();
 		return actorClass;
@@ -132,6 +134,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Actor createActor() {
 		ActorImpl actor = new ActorImpl();
 		return actor;
@@ -142,6 +145,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Action createAction() {
 		ActionImpl action = new ActionImpl();
 		return action;
@@ -152,6 +156,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Procedure createProcedure() {
 		ProcedureImpl procedure = new ProcedureImpl();
 		return procedure;
@@ -162,6 +167,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Variable createVariable() {
 		VariableImpl variable = new VariableImpl();
 		return variable;
@@ -172,6 +178,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SharedVariable createSharedVariable() {
 		SharedVariableImpl sharedVariable = new SharedVariableImpl();
 		return sharedVariable;
@@ -182,6 +189,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Port createPort() {
 		PortImpl port = new PortImpl();
 		return port;
@@ -192,6 +200,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Buffer createBuffer() {
 		BufferImpl buffer = new BufferImpl();
 		return buffer;
@@ -202,6 +211,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Guard createGuard() {
 		GuardImpl guard = new GuardImpl();
 		return guard;
@@ -212,6 +222,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TypeUint createTypeUint() {
 		TypeUintImpl typeUint = new TypeUintImpl();
 		return typeUint;
@@ -222,6 +233,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TypeInt createTypeInt() {
 		TypeIntImpl typeInt = new TypeIntImpl();
 		return typeInt;
@@ -232,6 +244,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TypeString createTypeString() {
 		TypeStringImpl typeString = new TypeStringImpl();
 		return typeString;
@@ -242,6 +255,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TypeList createTypeList() {
 		TypeListImpl typeList = new TypeListImpl();
 		return typeList;
@@ -252,6 +266,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TypeBoolean createTypeBoolean() {
 		TypeBooleanImpl typeBoolean = new TypeBooleanImpl();
 		return typeBoolean;
@@ -262,6 +277,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TypeDouble createTypeDouble() {
 		TypeDoubleImpl typeDouble = new TypeDoubleImpl();
 		return typeDouble;
@@ -272,6 +288,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TypeUndefined createTypeUndefined() {
 		TypeUndefinedImpl typeUndefined = new TypeUndefinedImpl();
 		return typeUndefined;
@@ -282,6 +299,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataflowPackage getDataflowPackage() {
 		return (DataflowPackage)getEPackage();
 	}

@@ -148,6 +148,7 @@ public class SharedVariableImpl extends VariableImpl implements SharedVariable {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTag() {
 		return tag;
 	}
@@ -161,6 +162,7 @@ public class SharedVariableImpl extends VariableImpl implements SharedVariable {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTag(String newTag) {
 		String oldTag = tag;
 		tag = newTag;
@@ -176,7 +178,7 @@ public class SharedVariableImpl extends VariableImpl implements SharedVariable {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (tag: ");
 		result.append(tag);
 		result.append(')');

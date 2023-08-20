@@ -138,6 +138,7 @@ public class TypeListImpl extends MinimalEObjectImpl.Container implements TypeLi
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getElements() {
 		return elements;
 	}
@@ -146,6 +147,7 @@ public class TypeListImpl extends MinimalEObjectImpl.Container implements TypeLi
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setElements(int newElements) {
 		int oldElements = elements;
 		elements = newElements;
@@ -157,6 +159,7 @@ public class TypeListImpl extends MinimalEObjectImpl.Container implements TypeLi
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Type getListType() {
 		return listType;
 	}
@@ -179,6 +182,7 @@ public class TypeListImpl extends MinimalEObjectImpl.Container implements TypeLi
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setListType(Type newListType) {
 		if (newListType != listType) {
 			NotificationChain msgs = null;

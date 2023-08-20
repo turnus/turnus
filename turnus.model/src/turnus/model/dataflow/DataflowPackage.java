@@ -779,13 +779,22 @@ public interface DataflowPackage extends EPackage {
 	int VARIABLE__OWNER = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Constant</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE__CONSTANT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Variable</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_FEATURE_COUNT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 4;
+	int VARIABLE_FEATURE_COUNT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Variable</em>' class.
@@ -850,6 +859,15 @@ public interface DataflowPackage extends EPackage {
 	 * @ordered
 	 */
 	int SHARED_VARIABLE__OWNER = VARIABLE__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Constant</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHARED_VARIABLE__CONSTANT = VARIABLE__CONSTANT;
 
 	/**
 	 * The feature id for the '<em><b>Tag</b></em>' attribute.
@@ -2182,6 +2200,17 @@ public interface DataflowPackage extends EPackage {
 	EReference getVariable_Owner();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.dataflow.Variable#isConstant <em>Constant</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Constant</em>'.
+	 * @see turnus.model.dataflow.Variable#isConstant()
+	 * @see #getVariable()
+	 * @generated
+	 */
+	EAttribute getVariable_Constant();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.dataflow.SharedVariable <em>Shared Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3068,6 +3097,14 @@ public interface DataflowPackage extends EPackage {
 		 * @generated
 		 */
 		EReference VARIABLE__OWNER = eINSTANCE.getVariable_Owner();
+
+		/**
+		 * The meta object literal for the '<em><b>Constant</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE__CONSTANT = eINSTANCE.getVariable_Constant();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.dataflow.impl.SharedVariableImpl <em>Shared Variable</em>}' class.

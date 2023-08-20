@@ -58,6 +58,7 @@ import turnus.model.dataflow.Variable;
  *   <li>{@link turnus.model.dataflow.impl.VariableImpl#isShared <em>Shared</em>}</li>
  *   <li>{@link turnus.model.dataflow.impl.VariableImpl#getType <em>Type</em>}</li>
  *   <li>{@link turnus.model.dataflow.impl.VariableImpl#getOwner <em>Owner</em>}</li>
+ *   <li>{@link turnus.model.dataflow.impl.VariableImpl#isConstant <em>Constant</em>}</li>
  * </ul>
  *
  * @generated
@@ -104,6 +105,26 @@ public class VariableImpl extends AttributableImpl implements Variable {
 	protected Type type;
 
 	/**
+	 * The default value of the '{@link #isConstant() <em>Constant</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isConstant()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean CONSTANT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isConstant() <em>Constant</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isConstant()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean constant = CONSTANT_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -127,6 +148,7 @@ public class VariableImpl extends AttributableImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -136,6 +158,7 @@ public class VariableImpl extends AttributableImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -157,6 +180,7 @@ public class VariableImpl extends AttributableImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Type getType() {
 		return type;
 	}
@@ -181,6 +205,7 @@ public class VariableImpl extends AttributableImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(Type newType) {
 		if (newType != type) {
 			NotificationChain msgs = null;
@@ -202,6 +227,16 @@ public class VariableImpl extends AttributableImpl implements Variable {
 	 */
 	public Actor getOwner() {
 		return (Actor) eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isConstant() {
+		return constant;
 	}
 
 	/**
@@ -234,6 +269,8 @@ public class VariableImpl extends AttributableImpl implements Variable {
 				return getType();
 			case DataflowPackage.VARIABLE__OWNER:
 				return getOwner();
+			case DataflowPackage.VARIABLE__CONSTANT:
+				return isConstant();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -290,6 +327,8 @@ public class VariableImpl extends AttributableImpl implements Variable {
 				return type != null;
 			case DataflowPackage.VARIABLE__OWNER:
 				return getOwner() != null;
+			case DataflowPackage.VARIABLE__CONSTANT:
+				return constant != CONSTANT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -303,9 +342,11 @@ public class VariableImpl extends AttributableImpl implements Variable {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", constant: ");
+		result.append(constant);
 		result.append(')');
 		return result.toString();
 	}
