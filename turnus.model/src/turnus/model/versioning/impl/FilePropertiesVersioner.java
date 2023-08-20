@@ -32,6 +32,13 @@
 package turnus.model.versioning.impl;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -39,16 +46,35 @@ import turnus.model.versioning.Version;
 import turnus.model.versioning.Versioner;
 import turnus.model.versioning.VersioningFactory;
 
-import com.google.common.hash.Hashing;
-import com.google.common.io.Files;
-
 /**
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class FilePropertiesVersioner implements Versioner {
 
+	private static String checksum(String filePath, String algorithm) {
+
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance(algorithm);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalArgumentException(e);
+        }
+
+        try (InputStream is = new FileInputStream(filePath);
+             DigestInputStream dis = new DigestInputStream(is, md)) {
+            while (dis.read() != -1) ; //empty loop to clear the data
+            md = dis.getMessageDigest();
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
+        }
+        String output = String.format("%032X", new BigInteger(1, md.digest()));
+        return output;
+    }
+	
+	
 	@Override
 	public Version getVersion(File file) {
 		Date date = new Date();
@@ -58,7 +84,7 @@ public class FilePropertiesVersioner implements Versioner {
 		if (file != null && file.exists()) {
 			v.setLastModification(new Date(file.lastModified()));
 			try {
-				v.setId(Files.hash(file, Hashing.md5()).toString());
+				v.setId(checksum(file.getPath(), "SHA3-256"));
 			} catch (Exception e) {
 				v.setId(UUID.randomUUID().toString());
 			}
