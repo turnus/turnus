@@ -9,7 +9,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/arpack_combined_all-0.1.jar,
- lib/asm-9.3.jar,
+ lib/asm-9.5.jar,
  lib/asm-tree-9.3.jar,
  lib/bounce-0.18.jar,
  lib/commons-cli-1.2.jar,

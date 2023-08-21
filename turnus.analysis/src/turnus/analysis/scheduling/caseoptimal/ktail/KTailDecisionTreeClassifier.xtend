@@ -41,10 +41,10 @@ abstract class Condition{
 	String stateName;
 	String source;
 	String transitionSched;
-	def public static String regex(){
+	def static String regex(){
 		regex(null)
 	}
-	def public static String regex(Integer i){
+	def static String regex(Integer i){
 		'''\[(?<sourceState«i»>[a-zA-Z0-9_]+)->(?<targetState«i»>[a-zA-Z0-9_]+)--(?<transitionSched«i»>[0-9]*) \([0-9.\/]+\)\]'''
 	}
 	new(Matcher leafMatcher){

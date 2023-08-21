@@ -44,6 +44,7 @@ import java.io.File;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
@@ -135,7 +136,7 @@ public class BoundedBufferAnalysisCli implements IApplication {
 					outputPath = configuration.getValue(OUTPUT_DIRECTORY);
 					createDirectory(outputPath);
 				} else {
-					outputPath = createOutputDirectory("buffers", configuration);
+					outputPath = createOutputDirectory("buffers", configuration); 
 				}
 
 				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.BOUNDED_BUFFER_REPORT);

@@ -1,15 +1,12 @@
 package turnus.model.analysis.scheduling.impl
 
 import java.io.File
-import turnus.common.configuration.Configuration
-import turnus.common.TurnusException
-import turnus.model.analysis.scheduling.ActorSelectionSchedule
-import turnus.common.util.EcoreUtils
-import turnus.model.analysis.scheduling.caseoptimal.CaseOptimalScheduleReport
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
-import turnus.model.analysis.scheduling.caseoptimal.impl.CaseOptimalActorSelectionScheduleImpl
-import turnus.model.analysis.scheduling.caseoptimal.impl.CaseoptimalFactoryImpl
+import turnus.common.TurnusException
+import turnus.common.configuration.Configuration
+import turnus.common.util.EcoreUtils
 import turnus.model.analysis.scheduling.ActorSelectionScheduleReportLoader
+import turnus.model.analysis.scheduling.caseoptimal.CaseOptimalScheduleReport
 
 class ActorSelectionScheduleLoaderImpl implements ActorSelectionScheduleReportLoader {
 	

@@ -10,4 +10,12 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	
+	
+	<dependencies>
+		<dependency>
+			<groupId>turnus</groupId>
+			<artifactId>turnus.model</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

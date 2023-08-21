@@ -13,8 +13,8 @@
 		<xtextVersion>2.31.0</xtextVersion>
 		<mwe2Version>2.14.0</mwe2Version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<codehaus-version>3.0.0</codehaus-version>
 		<tycho-version>3.0.4</tycho-version>
 		<platformSystemProperties></platformSystemProperties>
@@ -44,11 +44,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>${codehaus-version}</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -58,7 +53,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>3.11.0</version>
 				<configuration>
 					<source>17</source>
 					<target>17</target>
@@ -85,13 +80,10 @@
 						</goals>
 					</execution>
 					<execution>
-						<id>feauture-source</id>
+						<id>feature-source</id>
 						<goals>
-							<goal>
-								feature-source
-							</goal>
+							<goal>feature-source</goal>
 						</goals>
-						<configuration></configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -143,7 +135,7 @@
 							<requirement>
 								<type>eclipse-plugin</type>
 								<id>org.eclipse.xtext.logging</id>
-								<versionRange>1.2.15</versionRange>
+								<versionRange>1.2.24</versionRange>
 							</requirement>
 							<!-- to get the org.eclipse.osgi.compatibility.state plugin if the target
 								platform is Luna or later. (backward compatible with kepler and previous
@@ -158,28 +150,8 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>${codehaus-version}</version>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>${basedir}/src-gen</source>
-								<source>${basedir}/xtend-gen</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.1.0</version>
+				<version>3.2.0</version>
 				<executions>
 					<execution>
 						<id>auto-clean</id>
@@ -214,24 +186,20 @@
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
-				<artifactId>xtend-maven-plugin</artifactId>
-				<version>${xtextVersion}</version>
-				<executions>
-					<execution>
-						<!-- the phase "generate-resources" is obviously wrong for compiling
-							Xtend to Java, but it is the only way that the MWE2 workflow is executed
-							*before* the Xtend compiler is triggered. It is not possible to define orders
-							for plug-ins in the same phase -->
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>compile</goal>
-							<goal>testCompile</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/xtend-gen</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
+					<artifactId>xtend-maven-plugin</artifactId>
+					<version>${xtextVersion}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>testCompile</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<outputDirectory>${basedir}/xtend-gen</outputDirectory>
+						<testOutputDirectory>${basedir}/xtend-gen</testOutputDirectory>
+					</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>
@@ -246,38 +214,19 @@
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>
-											org.eclipse.tycho
+											org.codehaus.mojo
 										</groupId>
 										<artifactId>
-											tycho-compiler-plugin
+											build-helper-maven-plugin
 										</artifactId>
 										<versionRange>
-											[0.23.1,)
+											[1.9.1,)
 										</versionRange>
 										<goals>
-											<goal>compile</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.eclipse.tycho
-										</groupId>
-										<artifactId>
-											tycho-packaging-plugin
-										</artifactId>
-										<versionRange>
-											[0.23.1,)
-										</versionRange>
-										<goals>
-											<goal>build-qualifier</goal>
-											<goal>build-qualifier-aggregator</goal>
-											<goal>validate-id</goal>
-											<goal>validate-version</goal>
+											<goal>add-resource</goal>
+											<goal>add-source</goal>
+											<goal>add-test-resource</goal>
+											<goal>add-test-source</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
@@ -331,12 +280,60 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+		<!-- This must be disabled explicitly, otherwise it is enabled by https://github.com/mojohaus/mojo-parent 
+			which is taken from exec-maven-plugin from at least version 1.6.0 -->
+		<repository>
+			<id>ossrh-snapshots</id>
+			<name>ossrh-snapshots</name>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<url>http://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
+		<!-- This is enabled by /org/sonatype/oss/oss-parent/7 used as parent by 
+			org/xtext/antlr-generator/3.2.1 -->
+		<repository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>codehaus-snapshots</id>
 			<name>disable dead 'Codehaus Snapshots' repository, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=481478</name>
 			<url>http://nexus.codehaus.org/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>ossrh-snapshots</id>
+			<name>ossrh-snapshots</name>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<url>http://oss.sonatype.org/content/repositories/snapshots</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
