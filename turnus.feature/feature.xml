@@ -29,7 +29,7 @@ This file is part of TURNUS. TURNUS is free software: you can redistribute it an
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.resources" version="3.9.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.filesystem"/>
-      <import plugin="org.eclipse.emf" version="2.6.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf" version="3.0.4" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.emf.common" version="2.11.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore" version="2.11.0" match="greaterOrEqual"/>

@@ -10,13 +10,13 @@
 	<url>http://github.com/turnus/turnus</url>
 
 	<properties>
-		<xtextVersion>2.27.0</xtextVersion>
-		<mwe2Version>2.13.0</mwe2Version>
+		<xtextVersion>2.31.0</xtextVersion>
+		<mwe2Version>2.14.0</mwe2Version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<codehaus-version>3.0.0</codehaus-version>
-		<tycho-version>2.6.0</tycho-version>
+		<tycho-version>3.0.4</tycho-version>
 		<platformSystemProperties></platformSystemProperties>
 		<moduleProperties></moduleProperties>
 		<systemProperties></systemProperties>
@@ -60,8 +60,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
-					<source>1.11</source>
-					<target>1.11</target>
+					<source>17</source>
+					<target>17</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -84,19 +84,14 @@
 							<goal>plugin-source</goal>
 						</goals>
 					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho.extras</groupId>
-				<artifactId>tycho-source-feature-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<executions>
 					<execution>
-						<id>source-feature</id>
-						<phase>package</phase>
+						<id>feauture-source</id>
 						<goals>
-							<goal>source-feature</goal>
+							<goal>
+								feature-source
+							</goal>
 						</goals>
+						<configuration></configuration>
 					</execution>
 				</executions>
 			</plugin>

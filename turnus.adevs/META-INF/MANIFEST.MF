@@ -9,10 +9,9 @@ Require-Bundle: org.eclipse.ui,
  turnus.bundle;bundle-version="1.0.0",
  turnus.common;bundle-version="1.0.0",
  turnus.model;bundle-version="1.0.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: lib/adevs.jar,
- .
+Bundle-ClassPath: .
 Export-Package: turnus.adevs,
  turnus.adevs.logging,
  turnus.adevs.logging.impl,
