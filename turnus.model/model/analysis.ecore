@@ -573,7 +573,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokenSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
           changeable="false" volatile="true" transient="true" defaultValueLiteral="0"
           derived="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bitSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bitSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
           changeable="false" volatile="true" transient="true" defaultValueLiteral="0"
           derived="true"/>
     </eClassifiers>

@@ -178,7 +178,7 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int BIT_SIZE_EDEFAULT = 0;
+	protected static final long BIT_SIZE_EDEFAULT = 0L;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -350,8 +350,8 @@ public class BoundedBuffersReportImpl extends MinimalEObjectImpl.Container imple
 	 * 
 	 * @generated NOT
 	 */
-	public int getBitSize() {
-		int sum = 0;
+	public long getBitSize() {
+		long sum = 0;
 
 		for (BoundedBufferData data : getBuffersData()) {
 			sum += data.getBitSize();

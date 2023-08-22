@@ -8,7 +8,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  turnus.bundle;bundle-version="1.0.0",
  turnus.common;bundle-version="1.0.0",
- turnus.model;bundle-version="1.0.0"
+ turnus.model;bundle-version="1.0.0",
+ com.google.guava;bundle-version="30.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .

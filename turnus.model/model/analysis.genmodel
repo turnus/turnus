@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/turnus.model/src" modelPluginID="turnus.model"
     templateDirectory="/turnus.model/template" dynamicTemplates="true" modelName="Analysis"
     rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" suppressEMFTypes="true"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="17.0" copyrightFields="false"
     usedGenPackages="common.genmodel#//common dataflow.genmodel#//dataflow versioning.genmodel#//versioning"
     operationReflection="true" importOrganizing="true">
   <foreignModel>analysis.ecore</foreignModel>

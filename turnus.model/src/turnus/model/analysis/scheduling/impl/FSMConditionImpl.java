@@ -99,7 +99,7 @@ public class FSMConditionImpl extends MinimalEObjectImpl.Container implements FS
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Integer COMPVAL_EDEFAULT = new Integer(0);
+	protected static final Integer COMPVAL_EDEFAULT = Integer.valueOf(0);
 
 	/**
 	 * The cached value of the '{@link #getCompval() <em>Compval</em>}' attribute.

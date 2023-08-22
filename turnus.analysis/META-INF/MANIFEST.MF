@@ -5,15 +5,9 @@ Bundle-SymbolicName: turnus.analysis;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: turnus.analysis.Activator
 Bundle-Vendor: turnus
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.ui,
- turnus.common;bundle-version="1.0.0",
+Require-Bundle: turnus.common;bundle-version="1.0.0",
  turnus.model;bundle-version="1.0.0",
- com.google.guava,
- org.eclipse.xtext.xbase.lib,
- org.eclipse.xtend.lib,
- org.eclipse.xtend.lib.macro,
- org.eclipse.emf.ecore
+ org.eclipse.xtend.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Export-Package: turnus.analysis,

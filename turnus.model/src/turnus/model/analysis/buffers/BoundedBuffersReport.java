@@ -189,7 +189,7 @@ public interface BoundedBuffersReport extends AnalysisReport {
 	 * @model default="0" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	int getBitSize();
+	long getBitSize();
 
 	/**
 	 * Return the buffer size configuration contained in this report

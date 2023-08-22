@@ -74,7 +74,7 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 
 	}
 
-	private static double getKb(int bit) {
+	private static double getKb(long bit) {
 		return ((double) bit) / 1024.0 / 8.0;
 	}
 
@@ -97,17 +97,17 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 
 			double nominal_cp = initialCp.getCpWeight();
 			int nominal_tokens = initialBuffer.getTokenSize();
-			int nominal_bit = initialBuffer.getBitSize();
+			long nominal_bit = initialBuffer.getBitSize();
 
 			b.append("| iteration | cp reduction | tokens || bit|| \n");
 			b.append("|:----|:----|:----|:----|:----|:----|:----\n");
-			b.append(String.format("| nominal |   |  %d |  | %d (%s kB) | |\n", nominal_tokens, nominal_bit,
+			b.append(String.format("| nominal |   |  %d |  | %ld (%s kB) | |\n", nominal_tokens, nominal_bit,
 					format(getKb(nominal_bit))));
 			int i = 1;
 			for (OptimalBufferData o : bdata) {
 				double cp = o.getBottlenecksData().getCpWeight();
 				int tokens = o.getBufferData().getTokenSize();
-				int bit = o.getBufferData().getBitSize();
+				long bit = o.getBufferData().getBitSize();
 				double kbit = getKb(bit);
 
 				double cp_reduction = (1.0 - cp / nominal_cp) * 100.0;

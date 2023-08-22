@@ -548,7 +548,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 		initEAttribute(getBoundedBuffersReport_BitAccurate(), ecorePackage.getEBoolean(), "bitAccurate", null, 0, 1, BoundedBuffersReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBoundedBuffersReport_BuffersData(), this.getBoundedBufferData(), null, "buffersData", null, 0, -1, BoundedBuffersReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBoundedBuffersReport_TokenSize(), ecorePackage.getEInt(), "tokenSize", "0", 0, 1, BoundedBuffersReport.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBoundedBuffersReport_BitSize(), ecorePackage.getEInt(), "bitSize", "0", 0, 1, BoundedBuffersReport.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBoundedBuffersReport_BitSize(), ecorePackage.getELong(), "bitSize", "0", 0, 1, BoundedBuffersReport.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(boundedBufferDataEClass, BoundedBufferData.class, "BoundedBufferData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBoundedBufferData_Buffer(), theDataflowPackage.getBuffer(), null, "buffer", null, 0, 1, BoundedBufferData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

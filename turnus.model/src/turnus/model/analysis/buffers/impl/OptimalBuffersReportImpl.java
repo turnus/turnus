@@ -588,7 +588,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 		double nominal_execution_time = getInitialBottlenecks().getExecutionTime();
 		double nominal_cp = getInitialBottlenecks().getCpWeight();
 		int nominal_tokens = getInitialBufferConfiguration().getTokenSize();
-		int nominal_bit = getInitialBufferConfiguration().getBitSize();
+		long nominal_bit = getInitialBufferConfiguration().getBitSize();
 
 		List<OptimalBufferData> dataList = getBuffersData();
 		if (dataList.isEmpty()) {
@@ -604,7 +604,7 @@ public class OptimalBuffersReportImpl extends MinimalEObjectImpl.Container imple
 				double execution_time = o.getBottlenecksData().getExecutionTime();
 				double cp = o.getBottlenecksData().getCpWeight();
 				int tokens = o.getBufferData().getTokenSize();
-				int bit = o.getBufferData().getBitSize();
+				long bit = o.getBufferData().getBitSize();
 
 				double execution_time_reduction = ((nominal_execution_time - execution_time) / nominal_execution_time) * 100.0;
 				double cp_reduction = 0;

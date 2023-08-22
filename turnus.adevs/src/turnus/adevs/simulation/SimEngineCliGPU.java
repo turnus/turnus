@@ -31,14 +31,25 @@
  */
 package turnus.adevs.simulation;
 
-import static turnus.common.TurnusOptions.*;
+import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
+import static turnus.common.TurnusOptions.BUFFER_SIZE_DEFAULT;
+import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
+import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
+import static turnus.common.TurnusOptions.MAPPING_FILE;
+import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
+import static turnus.common.TurnusOptions.RECORD_BUFFERS;
+import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
+import static turnus.common.TurnusOptions.SCHEDULING_WEIGHTS;
+import static turnus.common.TurnusOptions.TRACE_FILE;
+import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
+import static turnus.common.TurnusOptions.WRITE_HIT_CONSTANT;
+import static turnus.common.TurnusOptions.WRITE_MISS_CONSTANT;
 import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
-import java.util.Set;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -60,7 +71,6 @@ import turnus.model.analysis.postprocessing.ActorStatisticsReport;
 import turnus.model.analysis.postprocessing.PostProcessingReport;
 import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
-import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
 import turnus.model.dataflow.Port;
 import turnus.model.mapping.BufferSize;
