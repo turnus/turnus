@@ -106,6 +106,7 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
+					<pomDependencies>consider</pomDependencies>
 					<target>
 						<artifact>
 							<groupId>turnus</groupId>
@@ -113,12 +114,18 @@
 							<version>${project.version}</version>
 						</artifact>
 					</target>
+					<executionEnvironment>JavaSE-17</executionEnvironment>
 					<environments>
 						<environment>
 							<os>macosx</os>
 							<ws>cocoa</ws>
 							<arch>x86_64</arch>
 						</environment>
+						<environment>
+                            <os>macosx</os>
+                            <ws>cocoa</ws>
+                            <arch>aarch64</arch>
+                        </environment>
 						<environment>
 							<os>win32</os>
 							<ws>win32</ws>
@@ -204,6 +211,11 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+                    <groupId>org.eclipse.tycho</groupId>
+                    <artifactId>tycho-versions-plugin</artifactId>
+                    <version>${tycho-version}</version>
+                </plugin>
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
