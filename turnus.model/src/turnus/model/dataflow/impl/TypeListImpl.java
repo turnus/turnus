@@ -78,7 +78,7 @@ public class TypeListImpl extends MinimalEObjectImpl.Container implements TypeLi
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int BITS_EDEFAULT = 0;
+	protected static final long BITS_EDEFAULT = 0L;
 
 	/**
 	 * The default value of the '{@link #getElements() <em>Elements</em>}' attribute.
@@ -87,7 +87,7 @@ public class TypeListImpl extends MinimalEObjectImpl.Container implements TypeLi
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int ELEMENTS_EDEFAULT = 0;
+	protected static final long ELEMENTS_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getElements() <em>Elements</em>}' attribute.
@@ -96,7 +96,7 @@ public class TypeListImpl extends MinimalEObjectImpl.Container implements TypeLi
 	 * @generated
 	 * @ordered
 	 */
-	protected int elements = ELEMENTS_EDEFAULT;
+	protected long elements = ELEMENTS_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getListType() <em>List Type</em>}' containment reference.
@@ -130,7 +130,7 @@ public class TypeListImpl extends MinimalEObjectImpl.Container implements TypeLi
 	}
 
 	@Override
-	public int getBits() {
+	public long getBits() {
 		return getElements() * getListType().getBits();
 	}
 
@@ -139,17 +139,18 @@ public class TypeListImpl extends MinimalEObjectImpl.Container implements TypeLi
 	 * @generated
 	 */
 	@Override
-	public int getElements() {
+	public long getElements() {
 		return elements;
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public void setElements(int newElements) {
-		int oldElements = elements;
+	public void setElements(long newElements) {
+		long oldElements = elements;
 		elements = newElements;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DataflowPackage.TYPE_LIST__ELEMENTS, oldElements, elements));
@@ -237,7 +238,7 @@ public class TypeListImpl extends MinimalEObjectImpl.Container implements TypeLi
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case DataflowPackage.TYPE_LIST__ELEMENTS:
-				setElements((Integer)newValue);
+				setElements((Long)newValue);
 				return;
 			case DataflowPackage.TYPE_LIST__LIST_TYPE:
 				setListType((Type)newValue);

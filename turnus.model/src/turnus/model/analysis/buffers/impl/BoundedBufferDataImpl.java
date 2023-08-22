@@ -93,7 +93,7 @@ public class BoundedBufferDataImpl extends MinimalEObjectImpl.Container implemen
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int BIT_SIZE_EDEFAULT = 0;
+	protected static final long BIT_SIZE_EDEFAULT = 0L;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -175,7 +175,7 @@ public class BoundedBufferDataImpl extends MinimalEObjectImpl.Container implemen
 	 * 
 	 * @generated NOT
 	 */
-	public int getBitSize() {
+	public long getBitSize() {
 		Buffer buffer = getBuffer();
 		return buffer != null ? getTokenSize() * buffer.getType().getBits() : 0;
 	}

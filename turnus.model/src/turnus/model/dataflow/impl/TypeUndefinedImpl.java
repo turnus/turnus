@@ -77,7 +77,7 @@ public class TypeUndefinedImpl extends MinimalEObjectImpl.Container implements T
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int BITS_EDEFAULT = 0;
+	protected static final long BITS_EDEFAULT = 0L;
 
 	/**
 	 * The default value of the '{@link #getSize() <em>Size</em>}' attribute.
@@ -122,7 +122,7 @@ public class TypeUndefinedImpl extends MinimalEObjectImpl.Container implements T
 		return EType.UNDEFINED;
 	}
 
-	public int getBits() {
+	public long getBits() {
 		return getSize();
 	}
 

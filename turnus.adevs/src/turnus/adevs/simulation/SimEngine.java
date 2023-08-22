@@ -214,7 +214,7 @@ public class SimEngine {
 	public BufferSize getMaxBufferSizeRecorded() {
 		BufferSize recordedMaxBuffers = new BufferSize(tProject.getNetwork());
 		for (AtomicBuffer buffer : model.getBuffers()) { // By default the sizes are rounded to pow 2
-			recordedMaxBuffers.setSize(buffer.getBuffer(), MathUtils.nearestPowTwo(buffer.getMaxTokensInFifo()));
+			recordedMaxBuffers.setSize(buffer.getBuffer(), buffer.getMaxTokensInFifo());
 		}
 
 		return recordedMaxBuffers;

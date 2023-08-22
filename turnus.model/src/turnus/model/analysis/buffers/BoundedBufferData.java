@@ -120,6 +120,6 @@ public interface BoundedBufferData extends EObject {
 	 * @model default="0" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	int getBitSize();
+	long getBitSize();
 
 } // BoundedBufferData

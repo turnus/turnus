@@ -96,7 +96,7 @@ public class Boundbuffer2MdExporter implements FileExporter<BoundedBuffersReport
 						buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
 						buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(),
 						buffer.getType().toString(), Integer.toString(bd.getTokenSize()),
-						Integer.toString(bd.getTokenSize() * buffer.getType().getBits())));
+						Long.toString(bd.getTokenSize() * buffer.getType().getBits())));
 			}
 			b.append("[buffer size configuration]\n");
 

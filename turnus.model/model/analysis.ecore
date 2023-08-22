@@ -580,7 +580,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="BoundedBufferData">
       <eStructuralFeatures xsi:type="ecore:EReference" name="buffer" eType="ecore:EClass dataflow.ecore#//Buffer"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokenSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bitSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bitSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
           changeable="false" volatile="true" transient="true" defaultValueLiteral="0"
           derived="true"/>
     </eClassifiers>

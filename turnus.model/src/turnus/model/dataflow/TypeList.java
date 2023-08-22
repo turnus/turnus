@@ -59,12 +59,12 @@ public interface TypeList extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Elements</em>' attribute.
-	 * @see #setElements(int)
+	 * @see #setElements(long)
 	 * @see turnus.model.dataflow.DataflowPackage#getTypeList_Elements()
 	 * @model required="true"
 	 * @generated
 	 */
-	int getElements();
+	long getElements();
 
 	/**
 	 * Sets the value of the '{@link turnus.model.dataflow.TypeList#getElements <em>Elements</em>}' attribute.
@@ -74,7 +74,7 @@ public interface TypeList extends Type {
 	 * @see #getElements()
 	 * @generated
 	 */
-	void setElements(int value);
+	void setElements(long value);
 
 	/**
 	 * Returns the value of the '<em><b>List Type</b></em>' containment reference.

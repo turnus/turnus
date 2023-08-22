@@ -97,7 +97,7 @@ public class BottlenecksWithScheduling2MdExporter implements FileExporter<Bottle
 			b.append("\n| Partition id | CP blocking ||");
 			b.append("\n|---|---|");
 			for (String s : data.getCpPartitionsBlockingTime().keySet()) {
-				if (data.getCpPartitionsBlockingTime().get(s) != 0)
+				//if (data.getCpPartitionsBlockingTime().get(s) != 0)
 					b.append(String.format("\n| %s | %s |", s, format(data.getCpPartitionsBlockingTime().get(s))));
 			}
 			b.append("\n[Partitions blocking time]");

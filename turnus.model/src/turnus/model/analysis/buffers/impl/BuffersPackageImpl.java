@@ -553,7 +553,7 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 		initEClass(boundedBufferDataEClass, BoundedBufferData.class, "BoundedBufferData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBoundedBufferData_Buffer(), theDataflowPackage.getBuffer(), null, "buffer", null, 0, 1, BoundedBufferData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBoundedBufferData_TokenSize(), ecorePackage.getEInt(), "tokenSize", null, 0, 1, BoundedBufferData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBoundedBufferData_BitSize(), ecorePackage.getEInt(), "bitSize", "0", 0, 1, BoundedBufferData.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBoundedBufferData_BitSize(), ecorePackage.getELong(), "bitSize", "0", 0, 1, BoundedBufferData.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(optimalBuffersReportEClass, OptimalBuffersReport.class, "OptimalBuffersReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOptimalBuffersReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, OptimalBuffersReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

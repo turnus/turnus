@@ -71,7 +71,7 @@ public class TypeBooleanImpl extends MinimalEObjectImpl.Container implements Typ
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int BITS_EDEFAULT = 0;
+	protected static final long BITS_EDEFAULT = 0L;
 
 	/**
 	 * The default value of the '{@link #getSize() <em>Size</em>}' attribute.
@@ -113,7 +113,7 @@ public class TypeBooleanImpl extends MinimalEObjectImpl.Container implements Typ
 	 * 
 	 * @generated NOT
 	 */
-	public int getBits() {
+	public long getBits() {
 		return 1;
 	}
 

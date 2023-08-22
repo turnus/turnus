@@ -85,6 +85,6 @@ public interface Type extends EObject {
 	 * @model default="0" required="true" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	int getBits();
+	long getBits();
 
 } // Type

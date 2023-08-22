@@ -169,7 +169,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="etype" lowerBound="1" eType="ecore:EEnum common.ecore#//EType"
         changeable="false" volatile="true" transient="true" defaultValueLiteral="INT"
         derived="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bits" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bits" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
         changeable="false" volatile="true" transient="true" defaultValueLiteral="0"
         derived="true"/>
   </eClassifiers>
@@ -184,7 +184,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeList" eSuperTypes="#//Type">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="elements" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="listType" eType="#//Type"
         containment="true"/>
   </eClassifiers>

@@ -163,7 +163,7 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 				int oldSize = 0;
 				for (i = 0; i < iteration; i++) {
 					int tokens = resultsTable.get(i, buffer);
-					int bit = tokens * buffer.getType().getBits();
+					long bit = tokens * buffer.getType().getBits();
 					if (i > 0 && tokens != oldSize) {
 						b.append("| **" + tokens + "** **(" + bit + "bit)**");
 					}else{

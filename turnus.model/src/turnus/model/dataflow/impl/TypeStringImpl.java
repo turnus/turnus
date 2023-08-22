@@ -77,7 +77,7 @@ public class TypeStringImpl extends MinimalEObjectImpl.Container implements Type
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int BITS_EDEFAULT = 0;
+	protected static final long BITS_EDEFAULT = 0L;
 
 	/**
 	 * The default value of the '{@link #getSize() <em>Size</em>}' attribute.
@@ -124,7 +124,7 @@ public class TypeStringImpl extends MinimalEObjectImpl.Container implements Type
 	}
 
 	@Override
-	public int getBits() {
+	public long getBits() {
 		return 8 * getSize();
 	}
 
