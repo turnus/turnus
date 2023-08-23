@@ -31,6 +31,9 @@
  */
 package turnus.model.analysis.buffers.io;
 
+import static turnus.common.util.StringUtils.formatBits;
+import static turnus.common.util.StringUtils.formatBytes;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -44,10 +47,11 @@ import turnus.common.TurnusException;
 import turnus.common.io.FileExporter;
 import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
-import turnus.common.util.StringUtils;
 import turnus.model.analysis.buffers.BoundedBufferData;
 import turnus.model.analysis.buffers.BoundedBuffersReport;
 import turnus.model.dataflow.Buffer;
+
+
 
 /**
  * The {@link BoundedBuffersReport} MD file exporter
@@ -57,6 +61,8 @@ import turnus.model.dataflow.Buffer;
  */
 public class Boundbuffer2MdExporter implements FileExporter<BoundedBuffersReport> {
 
+	
+	
 	@Override
 	public void export(BoundedBuffersReport data, File output) throws TurnusException {
 		try {
@@ -82,8 +88,7 @@ public class Boundbuffer2MdExporter implements FileExporter<BoundedBuffersReport
 
 			b.append("| tokens | bit \n");
 			b.append("|:----|:----\n");
-			String kBSize = StringUtils.format(((double) data.getBitSize()) / 1024.0 / 8.0);
-			b.append(String.format("|%d | %d (%s kB) \n", data.getTokenSize(), data.getBitSize(), kBSize));
+			b.append(String.format("|%d | %s (%s) \n", data.getTokenSize(), formatBits(data.getBitSize()), formatBytes(data.getBitSize(), true)));
 			b.append("[overall buffer size]\n");
 
 			b.append("\n");
@@ -96,7 +101,7 @@ public class Boundbuffer2MdExporter implements FileExporter<BoundedBuffersReport
 						buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
 						buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(),
 						buffer.getType().toString(), Integer.toString(bd.getTokenSize()),
-						Long.toString(bd.getTokenSize() * buffer.getType().getBits())));
+						formatBits(bd.getTokenSize() * buffer.getType().getBits())));
 			}
 			b.append("[buffer size configuration]\n");
 

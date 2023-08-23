@@ -45,6 +45,7 @@ import turnus.common.TurnusException;
  * This class contains some utility methods for {@link String}.
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class StringUtils {
@@ -53,14 +54,11 @@ public class StringUtils {
 	private static final DecimalFormat df = new DecimalFormat("#0.00");
 
 	/**
-	 * Compress a string using GZIP. The resulting string is in ISO_8859_1
-	 * charset
+	 * Compress a string using GZIP. The resulting string is in ISO_8859_1 charset
 	 * 
-	 * @param str
-	 *            the input string
+	 * @param str the input string
 	 * @return the compressed output stream
-	 * @throws TurnusException
-	 *             thrown if the string cannot be compressed
+	 * @throws TurnusException thrown if the string cannot be compressed
 	 */
 	public static String compress(String str) throws TurnusException {
 		if (str == null || str.length() == 0) {
@@ -81,8 +79,8 @@ public class StringUtils {
 
 	/**
 	 * Generate a string key from a collection of objects. Contrary to
-	 * {@link StringUtils#createKey(Object...)}, this method add to the end of
-	 * the key the current time and a random double value
+	 * {@link StringUtils#createKey(Object...)}, this method add to the end of the
+	 * key the current time and a random double value
 	 * 
 	 * @param objects
 	 * @return
@@ -116,12 +114,10 @@ public class StringUtils {
 	/**
 	 * Decompress a compressed string
 	 * 
-	 * @param str
-	 *            the compressed string
+	 * @param str the compressed string
 	 * @return the decompressed string
 	 * @see #compress(String)
-	 * @throws TurnusException
-	 *             thrown if the string cannot be decompressed
+	 * @throws TurnusException thrown if the string cannot be decompressed
 	 */
 	public static String decompress(String str) throws TurnusException {
 		if (str == null || str.length() == 0) {
@@ -145,6 +141,84 @@ public class StringUtils {
 	 */
 	public static String format(double value) {
 		return df.format(value);
+	}
+
+	/**
+	 * Format the number of bits to Kb, Mb, Gb or Tb depending the size
+	 * 
+	 * @param size
+	 * @return
+	 */
+	public static String formatBits(long size) {
+		String hrSize = null;
+
+		double b = size;
+		double k = size / 1024.0;
+		double m = ((size / 1024.0) / 1024.0);
+		double g = (((size / 1024.0) / 1024.0) / 1024.0);
+		double t = ((((size / 1024.0) / 1024.0) / 1024.0) / 1024.0);
+
+		DecimalFormat dec = new DecimalFormat("0.00");
+
+		if (t > 1) {
+			hrSize = dec.format(t).concat(" Tb");
+		} else if (g > 1) {
+			hrSize = dec.format(g).concat(" Gb");
+		} else if (m > 1) {
+			hrSize = dec.format(m).concat(" Mb");
+		} else if (k > 1) {
+			hrSize = dec.format(k).concat(" Kb");
+		} else {
+			hrSize = dec.format(b).concat(" b");
+		}
+
+		return hrSize;
+	}
+
+	/**
+	 * Format the number of bytes to KB, MB, GG or TB depending the size
+	 * 
+	 * @param size
+	 * @return
+	 */
+	public static String formatBytes(long size) {
+		return formatBytes(size, true);
+	}
+
+	/**
+	 * Format the number of bytes to KB, MB, GG or TB depending the size
+	 * 
+	 * @param size
+	 * @param isBits if the input is in bits converted to bytes
+	 * @return
+	 */
+	public static String formatBytes(long size, boolean isBits) {
+		String hrSize = null;
+
+		if (isBits) {
+			size = size / 8;
+		}
+		double b = size;
+		double k = size / 1024.0;
+		double m = ((size / 1024.0) / 1024.0);
+		double g = (((size / 1024.0) / 1024.0) / 1024.0);
+		double t = ((((size / 1024.0) / 1024.0) / 1024.0) / 1024.0);
+
+		DecimalFormat dec = new DecimalFormat("0.00");
+
+		if (t > 1) {
+			hrSize = dec.format(t).concat(" TB");
+		} else if (g > 1) {
+			hrSize = dec.format(g).concat(" GB");
+		} else if (m > 1) {
+			hrSize = dec.format(m).concat(" MB");
+		} else if (k > 1) {
+			hrSize = dec.format(k).concat(" KB");
+		} else {
+			hrSize = dec.format(b).concat(" Bytes");
+		}
+
+		return hrSize;
 	}
 
 }
