@@ -71,9 +71,17 @@ public class LinkPattern extends AbstractConnectionPattern {
 
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext context) {
+
 		final Anchor anchor = context.getSourceAnchor();
+		if (anchor == null) {
+			return false;
+		}
 		Object obj = getBusinessObjectForPictogramElement(anchor.getParent());
+		if (obj == null) {
+			return false;
+		}
 		return obj != null && (obj instanceof ProcessingUnit || obj instanceof Medium);
+
 	}
 
 	@Override

@@ -62,7 +62,7 @@ class CaseOptimalActorSelectionAnalysisCli implements IApplication {
 	}
 
 	def private void run() throws Exception {
-		monitor.beginTask("Case optimal schedle generation", IProgressMonitor.UNKNOWN)
+		monitor.beginTask("Case optimal schedule generation", IProgressMonitor.UNKNOWN)
 		var TraceProject project = null
 		var CaseOptimalScheduleReport report = null
 		{

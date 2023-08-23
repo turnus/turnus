@@ -59,6 +59,7 @@ import turnus.model.dataflow.Variable;
  *   <li>{@link turnus.model.dataflow.impl.VariableImpl#getType <em>Type</em>}</li>
  *   <li>{@link turnus.model.dataflow.impl.VariableImpl#getOwner <em>Owner</em>}</li>
  *   <li>{@link turnus.model.dataflow.impl.VariableImpl#isConstant <em>Constant</em>}</li>
+ *   <li>{@link turnus.model.dataflow.impl.VariableImpl#isPersistent <em>Persistent</em>}</li>
  * </ul>
  *
  * @generated
@@ -125,6 +126,26 @@ public class VariableImpl extends AttributableImpl implements Variable {
 	protected boolean constant = CONSTANT_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isPersistent() <em>Persistent</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPersistent()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean PERSISTENT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isPersistent() <em>Persistent</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPersistent()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean persistent = PERSISTENT_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -173,6 +194,18 @@ public class VariableImpl extends AttributableImpl implements Variable {
 	 */
 	public boolean isShared() {
 		return false;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setShared(boolean newShared) {
+		// TODO: implement this method to set the 'Shared' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -245,6 +278,42 @@ public class VariableImpl extends AttributableImpl implements Variable {
 	 * @generated
 	 */
 	@Override
+	public void setConstant(boolean newConstant) {
+		boolean oldConstant = constant;
+		constant = newConstant;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DataflowPackage.VARIABLE__CONSTANT, oldConstant, constant));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isPersistent() {
+		return persistent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPersistent(boolean newPersistent) {
+		boolean oldPersistent = persistent;
+		persistent = newPersistent;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DataflowPackage.VARIABLE__PERSISTENT, oldPersistent, persistent));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case DataflowPackage.VARIABLE__TYPE:
@@ -271,6 +340,8 @@ public class VariableImpl extends AttributableImpl implements Variable {
 				return getOwner();
 			case DataflowPackage.VARIABLE__CONSTANT:
 				return isConstant();
+			case DataflowPackage.VARIABLE__PERSISTENT:
+				return isPersistent();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -286,8 +357,17 @@ public class VariableImpl extends AttributableImpl implements Variable {
 			case DataflowPackage.VARIABLE__NAME:
 				setName((String)newValue);
 				return;
+			case DataflowPackage.VARIABLE__SHARED:
+				setShared((Boolean)newValue);
+				return;
 			case DataflowPackage.VARIABLE__TYPE:
 				setType((Type)newValue);
+				return;
+			case DataflowPackage.VARIABLE__CONSTANT:
+				setConstant((Boolean)newValue);
+				return;
+			case DataflowPackage.VARIABLE__PERSISTENT:
+				setPersistent((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -304,8 +384,17 @@ public class VariableImpl extends AttributableImpl implements Variable {
 			case DataflowPackage.VARIABLE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case DataflowPackage.VARIABLE__SHARED:
+				setShared(SHARED_EDEFAULT);
+				return;
 			case DataflowPackage.VARIABLE__TYPE:
 				setType((Type)null);
+				return;
+			case DataflowPackage.VARIABLE__CONSTANT:
+				setConstant(CONSTANT_EDEFAULT);
+				return;
+			case DataflowPackage.VARIABLE__PERSISTENT:
+				setPersistent(PERSISTENT_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -329,6 +418,8 @@ public class VariableImpl extends AttributableImpl implements Variable {
 				return getOwner() != null;
 			case DataflowPackage.VARIABLE__CONSTANT:
 				return constant != CONSTANT_EDEFAULT;
+			case DataflowPackage.VARIABLE__PERSISTENT:
+				return persistent != PERSISTENT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -347,6 +438,8 @@ public class VariableImpl extends AttributableImpl implements Variable {
 		result.append(name);
 		result.append(", constant: ");
 		result.append(constant);
+		result.append(", persistent: ");
+		result.append(persistent);
 		result.append(')');
 		return result.toString();
 	}

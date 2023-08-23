@@ -788,13 +788,22 @@ public interface DataflowPackage extends EPackage {
 	int VARIABLE__CONSTANT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Persistent</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE__PERSISTENT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Variable</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_FEATURE_COUNT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 5;
+	int VARIABLE_FEATURE_COUNT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>Variable</em>' class.
@@ -868,6 +877,15 @@ public interface DataflowPackage extends EPackage {
 	 * @ordered
 	 */
 	int SHARED_VARIABLE__CONSTANT = VARIABLE__CONSTANT;
+
+	/**
+	 * The feature id for the '<em><b>Persistent</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHARED_VARIABLE__PERSISTENT = VARIABLE__PERSISTENT;
 
 	/**
 	 * The feature id for the '<em><b>Tag</b></em>' attribute.
@@ -2211,6 +2229,17 @@ public interface DataflowPackage extends EPackage {
 	EAttribute getVariable_Constant();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.dataflow.Variable#isPersistent <em>Persistent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Persistent</em>'.
+	 * @see turnus.model.dataflow.Variable#isPersistent()
+	 * @see #getVariable()
+	 * @generated
+	 */
+	EAttribute getVariable_Persistent();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.dataflow.SharedVariable <em>Shared Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3105,6 +3134,14 @@ public interface DataflowPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute VARIABLE__CONSTANT = eINSTANCE.getVariable_Constant();
+
+		/**
+		 * The meta object literal for the '<em><b>Persistent</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE__PERSISTENT = eINSTANCE.getVariable_Persistent();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.dataflow.impl.SharedVariableImpl <em>Shared Variable</em>}' class.

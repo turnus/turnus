@@ -49,6 +49,7 @@ import turnus.common.Attributable;
  *   <li>{@link turnus.model.dataflow.Variable#getType <em>Type</em>}</li>
  *   <li>{@link turnus.model.dataflow.Variable#getOwner <em>Owner</em>}</li>
  *   <li>{@link turnus.model.dataflow.Variable#isConstant <em>Constant</em>}</li>
+ *   <li>{@link turnus.model.dataflow.Variable#isPersistent <em>Persistent</em>}</li>
  * </ul>
  *
  * @see turnus.model.dataflow.DataflowPackage#getVariable()
@@ -91,11 +92,22 @@ public interface Variable extends EObject, Attributable {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Shared</em>' attribute.
+	 * @see #setShared(boolean)
 	 * @see turnus.model.dataflow.DataflowPackage#getVariable_Shared()
-	 * @model transient="true" changeable="false" volatile="true"
+	 * @model transient="true" volatile="true"
 	 * @generated
 	 */
 	boolean isShared();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.dataflow.Variable#isShared <em>Shared</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Shared</em>' attribute.
+	 * @see #isShared()
+	 * @generated
+	 */
+	void setShared(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' containment reference.
@@ -143,10 +155,43 @@ public interface Variable extends EObject, Attributable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Constant</em>' attribute.
+	 * @see #setConstant(boolean)
 	 * @see turnus.model.dataflow.DataflowPackage#getVariable_Constant()
-	 * @model changeable="false"
+	 * @model
 	 * @generated
 	 */
 	boolean isConstant();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.dataflow.Variable#isConstant <em>Constant</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Constant</em>' attribute.
+	 * @see #isConstant()
+	 * @generated
+	 */
+	void setConstant(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Persistent</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Persistent</em>' attribute.
+	 * @see #setPersistent(boolean)
+	 * @see turnus.model.dataflow.DataflowPackage#getVariable_Persistent()
+	 * @model
+	 * @generated
+	 */
+	boolean isPersistent();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.dataflow.Variable#isPersistent <em>Persistent</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Persistent</em>' attribute.
+	 * @see #isPersistent()
+	 * @generated
+	 */
+	void setPersistent(boolean value);
 
 } // Variable

@@ -41,8 +41,12 @@ import turnus.common.TurnusException;
 import turnus.common.io.FileExporter;
 import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
+import turnus.common.util.StringUtils;
 import turnus.model.analysis.postprocessing.ActorStatisticsReport;
 import turnus.model.analysis.postprocessing.StatisticalActorPartition;
+import turnus.model.dataflow.Actor;
+import turnus.model.dataflow.Type;
+import turnus.model.dataflow.Variable;
 
 /**
  * {@link ActorStatisticsReport} MD file exporter
@@ -115,7 +119,22 @@ public class ActorStatistics2MdExporter implements FileExporter<ActorStatisticsR
 			}
 			b.append("\n");
 			b.append(String.format("* **Occupancy**: %.2f", partition.getOccupancy()) + "%\n");
+			
+			
+			long partitionPersitentMemory = 0;
+			for (String actorName : partition.getActors()) {
+				Actor actor = data.getNetwork().getActor(actorName);
+				for(Variable variable : actor.getVariables()) {
+					if(variable.isPersistent()) {
+						Type type = variable.getType();
+						long bits = type.getBits();
+						partitionPersitentMemory+= bits;
+					}
+				}
+			}
+			b.append(String.format("* **Persistent Memory**: %s\n", StringUtils.formatBytes(partitionPersitentMemory, true)));
 			b.append(String.format("* **Scheduling Policy**: %s\n", partition.getSchedulingPolicy()));
+			
 			b.append("\n");
 			b.append("| Actor | Processing | Schedulable | Blocked Reading | Blocked Writing \n");
 			b.append("|:--    | --:        | --:         | --:             | --:             \n");
