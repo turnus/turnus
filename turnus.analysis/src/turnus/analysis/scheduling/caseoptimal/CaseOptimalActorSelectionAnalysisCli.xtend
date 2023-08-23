@@ -52,12 +52,9 @@ class CaseOptimalActorSelectionAnalysisCli implements IApplication {
 	}
 
 	def private void parse(String[] args) throws TurnusException {
-		var CliParser cliParser = new CliParser()
-		.setOption(TRACE_FILE, true)
-		.setOption(SCHEDULE_OPTIMISATION_PIPELINE_STRING, true)
-		.setOption(ASSCHED_PATH, false)
-		.setOption(OUTPUT_DIRECTORY, false)
-		.setOption(MAPPING_FILE,false)
+		var CliParser cliParser = new CliParser().setOption(TRACE_FILE, true).setOption(
+			SCHEDULE_OPTIMISATION_PIPELINE_STRING, true).setOption(ASSCHED_PATH, false).setOption(OUTPUT_DIRECTORY,
+			false).setOption(MAPPING_FILE, false)
 		configuration = cliParser.parse(args)
 	}
 

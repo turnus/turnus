@@ -33,7 +33,7 @@ import turnus.ui.widget.WidgetSelectPath;
 import turnus.ui.widget.WidgetText;
 import turnus.ui.wizard.AbstractWizardPage;
 
-public class CaseOptimalScheduleGenerationWizard extends Wizard implements IWorkbenchWizard  {
+public class CaseOptimalScheduleGenerationWizard extends Wizard implements IWorkbenchWizard {
 
 	/**
 	 * The unique file page which contains the input and output file widgets
@@ -54,67 +54,75 @@ public class CaseOptimalScheduleGenerationWizard extends Wizard implements IWork
 			setTitle("Case optimal schedule generation");
 			setDescription("Select the options and run the analysis");
 		}
-		private class ToggleListener implements ModifyListener{
+
+		private class ToggleListener implements ModifyListener {
 			final private WidgetSelectFile fileSelector;
+
 			public ToggleListener(WidgetSelectFile mapFile) {
-				this.fileSelector=mapFile;
+				this.fileSelector = mapFile;
 				disable();
 			}
-			public void enable(){
+
+			public void enable() {
 				this.fileSelector.setEnabled(true);
 				this.fileSelector.setVisible(true);
 			}
 
-			public void disable(){
+			public void disable() {
 				this.fileSelector.setEnabled(false);
 				this.fileSelector.setVisible(false);
 			}
-			void toggle(){
-				if(fileSelector.isEnabled()){
+
+			void toggle() {
+				if (fileSelector.isEnabled()) {
 					disable();
-				}else{
+				} else {
 					enable();
 				}
 			}
+
 			@Override
 			public void modifyText(ModifyEvent e) {
 				toggle();
 			}
-			
+
 		}
+
 		@Override
 		protected void createWidgets(Composite container) {
 
-			String[] allowedExtensions= { TRACE, TRACEZ,ACTOR_SELECTION_SCHEDULE };
-			File HACK_defaultfile_DEBUG=new File("/home/nada/Dokumente/turnus/orc-apps/HelloWorld/turnus/profiling_dynamic_analysis/Example/20170411112253/Example.tracez");
-			wTraceFile = new WidgetSelectFile("Trace/Schedule", "Trace or Schedule file", allowedExtensions, HACK_defaultfile_DEBUG, container);
+			String[] allowedExtensions = { TRACE, TRACEZ, ACTOR_SELECTION_SCHEDULE };
+			wTraceFile = new WidgetSelectFile("Trace/Schedule", "Trace or Schedule file", allowedExtensions, null,
+					container);
 			addWidget(wTraceFile);
-			
-			
+
 			wPipeline = new WidgetText(SCHEDULE_OPTIMISATION_PIPELINE_STRING, "RLE,KTAIL", container);
 			addWidget(wPipeline);
-			String[] mapExtensions={MAPPING};
-			
-			wMapFile = new WidgetSelectFile("Mapping", "Mapping file", mapExtensions,null,container);
-			
-			wUseMapping=new WidgetCheckBox("Use partioning","", false, container);
+			String[] mapExtensions = { MAPPING };
+
+			wMapFile = new WidgetSelectFile("Mapping", "Mapping file", mapExtensions, null, container);
+
+			wUseMapping = new WidgetCheckBox("Use partioning", "", false, container);
 			addWidget(wUseMapping);
 			wUseMapping.addModifyListener(new ToggleListener(wMapFile));
-			
+
 			addWidget(wMapFile);
-			
+
 			// final Boolean forceEmpty=false;
-			// File defaultPath = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString());
-			// wOutPath= new WidgetSelectPath("test","tooltop",forceEmpty,defaultPath,container);
+			// File defaultPath = new
+			// File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString());
+			// wOutPath= new
+			// WidgetSelectPath("test","tooltop",forceEmpty,defaultPath,container);
 			// FIXME see how to set outputconfiguration addWidget(wOutPath);
 		}
 
 		public File getTraceFile() {
 			return wTraceFile.getValue();
 		}
-		public String getPipeline(){
-			String pipelineString=wPipeline.getValue();
-		
+
+		public String getPipeline() {
+			String pipelineString = wPipeline.getValue();
+
 			return pipelineString;
 		}
 
@@ -150,7 +158,7 @@ public class CaseOptimalScheduleGenerationWizard extends Wizard implements IWork
 	public boolean performFinish() {
 		final Configuration configuration = new Configuration();
 		configuration.setValue(TRACE_FILE, optionsPage.getTraceFile());
-		configuration.setValue(MAPPING_FILE,optionsPage.getMappingFile());
+		configuration.setValue(MAPPING_FILE, optionsPage.getMappingFile());
 		String pipelineString = optionsPage.getPipeline();
 		configuration.setValue(SCHEDULE_OPTIMISATION_PIPELINE_STRING, pipelineString);
 

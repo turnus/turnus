@@ -34,11 +34,14 @@ package turnus.analysis.ui.bottlenecks;
 import static turnus.common.TurnusExtensions.NETWORK_WEIGHT;
 import static turnus.common.TurnusExtensions.TRACE;
 import static turnus.common.TurnusExtensions.TRACEZ;
-import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
+import static turnus.common.TurnusOptions.TRACE_FILE;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -53,7 +56,7 @@ import turnus.analysis.bottlenecks.AlgorithmicPartialCriticalPathAnalysisCli;
 import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
 import turnus.ui.util.EclipseUtils;
-import turnus.ui.widget.WidgetSelectFile;
+import turnus.ui.widget.WidgetSelectFileCombo;
 import turnus.ui.wizard.AbstractWizardPage;
 
 /**
@@ -67,12 +70,13 @@ public class AlgorithmicPartialCriticalPathAnalysWizard extends Wizard implement
 	 * The unique file page which contains the input and output file widgets
 	 * 
 	 * @author Simone Cassale Brunet
+	 * @author Endri Bezati
 	 *
 	 */
 	private class OptionsPage extends AbstractWizardPage {
 
-		private WidgetSelectFile wTraceFile;
-		private WidgetSelectFile wWeightsFile;
+		private WidgetSelectFileCombo wTraceFile;
+		private WidgetSelectFileCombo wWeightsFile;
 
 		private OptionsPage() {
 			super("Algorithmic bottleneck analysis analysis");
@@ -80,16 +84,35 @@ public class AlgorithmicPartialCriticalPathAnalysWizard extends Wizard implement
 			setDescription("Select the options and run the analysis");
 		}
 
+
 		@Override
 		protected void createWidgets(Composite container) {
+			IProject project = EclipseUtils.getCurrentProject();
 
 			String[] traceExtensions = { TRACE, TRACEZ };
-			wTraceFile = new WidgetSelectFile("Trace", "Trace file", traceExtensions, null, container);
+			List<String> initialTraceFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialTraceFiles = EclipseUtils.getPathsFromContainer(project, traceExtensions);
+			}
+			wTraceFile = new WidgetSelectFileCombo("Trace", "Trace file", traceExtensions, null, container);
+			String[] strArray = new String[initialTraceFiles.size()];
+			initialTraceFiles.toArray(strArray);
+			if (!initialTraceFiles.isEmpty())
+				wTraceFile.setChoices(strArray);
 			addWidget(wTraceFile);
 
 			String[] weightsExtension = { NETWORK_WEIGHT };
-			wWeightsFile = new WidgetSelectFile("Weights", "The network weight file", weightsExtension, null,
+			List<String> initialExdfFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialExdfFiles = EclipseUtils.getPathsFromContainer(project, weightsExtension);
+			}
+
+			wWeightsFile = new WidgetSelectFileCombo("Weights", "The network weight file", weightsExtension, null,
 					container);
+			String[] exdfArray = new String[initialExdfFiles.size()];
+			initialExdfFiles.toArray(exdfArray);
+			if (!initialExdfFiles.isEmpty())
+				wWeightsFile.setChoices(exdfArray);
 			addWidget(wWeightsFile);
 
 		}

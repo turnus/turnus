@@ -33,15 +33,20 @@ package turnus.ui.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -53,7 +58,10 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.ConsolePlugin;
@@ -64,6 +72,7 @@ import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.ide.IDE;
 
+import turnus.common.TurnusConstants;
 import turnus.common.TurnusException;
 import turnus.common.io.Logger;
 import turnus.common.util.FileUtils;
@@ -243,5 +252,61 @@ public class EclipseUtils {
 			Logger.warning("The workspace cannot be refreshed");
 		}
 	}
+	
+	
+	/**
+	 * Get Current Eclipse project if an editor is open
+	 * @return
+	 */
+	public static IProject getCurrentProject() {
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		IWorkbenchPage activePage = window.getActivePage();
+
+		IEditorPart activeEditor = activePage.getActiveEditor();
+		
+		IProject project = null;
+		if (activeEditor != null) {
+			IEditorInput input = activeEditor.getEditorInput();
+
+			project = input.getAdapter(IProject.class);
+			if (project == null) {
+				IResource resource = input.getAdapter(IResource.class);
+				if (resource != null) {
+					project = resource.getProject();
+				}
+			}
+		}
+		return project;
+	}
+
+	public static List<String> getPathsFromContainer(IContainer container, String[] extensions) {
+		List<String> files = new ArrayList<>();
+		IResource[] members;
+		try {
+			members = container.members();
+			for (IResource member : members) {
+				if (member instanceof IContainer) {
+					String name = member.getName();
+					if (!name.contains(TurnusConstants.SPLIT_TRACE_PATH_NAME))
+						files.addAll(getPathsFromContainer((IContainer) member, extensions));
+				} else if (member instanceof IFile) {
+					IFile iFile = (IFile) member;
+					String extension = iFile.getFileExtension();
+					if (ArrayUtils.contains(extensions, extension)) {
+						File file = iFile.getLocation().toFile();
+						String path = file.getAbsolutePath();
+						files.add(path);
+					}
+				}
+			}
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return files;
+
+	}
+	
+	
 
 }

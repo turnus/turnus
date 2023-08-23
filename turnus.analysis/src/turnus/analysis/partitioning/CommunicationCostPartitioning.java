@@ -108,7 +108,7 @@ public class CommunicationCostPartitioning extends Analysis<ComCostPartitioningR
 		if (dprof != null) {
 			for (BufferDynamicData data : dprof.getBuffersData()) {
 				Buffer buffer = data.getBuffer();
-				long cost = new Double(data.getWrites().getSum()).longValue();
+				long cost = Double.valueOf(data.getWrites().getSum()).longValue();
 				if (bitAccurate) {
 					cost *= buffer.getType().getBits();
 				}
