@@ -89,18 +89,19 @@ public class AlgorithmicPartialCriticalPathAnalysWizard extends Wizard implement
 		protected void createWidgets(Composite container) {
 			IProject project = EclipseUtils.getCurrentProject();
 
+			// -- Trace File 
 			String[] traceExtensions = { TRACE, TRACEZ };
 			List<String> initialTraceFiles = new ArrayList<>();
 			if (project != null && project.isOpen()) {
 				initialTraceFiles = EclipseUtils.getPathsFromContainer(project, traceExtensions);
 			}
+			
 			wTraceFile = new WidgetSelectFileCombo("Trace", "Trace file", traceExtensions, null, container);
-			String[] strArray = new String[initialTraceFiles.size()];
-			initialTraceFiles.toArray(strArray);
 			if (!initialTraceFiles.isEmpty())
-				wTraceFile.setChoices(strArray);
+				wTraceFile.setChoices(initialTraceFiles.toArray(new String[0]));
 			addWidget(wTraceFile);
-
+			
+			// -- Weights File 
 			String[] weightsExtension = { NETWORK_WEIGHT };
 			List<String> initialExdfFiles = new ArrayList<>();
 			if (project != null && project.isOpen()) {
@@ -109,10 +110,8 @@ public class AlgorithmicPartialCriticalPathAnalysWizard extends Wizard implement
 
 			wWeightsFile = new WidgetSelectFileCombo("Weights", "The network weight file", weightsExtension, null,
 					container);
-			String[] exdfArray = new String[initialExdfFiles.size()];
-			initialExdfFiles.toArray(exdfArray);
 			if (!initialExdfFiles.isEmpty())
-				wWeightsFile.setChoices(exdfArray);
+				wWeightsFile.setChoices(initialExdfFiles.toArray(new String[0]));
 			addWidget(wWeightsFile);
 
 		}

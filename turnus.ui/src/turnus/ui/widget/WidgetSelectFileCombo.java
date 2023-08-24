@@ -32,9 +32,10 @@
 package turnus.ui.widget;
 
 import java.io.File;
-import java.util.Arrays;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
@@ -95,7 +96,18 @@ public class WidgetSelectFileCombo extends Widget<File> {
 		
 		comboBox = new Combo(this, SWT.READ_ONLY);
 		comboBox.setToolTipText(toolTip);
-
+		
+		comboBox.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				String value = comboBox.getText();
+				File path = new File(value);
+				if (path != getValue()) {
+					setValue(new File(comboBox.getText()), true);
+				}
+			}
+		});
+		
 		browse = new Button(this, SWT.PUSH);
 		browse.setFont(getFont());
 		browse.setText("&Browse...");

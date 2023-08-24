@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.Dialog;
@@ -90,7 +91,8 @@ import turnus.model.mapping.data.ClockCycles;
 import turnus.model.mapping.io.XmlNetworkWeightReader;
 import turnus.model.mapping.io.XmlNetworkWeightWriter;
 import turnus.ui.Icon;
-import turnus.ui.widget.WidgetSelectFile;
+import turnus.ui.util.EclipseUtils;
+import turnus.ui.widget.WidgetSelectFileCombo;
 
 /**
  * This class contains the {@link EditorPart} for the {@link NetworkWeight}
@@ -103,7 +105,7 @@ public class NetworkWeightEditor extends EditorPart {
 
 	public class TestDialog extends Dialog implements ModifyListener {
 
-		private WidgetSelectFile widget;
+		private WidgetSelectFileCombo widget;
 
 		public TestDialog(Shell parentShell) {
 			super(parentShell);
@@ -111,10 +113,18 @@ public class NetworkWeightEditor extends EditorPart {
 
 		@Override
 		protected Control createDialogArea(Composite parent) {
+			IProject project = EclipseUtils.getCurrentProject();
+			String[] netExtension = { NETWORK };
+			List<String> initialNetFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialNetFiles = EclipseUtils.getPathsFromContainer(project, netExtension);
+			}
 			Composite container = (Composite) super.createDialogArea(parent);
-			widget = new WidgetSelectFile("Network file", "The network file", NETWORK, null, container);
+			widget = new WidgetSelectFileCombo("Network file", "The network file", netExtension, null, container);
+			if (!initialNetFiles.isEmpty())
+				widget.setChoices(initialNetFiles.toArray(new String[0]));
 			widget.addModifyListener(this);
-
+			this.getShell().layout();
 			return container;
 		}
 
@@ -127,7 +137,27 @@ public class NetworkWeightEditor extends EditorPart {
 
 		@Override
 		protected Point getInitialSize() {
-			return new Point(400, 200);
+			return new Point(1200, 400);
+		}
+
+		@Override
+		protected void okPressed() {
+			if (weights != null) {
+				File file = widget.getValue();
+				if (file != null && file.exists()) {
+					Network network = EcoreUtils.loadEObject(new ResourceSetImpl(), file);
+					if (weights.isValid(network)) {
+						MessageDialog.openInformation(getShell(), "Ok",
+								"This weight file can be used for this network");
+					} else {
+						MessageDialog.openError(getShell(), "Error",
+								"This weight file cannot be used for this network");
+					}
+				}
+			} else {
+				MessageDialog.openError(getShell(), "Error", "Weight file not loaded");
+			}
+			super.okPressed();
 		}
 
 		@Override

@@ -34,12 +34,15 @@ package turnus.analysis.ui.partitioning;
 import static turnus.common.TurnusExtensions.NETWORK_WEIGHT;
 import static turnus.common.TurnusExtensions.TRACE;
 import static turnus.common.TurnusExtensions.TRACEZ;
+import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.TRACE_FILE;
-import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -55,7 +58,7 @@ import turnus.common.TurnusException;
 import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
 import turnus.ui.util.EclipseUtils;
-import turnus.ui.widget.WidgetSelectFile;
+import turnus.ui.widget.WidgetSelectFileCombo;
 import turnus.ui.widget.WidgetSpinnerInteger;
 import turnus.ui.wizard.AbstractWizardPage;
 
@@ -74,8 +77,8 @@ public class WorkloadBalancePartitioningWizard extends Wizard implements IWorkbe
 	 */
 	private class OptionsPage extends AbstractWizardPage {
 
-		private WidgetSelectFile wTraceFile;
-		private WidgetSelectFile wWeightsFile;
+		private WidgetSelectFileCombo wTraceFile;
+		private WidgetSelectFileCombo wWeightsFile;
 		private WidgetSpinnerInteger wUnits;
 
 		private OptionsPage() {
@@ -86,14 +89,31 @@ public class WorkloadBalancePartitioningWizard extends Wizard implements IWorkbe
 
 		@Override
 		protected void createWidgets(Composite container) {
+			IProject project = EclipseUtils.getCurrentProject();
 
-			String[] inputs = { TRACE, TRACEZ };
-			wTraceFile = new WidgetSelectFile("Trace", "Trace file", inputs, null, container);
+			// -- Trace File 
+			String[] traceExtensions = { TRACE, TRACEZ };
+			List<String> initialTraceFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialTraceFiles = EclipseUtils.getPathsFromContainer(project, traceExtensions);
+			}
+			
+			wTraceFile = new WidgetSelectFileCombo("Trace", "Trace file", traceExtensions, null, container);
+			if (!initialTraceFiles.isEmpty())
+				wTraceFile.setChoices(initialTraceFiles.toArray(new String[0]));
 			addWidget(wTraceFile);
-
+			
+			// -- Weights File 
 			String[] weightsExtension = { NETWORK_WEIGHT };
-			wWeightsFile = new WidgetSelectFile("Weights", "The network weight file", weightsExtension, null,
+			List<String> initialExdfFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialExdfFiles = EclipseUtils.getPathsFromContainer(project, weightsExtension);
+			}
+
+			wWeightsFile = new WidgetSelectFileCombo("Weights", "The network weight file", weightsExtension, null,
 					container);
+			if (!initialExdfFiles.isEmpty())
+				wWeightsFile.setChoices(initialExdfFiles.toArray(new String[0]));
 			addWidget(wWeightsFile);
 
 			wUnits = new WidgetSpinnerInteger("Units", "Select the number of available units", 1, Integer.MAX_VALUE, 1,
