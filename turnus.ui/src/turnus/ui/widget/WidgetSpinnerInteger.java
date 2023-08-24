@@ -72,7 +72,10 @@ public class WidgetSpinnerInteger extends Widget<Integer> {
 		spinner.setMinimum(min);
 		spinner.setMaximum(max);
 		spinner.setIncrement(increment);
-
+		spinner.setPageIncrement(10);
+		spinner.setSelection(initialValue);
+		spinner.pack();
+		this.value = initialValue;
 		setValue(initialValue, true);
 	}
 
@@ -81,17 +84,21 @@ public class WidgetSpinnerInteger extends Widget<Integer> {
 		lbl = new Label(this, SWT.NONE);
 		lbl.setText(text);
 
-		spinner = new Spinner(this, SWT.CHECK);
+		spinner = new Spinner(this, SWT.WRAP);
 		spinner.setToolTipText(toolTip);
 		spinner.addModifyListener(new ModifyListener() {
+			
 			@Override
 			public void modifyText(ModifyEvent e) {
 				Integer value = spinner.getSelection();
 				if (value != getValue()) {
 					setValue(value, false);
 				}
+				
 			}
 		});
+		
+
 	}
 
 	@Override
@@ -137,7 +144,7 @@ public class WidgetSpinnerInteger extends Widget<Integer> {
 	protected void setValue(Integer value, boolean redraw) {
 		value = Math.max(value, min);
 		value = Math.min(value, max);
-		spinner.setSelection(value);
+		
 		super.setValue(value, redraw);
 	}
 
