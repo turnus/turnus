@@ -52,6 +52,7 @@ import turnus.model.dataflow.Actor;
  *   <li>{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getAggregatedFailedData <em>Aggregated Failed Data</em>}</li>
  *   <li>{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getCheckedConditionsMap <em>Checked Conditions Map</em>}</li>
  *   <li>{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getFailedConditionsMap <em>Failed Conditions Map</em>}</li>
+ *   <li>{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getPartitionId <em>Partition Id</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getSchedulerChecksPartition()
@@ -144,5 +145,27 @@ public interface SchedulerChecksPartition extends EObject {
 	 * @generated
 	 */
 	Map<Actor, StatisticalData> getFailedConditionsMap();
+
+	/**
+	 * Returns the value of the '<em><b>Partition Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Partition Id</em>' attribute.
+	 * @see #setPartitionId(String)
+	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getSchedulerChecksPartition_PartitionId()
+	 * @model
+	 * @generated
+	 */
+	String getPartitionId();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getPartitionId <em>Partition Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Partition Id</em>' attribute.
+	 * @see #getPartitionId()
+	 * @generated
+	 */
+	void setPartitionId(String value);
 
 } // SchedulerChecksPartition

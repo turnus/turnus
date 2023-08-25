@@ -59,6 +59,7 @@ import turnus.model.analysis.postprocessing.StatisticalActorPartition;
  *   <li>{@link turnus.model.analysis.postprocessing.impl.StatisticalActorPartitionImpl#getActors <em>Actors</em>}</li>
  *   <li>{@link turnus.model.analysis.postprocessing.impl.StatisticalActorPartitionImpl#getOccupancy <em>Occupancy</em>}</li>
  *   <li>{@link turnus.model.analysis.postprocessing.impl.StatisticalActorPartitionImpl#getSchedulingPolicy <em>Scheduling Policy</em>}</li>
+ *   <li>{@link turnus.model.analysis.postprocessing.impl.StatisticalActorPartitionImpl#getPartitionId <em>Partition Id</em>}</li>
  * </ul>
  *
  * @generated
@@ -113,6 +114,26 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 	 * @ordered
 	 */
 	protected String schedulingPolicy = SCHEDULING_POLICY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPartitionId() <em>Partition Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPartitionId()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PARTITION_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPartitionId() <em>Partition Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPartitionId()
+	 * @generated
+	 * @ordered
+	 */
+	protected String partitionId = PARTITION_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -198,6 +219,29 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 	 * @generated
 	 */
 	@Override
+	public String getPartitionId() {
+		return partitionId;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPartitionId(String newPartitionId) {
+		String oldPartitionId = partitionId;
+		partitionId = newPartitionId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PostprocessingPackage.STATISTICAL_ACTOR_PARTITION__PARTITION_ID, oldPartitionId, partitionId));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case PostprocessingPackage.STATISTICAL_ACTOR_PARTITION__ACTORS:
@@ -206,6 +250,8 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 				return getOccupancy();
 			case PostprocessingPackage.STATISTICAL_ACTOR_PARTITION__SCHEDULING_POLICY:
 				return getSchedulingPolicy();
+			case PostprocessingPackage.STATISTICAL_ACTOR_PARTITION__PARTITION_ID:
+				return getPartitionId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -229,6 +275,9 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 			case PostprocessingPackage.STATISTICAL_ACTOR_PARTITION__SCHEDULING_POLICY:
 				setSchedulingPolicy((String)newValue);
 				return;
+			case PostprocessingPackage.STATISTICAL_ACTOR_PARTITION__PARTITION_ID:
+				setPartitionId((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -250,6 +299,9 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 			case PostprocessingPackage.STATISTICAL_ACTOR_PARTITION__SCHEDULING_POLICY:
 				setSchedulingPolicy(SCHEDULING_POLICY_EDEFAULT);
 				return;
+			case PostprocessingPackage.STATISTICAL_ACTOR_PARTITION__PARTITION_ID:
+				setPartitionId(PARTITION_ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -268,6 +320,8 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 				return occupancy != OCCUPANCY_EDEFAULT;
 			case PostprocessingPackage.STATISTICAL_ACTOR_PARTITION__SCHEDULING_POLICY:
 				return SCHEDULING_POLICY_EDEFAULT == null ? schedulingPolicy != null : !SCHEDULING_POLICY_EDEFAULT.equals(schedulingPolicy);
+			case PostprocessingPackage.STATISTICAL_ACTOR_PARTITION__PARTITION_ID:
+				return PARTITION_ID_EDEFAULT == null ? partitionId != null : !PARTITION_ID_EDEFAULT.equals(partitionId);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -288,6 +342,8 @@ public class StatisticalActorPartitionImpl extends MinimalEObjectImpl.Container 
 		result.append(occupancy);
 		result.append(", schedulingPolicy: ");
 		result.append(schedulingPolicy);
+		result.append(", partitionId: ");
+		result.append(partitionId);
 		result.append(')');
 		return result.toString();
 	}

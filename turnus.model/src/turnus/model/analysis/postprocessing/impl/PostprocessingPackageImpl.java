@@ -479,6 +479,16 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * @generated
 	 */
 	@Override
+	public EAttribute getStatisticalActorPartition_PartitionId() {
+		return (EAttribute)statisticalActorPartitionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getActionStatisticsReport() {
 		return actionStatisticsReportEClass;
 	}
@@ -699,6 +709,16 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * @generated
 	 */
 	@Override
+	public EAttribute getSchedulerChecksPartition_PartitionId() {
+		return (EAttribute)schedulerChecksPartitionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getBufferBlockingReport() {
 		return bufferBlockingReportEClass;
 	}
@@ -795,6 +815,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		createEAttribute(statisticalActorPartitionEClass, STATISTICAL_ACTOR_PARTITION__ACTORS);
 		createEAttribute(statisticalActorPartitionEClass, STATISTICAL_ACTOR_PARTITION__OCCUPANCY);
 		createEAttribute(statisticalActorPartitionEClass, STATISTICAL_ACTOR_PARTITION__SCHEDULING_POLICY);
+		createEAttribute(statisticalActorPartitionEClass, STATISTICAL_ACTOR_PARTITION__PARTITION_ID);
 
 		actionStatisticsReportEClass = createEClass(ACTION_STATISTICS_REPORT);
 		createEReference(actionStatisticsReportEClass, ACTION_STATISTICS_REPORT__ACTORS);
@@ -820,6 +841,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		createEReference(schedulerChecksPartitionEClass, SCHEDULER_CHECKS_PARTITION__AGGREGATED_FAILED_DATA);
 		createEReference(schedulerChecksPartitionEClass, SCHEDULER_CHECKS_PARTITION__CHECKED_CONDITIONS_MAP);
 		createEReference(schedulerChecksPartitionEClass, SCHEDULER_CHECKS_PARTITION__FAILED_CONDITIONS_MAP);
+		createEAttribute(schedulerChecksPartitionEClass, SCHEDULER_CHECKS_PARTITION__PARTITION_ID);
 
 		bufferBlockingReportEClass = createEClass(BUFFER_BLOCKING_REPORT);
 		createEReference(bufferBlockingReportEClass, BUFFER_BLOCKING_REPORT__NETWORK);
@@ -892,6 +914,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		initEAttribute(getStatisticalActorPartition_Actors(), ecorePackage.getEString(), "actors", null, 0, -1, StatisticalActorPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatisticalActorPartition_Occupancy(), ecorePackage.getEDouble(), "occupancy", null, 0, 1, StatisticalActorPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatisticalActorPartition_SchedulingPolicy(), ecorePackage.getEString(), "schedulingPolicy", null, 0, 1, StatisticalActorPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStatisticalActorPartition_PartitionId(), ecorePackage.getEString(), "partitionId", null, 0, 1, StatisticalActorPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(actionStatisticsReportEClass, ActionStatisticsReport.class, "ActionStatisticsReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getActionStatisticsReport_Actors(), theDataflowPackage.getActor(), null, "actors", null, 0, -1, ActionStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -917,6 +940,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		initEReference(getSchedulerChecksPartition_AggregatedFailedData(), theCommonPackage.getStatisticalData(), null, "aggregatedFailedData", null, 0, 1, SchedulerChecksPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSchedulerChecksPartition_CheckedConditionsMap(), theMapPackage.getActorToStatisticalDataMap(), null, "checkedConditionsMap", null, 0, -1, SchedulerChecksPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSchedulerChecksPartition_FailedConditionsMap(), theMapPackage.getActorToStatisticalDataMap(), null, "failedConditionsMap", null, 0, -1, SchedulerChecksPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSchedulerChecksPartition_PartitionId(), ecorePackage.getEString(), "partitionId", null, 0, 1, SchedulerChecksPartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(bufferBlockingReportEClass, BufferBlockingReport.class, "BufferBlockingReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBufferBlockingReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, BufferBlockingReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -344,13 +344,22 @@ public interface PostprocessingPackage extends EPackage {
 	int STATISTICAL_ACTOR_PARTITION__SCHEDULING_POLICY = 2;
 
 	/**
+	 * The feature id for the '<em><b>Partition Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATISTICAL_ACTOR_PARTITION__PARTITION_ID = 3;
+
+	/**
 	 * The number of structural features of the '<em>Statistical Actor Partition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATISTICAL_ACTOR_PARTITION_FEATURE_COUNT = 3;
+	int STATISTICAL_ACTOR_PARTITION_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Statistical Actor Partition</em>' class.
@@ -599,13 +608,22 @@ public interface PostprocessingPackage extends EPackage {
 	int SCHEDULER_CHECKS_PARTITION__FAILED_CONDITIONS_MAP = 3;
 
 	/**
+	 * The feature id for the '<em><b>Partition Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCHEDULER_CHECKS_PARTITION__PARTITION_ID = 4;
+
+	/**
 	 * The number of structural features of the '<em>Scheduler Checks Partition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULER_CHECKS_PARTITION_FEATURE_COUNT = 4;
+	int SCHEDULER_CHECKS_PARTITION_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Scheduler Checks Partition</em>' class.
@@ -897,6 +915,17 @@ public interface PostprocessingPackage extends EPackage {
 	EAttribute getStatisticalActorPartition_SchedulingPolicy();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.postprocessing.StatisticalActorPartition#getPartitionId <em>Partition Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Partition Id</em>'.
+	 * @see turnus.model.analysis.postprocessing.StatisticalActorPartition#getPartitionId()
+	 * @see #getStatisticalActorPartition()
+	 * @generated
+	 */
+	EAttribute getStatisticalActorPartition_PartitionId();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.postprocessing.ActionStatisticsReport <em>Action Statistics Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1134,6 +1163,17 @@ public interface PostprocessingPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getSchedulerChecksPartition_FailedConditionsMap();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.postprocessing.SchedulerChecksPartition#getPartitionId <em>Partition Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Partition Id</em>'.
+	 * @see turnus.model.analysis.postprocessing.SchedulerChecksPartition#getPartitionId()
+	 * @see #getSchedulerChecksPartition()
+	 * @generated
+	 */
+	EAttribute getSchedulerChecksPartition_PartitionId();
 
 	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.postprocessing.BufferBlockingReport <em>Buffer Blocking Report</em>}'.
@@ -1381,6 +1421,14 @@ public interface PostprocessingPackage extends EPackage {
 		EAttribute STATISTICAL_ACTOR_PARTITION__SCHEDULING_POLICY = eINSTANCE.getStatisticalActorPartition_SchedulingPolicy();
 
 		/**
+		 * The meta object literal for the '<em><b>Partition Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATISTICAL_ACTOR_PARTITION__PARTITION_ID = eINSTANCE.getStatisticalActorPartition_PartitionId();
+
+		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.postprocessing.impl.ActionStatisticsReportImpl <em>Action Statistics Report</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1561,6 +1609,14 @@ public interface PostprocessingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SCHEDULER_CHECKS_PARTITION__FAILED_CONDITIONS_MAP = eINSTANCE.getSchedulerChecksPartition_FailedConditionsMap();
+
+		/**
+		 * The meta object literal for the '<em><b>Partition Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SCHEDULER_CHECKS_PARTITION__PARTITION_ID = eINSTANCE.getSchedulerChecksPartition_PartitionId();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.postprocessing.impl.BufferBlockingReportImpl <em>Buffer Blocking Report</em>}' class.

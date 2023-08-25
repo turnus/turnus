@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link turnus.model.analysis.postprocessing.StatisticalActorPartition#getActors <em>Actors</em>}</li>
  *   <li>{@link turnus.model.analysis.postprocessing.StatisticalActorPartition#getOccupancy <em>Occupancy</em>}</li>
  *   <li>{@link turnus.model.analysis.postprocessing.StatisticalActorPartition#getSchedulingPolicy <em>Scheduling Policy</em>}</li>
+ *   <li>{@link turnus.model.analysis.postprocessing.StatisticalActorPartition#getPartitionId <em>Partition Id</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getStatisticalActorPartition()
@@ -121,5 +122,27 @@ public interface StatisticalActorPartition extends EObject {
 	 * @generated
 	 */
 	void setSchedulingPolicy(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Partition Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Partition Id</em>' attribute.
+	 * @see #setPartitionId(String)
+	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getStatisticalActorPartition_PartitionId()
+	 * @model
+	 * @generated
+	 */
+	String getPartitionId();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.postprocessing.StatisticalActorPartition#getPartitionId <em>Partition Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Partition Id</em>' attribute.
+	 * @see #getPartitionId()
+	 * @generated
+	 */
+	void setPartitionId(String value);
 
 } // StatisticalActorPartition

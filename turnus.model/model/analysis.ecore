@@ -714,6 +714,7 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="occupancy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="schedulingPolicy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="partitionId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ActionStatisticsReport" eSuperTypes="#//postprocessing/PostProcessingData">
       <eStructuralFeatures xsi:type="ecore:EReference" name="actors" upperBound="-1"
@@ -756,6 +757,7 @@
           upperBound="-1" eType="#//map/ActorToStatisticalDataMap" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="failedConditionsMap"
           upperBound="-1" eType="#//map/ActorToStatisticalDataMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="partitionId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BufferBlockingReport" eSuperTypes="#//postprocessing/PostProcessingData">
       <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>

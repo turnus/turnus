@@ -63,6 +63,7 @@ import turnus.model.dataflow.Actor;
  *   <li>{@link turnus.model.analysis.postprocessing.impl.SchedulerChecksPartitionImpl#getAggregatedFailedData <em>Aggregated Failed Data</em>}</li>
  *   <li>{@link turnus.model.analysis.postprocessing.impl.SchedulerChecksPartitionImpl#getCheckedConditionsMap <em>Checked Conditions Map</em>}</li>
  *   <li>{@link turnus.model.analysis.postprocessing.impl.SchedulerChecksPartitionImpl#getFailedConditionsMap <em>Failed Conditions Map</em>}</li>
+ *   <li>{@link turnus.model.analysis.postprocessing.impl.SchedulerChecksPartitionImpl#getPartitionId <em>Partition Id</em>}</li>
  * </ul>
  *
  * @generated
@@ -107,6 +108,26 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 	 * @ordered
 	 */
 	protected EMap<Actor, StatisticalData> failedConditionsMap;
+
+	/**
+	 * The default value of the '{@link #getPartitionId() <em>Partition Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPartitionId()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PARTITION_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPartitionId() <em>Partition Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPartitionId()
+	 * @generated
+	 * @ordered
+	 */
+	protected String partitionId = PARTITION_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -249,6 +270,29 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 	 * @generated
 	 */
 	@Override
+	public String getPartitionId() {
+		return partitionId;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPartitionId(String newPartitionId) {
+		String oldPartitionId = partitionId;
+		partitionId = newPartitionId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__PARTITION_ID, oldPartitionId, partitionId));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__AGGREGATED_CHECKED_DATA:
@@ -281,6 +325,8 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__FAILED_CONDITIONS_MAP:
 				if (coreType) return ((EMap.InternalMapView<Actor, StatisticalData>)getFailedConditionsMap()).eMap();
 				else return getFailedConditionsMap();
+			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__PARTITION_ID:
+				return getPartitionId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -304,6 +350,9 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 				return;
 			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__FAILED_CONDITIONS_MAP:
 				((EStructuralFeature.Setting)((EMap.InternalMapView<Actor, StatisticalData>)getFailedConditionsMap()).eMap()).set(newValue);
+				return;
+			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__PARTITION_ID:
+				setPartitionId((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -329,6 +378,9 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__FAILED_CONDITIONS_MAP:
 				getFailedConditionsMap().clear();
 				return;
+			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__PARTITION_ID:
+				setPartitionId(PARTITION_ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -349,8 +401,26 @@ public class SchedulerChecksPartitionImpl extends MinimalEObjectImpl.Container i
 				return checkedConditionsMap != null && !checkedConditionsMap.isEmpty();
 			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__FAILED_CONDITIONS_MAP:
 				return failedConditionsMap != null && !failedConditionsMap.isEmpty();
+			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION__PARTITION_ID:
+				return PARTITION_ID_EDEFAULT == null ? partitionId != null : !PARTITION_ID_EDEFAULT.equals(partitionId);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (partitionId: ");
+		result.append(partitionId);
+		result.append(')');
+		return result.toString();
 	}
 
 } //SchedulerChecksPartitionImpl

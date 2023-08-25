@@ -591,6 +591,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/StatisticalActorPartition/actors"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/StatisticalActorPartition/occupancy"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/StatisticalActorPartition/schedulingPolicy"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/StatisticalActorPartition/partitionId"/>
       </genClasses>
       <genClasses ecoreClass="analysis.ecore#//postprocessing/ActionStatisticsReport">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -622,6 +623,7 @@
             ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksPartition/aggregatedFailedData"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksPartition/checkedConditionsMap"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksPartition/failedConditionsMap"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/SchedulerChecksPartition/partitionId"/>
       </genClasses>
       <genClasses ecoreClass="analysis.ecore#//postprocessing/BufferBlockingReport">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
