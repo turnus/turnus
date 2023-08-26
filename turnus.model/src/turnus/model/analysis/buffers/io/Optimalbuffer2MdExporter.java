@@ -80,8 +80,9 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 
 	@Override
 	public void export(OptimalBuffersReport data, File output) throws TurnusException {
+		FileWriter writer = null;
 		try {
-			FileWriter writer = new FileWriter(output);
+			writer = new FileWriter(output);
 
 			StringBuffer b = new StringBuffer();
 			b.append("# Optimal buffer size analysis report\n");
@@ -101,7 +102,7 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 
 			b.append("| iteration | cp reduction | tokens || bit|| \n");
 			b.append("|:----|:----|:----|:----|:----|:----|:----\n");
-			b.append(String.format("| nominal |   |  %d |  | %ld (%s kB) | |\n", nominal_tokens, nominal_bit,
+			b.append(String.format("| nominal |   |  %d |  | %d (%s kB) | |\n", nominal_tokens, nominal_bit,
 					format(getKb(nominal_bit))));
 			int i = 1;
 			for (OptimalBufferData o : bdata) {
@@ -155,7 +156,7 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 					return o1.toString().compareTo(o2.toString());
 				}
 			});
-			
+
 			for (Buffer buffer : buffers) {
 				b.append(buffer.getSource().getOwner().getName() + " | " + buffer.getSource().getName() + "|");
 				b.append(buffer.getTarget().getOwner().getName() + " | " + buffer.getTarget().getName());
@@ -166,7 +167,7 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 					long bit = tokens * buffer.getType().getBits();
 					if (i > 0 && tokens != oldSize) {
 						b.append("| **" + tokens + "** **(" + bit + "bit)**");
-					}else{
+					} else {
 						b.append("| " + tokens + " (" + bit + "bit)");
 					}
 					oldSize = tokens;

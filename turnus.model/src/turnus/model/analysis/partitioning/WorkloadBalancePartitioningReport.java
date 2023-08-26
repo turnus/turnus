@@ -33,6 +33,7 @@ package turnus.model.analysis.partitioning;
 
 import java.util.List;
 import turnus.model.analysis.AnalysisReport;
+import turnus.model.common.EScheduler;
 import turnus.model.dataflow.Network;
 import turnus.model.mapping.NetworkPartitioning;
 
@@ -47,6 +48,7 @@ import turnus.model.mapping.NetworkPartitioning;
  * <ul>
  *   <li>{@link turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport#getNetwork <em>Network</em>}</li>
  *   <li>{@link turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport#getPartitions <em>Partitions</em>}</li>
+ *   <li>{@link turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport#getSchedulinPolicy <em>Schedulin Policy</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.partitioning.PartitioningPackage#getWorkloadBalancePartitioningReport()
@@ -95,6 +97,31 @@ public interface WorkloadBalancePartitioningReport extends AnalysisReport {
 	 * @generated
 	 */
 	List<WorkloadBalancePartition> getPartitions();
+
+	/**
+	 * Returns the value of the '<em><b>Schedulin Policy</b></em>' attribute.
+	 * The literals are from the enumeration {@link turnus.model.common.EScheduler}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Schedulin Policy</em>' attribute.
+	 * @see turnus.model.common.EScheduler
+	 * @see #setSchedulinPolicy(EScheduler)
+	 * @see turnus.model.analysis.partitioning.PartitioningPackage#getWorkloadBalancePartitioningReport_SchedulinPolicy()
+	 * @model
+	 * @generated
+	 */
+	EScheduler getSchedulinPolicy();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport#getSchedulinPolicy <em>Schedulin Policy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Schedulin Policy</em>' attribute.
+	 * @see turnus.model.common.EScheduler
+	 * @see #getSchedulinPolicy()
+	 * @generated
+	 */
+	void setSchedulinPolicy(EScheduler value);
 
 	NetworkPartitioning asNetworkPartitioning();
 	

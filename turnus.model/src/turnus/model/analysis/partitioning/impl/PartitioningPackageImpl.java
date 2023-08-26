@@ -422,6 +422,16 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 	 * @generated
 	 */
 	@Override
+	public EAttribute getWorkloadBalancePartitioningReport_SchedulinPolicy() {
+		return (EAttribute)workloadBalancePartitioningReportEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getBalancedPipelinePartition() {
 		return balancedPipelinePartitionEClass;
 	}
@@ -544,6 +554,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		workloadBalancePartitioningReportEClass = createEClass(WORKLOAD_BALANCE_PARTITIONING_REPORT);
 		createEReference(workloadBalancePartitioningReportEClass, WORKLOAD_BALANCE_PARTITIONING_REPORT__NETWORK);
 		createEReference(workloadBalancePartitioningReportEClass, WORKLOAD_BALANCE_PARTITIONING_REPORT__PARTITIONS);
+		createEAttribute(workloadBalancePartitioningReportEClass, WORKLOAD_BALANCE_PARTITIONING_REPORT__SCHEDULIN_POLICY);
 
 		balancedPipelinePartitionEClass = createEClass(BALANCED_PIPELINE_PARTITION);
 		createEReference(balancedPipelinePartitionEClass, BALANCED_PIPELINE_PARTITION__ACTORS);
@@ -583,6 +594,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		AnalysisPackage theAnalysisPackage = (AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
 		DataflowPackage theDataflowPackage = (DataflowPackage)EPackage.Registry.INSTANCE.getEPackage(DataflowPackage.eNS_URI);
 		MapPackage theMapPackage = (MapPackage)EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI);
+		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -613,6 +625,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		initEClass(workloadBalancePartitioningReportEClass, WorkloadBalancePartitioningReport.class, "WorkloadBalancePartitioningReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getWorkloadBalancePartitioningReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, WorkloadBalancePartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getWorkloadBalancePartitioningReport_Partitions(), this.getWorkloadBalancePartition(), null, "partitions", null, 0, -1, WorkloadBalancePartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWorkloadBalancePartitioningReport_SchedulinPolicy(), theCommonPackage.getEScheduler(), "schedulinPolicy", null, 0, 1, WorkloadBalancePartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(balancedPipelinePartitionEClass, BalancedPipelinePartition.class, "BalancedPipelinePartition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBalancedPipelinePartition_Actors(), theDataflowPackage.getActor(), null, "actors", null, 0, -1, BalancedPipelinePartition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

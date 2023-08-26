@@ -519,6 +519,7 @@
             ecoreFeature="ecore:EReference analysis.ecore#//partitioning/WorkloadBalancePartitioningReport/network"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference analysis.ecore#//partitioning/WorkloadBalancePartitioningReport/partitions"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/WorkloadBalancePartitioningReport/schedulinPolicy"/>
       </genClasses>
       <genClasses ecoreClass="analysis.ecore#//partitioning/BalancedPipelinePartition">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"

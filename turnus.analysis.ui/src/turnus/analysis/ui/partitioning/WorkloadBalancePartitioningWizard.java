@@ -37,6 +37,7 @@ import static turnus.common.TurnusExtensions.TRACEZ;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.TRACE_FILE;
+import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ import turnus.common.TurnusException;
 import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
 import turnus.ui.util.EclipseUtils;
+import turnus.ui.widget.WidgetComboBox;
 import turnus.ui.widget.WidgetSelectFileCombo;
 import turnus.ui.widget.WidgetSpinnerInteger;
 import turnus.ui.wizard.AbstractWizardPage;
@@ -80,6 +82,7 @@ public class WorkloadBalancePartitioningWizard extends Wizard implements IWorkbe
 		private WidgetSelectFileCombo wTraceFile;
 		private WidgetSelectFileCombo wWeightsFile;
 		private WidgetSpinnerInteger wUnits;
+		private WidgetComboBox wSchedulers;
 
 		private OptionsPage() {
 			super("Workload Balance Partitioning algorithm");
@@ -116,9 +119,15 @@ public class WorkloadBalancePartitioningWizard extends Wizard implements IWorkbe
 				wWeightsFile.setChoices(initialExdfFiles.toArray(new String[0]));
 			addWidget(wWeightsFile);
 
+			// -- Units
 			wUnits = new WidgetSpinnerInteger("Units", "Select the number of available units", 1, Integer.MAX_VALUE, 1,
 					2, container);
 			addWidget(wUnits);
+			
+			// -- Scheduler
+			String[] schedulers = {"ROUND_ROBIN", "NON_PREEMPTIVE", "FULL_PARALLEL"};
+			wSchedulers = new WidgetComboBox("Schedulers", "select the configuration", schedulers, schedulers[0],
+					container);
 
 		}
 
@@ -132,6 +141,10 @@ public class WorkloadBalancePartitioningWizard extends Wizard implements IWorkbe
 
 		public int getUnits() {
 			return wUnits.getValue().intValue();
+		}
+		
+		public String getSchedulingPolicy() {
+			return wSchedulers.getValue();
 		}
 
 	}
@@ -163,6 +176,7 @@ public class WorkloadBalancePartitioningWizard extends Wizard implements IWorkbe
 		configuration.setValue(TRACE_FILE, optionsPage.getTraceFile());
 		configuration.setValue(ACTION_WEIGHTS, optionsPage.getWeightsFile());
 		configuration.setValue(ANALYSIS_PARTITIONING_UNITS, optionsPage.getUnits());
+		configuration.setValue(SCHEDULING_POLICY, optionsPage.getSchedulingPolicy());
 
 		final Job job = new Job("Workload Balance Partitioning algorithm") {
 

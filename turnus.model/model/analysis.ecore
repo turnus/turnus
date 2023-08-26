@@ -632,6 +632,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="partitions" upperBound="-1"
           eType="#//partitioning/WorkloadBalancePartition" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="schedulinPolicy" eType="ecore:EEnum common.ecore#//EScheduler"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BalancedPipelinePartition">
       <eStructuralFeatures xsi:type="ecore:EReference" name="actors" upperBound="-1"

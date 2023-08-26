@@ -73,6 +73,7 @@ public class WorkloadBalancePartition2MdExporter implements FileExporter<Workloa
 			b.append("# Workload Balance partitioning analysis report\n");
 			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
 			b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
+			b.append(String.format("* **Scheduling Policy**: %s\n", data.getSchedulinPolicy().getName()));
 			b.append(String.format("* **Units**: %d\n", data.getPartitions().size()));
 			b.append("\n");
 			

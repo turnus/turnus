@@ -175,7 +175,8 @@ public class WorkloadBalancePartitioningCli implements IApplication {
 	private void parse(String[] args) throws TurnusException {
 		CliParser cliParser = new CliParser().setOption(TRACE_FILE, true).setOption(ACTION_WEIGHTS, true)
 				.setOption(TRACE_WEIGHTER, false)//
-				.setOption(SCHEDULING_POLICY, false).setOption(ANALYSIS_PARTITIONING_UNITS, false)
+				.setOption(SCHEDULING_POLICY, false)
+				.setOption(ANALYSIS_PARTITIONING_UNITS, false)
 				.setOption(OUTPUT_DIRECTORY, false);
 
 		configuration = cliParser.parse(args);

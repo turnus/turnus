@@ -51,6 +51,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import turnus.model.analysis.partitioning.PartitioningPackage;
 import turnus.model.analysis.partitioning.WorkloadBalancePartition;
 import turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport;
+import turnus.model.common.EScheduler;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Network;
 import turnus.model.mapping.NetworkPartitioning;
@@ -67,6 +68,7 @@ import turnus.model.mapping.NetworkPartitioning;
  *   <li>{@link turnus.model.analysis.partitioning.impl.WorkloadBalancePartitioningReportImpl#getDate <em>Date</em>}</li>
  *   <li>{@link turnus.model.analysis.partitioning.impl.WorkloadBalancePartitioningReportImpl#getNetwork <em>Network</em>}</li>
  *   <li>{@link turnus.model.analysis.partitioning.impl.WorkloadBalancePartitioningReportImpl#getPartitions <em>Partitions</em>}</li>
+ *   <li>{@link turnus.model.analysis.partitioning.impl.WorkloadBalancePartitioningReportImpl#getSchedulinPolicy <em>Schedulin Policy</em>}</li>
  * </ul>
  *
  * @generated
@@ -131,6 +133,26 @@ public class WorkloadBalancePartitioningReportImpl extends MinimalEObjectImpl.Co
 	 * @ordered
 	 */
 	protected EList<WorkloadBalancePartition> partitions;
+
+	/**
+	 * The default value of the '{@link #getSchedulinPolicy() <em>Schedulin Policy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSchedulinPolicy()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final EScheduler SCHEDULIN_POLICY_EDEFAULT = EScheduler.FULL_PARALLEL;
+
+	/**
+	 * The cached value of the '{@link #getSchedulinPolicy() <em>Schedulin Policy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSchedulinPolicy()
+	 * @generated
+	 * @ordered
+	 */
+	protected EScheduler schedulinPolicy = SCHEDULIN_POLICY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -256,6 +278,29 @@ public class WorkloadBalancePartitioningReportImpl extends MinimalEObjectImpl.Co
 	 * @generated
 	 */
 	@Override
+	public EScheduler getSchedulinPolicy() {
+		return schedulinPolicy;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setSchedulinPolicy(EScheduler newSchedulinPolicy) {
+		EScheduler oldSchedulinPolicy = schedulinPolicy;
+		schedulinPolicy = newSchedulinPolicy == null ? SCHEDULIN_POLICY_EDEFAULT : newSchedulinPolicy;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT__SCHEDULIN_POLICY, oldSchedulinPolicy, schedulinPolicy));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT__PARTITIONS:
@@ -281,6 +326,8 @@ public class WorkloadBalancePartitioningReportImpl extends MinimalEObjectImpl.Co
 				return basicGetNetwork();
 			case PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT__PARTITIONS:
 				return getPartitions();
+			case PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT__SCHEDULIN_POLICY:
+				return getSchedulinPolicy();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -307,6 +354,9 @@ public class WorkloadBalancePartitioningReportImpl extends MinimalEObjectImpl.Co
 				getPartitions().clear();
 				getPartitions().addAll((Collection<? extends WorkloadBalancePartition>)newValue);
 				return;
+			case PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT__SCHEDULIN_POLICY:
+				setSchedulinPolicy((EScheduler)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -331,6 +381,9 @@ public class WorkloadBalancePartitioningReportImpl extends MinimalEObjectImpl.Co
 			case PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT__PARTITIONS:
 				getPartitions().clear();
 				return;
+			case PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT__SCHEDULIN_POLICY:
+				setSchedulinPolicy(SCHEDULIN_POLICY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -351,6 +404,8 @@ public class WorkloadBalancePartitioningReportImpl extends MinimalEObjectImpl.Co
 				return network != null;
 			case PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT__PARTITIONS:
 				return partitions != null && !partitions.isEmpty();
+			case PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT__SCHEDULIN_POLICY:
+				return schedulinPolicy != SCHEDULIN_POLICY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

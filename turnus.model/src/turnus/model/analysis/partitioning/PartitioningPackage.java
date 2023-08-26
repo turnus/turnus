@@ -326,13 +326,22 @@ public interface PartitioningPackage extends EPackage {
 	int WORKLOAD_BALANCE_PARTITIONING_REPORT__PARTITIONS = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Schedulin Policy</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WORKLOAD_BALANCE_PARTITIONING_REPORT__SCHEDULIN_POLICY = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Workload Balance Partitioning Report</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WORKLOAD_BALANCE_PARTITIONING_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 2;
+	int WORKLOAD_BALANCE_PARTITIONING_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Workload Balance Partitioning Report</em>' class.
@@ -646,6 +655,17 @@ public interface PartitioningPackage extends EPackage {
 	EReference getWorkloadBalancePartitioningReport_Partitions();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport#getSchedulinPolicy <em>Schedulin Policy</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Schedulin Policy</em>'.
+	 * @see turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport#getSchedulinPolicy()
+	 * @see #getWorkloadBalancePartitioningReport()
+	 * @generated
+	 */
+	EAttribute getWorkloadBalancePartitioningReport_SchedulinPolicy();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.partitioning.BalancedPipelinePartition <em>Balanced Pipeline Partition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -889,6 +909,14 @@ public interface PartitioningPackage extends EPackage {
 		 * @generated
 		 */
 		EReference WORKLOAD_BALANCE_PARTITIONING_REPORT__PARTITIONS = eINSTANCE.getWorkloadBalancePartitioningReport_Partitions();
+
+		/**
+		 * The meta object literal for the '<em><b>Schedulin Policy</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WORKLOAD_BALANCE_PARTITIONING_REPORT__SCHEDULIN_POLICY = eINSTANCE.getWorkloadBalancePartitioningReport_SchedulinPolicy();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.partitioning.impl.BalancedPipelinePartitionImpl <em>Balanced Pipeline Partition</em>}' class.

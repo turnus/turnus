@@ -32,6 +32,7 @@
 package turnus.analysis.partitioning;
 
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
+import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,6 +46,7 @@ import turnus.analysis.Analysis;
 import turnus.model.analysis.partitioning.PartitioningFactory;
 import turnus.model.analysis.partitioning.WorkloadBalancePartition;
 import turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport;
+import turnus.model.common.EScheduler;
 import turnus.model.dataflow.Actor;
 import turnus.model.trace.Step;
 import turnus.model.trace.Trace.Order;
@@ -87,8 +89,10 @@ public class WorkloadBalancePartitioning extends Analysis<WorkloadBalancePartiti
 	}
 
 	public static final int DEFAULT_UNITS = 2;
+	public static final String DEFAULT_SCHEDULING_POLICY = "ROUND_ROBIN";
 	private TraceWeighter traceWeighter;
 	private int units;
+	private EScheduler schedulingPolicy;
 
 	public WorkloadBalancePartitioning(TraceProject tProject, TraceWeighter tWeighter) {
 		super(tProject);
@@ -98,6 +102,7 @@ public class WorkloadBalancePartitioning extends Analysis<WorkloadBalancePartiti
 	@Override
 	public WorkloadBalancePartitioningReport run() {
 		units = configuration.getValue(ANALYSIS_PARTITIONING_UNITS, DEFAULT_UNITS);
+		schedulingPolicy = EScheduler.get(configuration.getValue(SCHEDULING_POLICY, DEFAULT_SCHEDULING_POLICY));
 		List<WbPartition> generatedPartitions = balanceWorkload(units);
 
 		return generateReport(generatedPartitions);
@@ -173,6 +178,7 @@ public class WorkloadBalancePartitioning extends Analysis<WorkloadBalancePartiti
 		WorkloadBalancePartitioningReport report = f.createWorkloadBalancePartitioningReport();
 		report.setNetwork(project.getNetwork());
 		report.setAlgorithm("Workload Balance partitioner");
+		report.setSchedulinPolicy(schedulingPolicy);
 
 		for (WbPartition partition : partitions) {
 			WorkloadBalancePartition data = f.createWorkloadBalancePartition();
