@@ -134,7 +134,7 @@ public class Bottlenecks2MdExporter implements FileExporter<BottlenecksReport> {
 
 				b.append(String.format("\n|%s | %s | %d | %s | %s | %s | %s | %d | %s | %s | %s | %s", actor, action,
 						totalFirings, format(totalFiringsPerc) + "%", format(totalWeight), format(totalWeightPerc) + "%",
-						format(totalVariance), cpFirings, format((cpFirings)), format(cpWeights),
+						format(totalVariance), cpFirings, format((cpFiringsPerc))+ "%", format(cpWeights),
 						format(cpWeightPerc) + "%", format(cpVariance)));
 
 			}

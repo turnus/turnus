@@ -236,11 +236,7 @@ public class IdleLocalSearch extends Analysis<ActorStatisticsReport> {
 		Collections.sort(sortedActors, new Comparator<String>() {
 			@Override
 			public int compare(String a1, String a2) {
-				if (unsortedIdleTimes.get(a1) < unsortedIdleTimes.get(a2)) {
-					return 1;
-				} else {
-					return -1;
-				}
+				return unsortedIdleTimes.get(a2).compareTo(unsortedIdleTimes.get(a1));
 			}
 		});
 		return sortedActors;
