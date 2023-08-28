@@ -119,6 +119,14 @@ public class ProfilingAdapterFactory extends AdapterFactoryImpl {
 				return createProfilingStatsActorDataAdapter();
 			}
 			@Override
+			public Adapter caseInterPartitionData(InterPartitionData object) {
+				return createInterPartitionDataAdapter();
+			}
+			@Override
+			public Adapter caseInterPartitionCommunicationAndMemoryReport(InterPartitionCommunicationAndMemoryReport object) {
+				return createInterPartitionCommunicationAndMemoryReportAdapter();
+			}
+			@Override
 			public Adapter caseAnalysisReport(AnalysisReport object) {
 				return createAnalysisReportAdapter();
 			}
@@ -209,6 +217,34 @@ public class ProfilingAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createProfilingStatsActorDataAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.profiling.InterPartitionData <em>Inter Partition Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.profiling.InterPartitionData
+	 * @generated
+	 */
+	public Adapter createInterPartitionDataAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport <em>Inter Partition Communication And Memory Report</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport
+	 * @generated
+	 */
+	public Adapter createInterPartitionCommunicationAndMemoryReportAdapter() {
 		return null;
 	}
 

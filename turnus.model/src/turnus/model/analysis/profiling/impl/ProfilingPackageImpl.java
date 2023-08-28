@@ -70,6 +70,8 @@ import turnus.model.analysis.profiler.ProfilerPackage;
 
 import turnus.model.analysis.profiler.impl.ProfilerPackageImpl;
 
+import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
+import turnus.model.analysis.profiling.InterPartitionData;
 import turnus.model.analysis.profiling.IntraActionCommunicationData;
 import turnus.model.analysis.profiling.IntraActionCommunicationReport;
 import turnus.model.analysis.profiling.IntraActorCommunicationData;
@@ -136,6 +138,20 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 	 * @generated
 	 */
 	private EClass profilingStatsActorDataEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass interPartitionDataEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass interPartitionCommunicationAndMemoryReportEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -485,6 +501,106 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 	 * @generated
 	 */
 	@Override
+	public EClass getInterPartitionData() {
+		return interPartitionDataEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getInterPartitionData_Actors() {
+		return (EReference)interPartitionDataEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getInterPartitionData_Workload() {
+		return (EAttribute)interPartitionDataEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getInterPartitionData_MaxIncomingBitsPerFiring() {
+		return (EAttribute)interPartitionDataEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getInterPartitionData_MaxOutgoingBitsPerFiring() {
+		return (EAttribute)interPartitionDataEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getInterPartitionData_PersistentMemory() {
+		return (EAttribute)interPartitionDataEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getInterPartitionData_MaxTransientMemory() {
+		return (EAttribute)interPartitionDataEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getInterPartitionData_PartitionId() {
+		return (EAttribute)interPartitionDataEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getInterPartitionCommunicationAndMemoryReport() {
+		return interPartitionCommunicationAndMemoryReportEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getInterPartitionCommunicationAndMemoryReport_PartitionData() {
+		return (EReference)interPartitionCommunicationAndMemoryReportEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public ProfilingFactory getProfilingFactory() {
 		return (ProfilingFactory)getEFactoryInstance();
 	}
@@ -535,6 +651,18 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		createEAttribute(profilingStatsActorDataEClass, PROFILING_STATS_ACTOR_DATA__SCHEDULER_WEIGHT);
 		createEAttribute(profilingStatsActorDataEClass, PROFILING_STATS_ACTOR_DATA__ACTIONS_WEIGHT_PERCENT);
 		createEAttribute(profilingStatsActorDataEClass, PROFILING_STATS_ACTOR_DATA__SCHEDULER_WEIGHT_PERCENT);
+
+		interPartitionDataEClass = createEClass(INTER_PARTITION_DATA);
+		createEReference(interPartitionDataEClass, INTER_PARTITION_DATA__ACTORS);
+		createEAttribute(interPartitionDataEClass, INTER_PARTITION_DATA__WORKLOAD);
+		createEAttribute(interPartitionDataEClass, INTER_PARTITION_DATA__MAX_INCOMING_BITS_PER_FIRING);
+		createEAttribute(interPartitionDataEClass, INTER_PARTITION_DATA__MAX_OUTGOING_BITS_PER_FIRING);
+		createEAttribute(interPartitionDataEClass, INTER_PARTITION_DATA__PERSISTENT_MEMORY);
+		createEAttribute(interPartitionDataEClass, INTER_PARTITION_DATA__MAX_TRANSIENT_MEMORY);
+		createEAttribute(interPartitionDataEClass, INTER_PARTITION_DATA__PARTITION_ID);
+
+		interPartitionCommunicationAndMemoryReportEClass = createEClass(INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT);
+		createEReference(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA);
 	}
 
 	/**
@@ -573,6 +701,7 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		// Add supertypes to classes
 		intraActionCommunicationReportEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisReport());
 		profilingStatsReportEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisReport());
+		interPartitionCommunicationAndMemoryReportEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisReport());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(intraActionCommunicationReportEClass, IntraActionCommunicationReport.class, "IntraActionCommunicationReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -602,6 +731,18 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		initEAttribute(getProfilingStatsActorData_SchedulerWeight(), ecorePackage.getEDouble(), "schedulerWeight", null, 0, 1, ProfilingStatsActorData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProfilingStatsActorData_ActionsWeightPercent(), ecorePackage.getEDouble(), "actionsWeightPercent", null, 0, 1, ProfilingStatsActorData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProfilingStatsActorData_SchedulerWeightPercent(), ecorePackage.getEDouble(), "schedulerWeightPercent", null, 0, 1, ProfilingStatsActorData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(interPartitionDataEClass, InterPartitionData.class, "InterPartitionData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getInterPartitionData_Actors(), theDataflowPackage.getActor(), null, "actors", null, 0, -1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInterPartitionData_Workload(), ecorePackage.getEDouble(), "workload", null, 0, 1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInterPartitionData_MaxIncomingBitsPerFiring(), ecorePackage.getEDouble(), "maxIncomingBitsPerFiring", null, 0, 1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInterPartitionData_MaxOutgoingBitsPerFiring(), ecorePackage.getEDouble(), "maxOutgoingBitsPerFiring", null, 0, 1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInterPartitionData_PersistentMemory(), ecorePackage.getEDouble(), "persistentMemory", null, 0, 1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInterPartitionData_MaxTransientMemory(), ecorePackage.getEDouble(), "maxTransientMemory", null, 0, 1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInterPartitionData_PartitionId(), ecorePackage.getEInt(), "partitionId", null, 0, 1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(interPartitionCommunicationAndMemoryReportEClass, InterPartitionCommunicationAndMemoryReport.class, "InterPartitionCommunicationAndMemoryReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getInterPartitionCommunicationAndMemoryReport_PartitionData(), this.getInterPartitionData(), null, "partitionData", null, 0, 1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //ProfilingPackageImpl

@@ -96,6 +96,24 @@ public interface ProfilingFactory extends EFactory {
 	ProfilingStatsActorData createProfilingStatsActorData();
 
 	/**
+	 * Returns a new object of class '<em>Inter Partition Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Inter Partition Data</em>'.
+	 * @generated
+	 */
+	InterPartitionData createInterPartitionData();
+
+	/**
+	 * Returns a new object of class '<em>Inter Partition Communication And Memory Report</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Inter Partition Communication And Memory Report</em>'.
+	 * @generated
+	 */
+	InterPartitionCommunicationAndMemoryReport createInterPartitionCommunicationAndMemoryReport();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

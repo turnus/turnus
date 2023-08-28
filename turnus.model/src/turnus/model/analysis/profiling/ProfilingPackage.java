@@ -428,6 +428,153 @@ public interface ProfilingPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl <em>Inter Partition Data</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.analysis.profiling.impl.InterPartitionDataImpl
+	 * @see turnus.model.analysis.profiling.impl.ProfilingPackageImpl#getInterPartitionData()
+	 * @generated
+	 */
+	int INTER_PARTITION_DATA = 5;
+
+	/**
+	 * The feature id for the '<em><b>Actors</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__ACTORS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Workload</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__WORKLOAD = 1;
+
+	/**
+	 * The feature id for the '<em><b>Max Incoming Bits Per Firing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__MAX_INCOMING_BITS_PER_FIRING = 2;
+
+	/**
+	 * The feature id for the '<em><b>Max Outgoing Bits Per Firing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__MAX_OUTGOING_BITS_PER_FIRING = 3;
+
+	/**
+	 * The feature id for the '<em><b>Persistent Memory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__PERSISTENT_MEMORY = 4;
+
+	/**
+	 * The feature id for the '<em><b>Max Transient Memory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__MAX_TRANSIENT_MEMORY = 5;
+
+	/**
+	 * The feature id for the '<em><b>Partition Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__PARTITION_ID = 6;
+
+	/**
+	 * The number of structural features of the '<em>Inter Partition Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA_FEATURE_COUNT = 7;
+
+	/**
+	 * The number of operations of the '<em>Inter Partition Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl <em>Inter Partition Communication And Memory Report</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl
+	 * @see turnus.model.analysis.profiling.impl.ProfilingPackageImpl#getInterPartitionCommunicationAndMemoryReport()
+	 * @generated
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT = 6;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ALGORITHM = AnalysisPackage.ANALYSIS_REPORT__ALGORITHM;
+
+	/**
+	 * The feature id for the '<em><b>Date</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DATE = AnalysisPackage.ANALYSIS_REPORT__DATE;
+
+	/**
+	 * The feature id for the '<em><b>Partition Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Inter Partition Communication And Memory Report</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Inter Partition Communication And Memory Report</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_OPERATION_COUNT = AnalysisPackage.ANALYSIS_REPORT_OPERATION_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.profiling.IntraActionCommunicationReport <em>Intra Action Communication Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -676,6 +823,114 @@ public interface ProfilingPackage extends EPackage {
 	EAttribute getProfilingStatsActorData_SchedulerWeightPercent();
 
 	/**
+	 * Returns the meta object for class '{@link turnus.model.analysis.profiling.InterPartitionData <em>Inter Partition Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Inter Partition Data</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData
+	 * @generated
+	 */
+	EClass getInterPartitionData();
+
+	/**
+	 * Returns the meta object for the reference list '{@link turnus.model.analysis.profiling.InterPartitionData#getActors <em>Actors</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Actors</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getActors()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EReference getInterPartitionData_Actors();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionData#getWorkload <em>Workload</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Workload</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getWorkload()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EAttribute getInterPartitionData_Workload();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionData#getMaxIncomingBitsPerFiring <em>Max Incoming Bits Per Firing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Incoming Bits Per Firing</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getMaxIncomingBitsPerFiring()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EAttribute getInterPartitionData_MaxIncomingBitsPerFiring();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionData#getMaxOutgoingBitsPerFiring <em>Max Outgoing Bits Per Firing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Outgoing Bits Per Firing</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getMaxOutgoingBitsPerFiring()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EAttribute getInterPartitionData_MaxOutgoingBitsPerFiring();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionData#getPersistentMemory <em>Persistent Memory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Persistent Memory</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getPersistentMemory()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EAttribute getInterPartitionData_PersistentMemory();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionData#getMaxTransientMemory <em>Max Transient Memory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Transient Memory</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getMaxTransientMemory()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EAttribute getInterPartitionData_MaxTransientMemory();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionData#getPartitionId <em>Partition Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Partition Id</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getPartitionId()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EAttribute getInterPartitionData_PartitionId();
+
+	/**
+	 * Returns the meta object for class '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport <em>Inter Partition Communication And Memory Report</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Inter Partition Communication And Memory Report</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport
+	 * @generated
+	 */
+	EClass getInterPartitionCommunicationAndMemoryReport();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getPartitionData <em>Partition Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Partition Data</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getPartitionData()
+	 * @see #getInterPartitionCommunicationAndMemoryReport()
+	 * @generated
+	 */
+	EReference getInterPartitionCommunicationAndMemoryReport_PartitionData();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -891,6 +1146,90 @@ public interface ProfilingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PROFILING_STATS_ACTOR_DATA__SCHEDULER_WEIGHT_PERCENT = eINSTANCE.getProfilingStatsActorData_SchedulerWeightPercent();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl <em>Inter Partition Data</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.analysis.profiling.impl.InterPartitionDataImpl
+		 * @see turnus.model.analysis.profiling.impl.ProfilingPackageImpl#getInterPartitionData()
+		 * @generated
+		 */
+		EClass INTER_PARTITION_DATA = eINSTANCE.getInterPartitionData();
+
+		/**
+		 * The meta object literal for the '<em><b>Actors</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTER_PARTITION_DATA__ACTORS = eINSTANCE.getInterPartitionData_Actors();
+
+		/**
+		 * The meta object literal for the '<em><b>Workload</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_DATA__WORKLOAD = eINSTANCE.getInterPartitionData_Workload();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Incoming Bits Per Firing</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_DATA__MAX_INCOMING_BITS_PER_FIRING = eINSTANCE.getInterPartitionData_MaxIncomingBitsPerFiring();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Outgoing Bits Per Firing</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_DATA__MAX_OUTGOING_BITS_PER_FIRING = eINSTANCE.getInterPartitionData_MaxOutgoingBitsPerFiring();
+
+		/**
+		 * The meta object literal for the '<em><b>Persistent Memory</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_DATA__PERSISTENT_MEMORY = eINSTANCE.getInterPartitionData_PersistentMemory();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Transient Memory</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_DATA__MAX_TRANSIENT_MEMORY = eINSTANCE.getInterPartitionData_MaxTransientMemory();
+
+		/**
+		 * The meta object literal for the '<em><b>Partition Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_DATA__PARTITION_ID = eINSTANCE.getInterPartitionData_PartitionId();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl <em>Inter Partition Communication And Memory Report</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl
+		 * @see turnus.model.analysis.profiling.impl.ProfilingPackageImpl#getInterPartitionCommunicationAndMemoryReport()
+		 * @generated
+		 */
+		EClass INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT = eINSTANCE.getInterPartitionCommunicationAndMemoryReport();
+
+		/**
+		 * The meta object literal for the '<em><b>Partition Data</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_PartitionData();
 
 	}
 

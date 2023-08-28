@@ -72,36 +72,37 @@ import turnus.model.trace.weighter.TraceWeighter;
 public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 
 	private NetworkPartitioning bestPartitioning;
-	private NetworkPartitioning currentPartitioning;	
+	private NetworkPartitioning currentPartitioning;
 	private double objectiveFunctionBest; // useSimulation -> execution time, otherwise -> interPartitionFrequency
 	private double objectiveFunctionLocal;
-	
+
 	private Network network;
 	private TraceWeighter weighter;
-	
+
 	private IntraActionCommunicationAnalysis communicationAnalysis;
 	private SimEngine simulation;
-	private ActorStatisticsCollector actorStatsCollector; 
-	
+	private ActorStatisticsCollector actorStatsCollector;
+
 	public static final int DEFAULT_ANALYSIS_TIME = 20;
 	public static final int DEFAULT_UNITS = 2;
-	
+
 	private int analysisTime;
 	private long startTime;
 	private boolean useEstimation;
 	private long lastImprovementTime;
 	private boolean improvedOverall;
-	
+
 	private Map<Actor, Map<String, Long>> possibleMoves;
 	private Map<Actor, Map<Actor, Long>> communicationFrequency;
 	private Map<Actor, Map<String, Long>> partitionCommunicationFrequency;
 	private Map<Actor, Double> actorWorkloads;
-	
-	public CommFreqLocalSearch(TraceProject tProject, TraceWeighter tWeighter, CommunicationWeight commWeight, SchedulingWeight schedWeight, BufferSize bufferSize, boolean release) {
+
+	public CommFreqLocalSearch(TraceProject tProject, TraceWeighter tWeighter, CommunicationWeight commWeight,
+			SchedulingWeight schedWeight, BufferSize bufferSize, boolean release) {
 		super(tProject);
 		this.network = tProject.getNetwork();
 		this.weighter = tWeighter;
-	
+
 		simulation = new SimEngine();
 		simulation.setTraceProject(tProject);
 		simulation.setTraceWeighter(tWeighter);
@@ -110,44 +111,45 @@ public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 		simulation.setSchedulingWeight(schedWeight);
 		if (release)
 			simulation.setReleaseAfterProcessing();
-		
+
 		this.communicationAnalysis = new IntraActionCommunicationAnalysis(tProject);
-		
+
 		communicationFrequency = new HashMap<Actor, Map<Actor, Long>>();
 		partitionCommunicationFrequency = new HashMap<Actor, Map<String, Long>>();
-		
+
 		for (Actor actor1 : network.getActors()) {
 			communicationFrequency.put(actor1, new HashMap<Actor, Long>());
 			for (Actor actor2 : network.getActors()) {
 				communicationFrequency.get(actor1).put(actor2, (long) 0);
 			}
 		}
-		
+
 		objectiveFunctionBest = Double.MAX_VALUE;
 	}
-	
+
 	public void generateInitialPartitioning(String scheduling) {
 		PartitioningGenerator partitioningGenerator = new PartitioningGenerator(project, weighter);
 		if (!configuration.hasValue(INITIAL_ALGORITHM)) {
-			currentPartitioning = partitioningGenerator.generateRandomSolution(configuration); // random solution if not specified
+			currentPartitioning = partitioningGenerator.generateRandomSolution(configuration); // random solution if not
+																								// specified
 		} else {
 			String algorithm = configuration.getValue(INITIAL_ALGORITHM);
 			currentPartitioning = partitioningGenerator.generateSolution(configuration, algorithm);
 		}
-		
+
 		currentPartitioning.setSchedulerToAll(scheduling);
 	}
-	
+
 	public void regenerateInitialPartitioning(Map<String, String> scheduling) {
 		PartitioningGenerator partitioningGenerator = new PartitioningGenerator(project, weighter);
 		currentPartitioning = partitioningGenerator.generateRandomSolution(configuration); // random solution
-		
+
 		Iterator<String> schedulingStrategies = scheduling.values().iterator();
 		for (String partition : currentPartitioning.asPartitionActorsMap().keySet()) {
 			currentPartitioning.setScheduler(partition, schedulingStrategies.next());
 		}
 	}
-	
+
 	public void loadPartitioning(NetworkPartitioning partitioning) {
 		this.currentPartitioning = partitioning;
 	}
@@ -156,94 +158,91 @@ public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 	public ActorStatisticsReport run() throws TurnusException {
 		int unitsNumber = currentPartitioning.asPartitionActorsMap().keySet().size();
 		int actorsNumber = currentPartitioning.asActorPartitionMap().keySet().size();
-		
+
 		analysisTime = configuration.getValue(ANALYSIS_TIME, DEFAULT_ANALYSIS_TIME);
 		useEstimation = configuration.getValue(USE_SIMULATION);
-		
+
 		if (unitsNumber == 1 || unitsNumber == actorsNumber)
 			return null;
-		
+
 		this.actorStatsCollector = new ActorStatisticsCollector(network, currentPartitioning);
 		simulation.addDataCollector(actorStatsCollector);
 
 		// launch the communication profiling analysis
 		communicationAnalysis.setConfiguration(configuration);
 		IntraActionCommunicationReport report = communicationAnalysis.run();
-		
-		// process the values so that the communication frequency is stored for both: producer and consumer
+
+		// process the values so that the communication frequency is stored for both:
+		// producer and consumer
 		for (IntraActorCommunicationData data : report.getActorsData()) {
 			Actor actor1 = data.getActor();
 			for (Actor actor2 : data.getTokensProducersMap().keySet()) {
-				// preserving the oldV might be needed only if there's a feedback loop between the actors
-				long oldV = communicationFrequency.get(actor1).get(actor2); 
+				// preserving the oldV might be needed only if there's a feedback loop between
+				// the actors
+				long oldV = communicationFrequency.get(actor1).get(actor2);
 				long newV = data.getTokensProducersMap().get(actor2).getSamples();
 				communicationFrequency.get(actor1).put(actor2, oldV + newV);
-				
-				oldV = communicationFrequency.get(actor2).get(actor1); 
+
+				oldV = communicationFrequency.get(actor2).get(actor1);
 				communicationFrequency.get(actor2).put(actor1, oldV + newV);
 			}
 		}
 
 		// calculate actor workloads
 		actorWorkloads = calculateActorWorkloads();
-		
+
 		// initialize the values of objective function
 		if (useEstimation) {
 			calculateFrequencies();
 			simulation.setNetworkPartitioning(currentPartitioning);
 			objectiveFunctionLocal = simulation.run().getTime();
 			objectiveFunctionBest = objectiveFunctionLocal;
-		}
-		else {
+		} else {
 			calculateFrequencies();
 			objectiveFunctionLocal = getInterPartitionFrequency(null, null);
 			objectiveFunctionBest = objectiveFunctionLocal;
 		}
-		
+
 		startTime = System.currentTimeMillis();
 		bestPartitioning = currentPartitioning.clone(); // the very first configuration taken as best
 		do {
 			boolean movePerformed = localSearch();
 			if (movePerformed && objectiveFunctionLocal < objectiveFunctionBest) {
 				objectiveFunctionBest = objectiveFunctionLocal; // save the new solution if better than the overall best
-				bestPartitioning = currentPartitioning.clone(); 
+				bestPartitioning = currentPartitioning.clone();
 				lastImprovementTime = System.currentTimeMillis();
 				improvedOverall = true;
-			}
-			else {
+			} else {
 				Logger.info("Search restart (new random configuration generated");
 				regenerateInitialPartitioning(currentPartitioning.asPartitionSchedulerMap());
-				
+
 				// initialize the values of objective function
 				if (useEstimation) {
 					simulation.setNetworkPartitioning(currentPartitioning);
 					objectiveFunctionLocal = simulation.run().getTime();
-				}
-				else {
+				} else {
 					calculateFrequencies();
 					objectiveFunctionLocal = getInterPartitionFrequency(null, null);
 				}
 			}
-		}
-		while ((System.currentTimeMillis() - startTime) / 1000 / 60 < analysisTime);
-		
+		} while ((System.currentTimeMillis() - startTime) / 1000 / 60 < analysisTime);
+
 		// run the final simulation
 		simulation.setNetworkPartitioning(bestPartitioning);
 		PostProcessingReport endReport = simulation.run();
-		
+
 		if (!improvedOverall) {
 			Logger.info("No improvement found, initial configuration returned");
-		}
-		else {
+		} else {
 			Logger.info("Last improvement made after " + (lastImprovementTime - startTime) / 1000 / 60 + " minutes");
 		}
-		
+
 		return endReport.getReport(ActorStatisticsReport.class);
 	}
-	
+
 	private Map<Actor, Double> calculateActorWorkloads() {
 		Map<Actor, Double> workloads = new HashMap<Actor, Double>();
-		
+
 		for (Actor actor : project.getNetwork().getActors()) {
 			Iterator<Step> steps = project.getTrace().getSteps(Order.INCREASING_ID, actor.getName()).iterator();
 			double sum = 0;
@@ -253,10 +252,10 @@ public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 			}
 			workloads.put(actor, sum);
 		}
-		
+
 		return workloads;
 	}
-	
+
 	private boolean localSearch() throws TurnusException {
 		if (useEstimation) { // evaluate each possible move using the SimEngine
 			for (Actor actor : possibleMoves.keySet()) {
@@ -264,10 +263,10 @@ public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 					if ((System.currentTimeMillis() - startTime) / 1000 / 60 >= analysisTime)
 						break;
 					// move the actor to the new partition
-					String sourcePartition = currentPartitioning.getPartition(actor); 
+					String sourcePartition = currentPartitioning.getPartition(actor);
 					currentPartitioning.setPartition(actor, component);
 					Logger.info("Chosen move: " + actor + " from " + sourcePartition + " to " + component + ".");
-					 // run the simulation on the updated partitioning
+					// run the simulation on the updated partitioning
 					double newExecutionTime = simulation.run().getTime();
 					if (newExecutionTime < objectiveFunctionLocal) {
 						Logger.info("Move correct: " + actor + " from " + sourcePartition + " to " + component + ".");
@@ -275,15 +274,16 @@ public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 						return true;
 					} else {
 						Logger.info("Move incorrect: " + actor + " from " + sourcePartition + " to " + component + ".");
-						 // undo the move
+						// undo the move
 						currentPartitioning.setPartition(actor, sourcePartition);
 					}
 				}
 			}
-		}
-		else { // evaluate the possible moves using the average-to-deviation ratio
+		} else {
+			// evaluate the possible moves using the average-to-deviation ratio
 			// among the available moves choose the one with biggest avg/dev ratio
-			double balance = 0; // avgOverDev(null, null); - originally it was: the one that improves avg/dev ratio
+			double balance = 0; // avgOverDev(null, null); - originally it was: the one that improves avg/dev
+								// ratio
 			Actor chosenActor = null;
 			String chosenActorSource = null;
 			String chosenComponent = null;
@@ -302,24 +302,25 @@ public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 					}
 				}
 			}
-			
+
 			// apply the move if an improving one has been found
 			if (chosenActor != null) {
-				Logger.info("Chosen move: " + chosenActor + " from " + chosenActorSource + " to " + chosenComponent + ". Balance: " + balance);
+				Logger.info("Chosen move: " + chosenActor + " from " + chosenActorSource + " to " + chosenComponent
+						+ ". Balance: " + balance);
 				currentPartitioning.setPartition(chosenActor, chosenComponent);
 				bestPartitioning = currentPartitioning;
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	private void calculateFrequencies() {
 		// create the actor-partition communication frequency map
 		partitionCommunicationFrequency.clear();
 		for (Actor actor1 : network.getActors()) {
-			partitionCommunicationFrequency.put(actor1, new HashMap<String, Long>()); 
+			partitionCommunicationFrequency.put(actor1, new HashMap<String, Long>());
 			for (String component : currentPartitioning.asPartitionActorsMap().keySet()) {
 				partitionCommunicationFrequency.get(actor1).put(component, (long) 0);
 			}
@@ -327,12 +328,14 @@ public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 				if (!actor1.equals(actor2)) {
 					String targetComponent = currentPartitioning.getPartition(actor2);
 					long oldV = partitionCommunicationFrequency.get(actor1).get(targetComponent);
-					partitionCommunicationFrequency.get(actor1).put(targetComponent, oldV + communicationFrequency.get(actor1).get(actor2));
+					partitionCommunicationFrequency.get(actor1).put(targetComponent,
+							oldV + communicationFrequency.get(actor1).get(actor2));
 				}
 			}
 		}
-				
-		// create a map of possible moves (if communication frequency with a certain partition is bigger than the current internal one)
+
+		// create a map of possible moves (if communication frequency with a certain
+		// partition is bigger than the current internal one)
 		possibleMoves = new HashMap<Actor, Map<String, Long>>();
 		for (Actor actor : partitionCommunicationFrequency.keySet()) {
 			String currentActorComponent = currentPartitioning.getPartition(actor);
@@ -349,14 +352,14 @@ public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 			}
 		}
 	}
-	
+
 	private long getInterPartitionFrequency(Actor actor, String component) {
 		String actorSourceComponent = null;
 		if (actor != null) {
 			actorSourceComponent = currentPartitioning.getPartition(actor);
 			currentPartitioning.setPartition(actor, component);
 		}
-		
+
 		long value = 0;
 		for (Actor a : partitionCommunicationFrequency.keySet()) {
 			for (Entry<String, Long> entry : partitionCommunicationFrequency.get(a).entrySet()) {
@@ -365,23 +368,23 @@ public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 				}
 			}
 		}
-		
+
 		if (actor != null) {
 			currentPartitioning.setPartition(actor, actorSourceComponent);
 		}
-		
+
 		value /= 2; // because counted twice for source and target
-		
+
 		return value;
 	}
-	
+
 	private double avgOverDev(Actor actor, String component) {
 		String actorSourceComponent = null;
 		if (actor != null) {
 			actorSourceComponent = currentPartitioning.getPartition(actor);
 			currentPartitioning.setPartition(actor, component);
 		}
-		
+
 		double avg = 0;
 		List<Double> occupancies = new ArrayList<Double>();
 		for (Entry<String, List<String>> entry : currentPartitioning.asPartitionActorsMap().entrySet()) {
@@ -393,18 +396,18 @@ public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 			occupancies.add(workload);
 		}
 		avg /= currentPartitioning.asPartitionActorsMap().size();
-		
+
 		double sumsquared = 0;
 		for (Double occupancy : occupancies) {
 			sumsquared += Math.pow(occupancy - avg, 2);
 		}
-		
+
 		if (actor != null) {
 			currentPartitioning.setPartition(actor, actorSourceComponent);
 		}
-		
-		double stddev = Math.sqrt(sumsquared/currentPartitioning.asPartitionActorsMap().size());
-		
-		return avg/stddev;
+
+		double stddev = Math.sqrt(sumsquared / currentPartitioning.asPartitionActorsMap().size());
+
+		return avg / stddev;
 	}
 }

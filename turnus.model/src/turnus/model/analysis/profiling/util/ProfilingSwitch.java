@@ -129,6 +129,19 @@ public class ProfilingSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ProfilingPackage.INTER_PARTITION_DATA: {
+				InterPartitionData interPartitionData = (InterPartitionData)theEObject;
+				T result = caseInterPartitionData(interPartitionData);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT: {
+				InterPartitionCommunicationAndMemoryReport interPartitionCommunicationAndMemoryReport = (InterPartitionCommunicationAndMemoryReport)theEObject;
+				T result = caseInterPartitionCommunicationAndMemoryReport(interPartitionCommunicationAndMemoryReport);
+				if (result == null) result = caseAnalysisReport(interPartitionCommunicationAndMemoryReport);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -205,6 +218,36 @@ public class ProfilingSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseProfilingStatsActorData(ProfilingStatsActorData object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Inter Partition Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Inter Partition Data</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInterPartitionData(InterPartitionData object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Inter Partition Communication And Memory Report</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Inter Partition Communication And Memory Report</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInterPartitionCommunicationAndMemoryReport(InterPartitionCommunicationAndMemoryReport object) {
 		return null;
 	}
 

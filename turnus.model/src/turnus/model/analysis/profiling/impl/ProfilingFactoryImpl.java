@@ -90,6 +90,8 @@ public class ProfilingFactoryImpl extends EFactoryImpl implements ProfilingFacto
 			case ProfilingPackage.INTRA_ACTION_COMMUNICATION_DATA: return createIntraActionCommunicationData();
 			case ProfilingPackage.PROFILING_STATS_REPORT: return createProfilingStatsReport();
 			case ProfilingPackage.PROFILING_STATS_ACTOR_DATA: return createProfilingStatsActorData();
+			case ProfilingPackage.INTER_PARTITION_DATA: return createInterPartitionData();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT: return createInterPartitionCommunicationAndMemoryReport();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -148,6 +150,28 @@ public class ProfilingFactoryImpl extends EFactoryImpl implements ProfilingFacto
 	public ProfilingStatsActorData createProfilingStatsActorData() {
 		ProfilingStatsActorDataImpl profilingStatsActorData = new ProfilingStatsActorDataImpl();
 		return profilingStatsActorData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public InterPartitionData createInterPartitionData() {
+		InterPartitionDataImpl interPartitionData = new InterPartitionDataImpl();
+		return interPartitionData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public InterPartitionCommunicationAndMemoryReport createInterPartitionCommunicationAndMemoryReport() {
+		InterPartitionCommunicationAndMemoryReportImpl interPartitionCommunicationAndMemoryReport = new InterPartitionCommunicationAndMemoryReportImpl();
+		return interPartitionCommunicationAndMemoryReport;
 	}
 
 	/**
