@@ -226,11 +226,16 @@
             input="pcomm"
             output="md">
       </exporter>
-       <exporter
+      <exporter
             class="turnus.model.analysis.partitioning.io.WorkloadBalancePartition2MdExporter"
             input="pwbal"
             output="md">
-      </exporter>     
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.profiling.io.Iacomm2MdExporter"
+            input="iacomm"
+            output="md">
+      </exporter>        
       <exporter
             class="turnus.model.analysis.partitioning.io.Pcomm2XlsExporter"
             input="pcomm"
