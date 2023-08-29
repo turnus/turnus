@@ -32,27 +32,17 @@
 package turnus.analysis.profiling;
 
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
-import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
-import static turnus.common.TurnusOptions.ANALYSIS_TIME;
-import static turnus.common.TurnusOptions.BUFFER_SIZE_DEFAULT;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
-import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
-import static turnus.common.TurnusOptions.INITIAL_ALGORITHM;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
-import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
-import static turnus.common.TurnusOptions.SCHEDULING_WEIGHTS;
 import static turnus.common.TurnusOptions.TRACE_FILE;
-import static turnus.common.TurnusOptions.USE_SIMULATION;
-import static turnus.common.TurnusOptions.WRITE_HIT_CONSTANT;
-import static turnus.common.TurnusOptions.WRITE_MISS_CONSTANT;
+import static turnus.common.TurnusOptions.OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION;
 import static turnus.common.util.FileUtils.createDirectory;
+import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
-
-import javax.swing.RepaintManager;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -60,9 +50,11 @@ import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
 import turnus.common.TurnusException;
+import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
 import turnus.common.configuration.Configuration.CliParser;
 import turnus.common.io.Logger;
+import turnus.common.util.EcoreUtils;
 import turnus.model.ModelsRegister;
 import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
 import turnus.model.mapping.BufferSize;
@@ -77,6 +69,8 @@ import turnus.model.trace.weighter.TraceWeighter;
 import turnus.model.trace.weighter.WeighterUtils;
 
 /**
+ * Inter-partitioning communication and memory estimation analysis
+ * 
  * @author Endri Bezati
  */
 public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplication {
@@ -97,7 +91,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 		} catch (TurnusException e) {
 			Logger.error("Application error: %s", e.getMessage());
 		}
-
+ 
 		try {
 			cliApp.run();
 		} catch (Exception e) {
@@ -107,10 +101,12 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 	}
 
 	private void parse(String[] args) throws TurnusException {
-		CliParser cliParser = new CliParser().setOption(TRACE_FILE, true)//
+		CliParser cliParser = new CliParser()//
+				.setOption(TRACE_FILE, true)//
 				.setOption(ACTION_WEIGHTS, true)//
 				.setOption(MAPPING_FILE, true)//
 				.setOption(BUFFER_SIZE_FILE, true)//
+				.setOption(OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION, false)
 				.setOption(OUTPUT_DIRECTORY, false);
 
 		configuration = cliParser.parse(args);
@@ -123,7 +119,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 		TraceWeighter weighter = null;
 		NetworkPartitioning partitioning = null;
 		BufferSize bufferSize = null;
-
+		boolean outgoingBufferOwnedBySource = false;
 		InterPartitionCommunicationAndMemoryReport report = null;
 
 		{
@@ -164,6 +160,11 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 			} catch (Exception e) {
 				throw new TurnusException("The buffer configuration file cannot be loaded.", e);
 			}
+			
+			// -- Outgoing buffer owned by source partition
+			if (configuration.getValue(OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION)) {
+				outgoingBufferOwnedBySource = true;
+			}
 
 		}
 
@@ -171,7 +172,8 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 			// -- STEP 2 : Run the analysis
 			monitor.subTask("Running the analysis");
 			try {
-				analysis = new InterPartitionCommunicationAndMemoryAnalysis(project, weighter, bufferSize, partitioning);
+				analysis = new InterPartitionCommunicationAndMemoryAnalysis(project, weighter, bufferSize,
+						partitioning, outgoingBufferOwnedBySource);
 				analysis.setConfiguration(configuration);
 				report = analysis.run();
 				Logger.infoRaw(report.toString());
@@ -188,9 +190,13 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 					outputPath = configuration.getValue(OUTPUT_DIRECTORY);
 					createDirectory(outputPath);
 				} else {
-					outputPath = createOutputDirectory("partitioning", configuration);
+					outputPath = createOutputDirectory("profiling", configuration);
 				}
-				// -- TODO : implement the storing of the results
+				File reportFile = createFileWithTimeStamp(outputPath,
+						TurnusExtensions.INTER_PARTITION_COMM_MEM_REPORT);
+				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
+				Logger.info("Inter-partition communication and memory report stored in \"%s\"", reportFile);
+				
 			} catch (Exception e) {
 				Logger.error("The report file cannot be stored");
 				String message = e.getLocalizedMessage();

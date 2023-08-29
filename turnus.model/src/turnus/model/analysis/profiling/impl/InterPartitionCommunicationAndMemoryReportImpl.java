@@ -355,19 +355,19 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (algorithm: ");
-		result.append(algorithm);
-		result.append(", date: ");
-		result.append(date);
-		result.append(')');
-		return result.toString();
+		StringBuilder b = new StringBuilder(super.toString());
+		b.append("\n[INTER PARTITION COMMUNICATION AND MEMORY REPORT]");
+		b.append(String.format("\n Network.....: %s", getNetwork().getName()));
+		b.append(String.format("\n Algorithm..: %s", getAlgorithm()));
+		
+		b.append("\n");
+		return b.toString();
 	}
 
 } //InterPartitionCommunicationAndMemoryReportImpl

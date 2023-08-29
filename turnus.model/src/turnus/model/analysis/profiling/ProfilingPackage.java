@@ -501,13 +501,22 @@ public interface ProfilingPackage extends EPackage {
 	int INTER_PARTITION_DATA__PARTITION_ID = 6;
 
 	/**
+	 * The feature id for the '<em><b>Outgoing Buffer Owned By Source</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE = 7;
+
+	/**
 	 * The number of structural features of the '<em>Inter Partition Data</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_DATA_FEATURE_COUNT = 7;
+	int INTER_PARTITION_DATA_FEATURE_COUNT = 8;
 
 	/**
 	 * The number of operations of the '<em>Inter Partition Data</em>' class.
@@ -919,6 +928,17 @@ public interface ProfilingPackage extends EPackage {
 	EAttribute getInterPartitionData_PartitionId();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionData#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Outgoing Buffer Owned By Source</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#isOutgoingBufferOwnedBySource()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EAttribute getInterPartitionData_OutgoingBufferOwnedBySource();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport <em>Inter Partition Communication And Memory Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1232,6 +1252,14 @@ public interface ProfilingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute INTER_PARTITION_DATA__PARTITION_ID = eINSTANCE.getInterPartitionData_PartitionId();
+
+		/**
+		 * The meta object literal for the '<em><b>Outgoing Buffer Owned By Source</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE = eINSTANCE.getInterPartitionData_OutgoingBufferOwnedBySource();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl <em>Inter Partition Communication And Memory Report</em>}' class.

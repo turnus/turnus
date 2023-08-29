@@ -236,7 +236,6 @@ public class TurnusOptions {
 	@Description("The list of markow scheduler reports generated during the analyis")
 	public static final Option<List<String>> MARKOV_SCHEDULER_REPORTS;
 
-	
 	@Description("Frequency in MHz. ")
 	public static final Option<Double> FREQ;
 	
@@ -245,6 +244,11 @@ public class TurnusOptions {
 	
 	@Description("Hardware Frequency in MHz. ")
 	public static final Option<Double> FREQ_HW;
+	
+	@Description("Owner of the outgoing buffer is the source partition. ")
+	public static final Option<Boolean> OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION;
+	
+	
 	
 	// options are initialized here in order to make this file more readable
 	static {
@@ -654,6 +658,12 @@ public class TurnusOptions {
 				.setLongName("turnus.freq.hw").//
 				setType(Double.class).build();
 		
+		OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION = Option.create().//
+				setName("outBufferSrcOwner").//
+				setDescription("The outgoing buffer is owned by source partition").//
+				setLongName("turnus.analysis.buffer.owned.by.source").//
+				setType(Boolean.class).build();
+
 	}
 
 	/**

@@ -65,6 +65,7 @@ import turnus.model.dataflow.Actor;
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getPersistentMemory <em>Persistent Memory</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getMaxTransientMemory <em>Max Transient Memory</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getPartitionId <em>Partition Id</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}</li>
  * </ul>
  *
  * @generated
@@ -199,6 +200,26 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @ordered
 	 */
 	protected String partitionId = PARTITION_ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isOutgoingBufferOwnedBySource() <em>Outgoing Buffer Owned By Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOutgoingBufferOwnedBySource()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isOutgoingBufferOwnedBySource() <em>Outgoing Buffer Owned By Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOutgoingBufferOwnedBySource()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean outgoingBufferOwnedBySource = OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -376,6 +397,29 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
+	public boolean isOutgoingBufferOwnedBySource() {
+		return outgoingBufferOwnedBySource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setOutgoingBufferOwnedBySource(boolean newOutgoingBufferOwnedBySource) {
+		boolean oldOutgoingBufferOwnedBySource = outgoingBufferOwnedBySource;
+		outgoingBufferOwnedBySource = newOutgoingBufferOwnedBySource;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE, oldOutgoingBufferOwnedBySource, outgoingBufferOwnedBySource));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ProfilingPackage.INTER_PARTITION_DATA__ACTORS:
@@ -392,6 +436,8 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 				return getMaxTransientMemory();
 			case ProfilingPackage.INTER_PARTITION_DATA__PARTITION_ID:
 				return getPartitionId();
+			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE:
+				return isOutgoingBufferOwnedBySource();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -427,6 +473,9 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 			case ProfilingPackage.INTER_PARTITION_DATA__PARTITION_ID:
 				setPartitionId((String)newValue);
 				return;
+			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE:
+				setOutgoingBufferOwnedBySource((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -460,6 +509,9 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 			case ProfilingPackage.INTER_PARTITION_DATA__PARTITION_ID:
 				setPartitionId(PARTITION_ID_EDEFAULT);
 				return;
+			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE:
+				setOutgoingBufferOwnedBySource(OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -486,6 +538,8 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 				return maxTransientMemory != MAX_TRANSIENT_MEMORY_EDEFAULT;
 			case ProfilingPackage.INTER_PARTITION_DATA__PARTITION_ID:
 				return PARTITION_ID_EDEFAULT == null ? partitionId != null : !PARTITION_ID_EDEFAULT.equals(partitionId);
+			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE:
+				return outgoingBufferOwnedBySource != OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -512,6 +566,8 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 		result.append(maxTransientMemory);
 		result.append(", partitionId: ");
 		result.append(partitionId);
+		result.append(", outgoingBufferOwnedBySource: ");
+		result.append(outgoingBufferOwnedBySource);
 		result.append(')');
 		return result.toString();
 	}
