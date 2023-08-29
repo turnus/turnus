@@ -510,13 +510,22 @@ public interface ProfilingPackage extends EPackage {
 	int INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE = 7;
 
 	/**
+	 * The feature id for the '<em><b>Persistent Buffers</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__PERSISTENT_BUFFERS = 8;
+
+	/**
 	 * The number of structural features of the '<em>Inter Partition Data</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_DATA_FEATURE_COUNT = 8;
+	int INTER_PARTITION_DATA_FEATURE_COUNT = 9;
 
 	/**
 	 * The number of operations of the '<em>Inter Partition Data</em>' class.
@@ -939,6 +948,17 @@ public interface ProfilingPackage extends EPackage {
 	EAttribute getInterPartitionData_OutgoingBufferOwnedBySource();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionData#getPersistentBuffers <em>Persistent Buffers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Persistent Buffers</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getPersistentBuffers()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EAttribute getInterPartitionData_PersistentBuffers();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport <em>Inter Partition Communication And Memory Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1260,6 +1280,14 @@ public interface ProfilingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE = eINSTANCE.getInterPartitionData_OutgoingBufferOwnedBySource();
+
+		/**
+		 * The meta object literal for the '<em><b>Persistent Buffers</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_DATA__PERSISTENT_BUFFERS = eINSTANCE.getInterPartitionData_PersistentBuffers();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl <em>Inter Partition Communication And Memory Report</em>}' class.

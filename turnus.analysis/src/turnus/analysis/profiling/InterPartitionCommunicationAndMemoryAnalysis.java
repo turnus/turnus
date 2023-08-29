@@ -46,7 +46,6 @@ import turnus.model.analysis.profiling.util.MemoryAndBuffers;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
-import turnus.model.dataflow.Type;
 import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.trace.Step;
@@ -110,10 +109,10 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 
 	private long getTotalBitsOfBuffer(Buffer buffer) {
 		int depth = bufferSize.getSize(buffer);
-		Type type = buffer.getType();
-		return  depth * type.getBits();
+		long bits = buffer.getType().getBits();
+		return depth * bits;
 	}
-	
+
 	@Override
 	public InterPartitionCommunicationAndMemoryReport run() throws TurnusException {
 		ProfilingFactory f = ProfilingFactory.eINSTANCE;
@@ -159,7 +158,7 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 				internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
 			}
 
-			// -- Check if the owner of the incoming/outgoing is the current partition 
+			// -- Check if the owner of the incoming/outgoing is the current partition
 			if (outgoingBufferOwnedBySource) {
 				partitionDatum.setOutgoingBufferOwnedBySource(true);
 				List<Buffer> outgoingBuffers = MemoryAndBuffers
@@ -167,17 +166,19 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 				for (Buffer buffer : outgoingBuffers) {
 					internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
 				}
-			}else {
+			} else {
 				partitionDatum.setOutgoingBufferOwnedBySource(false);
-				List<Buffer> incomingBuffers = MemoryAndBuffers.getIncomingBuffersOfPartition(partitionDatum.getActors());
+				List<Buffer> incomingBuffers = MemoryAndBuffers
+						.getIncomingBuffersOfPartition(partitionDatum.getActors());
 				for (Buffer buffer : incomingBuffers) {
 					internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
 				}
 			}
 
-			// -- Set partition persistent memory
-			long partitionPersistenMemory = actorsPersistentMemory + internalBuffersPersistentMemory;
-			partitionDatum.setPersistentMemory(partitionPersistenMemory);
+			// -- Set partition persistent actors memory and buffers
+			partitionDatum.setPersistentMemory(actorsPersistentMemory);
+			partitionDatum.setPersistentBuffers(internalBuffersPersistentMemory);
+			
 
 			// -- END
 			// -- Add partitionDatum to partitionData

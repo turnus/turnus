@@ -825,6 +825,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="outgoingBufferOwnedBySource"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           defaultValueLiteral="false"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="persistentBuffers" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="InterPartitionCommunicationAndMemoryReport"
         eSuperTypes="#//AnalysisReport">

@@ -677,6 +677,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/maxTransientMemory"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/partitionId"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/outgoingBufferOwnedBySource"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/persistentBuffers"/>
       </genClasses>
       <genClasses ecoreClass="analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/partitionData"/>

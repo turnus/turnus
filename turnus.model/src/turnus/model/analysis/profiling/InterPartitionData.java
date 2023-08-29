@@ -54,6 +54,7 @@ import turnus.model.dataflow.Actor;
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getMaxTransientMemory <em>Max Transient Memory</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getPartitionId <em>Partition Id</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getPersistentBuffers <em>Persistent Buffers</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData()
@@ -227,5 +228,27 @@ public interface InterPartitionData extends EObject {
 	 * @generated
 	 */
 	void setOutgoingBufferOwnedBySource(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Persistent Buffers</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Persistent Buffers</em>' attribute.
+	 * @see #setPersistentBuffers(long)
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_PersistentBuffers()
+	 * @model
+	 * @generated
+	 */
+	long getPersistentBuffers();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionData#getPersistentBuffers <em>Persistent Buffers</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Persistent Buffers</em>' attribute.
+	 * @see #getPersistentBuffers()
+	 * @generated
+	 */
+	void setPersistentBuffers(long value);
 
 } // InterPartitionData
