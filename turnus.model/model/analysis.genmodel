@@ -679,6 +679,8 @@
       </genClasses>
       <genClasses ecoreClass="analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/partitionData"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/network"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Scheduling" basePackage="turnus.model.analysis" disposableProviderFactory="true"

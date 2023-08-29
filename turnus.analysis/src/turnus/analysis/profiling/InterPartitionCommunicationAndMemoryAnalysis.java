@@ -31,25 +31,140 @@
  */
 package turnus.analysis.profiling;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import turnus.analysis.Analysis;
 import turnus.common.TurnusException;
 import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
+import turnus.model.analysis.profiling.InterPartitionData;
+import turnus.model.analysis.profiling.ProfilingFactory;
+import turnus.model.analysis.profiling.util.MemoryAndBuffers;
+import turnus.model.dataflow.Actor;
+import turnus.model.dataflow.Buffer;
+import turnus.model.dataflow.Network;
+import turnus.model.dataflow.Type;
+import turnus.model.mapping.BufferSize;
+import turnus.model.mapping.NetworkPartitioning;
+import turnus.model.trace.Step;
+import turnus.model.trace.Trace.Order;
 import turnus.model.trace.TraceProject;
+import turnus.model.trace.weighter.TraceWeighter;
 
 /**
  * @author Endri Bezati
  */
 public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<InterPartitionCommunicationAndMemoryReport> {
 
-	public InterPartitionCommunicationAndMemoryAnalysis(TraceProject project) {
+
+	private TraceWeighter weighter;
+
+	private BufferSize bufferSize;
+
+	private NetworkPartitioning partitioning;
+
+	private Network network;
+
+	public InterPartitionCommunicationAndMemoryAnalysis(TraceProject project, TraceWeighter weighter,
+			BufferSize bufferSize, NetworkPartitioning partitioning) {
 		super(project);
-		// TODO Auto-generated constructor stub
+		this.weighter = weighter;
+		this.bufferSize = bufferSize;
+		this.partitioning = partitioning;
+
+		this.network = project.getNetwork();
+	}
+
+	private Map<Actor, Double> calculateActorWorkloads() {
+		Map<Actor, Double> workloads = new HashMap<Actor, Double>();
+
+		for (Actor actor : project.getNetwork().getActors()) {
+			Iterator<Step> steps = project.getTrace().getSteps(Order.INCREASING_ID, actor.getName()).iterator();
+			double sum = 0;
+			while (steps.hasNext()) {
+				Step next = steps.next();
+				sum += weighter.getWeight(next);
+			}
+			workloads.put(actor, sum);
+		}
+
+		return workloads;
+	}
+
+	private InterPartitionCommunicationAndMemoryReport generateReport(List<InterPartitionData> data) {
+		ProfilingFactory f = ProfilingFactory.eINSTANCE;
+		InterPartitionCommunicationAndMemoryReport report = f.createInterPartitionCommunicationAndMemoryReport();
+		report.setNetwork(network);
+		report.setAlgorithm("Inter Partition Communication and Memory Analysis");
+
+		for (InterPartitionData datum : data) {
+			report.getPartitionData().add(datum);
+		}
+
+		return report;
 	}
 
 	@Override
 	public InterPartitionCommunicationAndMemoryReport run() throws TurnusException {
-		// TODO Auto-generated method stub
-		return null;
+		ProfilingFactory f = ProfilingFactory.eINSTANCE;
+		List<InterPartitionData> partitionData = new ArrayList<>();
+
+		// -- Visit Partitions
+		Map<String, List<String>> pMap = partitioning.asPartitionActorsMap();
+
+		// -- Calculate workload for each actor
+		Map<Actor, Double> workload = calculateActorWorkloads();
+		
+		for (String partId : pMap.keySet()) {
+			List<String> actorInstances = pMap.get(partId);
+
+			// -- Create an InterPartitionData
+			InterPartitionData partitionDatum = f.createInterPartitionData();
+
+			// -- Set partition Id
+			partitionDatum.setPartitionId(partId);
+
+			// -- Add actor instances
+			for (String actorInstance : actorInstances) {
+				Actor actor = network.getActor(actorInstance);
+				partitionDatum.getActors().add(actor);
+			}
+
+			// -- Partition workload
+			long partitionWorkload = 0L;
+			for(Actor actor : partitionDatum.getActors()) {
+				partitionWorkload+= workload.get(actor);
+			}
+		
+			partitionDatum.setWorkload(partitionWorkload);
+			
+			// -- Get actors persistent memory
+			long actorsPersistentMemory = MemoryAndBuffers.getActorsPesistenMemory(partitionDatum.getActors());
+
+			// -- Get internal buffers persistent memory
+			List<Buffer> internalBuffers = MemoryAndBuffers.getInternalBuffersOfPartition(partitionDatum.getActors());
+			long internalBuffersPersistentMemory = 0L;
+			
+			for(Buffer buffer : internalBuffers) {
+				int depth = bufferSize.getSize(buffer);
+				Type type = buffer.getType();
+				long bits = depth * type.getBits();
+				internalBuffersPersistentMemory+= bits;
+			}
+			
+			// -- Set partition persistent memory
+			long partitionPersistenMemory = actorsPersistentMemory + internalBuffersPersistentMemory;
+			partitionDatum.setPersistentMemory(partitionPersistenMemory);
+			
+			// -- END
+			// -- Add partitionDatum to partitionData
+			partitionData.add(partitionDatum);
+		}
+
+		return generateReport(partitionData);
 	}
 
 }

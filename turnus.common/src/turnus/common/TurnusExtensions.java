@@ -165,9 +165,11 @@ public class TurnusExtensions {
 	/** The communication weights file */
 	public static final String COMMUNICATION_WEIGHT = "cxdf";
 	
-	/** The Itra-Action communication analysis report file */
+	/** The Intra-Action communication analysis report file */
 	public static final String INTRA_ACTION_COMM_REPORT = "iacomm";
 	
+	/** The Inter-Partition communication and memory analysis report file */
+	public static final String INTER_PARTITION_COMM_MEM_REPORT = "ipcomm";
 
 	/** The actor selection schedule*/
 	public static final String ACTOR_SELECTION_SCHEDULE = "assched";

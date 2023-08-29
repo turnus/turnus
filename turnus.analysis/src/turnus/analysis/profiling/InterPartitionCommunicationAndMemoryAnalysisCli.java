@@ -47,8 +47,12 @@ import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.USE_SIMULATION;
 import static turnus.common.TurnusOptions.WRITE_HIT_CONSTANT;
 import static turnus.common.TurnusOptions.WRITE_MISS_CONSTANT;
+import static turnus.common.util.FileUtils.createDirectory;
+import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
+
+import javax.swing.RepaintManager;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -60,8 +64,11 @@ import turnus.common.configuration.Configuration;
 import turnus.common.configuration.Configuration.CliParser;
 import turnus.common.io.Logger;
 import turnus.model.ModelsRegister;
+import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
+import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.mapping.NetworkWeight;
+import turnus.model.mapping.io.XmlBufferSizeReader;
 import turnus.model.mapping.io.XmlNetworkPartitioningReader;
 import turnus.model.mapping.io.XmlNetworkWeightReader;
 import turnus.model.trace.TraceProject;
@@ -90,36 +97,39 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 		} catch (TurnusException e) {
 			Logger.error("Application error: %s", e.getMessage());
 		}
-		
+
 		try {
 			cliApp.run();
 		} catch (Exception e) {
 			Logger.error("Application error: %s", e.getMessage());
 		}
-		
+
 	}
 
 	private void parse(String[] args) throws TurnusException {
 		CliParser cliParser = new CliParser().setOption(TRACE_FILE, true)//
 				.setOption(ACTION_WEIGHTS, true)//
 				.setOption(MAPPING_FILE, true)//
+				.setOption(BUFFER_SIZE_FILE, true)//
 				.setOption(OUTPUT_DIRECTORY, false);
 
 		configuration = cliParser.parse(args);
 	}
 
-	
 	private void run() throws TurnusException {
 		monitor.beginTask("Inter partition communication and memory analysis", IProgressMonitor.UNKNOWN);
-		
+
 		TraceProject project = null;
 		TraceWeighter weighter = null;
 		NetworkPartitioning partitioning = null;
-		
+		BufferSize bufferSize = null;
+
+		InterPartitionCommunicationAndMemoryReport report = null;
+
 		{
 			// -- Step 1 : parse the configuration
 			monitor.subTask("Parse the configuration");
-			
+
 			// -- Trace
 			try {
 				File traceFile = configuration.getValue(TRACE_FILE);
@@ -128,7 +138,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 			} catch (Exception e) {
 				throw new TurnusException("The trace project cannot be loaded.", e);
 			}
-			
+
 			// -- Weights
 			try {
 				File weightsFile = configuration.getValue(ACTION_WEIGHTS);
@@ -137,24 +147,61 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 			} catch (Exception e) {
 				throw new TurnusException("The weights file cannot be loaded.", e);
 			}
-			
+
 			// -- Mapping configuration
 			try {
 				File mappingFile = configuration.getValue(MAPPING_FILE);
 				XmlNetworkPartitioningReader reader = new XmlNetworkPartitioningReader();
-				partitioning = reader.load(mappingFile);	
-			}catch(Exception e) {
-				throw new TurnusException("The mapping file cannot be loaded.", e);
+				partitioning = reader.load(mappingFile);
+			} catch (Exception e) {
+				throw new TurnusException("The mapping configuration file cannot be loaded.", e);
 			}
-			
+			// -- Buffer configuration
+			try {
+				File bufferFile = configuration.getValue(BUFFER_SIZE_FILE);
+				XmlBufferSizeReader reader = new XmlBufferSizeReader();
+				bufferSize = reader.load(bufferFile);
+			} catch (Exception e) {
+				throw new TurnusException("The buffer configuration file cannot be loaded.", e);
+			}
+
 		}
-		
+
 		{
 			// -- STEP 2 : Run the analysis
+			monitor.subTask("Running the analysis");
+			try {
+				analysis = new InterPartitionCommunicationAndMemoryAnalysis(project, weighter, bufferSize, partitioning);
+				analysis.setConfiguration(configuration);
+				report = analysis.run();
+				Logger.infoRaw(report.toString());
+			} catch (Exception e) {
+				throw new TurnusException("The analysis cannot be completed", e);
+			}
 		}
-		
+		{
+			// -- STEP 3 : Store the results
+			monitor.subTask("Storing the results");
+			try {
+				File outputPath = null;
+				if (configuration.hasValue(OUTPUT_DIRECTORY)) {
+					outputPath = configuration.getValue(OUTPUT_DIRECTORY);
+					createDirectory(outputPath);
+				} else {
+					outputPath = createOutputDirectory("partitioning", configuration);
+				}
+				// -- TODO : implement the storing of the results
+			} catch (Exception e) {
+				Logger.error("The report file cannot be stored");
+				String message = e.getLocalizedMessage();
+				if (message != null) {
+					Logger.error(" cause: %s", message);
+				}
+			}
+		}
+
 	}
-	
+
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
 		try {
@@ -176,7 +223,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 
 	@Override
 	public void stop() {
-		if (analysis!= null) {
+		if (analysis != null) {
 			analysis.cancel();
 		}
 	}

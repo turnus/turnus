@@ -547,7 +547,7 @@ public interface ProfilingPackage extends EPackage {
 	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DATE = AnalysisPackage.ANALYSIS_REPORT__DATE;
 
 	/**
-	 * The feature id for the '<em><b>Partition Data</b></em>' containment reference.
+	 * The feature id for the '<em><b>Partition Data</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -556,13 +556,22 @@ public interface ProfilingPackage extends EPackage {
 	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Network</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Inter Partition Communication And Memory Report</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 1;
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Inter Partition Communication And Memory Report</em>' class.
@@ -920,15 +929,26 @@ public interface ProfilingPackage extends EPackage {
 	EClass getInterPartitionCommunicationAndMemoryReport();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getPartitionData <em>Partition Data</em>}'.
+	 * Returns the meta object for the containment reference list '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getPartitionData <em>Partition Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Partition Data</em>'.
+	 * @return the meta object for the containment reference list '<em>Partition Data</em>'.
 	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getPartitionData()
 	 * @see #getInterPartitionCommunicationAndMemoryReport()
 	 * @generated
 	 */
 	EReference getInterPartitionCommunicationAndMemoryReport_PartitionData();
+
+	/**
+	 * Returns the meta object for the reference '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getNetwork <em>Network</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Network</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getNetwork()
+	 * @see #getInterPartitionCommunicationAndMemoryReport()
+	 * @generated
+	 */
+	EReference getInterPartitionCommunicationAndMemoryReport_Network();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1224,12 +1244,20 @@ public interface ProfilingPackage extends EPackage {
 		EClass INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT = eINSTANCE.getInterPartitionCommunicationAndMemoryReport();
 
 		/**
-		 * The meta object literal for the '<em><b>Partition Data</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Partition Data</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_PartitionData();
+
+		/**
+		 * The meta object literal for the '<em><b>Network</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_Network();
 
 	}
 

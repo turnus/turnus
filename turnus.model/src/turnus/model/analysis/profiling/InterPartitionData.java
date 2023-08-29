@@ -143,12 +143,12 @@ public interface InterPartitionData extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Persistent Memory</em>' attribute.
-	 * @see #setPersistentMemory(double)
+	 * @see #setPersistentMemory(long)
 	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_PersistentMemory()
 	 * @model
 	 * @generated
 	 */
-	double getPersistentMemory();
+	long getPersistentMemory();
 
 	/**
 	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionData#getPersistentMemory <em>Persistent Memory</em>}' attribute.
@@ -158,19 +158,19 @@ public interface InterPartitionData extends EObject {
 	 * @see #getPersistentMemory()
 	 * @generated
 	 */
-	void setPersistentMemory(double value);
+	void setPersistentMemory(long value);
 
 	/**
 	 * Returns the value of the '<em><b>Max Transient Memory</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Max Transient Memory</em>' attribute.
-	 * @see #setMaxTransientMemory(double)
+	 * @see #setMaxTransientMemory(long)
 	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_MaxTransientMemory()
 	 * @model
 	 * @generated
 	 */
-	double getMaxTransientMemory();
+	long getMaxTransientMemory();
 
 	/**
 	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionData#getMaxTransientMemory <em>Max Transient Memory</em>}' attribute.
@@ -180,19 +180,19 @@ public interface InterPartitionData extends EObject {
 	 * @see #getMaxTransientMemory()
 	 * @generated
 	 */
-	void setMaxTransientMemory(double value);
+	void setMaxTransientMemory(long value);
 
 	/**
 	 * Returns the value of the '<em><b>Partition Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Partition Id</em>' attribute.
-	 * @see #setPartitionId(int)
+	 * @see #setPartitionId(String)
 	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_PartitionId()
 	 * @model
 	 * @generated
 	 */
-	int getPartitionId();
+	String getPartitionId();
 
 	/**
 	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionData#getPartitionId <em>Partition Id</em>}' attribute.
@@ -202,6 +202,6 @@ public interface InterPartitionData extends EObject {
 	 * @see #getPartitionId()
 	 * @generated
 	 */
-	void setPartitionId(int value);
+	void setPartitionId(String value);
 
 } // InterPartitionData

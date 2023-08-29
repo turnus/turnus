@@ -31,20 +31,26 @@
  */
 package turnus.model.analysis.profiling.impl;
 
+import java.util.Collection;
 import java.util.Date;
 
+import java.util.List;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
 import turnus.model.analysis.profiling.InterPartitionData;
 import turnus.model.analysis.profiling.ProfilingPackage;
+import turnus.model.dataflow.Network;
 
 /**
  * <!-- begin-user-doc -->
@@ -57,6 +63,7 @@ import turnus.model.analysis.profiling.ProfilingPackage;
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getAlgorithm <em>Algorithm</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getDate <em>Date</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getPartitionData <em>Partition Data</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getNetwork <em>Network</em>}</li>
  * </ul>
  *
  * @generated
@@ -103,14 +110,24 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	protected Date date = DATE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPartitionData() <em>Partition Data</em>}' containment reference.
+	 * The cached value of the '{@link #getPartitionData() <em>Partition Data</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPartitionData()
 	 * @generated
 	 * @ordered
 	 */
-	protected InterPartitionData partitionData;
+	protected EList<InterPartitionData> partitionData;
+
+	/**
+	 * The cached value of the '{@link #getNetwork() <em>Network</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNetwork()
+	 * @generated
+	 * @ordered
+	 */
+	protected Network network;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -183,7 +200,10 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * @generated
 	 */
 	@Override
-	public InterPartitionData getPartitionData() {
+	public List<InterPartitionData> getPartitionData() {
+		if (partitionData == null) {
+			partitionData = new EObjectContainmentEList<InterPartitionData>(InterPartitionData.class, this, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA);
+		}
 		return partitionData;
 	}
 
@@ -192,14 +212,26 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetPartitionData(InterPartitionData newPartitionData, NotificationChain msgs) {
-		InterPartitionData oldPartitionData = partitionData;
-		partitionData = newPartitionData;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA, oldPartitionData, newPartitionData);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	@Override
+	public Network getNetwork() {
+		if (network != null && network.eIsProxy()) {
+			InternalEObject oldNetwork = (InternalEObject)network;
+			network = (Network)eResolveProxy(oldNetwork);
+			if (network != oldNetwork) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK, oldNetwork, network));
+			}
 		}
-		return msgs;
+		return network;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Network basicGetNetwork() {
+		return network;
 	}
 
 	/**
@@ -208,18 +240,11 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * @generated
 	 */
 	@Override
-	public void setPartitionData(InterPartitionData newPartitionData) {
-		if (newPartitionData != partitionData) {
-			NotificationChain msgs = null;
-			if (partitionData != null)
-				msgs = ((InternalEObject)partitionData).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA, null, msgs);
-			if (newPartitionData != null)
-				msgs = ((InternalEObject)newPartitionData).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA, null, msgs);
-			msgs = basicSetPartitionData(newPartitionData, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA, newPartitionData, newPartitionData));
+	public void setNetwork(Network newNetwork) {
+		Network oldNetwork = network;
+		network = newNetwork;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK, oldNetwork, network));
 	}
 
 	/**
@@ -231,7 +256,7 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA:
-				return basicSetPartitionData(null, msgs);
+				return ((InternalEList<?>)getPartitionData()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -250,6 +275,9 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 				return getDate();
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA:
 				return getPartitionData();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK:
+				if (resolve) return getNetwork();
+				return basicGetNetwork();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -259,6 +287,7 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -269,7 +298,11 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 				setDate((Date)newValue);
 				return;
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA:
-				setPartitionData((InterPartitionData)newValue);
+				getPartitionData().clear();
+				getPartitionData().addAll((Collection<? extends InterPartitionData>)newValue);
+				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK:
+				setNetwork((Network)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -290,7 +323,10 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 				setDate(DATE_EDEFAULT);
 				return;
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA:
-				setPartitionData((InterPartitionData)null);
+				getPartitionData().clear();
+				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK:
+				setNetwork((Network)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -309,7 +345,9 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DATE:
 				return DATE_EDEFAULT == null ? date != null : !DATE_EDEFAULT.equals(date);
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA:
-				return partitionData != null;
+				return partitionData != null && !partitionData.isEmpty();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK:
+				return network != null;
 		}
 		return super.eIsSet(featureID);
 	}

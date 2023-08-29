@@ -44,7 +44,7 @@ import turnus.common.util.EcoreUtils;
 import turnus.common.util.StringUtils;
 import turnus.model.analysis.partitioning.WorkloadBalancePartition;
 import turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport;
-import turnus.model.analysis.profiling.util.MemoryUsage;
+import turnus.model.analysis.profiling.util.MemoryAndBuffers;
 import turnus.model.dataflow.Actor;
 
 /**
@@ -85,7 +85,7 @@ public class WorkloadBalancePartition2MdExporter implements FileExporter<Workloa
 			b.append("| **Partition**  | **Actors** | **Workload** | **Persistent Memory** |\n");
 			b.append("|:--             |  --:       | --:          | --:                   | \n");
 			for (WorkloadBalancePartition pdata : data.getPartitions()) {
-				long persistenMemory = MemoryUsage.getActorsPesistenMemory(pdata.getActors());
+				long persistenMemory = MemoryAndBuffers.getActorsPesistenMemory(pdata.getActors());
 				b.append(String.format("| %d |   %d |         %.2f | %s                    \n", pNumber,
 						pdata.getActors().size(), pdata.getWorkload(), StringUtils.formatBytes(persistenMemory, true)));
 				pNumber++;

@@ -235,7 +235,12 @@
             class="turnus.model.analysis.profiling.io.Iacomm2MdExporter"
             input="iacomm"
             output="md">
-      </exporter>        
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.profiling.io.Ipcomm2MdExporter"
+            input="ipcomm"
+            output="md">
+      </exporter>          
       <exporter
             class="turnus.model.analysis.partitioning.io.Pcomm2XlsExporter"
             input="pcomm"

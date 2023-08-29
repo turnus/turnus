@@ -31,7 +31,9 @@
  */
 package turnus.model.analysis.profiling;
 
+import java.util.List;
 import turnus.model.analysis.AnalysisReport;
+import turnus.model.dataflow.Network;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,6 +45,7 @@ import turnus.model.analysis.AnalysisReport;
  * </p>
  * <ul>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getPartitionData <em>Partition Data</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getNetwork <em>Network</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport()
@@ -51,25 +54,37 @@ import turnus.model.analysis.AnalysisReport;
  */
 public interface InterPartitionCommunicationAndMemoryReport extends AnalysisReport {
 	/**
-	 * Returns the value of the '<em><b>Partition Data</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Partition Data</b></em>' containment reference list.
+	 * The list contents are of type {@link turnus.model.analysis.profiling.InterPartitionData}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Partition Data</em>' containment reference.
-	 * @see #setPartitionData(InterPartitionData)
+	 * @return the value of the '<em>Partition Data</em>' containment reference list.
 	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport_PartitionData()
 	 * @model containment="true"
 	 * @generated
 	 */
-	InterPartitionData getPartitionData();
+	List<InterPartitionData> getPartitionData();
 
 	/**
-	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getPartitionData <em>Partition Data</em>}' containment reference.
+	 * Returns the value of the '<em><b>Network</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Partition Data</em>' containment reference.
-	 * @see #getPartitionData()
+	 * @return the value of the '<em>Network</em>' reference.
+	 * @see #setNetwork(Network)
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport_Network()
+	 * @model
 	 * @generated
 	 */
-	void setPartitionData(InterPartitionData value);
+	Network getNetwork();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getNetwork <em>Network</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Network</em>' reference.
+	 * @see #getNetwork()
+	 * @generated
+	 */
+	void setNetwork(Network value);
 
 } // InterPartitionCommunicationAndMemoryReport

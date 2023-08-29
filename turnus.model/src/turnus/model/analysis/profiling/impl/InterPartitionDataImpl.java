@@ -148,7 +148,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double PERSISTENT_MEMORY_EDEFAULT = 0.0;
+	protected static final long PERSISTENT_MEMORY_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getPersistentMemory() <em>Persistent Memory</em>}' attribute.
@@ -158,7 +158,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 * @ordered
 	 */
-	protected double persistentMemory = PERSISTENT_MEMORY_EDEFAULT;
+	protected long persistentMemory = PERSISTENT_MEMORY_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getMaxTransientMemory() <em>Max Transient Memory</em>}' attribute.
@@ -168,7 +168,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double MAX_TRANSIENT_MEMORY_EDEFAULT = 0.0;
+	protected static final long MAX_TRANSIENT_MEMORY_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getMaxTransientMemory() <em>Max Transient Memory</em>}' attribute.
@@ -178,7 +178,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 * @ordered
 	 */
-	protected double maxTransientMemory = MAX_TRANSIENT_MEMORY_EDEFAULT;
+	protected long maxTransientMemory = MAX_TRANSIENT_MEMORY_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPartitionId() <em>Partition Id</em>}' attribute.
@@ -188,7 +188,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int PARTITION_ID_EDEFAULT = 0;
+	protected static final String PARTITION_ID_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getPartitionId() <em>Partition Id</em>}' attribute.
@@ -198,7 +198,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 * @ordered
 	 */
-	protected int partitionId = PARTITION_ID_EDEFAULT;
+	protected String partitionId = PARTITION_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -307,7 +307,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
-	public double getPersistentMemory() {
+	public long getPersistentMemory() {
 		return persistentMemory;
 	}
 
@@ -317,8 +317,8 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
-	public void setPersistentMemory(double newPersistentMemory) {
-		double oldPersistentMemory = persistentMemory;
+	public void setPersistentMemory(long newPersistentMemory) {
+		long oldPersistentMemory = persistentMemory;
 		persistentMemory = newPersistentMemory;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_DATA__PERSISTENT_MEMORY, oldPersistentMemory, persistentMemory));
@@ -330,7 +330,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
-	public double getMaxTransientMemory() {
+	public long getMaxTransientMemory() {
 		return maxTransientMemory;
 	}
 
@@ -340,8 +340,8 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
-	public void setMaxTransientMemory(double newMaxTransientMemory) {
-		double oldMaxTransientMemory = maxTransientMemory;
+	public void setMaxTransientMemory(long newMaxTransientMemory) {
+		long oldMaxTransientMemory = maxTransientMemory;
 		maxTransientMemory = newMaxTransientMemory;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_DATA__MAX_TRANSIENT_MEMORY, oldMaxTransientMemory, maxTransientMemory));
@@ -353,7 +353,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
-	public int getPartitionId() {
+	public String getPartitionId() {
 		return partitionId;
 	}
 
@@ -363,8 +363,8 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
-	public void setPartitionId(int newPartitionId) {
-		int oldPartitionId = partitionId;
+	public void setPartitionId(String newPartitionId) {
+		String oldPartitionId = partitionId;
 		partitionId = newPartitionId;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_DATA__PARTITION_ID, oldPartitionId, partitionId));
@@ -419,13 +419,13 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 				setMaxOutgoingBitsPerFiring((Double)newValue);
 				return;
 			case ProfilingPackage.INTER_PARTITION_DATA__PERSISTENT_MEMORY:
-				setPersistentMemory((Double)newValue);
+				setPersistentMemory((Long)newValue);
 				return;
 			case ProfilingPackage.INTER_PARTITION_DATA__MAX_TRANSIENT_MEMORY:
-				setMaxTransientMemory((Double)newValue);
+				setMaxTransientMemory((Long)newValue);
 				return;
 			case ProfilingPackage.INTER_PARTITION_DATA__PARTITION_ID:
-				setPartitionId((Integer)newValue);
+				setPartitionId((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -485,7 +485,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 			case ProfilingPackage.INTER_PARTITION_DATA__MAX_TRANSIENT_MEMORY:
 				return maxTransientMemory != MAX_TRANSIENT_MEMORY_EDEFAULT;
 			case ProfilingPackage.INTER_PARTITION_DATA__PARTITION_ID:
-				return partitionId != PARTITION_ID_EDEFAULT;
+				return PARTITION_ID_EDEFAULT == null ? partitionId != null : !PARTITION_ID_EDEFAULT.equals(partitionId);
 		}
 		return super.eIsSet(featureID);
 	}

@@ -45,7 +45,7 @@ import turnus.model.dataflow.Variable;
  * This class offers static methods for retrieving general information about the
  * memory use.
  */
-public class MemoryUsage {
+public class MemoryAndBuffers {
 
 	/**
 	 * Get persistent memory in bits of an actor
@@ -111,6 +111,25 @@ public class MemoryUsage {
 		return buffers;
 	}
 
+	/**
+	 * 
+	 */
+	public static List<Buffer> getInternalBuffersOfPartition(List<Actor> actors){
+		List<Buffer> buffers = new ArrayList<>();
+
+		for (Actor actor : actors) {
+			for (Buffer buffer : actor.getOutgoingBuffers()) {
+				Actor tgtActor = buffer.getTarget().getOwner();
+				if (actors.contains(tgtActor)) {
+					buffers.add(buffer);
+				}
+			}
+		}
+
+		return buffers;
+	}
+	
+	
 	/**
 	 * Get the outgoing buffers of a partition.
 	 * 

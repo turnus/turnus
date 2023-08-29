@@ -198,7 +198,7 @@
       <editor
             class="turnus.ui.editor.analysis.AnalysisReportMarkdownEditor"
             default="true"
-            extensions="tsize, cprof, dprof, bottlenecks, impact, boundbuffer, pcomm, iacomm, pwbal, varpipe, ctrace, dtraces, mprof, amtrace, pimpact, sbottlenecks, simpact, optimalbuffer, pproan, pproar, bbreport, screport, ppreport"
+            extensions="tsize, cprof, dprof, bottlenecks, impact, boundbuffer, pcomm, iacomm, ipcomm, pwbal, varpipe, ctrace, dtraces, mprof, amtrace, pimpact, sbottlenecks, simpact, optimalbuffer, pproan, pproar, bbreport, screport, ppreport"
             icon="icon/blue-document-table.png"
             id="turnus.ui.editor.report.md"
             name="TURNUS Analysis report viewer">

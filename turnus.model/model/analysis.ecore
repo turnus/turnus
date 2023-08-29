@@ -819,14 +819,15 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxOutgoingBitsPerFiring"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="persistentMemory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxTransientMemory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="partitionId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="persistentMemory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxTransientMemory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="partitionId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="InterPartitionCommunicationAndMemoryReport"
         eSuperTypes="#//AnalysisReport">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="partitionData" eType="#//profiling/InterPartitionData"
-          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="partitionData" upperBound="-1"
+          eType="#//profiling/InterPartitionData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="scheduling" nsURI="http://turnus.co/model/2017/analysis/scheduling"
