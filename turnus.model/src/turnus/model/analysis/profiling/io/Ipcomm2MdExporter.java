@@ -67,7 +67,7 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 
 			b.append("\n# Partitions\n");
 			for (InterPartitionData datum : data.getPartitionData()) {
-				b.append(String.format("## Partition Id: %s\n", datum.getPartitionId()));
+				b.append(String.format("## Partition: %s\n", datum.getPartitionId()));
 
 				b.append("| Actor | Memory |\n");
 				b.append("|---    | --:    |\n");
@@ -83,23 +83,38 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 					b.append("|:----|:----|:----|:----|:----|:----|:----\n");
 
 					for (Buffer buffer : datum.getInternalBuffers()) {
+						int depth = data.getBufferDepthMap().get(buffer);
+						long bizSize = depth * buffer.getType().getBits();
+						
 						b.append(String.format("|%-20s | %-20s | %-20s | %-20s | %-20s | %-20s | %-20s\n",
 								buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
 								buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(),
-								buffer.getType().toString(), "-", "-"));
+								buffer.getType().toString(), depth, StringUtils.formatBytes(bizSize, true)));
 					}
 					b.append("[Internal Buffers]\n");
 				}
 
 				if (datum.getExternalBuffers().size() > 0) {
-					b.append("\n| source | source-port | target | target-port | type | depth | bits\n");
-					b.append("|:----|:----|:----|:----|:----|:----|:----\n");
+					if(data.isOutgoingBufferOwnedBySource()) {
+						b.append("\n| to  | source | source-port | target | target-port | type | depth | bits\n");
+					}else {
+						b.append("\n| from| source | source-port | target | target-port | type | depth | bits\n");
+					}
+					b.append("|:----|:----|:----|:----|:----|:----|:----|:----\n");
 
 					for (Buffer buffer : datum.getExternalBuffers()) {
-						b.append(String.format("|%-20s | %-20s | %-20s | %-20s | %-20s | %-20s | %-20s\n",
-								buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
+						int depth = data.getBufferDepthMap().get(buffer);
+						long bizSize = depth * buffer.getType().getBits();
+						String partition = "";
+						if(data.isOutgoingBufferOwnedBySource()) {
+							partition = data.getActorPartitionMap().get(buffer.getTarget().getOwner());
+						} else {
+							partition = data.getActorPartitionMap().get(buffer.getSource().getOwner());
+						}
+						b.append(String.format("|%-20s |%-20s | %-20s | %-20s | %-20s | %-20s | %-20s | %-20s\n",
+								partition, buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
 								buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(),
-								buffer.getType().toString(), "-", "-"));
+								buffer.getType().toString(), depth, StringUtils.formatBytes(bizSize, true)));
 					}
 					if (data.isOutgoingBufferOwnedBySource()) {
 						b.append("[Outgoing Buffers]\n");

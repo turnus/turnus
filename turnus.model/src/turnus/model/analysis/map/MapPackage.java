@@ -1102,6 +1102,52 @@ public interface MapPackage extends EPackage {
 	int STRING_TO_STRING_MAP_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link turnus.model.analysis.map.impl.ActorToStringMapImpl <em>Actor To String Map</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.analysis.map.impl.ActorToStringMapImpl
+	 * @see turnus.model.analysis.map.impl.MapPackageImpl#getActorToStringMap()
+	 * @generated
+	 */
+	int ACTOR_TO_STRING_MAP = 22;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_TO_STRING_MAP__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_TO_STRING_MAP__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Actor To String Map</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_TO_STRING_MAP_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Actor To String Map</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_TO_STRING_MAP_OPERATION_COUNT = 0;
+
+	/**
 	 * Returns the meta object for class '{@link java.util.Map.Entry <em>String To Integer Map</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1850,6 +1896,40 @@ public interface MapPackage extends EPackage {
 	EAttribute getStringToStringMap_Value();
 
 	/**
+	 * Returns the meta object for class '{@link java.util.Map.Entry <em>Actor To String Map</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Actor To String Map</em>'.
+	 * @see java.util.Map.Entry
+	 * @model keyType="turnus.model.dataflow.Actor"
+	 *        valueDataType="org.eclipse.emf.ecore.EString"
+	 * @generated
+	 */
+	EClass getActorToStringMap();
+
+	/**
+	 * Returns the meta object for the reference '{@link java.util.Map.Entry <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Key</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getActorToStringMap()
+	 * @generated
+	 */
+	EReference getActorToStringMap_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getActorToStringMap()
+	 * @generated
+	 */
+	EAttribute getActorToStringMap_Value();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2443,6 +2523,32 @@ public interface MapPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute STRING_TO_STRING_MAP__VALUE = eINSTANCE.getStringToStringMap_Value();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.analysis.map.impl.ActorToStringMapImpl <em>Actor To String Map</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.analysis.map.impl.ActorToStringMapImpl
+		 * @see turnus.model.analysis.map.impl.MapPackageImpl#getActorToStringMap()
+		 * @generated
+		 */
+		EClass ACTOR_TO_STRING_MAP = eINSTANCE.getActorToStringMap();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTOR_TO_STRING_MAP__KEY = eINSTANCE.getActorToStringMap_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ACTOR_TO_STRING_MAP__VALUE = eINSTANCE.getActorToStringMap_Value();
 
 	}
 

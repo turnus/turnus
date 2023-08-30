@@ -200,6 +200,10 @@ public class MapAdapterFactory extends AdapterFactoryImpl {
 				return createStringToStringMapAdapter();
 			}
 			@Override
+			public Adapter caseActorToStringMap(Map.Entry<Actor, String> object) {
+				return createActorToStringMapAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -524,6 +528,20 @@ public class MapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createStringToStringMapAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>Actor To String Map</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see java.util.Map.Entry
+	 * @generated
+	 */
+	public Adapter createActorToStringMapAdapter() {
 		return null;
 	}
 

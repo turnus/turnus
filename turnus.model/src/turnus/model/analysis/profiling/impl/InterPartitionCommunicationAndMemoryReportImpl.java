@@ -35,21 +35,30 @@ import java.util.Collection;
 import java.util.Date;
 
 import java.util.List;
+import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
+import turnus.model.analysis.map.MapPackage;
+import turnus.model.analysis.map.impl.ActorToStringMapImpl;
+import turnus.model.analysis.map.impl.BufferToIntegerMapImpl;
 import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
 import turnus.model.analysis.profiling.InterPartitionData;
 import turnus.model.analysis.profiling.ProfilingPackage;
+import turnus.model.dataflow.Actor;
+import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
 
 /**
@@ -65,6 +74,8 @@ import turnus.model.dataflow.Network;
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getPartitionData <em>Partition Data</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getNetwork <em>Network</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getBufferDepthMap <em>Buffer Depth Map</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getActorPartitionMap <em>Actor Partition Map</em>}</li>
  * </ul>
  *
  * @generated
@@ -149,6 +160,26 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * @ordered
 	 */
 	protected boolean outgoingBufferOwnedBySource = OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getBufferDepthMap() <em>Buffer Depth Map</em>}' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBufferDepthMap()
+	 * @generated
+	 * @ordered
+	 */
+	protected EMap<Buffer, Integer> bufferDepthMap;
+
+	/**
+	 * The cached value of the '{@link #getActorPartitionMap() <em>Actor Partition Map</em>}' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getActorPartitionMap()
+	 * @generated
+	 * @ordered
+	 */
+	protected EMap<Actor, String> actorPartitionMap;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -297,10 +328,40 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * @generated
 	 */
 	@Override
+	public Map<Buffer, Integer> getBufferDepthMap() {
+		if (bufferDepthMap == null) {
+			bufferDepthMap = new EcoreEMap<Buffer,Integer>(MapPackage.Literals.BUFFER_TO_INTEGER_MAP, BufferToIntegerMapImpl.class, this, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_DEPTH_MAP);
+		}
+		return bufferDepthMap.map();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Map<Actor, String> getActorPartitionMap() {
+		if (actorPartitionMap == null) {
+			actorPartitionMap = new EcoreEMap<Actor,String>(MapPackage.Literals.ACTOR_TO_STRING_MAP, ActorToStringMapImpl.class, this, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP);
+		}
+		return actorPartitionMap.map();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA:
 				return ((InternalEList<?>)getPartitionData()).basicRemove(otherEnd, msgs);
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_DEPTH_MAP:
+				return ((InternalEList<?>)((EMap.InternalMapView<Buffer, Integer>)getBufferDepthMap()).eMap()).basicRemove(otherEnd, msgs);
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP:
+				return ((InternalEList<?>)((EMap.InternalMapView<Actor, String>)getActorPartitionMap()).eMap()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -324,6 +385,12 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 				return basicGetNetwork();
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE:
 				return isOutgoingBufferOwnedBySource();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_DEPTH_MAP:
+				if (coreType) return ((EMap.InternalMapView<Buffer, Integer>)getBufferDepthMap()).eMap();
+				else return getBufferDepthMap();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP:
+				if (coreType) return ((EMap.InternalMapView<Actor, String>)getActorPartitionMap()).eMap();
+				else return getActorPartitionMap();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -353,6 +420,12 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE:
 				setOutgoingBufferOwnedBySource((Boolean)newValue);
 				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_DEPTH_MAP:
+				((EStructuralFeature.Setting)((EMap.InternalMapView<Buffer, Integer>)getBufferDepthMap()).eMap()).set(newValue);
+				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP:
+				((EStructuralFeature.Setting)((EMap.InternalMapView<Actor, String>)getActorPartitionMap()).eMap()).set(newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -380,6 +453,12 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE:
 				setOutgoingBufferOwnedBySource(OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT);
 				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_DEPTH_MAP:
+				getBufferDepthMap().clear();
+				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP:
+				getActorPartitionMap().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -402,6 +481,10 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 				return network != null;
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE:
 				return outgoingBufferOwnedBySource != OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_DEPTH_MAP:
+				return bufferDepthMap != null && !bufferDepthMap.isEmpty();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP:
+				return actorPartitionMap != null && !actorPartitionMap.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

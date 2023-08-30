@@ -601,13 +601,31 @@ public interface ProfilingPackage extends EPackage {
 	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Buffer Depth Map</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_DEPTH_MAP = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Actor Partition Map</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Inter Partition Communication And Memory Report</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 3;
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Inter Partition Communication And Memory Report</em>' class.
@@ -1031,6 +1049,28 @@ public interface ProfilingPackage extends EPackage {
 	EAttribute getInterPartitionCommunicationAndMemoryReport_OutgoingBufferOwnedBySource();
 
 	/**
+	 * Returns the meta object for the map '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getBufferDepthMap <em>Buffer Depth Map</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Buffer Depth Map</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getBufferDepthMap()
+	 * @see #getInterPartitionCommunicationAndMemoryReport()
+	 * @generated
+	 */
+	EReference getInterPartitionCommunicationAndMemoryReport_BufferDepthMap();
+
+	/**
+	 * Returns the meta object for the map '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getActorPartitionMap <em>Actor Partition Map</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Actor Partition Map</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getActorPartitionMap()
+	 * @see #getInterPartitionCommunicationAndMemoryReport()
+	 * @generated
+	 */
+	EReference getInterPartitionCommunicationAndMemoryReport_ActorPartitionMap();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1370,6 +1410,22 @@ public interface ProfilingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_OutgoingBufferOwnedBySource();
+
+		/**
+		 * The meta object literal for the '<em><b>Buffer Depth Map</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_DEPTH_MAP = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_BufferDepthMap();
+
+		/**
+		 * The meta object literal for the '<em><b>Actor Partition Map</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_ActorPartitionMap();
 
 	}
 

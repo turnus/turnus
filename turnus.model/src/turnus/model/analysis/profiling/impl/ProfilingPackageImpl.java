@@ -651,6 +651,26 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 	 * @generated
 	 */
 	@Override
+	public EReference getInterPartitionCommunicationAndMemoryReport_BufferDepthMap() {
+		return (EReference)interPartitionCommunicationAndMemoryReportEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getInterPartitionCommunicationAndMemoryReport_ActorPartitionMap() {
+		return (EReference)interPartitionCommunicationAndMemoryReportEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public ProfilingFactory getProfilingFactory() {
 		return (ProfilingFactory)getEFactoryInstance();
 	}
@@ -718,6 +738,8 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		createEReference(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA);
 		createEReference(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK);
 		createEAttribute(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE);
+		createEReference(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_DEPTH_MAP);
+		createEReference(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP);
 	}
 
 	/**
@@ -803,6 +825,8 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		initEReference(getInterPartitionCommunicationAndMemoryReport_PartitionData(), this.getInterPartitionData(), null, "partitionData", null, 0, -1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInterPartitionCommunicationAndMemoryReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInterPartitionCommunicationAndMemoryReport_OutgoingBufferOwnedBySource(), ecorePackage.getEBoolean(), "outgoingBufferOwnedBySource", "false", 0, 1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInterPartitionCommunicationAndMemoryReport_BufferDepthMap(), theMapPackage.getBufferToIntegerMap(), null, "bufferDepthMap", null, 0, -1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInterPartitionCommunicationAndMemoryReport_ActorPartitionMap(), theMapPackage.getActorToStringMap(), null, "actorPartitionMap", null, 0, -1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //ProfilingPackageImpl

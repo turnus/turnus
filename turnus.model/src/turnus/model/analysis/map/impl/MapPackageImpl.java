@@ -254,6 +254,13 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	private EClass stringToStringMapEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass actorToStringMapEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -1031,6 +1038,36 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getActorToStringMap() {
+		return actorToStringMapEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getActorToStringMap_Key() {
+		return (EReference)actorToStringMapEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getActorToStringMap_Value() {
+		return (EAttribute)actorToStringMapEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public MapFactory getMapFactory() {
 		return (MapFactory)getEFactoryInstance();
 	}
@@ -1141,6 +1178,10 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		stringToStringMapEClass = createEClass(STRING_TO_STRING_MAP);
 		createEAttribute(stringToStringMapEClass, STRING_TO_STRING_MAP__KEY);
 		createEAttribute(stringToStringMapEClass, STRING_TO_STRING_MAP__VALUE);
+
+		actorToStringMapEClass = createEClass(ACTOR_TO_STRING_MAP);
+		createEReference(actorToStringMapEClass, ACTOR_TO_STRING_MAP__KEY);
+		createEAttribute(actorToStringMapEClass, ACTOR_TO_STRING_MAP__VALUE);
 	}
 
 	/**
@@ -1265,6 +1306,10 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		initEClass(stringToStringMapEClass, Map.Entry.class, "StringToStringMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStringToStringMap_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStringToStringMap_Value(), ecorePackage.getEString(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(actorToStringMapEClass, Map.Entry.class, "ActorToStringMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getActorToStringMap_Key(), theDataflowPackage.getActor(), null, "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getActorToStringMap_Value(), ecorePackage.getEString(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //MapPackageImpl

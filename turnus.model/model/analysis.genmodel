@@ -269,6 +269,11 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToStringMap/key"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToStringMap/value"/>
       </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/ActorToStringMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/ActorToStringMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/ActorToStringMap/value"/>
+      </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Trace" basePackage="turnus.model.analysis" disposableProviderFactory="true"
         ecorePackage="analysis.ecore#//trace">
@@ -687,6 +692,8 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/network"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/outgoingBufferOwnedBySource"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/bufferDepthMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/actorPartitionMap"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Scheduling" basePackage="turnus.model.analysis" disposableProviderFactory="true"

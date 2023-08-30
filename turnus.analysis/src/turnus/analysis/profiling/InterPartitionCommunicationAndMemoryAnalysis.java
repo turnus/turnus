@@ -100,7 +100,19 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		report.setNetwork(network);
 		report.setOutgoingBufferOwnedBySource(outgoingBufferOwnedBySource);
 		report.setAlgorithm("Inter Partition Communication and Memory Analysis");
-
+		
+		
+		// -- Populate actor partition map
+		for(Actor actor : network.getActors()) {
+			report.getActorPartitionMap().put(actor, partitioning.getPartition(actor));
+		}
+		
+		// -- Populate Buffer depth map
+		for (Buffer buffer : network.getBuffers()) {
+			report.getBufferDepthMap().put(buffer, bufferSize.getSize(buffer));
+		}
+		
+		// -- Populate partition data
 		for (InterPartitionData datum : data) {
 			report.getPartitionData().add(datum);
 		}
@@ -161,7 +173,7 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 			}
 
 			// -- Check if the owner of the incoming/outgoing is the current partition
-			if (outgoingBufferOwnedBySource) {				
+			if (outgoingBufferOwnedBySource) {
 				List<Buffer> outgoingBuffers = MemoryAndBuffers
 						.getOutgoingBuffersOfPartition(partitionDatum.getActors());
 				partitionDatum.getExternalBuffers().addAll(outgoingBuffers);
@@ -180,7 +192,6 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 			// -- Set partition persistent actors memory and buffers
 			partitionDatum.setPersistentMemory(actorsPersistentMemory);
 			partitionDatum.setPersistentBuffers(internalBuffersPersistentMemory);
-			
 
 			// -- END
 			// -- Add partitionDatum to partitionData

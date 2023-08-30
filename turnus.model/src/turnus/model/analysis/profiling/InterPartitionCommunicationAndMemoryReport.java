@@ -32,7 +32,10 @@
 package turnus.model.analysis.profiling;
 
 import java.util.List;
+import java.util.Map;
 import turnus.model.analysis.AnalysisReport;
+import turnus.model.dataflow.Actor;
+import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
 
 /**
@@ -47,6 +50,8 @@ import turnus.model.dataflow.Network;
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getPartitionData <em>Partition Data</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getNetwork <em>Network</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getBufferDepthMap <em>Buffer Depth Map</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getActorPartitionMap <em>Actor Partition Map</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport()
@@ -110,5 +115,31 @@ public interface InterPartitionCommunicationAndMemoryReport extends AnalysisRepo
 	 * @generated
 	 */
 	void setOutgoingBufferOwnedBySource(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Buffer Depth Map</b></em>' map.
+	 * The key is of type {@link turnus.model.dataflow.Buffer},
+	 * and the value is of type {@link java.lang.Integer},
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Buffer Depth Map</em>' map.
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport_BufferDepthMap()
+	 * @model mapType="turnus.model.analysis.map.BufferToIntegerMap&lt;turnus.model.dataflow.Buffer, org.eclipse.emf.ecore.EIntegerObject&gt;"
+	 * @generated
+	 */
+	Map<Buffer, Integer> getBufferDepthMap();
+
+	/**
+	 * Returns the value of the '<em><b>Actor Partition Map</b></em>' map.
+	 * The key is of type {@link turnus.model.dataflow.Actor},
+	 * and the value is of type {@link java.lang.String},
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Actor Partition Map</em>' map.
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport_ActorPartitionMap()
+	 * @model mapType="turnus.model.analysis.map.ActorToStringMap&lt;turnus.model.dataflow.Actor, org.eclipse.emf.ecore.EString&gt;"
+	 * @generated
+	 */
+	Map<Actor, String> getActorPartitionMap();
 
 } // InterPartitionCommunicationAndMemoryReport
