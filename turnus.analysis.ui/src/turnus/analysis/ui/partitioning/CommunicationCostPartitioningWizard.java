@@ -38,7 +38,10 @@ import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -55,7 +58,7 @@ import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
 import turnus.ui.util.EclipseUtils;
 import turnus.ui.widget.WidgetCheckBox;
-import turnus.ui.widget.WidgetSelectFile;
+import turnus.ui.widget.WidgetSelectFileCombo;
 import turnus.ui.widget.WidgetSpinnerInteger;
 import turnus.ui.wizard.AbstractWizardPage;
 
@@ -70,11 +73,12 @@ public class CommunicationCostPartitioningWizard extends Wizard implements IWork
 	 * The unique file page which contains the input and output file widgets
 	 * 
 	 * @author Simone Casale Brunet
+	 * @author Endri Bezati
 	 *
 	 */
 	private class OptionsPage extends AbstractWizardPage {
 
-		private WidgetSelectFile wTraceFile;
+		private WidgetSelectFileCombo wTraceFile;
 		private WidgetSpinnerInteger wUnits;
 		private WidgetCheckBox wBitAccurate;
 
@@ -86,13 +90,22 @@ public class CommunicationCostPartitioningWizard extends Wizard implements IWork
 
 		@Override
 		protected void createWidgets(Composite container) {
+			IProject project = EclipseUtils.getCurrentProject();
 
-			String[] inputs = { TRACE, TRACEZ };
-			wTraceFile = new WidgetSelectFile("Trace", "Trace file", inputs,  null, container);
+			// -- Trace File
+			String[] traceExtensions = { TRACE, TRACEZ };
+			List<String> initialTraceFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialTraceFiles = EclipseUtils.getPathsFromContainer(project, traceExtensions);
+			}
+
+			wTraceFile = new WidgetSelectFileCombo("Trace", "Trace file", traceExtensions, null, container);
+			if (!initialTraceFiles.isEmpty())
+				wTraceFile.setChoices(initialTraceFiles.toArray(new String[0]));
 			addWidget(wTraceFile);
 
-			wUnits = new WidgetSpinnerInteger("Units", "Select the number of available units", 1, Integer.MAX_VALUE, 1, 2,
-					container);
+			wUnits = new WidgetSpinnerInteger("Units", "Select the number of available units", 1, Integer.MAX_VALUE, 1,
+					2, container);
 			addWidget(wUnits);
 
 			wBitAccurate = new WidgetCheckBox("Bit accurate", "Use the bit size in the cost value", false, container);

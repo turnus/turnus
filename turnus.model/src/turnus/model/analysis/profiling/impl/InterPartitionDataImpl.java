@@ -49,6 +49,7 @@ import turnus.model.analysis.profiling.InterPartitionData;
 import turnus.model.analysis.profiling.ProfilingPackage;
 
 import turnus.model.dataflow.Actor;
+import turnus.model.dataflow.Buffer;
 
 /**
  * <!-- begin-user-doc -->
@@ -65,8 +66,9 @@ import turnus.model.dataflow.Actor;
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getPersistentMemory <em>Persistent Memory</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getMaxTransientMemory <em>Max Transient Memory</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getPartitionId <em>Partition Id</em>}</li>
- *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getPersistentBuffers <em>Persistent Buffers</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getInternalBuffers <em>Internal Buffers</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getExternalBuffers <em>External Buffers</em>}</li>
  * </ul>
  *
  * @generated
@@ -203,26 +205,6 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	protected String partitionId = PARTITION_ID_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isOutgoingBufferOwnedBySource() <em>Outgoing Buffer Owned By Source</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isOutgoingBufferOwnedBySource()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isOutgoingBufferOwnedBySource() <em>Outgoing Buffer Owned By Source</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isOutgoingBufferOwnedBySource()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean outgoingBufferOwnedBySource = OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getPersistentBuffers() <em>Persistent Buffers</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -241,6 +223,26 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @ordered
 	 */
 	protected long persistentBuffers = PERSISTENT_BUFFERS_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getInternalBuffers() <em>Internal Buffers</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInternalBuffers()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Buffer> internalBuffers;
+
+	/**
+	 * The cached value of the '{@link #getExternalBuffers() <em>External Buffers</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExternalBuffers()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Buffer> externalBuffers;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -418,29 +420,6 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
-	public boolean isOutgoingBufferOwnedBySource() {
-		return outgoingBufferOwnedBySource;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setOutgoingBufferOwnedBySource(boolean newOutgoingBufferOwnedBySource) {
-		boolean oldOutgoingBufferOwnedBySource = outgoingBufferOwnedBySource;
-		outgoingBufferOwnedBySource = newOutgoingBufferOwnedBySource;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE, oldOutgoingBufferOwnedBySource, outgoingBufferOwnedBySource));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public long getPersistentBuffers() {
 		return persistentBuffers;
 	}
@@ -456,6 +435,32 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 		persistentBuffers = newPersistentBuffers;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_DATA__PERSISTENT_BUFFERS, oldPersistentBuffers, persistentBuffers));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public List<Buffer> getInternalBuffers() {
+		if (internalBuffers == null) {
+			internalBuffers = new EObjectResolvingEList<Buffer>(Buffer.class, this, ProfilingPackage.INTER_PARTITION_DATA__INTERNAL_BUFFERS);
+		}
+		return internalBuffers;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public List<Buffer> getExternalBuffers() {
+		if (externalBuffers == null) {
+			externalBuffers = new EObjectResolvingEList<Buffer>(Buffer.class, this, ProfilingPackage.INTER_PARTITION_DATA__EXTERNAL_BUFFERS);
+		}
+		return externalBuffers;
 	}
 
 	/**
@@ -480,10 +485,12 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 				return getMaxTransientMemory();
 			case ProfilingPackage.INTER_PARTITION_DATA__PARTITION_ID:
 				return getPartitionId();
-			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE:
-				return isOutgoingBufferOwnedBySource();
 			case ProfilingPackage.INTER_PARTITION_DATA__PERSISTENT_BUFFERS:
 				return getPersistentBuffers();
+			case ProfilingPackage.INTER_PARTITION_DATA__INTERNAL_BUFFERS:
+				return getInternalBuffers();
+			case ProfilingPackage.INTER_PARTITION_DATA__EXTERNAL_BUFFERS:
+				return getExternalBuffers();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -519,11 +526,16 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 			case ProfilingPackage.INTER_PARTITION_DATA__PARTITION_ID:
 				setPartitionId((String)newValue);
 				return;
-			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE:
-				setOutgoingBufferOwnedBySource((Boolean)newValue);
-				return;
 			case ProfilingPackage.INTER_PARTITION_DATA__PERSISTENT_BUFFERS:
 				setPersistentBuffers((Long)newValue);
+				return;
+			case ProfilingPackage.INTER_PARTITION_DATA__INTERNAL_BUFFERS:
+				getInternalBuffers().clear();
+				getInternalBuffers().addAll((Collection<? extends Buffer>)newValue);
+				return;
+			case ProfilingPackage.INTER_PARTITION_DATA__EXTERNAL_BUFFERS:
+				getExternalBuffers().clear();
+				getExternalBuffers().addAll((Collection<? extends Buffer>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -558,11 +570,14 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 			case ProfilingPackage.INTER_PARTITION_DATA__PARTITION_ID:
 				setPartitionId(PARTITION_ID_EDEFAULT);
 				return;
-			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE:
-				setOutgoingBufferOwnedBySource(OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT);
-				return;
 			case ProfilingPackage.INTER_PARTITION_DATA__PERSISTENT_BUFFERS:
 				setPersistentBuffers(PERSISTENT_BUFFERS_EDEFAULT);
+				return;
+			case ProfilingPackage.INTER_PARTITION_DATA__INTERNAL_BUFFERS:
+				getInternalBuffers().clear();
+				return;
+			case ProfilingPackage.INTER_PARTITION_DATA__EXTERNAL_BUFFERS:
+				getExternalBuffers().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -590,10 +605,12 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 				return maxTransientMemory != MAX_TRANSIENT_MEMORY_EDEFAULT;
 			case ProfilingPackage.INTER_PARTITION_DATA__PARTITION_ID:
 				return PARTITION_ID_EDEFAULT == null ? partitionId != null : !PARTITION_ID_EDEFAULT.equals(partitionId);
-			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE:
-				return outgoingBufferOwnedBySource != OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT;
 			case ProfilingPackage.INTER_PARTITION_DATA__PERSISTENT_BUFFERS:
 				return persistentBuffers != PERSISTENT_BUFFERS_EDEFAULT;
+			case ProfilingPackage.INTER_PARTITION_DATA__INTERNAL_BUFFERS:
+				return internalBuffers != null && !internalBuffers.isEmpty();
+			case ProfilingPackage.INTER_PARTITION_DATA__EXTERNAL_BUFFERS:
+				return externalBuffers != null && !externalBuffers.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -620,8 +637,6 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 		result.append(maxTransientMemory);
 		result.append(", partitionId: ");
 		result.append(partitionId);
-		result.append(", outgoingBufferOwnedBySource: ");
-		result.append(outgoingBufferOwnedBySource);
 		result.append(", persistentBuffers: ");
 		result.append(persistentBuffers);
 		result.append(')');

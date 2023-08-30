@@ -98,6 +98,7 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		ProfilingFactory f = ProfilingFactory.eINSTANCE;
 		InterPartitionCommunicationAndMemoryReport report = f.createInterPartitionCommunicationAndMemoryReport();
 		report.setNetwork(network);
+		report.setOutgoingBufferOwnedBySource(outgoingBufferOwnedBySource);
 		report.setAlgorithm("Inter Partition Communication and Memory Analysis");
 
 		for (InterPartitionData datum : data) {
@@ -152,6 +153,7 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 
 			// -- Get internal buffers persistent memory
 			List<Buffer> internalBuffers = MemoryAndBuffers.getInternalBuffersOfPartition(partitionDatum.getActors());
+			partitionDatum.getInternalBuffers().addAll(internalBuffers);
 			long internalBuffersPersistentMemory = 0L;
 
 			for (Buffer buffer : internalBuffers) {
@@ -159,17 +161,17 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 			}
 
 			// -- Check if the owner of the incoming/outgoing is the current partition
-			if (outgoingBufferOwnedBySource) {
-				partitionDatum.setOutgoingBufferOwnedBySource(true);
+			if (outgoingBufferOwnedBySource) {				
 				List<Buffer> outgoingBuffers = MemoryAndBuffers
 						.getOutgoingBuffersOfPartition(partitionDatum.getActors());
+				partitionDatum.getExternalBuffers().addAll(outgoingBuffers);
 				for (Buffer buffer : outgoingBuffers) {
 					internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
 				}
 			} else {
-				partitionDatum.setOutgoingBufferOwnedBySource(false);
 				List<Buffer> incomingBuffers = MemoryAndBuffers
 						.getIncomingBuffersOfPartition(partitionDatum.getActors());
+				partitionDatum.getExternalBuffers().addAll(incomingBuffers);
 				for (Buffer buffer : incomingBuffers) {
 					internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
 				}

@@ -46,6 +46,7 @@ import turnus.model.dataflow.Network;
  * <ul>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getPartitionData <em>Partition Data</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getNetwork <em>Network</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport()
@@ -86,5 +87,28 @@ public interface InterPartitionCommunicationAndMemoryReport extends AnalysisRepo
 	 * @generated
 	 */
 	void setNetwork(Network value);
+
+	/**
+	 * Returns the value of the '<em><b>Outgoing Buffer Owned By Source</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Outgoing Buffer Owned By Source</em>' attribute.
+	 * @see #setOutgoingBufferOwnedBySource(boolean)
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport_OutgoingBufferOwnedBySource()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isOutgoingBufferOwnedBySource();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Outgoing Buffer Owned By Source</em>' attribute.
+	 * @see #isOutgoingBufferOwnedBySource()
+	 * @generated
+	 */
+	void setOutgoingBufferOwnedBySource(boolean value);
 
 } // InterPartitionCommunicationAndMemoryReport

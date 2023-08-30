@@ -676,13 +676,17 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/persistentMemory"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/maxTransientMemory"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/partitionId"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/outgoingBufferOwnedBySource"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/persistentBuffers"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionData/internalBuffers"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionData/externalBuffers"/>
       </genClasses>
       <genClasses ecoreClass="analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/partitionData"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/network"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/outgoingBufferOwnedBySource"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Scheduling" basePackage="turnus.model.analysis" disposableProviderFactory="true"

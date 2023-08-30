@@ -64,6 +64,7 @@ import turnus.model.dataflow.Network;
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getDate <em>Date</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getPartitionData <em>Partition Data</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getNetwork <em>Network</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}</li>
  * </ul>
  *
  * @generated
@@ -128,6 +129,26 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * @ordered
 	 */
 	protected Network network;
+
+	/**
+	 * The default value of the '{@link #isOutgoingBufferOwnedBySource() <em>Outgoing Buffer Owned By Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOutgoingBufferOwnedBySource()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isOutgoingBufferOwnedBySource() <em>Outgoing Buffer Owned By Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOutgoingBufferOwnedBySource()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean outgoingBufferOwnedBySource = OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -253,6 +274,29 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * @generated
 	 */
 	@Override
+	public boolean isOutgoingBufferOwnedBySource() {
+		return outgoingBufferOwnedBySource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setOutgoingBufferOwnedBySource(boolean newOutgoingBufferOwnedBySource) {
+		boolean oldOutgoingBufferOwnedBySource = outgoingBufferOwnedBySource;
+		outgoingBufferOwnedBySource = newOutgoingBufferOwnedBySource;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE, oldOutgoingBufferOwnedBySource, outgoingBufferOwnedBySource));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA:
@@ -278,6 +322,8 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK:
 				if (resolve) return getNetwork();
 				return basicGetNetwork();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE:
+				return isOutgoingBufferOwnedBySource();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -304,6 +350,9 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK:
 				setNetwork((Network)newValue);
 				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE:
+				setOutgoingBufferOwnedBySource((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -328,6 +377,9 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK:
 				setNetwork((Network)null);
 				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE:
+				setOutgoingBufferOwnedBySource(OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -348,6 +400,8 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 				return partitionData != null && !partitionData.isEmpty();
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK:
 				return network != null;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE:
+				return outgoingBufferOwnedBySource != OUTGOING_BUFFER_OWNED_BY_SOURCE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

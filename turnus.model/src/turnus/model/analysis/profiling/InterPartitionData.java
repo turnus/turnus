@@ -36,6 +36,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 
 import turnus.model.dataflow.Actor;
+import turnus.model.dataflow.Buffer;
 
 /**
  * <!-- begin-user-doc -->
@@ -53,8 +54,9 @@ import turnus.model.dataflow.Actor;
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getPersistentMemory <em>Persistent Memory</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getMaxTransientMemory <em>Max Transient Memory</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getPartitionId <em>Partition Id</em>}</li>
- *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getPersistentBuffers <em>Persistent Buffers</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getInternalBuffers <em>Internal Buffers</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getExternalBuffers <em>External Buffers</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData()
@@ -207,29 +209,6 @@ public interface InterPartitionData extends EObject {
 	void setPartitionId(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Outgoing Buffer Owned By Source</b></em>' attribute.
-	 * The default value is <code>"false"</code>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Outgoing Buffer Owned By Source</em>' attribute.
-	 * @see #setOutgoingBufferOwnedBySource(boolean)
-	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_OutgoingBufferOwnedBySource()
-	 * @model default="false"
-	 * @generated
-	 */
-	boolean isOutgoingBufferOwnedBySource();
-
-	/**
-	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionData#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Outgoing Buffer Owned By Source</em>' attribute.
-	 * @see #isOutgoingBufferOwnedBySource()
-	 * @generated
-	 */
-	void setOutgoingBufferOwnedBySource(boolean value);
-
-	/**
 	 * Returns the value of the '<em><b>Persistent Buffers</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -250,5 +229,29 @@ public interface InterPartitionData extends EObject {
 	 * @generated
 	 */
 	void setPersistentBuffers(long value);
+
+	/**
+	 * Returns the value of the '<em><b>Internal Buffers</b></em>' reference list.
+	 * The list contents are of type {@link turnus.model.dataflow.Buffer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Internal Buffers</em>' reference list.
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_InternalBuffers()
+	 * @model
+	 * @generated
+	 */
+	List<Buffer> getInternalBuffers();
+
+	/**
+	 * Returns the value of the '<em><b>External Buffers</b></em>' reference list.
+	 * The list contents are of type {@link turnus.model.dataflow.Buffer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>External Buffers</em>' reference list.
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_ExternalBuffers()
+	 * @model
+	 * @generated
+	 */
+	List<Buffer> getExternalBuffers();
 
 } // InterPartitionData

@@ -501,22 +501,31 @@ public interface ProfilingPackage extends EPackage {
 	int INTER_PARTITION_DATA__PARTITION_ID = 6;
 
 	/**
-	 * The feature id for the '<em><b>Outgoing Buffer Owned By Source</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE = 7;
-
-	/**
 	 * The feature id for the '<em><b>Persistent Buffers</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_DATA__PERSISTENT_BUFFERS = 8;
+	int INTER_PARTITION_DATA__PERSISTENT_BUFFERS = 7;
+
+	/**
+	 * The feature id for the '<em><b>Internal Buffers</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__INTERNAL_BUFFERS = 8;
+
+	/**
+	 * The feature id for the '<em><b>External Buffers</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__EXTERNAL_BUFFERS = 9;
 
 	/**
 	 * The number of structural features of the '<em>Inter Partition Data</em>' class.
@@ -525,7 +534,7 @@ public interface ProfilingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_DATA_FEATURE_COUNT = 9;
+	int INTER_PARTITION_DATA_FEATURE_COUNT = 10;
 
 	/**
 	 * The number of operations of the '<em>Inter Partition Data</em>' class.
@@ -583,13 +592,22 @@ public interface ProfilingPackage extends EPackage {
 	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Outgoing Buffer Owned By Source</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Inter Partition Communication And Memory Report</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 2;
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Inter Partition Communication And Memory Report</em>' class.
@@ -937,17 +955,6 @@ public interface ProfilingPackage extends EPackage {
 	EAttribute getInterPartitionData_PartitionId();
 
 	/**
-	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionData#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Outgoing Buffer Owned By Source</em>'.
-	 * @see turnus.model.analysis.profiling.InterPartitionData#isOutgoingBufferOwnedBySource()
-	 * @see #getInterPartitionData()
-	 * @generated
-	 */
-	EAttribute getInterPartitionData_OutgoingBufferOwnedBySource();
-
-	/**
 	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionData#getPersistentBuffers <em>Persistent Buffers</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -957,6 +964,28 @@ public interface ProfilingPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getInterPartitionData_PersistentBuffers();
+
+	/**
+	 * Returns the meta object for the reference list '{@link turnus.model.analysis.profiling.InterPartitionData#getInternalBuffers <em>Internal Buffers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Internal Buffers</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getInternalBuffers()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EReference getInterPartitionData_InternalBuffers();
+
+	/**
+	 * Returns the meta object for the reference list '{@link turnus.model.analysis.profiling.InterPartitionData#getExternalBuffers <em>External Buffers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>External Buffers</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getExternalBuffers()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EReference getInterPartitionData_ExternalBuffers();
 
 	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport <em>Inter Partition Communication And Memory Report</em>}'.
@@ -989,6 +1018,17 @@ public interface ProfilingPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getInterPartitionCommunicationAndMemoryReport_Network();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Outgoing Buffer Owned By Source</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#isOutgoingBufferOwnedBySource()
+	 * @see #getInterPartitionCommunicationAndMemoryReport()
+	 * @generated
+	 */
+	EAttribute getInterPartitionCommunicationAndMemoryReport_OutgoingBufferOwnedBySource();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1274,20 +1314,28 @@ public interface ProfilingPackage extends EPackage {
 		EAttribute INTER_PARTITION_DATA__PARTITION_ID = eINSTANCE.getInterPartitionData_PartitionId();
 
 		/**
-		 * The meta object literal for the '<em><b>Outgoing Buffer Owned By Source</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute INTER_PARTITION_DATA__OUTGOING_BUFFER_OWNED_BY_SOURCE = eINSTANCE.getInterPartitionData_OutgoingBufferOwnedBySource();
-
-		/**
 		 * The meta object literal for the '<em><b>Persistent Buffers</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute INTER_PARTITION_DATA__PERSISTENT_BUFFERS = eINSTANCE.getInterPartitionData_PersistentBuffers();
+
+		/**
+		 * The meta object literal for the '<em><b>Internal Buffers</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTER_PARTITION_DATA__INTERNAL_BUFFERS = eINSTANCE.getInterPartitionData_InternalBuffers();
+
+		/**
+		 * The meta object literal for the '<em><b>External Buffers</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTER_PARTITION_DATA__EXTERNAL_BUFFERS = eINSTANCE.getInterPartitionData_ExternalBuffers();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl <em>Inter Partition Communication And Memory Report</em>}' class.
@@ -1314,6 +1362,14 @@ public interface ProfilingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__NETWORK = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_Network();
+
+		/**
+		 * The meta object literal for the '<em><b>Outgoing Buffer Owned By Source</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__OUTGOING_BUFFER_OWNED_BY_SOURCE = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_OutgoingBufferOwnedBySource();
 
 	}
 
