@@ -844,6 +844,11 @@
           eType="#//map/BufferToIntegerMap" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="actorPartitionMap" upperBound="-1"
           eType="#//map/ActorToStringMap" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpWeight" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+          changeable="false" volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="deadlock" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="scheduling" nsURI="http://turnus.co/model/2017/analysis/scheduling"

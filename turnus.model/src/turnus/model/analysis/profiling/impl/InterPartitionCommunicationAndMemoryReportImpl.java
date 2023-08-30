@@ -76,6 +76,9 @@ import turnus.model.dataflow.Network;
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#isOutgoingBufferOwnedBySource <em>Outgoing Buffer Owned By Source</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getBufferDepthMap <em>Buffer Depth Map</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getActorPartitionMap <em>Actor Partition Map</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getCpWeight <em>Cp Weight</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getTime <em>Time</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#isDeadlock <em>Deadlock</em>}</li>
  * </ul>
  *
  * @generated
@@ -180,6 +183,56 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * @ordered
 	 */
 	protected EMap<Actor, String> actorPartitionMap;
+
+	/**
+	 * The default value of the '{@link #getCpWeight() <em>Cp Weight</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCpWeight()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double CP_WEIGHT_EDEFAULT = 0.0;
+
+	/**
+	 * The default value of the '{@link #getTime() <em>Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double TIME_EDEFAULT = 0.0;
+
+	/**
+	 * The cached value of the '{@link #getTime() <em>Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected double time = TIME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isDeadlock() <em>Deadlock</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDeadlock()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DEADLOCK_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isDeadlock() <em>Deadlock</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDeadlock()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean deadlock = DEADLOCK_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -354,6 +407,64 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * @generated
 	 */
 	@Override
+	public double getCpWeight() {
+		// TODO: implement this method to return the 'Cp Weight' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public double getTime() {
+		return time;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setTime(double newTime) {
+		double oldTime = time;
+		time = newTime;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__TIME, oldTime, time));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isDeadlock() {
+		return deadlock;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDeadlock(boolean newDeadlock) {
+		boolean oldDeadlock = deadlock;
+		deadlock = newDeadlock;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK, oldDeadlock, deadlock));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA:
@@ -391,6 +502,12 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP:
 				if (coreType) return ((EMap.InternalMapView<Actor, String>)getActorPartitionMap()).eMap();
 				else return getActorPartitionMap();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT:
+				return getCpWeight();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__TIME:
+				return getTime();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK:
+				return isDeadlock();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -426,6 +543,12 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP:
 				((EStructuralFeature.Setting)((EMap.InternalMapView<Actor, String>)getActorPartitionMap()).eMap()).set(newValue);
 				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__TIME:
+				setTime((Double)newValue);
+				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK:
+				setDeadlock((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -459,6 +582,12 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP:
 				getActorPartitionMap().clear();
 				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__TIME:
+				setTime(TIME_EDEFAULT);
+				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK:
+				setDeadlock(DEADLOCK_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -485,6 +614,12 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 				return bufferDepthMap != null && !bufferDepthMap.isEmpty();
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP:
 				return actorPartitionMap != null && !actorPartitionMap.isEmpty();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT:
+				return getCpWeight() != CP_WEIGHT_EDEFAULT;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__TIME:
+				return time != TIME_EDEFAULT;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK:
+				return deadlock != DEADLOCK_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

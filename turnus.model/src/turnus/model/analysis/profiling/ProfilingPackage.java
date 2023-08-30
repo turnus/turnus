@@ -619,13 +619,40 @@ public interface ProfilingPackage extends EPackage {
 	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Cp Weight</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__TIME = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Deadlock</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 7;
+
+	/**
 	 * The number of structural features of the '<em>Inter Partition Communication And Memory Report</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 5;
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of operations of the '<em>Inter Partition Communication And Memory Report</em>' class.
@@ -1071,6 +1098,39 @@ public interface ProfilingPackage extends EPackage {
 	EReference getInterPartitionCommunicationAndMemoryReport_ActorPartitionMap();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getCpWeight <em>Cp Weight</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cp Weight</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getCpWeight()
+	 * @see #getInterPartitionCommunicationAndMemoryReport()
+	 * @generated
+	 */
+	EAttribute getInterPartitionCommunicationAndMemoryReport_CpWeight();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getTime <em>Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Time</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getTime()
+	 * @see #getInterPartitionCommunicationAndMemoryReport()
+	 * @generated
+	 */
+	EAttribute getInterPartitionCommunicationAndMemoryReport_Time();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#isDeadlock <em>Deadlock</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Deadlock</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#isDeadlock()
+	 * @see #getInterPartitionCommunicationAndMemoryReport()
+	 * @generated
+	 */
+	EAttribute getInterPartitionCommunicationAndMemoryReport_Deadlock();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1426,6 +1486,30 @@ public interface ProfilingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_ActorPartitionMap();
+
+		/**
+		 * The meta object literal for the '<em><b>Cp Weight</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_CpWeight();
+
+		/**
+		 * The meta object literal for the '<em><b>Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__TIME = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_Time();
+
+		/**
+		 * The meta object literal for the '<em><b>Deadlock</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_Deadlock();
 
 	}
 

@@ -130,7 +130,10 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 	public InterPartitionCommunicationAndMemoryReport run() throws TurnusException {
 		ProfilingFactory f = ProfilingFactory.eINSTANCE;
 		List<InterPartitionData> partitionData = new ArrayList<>();
-
+		
+		// -- Run Bottleneck analysis
+		
+		
 		// -- Visit Partitions
 		Map<String, List<String>> pMap = partitioning.asPartitionActorsMap();
 

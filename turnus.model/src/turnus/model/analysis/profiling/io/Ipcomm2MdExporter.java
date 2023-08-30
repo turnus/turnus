@@ -70,7 +70,7 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 				b.append(String.format("## Partition: %s\n", datum.getPartitionId()));
 
 				b.append("| Actor | Memory |\n");
-				b.append("|---    | --:    |\n");
+				b.append("|:--    | --:    |\n");
 				for (Actor actor : datum.getActors()) {
 					b.append(String.format("| %s | %s \n", actor.getName(),
 							StringUtils.formatBytes(MemoryAndBuffers.getActorPersistentMemmory(actor))));
@@ -79,8 +79,8 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 				b.append("[Actors]\n");
 
 				if (datum.getInternalBuffers().size() > 0) {
-					b.append("\n| source | source-port | target | target-port | type | depth | bits\n");
-					b.append("|:----|:----|:----|:----|:----|:----|:----\n");
+					b.append("\n| source | source-port | target | target-port | type | depth | bytes\n");
+					b.append("|----|----|----|----|----|----:|----:\n");
 
 					for (Buffer buffer : datum.getInternalBuffers()) {
 						int depth = data.getBufferDepthMap().get(buffer);
@@ -96,11 +96,11 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 
 				if (datum.getExternalBuffers().size() > 0) {
 					if(data.isOutgoingBufferOwnedBySource()) {
-						b.append("\n| to  | source | source-port | target | target-port | type | depth | bits\n");
+						b.append("\n| to  | source | source-port | target | target-port | type | depth | bytes\n");
 					}else {
-						b.append("\n| from| source | source-port | target | target-port | type | depth | bits\n");
+						b.append("\n| from| source | source-port | target | target-port | type | depth | bytes\n");
 					}
-					b.append("|:----|:----|:----|:----|:----|:----|:----|:----\n");
+					b.append("|:----|----|----|----|----|----|---:|---:\n");
 
 					for (Buffer buffer : datum.getExternalBuffers()) {
 						int depth = data.getBufferDepthMap().get(buffer);
