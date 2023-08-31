@@ -112,7 +112,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double MAX_INCOMING_BITS_PER_FIRING_EDEFAULT = 0.0;
+	protected static final long MAX_INCOMING_BITS_PER_FIRING_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getMaxIncomingBitsPerFiring() <em>Max Incoming Bits Per Firing</em>}' attribute.
@@ -122,7 +122,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 * @ordered
 	 */
-	protected double maxIncomingBitsPerFiring = MAX_INCOMING_BITS_PER_FIRING_EDEFAULT;
+	protected long maxIncomingBitsPerFiring = MAX_INCOMING_BITS_PER_FIRING_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getMaxOutgoingBitsPerFiring() <em>Max Outgoing Bits Per Firing</em>}' attribute.
@@ -132,7 +132,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double MAX_OUTGOING_BITS_PER_FIRING_EDEFAULT = 0.0;
+	protected static final long MAX_OUTGOING_BITS_PER_FIRING_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getMaxOutgoingBitsPerFiring() <em>Max Outgoing Bits Per Firing</em>}' attribute.
@@ -142,7 +142,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 * @ordered
 	 */
-	protected double maxOutgoingBitsPerFiring = MAX_OUTGOING_BITS_PER_FIRING_EDEFAULT;
+	protected long maxOutgoingBitsPerFiring = MAX_OUTGOING_BITS_PER_FIRING_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPersistentMemory() <em>Persistent Memory</em>}' attribute.
@@ -305,7 +305,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
-	public double getMaxIncomingBitsPerFiring() {
+	public long getMaxIncomingBitsPerFiring() {
 		return maxIncomingBitsPerFiring;
 	}
 
@@ -315,8 +315,8 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
-	public void setMaxIncomingBitsPerFiring(double newMaxIncomingBitsPerFiring) {
-		double oldMaxIncomingBitsPerFiring = maxIncomingBitsPerFiring;
+	public void setMaxIncomingBitsPerFiring(long newMaxIncomingBitsPerFiring) {
+		long oldMaxIncomingBitsPerFiring = maxIncomingBitsPerFiring;
 		maxIncomingBitsPerFiring = newMaxIncomingBitsPerFiring;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_DATA__MAX_INCOMING_BITS_PER_FIRING, oldMaxIncomingBitsPerFiring, maxIncomingBitsPerFiring));
@@ -328,7 +328,7 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
-	public double getMaxOutgoingBitsPerFiring() {
+	public long getMaxOutgoingBitsPerFiring() {
 		return maxOutgoingBitsPerFiring;
 	}
 
@@ -338,8 +338,8 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
-	public void setMaxOutgoingBitsPerFiring(double newMaxOutgoingBitsPerFiring) {
-		double oldMaxOutgoingBitsPerFiring = maxOutgoingBitsPerFiring;
+	public void setMaxOutgoingBitsPerFiring(long newMaxOutgoingBitsPerFiring) {
+		long oldMaxOutgoingBitsPerFiring = maxOutgoingBitsPerFiring;
 		maxOutgoingBitsPerFiring = newMaxOutgoingBitsPerFiring;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_DATA__MAX_OUTGOING_BITS_PER_FIRING, oldMaxOutgoingBitsPerFiring, maxOutgoingBitsPerFiring));
@@ -512,10 +512,10 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 				setWorkload((Double)newValue);
 				return;
 			case ProfilingPackage.INTER_PARTITION_DATA__MAX_INCOMING_BITS_PER_FIRING:
-				setMaxIncomingBitsPerFiring((Double)newValue);
+				setMaxIncomingBitsPerFiring((Long)newValue);
 				return;
 			case ProfilingPackage.INTER_PARTITION_DATA__MAX_OUTGOING_BITS_PER_FIRING:
-				setMaxOutgoingBitsPerFiring((Double)newValue);
+				setMaxOutgoingBitsPerFiring((Long)newValue);
 				return;
 			case ProfilingPackage.INTER_PARTITION_DATA__PERSISTENT_MEMORY:
 				setPersistentMemory((Long)newValue);

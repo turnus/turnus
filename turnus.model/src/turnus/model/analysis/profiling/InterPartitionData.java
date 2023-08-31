@@ -103,12 +103,12 @@ public interface InterPartitionData extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Max Incoming Bits Per Firing</em>' attribute.
-	 * @see #setMaxIncomingBitsPerFiring(double)
+	 * @see #setMaxIncomingBitsPerFiring(long)
 	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_MaxIncomingBitsPerFiring()
 	 * @model
 	 * @generated
 	 */
-	double getMaxIncomingBitsPerFiring();
+	long getMaxIncomingBitsPerFiring();
 
 	/**
 	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionData#getMaxIncomingBitsPerFiring <em>Max Incoming Bits Per Firing</em>}' attribute.
@@ -118,19 +118,19 @@ public interface InterPartitionData extends EObject {
 	 * @see #getMaxIncomingBitsPerFiring()
 	 * @generated
 	 */
-	void setMaxIncomingBitsPerFiring(double value);
+	void setMaxIncomingBitsPerFiring(long value);
 
 	/**
 	 * Returns the value of the '<em><b>Max Outgoing Bits Per Firing</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Max Outgoing Bits Per Firing</em>' attribute.
-	 * @see #setMaxOutgoingBitsPerFiring(double)
+	 * @see #setMaxOutgoingBitsPerFiring(long)
 	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_MaxOutgoingBitsPerFiring()
 	 * @model
 	 * @generated
 	 */
-	double getMaxOutgoingBitsPerFiring();
+	long getMaxOutgoingBitsPerFiring();
 
 	/**
 	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionData#getMaxOutgoingBitsPerFiring <em>Max Outgoing Bits Per Firing</em>}' attribute.
@@ -140,7 +140,7 @@ public interface InterPartitionData extends EObject {
 	 * @see #getMaxOutgoingBitsPerFiring()
 	 * @generated
 	 */
-	void setMaxOutgoingBitsPerFiring(double value);
+	void setMaxOutgoingBitsPerFiring(long value);
 
 	/**
 	 * Returns the value of the '<em><b>Persistent Memory</b></em>' attribute.

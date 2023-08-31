@@ -42,7 +42,6 @@ import turnus.analysis.bottlenecks.ScheduledPartialCriticalPathAnalysis;
 import turnus.common.TurnusException;
 import turnus.model.analysis.bottlenecks.BottlenecksReport;
 import turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport;
-import turnus.model.analysis.postprocessing.PostProcessingReport;
 import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
 import turnus.model.analysis.profiling.InterPartitionData;
 import turnus.model.analysis.profiling.ProfilingFactory;
@@ -50,6 +49,7 @@ import turnus.model.analysis.profiling.util.MemoryAndBuffers;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
+import turnus.model.dataflow.Port;
 import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.trace.Step;
@@ -86,19 +86,38 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		this.outgoingBufferOwnedBySource = outgoingBufferOwnedBySource;
 		this.network = project.getNetwork();
 		this.actorWorkloadMap = new HashMap<Actor, Double>();
+		this.actorMaxIncomingBitsMap = new HashMap<>();
+		this.actorMaxOutgoingBitsMap = new HashMap<>();
 	}
 
 	private void processTrace() {
-		
+
 		for (Actor actor : project.getNetwork().getActors()) {
+			actorMaxIncomingBitsMap.put(actor, 0L);
+			actorMaxOutgoingBitsMap.put(actor, 0L);
 			Iterator<Step> steps = project.getTrace().getSteps(Order.INCREASING_ID, actor.getName()).iterator();
 			double sum = 0;
 			while (steps.hasNext()) {
-				//actor.getInputPorts().get(0)
 				Step next = steps.next();
-				String actionName = next.getAction();
-				Map<String,Integer> readTokens = next.getReadTokens();
-				Map<String,Integer> writeTokens = next.getWriteTokens();
+				Map<String, Integer> readTokens = next.getReadTokens();
+				for (String portName : readTokens.keySet()) {
+					Long currentMax = actorMaxIncomingBitsMap.get(actor);
+					Port inputPort = actor.getInputPort(portName);
+					Long neccessaryBitsPerRead = readTokens.get(portName) * inputPort.getType().getBits();
+					if (neccessaryBitsPerRead > currentMax) {
+						actorMaxIncomingBitsMap.put(actor, neccessaryBitsPerRead);
+					}
+				}
+
+				Map<String, Integer> writeTokens = next.getWriteTokens();
+				for (String portName : writeTokens.keySet()) {
+					Long currentMax = actorMaxOutgoingBitsMap.get(actor);
+					Port outputPort = actor.getOutputPort(portName);
+					Long neccessaryBitsPerWrite = writeTokens.get(portName) * outputPort.getType().getBits();
+					if (neccessaryBitsPerWrite > currentMax) {
+						actorMaxOutgoingBitsMap.put(actor, neccessaryBitsPerWrite);
+					}
+				}
 				sum += weighter.getWeight(next);
 			}
 			actorWorkloadMap.put(actor, sum);
@@ -182,6 +201,26 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 			for (Actor actor : partitionDatum.getActors()) {
 				partitionWorkload += actorWorkloadMap.get(actor);
 			}
+
+			// -- Partition maxIncomingData
+			Long maxIncomingData = 0L;
+			for (Actor actor : partitionDatum.getActors()) {
+				if (actorMaxIncomingBitsMap.get(actor) > maxIncomingData) {
+					maxIncomingData = actorMaxIncomingBitsMap.get(actor);
+				}
+			}
+
+			// -- Partition maxIncomingData
+			Long maxOutgoingData = 0L;
+			for (Actor actor : partitionDatum.getActors()) {
+				if (actorMaxOutgoingBitsMap.get(actor) > maxOutgoingData) {
+					maxOutgoingData = actorMaxOutgoingBitsMap.get(actor);
+				}
+			}
+
+			// -- Set max incoming and outgoing
+			partitionDatum.setMaxIncomingBitsPerFiring(maxIncomingData);
+			partitionDatum.setMaxOutgoingBitsPerFiring(maxOutgoingData);
 
 			partitionDatum.setWorkload(partitionWorkload);
 

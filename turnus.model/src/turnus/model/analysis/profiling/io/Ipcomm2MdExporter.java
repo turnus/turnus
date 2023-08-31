@@ -44,6 +44,7 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 			b.append(String.format("* **Algorithm**: %s\n", data.getAlgorithm()));
 			b.append(String.format("* **Outgoing buffer are stored by source partition**: %s\n",
 					data.isOutgoingBufferOwnedBySource()));
+			b.append(String.format("* **# Partitions**: %d\n", data.getPartitionData().size()));
 			b.append(String.format("* **Critical path weight**: %.2f\n", data.getCpWeight()));
 			b.append(String.format("* **Scheduled critical path weight**: %.2f\n", data.getCpWeightScheduled()));
 			b.append(String.format("* **Simulation time**: %.2f\n", data.getTime()));
@@ -64,8 +65,8 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 						StringUtils.formatBytes(datum.getPersistentMemory(), true), //
 						StringUtils.formatBytes(datum.getPersistentBuffers(), true), //
 						StringUtils.formatBytes(datum.getPersistentMemory() + datum.getPersistentBuffers(), true), //
-						"-", //
-						"-"//
+						StringUtils.formatBytes(datum.getMaxIncomingBitsPerFiring(), true), //
+						StringUtils.formatBytes(datum.getMaxOutgoingBitsPerFiring(), true)//
 				));
 			}
 
