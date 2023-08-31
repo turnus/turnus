@@ -52,6 +52,7 @@ import turnus.common.Attributable;
  *   <li>{@link turnus.model.dataflow.Port#getInput <em>Input</em>}</li>
  *   <li>{@link turnus.model.dataflow.Port#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link turnus.model.dataflow.Port#getOwner <em>Owner</em>}</li>
+ *   <li>{@link turnus.model.dataflow.Port#getType <em>Type</em>}</li>
  * </ul>
  *
  * @see turnus.model.dataflow.DataflowPackage#getPort()
@@ -181,5 +182,27 @@ public interface Port extends EObject, Attributable {
 	 * @generated
 	 */
 	Actor getOwner();
+
+	/**
+	 * Returns the value of the '<em><b>Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type</em>' containment reference.
+	 * @see #setType(Type)
+	 * @see turnus.model.dataflow.DataflowPackage#getPort_Type()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	Type getType();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.dataflow.Port#getType <em>Type</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type</em>' containment reference.
+	 * @see #getType()
+	 * @generated
+	 */
+	void setType(Type value);
 
 } // Port

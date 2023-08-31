@@ -111,6 +111,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dataflow.ecore#//Port/input"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dataflow.ecore#//Port/outputs"/>
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference dataflow.ecore#//Port/owner"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataflow.ecore#//Port/type"/>
     </genClasses>
     <genClasses ecoreClass="dataflow.ecore#//Buffer">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dataflow.ecore#//Buffer/source"/>

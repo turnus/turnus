@@ -988,13 +988,22 @@ public interface DataflowPackage extends EPackage {
 	int PORT__OWNER = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 5;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__TYPE = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 6;
+
+	/**
 	 * The number of structural features of the '<em>Port</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_FEATURE_COUNT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 6;
+	int PORT_FEATURE_COUNT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of operations of the '<em>Port</em>' class.
@@ -2337,6 +2346,17 @@ public interface DataflowPackage extends EPackage {
 	EReference getPort_Owner();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link turnus.model.dataflow.Port#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type</em>'.
+	 * @see turnus.model.dataflow.Port#getType()
+	 * @see #getPort()
+	 * @generated
+	 */
+	EReference getPort_Type();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.dataflow.Buffer <em>Buffer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3218,6 +3238,14 @@ public interface DataflowPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PORT__OWNER = eINSTANCE.getPort_Owner();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT__TYPE = eINSTANCE.getPort_Type();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.dataflow.impl.BufferImpl <em>Buffer</em>}' class.

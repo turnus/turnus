@@ -80,6 +80,7 @@ import turnus.model.dataflow.Network;
  *   <li>{@link turnus.model.analysis.bottlenecks.impl.BottlenecksWithSchedulingReportImpl#getExecutionTime <em>Execution Time</em>}</li>
  *   <li>{@link turnus.model.analysis.bottlenecks.impl.BottlenecksWithSchedulingReportImpl#getCpBlockingTime <em>Cp Blocking Time</em>}</li>
  *   <li>{@link turnus.model.analysis.bottlenecks.impl.BottlenecksWithSchedulingReportImpl#getCpPartitionsBlockingTime <em>Cp Partitions Blocking Time</em>}</li>
+ *   <li>{@link turnus.model.analysis.bottlenecks.impl.BottlenecksWithSchedulingReportImpl#isDeadlock <em>Deadlock</em>}</li>
  * </ul>
  *
  * @generated
@@ -216,6 +217,26 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 	 * @ordered
 	 */
 	protected EMap<String, Double> cpPartitionsBlockingTime;
+
+	/**
+	 * The default value of the '{@link #isDeadlock() <em>Deadlock</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDeadlock()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DEADLOCK_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isDeadlock() <em>Deadlock</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDeadlock()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean deadlock = DEADLOCK_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -423,6 +444,29 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isDeadlock() {
+		return deadlock;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDeadlock(boolean newDeadlock) {
+		boolean oldDeadlock = deadlock;
+		deadlock = newDeadlock;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BottlenecksPackage.BOTTLENECKS_WITH_SCHEDULING_REPORT__DEADLOCK, oldDeadlock, deadlock));
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -468,6 +512,8 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 			case BottlenecksPackage.BOTTLENECKS_WITH_SCHEDULING_REPORT__CP_PARTITIONS_BLOCKING_TIME:
 				if (coreType) return ((EMap.InternalMapView<String, Double>)getCpPartitionsBlockingTime()).eMap();
 				else return getCpPartitionsBlockingTime();
+			case BottlenecksPackage.BOTTLENECKS_WITH_SCHEDULING_REPORT__DEADLOCK:
+				return isDeadlock();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -499,6 +545,9 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 			case BottlenecksPackage.BOTTLENECKS_WITH_SCHEDULING_REPORT__CP_PARTITIONS_BLOCKING_TIME:
 				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Double>)getCpPartitionsBlockingTime()).eMap()).set(newValue);
 				return;
+			case BottlenecksPackage.BOTTLENECKS_WITH_SCHEDULING_REPORT__DEADLOCK:
+				setDeadlock((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -527,6 +576,9 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 				return;
 			case BottlenecksPackage.BOTTLENECKS_WITH_SCHEDULING_REPORT__CP_PARTITIONS_BLOCKING_TIME:
 				getCpPartitionsBlockingTime().clear();
+				return;
+			case BottlenecksPackage.BOTTLENECKS_WITH_SCHEDULING_REPORT__DEADLOCK:
+				setDeadlock(DEADLOCK_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -561,6 +613,8 @@ public class BottlenecksWithSchedulingReportImpl extends MinimalEObjectImpl.Cont
 				return getCpBlockingTime() != CP_BLOCKING_TIME_EDEFAULT;
 			case BottlenecksPackage.BOTTLENECKS_WITH_SCHEDULING_REPORT__CP_PARTITIONS_BLOCKING_TIME:
 				return cpPartitionsBlockingTime != null && !cpPartitionsBlockingTime.isEmpty();
+			case BottlenecksPackage.BOTTLENECKS_WITH_SCHEDULING_REPORT__DEADLOCK:
+				return deadlock != DEADLOCK_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -80,18 +80,18 @@ public class ScheduledPartialCriticalPathAnalysis extends Analysis<BottlenecksWi
 		super(project);
 		this.registeredCollectors = new ArrayList<DataCollector>();
 	}
-	
+
 	private String analysisName = "Scheduled critical path evaluation";
 
 	private List<DataCollector> registeredCollectors;
 	private PostProcessingReport report;
-	
+
 	private TraceWeighter weighter;
 	private NetworkPartitioning partitioning;
 	private BufferSize bufferSize;
 	private CommunicationWeight communication;
 	private SchedulingWeight scheduling;
-	
+
 	public void setWeighter(TraceWeighter weighter) {
 		this.weighter = weighter;
 	}
@@ -103,27 +103,27 @@ public class ScheduledPartialCriticalPathAnalysis extends Analysis<BottlenecksWi
 	public void setBufferSize(BufferSize bufferSize) {
 		this.bufferSize = bufferSize;
 	}
-	
+
 	public void setCommunicationWeight(CommunicationWeight communication) {
 		this.communication = communication;
 	}
-	
+
 	public void setSchedulingWeight(SchedulingWeight scheduling) {
 		this.scheduling = scheduling;
 	}
-	
+
 	public void setConfiguration(Configuration configuration) {
 		this.configuration = configuration;
 	}
-	
+
 	public void setAnalysisName(String analysisName) {
 		this.analysisName = analysisName;
 	}
-	
+
 	public void registerCollector(DataCollector collector) {
 		this.registeredCollectors.add(collector);
 	}
-	
+
 	public PostProcessingReport getPostProcessingReport() {
 		return report;
 	}
@@ -155,35 +155,34 @@ public class ScheduledPartialCriticalPathAnalysis extends Analysis<BottlenecksWi
 				File bufferFile = configuration.getValue(BUFFER_SIZE_FILE);
 				XmlBufferSizeReader reader = new XmlBufferSizeReader();
 				bufferSize = reader.load(bufferFile);
-			} 
-			else if (configuration.hasValue(BUFFER_SIZE_DEFAULT)) { // if both parameters are specified, then the default one is ignored
+			} else if (configuration.hasValue(BUFFER_SIZE_DEFAULT)) { // if both parameters are specified, then the
+																		// default one is ignored
 				int defaultBufferSize = configuration.getValue(BUFFER_SIZE_DEFAULT);
 				bufferSize = new BufferSize(project.getNetwork());
 				bufferSize.setDefaultSize(defaultBufferSize);
-			} 
-			else {
+			} else {
 				throw new TurnusException("Buffer sizes are not specified.");
 			}
 		}
-		
+
 		if (configuration.hasValue(COMMUNICATION_WEIGHTS)) {
 			File communicationWeightsFile = configuration.getValue(COMMUNICATION_WEIGHTS);
 			XmlCommunicationWeightReader reader = new XmlCommunicationWeightReader(project.getNetwork());
 			communication = reader.load(communicationWeightsFile);
-			
+
 			if (configuration.hasValue(WRITE_HIT_CONSTANT)) {
 				communication.setWriteHitConstant(configuration.getValue(WRITE_HIT_CONSTANT));
 			}
 			if (configuration.hasValue(WRITE_MISS_CONSTANT)) {
 				communication.setWriteMissConstant(configuration.getValue(WRITE_MISS_CONSTANT));
 			}
-		} 
-		
+		}
+
 		if (configuration.hasValue(SCHEDULING_WEIGHTS)) {
 			File schWeightsFile = configuration.getValue(SCHEDULING_WEIGHTS);
 			scheduling = new XmlSchedulingWeightReader().load(schWeightsFile);
-		} 
-		
+		}
+
 		Logger.info("%s [STARTED]", analysisName);
 		if (!project.isTraceLoaded()) {
 			project.loadTrace(new SplittedTraceLoader(), configuration);
@@ -196,8 +195,8 @@ public class ScheduledPartialCriticalPathAnalysis extends Analysis<BottlenecksWi
 		simulation.setBufferSize(bufferSize);
 		simulation.setSchedulingWeight(scheduling);
 		simulation.setCommunicationWeight(communication);
-		
-		if (configuration.getValue(RELEASE_BUFFERS_AFTER_PROCESSING, false)){
+
+		if (configuration.getValue(RELEASE_BUFFERS_AFTER_PROCESSING, true)) {
 			simulation.setReleaseAfterProcessing();
 		}
 
@@ -206,16 +205,20 @@ public class ScheduledPartialCriticalPathAnalysis extends Analysis<BottlenecksWi
 		for (DataCollector collector : registeredCollectors) {
 			simulation.addDataCollector(collector);
 		}
-				
+
 		report = simulation.run();
 
 		if (simulation.isDeadlocked()) {
 			Logger.warning("The simulation deadlocked");
 		}
-		
+
 		Logger.info("%s [ENDED]", analysisName);
 
-		return report.getReport(BottlenecksWithSchedulingReport.class);
+		BottlenecksWithSchedulingReport bottlenecksWithSchedulingReport = report
+				.getReport(BottlenecksWithSchedulingReport.class);
+		bottlenecksWithSchedulingReport.setDeadlock(simulation.isDeadlocked());
+
+		return bottlenecksWithSchedulingReport;
 	}
 
 }

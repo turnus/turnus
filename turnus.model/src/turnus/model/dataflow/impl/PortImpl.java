@@ -54,6 +54,7 @@ import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.DataflowPackage;
 import turnus.model.dataflow.Port;
+import turnus.model.dataflow.Type;
 
 /**
  * <!-- begin-user-doc -->
@@ -69,6 +70,7 @@ import turnus.model.dataflow.Port;
  *   <li>{@link turnus.model.dataflow.impl.PortImpl#getInput <em>Input</em>}</li>
  *   <li>{@link turnus.model.dataflow.impl.PortImpl#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link turnus.model.dataflow.impl.PortImpl#getOwner <em>Owner</em>}</li>
+ *   <li>{@link turnus.model.dataflow.impl.PortImpl#getType <em>Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -133,6 +135,16 @@ public class PortImpl extends AttributableImpl implements Port {
 	 * @ordered
 	 */
 	protected EList<Buffer> outputs;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected Type type;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -291,6 +303,51 @@ public class PortImpl extends AttributableImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public Type getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetType(Type newType, NotificationChain msgs) {
+		Type oldType = type;
+		type = newType;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DataflowPackage.PORT__TYPE, oldType, newType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setType(Type newType) {
+		if (newType != type) {
+			NotificationChain msgs = null;
+			if (type != null)
+				msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DataflowPackage.PORT__TYPE, null, msgs);
+			if (newType != null)
+				msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DataflowPackage.PORT__TYPE, null, msgs);
+			msgs = basicSetType(newType, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DataflowPackage.PORT__TYPE, newType, newType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -325,6 +382,8 @@ public class PortImpl extends AttributableImpl implements Port {
 				return basicSetInput(null, msgs);
 			case DataflowPackage.PORT__OUTPUTS:
 				return ((InternalEList<?>)getOutputs()).basicRemove(otherEnd, msgs);
+			case DataflowPackage.PORT__TYPE:
+				return basicSetType(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -350,6 +409,8 @@ public class PortImpl extends AttributableImpl implements Port {
 				return getOutputs();
 			case DataflowPackage.PORT__OWNER:
 				return getOwner();
+			case DataflowPackage.PORT__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -381,6 +442,9 @@ public class PortImpl extends AttributableImpl implements Port {
 				getOutputs().clear();
 				getOutputs().addAll((Collection<? extends Buffer>)newValue);
 				return;
+			case DataflowPackage.PORT__TYPE:
+				setType((Type)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -408,6 +472,9 @@ public class PortImpl extends AttributableImpl implements Port {
 			case DataflowPackage.PORT__OUTPUTS:
 				getOutputs().clear();
 				return;
+			case DataflowPackage.PORT__TYPE:
+				setType((Type)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -432,6 +499,8 @@ public class PortImpl extends AttributableImpl implements Port {
 				return outputs != null && !outputs.isEmpty();
 			case DataflowPackage.PORT__OWNER:
 				return getOwner() != null;
+			case DataflowPackage.PORT__TYPE:
+				return type != null;
 		}
 		return super.eIsSet(featureID);
 	}

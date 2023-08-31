@@ -31,14 +31,18 @@
  */
 package turnus.analysis.profiling;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import turnus.analysis.Analysis;
+import turnus.analysis.bottlenecks.AlgorithmicPartialCriticalPathAnalysis;
+import turnus.analysis.bottlenecks.ScheduledPartialCriticalPathAnalysis;
 import turnus.common.TurnusException;
+import turnus.model.analysis.bottlenecks.BottlenecksReport;
+import turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport;
+import turnus.model.analysis.postprocessing.PostProcessingReport;
 import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
 import turnus.model.analysis.profiling.InterPartitionData;
 import turnus.model.analysis.profiling.ProfilingFactory;
@@ -68,6 +72,11 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 
 	private boolean outgoingBufferOwnedBySource;
 
+	private Map<Actor, Double> actorWorkloadMap;
+
+	private Map<Actor, Long> actorMaxIncomingBitsMap;
+	private Map<Actor, Long> actorMaxOutgoingBitsMap;
+
 	public InterPartitionCommunicationAndMemoryAnalysis(TraceProject project, TraceWeighter weighter,
 			BufferSize bufferSize, NetworkPartitioning partitioning, boolean outgoingBufferOwnedBySource) {
 		super(project);
@@ -76,48 +85,25 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		this.partitioning = partitioning;
 		this.outgoingBufferOwnedBySource = outgoingBufferOwnedBySource;
 		this.network = project.getNetwork();
+		this.actorWorkloadMap = new HashMap<Actor, Double>();
 	}
 
-	private Map<Actor, Double> calculateActorWorkloads() {
-		Map<Actor, Double> workloads = new HashMap<Actor, Double>();
-
+	private void processTrace() {
+		
 		for (Actor actor : project.getNetwork().getActors()) {
 			Iterator<Step> steps = project.getTrace().getSteps(Order.INCREASING_ID, actor.getName()).iterator();
 			double sum = 0;
 			while (steps.hasNext()) {
+				//actor.getInputPorts().get(0)
 				Step next = steps.next();
+				String actionName = next.getAction();
+				Map<String,Integer> readTokens = next.getReadTokens();
+				Map<String,Integer> writeTokens = next.getWriteTokens();
 				sum += weighter.getWeight(next);
 			}
-			workloads.put(actor, sum);
+			actorWorkloadMap.put(actor, sum);
 		}
 
-		return workloads;
-	}
-
-	private InterPartitionCommunicationAndMemoryReport generateReport(List<InterPartitionData> data) {
-		ProfilingFactory f = ProfilingFactory.eINSTANCE;
-		InterPartitionCommunicationAndMemoryReport report = f.createInterPartitionCommunicationAndMemoryReport();
-		report.setNetwork(network);
-		report.setOutgoingBufferOwnedBySource(outgoingBufferOwnedBySource);
-		report.setAlgorithm("Inter Partition Communication and Memory Analysis");
-		
-		
-		// -- Populate actor partition map
-		for(Actor actor : network.getActors()) {
-			report.getActorPartitionMap().put(actor, partitioning.getPartition(actor));
-		}
-		
-		// -- Populate Buffer depth map
-		for (Buffer buffer : network.getBuffers()) {
-			report.getBufferDepthMap().put(buffer, bufferSize.getSize(buffer));
-		}
-		
-		// -- Populate partition data
-		for (InterPartitionData datum : data) {
-			report.getPartitionData().add(datum);
-		}
-
-		return report;
 	}
 
 	private long getTotalBitsOfBuffer(Buffer buffer) {
@@ -129,16 +115,52 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 	@Override
 	public InterPartitionCommunicationAndMemoryReport run() throws TurnusException {
 		ProfilingFactory f = ProfilingFactory.eINSTANCE;
-		List<InterPartitionData> partitionData = new ArrayList<>();
-		
-		// -- Run Bottleneck analysis
-		
-		
+		InterPartitionCommunicationAndMemoryReport report = f.createInterPartitionCommunicationAndMemoryReport();
+		report.setNetwork(network);
+		report.setOutgoingBufferOwnedBySource(outgoingBufferOwnedBySource);
+		report.setAlgorithm("Inter Partition Communication and Memory Analysis");
+
+		// -- Populate actor partition map
+		for (Actor actor : network.getActors()) {
+			report.getActorPartitionMap().put(actor, partitioning.getPartition(actor));
+		}
+
+		// -- Populate Buffer depth map
+		for (Buffer buffer : network.getBuffers()) {
+			report.getBufferDepthMap().put(buffer, bufferSize.getSize(buffer));
+		}
+
+		// -- Initialize partial critical path
+		AlgorithmicPartialCriticalPathAnalysis cpAnalysis = new AlgorithmicPartialCriticalPathAnalysis(project);
+		cpAnalysis.setConfiguration(configuration);
+		cpAnalysis.setWeighter(weighter);
+		cpAnalysis.setBufferSize(bufferSize);
+
+		// -- Run partial critical path analysis
+		BottlenecksReport initialCp = cpAnalysis.run();
+		double cpLength = initialCp.getCpWeight();
+		report.setCpWeight(cpLength);
+
+		// -- Scheduled partial critical path analysis, contains also post-processing
+		// simulation
+		ScheduledPartialCriticalPathAnalysis cpAnalysisScheduled = new ScheduledPartialCriticalPathAnalysis(project);
+		cpAnalysisScheduled.setConfiguration(configuration);
+
+		// -- Get scheduled partial critical path analysis, and set necessary values to
+		// the report
+		BottlenecksWithSchedulingReport bottlenecksWithSchedulingReport = cpAnalysisScheduled.run();
+		double cpLengthScheduled = bottlenecksWithSchedulingReport.getCpWeight();
+		double scheduledExecutionTime = bottlenecksWithSchedulingReport.getExecutionTime();
+
+		report.setCpWeightScheduled(cpLengthScheduled);
+		report.setTime(scheduledExecutionTime);
+		report.setDeadlock(bottlenecksWithSchedulingReport.isDeadlock());
+
 		// -- Visit Partitions
 		Map<String, List<String>> pMap = partitioning.asPartitionActorsMap();
 
 		// -- Calculate workload for each actor
-		Map<Actor, Double> workload = calculateActorWorkloads();
+		processTrace();
 
 		for (String partId : pMap.keySet()) {
 			List<String> actorInstances = pMap.get(partId);
@@ -158,7 +180,7 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 			// -- Partition workload
 			long partitionWorkload = 0L;
 			for (Actor actor : partitionDatum.getActors()) {
-				partitionWorkload += workload.get(actor);
+				partitionWorkload += actorWorkloadMap.get(actor);
 			}
 
 			partitionDatum.setWorkload(partitionWorkload);
@@ -198,10 +220,10 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 
 			// -- END
 			// -- Add partitionDatum to partitionData
-			partitionData.add(partitionDatum);
+			report.getPartitionData().add(partitionDatum);
 		}
 
-		return generateReport(partitionData);
+		return report;
 	}
 
 }

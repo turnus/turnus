@@ -149,6 +149,8 @@
         eType="#//Buffer" eOpposite="#//Buffer/source"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//Actor"
         changeable="false" volatile="true" transient="true" derived="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//Type"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Buffer" eSuperTypes="common.ecore#//Attributable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"

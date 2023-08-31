@@ -977,6 +977,16 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * @generated
 	 */
 	@Override
+	public EReference getPort_Type() {
+		return (EReference)portEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getBuffer() {
 		return bufferEClass;
 	}
@@ -1338,6 +1348,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		createEReference(portEClass, PORT__INPUT);
 		createEReference(portEClass, PORT__OUTPUTS);
 		createEReference(portEClass, PORT__OWNER);
+		createEReference(portEClass, PORT__TYPE);
 
 		bufferEClass = createEClass(BUFFER);
 		createEReference(bufferEClass, BUFFER__SOURCE);
@@ -1529,6 +1540,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		initEReference(getPort_Input(), this.getBuffer(), this.getBuffer_Target(), "input", null, 0, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPort_Outputs(), this.getBuffer(), this.getBuffer_Source(), "outputs", null, 0, -1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPort_Owner(), this.getActor(), null, "owner", null, 0, 1, Port.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getPort_Type(), this.getType(), null, "type", null, 1, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(bufferEClass, Buffer.class, "Buffer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBuffer_Source(), this.getPort(), this.getPort_Outputs(), "source", null, 1, 1, Buffer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

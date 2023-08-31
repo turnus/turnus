@@ -519,7 +519,7 @@ public class Configuration {
 
 	@Override
 	public String toString() {
-		return "Exelixi-Configuration \"" + name + "\"";
+		return "Turnus-Configuration \"" + name + "\"";
 	}
 
 	/**

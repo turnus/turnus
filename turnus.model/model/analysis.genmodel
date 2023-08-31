@@ -435,6 +435,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/executionTime"/>
         <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/cpBlockingTime"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/cpPartitionsBlockingTime"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/deadlock"/>
       </genClasses>
       <genClasses ecoreClass="analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -697,6 +698,7 @@
         <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/cpWeight"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/time"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/deadlock"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/cpWeightScheduled"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Scheduling" basePackage="turnus.model.analysis" disposableProviderFactory="true"

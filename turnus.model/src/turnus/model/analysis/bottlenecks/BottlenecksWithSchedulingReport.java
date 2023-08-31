@@ -58,6 +58,7 @@ import turnus.model.dataflow.Network;
  *   <li>{@link turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport#getExecutionTime <em>Execution Time</em>}</li>
  *   <li>{@link turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport#getCpBlockingTime <em>Cp Blocking Time</em>}</li>
  *   <li>{@link turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport#getCpPartitionsBlockingTime <em>Cp Partitions Blocking Time</em>}</li>
+ *   <li>{@link turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport#isDeadlock <em>Deadlock</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.bottlenecks.BottlenecksPackage#getBottlenecksWithSchedulingReport()
@@ -226,5 +227,27 @@ public interface BottlenecksWithSchedulingReport extends AnalysisReport, PostPro
 	 * @generated
 	 */
 	Map<String, Double> getCpPartitionsBlockingTime();
+
+	/**
+	 * Returns the value of the '<em><b>Deadlock</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Deadlock</em>' attribute.
+	 * @see #setDeadlock(boolean)
+	 * @see turnus.model.analysis.bottlenecks.BottlenecksPackage#getBottlenecksWithSchedulingReport_Deadlock()
+	 * @model
+	 * @generated
+	 */
+	boolean isDeadlock();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport#isDeadlock <em>Deadlock</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Deadlock</em>' attribute.
+	 * @see #isDeadlock()
+	 * @generated
+	 */
+	void setDeadlock(boolean value);
 
 } // BottlenecksWithSchedulingReport

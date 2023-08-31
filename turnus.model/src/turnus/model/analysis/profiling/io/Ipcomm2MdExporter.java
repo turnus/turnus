@@ -44,9 +44,13 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 			b.append(String.format("* **Algorithm**: %s\n", data.getAlgorithm()));
 			b.append(String.format("* **Outgoing buffer are stored by source partition**: %s\n",
 					data.isOutgoingBufferOwnedBySource()));
+			b.append(String.format("* **Critical path weight**: %.2f\n", data.getCpWeight()));
+			b.append(String.format("* **Scheduled critical path weight**: %.2f\n", data.getCpWeightScheduled()));
+			b.append(String.format("* **Simulation time**: %.2f\n", data.getTime()));
+			b.append(String.format("* **Simulation deadlock**: %s\n", data.isDeadlock()));
 			b.append("\n");
 
-			b.append("# Overview\n");
+			b.append("# Summary\n");
 
 			// b.append("\n| || Overall ||||| Critical Path ||||| ");
 			b.append("\n|                      ||| <center>Memory</center>  ||| <center>Interface</center>  |||");

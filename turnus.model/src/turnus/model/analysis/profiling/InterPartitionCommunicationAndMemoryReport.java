@@ -55,6 +55,7 @@ import turnus.model.dataflow.Network;
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getCpWeight <em>Cp Weight</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getTime <em>Time</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#isDeadlock <em>Deadlock</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getCpWeightScheduled <em>Cp Weight Scheduled</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport()
@@ -150,11 +151,22 @@ public interface InterPartitionCommunicationAndMemoryReport extends AnalysisRepo
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Cp Weight</em>' attribute.
+	 * @see #setCpWeight(double)
 	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport_CpWeight()
-	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model required="true"
 	 * @generated
 	 */
 	double getCpWeight();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getCpWeight <em>Cp Weight</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Cp Weight</em>' attribute.
+	 * @see #getCpWeight()
+	 * @generated
+	 */
+	void setCpWeight(double value);
 
 	/**
 	 * Returns the value of the '<em><b>Time</b></em>' attribute.
@@ -199,5 +211,27 @@ public interface InterPartitionCommunicationAndMemoryReport extends AnalysisRepo
 	 * @generated
 	 */
 	void setDeadlock(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Cp Weight Scheduled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Cp Weight Scheduled</em>' attribute.
+	 * @see #setCpWeightScheduled(double)
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport_CpWeightScheduled()
+	 * @model required="true"
+	 * @generated
+	 */
+	double getCpWeightScheduled();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getCpWeightScheduled <em>Cp Weight Scheduled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Cp Weight Scheduled</em>' attribute.
+	 * @see #getCpWeightScheduled()
+	 * @generated
+	 */
+	void setCpWeightScheduled(double value);
 
 } // InterPartitionCommunicationAndMemoryReport

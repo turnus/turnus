@@ -714,6 +714,16 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 	 * @generated
 	 */
 	@Override
+	public EAttribute getBottlenecksWithSchedulingReport_Deadlock() {
+		return (EAttribute)bottlenecksWithSchedulingReportEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getActionBottlenecksWithSchedulingData() {
 		return actionBottlenecksWithSchedulingDataEClass;
 	}
@@ -1014,6 +1024,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 		createEAttribute(bottlenecksWithSchedulingReportEClass, BOTTLENECKS_WITH_SCHEDULING_REPORT__EXECUTION_TIME);
 		createEAttribute(bottlenecksWithSchedulingReportEClass, BOTTLENECKS_WITH_SCHEDULING_REPORT__CP_BLOCKING_TIME);
 		createEReference(bottlenecksWithSchedulingReportEClass, BOTTLENECKS_WITH_SCHEDULING_REPORT__CP_PARTITIONS_BLOCKING_TIME);
+		createEAttribute(bottlenecksWithSchedulingReportEClass, BOTTLENECKS_WITH_SCHEDULING_REPORT__DEADLOCK);
 
 		actionBottlenecksWithSchedulingDataEClass = createEClass(ACTION_BOTTLENECKS_WITH_SCHEDULING_DATA);
 		createEReference(actionBottlenecksWithSchedulingDataEClass, ACTION_BOTTLENECKS_WITH_SCHEDULING_DATA__ACTION);
@@ -1131,6 +1142,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 		initEAttribute(getBottlenecksWithSchedulingReport_ExecutionTime(), ecorePackage.getEDouble(), "executionTime", null, 1, 1, BottlenecksWithSchedulingReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBottlenecksWithSchedulingReport_CpBlockingTime(), ecorePackage.getEDouble(), "cpBlockingTime", null, 1, 1, BottlenecksWithSchedulingReport.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getBottlenecksWithSchedulingReport_CpPartitionsBlockingTime(), theMapPackage.getStringToDoubleMap(), null, "cpPartitionsBlockingTime", null, 0, -1, BottlenecksWithSchedulingReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBottlenecksWithSchedulingReport_Deadlock(), ecorePackage.getEBoolean(), "deadlock", null, 0, 1, BottlenecksWithSchedulingReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(actionBottlenecksWithSchedulingDataEClass, ActionBottlenecksWithSchedulingData.class, "ActionBottlenecksWithSchedulingData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getActionBottlenecksWithSchedulingData_Action(), theDataflowPackage.getAction(), null, "action", null, 0, 1, ActionBottlenecksWithSchedulingData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -616,13 +616,22 @@ public interface BottlenecksPackage extends EPackage {
 	int BOTTLENECKS_WITH_SCHEDULING_REPORT__CP_PARTITIONS_BLOCKING_TIME = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Deadlock</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOTTLENECKS_WITH_SCHEDULING_REPORT__DEADLOCK = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 9;
+
+	/**
 	 * The number of structural features of the '<em>With Scheduling Report</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BOTTLENECKS_WITH_SCHEDULING_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 9;
+	int BOTTLENECKS_WITH_SCHEDULING_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of operations of the '<em>With Scheduling Report</em>' class.
@@ -1371,6 +1380,17 @@ public interface BottlenecksPackage extends EPackage {
 	EReference getBottlenecksWithSchedulingReport_CpPartitionsBlockingTime();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport#isDeadlock <em>Deadlock</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Deadlock</em>'.
+	 * @see turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport#isDeadlock()
+	 * @see #getBottlenecksWithSchedulingReport()
+	 * @generated
+	 */
+	EAttribute getBottlenecksWithSchedulingReport_Deadlock();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.bottlenecks.ActionBottlenecksWithSchedulingData <em>Action Bottlenecks With Scheduling Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1997,6 +2017,14 @@ public interface BottlenecksPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BOTTLENECKS_WITH_SCHEDULING_REPORT__CP_PARTITIONS_BLOCKING_TIME = eINSTANCE.getBottlenecksWithSchedulingReport_CpPartitionsBlockingTime();
+
+		/**
+		 * The meta object literal for the '<em><b>Deadlock</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BOTTLENECKS_WITH_SCHEDULING_REPORT__DEADLOCK = eINSTANCE.getBottlenecksWithSchedulingReport_Deadlock();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.bottlenecks.impl.ActionBottlenecksWithSchedulingDataImpl <em>Action Bottlenecks With Scheduling Data</em>}' class.

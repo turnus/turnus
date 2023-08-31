@@ -79,6 +79,7 @@ import turnus.model.dataflow.Network;
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getCpWeight <em>Cp Weight</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getTime <em>Time</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#isDeadlock <em>Deadlock</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getCpWeightScheduled <em>Cp Weight Scheduled</em>}</li>
  * </ul>
  *
  * @generated
@@ -195,6 +196,16 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	protected static final double CP_WEIGHT_EDEFAULT = 0.0;
 
 	/**
+	 * The cached value of the '{@link #getCpWeight() <em>Cp Weight</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCpWeight()
+	 * @generated
+	 * @ordered
+	 */
+	protected double cpWeight = CP_WEIGHT_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getTime() <em>Time</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -233,6 +244,26 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * @ordered
 	 */
 	protected boolean deadlock = DEADLOCK_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCpWeightScheduled() <em>Cp Weight Scheduled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCpWeightScheduled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double CP_WEIGHT_SCHEDULED_EDEFAULT = 0.0;
+
+	/**
+	 * The cached value of the '{@link #getCpWeightScheduled() <em>Cp Weight Scheduled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCpWeightScheduled()
+	 * @generated
+	 * @ordered
+	 */
+	protected double cpWeightScheduled = CP_WEIGHT_SCHEDULED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -408,9 +439,20 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 */
 	@Override
 	public double getCpWeight() {
-		// TODO: implement this method to return the 'Cp Weight' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return cpWeight;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setCpWeight(double newCpWeight) {
+		double oldCpWeight = cpWeight;
+		cpWeight = newCpWeight;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT, oldCpWeight, cpWeight));
 	}
 
 	/**
@@ -465,6 +507,29 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * @generated
 	 */
 	@Override
+	public double getCpWeightScheduled() {
+		return cpWeightScheduled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setCpWeightScheduled(double newCpWeightScheduled) {
+		double oldCpWeightScheduled = cpWeightScheduled;
+		cpWeightScheduled = newCpWeightScheduled;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED, oldCpWeightScheduled, cpWeightScheduled));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA:
@@ -508,6 +573,8 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 				return getTime();
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK:
 				return isDeadlock();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED:
+				return getCpWeightScheduled();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -543,11 +610,17 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP:
 				((EStructuralFeature.Setting)((EMap.InternalMapView<Actor, String>)getActorPartitionMap()).eMap()).set(newValue);
 				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT:
+				setCpWeight((Double)newValue);
+				return;
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__TIME:
 				setTime((Double)newValue);
 				return;
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK:
 				setDeadlock((Boolean)newValue);
+				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED:
+				setCpWeightScheduled((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -582,11 +655,17 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP:
 				getActorPartitionMap().clear();
 				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT:
+				setCpWeight(CP_WEIGHT_EDEFAULT);
+				return;
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__TIME:
 				setTime(TIME_EDEFAULT);
 				return;
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK:
 				setDeadlock(DEADLOCK_EDEFAULT);
+				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED:
+				setCpWeightScheduled(CP_WEIGHT_SCHEDULED_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -615,11 +694,13 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__ACTOR_PARTITION_MAP:
 				return actorPartitionMap != null && !actorPartitionMap.isEmpty();
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT:
-				return getCpWeight() != CP_WEIGHT_EDEFAULT;
+				return cpWeight != CP_WEIGHT_EDEFAULT;
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__TIME:
 				return time != TIME_EDEFAULT;
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK:
 				return deadlock != DEADLOCK_EDEFAULT;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED:
+				return cpWeightScheduled != CP_WEIGHT_SCHEDULED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

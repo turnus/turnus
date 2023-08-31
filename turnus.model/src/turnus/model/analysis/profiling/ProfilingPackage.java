@@ -646,13 +646,22 @@ public interface ProfilingPackage extends EPackage {
 	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 7;
 
 	/**
+	 * The feature id for the '<em><b>Cp Weight Scheduled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 8;
+
+	/**
 	 * The number of structural features of the '<em>Inter Partition Communication And Memory Report</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 8;
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of operations of the '<em>Inter Partition Communication And Memory Report</em>' class.
@@ -1131,6 +1140,17 @@ public interface ProfilingPackage extends EPackage {
 	EAttribute getInterPartitionCommunicationAndMemoryReport_Deadlock();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getCpWeightScheduled <em>Cp Weight Scheduled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cp Weight Scheduled</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getCpWeightScheduled()
+	 * @see #getInterPartitionCommunicationAndMemoryReport()
+	 * @generated
+	 */
+	EAttribute getInterPartitionCommunicationAndMemoryReport_CpWeightScheduled();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1510,6 +1530,14 @@ public interface ProfilingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_Deadlock();
+
+		/**
+		 * The meta object literal for the '<em><b>Cp Weight Scheduled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_CpWeightScheduled();
 
 	}
 
