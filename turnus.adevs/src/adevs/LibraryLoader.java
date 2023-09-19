@@ -64,10 +64,12 @@ public class LibraryLoader {
 				loadFile("libjava_adevs.so");
 			} else if (SystemUtils.IS_OS_MAC_OSX) {
 				loadFile("libjava_adevs.dylib");
-			}else {
+			} else if (SystemUtils.IS_OS_WINDOWS) {
+				loadFile("java_adevs.dll");
+			} else {
 				throw new TurnusRuntimeException("ADEVS is not supported on this OS.");
 			}
-			
+
 //			System.loadLibrary("java_adevs"); this shouldn't be needed ?
 		} catch (Exception e) {
 			throw new TurnusRuntimeException("ADEVS libraries cannot be loaded");

@@ -3,6 +3,10 @@ package turnus.model.analysis.profiling.io;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
@@ -14,6 +18,7 @@ import turnus.common.util.StringUtils;
 import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
 import turnus.model.analysis.profiling.InterPartitionData;
 import turnus.model.analysis.profiling.util.MemoryAndBuffers;
+import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
 
@@ -52,12 +57,22 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 			b.append("\n");
 
 			b.append("# Summary\n");
+			
+			List<InterPartitionData> sortedList = new ArrayList<>(data.getPartitionData());
+			Collections.sort(sortedList, new Comparator<InterPartitionData>() {
+
+				@Override
+				public int compare(InterPartitionData o1, InterPartitionData o2) {
+					
+					return Integer.compare(o2.getActors().size(), o1.getActors().size());
+				}
+			});
 
 			// b.append("\n| || Overall ||||| Critical Path ||||| ");
 			b.append("\n|                      ||| <center>Memory</center>  ||| <center>Interface</center>  |||");
 			b.append("\n| Partition | Workload | # Actors | *Actors*| *Channels* | Total | Incoming | Outgoing |");
 			b.append("\n|---        |--:       |--:       |--:    |--:      |--:    |--:       |--:       |");
-			for (InterPartitionData datum : data.getPartitionData()) {
+			for (InterPartitionData datum : sortedList) {
 				b.append(String.format("\n|%s     | %.2f     | %d       | %s    | %s      | %s    |  %s      | %s     ", //
 						datum.getPartitionId(), //
 						datum.getWorkload(), //
