@@ -78,9 +78,8 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 
 	private Map<Buffer, Long> bufferMaxIncomingBitsMap;
 	private Map<Buffer, Long> bufferMaxOutgoingBitsMap;
-	
+
 	private TraceDecorator decorator;
-	
 
 	public InterPartitionCommunicationAndMemoryAnalysis(TraceProject project, TraceWeighter weighter,
 			BufferSize bufferSize, NetworkPartitioning partitioning, boolean outgoingBufferOwnedBySource) {
@@ -93,18 +92,17 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		this.actorWorkloadMap = new HashMap<Actor, Double>();
 		this.bufferMaxIncomingBitsMap = new HashMap<>();
 		this.bufferMaxOutgoingBitsMap = new HashMap<>();
-		
-		
+
 		this.decorator = project.getTraceDecorator();
 	}
 
 	private void processTrace() {
-		
-		for(Buffer buffer : project.getNetwork().getBuffers()) {
+
+		for (Buffer buffer : project.getNetwork().getBuffers()) {
 			bufferMaxIncomingBitsMap.put(buffer, 0L);
 			bufferMaxOutgoingBitsMap.put(buffer, 0L);
 		}
-		
+
 		for (Actor actor : project.getNetwork().getActors()) {
 			Iterator<Step> steps = project.getTrace().getSteps(Order.INCREASING_ID, actor.getName()).iterator();
 			double sum = 0;
@@ -126,7 +124,7 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 						bufferMaxOutgoingBitsMap.put(entry.getKey(), neccessaryBitsPerWrtie);
 					}
 				}
-				
+
 				sum += weighter.getWeight(next);
 			}
 			actorWorkloadMap.put(actor, sum);
@@ -212,18 +210,16 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 			}
 
 			// -- Partition maxIncomingData
-			List<Buffer> incomingBuffers = MemoryAndBuffers
-					.getIncomingBuffersOfPartition(partitionDatum.getActors());
+			List<Buffer> incomingBuffers = MemoryAndBuffers.getIncomingBuffersOfPartition(partitionDatum.getActors());
 			Long maxIncomingData = 0L;
-			for(Buffer buffer : incomingBuffers) {
+			for (Buffer buffer : incomingBuffers) {
 				if (bufferMaxIncomingBitsMap.get(buffer) > maxIncomingData) {
 					maxIncomingData = bufferMaxIncomingBitsMap.get(buffer);
 				}
 			}
-			
+
 			// -- Partition maxOutgoingData
-			List<Buffer> outgoingBuffers = MemoryAndBuffers
-					.getOutgoingBuffersOfPartition(partitionDatum.getActors());
+			List<Buffer> outgoingBuffers = MemoryAndBuffers.getOutgoingBuffersOfPartition(partitionDatum.getActors());
 			Long maxOutgoingData = 0L;
 			for (Buffer buffer : outgoingBuffers) {
 				if (bufferMaxOutgoingBitsMap.get(buffer) > maxOutgoingData) {
@@ -249,19 +245,14 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 				internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
 			}
 
-			// -- Check if the owner of the incoming/outgoing is the current partition
-			if (outgoingBufferOwnedBySource) {
+			partitionDatum.getOutgoingBuffers().addAll(outgoingBuffers);
+			for (Buffer buffer : outgoingBuffers) {
+				internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
+			}
 
-				partitionDatum.getExternalBuffers().addAll(outgoingBuffers);
-				for (Buffer buffer : outgoingBuffers) {
-					internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
-				}
-			} else {
-				
-				partitionDatum.getExternalBuffers().addAll(incomingBuffers);
-				for (Buffer buffer : incomingBuffers) {
-					internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
-				}
+			partitionDatum.getIncomingBuffers().addAll(incomingBuffers);
+			for (Buffer buffer : incomingBuffers) {
+				internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
 			}
 
 			// -- Set partition persistent actors memory and buffers

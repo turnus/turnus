@@ -53,9 +53,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import turnus.adevs.logging.DataCollector;
 import turnus.adevs.simulation.SimEngine;
 import turnus.analysis.Analysis;
 import turnus.analysis.bottlenecks.ScheduledPartialCriticalPathAnalysis;
+import turnus.analysis.bottlenecks.util.CriticalPathCollector;
 import turnus.common.TurnusException;
 import turnus.common.io.Logger;
 import turnus.model.analysis.bottlenecks.ActionBottlenecksWithSchedulingData;
@@ -66,6 +68,7 @@ import turnus.model.analysis.buffers.BoundedBuffersReport;
 import turnus.model.analysis.buffers.BuffersFactory;
 import turnus.model.analysis.buffers.OptimalBufferData;
 import turnus.model.analysis.buffers.OptimalBuffersReport;
+import turnus.model.analysis.postprocessing.PostProcessingReport;
 import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
@@ -89,7 +92,7 @@ import turnus.model.trace.weighter.WeighterUtils;
  * @author Malgorzata Michalska
  */
 public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersReport> {
-	
+
 	/**
 	 * Top - down approach.
 	 */
@@ -132,33 +135,33 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 				throw new TurnusException("Mapping file is not valid", e);
 			}
 		}
-		
+
 		if (configuration.hasValue(COMMUNICATION_WEIGHTS)) {
 			File communicationWeightsFile = configuration.getValue(COMMUNICATION_WEIGHTS);
 			XmlCommunicationWeightReader reader = new XmlCommunicationWeightReader(project.getNetwork());
 			communication = reader.load(communicationWeightsFile);
-			
+
 			if (configuration.hasValue(WRITE_HIT_CONSTANT)) {
 				communication.setWriteHitConstant(configuration.getValue(WRITE_HIT_CONSTANT));
 			}
 			if (configuration.hasValue(WRITE_MISS_CONSTANT)) {
 				communication.setWriteMissConstant(configuration.getValue(WRITE_MISS_CONSTANT));
 			}
-		} 
-		
+		}
+
 		if (configuration.hasValue(SCHEDULING_WEIGHTS)) {
 			File schWeightsFile = configuration.getValue(SCHEDULING_WEIGHTS);
 			scheduling = new XmlSchedulingWeightReader().load(schWeightsFile);
-		} 
+		}
 
 		if (!project.isTraceLoaded()) {
 			project.loadTrace(new SplittedTraceLoader(), configuration);
 		}
-		
+
 		BufferSize maxBufferConfiguration = null;
 		BuffersFactory f = BuffersFactory.eINSTANCE;
 		OptimalBuffersReport report = f.createOptimalBuffersReport();
-		
+
 		SimEngine simulation = new SimEngine();
 		simulation.setTraceProject(project);
 		simulation.setTraceWeighter(weighter);
@@ -167,40 +170,41 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 		simulation.setNetworkPartitioning(partitioning);
 		if (configuration.getValue(RELEASE_BUFFERS_AFTER_PROCESSING))
 			simulation.setReleaseAfterProcessing();
-		
+
 		if (configuration.hasValue(BUFFER_SIZE_FILE)) {
 			// load initial buffer configuration
 			File bufferFile = configuration.getValue(BUFFER_SIZE_FILE);
 			XmlBufferSizeReader reader = new XmlBufferSizeReader();
 			maxBufferConfiguration = reader.load(bufferFile);
-		}
-		else {
+		} else {
 			// run TP with unbounded buffer to get the buffer sizes
 			maxBufferConfiguration = new BufferSize(network);
 			maxBufferConfiguration.setDefaultSize(Integer.MAX_VALUE);
 			simulation.setBufferSize(maxBufferConfiguration);
 			double time = simulation.run().getTime();
 			maxBufferConfiguration = simulation.getMaxBufferSizeRecorded();
-			
-			// used to store the maximal configuration in a file (in case we want to load from file next time)
+
+			// used to store the maximal configuration in a file (in case we want to load
+			// from file next time)
 			BoundedBuffersReport newData = getNewBufferData(maxBufferConfiguration);
 			OptimalBufferData data = f.createOptimalBufferData();
 			data.setBufferData(newData);
-			BottlenecksWithSchedulingReport pcpData = BottlenecksFactory.eINSTANCE.createBottlenecksWithSchedulingReport();
+			BottlenecksWithSchedulingReport pcpData = BottlenecksFactory.eINSTANCE
+					.createBottlenecksWithSchedulingReport();
 			pcpData.setExecutionTime(time);
 			data.setBottlenecksData(pcpData);
 			report.getBuffersData().add(data);
 		}
-		
+
 		BoundedBuffersReport minimalBufferData = null;
-		BufferSize minBufferConfiguration = null;	
+		BufferSize minBufferConfiguration = null;
 		// evaluate the minimal non-blocking buffer size
 		Logger.info("Evaluate the minimal buffer size configuration");
 		BoundedBufferAnalysis boundedBufferAnalysis = new BoundedBufferAnalysis(project);
 		boundedBufferAnalysis.setConfiguration(configuration);
 		minimalBufferData = boundedBufferAnalysis.run();
 		minBufferConfiguration = minimalBufferData.asBufferSize();
-		
+
 		// replace max conf with min conf, if min conf > max conf
 		// it guarantees deadlock free execution in next iterations
 		for (Buffer buffer : network.getBuffers()) {
@@ -208,7 +212,7 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 				maxBufferConfiguration.setSize(buffer, minBufferConfiguration.getSize(buffer));
 			}
 		}
-		
+
 		// store the initial configuration in a report
 		BoundedBuffersReport initialBufferData = f.createBoundedBuffersReport();
 		initialBufferData.setAlgorithm("Optimal buffer size evaluation");
@@ -223,7 +227,7 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 			data.setTokenSize(maxBufferConfiguration.getSize(buffer));
 			initialBufferData.getBuffersData().add(data);
 		}
-		
+
 		// setup the bottlenecks analysis
 		Logger.info("Evaluate the initial bottlenecks");
 		ScheduledPartialCriticalPathAnalysis pcpAnalysis = new ScheduledPartialCriticalPathAnalysis(project);
@@ -232,7 +236,7 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 		pcpAnalysis.setWeighter(weighter);
 		pcpAnalysis.setCommunicationWeight(communication);
 		pcpAnalysis.setConfiguration(configuration);
-		
+
 		// evaluate the initial bottlenecks
 		BottlenecksWithSchedulingReport initialPcpData = pcpAnalysis.run();
 		double initialExecutionTime = initialPcpData.getExecutionTime();
@@ -249,7 +253,7 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 		report.setNetwork(network);
 		report.setInitialBottlenecks(initialPcpData);
 		report.setInitialBufferConfiguration(initialBufferData);
-		
+
 		// extract the critical buffers
 		List<Buffer> criticalBuffers = new ArrayList<Buffer>();
 		Map<Buffer, Double> criticalBuffersWeights = new HashMap<Buffer, Double>();
@@ -258,7 +262,8 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 				Action criticalAction = data.getAction();
 				for (Buffer buffer : network.getBuffers()) {
 					if (criticalAction.getOutputPorts().contains(buffer.getSource())) {
-						double value = criticalBuffersWeights.containsKey(buffer) ? criticalBuffersWeights.get(buffer) : 0;
+						double value = criticalBuffersWeights.containsKey(buffer) ? criticalBuffersWeights.get(buffer)
+								: 0;
 						criticalBuffersWeights.put(buffer, data.getCpWeight() + value);
 						if (!criticalBuffers.contains(buffer))
 							criticalBuffers.add(buffer);
@@ -266,47 +271,64 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 				}
 			}
 		}
-		
-		Collections.sort(criticalBuffers, getBuffersByCpWeight(criticalBuffersWeights)); // smallest cp weight difference first
+
+		Collections.sort(criticalBuffers, getBuffersByCpWeight(criticalBuffersWeights)); // smallest cp weight
+																							// difference first
 
 		System.out.println("Critical buffers:");
 		for (Buffer b : criticalBuffers) {
-			System.out.println(b + ", min: " + minBufferConfiguration.getSize(b) + ", max: " + maxBufferConfiguration.getSize(b) + ", cp weight: " + criticalBuffersWeights.get(b));
+			System.out.println(b + ", min: " + minBufferConfiguration.getSize(b) + ", max: "
+					+ maxBufferConfiguration.getSize(b) + ", cp weight: " + criticalBuffersWeights.get(b));
 		}
-		
+
 		// extract the non-critical buffers
 		List<Buffer> nonCriticalBuffers = new ArrayList<Buffer>();
 		for (Buffer b : network.getBuffers()) {
 			nonCriticalBuffers.add(b);
 		}
 		nonCriticalBuffers.removeAll(criticalBuffers);
-		
-		Collections.sort(nonCriticalBuffers, getBuffersBySizeDiff(maxBufferConfiguration, minBufferConfiguration)); // biggest max - min difference first
-			
+
+		Collections.sort(nonCriticalBuffers, getBuffersBySizeDiff(maxBufferConfiguration, minBufferConfiguration)); // biggest
+																													// max
+																													// -
+																													// min
+																													// difference
+																													// first
+
 		System.out.println("Non-critical buffers:");
 		for (Buffer b : nonCriticalBuffers) {
-			System.out.println(b + ", min: " + minBufferConfiguration.getSize(b) + ", max: " + maxBufferConfiguration.getSize(b));
+			System.out.println(
+					b + ", min: " + minBufferConfiguration.getSize(b) + ", max: " + maxBufferConfiguration.getSize(b));
 		}
-			
+
 		BufferSize newBufferConfiguration = maxBufferConfiguration.clone();
 		double finalExecutionTime = initialExecutionTime;
-				
-		// STEP 1: try to divide the size of non-critical buffers by 2	
+
+		// STEP 1: try to divide the size of non-critical buffers by 2
 		Logger.info("Step 1: non-critical buffers reduced.");
 		for (Buffer buffer : nonCriticalBuffers) {
+
 			if (iteration < maxIterations) {
+				List<DataCollector> registeredCollectors = new ArrayList<>();
 				while (newBufferConfiguration.getSize(buffer) >= 2 * minBufferConfiguration.getSize(buffer)) {
 					if (iteration >= maxIterations) {
 						Logger.info("Maximum number of iterations reached");
 						break;
 					}
+					CriticalPathCollector cpCollector = new CriticalPathCollector(project.getNetwork(), partitioning);
+					registeredCollectors.add(cpCollector);
+					for (DataCollector collector : registeredCollectors) {
+						simulation.addDataCollector(collector);
+					}
 					newBufferConfiguration.setSize(buffer, newBufferConfiguration.getSize(buffer) / 2);
 					simulation.setBufferSize(newBufferConfiguration);
-					double newExecutionTime = simulation.run().getTime(); // evaluate the new time
+					PostProcessingReport ppReport = simulation.run();
+					double newExecutionTime = ppReport.getTime(); // evaluate the new time
 					iteration++;
 					if (newExecutionTime > initialExecutionTime || simulation.isDeadlocked()) { // revert the move
 						Logger.info("Optimal buffer size iteration %d", iteration);
-						Logger.info("Reduced buffer:\n" + buffer + " , new size :: " + newBufferConfiguration.getSize(buffer) + ", REVERTED");
+						Logger.info("Reduced buffer:\n" + buffer + " , new size :: "
+								+ newBufferConfiguration.getSize(buffer) + ", REVERTED");
 						newBufferConfiguration.setSize(buffer, newBufferConfiguration.getSize(buffer) * 2);
 						break;
 					} else {
@@ -316,36 +338,54 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 						OptimalBufferData data = f.createOptimalBufferData();
 						data.setBufferData(newData);
 						// store execution time only (no critical path analysis)
-						BottlenecksWithSchedulingReport pcpData = BottlenecksFactory.eINSTANCE.createBottlenecksWithSchedulingReport();
-						pcpData.setExecutionTime(finalExecutionTime);
+						// BottlenecksWithSchedulingReport pcpData =
+						// BottlenecksFactory.eINSTANCE.createBottlenecksWithSchedulingReport();
+
+						BottlenecksWithSchedulingReport pcpData = ppReport
+								.getReport(BottlenecksWithSchedulingReport.class);
+						pcpData.setDeadlock(simulation.isDeadlocked());
+
+						// pcpData.setExecutionTime(finalExecutionTime);
+
 						data.setBottlenecksData(pcpData);
 						report.getBuffersData().add(data);
-								
-						double reduction = (1 - ((double) initialBufferData.getTokenSize()) / newData.getTokenSize()) * 100.0;
-						Logger.info("Optimal buffer size iteration %d, Buffer size reduction (tokens): %s ", iteration, format(reduction) + "%");
-						Logger.info("Reduced buffer:\n" + buffer + " , new size :: " + newBufferConfiguration.getSize(buffer));
+
+						double reduction = (1 - ((double) initialBufferData.getTokenSize()) / newData.getTokenSize())
+								* 100.0;
+						Logger.info("Optimal buffer size iteration %d, Buffer size reduction (tokens): %s ", iteration,
+								format(reduction) + "%");
+						Logger.info("Reduced buffer:\n" + buffer + " , new size :: "
+								+ newBufferConfiguration.getSize(buffer));
 					}
 				}
 			}
 		}
-		
-		// STEP 2: try to divide the size of critical buffers by 2	
+
+		// STEP 2: try to divide the size of critical buffers by 2
 		if (iteration < maxIterations) {
 			Logger.info("Step 2: critical buffers reduced.");
+			List<DataCollector> registeredCollectors = new ArrayList<>();
 			for (Buffer buffer : criticalBuffers) {
-				if (iteration < maxIterations) {	
+				if (iteration < maxIterations) {
 					while (newBufferConfiguration.getSize(buffer) >= 2 * minBufferConfiguration.getSize(buffer)) {
 						if (iteration >= maxIterations) {
 							Logger.info("Maximum number of iterations reached");
 							break;
 						}
+						CriticalPathCollector cpCollector = new CriticalPathCollector(project.getNetwork(),
+								partitioning);
+						registeredCollectors.add(cpCollector);
+						for (DataCollector collector : registeredCollectors) {
+							simulation.addDataCollector(collector);
+						}
 						newBufferConfiguration.setSize(buffer, newBufferConfiguration.getSize(buffer) / 2);
 						simulation.setBufferSize(newBufferConfiguration);
-						double newExecutionTime = simulation.run().getTime(); // evaluate the new time
-						iteration++;
+						PostProcessingReport ppReport = simulation.run();
+						double newExecutionTime = ppReport.getTime(); // evaluate the new time iteration++;
 						if (newExecutionTime > initialExecutionTime || simulation.isDeadlocked()) { // revert the move
 							Logger.info("Optimal buffer size iteration %d", iteration);
-							Logger.info("Reduced buffer:\n" + buffer + " , new size :: " + newBufferConfiguration.getSize(buffer) + ", REVERTED");
+							Logger.info("Reduced buffer:\n" + buffer + " , new size :: "
+									+ newBufferConfiguration.getSize(buffer) + ", REVERTED");
 							newBufferConfiguration.setSize(buffer, newBufferConfiguration.getSize(buffer) * 2);
 							break;
 						} else {
@@ -355,23 +395,34 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 							OptimalBufferData data = f.createOptimalBufferData();
 							data.setBufferData(newData);
 							// store execution time only (no critical path analysis)
-							BottlenecksWithSchedulingReport pcpData = BottlenecksFactory.eINSTANCE.createBottlenecksWithSchedulingReport();
-							pcpData.setExecutionTime(finalExecutionTime);
+							BottlenecksWithSchedulingReport pcpData = ppReport
+									.getReport(BottlenecksWithSchedulingReport.class);
+							pcpData.setDeadlock(simulation.isDeadlocked());
+
+							// BottlenecksWithSchedulingReport pcpData =
+							// BottlenecksFactory.eINSTANCE.createBottlenecksWithSchedulingReport();
+							// pcpData.setExecutionTime(finalExecutionTime);
+
 							data.setBottlenecksData(pcpData);
 							report.getBuffersData().add(data);
-											
-							double reduction = (1 - ((double) initialBufferData.getTokenSize()) / newData.getTokenSize()) * 100.0;
-							Logger.info("Optimal buffer size iteration %d, Buffer size reduction (tokens): %s ", iteration, format(reduction) + "%");
-							Logger.info("Reduced buffer:\n" + buffer + " , new size :: " + newBufferConfiguration.getSize(buffer));
+
+							double reduction = (1
+									- ((double) initialBufferData.getTokenSize()) / newData.getTokenSize()) * 100.0;
+							Logger.info("Optimal buffer size iteration %d, Buffer size reduction (tokens): %s ",
+									iteration, format(reduction) + "%");
+							Logger.info("Reduced buffer:\n" + buffer + " , new size :: "
+									+ newBufferConfiguration.getSize(buffer));
 						}
 					}
 				}
 			}
 		}
-		
-		// STEP 3: allow reduction (ALL buffers) if reduction % is bigger than time increase %
+
+		// STEP 3: allow reduction (ALL buffers) if reduction % is bigger than time
+		// increase %
 		if (iteration < maxIterations) {
 			Logger.info("Step 3: all buffers reduced, if % size reduction > % performance drop.");
+			List<DataCollector> registeredCollectors = new ArrayList<>();
 			for (Buffer buffer : network.getBuffers()) {
 				if (iteration < maxIterations) {
 					while (newBufferConfiguration.getSize(buffer) >= 2 * minBufferConfiguration.getSize(buffer)) {
@@ -380,18 +431,27 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 							break;
 						}
 						BoundedBuffersReport oldData = getNewBufferData(newBufferConfiguration);
+						CriticalPathCollector cpCollector = new CriticalPathCollector(project.getNetwork(),
+								partitioning);
+						registeredCollectors.add(cpCollector);
+						for (DataCollector collector : registeredCollectors) {
+							simulation.addDataCollector(collector);
+						}
 						newBufferConfiguration.setSize(buffer, newBufferConfiguration.getSize(buffer) / 2);
 						simulation.setBufferSize(newBufferConfiguration);
-						double newExecutionTime = simulation.run().getTime(); // evaluate the new time
-						
+						PostProcessingReport ppReport = simulation.run();
+
+						double newExecutionTime = ppReport.getTime(); // evaluate the new time
+
 						BoundedBuffersReport newData = getNewBufferData(newBufferConfiguration);
 						double reductionIt = (1 - ((double) oldData.getTokenSize()) / newData.getTokenSize()) * 100.0;
-						double timeIncreaseIt = ((double) newExecutionTime / finalExecutionTime - 1) * 100.0; 
-						
+						double timeIncreaseIt = ((double) newExecutionTime / finalExecutionTime - 1) * 100.0;
+
 						iteration++;
 						if (timeIncreaseIt > reductionIt * (-1) || simulation.isDeadlocked()) { // revert the move
 							Logger.info("Optimal buffer size iteration %d", iteration);
-							Logger.info("Reduced buffer:\n" + buffer + " , new size :: " + newBufferConfiguration.getSize(buffer) + ", REVERTED");
+							Logger.info("Reduced buffer:\n" + buffer + " , new size :: "
+									+ newBufferConfiguration.getSize(buffer) + ", REVERTED");
 							newBufferConfiguration.setSize(buffer, newBufferConfiguration.getSize(buffer) * 2);
 							break;
 						} else {
@@ -400,65 +460,70 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 							OptimalBufferData data = f.createOptimalBufferData();
 							data.setBufferData(newData);
 							// store execution time only (no critical path analysis)
-							BottlenecksWithSchedulingReport pcpData = BottlenecksFactory.eINSTANCE.createBottlenecksWithSchedulingReport();
-							pcpData.setExecutionTime(finalExecutionTime);
+
+							BottlenecksWithSchedulingReport pcpData = ppReport
+									.getReport(BottlenecksWithSchedulingReport.class);
+							pcpData.setDeadlock(simulation.isDeadlocked());
+							// BottlenecksWithSchedulingReport pcpData =
+							// BottlenecksFactory.eINSTANCE.createBottlenecksWithSchedulingReport();
+							// pcpData.setExecutionTime(finalExecutionTime);
+
 							data.setBottlenecksData(pcpData);
 							report.getBuffersData().add(data);
-							
-							double reductionTotal = (1 - ((double) initialBufferData.getTokenSize()) / newData.getTokenSize()) * 100.0;
-							Logger.info("Optimal buffer size iteration %d, Buffer size reduction (tokens): %s ", iteration, format(reductionTotal) + "%");
-							Logger.info("Reduced buffer:\n" + buffer + " , new size :: " + newBufferConfiguration.getSize(buffer));
+
+							double reductionTotal = (1
+									- ((double) initialBufferData.getTokenSize()) / newData.getTokenSize()) * 100.0;
+							Logger.info("Optimal buffer size iteration %d, Buffer size reduction (tokens): %s ",
+									iteration, format(reductionTotal) + "%");
+							Logger.info("Reduced buffer:\n" + buffer + " , new size :: "
+									+ newBufferConfiguration.getSize(buffer));
 						}
 					}
 				}
 			}
 		}
-		
+
 		if (iteration < maxIterations)
 			Logger.info("All possible reductions applied.");
-		
+
 		return report;
 	}
-	
-	public Comparator<Buffer> getBuffersBySizeDiff(BufferSize max, BufferSize min)
-	{   
-	 Comparator<Buffer> comp = new Comparator<Buffer>(){
-	     @Override
-	     public int compare(Buffer b1, Buffer b2)
-	     {
-	    	 int sizeDiff1 = max.getSize(b1) - min.getSize(b1);
-	    	 int sizeDiff2 = max.getSize(b2) - min.getSize(b2);
-	    	
-	    	 if (sizeDiff1 > sizeDiff2)
-	    		 return -1;
-	    	 else if (sizeDiff1 == sizeDiff2)
-	    		 return 0;
-	    	 else
-	    		 return 1; // from biggest to smallest
-	     }        
-	 };
-	 return comp;
-	}  
-	
-	public Comparator<Buffer> getBuffersByCpWeight(Map<Buffer, Double> buffers)
-	{   
-	 Comparator<Buffer> comp = new Comparator<Buffer>(){
-	     @Override
-	     public int compare(Buffer b1, Buffer b2)
-	     {
-	    	 double value1 = buffers.get(b1);
-	    	 double value2 = buffers.get(b2);
-	    	
-	    	 if (value1 > value2)
-	    		 return 1;
-	    	 else if (value1 == value2)
-	    		 return 0;
-	    	 else
-	    		 return -1; // from smallest to biggest
-	     }        
-	 };
-	 return comp;
-	}  
+
+	public Comparator<Buffer> getBuffersBySizeDiff(BufferSize max, BufferSize min) {
+		Comparator<Buffer> comp = new Comparator<Buffer>() {
+			@Override
+			public int compare(Buffer b1, Buffer b2) {
+				int sizeDiff1 = max.getSize(b1) - min.getSize(b1);
+				int sizeDiff2 = max.getSize(b2) - min.getSize(b2);
+
+				if (sizeDiff1 > sizeDiff2)
+					return -1;
+				else if (sizeDiff1 == sizeDiff2)
+					return 0;
+				else
+					return 1; // from biggest to smallest
+			}
+		};
+		return comp;
+	}
+
+	public Comparator<Buffer> getBuffersByCpWeight(Map<Buffer, Double> buffers) {
+		Comparator<Buffer> comp = new Comparator<Buffer>() {
+			@Override
+			public int compare(Buffer b1, Buffer b2) {
+				double value1 = buffers.get(b1);
+				double value2 = buffers.get(b2);
+
+				if (value1 > value2)
+					return 1;
+				else if (value1 == value2)
+					return 0;
+				else
+					return -1; // from smallest to biggest
+			}
+		};
+		return comp;
+	}
 
 	private BoundedBuffersReport getNewBufferData(BufferSize bufferConfiguration) {
 		BuffersFactory f = BuffersFactory.eINSTANCE;

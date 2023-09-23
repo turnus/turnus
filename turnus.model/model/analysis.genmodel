@@ -1,1393 +1,839 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
-	xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-	xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
-	modelDirectory="/turnus.model/src" modelPluginID="turnus.model"
-	templateDirectory="/turnus.model/template" dynamicTemplates="true"
-	modelName="Analysis"
-	rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-	suppressEMFTypes="true"
-	importerID="org.eclipse.emf.importer.ecore" complianceLevel="17.0"
-	copyrightFields="false"
-	usedGenPackages="common.genmodel#//common dataflow.genmodel#//dataflow versioning.genmodel#//versioning"
-	operationReflection="true" importOrganizing="true">
-	<foreignModel>analysis.ecore</foreignModel>
-	<genPackages prefix="Analysis" basePackage="turnus.model"
-		disposableProviderFactory="true"
-		ecorePackage="analysis.ecore#/">
-		<genClasses image="false" ecoreClass="analysis.ecore#//AnalysisReport">
-			<genFeatures createChild="false"
-				ecoreFeature="ecore:EAttribute analysis.ecore#//AnalysisReport/algorithm" />
-			<genFeatures createChild="false"
-				ecoreFeature="ecore:EAttribute analysis.ecore#//AnalysisReport/date" />
-		</genClasses>
-		<nestedGenPackages prefix="Profiler" basePackage="turnus.model.analysis"
-			disposableProviderFactory="true"
-			ecorePackage="analysis.ecore#//profiler">
-			<genClasses
-				ecoreClass="analysis.ecore#//profiler/CodeProfilingReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/CodeProfilingReport/network" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/CodeProfilingReport/actorClassesData" />
-				<genFeatures property="Readonly" notify="false"
-					createChild="false"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/CodeProfilingReport/networkData" />
-				<genOperations
-					ecoreOperation="analysis.ecore#//profiler/CodeProfilingReport/getActorClassData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/CodeProfilingReport/getActorClassData/actorClass" />
-				</genOperations>
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//profiler/CodeData">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/CodeData/operatorsCount" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/CodeData/operandsCount" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/CodeData/blockName" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/CodeData/nol" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//profiler/ComplexCodeData">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexCodeData/actionsData" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexCodeData/proceduresData" />
-				<genOperations
-					ecoreOperation="analysis.ecore#//profiler/ComplexCodeData/getActionData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ComplexCodeData/getActionData/action" />
-				</genOperations>
-				<genOperations
-					ecoreOperation="analysis.ecore#//profiler/ComplexCodeData/getProcedureData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ComplexCodeData/getProcedureData/procedure" />
-				</genOperations>
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiler/DynamicProfilingReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/DynamicProfilingReport/network" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/DynamicProfilingReport/actorsData" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/DynamicProfilingReport/buffersData" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//profiler/ActorDynamicData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ActorDynamicData/actor" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ActorDynamicData/actionsData" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//profiler/ActionDynamicData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ActionDynamicData/action" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//profiler/BufferDynamicData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/buffer" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/reads" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/writes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/occupancy" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/actionReads" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/actionWrites" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/actionPeeks" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/actionReadMisses" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/actionWriteMisses" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BufferDynamicData/unconsumedTokens" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiler/ComplexDynamicData">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/operandsCalls" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/proceduresCalls" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/variablesStores" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/variablesLoads" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/proceduresData" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/readTokens" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/writeTokens" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiler/ProcedureToComplexDynamicDataMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ProcedureToComplexDynamicDataMap/key" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ProcedureToComplexDynamicDataMap/value" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiler/MemoryProfilingReport">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/MemoryProfilingReport/networkName" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/MemoryProfilingReport/actionsData" />
-				<genOperations
-					ecoreOperation="analysis.ecore#//profiler/MemoryProfilingReport/getActionData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/MemoryProfilingReport/getActionData/actor" />
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/MemoryProfilingReport/getActionData/action" />
-				</genOperations>
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiler/ActionMemoryProfilingData">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/ActionMemoryProfilingData/actor" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/ActionMemoryProfilingData/action" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ActionMemoryProfilingData/reads" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/ActionMemoryProfilingData/writes" />
-				<genOperations
-					ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadBufferData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadBufferData/sourceActor" />
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadBufferData/sourcePort" />
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadBufferData/targetActor" />
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadBufferData/targetPort" />
-				</genOperations>
-				<genOperations
-					ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteBufferData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteBufferData/sourceActor" />
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteBufferData/sourcePort" />
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteBufferData/targetActor" />
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteBufferData/targetPort" />
-				</genOperations>
-				<genOperations
-					ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadStateVariableData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadStateVariableData/variable" />
-				</genOperations>
-				<genOperations
-					ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteStateVariableData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteStateVariableData/variable" />
-				</genOperations>
-				<genOperations
-					ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadLocalVariableData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadLocalVariableData/variable" />
-				</genOperations>
-				<genOperations
-					ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteLocalVariableData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteLocalVariableData/variable" />
-				</genOperations>
-				<genOperations
-					ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadSharedVariableData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadSharedVariableData/variable" />
-				</genOperations>
-				<genOperations
-					ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteSharedVariableData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteSharedVariableData/variable" />
-				</genOperations>
-			</genClasses>
-			<genClasses image="false"
-				ecoreClass="analysis.ecore#//profiler/MemoryAccessData">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/MemoryAccessData/accessesData" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//profiler/BufferAccessData">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BufferAccessData/sourceActor" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BufferAccessData/sourcePort" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BufferAccessData/targetActor" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BufferAccessData/targetPort" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiler/StateVariableAccessData">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/StateVariableAccessData/name" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiler/LocalVariableAccessData">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/LocalVariableAccessData/name" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiler/SharedVariableAccessData">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/SharedVariableAccessData/name" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//profiler/AccessData">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/AccessData/accesses" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/AccessData/min" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/AccessData/max" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/AccessData/average" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/AccessData/total" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiler/StringToAccessDataMap">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/StringToAccessDataMap/value" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/StringToAccessDataMap/key" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//profiler/BenchmarkReport">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BenchmarkReport/column_names" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/BenchmarkReport/rows" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//profiler/TableRow">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiler/TableRow/cells" />
-			</genClasses>
-		</nestedGenPackages>
-		<nestedGenPackages prefix="Map" basePackage="turnus.model.analysis"
-			disposableProviderFactory="true"
-			ecorePackage="analysis.ecore#//map">
-			<genClasses ecoreClass="analysis.ecore#//map/StringToIntegerMap">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToIntegerMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToIntegerMap/value" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//map/ActorToStatisticalDataMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/ActorToStatisticalDataMap/key" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/ActorToStatisticalDataMap/value" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//map/ActionToStatisticalDataMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/ActionToStatisticalDataMap/key" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/ActionToStatisticalDataMap/value" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//map/BufferToStatisticalDataMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/BufferToStatisticalDataMap/key" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/BufferToStatisticalDataMap/value" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//map/ProcedureToStatisticalDataMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/ProcedureToStatisticalDataMap/key" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/ProcedureToStatisticalDataMap/value" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//map/VariableToStatisticalDataMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/VariableToStatisticalDataMap/key" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/VariableToStatisticalDataMap/value" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//map/ActorClassToStatisticalDataMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/ActorClassToStatisticalDataMap/key" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/ActorClassToStatisticalDataMap/value" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//map/EOperatorToStatisticalDataMap">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/EOperatorToStatisticalDataMap/key" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/EOperatorToStatisticalDataMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/ActionToLongMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/ActionToLongMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/ActionToLongMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/ActorToLongMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/ActorToLongMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/ActorToLongMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/BufferToLongMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/BufferToLongMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/BufferToLongMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/StringToLongMap">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToLongMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToLongMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/DoubleToDoubleMap">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/DoubleToDoubleMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/DoubleToDoubleMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/VariableToLongMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/VariableToLongMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/VariableToLongMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/GuardToLongMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/GuardToLongMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/GuardToLongMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/PortToLongMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/PortToLongMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/PortToLongMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/StringToDoubleMap">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToDoubleMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToDoubleMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/ActionToDoubleMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/ActionToDoubleMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/ActionToDoubleMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/BufferToIntegerMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/BufferToIntegerMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/BufferToIntegerMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/BufferToDoubleMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/BufferToDoubleMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/BufferToDoubleMap/value" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//map/PartitionToActorSelectionScheduleMap">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/PartitionToActorSelectionScheduleMap/key" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/PartitionToActorSelectionScheduleMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/StringToStringMap">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToStringMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToStringMap/value" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//map/ActorToStringMap">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//map/ActorToStringMap/key" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//map/ActorToStringMap/value" />
-			</genClasses>
-		</nestedGenPackages>
-		<nestedGenPackages prefix="Trace" basePackage="turnus.model.analysis"
-			disposableProviderFactory="true"
-			ecorePackage="analysis.ecore#//trace">
-			<genClasses ecoreClass="analysis.ecore#//trace/TraceSizeReport">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/actionsFirings" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/actionsIncomings" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/actionsOutgoings" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/actorsFirings" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/actorsIncoming" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/actorsOutgoings" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/TraceSizeReport/firings" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/TraceSizeReport/dependencies" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/dependenciesKinds" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/network" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//trace/CompressedTraceReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedTraceReport/network" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedTraceReport/steps" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedTraceReport/dependencies" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/CompressedTraceReport/traceFile" />
-				<genOperations
-					ecoreOperation="analysis.ecore#//trace/CompressedTraceReport/getSteps">
-					<genParameters
-						ecoreParameter="analysis.ecore#//trace/CompressedTraceReport/getSteps/action" />
-				</genOperations>
-				<genOperations
-					ecoreOperation="analysis.ecore#//trace/CompressedTraceReport/getSteps.1">
-					<genParameters
-						ecoreParameter="analysis.ecore#//trace/CompressedTraceReport/getSteps.1/actor" />
-				</genOperations>
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//trace/CompressedStep">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedStep/action" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/CompressedStep/count" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedStep/incomings" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedStep/outgoings" />
-				<genFeatures property="Readonly" notify="false"
-					createChild="false"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedStep/predecessors" />
-				<genFeatures property="Readonly" notify="false"
-					createChild="false"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedStep/successors" />
-				<genFeatures property="Readonly" notify="false"
-					createChild="false"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedStep/neighbors" />
-			</genClasses>
-			<genClasses image="false"
-				ecoreClass="analysis.ecore#//trace/CompressedDependency">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/CompressedDependency/count" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedDependency/source" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedDependency/target" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//trace/CompressedFsmDependency" />
-			<genClasses
-				ecoreClass="analysis.ecore#//trace/CompressedGuardDependency">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedGuardDependency/enableMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedGuardDependency/disableMap" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//trace/CompressedVariableDependency">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedVariableDependency/readReadMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedVariableDependency/readWriteMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedVariableDependency/writeReadMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedVariableDependency/writeWriteMap" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//trace/CompressedPortDependency">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedPortDependency/readMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedPortDependency/writeMap" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//trace/CompressedTokensDependency">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedTokensDependency/countMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedTokensDependency/tokensMap" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//trace/TraceComparatorReport">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceComparatorReport/reference" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceComparatorReport/traces" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//trace/ComparedTrace">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/ComparedTrace/compressedTrace" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedTrace/dSteps" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedTrace/dDependencies" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/ComparedTrace/containedReferenceActions" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/ComparedTrace/actions" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedTrace/equal" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//trace/ComparedAction">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/ComparedAction/action" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedAction/found" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedAction/dSteps" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedAction/dIncomings" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedAction/dOutgoings" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//trace/MarkowModelTraceReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/MarkowModelTraceReport/network" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/MarkowModelTraceReport/actionsData" />
-				<genOperations
-					ecoreOperation="analysis.ecore#//trace/MarkowModelTraceReport/getData">
-					<genParameters
-						ecoreParameter="analysis.ecore#//trace/MarkowModelTraceReport/getData/actor" />
-				</genOperations>
-				<genOperations
-					ecoreOperation="analysis.ecore#//trace/MarkowModelTraceReport/getData.1">
-					<genParameters
-						ecoreParameter="analysis.ecore#//trace/MarkowModelTraceReport/getData.1/action" />
-				</genOperations>
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//trace/MarkovModelActionData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/MarkovModelActionData/action" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/MarkovModelActionData/first" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//trace/MarkovModelActionData/successorsMap" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//trace/MarkovModelActionData/successors" />
-			</genClasses>
-		</nestedGenPackages>
-		<nestedGenPackages prefix="Bottlenecks"
-			basePackage="turnus.model.analysis" disposableProviderFactory="true"
-			ecorePackage="analysis.ecore#//bottlenecks">
-			<genClasses
-				ecoreClass="analysis.ecore#//bottlenecks/BottlenecksReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/BottlenecksReport/network" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/BottlenecksReport/actionsData" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksReport/cpWeight" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksReport/cpVariance" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksReport/totalWeight" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksReport/totalVariance" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksReport/cpFirings" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksReport/totalFirings" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//bottlenecks/ActionBottlenecksData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ActionBottlenecksData/action" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/slackMin" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/slackMax" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/cpWeight" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/cpVariance" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/totalWeight" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/totalVariance" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/cpFirings" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/totalFirings" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//bottlenecks/ImpactAnalysisReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisReport/network" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ImpactAnalysisReport/classLevel" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisReport/impactData" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisReport/initialBottlenecks" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//bottlenecks/ImpactAnalysisData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisData/actions" />
-				<genFeatures property="Readonly" notify="false"
-					createChild="false"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisData/actorClass" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisData/cpReductionMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisData/reportsMap" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//bottlenecks/DoubleToBottlenecksReportMap">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/DoubleToBottlenecksReportMap/key" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/DoubleToBottlenecksReportMap/value" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/network" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/actionsData" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/cpWeight" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/totalWeight" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/cpFirings" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/totalFirings" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/executionTime" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/cpBlockingTime" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/cpPartitionsBlockingTime" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/deadlock" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/action" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/cpWeight" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/totalWeight" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/cpFirings" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/totalFirings" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/maxBlockedOutputTokens" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/maxBlockedMultiplication" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/blockingInstances" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//bottlenecks/ScheduledImpactAnalysisData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisData/actions" />
-				<genFeatures property="Readonly" notify="false"
-					createChild="false"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisData/actorClass" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisData/cpReductionMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisData/timeReductionMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisData/reportsMap" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//bottlenecks/DoubleToBottlenecksWithSchedulingReportMap">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/DoubleToBottlenecksWithSchedulingReportMap/key" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/DoubleToBottlenecksWithSchedulingReportMap/value" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//bottlenecks/ScheduledImpactAnalysisReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisReport/network" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ScheduledImpactAnalysisReport/classLevel" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisReport/scheduledImpactData" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisReport/initialBottlenecksWithScheduling" />
-			</genClasses>
-		</nestedGenPackages>
-		<nestedGenPackages prefix="Buffers" basePackage="turnus.model.analysis"
-			disposableProviderFactory="true"
-			ecorePackage="analysis.ecore#//buffers">
-			<genClasses
-				ecoreClass="analysis.ecore#//buffers/BoundedBuffersReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//buffers/BoundedBuffersReport/network" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/BoundedBuffersReport/pow2" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/BoundedBuffersReport/bitAccurate" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//buffers/BoundedBuffersReport/buffersData" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/BoundedBuffersReport/tokenSize" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/BoundedBuffersReport/bitSize" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//buffers/BoundedBufferData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//buffers/BoundedBufferData/buffer" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/BoundedBufferData/tokenSize" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/BoundedBufferData/bitSize" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//buffers/OptimalBuffersReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//buffers/OptimalBuffersReport/network" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/OptimalBuffersReport/pow2" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/OptimalBuffersReport/bitAccurate" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//buffers/OptimalBuffersReport/buffersData" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//buffers/OptimalBuffersReport/initialBufferConfiguration" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//buffers/OptimalBuffersReport/initialBottlenecks" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//buffers/OptimalBufferData">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//buffers/OptimalBufferData/bufferData" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//buffers/OptimalBufferData/bottlenecksData" />
-			</genClasses>
-		</nestedGenPackages>
-		<nestedGenPackages prefix="Partitioning"
-			basePackage="turnus.model.analysis" disposableProviderFactory="true"
-			ecorePackage="analysis.ecore#//partitioning">
-			<genClasses
-				ecoreClass="analysis.ecore#//partitioning/ComCostPartitioningReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//partitioning/ComCostPartitioningReport/network" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/ComCostPartitioningReport/bitAccurate" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//partitioning/ComCostPartitioningReport/partitions" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//partitioning/ComCostPartition">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//partitioning/ComCostPartition/actors" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//partitioning/ComCostPartition/internalCostMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//partitioning/ComCostPartition/externalCostMap" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/ComCostPartition/internalCost" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/ComCostPartition/externalCost" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//partitioning/WorkloadBalancePartition">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//partitioning/WorkloadBalancePartition/actors" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/WorkloadBalancePartition/workload" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//partitioning/WorkloadBalancePartitioningReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//partitioning/WorkloadBalancePartitioningReport/network" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//partitioning/WorkloadBalancePartitioningReport/partitions" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/WorkloadBalancePartitioningReport/schedulinPolicy" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//partitioning/BalancedPipelinePartition">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//partitioning/BalancedPipelinePartition/actors" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/BalancedPipelinePartition/workload" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/BalancedPipelinePartition/preWorkload" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/BalancedPipelinePartition/commonPredAvg" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//partitioning/BalancedPipelinePartitioningReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//partitioning/BalancedPipelinePartitioningReport/partitions" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//partitioning/BalancedPipelinePartitioningReport/network" />
-			</genClasses>
-		</nestedGenPackages>
-		<nestedGenPackages prefix="Pipelining"
-			basePackage="turnus.model.analysis" disposableProviderFactory="true"
-			ecorePackage="analysis.ecore#//pipelining">
-			<genClasses
-				ecoreClass="analysis.ecore#//pipelining/ActionsVariablePipeliningReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ActionsVariablePipeliningReport/network" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ActionsVariablePipeliningReport/actionsData" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//pipelining/ActionVariablePipeliningData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ActionVariablePipeliningData/action" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ActionVariablePipeliningData/consecutiveFirings" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ActionVariablePipeliningData/pipelinableFirings" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//pipelining/ActionVariablePipeliningData/pipelinable" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//pipelining/ImpactAnalysisReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisReport/network" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisReport/initialBottlenecks" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisReport/piplenablesActions" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisReport/impactData" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//pipelining/ImpactAnalysisData">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisData/estimatedBottlenecks" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//pipelining/ImpactAnalysisData/cpReduction" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisData/actions" />
-				<genFeatures property="Readonly" notify="false"
-					createChild="false"
-					ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisData/actorClass" />
-			</genClasses>
-		</nestedGenPackages>
-		<nestedGenPackages prefix="Postprocessing"
-			basePackage="turnus.model.analysis"
-			disposableProviderFactory="true"
-			ecorePackage="analysis.ecore#//postprocessing">
-			<genClasses
-				ecoreClass="analysis.ecore#//postprocessing/PostProcessingReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/PostProcessingReport/network" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/PostProcessingReport/time" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/PostProcessingReport/deadlock" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/PostProcessingReport/reports" />
-			</genClasses>
-			<genClasses image="false"
-				ecoreClass="analysis.ecore#//postprocessing/PostProcessingData" />
-			<genClasses
-				ecoreClass="analysis.ecore#//postprocessing/ActorStatisticsReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActorStatisticsReport/network" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/ActorStatisticsReport/executionTime" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActorStatisticsReport/partitions" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActorStatisticsReport/idleTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActorStatisticsReport/blockedReadingTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActorStatisticsReport/blockedWritingTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActorStatisticsReport/processingTimes" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/ActorStatisticsReport/averageOccupancy" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/ActorStatisticsReport/occupancyDeviation" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//postprocessing/StatisticalActorPartition">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/StatisticalActorPartition/actors" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/StatisticalActorPartition/occupancy" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/StatisticalActorPartition/schedulingPolicy" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/StatisticalActorPartition/partitionId" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//postprocessing/ActionStatisticsReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/actors" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/idleTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/idleMinTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/idleMaxTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedReadingTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedReadingMinTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedReadingMaxTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedWritingTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedWritingMinTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedWritingMaxTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/processingTimes" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/executionCounts" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/network" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//postprocessing/SchedulerChecksReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksReport/partitions" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksReport/network" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//postprocessing/SchedulerChecksPartition">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksPartition/aggregatedCheckedData" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksPartition/aggregatedFailedData" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksPartition/checkedConditionsMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksPartition/failedConditionsMap" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/SchedulerChecksPartition/partitionId" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//postprocessing/BufferBlockingReport">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/BufferBlockingReport/network" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/BufferBlockingReport/maxBlockedOutputTokens" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/BufferBlockingReport/maxBlockedMultiplication" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/BufferBlockingReport/blockingInstances" />
-			</genClasses>
-		</nestedGenPackages>
-		<nestedGenPackages prefix="Profiling"
-			basePackage="turnus.model.analysis" disposableProviderFactory="true"
-			ecorePackage="analysis.ecore#//profiling">
-			<genClasses
-				ecoreClass="analysis.ecore#//profiling/IntraActionCommunicationReport">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActionCommunicationReport/actorsData" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActionCommunicationReport/network" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiling/IntraActorCommunicationData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActorCommunicationData/actor" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActorCommunicationData/consumedTokens" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActorCommunicationData/producedTokens" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActorCommunicationData/tokensProducersMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActorCommunicationData/actionsData" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiling/IntraActionCommunicationData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActionCommunicationData/action" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActionCommunicationData/consumedTokens" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActionCommunicationData/producedTokens" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActionCommunicationData/tokensProducersMap" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiling/ProfilingStatsReport">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/ProfilingStatsReport/actorsStatsData" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/ProfilingStatsReport/networkName" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiling/ProfilingStatsActorData">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/ProfilingStatsActorData/actorName" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/ProfilingStatsActorData/actionsWeight" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/ProfilingStatsActorData/schedulerWeight" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/ProfilingStatsActorData/actionsWeightPercent" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/ProfilingStatsActorData/schedulerWeightPercent" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiling/InterPartitionData">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionData/actors" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/workload" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/maxIncomingBitsPerFiring" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/maxOutgoingBitsPerFiring" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/persistentMemory" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/maxTransientMemory" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/partitionId" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/persistentBuffers" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionData/internalBuffers" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionData/externalBuffers" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/partitionData" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/network" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/outgoingBufferOwnedBySource" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/bufferDepthMap" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/actorPartitionMap" />
-				<genFeatures property="Readonly" createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/cpWeight" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/time" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/deadlock" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/cpWeightScheduled" />
-			</genClasses>
-		</nestedGenPackages>
-		<nestedGenPackages prefix="Scheduling"
-			basePackage="turnus.model.analysis" disposableProviderFactory="true"
-			ecorePackage="analysis.ecore#//scheduling">
-			<genEnums typeSafeEnumCompatible="false"
-				ecoreEnum="analysis.ecore#//scheduling/FSMOp">
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMOp/ADD" />
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMOp/SET" />
-			</genEnums>
-			<genEnums typeSafeEnumCompatible="false"
-				ecoreEnum="analysis.ecore#//scheduling/FSMComparator">
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/EQ" />
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/NEQ" />
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/GREATER" />
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/SMALLER" />
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/GREQ" />
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/SMEQ" />
-			</genEnums>
-			<genEnums typeSafeEnumCompatible="false"
-				ecoreEnum="analysis.ecore#//scheduling/FSMCombinator">
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/AND" />
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/OR" />
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/NAND" />
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/NOR" />
-				<genEnumLiterals
-					ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/NOT" />
-			</genEnums>
-			<genClasses ecoreClass="analysis.ecore#//scheduling/ActorFire">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/ActorFire/Actor" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/ActorFire/Times" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/ActorFire/partition" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/ActorFire/dependencyPartitions" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//scheduling/FSM">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSM/states" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSM/vars" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSM/startState" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSM/terminalState" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//scheduling/ActorSelectionSchedule" />
-			<genClasses ecoreClass="analysis.ecore#//scheduling/Sequence">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/Sequence/actions" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//scheduling/FSMVar">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMVar/name" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMVar/initialVal" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMVar/type" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//scheduling/FSMTransition">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMTransition/cond" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMTransition/targetStateEnumName" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMTransition/sourceStateEnumName" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMTransition/transitionSchedule" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//scheduling/FSMState">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMState/enumName" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMState/varUpdates" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMState/transitions" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//scheduling/FSMVarUpdate">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMVarUpdate/operation" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMVarUpdate/condition" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//scheduling/FSMOperation">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMOperation/op" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMOperation/val" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMOperation/var" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//scheduling/FSMCombination">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMCombination/combinator" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMCombination/cond" />
-			</genClasses>
-			<genClasses ecoreClass="analysis.ecore#//scheduling/FSMCondition">
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMCondition/comp" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMCondition/compval" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMCondition/combinedCond" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMCondition/valName" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//scheduling/FSMTransitionWithState">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMTransitionWithState/varStates" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//scheduling/PartitionedActorFire" />
-			<genClasses
-				ecoreClass="analysis.ecore#//scheduling/MarkovSimpleSchedulerReport">
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSimpleSchedulerReport/partitions" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSimpleSchedulerReport/network" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//scheduling/MarkovPartitionScheduler">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovPartitionScheduler/actors" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovPartitionScheduler/partitionId" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovPartitionScheduler/states" />
-				<genFeatures property="None" children="true" createChild="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovPartitionScheduler/transitions" />
-				<genOperations
-					ecoreOperation="analysis.ecore#//scheduling/MarkovPartitionScheduler/getAssociatedState">
-					<genParameters
-						ecoreParameter="analysis.ecore#//scheduling/MarkovPartitionScheduler/getAssociatedState/actor" />
-				</genOperations>
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//scheduling/MarkovSchedulingState">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingState/actor" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingState/firings" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingState/outgoings" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingState/incomings" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingState/name" />
-			</genClasses>
-			<genClasses
-				ecoreClass="analysis.ecore#//scheduling/MarkovSchedulingTransition">
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingTransition/source" />
-				<genFeatures notify="false" createChild="false"
-					propertySortChoices="true"
-					ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingTransition/target" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingTransition/firings" />
-				<genFeatures createChild="false"
-					ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingTransition/name" />
-			</genClasses>
-			<nestedGenPackages prefix="Caseoptimal"
-				basePackage="turnus.model.analysis.scheduling"
-				disposableProviderFactory="true"
-				ecorePackage="analysis.ecore#//scheduling/caseoptimal">
-				<genEnums typeSafeEnumCompatible="false"
-					ecoreEnum="analysis.ecore#//scheduling/caseoptimal/Optimizer">
-					<genEnumLiterals
-						ecoreEnumLiteral="analysis.ecore#//scheduling/caseoptimal/Optimizer/RLE" />
-					<genEnumLiterals
-						ecoreEnumLiteral="analysis.ecore#//scheduling/caseoptimal/Optimizer/KTAIL" />
-				</genEnums>
-				<genClasses
-					ecoreClass="analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport">
-					<genFeatures property="None" children="true"
-						createChild="true"
-						ecoreFeature="ecore:EReference analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/partitionSchedules" />
-					<genFeatures createChild="false"
-						ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/traceFile" />
-					<genFeatures property="None" children="true"
-						createChild="true"
-						ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/pipeline" />
-					<genFeatures createChild="false"
-						ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/partitionFilePath" />
-				</genClasses>
-				<genClasses
-					ecoreClass="analysis.ecore#//scheduling/caseoptimal/CaseOptimalActorSelectionSchedule" />
-			</nestedGenPackages>
-		</nestedGenPackages>
-	</genPackages>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/turnus.model/src" modelPluginID="turnus.model"
+    templateDirectory="/turnus.model/template" dynamicTemplates="true" modelName="Analysis"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" suppressEMFTypes="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="17.0" copyrightFields="false"
+    usedGenPackages="common.genmodel#//common dataflow.genmodel#//dataflow versioning.genmodel#//versioning"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>analysis.ecore</foreignModel>
+  <genPackages prefix="Analysis" basePackage="turnus.model" disposableProviderFactory="true"
+      ecorePackage="analysis.ecore#/">
+    <genClasses image="false" ecoreClass="analysis.ecore#//AnalysisReport">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//AnalysisReport/algorithm"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//AnalysisReport/date"/>
+    </genClasses>
+    <nestedGenPackages prefix="Profiler" basePackage="turnus.model.analysis" disposableProviderFactory="true"
+        ecorePackage="analysis.ecore#//profiler">
+      <genClasses ecoreClass="analysis.ecore#//profiler/CodeProfilingReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiler/CodeProfilingReport/network"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/CodeProfilingReport/actorClassesData"/>
+        <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference analysis.ecore#//profiler/CodeProfilingReport/networkData"/>
+        <genOperations ecoreOperation="analysis.ecore#//profiler/CodeProfilingReport/getActorClassData">
+          <genParameters ecoreParameter="analysis.ecore#//profiler/CodeProfilingReport/getActorClassData/actorClass"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/CodeData">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/CodeData/operatorsCount"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/CodeData/operandsCount"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/CodeData/blockName"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/CodeData/nol"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/ComplexCodeData">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexCodeData/actionsData"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexCodeData/proceduresData"/>
+        <genOperations ecoreOperation="analysis.ecore#//profiler/ComplexCodeData/getActionData">
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ComplexCodeData/getActionData/action"/>
+        </genOperations>
+        <genOperations ecoreOperation="analysis.ecore#//profiler/ComplexCodeData/getProcedureData">
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ComplexCodeData/getProcedureData/procedure"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/DynamicProfilingReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiler/DynamicProfilingReport/network"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/DynamicProfilingReport/actorsData"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/DynamicProfilingReport/buffersData"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/ActorDynamicData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiler/ActorDynamicData/actor"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/ActorDynamicData/actionsData"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/ActionDynamicData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiler/ActionDynamicData/action"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/BufferDynamicData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/buffer"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/reads"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/writes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/occupancy"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/actionReads"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/actionWrites"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/actionPeeks"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/actionReadMisses"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/BufferDynamicData/actionWriteMisses"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BufferDynamicData/unconsumedTokens"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/ComplexDynamicData">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/operandsCalls"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/proceduresCalls"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/variablesStores"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/variablesLoads"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/proceduresData"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/readTokens"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/ComplexDynamicData/writeTokens"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/ProcedureToComplexDynamicDataMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiler/ProcedureToComplexDynamicDataMap/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/ProcedureToComplexDynamicDataMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/MemoryProfilingReport">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/MemoryProfilingReport/networkName"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/MemoryProfilingReport/actionsData"/>
+        <genOperations ecoreOperation="analysis.ecore#//profiler/MemoryProfilingReport/getActionData">
+          <genParameters ecoreParameter="analysis.ecore#//profiler/MemoryProfilingReport/getActionData/actor"/>
+          <genParameters ecoreParameter="analysis.ecore#//profiler/MemoryProfilingReport/getActionData/action"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/ActionMemoryProfilingData">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/ActionMemoryProfilingData/actor"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/ActionMemoryProfilingData/action"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/ActionMemoryProfilingData/reads"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/ActionMemoryProfilingData/writes"/>
+        <genOperations ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadBufferData">
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadBufferData/sourceActor"/>
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadBufferData/sourcePort"/>
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadBufferData/targetActor"/>
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadBufferData/targetPort"/>
+        </genOperations>
+        <genOperations ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteBufferData">
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteBufferData/sourceActor"/>
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteBufferData/sourcePort"/>
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteBufferData/targetActor"/>
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteBufferData/targetPort"/>
+        </genOperations>
+        <genOperations ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadStateVariableData">
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadStateVariableData/variable"/>
+        </genOperations>
+        <genOperations ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteStateVariableData">
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteStateVariableData/variable"/>
+        </genOperations>
+        <genOperations ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadLocalVariableData">
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadLocalVariableData/variable"/>
+        </genOperations>
+        <genOperations ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteLocalVariableData">
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteLocalVariableData/variable"/>
+        </genOperations>
+        <genOperations ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadSharedVariableData">
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getReadSharedVariableData/variable"/>
+        </genOperations>
+        <genOperations ecoreOperation="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteSharedVariableData">
+          <genParameters ecoreParameter="analysis.ecore#//profiler/ActionMemoryProfilingData/getWriteSharedVariableData/variable"/>
+        </genOperations>
+      </genClasses>
+      <genClasses image="false" ecoreClass="analysis.ecore#//profiler/MemoryAccessData">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/MemoryAccessData/accessesData"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/BufferAccessData">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BufferAccessData/sourceActor"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BufferAccessData/sourcePort"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BufferAccessData/targetActor"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BufferAccessData/targetPort"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/StateVariableAccessData">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/StateVariableAccessData/name"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/LocalVariableAccessData">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/LocalVariableAccessData/name"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/SharedVariableAccessData">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/SharedVariableAccessData/name"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/AccessData">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/AccessData/accesses"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/AccessData/min"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/AccessData/max"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/AccessData/average"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/AccessData/total"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/StringToAccessDataMap">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/StringToAccessDataMap/value"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/StringToAccessDataMap/key"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/BenchmarkReport">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiler/BenchmarkReport/column_names"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/BenchmarkReport/rows"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiler/TableRow">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiler/TableRow/cells"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Map" basePackage="turnus.model.analysis" disposableProviderFactory="true"
+        ecorePackage="analysis.ecore#//map">
+      <genClasses ecoreClass="analysis.ecore#//map/StringToIntegerMap">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToIntegerMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToIntegerMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/ActorToStatisticalDataMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/ActorToStatisticalDataMap/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//map/ActorToStatisticalDataMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/ActionToStatisticalDataMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/ActionToStatisticalDataMap/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//map/ActionToStatisticalDataMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/BufferToStatisticalDataMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/BufferToStatisticalDataMap/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//map/BufferToStatisticalDataMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/ProcedureToStatisticalDataMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/ProcedureToStatisticalDataMap/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//map/ProcedureToStatisticalDataMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/VariableToStatisticalDataMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/VariableToStatisticalDataMap/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//map/VariableToStatisticalDataMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/ActorClassToStatisticalDataMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/ActorClassToStatisticalDataMap/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//map/ActorClassToStatisticalDataMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/EOperatorToStatisticalDataMap">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/EOperatorToStatisticalDataMap/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//map/EOperatorToStatisticalDataMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/ActionToLongMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/ActionToLongMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/ActionToLongMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/ActorToLongMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/ActorToLongMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/ActorToLongMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/BufferToLongMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/BufferToLongMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/BufferToLongMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/StringToLongMap">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToLongMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToLongMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/DoubleToDoubleMap">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/DoubleToDoubleMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/DoubleToDoubleMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/VariableToLongMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/VariableToLongMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/VariableToLongMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/GuardToLongMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/GuardToLongMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/GuardToLongMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/PortToLongMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/PortToLongMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/PortToLongMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/StringToDoubleMap">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToDoubleMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToDoubleMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/ActionToDoubleMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/ActionToDoubleMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/ActionToDoubleMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/BufferToIntegerMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/BufferToIntegerMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/BufferToIntegerMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/BufferToDoubleMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/BufferToDoubleMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/BufferToDoubleMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/PartitionToActorSelectionScheduleMap">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/PartitionToActorSelectionScheduleMap/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//map/PartitionToActorSelectionScheduleMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/StringToStringMap">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToStringMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/StringToStringMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//map/ActorToStringMap">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//map/ActorToStringMap/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//map/ActorToStringMap/value"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Trace" basePackage="turnus.model.analysis" disposableProviderFactory="true"
+        ecorePackage="analysis.ecore#//trace">
+      <genClasses ecoreClass="analysis.ecore#//trace/TraceSizeReport">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/actionsFirings"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/actionsIncomings"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/actionsOutgoings"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/actorsFirings"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/actorsIncoming"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/actorsOutgoings"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/TraceSizeReport/firings"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/TraceSizeReport/dependencies"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/dependenciesKinds"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceSizeReport/network"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//trace/CompressedTraceReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedTraceReport/network"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedTraceReport/steps"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedTraceReport/dependencies"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/CompressedTraceReport/traceFile"/>
+        <genOperations ecoreOperation="analysis.ecore#//trace/CompressedTraceReport/getSteps">
+          <genParameters ecoreParameter="analysis.ecore#//trace/CompressedTraceReport/getSteps/action"/>
+        </genOperations>
+        <genOperations ecoreOperation="analysis.ecore#//trace/CompressedTraceReport/getSteps.1">
+          <genParameters ecoreParameter="analysis.ecore#//trace/CompressedTraceReport/getSteps.1/actor"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//trace/CompressedStep">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedStep/action"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/CompressedStep/count"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedStep/incomings"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedStep/outgoings"/>
+        <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedStep/predecessors"/>
+        <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedStep/successors"/>
+        <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedStep/neighbors"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="analysis.ecore#//trace/CompressedDependency">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/CompressedDependency/count"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedDependency/source"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedDependency/target"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//trace/CompressedFsmDependency"/>
+      <genClasses ecoreClass="analysis.ecore#//trace/CompressedGuardDependency">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedGuardDependency/enableMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedGuardDependency/disableMap"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//trace/CompressedVariableDependency">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedVariableDependency/readReadMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedVariableDependency/readWriteMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedVariableDependency/writeReadMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedVariableDependency/writeWriteMap"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//trace/CompressedPortDependency">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedPortDependency/readMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedPortDependency/writeMap"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//trace/CompressedTokensDependency">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedTokensDependency/countMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/CompressedTokensDependency/tokensMap"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//trace/TraceComparatorReport">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceComparatorReport/reference"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/TraceComparatorReport/traces"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//trace/ComparedTrace">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/ComparedTrace/compressedTrace"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedTrace/dSteps"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedTrace/dDependencies"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//trace/ComparedTrace/containedReferenceActions"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//trace/ComparedTrace/actions"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedTrace/equal"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//trace/ComparedAction">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//trace/ComparedAction/action"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedAction/found"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedAction/dSteps"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedAction/dIncomings"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/ComparedAction/dOutgoings"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//trace/MarkowModelTraceReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//trace/MarkowModelTraceReport/network"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/MarkowModelTraceReport/actionsData"/>
+        <genOperations ecoreOperation="analysis.ecore#//trace/MarkowModelTraceReport/getData">
+          <genParameters ecoreParameter="analysis.ecore#//trace/MarkowModelTraceReport/getData/actor"/>
+        </genOperations>
+        <genOperations ecoreOperation="analysis.ecore#//trace/MarkowModelTraceReport/getData.1">
+          <genParameters ecoreParameter="analysis.ecore#//trace/MarkowModelTraceReport/getData.1/action"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//trace/MarkovModelActionData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//trace/MarkovModelActionData/action"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/MarkovModelActionData/first"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//trace/MarkovModelActionData/successorsMap"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//trace/MarkovModelActionData/successors"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Bottlenecks" basePackage="turnus.model.analysis" disposableProviderFactory="true"
+        ecorePackage="analysis.ecore#//bottlenecks">
+      <genClasses ecoreClass="analysis.ecore#//bottlenecks/BottlenecksReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/BottlenecksReport/network"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/BottlenecksReport/actionsData"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksReport/cpWeight"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksReport/cpVariance"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksReport/totalWeight"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksReport/totalVariance"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksReport/cpFirings"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksReport/totalFirings"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//bottlenecks/ActionBottlenecksData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ActionBottlenecksData/action"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/slackMin"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/slackMax"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/cpWeight"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/cpVariance"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/totalWeight"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/totalVariance"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/cpFirings"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksData/totalFirings"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//bottlenecks/ImpactAnalysisReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisReport/network"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ImpactAnalysisReport/classLevel"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisReport/impactData"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisReport/initialBottlenecks"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//bottlenecks/ImpactAnalysisData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisData/actions"/>
+        <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisData/actorClass"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisData/cpReductionMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ImpactAnalysisData/reportsMap"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//bottlenecks/DoubleToBottlenecksReportMap">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/DoubleToBottlenecksReportMap/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/DoubleToBottlenecksReportMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/network"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/actionsData"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/cpWeight"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/totalWeight"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/cpFirings"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/totalFirings"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/executionTime"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/cpBlockingTime"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/cpPartitionsBlockingTime"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/BottlenecksWithSchedulingReport/deadlock"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/action"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/cpWeight"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/totalWeight"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/cpFirings"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/totalFirings"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/maxBlockedOutputTokens"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/maxBlockedMultiplication"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ActionBottlenecksWithSchedulingData/blockingInstances"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//bottlenecks/ScheduledImpactAnalysisData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisData/actions"/>
+        <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisData/actorClass"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisData/cpReductionMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisData/timeReductionMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisData/reportsMap"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//bottlenecks/DoubleToBottlenecksWithSchedulingReportMap">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/DoubleToBottlenecksWithSchedulingReportMap/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/DoubleToBottlenecksWithSchedulingReportMap/value"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//bottlenecks/ScheduledImpactAnalysisReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisReport/network"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//bottlenecks/ScheduledImpactAnalysisReport/classLevel"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisReport/scheduledImpactData"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//bottlenecks/ScheduledImpactAnalysisReport/initialBottlenecksWithScheduling"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Buffers" basePackage="turnus.model.analysis" disposableProviderFactory="true"
+        ecorePackage="analysis.ecore#//buffers">
+      <genClasses ecoreClass="analysis.ecore#//buffers/BoundedBuffersReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//buffers/BoundedBuffersReport/network"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/BoundedBuffersReport/pow2"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/BoundedBuffersReport/bitAccurate"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//buffers/BoundedBuffersReport/buffersData"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/BoundedBuffersReport/tokenSize"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/BoundedBuffersReport/bitSize"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//buffers/BoundedBufferData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//buffers/BoundedBufferData/buffer"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/BoundedBufferData/tokenSize"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/BoundedBufferData/bitSize"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//buffers/OptimalBuffersReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//buffers/OptimalBuffersReport/network"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/OptimalBuffersReport/pow2"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//buffers/OptimalBuffersReport/bitAccurate"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//buffers/OptimalBuffersReport/buffersData"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//buffers/OptimalBuffersReport/initialBufferConfiguration"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//buffers/OptimalBuffersReport/initialBottlenecks"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//buffers/OptimalBufferData">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//buffers/OptimalBufferData/bufferData"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//buffers/OptimalBufferData/bottlenecksData"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Partitioning" basePackage="turnus.model.analysis" disposableProviderFactory="true"
+        ecorePackage="analysis.ecore#//partitioning">
+      <genClasses ecoreClass="analysis.ecore#//partitioning/ComCostPartitioningReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//partitioning/ComCostPartitioningReport/network"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/ComCostPartitioningReport/bitAccurate"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//partitioning/ComCostPartitioningReport/partitions"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//partitioning/ComCostPartition">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//partitioning/ComCostPartition/actors"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//partitioning/ComCostPartition/internalCostMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//partitioning/ComCostPartition/externalCostMap"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/ComCostPartition/internalCost"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/ComCostPartition/externalCost"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//partitioning/WorkloadBalancePartition">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//partitioning/WorkloadBalancePartition/actors"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/WorkloadBalancePartition/workload"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//partitioning/WorkloadBalancePartitioningReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//partitioning/WorkloadBalancePartitioningReport/network"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//partitioning/WorkloadBalancePartitioningReport/partitions"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/WorkloadBalancePartitioningReport/schedulinPolicy"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//partitioning/BalancedPipelinePartition">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//partitioning/BalancedPipelinePartition/actors"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/BalancedPipelinePartition/workload"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/BalancedPipelinePartition/preWorkload"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/BalancedPipelinePartition/commonPredAvg"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//partitioning/BalancedPipelinePartitioningReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//partitioning/BalancedPipelinePartitioningReport/partitions"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//partitioning/BalancedPipelinePartitioningReport/network"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Pipelining" basePackage="turnus.model.analysis" disposableProviderFactory="true"
+        ecorePackage="analysis.ecore#//pipelining">
+      <genClasses ecoreClass="analysis.ecore#//pipelining/ActionsVariablePipeliningReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ActionsVariablePipeliningReport/network"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ActionsVariablePipeliningReport/actionsData"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//pipelining/ActionVariablePipeliningData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ActionVariablePipeliningData/action"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ActionVariablePipeliningData/consecutiveFirings"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ActionVariablePipeliningData/pipelinableFirings"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//pipelining/ActionVariablePipeliningData/pipelinable"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//pipelining/ImpactAnalysisReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisReport/network"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisReport/initialBottlenecks"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisReport/piplenablesActions"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisReport/impactData"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//pipelining/ImpactAnalysisData">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisData/estimatedBottlenecks"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//pipelining/ImpactAnalysisData/cpReduction"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisData/actions"/>
+        <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference analysis.ecore#//pipelining/ImpactAnalysisData/actorClass"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Postprocessing" basePackage="turnus.model.analysis"
+        disposableProviderFactory="true" ecorePackage="analysis.ecore#//postprocessing">
+      <genClasses ecoreClass="analysis.ecore#//postprocessing/PostProcessingReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/PostProcessingReport/network"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/PostProcessingReport/time"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/PostProcessingReport/deadlock"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/PostProcessingReport/reports"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="analysis.ecore#//postprocessing/PostProcessingData"/>
+      <genClasses ecoreClass="analysis.ecore#//postprocessing/ActorStatisticsReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActorStatisticsReport/network"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/ActorStatisticsReport/executionTime"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActorStatisticsReport/partitions"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActorStatisticsReport/idleTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActorStatisticsReport/blockedReadingTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActorStatisticsReport/blockedWritingTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActorStatisticsReport/processingTimes"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/ActorStatisticsReport/averageOccupancy"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/ActorStatisticsReport/occupancyDeviation"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//postprocessing/StatisticalActorPartition">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/StatisticalActorPartition/actors"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/StatisticalActorPartition/occupancy"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/StatisticalActorPartition/schedulingPolicy"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/StatisticalActorPartition/partitionId"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//postprocessing/ActionStatisticsReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/actors"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/idleTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/idleMinTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/idleMaxTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedReadingTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedReadingMinTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedReadingMaxTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedWritingTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedWritingMinTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/blockedWritingMaxTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/processingTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/executionCounts"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/ActionStatisticsReport/network"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//postprocessing/SchedulerChecksReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksReport/partitions"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksReport/network"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//postprocessing/SchedulerChecksPartition">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksPartition/aggregatedCheckedData"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksPartition/aggregatedFailedData"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksPartition/checkedConditionsMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/SchedulerChecksPartition/failedConditionsMap"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/SchedulerChecksPartition/partitionId"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//postprocessing/BufferBlockingReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/BufferBlockingReport/network"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/BufferBlockingReport/maxBlockedOutputTokens"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/BufferBlockingReport/maxBlockedMultiplication"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/BufferBlockingReport/blockingInstances"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Profiling" basePackage="turnus.model.analysis" disposableProviderFactory="true"
+        ecorePackage="analysis.ecore#//profiling">
+      <genClasses ecoreClass="analysis.ecore#//profiling/IntraActionCommunicationReport">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActionCommunicationReport/actorsData"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActionCommunicationReport/network"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiling/IntraActorCommunicationData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActorCommunicationData/actor"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActorCommunicationData/consumedTokens"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActorCommunicationData/producedTokens"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActorCommunicationData/tokensProducersMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActorCommunicationData/actionsData"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiling/IntraActionCommunicationData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActionCommunicationData/action"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActionCommunicationData/consumedTokens"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActionCommunicationData/producedTokens"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/IntraActionCommunicationData/tokensProducersMap"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiling/ProfilingStatsReport">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/ProfilingStatsReport/actorsStatsData"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/ProfilingStatsReport/networkName"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiling/ProfilingStatsActorData">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/ProfilingStatsActorData/actorName"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/ProfilingStatsActorData/actionsWeight"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/ProfilingStatsActorData/schedulerWeight"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/ProfilingStatsActorData/actionsWeightPercent"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/ProfilingStatsActorData/schedulerWeightPercent"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiling/InterPartitionData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionData/actors"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/workload"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/maxIncomingBitsPerFiring"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/maxOutgoingBitsPerFiring"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/persistentMemory"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/maxTransientMemory"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/partitionId"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/persistentBuffers"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionData/internalBuffers"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionData/incomingBuffers"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionData/outgoingBuffers"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/partitionData"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/network"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/outgoingBufferOwnedBySource"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/bufferDepthMap"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/actorPartitionMap"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/cpWeight"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/time"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/deadlock"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/cpWeightScheduled"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Scheduling" basePackage="turnus.model.analysis" disposableProviderFactory="true"
+        ecorePackage="analysis.ecore#//scheduling">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="analysis.ecore#//scheduling/FSMOp">
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMOp/ADD"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMOp/SET"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="analysis.ecore#//scheduling/FSMComparator">
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/EQ"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/NEQ"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/GREATER"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/SMALLER"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/GREQ"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMComparator/SMEQ"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="analysis.ecore#//scheduling/FSMCombinator">
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/AND"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/OR"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/NAND"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/NOR"/>
+        <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/FSMCombinator/NOT"/>
+      </genEnums>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/ActorFire">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/ActorFire/Actor"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/ActorFire/Times"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/ActorFire/partition"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/ActorFire/dependencyPartitions"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSM">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSM/states"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSM/vars"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSM/startState"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSM/terminalState"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/ActorSelectionSchedule"/>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/Sequence">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/Sequence/actions"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMVar">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMVar/name"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMVar/initialVal"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMVar/type"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMTransition">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMTransition/cond"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMTransition/targetStateEnumName"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMTransition/sourceStateEnumName"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMTransition/transitionSchedule"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMState">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMState/enumName"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMState/varUpdates"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMState/transitions"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMVarUpdate">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMVarUpdate/operation"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMVarUpdate/condition"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMOperation">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMOperation/op"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMOperation/val"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMOperation/var"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMCombination">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMCombination/combinator"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMCombination/cond"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMCondition">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMCondition/comp"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMCondition/compval"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMCondition/combinedCond"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/FSMCondition/valName"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/FSMTransitionWithState">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/FSMTransitionWithState/varStates"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/PartitionedActorFire"/>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/MarkovSimpleSchedulerReport">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSimpleSchedulerReport/partitions"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSimpleSchedulerReport/network"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/MarkovPartitionScheduler">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovPartitionScheduler/actors"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovPartitionScheduler/partitionId"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovPartitionScheduler/states"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovPartitionScheduler/transitions"/>
+        <genOperations ecoreOperation="analysis.ecore#//scheduling/MarkovPartitionScheduler/getAssociatedState">
+          <genParameters ecoreParameter="analysis.ecore#//scheduling/MarkovPartitionScheduler/getAssociatedState/actor"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/MarkovSchedulingState">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingState/actor"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingState/firings"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingState/outgoings"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingState/incomings"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingState/name"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//scheduling/MarkovSchedulingTransition">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingTransition/source"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//scheduling/MarkovSchedulingTransition/target"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingTransition/firings"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingTransition/name"/>
+      </genClasses>
+      <nestedGenPackages prefix="Caseoptimal" basePackage="turnus.model.analysis.scheduling"
+          disposableProviderFactory="true" ecorePackage="analysis.ecore#//scheduling/caseoptimal">
+        <genEnums typeSafeEnumCompatible="false" ecoreEnum="analysis.ecore#//scheduling/caseoptimal/Optimizer">
+          <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/caseoptimal/Optimizer/RLE"/>
+          <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/caseoptimal/Optimizer/KTAIL"/>
+        </genEnums>
+        <genClasses ecoreClass="analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/partitionSchedules"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/traceFile"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/pipeline"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/partitionFilePath"/>
+        </genClasses>
+        <genClasses ecoreClass="analysis.ecore#//scheduling/caseoptimal/CaseOptimalActorSelectionSchedule"/>
+      </nestedGenPackages>
+    </nestedGenPackages>
+  </genPackages>
 </genmodel:GenModel>

@@ -519,13 +519,22 @@ public interface ProfilingPackage extends EPackage {
 	int INTER_PARTITION_DATA__INTERNAL_BUFFERS = 8;
 
 	/**
-	 * The feature id for the '<em><b>External Buffers</b></em>' reference list.
+	 * The feature id for the '<em><b>Incoming Buffers</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_DATA__EXTERNAL_BUFFERS = 9;
+	int INTER_PARTITION_DATA__INCOMING_BUFFERS = 9;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Buffers</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__OUTGOING_BUFFERS = 10;
 
 	/**
 	 * The number of structural features of the '<em>Inter Partition Data</em>' class.
@@ -534,7 +543,7 @@ public interface ProfilingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_DATA_FEATURE_COUNT = 10;
+	int INTER_PARTITION_DATA_FEATURE_COUNT = 11;
 
 	/**
 	 * The number of operations of the '<em>Inter Partition Data</em>' class.
@@ -1031,15 +1040,26 @@ public interface ProfilingPackage extends EPackage {
 	EReference getInterPartitionData_InternalBuffers();
 
 	/**
-	 * Returns the meta object for the reference list '{@link turnus.model.analysis.profiling.InterPartitionData#getExternalBuffers <em>External Buffers</em>}'.
+	 * Returns the meta object for the reference list '{@link turnus.model.analysis.profiling.InterPartitionData#getIncomingBuffers <em>Incoming Buffers</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>External Buffers</em>'.
-	 * @see turnus.model.analysis.profiling.InterPartitionData#getExternalBuffers()
+	 * @return the meta object for the reference list '<em>Incoming Buffers</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getIncomingBuffers()
 	 * @see #getInterPartitionData()
 	 * @generated
 	 */
-	EReference getInterPartitionData_ExternalBuffers();
+	EReference getInterPartitionData_IncomingBuffers();
+
+	/**
+	 * Returns the meta object for the reference list '{@link turnus.model.analysis.profiling.InterPartitionData#getOutgoingBuffers <em>Outgoing Buffers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Outgoing Buffers</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getOutgoingBuffers()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EReference getInterPartitionData_OutgoingBuffers();
 
 	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport <em>Inter Partition Communication And Memory Report</em>}'.
@@ -1450,12 +1470,20 @@ public interface ProfilingPackage extends EPackage {
 		EReference INTER_PARTITION_DATA__INTERNAL_BUFFERS = eINSTANCE.getInterPartitionData_InternalBuffers();
 
 		/**
-		 * The meta object literal for the '<em><b>External Buffers</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Incoming Buffers</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference INTER_PARTITION_DATA__EXTERNAL_BUFFERS = eINSTANCE.getInterPartitionData_ExternalBuffers();
+		EReference INTER_PARTITION_DATA__INCOMING_BUFFERS = eINSTANCE.getInterPartitionData_IncomingBuffers();
+
+		/**
+		 * The meta object literal for the '<em><b>Outgoing Buffers</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTER_PARTITION_DATA__OUTGOING_BUFFERS = eINSTANCE.getInterPartitionData_OutgoingBuffers();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl <em>Inter Partition Communication And Memory Report</em>}' class.

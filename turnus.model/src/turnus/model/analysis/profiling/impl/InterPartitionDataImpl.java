@@ -68,7 +68,8 @@ import turnus.model.dataflow.Buffer;
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getPartitionId <em>Partition Id</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getPersistentBuffers <em>Persistent Buffers</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getInternalBuffers <em>Internal Buffers</em>}</li>
- *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getExternalBuffers <em>External Buffers</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getIncomingBuffers <em>Incoming Buffers</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getOutgoingBuffers <em>Outgoing Buffers</em>}</li>
  * </ul>
  *
  * @generated
@@ -235,14 +236,24 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	protected EList<Buffer> internalBuffers;
 
 	/**
-	 * The cached value of the '{@link #getExternalBuffers() <em>External Buffers</em>}' reference list.
+	 * The cached value of the '{@link #getIncomingBuffers() <em>Incoming Buffers</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExternalBuffers()
+	 * @see #getIncomingBuffers()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Buffer> externalBuffers;
+	protected EList<Buffer> incomingBuffers;
+
+	/**
+	 * The cached value of the '{@link #getOutgoingBuffers() <em>Outgoing Buffers</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOutgoingBuffers()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Buffer> outgoingBuffers;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -456,11 +467,24 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
-	public List<Buffer> getExternalBuffers() {
-		if (externalBuffers == null) {
-			externalBuffers = new EObjectResolvingEList<Buffer>(Buffer.class, this, ProfilingPackage.INTER_PARTITION_DATA__EXTERNAL_BUFFERS);
+	public List<Buffer> getIncomingBuffers() {
+		if (incomingBuffers == null) {
+			incomingBuffers = new EObjectResolvingEList<Buffer>(Buffer.class, this, ProfilingPackage.INTER_PARTITION_DATA__INCOMING_BUFFERS);
 		}
-		return externalBuffers;
+		return incomingBuffers;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public List<Buffer> getOutgoingBuffers() {
+		if (outgoingBuffers == null) {
+			outgoingBuffers = new EObjectResolvingEList<Buffer>(Buffer.class, this, ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFERS);
+		}
+		return outgoingBuffers;
 	}
 
 	/**
@@ -489,8 +513,10 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 				return getPersistentBuffers();
 			case ProfilingPackage.INTER_PARTITION_DATA__INTERNAL_BUFFERS:
 				return getInternalBuffers();
-			case ProfilingPackage.INTER_PARTITION_DATA__EXTERNAL_BUFFERS:
-				return getExternalBuffers();
+			case ProfilingPackage.INTER_PARTITION_DATA__INCOMING_BUFFERS:
+				return getIncomingBuffers();
+			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFERS:
+				return getOutgoingBuffers();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -533,9 +559,13 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 				getInternalBuffers().clear();
 				getInternalBuffers().addAll((Collection<? extends Buffer>)newValue);
 				return;
-			case ProfilingPackage.INTER_PARTITION_DATA__EXTERNAL_BUFFERS:
-				getExternalBuffers().clear();
-				getExternalBuffers().addAll((Collection<? extends Buffer>)newValue);
+			case ProfilingPackage.INTER_PARTITION_DATA__INCOMING_BUFFERS:
+				getIncomingBuffers().clear();
+				getIncomingBuffers().addAll((Collection<? extends Buffer>)newValue);
+				return;
+			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFERS:
+				getOutgoingBuffers().clear();
+				getOutgoingBuffers().addAll((Collection<? extends Buffer>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -576,8 +606,11 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 			case ProfilingPackage.INTER_PARTITION_DATA__INTERNAL_BUFFERS:
 				getInternalBuffers().clear();
 				return;
-			case ProfilingPackage.INTER_PARTITION_DATA__EXTERNAL_BUFFERS:
-				getExternalBuffers().clear();
+			case ProfilingPackage.INTER_PARTITION_DATA__INCOMING_BUFFERS:
+				getIncomingBuffers().clear();
+				return;
+			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFERS:
+				getOutgoingBuffers().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -609,8 +642,10 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 				return persistentBuffers != PERSISTENT_BUFFERS_EDEFAULT;
 			case ProfilingPackage.INTER_PARTITION_DATA__INTERNAL_BUFFERS:
 				return internalBuffers != null && !internalBuffers.isEmpty();
-			case ProfilingPackage.INTER_PARTITION_DATA__EXTERNAL_BUFFERS:
-				return externalBuffers != null && !externalBuffers.isEmpty();
+			case ProfilingPackage.INTER_PARTITION_DATA__INCOMING_BUFFERS:
+				return incomingBuffers != null && !incomingBuffers.isEmpty();
+			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFERS:
+				return outgoingBuffers != null && !outgoingBuffers.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

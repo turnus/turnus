@@ -64,29 +64,32 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 				@Override
 				public int compare(InterPartitionData o1, InterPartitionData o2) {
 					
-					return Integer.compare(o2.getActors().size(), o1.getActors().size());
+					return o1.getPartitionId().compareTo(o2.getPartitionId());
 				}
 			});
+			
 
 			// b.append("\n| || Overall ||||| Critical Path ||||| ");
-			b.append("\n|                      ||| <center>Memory</center>  ||| <center>Interface</center>  |||");
-			b.append("\n| Partition | Workload | # Actors | *Actors*| *Channels* | Total | Incoming | Outgoing |");
-			b.append("\n|---        |--:       |--:       |--:    |--:      |--:    |--:       |--:       |");
+			b.append("\n|                      ||| <center>Memory</center>  ||| <center>Interface</center>  |||||");
+			b.append("\n| Partition | Workload | # Actors | *Actors*| *Channels* | Total | #Incoming | Max Incoming Data | #Outgoing | Max Outgoing Data |");
+			b.append("\n|---        |--:       |--:       |--:    |--:      |--:    |--:       |--:       |--:       |--: |");
 			for (InterPartitionData datum : sortedList) {
-				b.append(String.format("\n|%s     | %.2f     | %d       | %s    | %s      | %s    |  %s      | %s     ", //
+				b.append(String.format("\n|%s     | %.2f     | %d       | %s    | %s      | %s    |  %s      | %s      |  %s      | %s     ", //
 						datum.getPartitionId(), //
 						datum.getWorkload(), //
 						datum.getActors().size(), //
 						StringUtils.formatBytes(datum.getPersistentMemory(), true), //
 						StringUtils.formatBytes(datum.getPersistentBuffers(), true), //
 						StringUtils.formatBytes(datum.getPersistentMemory() + datum.getPersistentBuffers(), true), //
+						datum.getIncomingBuffers().size(), //
 						StringUtils.formatBytes(datum.getMaxIncomingBitsPerFiring(), true), //
+						datum.getOutgoingBuffers().size(), //
 						StringUtils.formatBytes(datum.getMaxOutgoingBitsPerFiring(), true)//
 				));
 			}
 
 			b.append("\n# Partitions\n");
-			for (InterPartitionData datum : data.getPartitionData()) {
+			for (InterPartitionData datum : sortedList ) {
 				b.append(String.format("## Partition: %s\n", datum.getPartitionId()));
 
 				b.append("| Actor | Memory |\n");
@@ -113,8 +116,14 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 					}
 					b.append("[Internal Buffers]\n");
 				}
+				List<Buffer> externalBuffers;
+				if (data.isOutgoingBufferOwnedBySource()) {
+					externalBuffers = datum.getOutgoingBuffers();
+				}else {
+					externalBuffers = datum.getIncomingBuffers();
+				}
 
-				if (datum.getExternalBuffers().size() > 0) {
+				if (externalBuffers.size() > 0) {
 					if(data.isOutgoingBufferOwnedBySource()) {
 						b.append("\n| to  | source | source-port | target | target-port | type | depth | bytes\n");
 					}else {
@@ -122,7 +131,7 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 					}
 					b.append("|:----|----|----|----|----|----|---:|---:\n");
 
-					for (Buffer buffer : datum.getExternalBuffers()) {
+					for (Buffer buffer : externalBuffers) {
 						int depth = data.getBufferDepthMap().get(buffer);
 						long bizSize = depth * buffer.getType().getBits();
 						String partition = "";

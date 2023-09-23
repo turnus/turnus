@@ -49,6 +49,7 @@ import turnus.common.TurnusException;
 import turnus.common.io.FileExporter;
 import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
+import turnus.common.util.StringUtils;
 import turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport;
 import turnus.model.analysis.buffers.BoundedBuffersReport;
 import turnus.model.analysis.buffers.OptimalBufferData;
@@ -102,8 +103,8 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 
 			b.append("| iteration | cp reduction | tokens || bit|| \n");
 			b.append("|:----|:----|:----|:----|:----|:----|:----\n");
-			b.append(String.format("| nominal |   |  %d |  | %d (%s kB) | |\n", nominal_tokens, nominal_bit,
-					format(getKb(nominal_bit))));
+			b.append(String.format("| nominal |   |  %d |  | %d (%s) | |\n", nominal_tokens, nominal_bit,
+					StringUtils.formatBytes(nominal_bit, true)));
 			int i = 1;
 			for (OptimalBufferData o : bdata) {
 				double cp = o.getBottlenecksData().getCpWeight();
@@ -114,8 +115,8 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 				double cp_reduction = (1.0 - cp / nominal_cp) * 100.0;
 				double bit_increase = (((double) bit) / nominal_bit - 1) * 100.0;
 				double tokens_increase = (((double) tokens) / nominal_tokens - 1) * 100.0;
-				b.append(String.format("| %d | -%s  | %d  | %s |  %d (%s kB) | %s \n", i++, format(cp_reduction) + "%",
-						tokens, format(tokens_increase) + "%", bit, format(kbit), format(bit_increase) + "%"));
+				b.append(String.format("| %d | -%s  | %d  | %s |  %d (%s) | %s \n", i++, format(cp_reduction) + "%",
+						tokens, format(tokens_increase) + "%", bit, StringUtils.formatBytes(bit, true), format(bit_increase) + "%"));
 			}
 			b.append("[Summary]\n");
 			b.append("\n\n");
@@ -166,9 +167,9 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 					int tokens = resultsTable.get(i, buffer);
 					long bit = tokens * buffer.getType().getBits();
 					if (i > 0 && tokens != oldSize) {
-						b.append("| **" + tokens + "** **(" + bit + "bit)**");
+						b.append("| **" + tokens + "** **(" + StringUtils.formatBytes(bit, true) + ")**");
 					} else {
-						b.append("| " + tokens + " (" + bit + "bit)");
+						b.append("| " + tokens + " (" + StringUtils.formatBytes(bit, true) + ")");
 					}
 					oldSize = tokens;
 				}

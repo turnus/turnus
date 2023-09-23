@@ -56,7 +56,8 @@ import turnus.model.dataflow.Buffer;
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getPartitionId <em>Partition Id</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getPersistentBuffers <em>Persistent Buffers</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getInternalBuffers <em>Internal Buffers</em>}</li>
- *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getExternalBuffers <em>External Buffers</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getIncomingBuffers <em>Incoming Buffers</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getOutgoingBuffers <em>Outgoing Buffers</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData()
@@ -243,15 +244,27 @@ public interface InterPartitionData extends EObject {
 	List<Buffer> getInternalBuffers();
 
 	/**
-	 * Returns the value of the '<em><b>External Buffers</b></em>' reference list.
+	 * Returns the value of the '<em><b>Incoming Buffers</b></em>' reference list.
 	 * The list contents are of type {@link turnus.model.dataflow.Buffer}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>External Buffers</em>' reference list.
-	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_ExternalBuffers()
+	 * @return the value of the '<em>Incoming Buffers</em>' reference list.
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_IncomingBuffers()
 	 * @model
 	 * @generated
 	 */
-	List<Buffer> getExternalBuffers();
+	List<Buffer> getIncomingBuffers();
+
+	/**
+	 * Returns the value of the '<em><b>Outgoing Buffers</b></em>' reference list.
+	 * The list contents are of type {@link turnus.model.dataflow.Buffer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Outgoing Buffers</em>' reference list.
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_OutgoingBuffers()
+	 * @model
+	 * @generated
+	 */
+	List<Buffer> getOutgoingBuffers();
 
 } // InterPartitionData

@@ -601,8 +601,18 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 	 * @generated
 	 */
 	@Override
-	public EReference getInterPartitionData_ExternalBuffers() {
+	public EReference getInterPartitionData_IncomingBuffers() {
 		return (EReference)interPartitionDataEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getInterPartitionData_OutgoingBuffers() {
+		return (EReference)interPartitionDataEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -772,7 +782,8 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		createEAttribute(interPartitionDataEClass, INTER_PARTITION_DATA__PARTITION_ID);
 		createEAttribute(interPartitionDataEClass, INTER_PARTITION_DATA__PERSISTENT_BUFFERS);
 		createEReference(interPartitionDataEClass, INTER_PARTITION_DATA__INTERNAL_BUFFERS);
-		createEReference(interPartitionDataEClass, INTER_PARTITION_DATA__EXTERNAL_BUFFERS);
+		createEReference(interPartitionDataEClass, INTER_PARTITION_DATA__INCOMING_BUFFERS);
+		createEReference(interPartitionDataEClass, INTER_PARTITION_DATA__OUTGOING_BUFFERS);
 
 		interPartitionCommunicationAndMemoryReportEClass = createEClass(INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT);
 		createEReference(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA);
@@ -863,7 +874,8 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		initEAttribute(getInterPartitionData_PartitionId(), ecorePackage.getEString(), "partitionId", null, 0, 1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInterPartitionData_PersistentBuffers(), ecorePackage.getELong(), "persistentBuffers", null, 0, 1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInterPartitionData_InternalBuffers(), theDataflowPackage.getBuffer(), null, "internalBuffers", null, 0, -1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getInterPartitionData_ExternalBuffers(), theDataflowPackage.getBuffer(), null, "externalBuffers", null, 0, -1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInterPartitionData_IncomingBuffers(), theDataflowPackage.getBuffer(), null, "incomingBuffers", null, 0, -1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInterPartitionData_OutgoingBuffers(), theDataflowPackage.getBuffer(), null, "outgoingBuffers", null, 0, -1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(interPartitionCommunicationAndMemoryReportEClass, InterPartitionCommunicationAndMemoryReport.class, "InterPartitionCommunicationAndMemoryReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getInterPartitionCommunicationAndMemoryReport_PartitionData(), this.getInterPartitionData(), null, "partitionData", null, 0, -1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
