@@ -96,6 +96,9 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		this.decorator = project.getTraceDecorator();
 	}
 
+	/**
+	 * Calculate the actor workload and the max incoming and outgoing data from an actor
+	 */
 	private void processTrace() {
 
 		for (Buffer buffer : project.getNetwork().getBuffers()) {
@@ -246,15 +249,17 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 			}
 
 			partitionDatum.getOutgoingBuffers().addAll(outgoingBuffers);
-			for (Buffer buffer : outgoingBuffers) {
-				internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
-			}
-
 			partitionDatum.getIncomingBuffers().addAll(incomingBuffers);
-			for (Buffer buffer : incomingBuffers) {
-				internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
+			
+			if (outgoingBufferOwnedBySource) {
+				for (Buffer buffer : outgoingBuffers) {
+					internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
+				}
+			} else {
+				for (Buffer buffer : incomingBuffers) {
+					internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
+				}
 			}
-
 			// -- Set partition persistent actors memory and buffers
 			partitionDatum.setPersistentMemory(actorsPersistentMemory);
 			partitionDatum.setPersistentBuffers(internalBuffersPersistentMemory);

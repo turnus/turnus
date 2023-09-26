@@ -61,7 +61,6 @@ import turnus.analysis.bottlenecks.util.CriticalPathCollector;
 import turnus.common.TurnusException;
 import turnus.common.io.Logger;
 import turnus.model.analysis.bottlenecks.ActionBottlenecksWithSchedulingData;
-import turnus.model.analysis.bottlenecks.BottlenecksFactory;
 import turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport;
 import turnus.model.analysis.buffers.BoundedBufferData;
 import turnus.model.analysis.buffers.BoundedBuffersReport;
@@ -177,11 +176,20 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 			XmlBufferSizeReader reader = new XmlBufferSizeReader();
 			maxBufferConfiguration = reader.load(bufferFile);
 		} else {
+			List<DataCollector> registeredCollectors = new ArrayList<>();
+			CriticalPathCollector cpCollector = new CriticalPathCollector(project.getNetwork(), partitioning);
+			registeredCollectors.add(cpCollector);
+			for (DataCollector collector : registeredCollectors) {
+				simulation.addDataCollector(collector);
+			}
 			// run TP with unbounded buffer to get the buffer sizes
 			maxBufferConfiguration = new BufferSize(network);
 			maxBufferConfiguration.setDefaultSize(Integer.MAX_VALUE);
 			simulation.setBufferSize(maxBufferConfiguration);
-			double time = simulation.run().getTime();
+			
+			PostProcessingReport ppReport = simulation.run();
+			double time = ppReport.getTime(); // evaluate the new time
+			
 			maxBufferConfiguration = simulation.getMaxBufferSizeRecorded();
 
 			// used to store the maximal configuration in a file (in case we want to load
@@ -189,8 +197,9 @@ public class OptimalBufferSizeAnalysisTopDown extends Analysis<OptimalBuffersRep
 			BoundedBuffersReport newData = getNewBufferData(maxBufferConfiguration);
 			OptimalBufferData data = f.createOptimalBufferData();
 			data.setBufferData(newData);
-			BottlenecksWithSchedulingReport pcpData = BottlenecksFactory.eINSTANCE
-					.createBottlenecksWithSchedulingReport();
+			BottlenecksWithSchedulingReport pcpData = ppReport
+					.getReport(BottlenecksWithSchedulingReport.class);
+			pcpData.setDeadlock(simulation.isDeadlocked());
 			pcpData.setExecutionTime(time);
 			data.setBottlenecksData(pcpData);
 			report.getBuffersData().add(data);

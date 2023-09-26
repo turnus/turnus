@@ -118,7 +118,7 @@ public class TypeDoubleImpl extends MinimalEObjectImpl.Container implements Type
 
 	@Override
 	public long getBits() {
-		return 32 * getSize();
+		return getSize();
 	}
 
 	/**

@@ -18,7 +18,6 @@ import turnus.common.util.StringUtils;
 import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
 import turnus.model.analysis.profiling.InterPartitionData;
 import turnus.model.analysis.profiling.util.MemoryAndBuffers;
-import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
 
@@ -107,12 +106,12 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 
 					for (Buffer buffer : datum.getInternalBuffers()) {
 						int depth = data.getBufferDepthMap().get(buffer);
-						long bizSize = depth * buffer.getType().getBits();
+						long bitSize = depth * buffer.getType().getBits();
 						
 						b.append(String.format("|%-20s | %-20s | %-20s | %-20s | %-20s | %-20s | %-20s\n",
 								buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
 								buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(),
-								buffer.getType().toString(), depth, StringUtils.formatBytes(bizSize, true)));
+								buffer.getType().toString(), depth, StringUtils.formatBytes(bitSize, true)));
 					}
 					b.append("[Internal Buffers]\n");
 				}
