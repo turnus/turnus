@@ -90,7 +90,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 		} catch (TurnusException e) {
 			Logger.error("Application error: %s", e.getMessage());
 		}
- 
+
 		try {
 			cliApp.run();
 		} catch (Exception e) {
@@ -105,8 +105,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 				.setOption(ACTION_WEIGHTS, true)//
 				.setOption(MAPPING_FILE, true)//
 				.setOption(BUFFER_SIZE_FILE, true)//
-				.setOption(OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION, false)
-				.setOption(OUTPUT_DIRECTORY, false);
+				.setOption(OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION, false).setOption(OUTPUT_DIRECTORY, false);
 
 		configuration = cliParser.parse(args);
 	}
@@ -159,7 +158,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 			} catch (Exception e) {
 				throw new TurnusException("The buffer configuration file cannot be loaded.", e);
 			}
-			
+
 			// -- Outgoing buffer owned by source partition
 			if (configuration.getValue(OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION)) {
 				outgoingBufferOwnedBySource = true;
@@ -171,8 +170,8 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 			// -- STEP 2 : Run the analysis
 			monitor.subTask("Running the analysis");
 			try {
-				analysis = new InterPartitionCommunicationAndMemoryAnalysis(project, weighter, bufferSize,
-						partitioning, outgoingBufferOwnedBySource);
+				analysis = new InterPartitionCommunicationAndMemoryAnalysis(project, weighter, bufferSize, partitioning,
+						outgoingBufferOwnedBySource);
 				analysis.setConfiguration(configuration);
 				report = analysis.run();
 				Logger.infoRaw(report.toString());
@@ -191,11 +190,10 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 				} else {
 					outputPath = createOutputDirectory("profiling", configuration);
 				}
-				File reportFile = createFileWithTimeStamp(outputPath,
-						TurnusExtensions.INTER_PARTITION_COMM_MEM_REPORT);
+				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.INTER_PARTITION_COMM_MEM_REPORT);
 				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
 				Logger.info("Inter-partition communication and memory report stored in \"%s\"", reportFile);
-				
+
 			} catch (Exception e) {
 				Logger.error("The report file cannot be stored");
 				String message = e.getLocalizedMessage();
@@ -231,6 +229,12 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 		if (analysis != null) {
 			analysis.cancel();
 		}
+	}
+
+	public void start(Configuration configuration, IProgressMonitor monitor) throws Exception {
+		this.configuration = configuration;
+		this.monitor = monitor;
+		run();
 	}
 
 }

@@ -1,7 +1,7 @@
 /* 
  * TURNUS - www.turnus.co
  * 
- * Copyright (C) 2010-2016 EPFL SCI STI MM
+ * Copyright (C) 2023 Endri Bezati
  *
  * This file is part of TURNUS.
  *
@@ -29,7 +29,7 @@
  * for the parts of Eclipse libraries used as well as that of the  covered work.
  * 
  */
-package turnus.analysis.ui.bottlenecks;
+package turnus.analysis.ui.profiling;
 
 import static turnus.common.TurnusExtensions.BUFFER_SIZE;
 import static turnus.common.TurnusExtensions.NETWORK_PARTITIONING;
@@ -39,6 +39,7 @@ import static turnus.common.TurnusExtensions.TRACEZ;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
+import static turnus.common.TurnusOptions.OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 
 import java.io.File;
@@ -56,25 +57,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
 
-import turnus.analysis.bottlenecks.ScheduledPartialCriticalPathAnalysisCli;
+import turnus.analysis.profiling.InterPartitionCommunicationAndMemoryAnalysisCli;
 import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
 import turnus.ui.util.EclipseUtils;
+import turnus.ui.widget.WidgetCheckBox;
 import turnus.ui.widget.WidgetSelectFileCombo;
 import turnus.ui.wizard.AbstractWizardPage;
 
-/**
- * 
- * @author Simone Casale Brunet
- * @author Endri Bezati
- *
- */
-public class ScheduledPartialCriticalPathAnalysisWizard extends Wizard implements IWorkbenchWizard {
+public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard implements IWorkbenchWizard {
 
 	/**
 	 * The unique file page which contains the input and output file widgets
 	 * 
-	 * @author Simone Casale Brunet
 	 * @author Endri Bezati
 	 *
 	 */
@@ -84,6 +79,7 @@ public class ScheduledPartialCriticalPathAnalysisWizard extends Wizard implement
 		private WidgetSelectFileCombo wWeightsFile;
 		private WidgetSelectFileCombo wMappingFile;
 		private WidgetSelectFileCombo wBufferSizeFile;
+		private WidgetCheckBox wSourceOwnsOutgoingBuffers;
 
 		private OptionsPage() {
 			super("Scheduled bottleneck analysis analysis");
@@ -144,6 +140,10 @@ public class ScheduledPartialCriticalPathAnalysisWizard extends Wizard implement
 				wBufferSizeFile.setChoices(initialBxdffFiles.toArray(new String[0]));
 			addWidget(wBufferSizeFile);
 
+			wSourceOwnsOutgoingBuffers = new WidgetCheckBox("Source partition owns outgoing buffers",
+					"Source partition owns outgoing buffers", false, container);
+			addWidget(wSourceOwnsOutgoingBuffers);
+
 		}
 
 		public File getMappingFile() {
@@ -162,27 +162,30 @@ public class ScheduledPartialCriticalPathAnalysisWizard extends Wizard implement
 			return wBufferSizeFile.getValue();
 		}
 
+		public boolean getSourceOwnsOutgoingBuffers() {
+			return wSourceOwnsOutgoingBuffers.getValue();
+		}
+
 	}
 
 	private OptionsPage optionsPage;
-
-	public ScheduledPartialCriticalPathAnalysisWizard() {
+	
+	
+	public InterPartitionCommunicationAndMemoryAnalysisWizard() {
 		super();
-
 		optionsPage = new OptionsPage();
-
 		setNeedsProgressMonitor(true);
-
 		EclipseUtils.openDefaultConsole();
 	}
-
+	
+	
 	@Override
 	public void addPages() {
 		addPage(optionsPage);
 	}
-
+	
 	@Override
-	public void init(IWorkbench workbench, IStructuredSelection selection) {
+	public void init(IWorkbench workbench, IStructuredSelection selection) {		
 	}
 
 	@Override
@@ -192,21 +195,22 @@ public class ScheduledPartialCriticalPathAnalysisWizard extends Wizard implement
 		configuration.setValue(ACTION_WEIGHTS, optionsPage.getWeightsFile());
 		configuration.setValue(MAPPING_FILE, optionsPage.getMappingFile());
 		configuration.setValue(BUFFER_SIZE_FILE, optionsPage.getBufferSizeFile());
+		configuration.setValue(OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION, optionsPage.getSourceOwnsOutgoingBuffers());
 
-		final Job job = new Job("Scheduled Partial Critical-Path Analysis") {
-
+		final Job job = new Job("Inter partition communication and memory analysis") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				try {
-					new ScheduledPartialCriticalPathAnalysisCli().start(configuration, monitor);
+					new InterPartitionCommunicationAndMemoryAnalysisCli().start(configuration, monitor);
 					EclipseUtils.refreshWorkspace(monitor);
-				} catch (Exception e) {
+				}catch (Exception e) {
 					Logger.error(e.getMessage());
 				}
 				return Status.OK_STATUS;
 			}
 		};
-
+		
+		
 		job.setUser(true);
 		job.schedule();
 

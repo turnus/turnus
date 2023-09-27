@@ -34,11 +34,11 @@ package turnus.analysis.ui.bottlenecks;
 import static turnus.common.TurnusExtensions.NETWORK_WEIGHT;
 import static turnus.common.TurnusExtensions.TRACE;
 import static turnus.common.TurnusExtensions.TRACEZ;
+import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.ANALYSIS_IMPACT_CLASS_LEVEL;
 import static turnus.common.TurnusOptions.ANALYSIS_IMPACT_MAX_ACTIONS;
 import static turnus.common.TurnusOptions.ANALYSIS_IMPACT_MAX_POINTS;
 import static turnus.common.TurnusOptions.TRACE_FILE;
-import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -60,7 +60,6 @@ import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
 import turnus.ui.util.EclipseUtils;
 import turnus.ui.widget.WidgetCheckBox;
-import turnus.ui.widget.WidgetSelectFile;
 import turnus.ui.widget.WidgetSelectFileCombo;
 import turnus.ui.widget.WidgetSpinnerInteger;
 import turnus.ui.wizard.AbstractWizardPage;
@@ -68,6 +67,7 @@ import turnus.ui.wizard.AbstractWizardPage;
 /**
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class AlgorithmicImpactAnalysisWizard extends Wizard implements IWorkbenchWizard {
