@@ -126,7 +126,7 @@ public class WorkloadBalancePartitioningWizard extends Wizard implements IWorkbe
 			
 			// -- Scheduler
 			String[] schedulers = {"ROUND_ROBIN", "NON_PREEMPTIVE", "FULL_PARALLEL"};
-			wSchedulers = new WidgetComboBox("Schedulers", "select the configuration", schedulers, schedulers[0],
+			wSchedulers = new WidgetComboBox("Scheduler", "Select a scheduler", schedulers, schedulers[0],
 					container);
 
 		}

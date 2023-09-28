@@ -38,10 +38,14 @@ import static turnus.common.TurnusExtensions.TRACEZ;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_DEFAULT;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
+import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -57,22 +61,23 @@ import turnus.common.TurnusException;
 import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
 import turnus.ui.util.EclipseUtils;
-import turnus.ui.widget.WidgetSelectFile;
+import turnus.ui.widget.WidgetSelectFileCombo;
 import turnus.ui.widget.WidgetSpinnerInteger;
 import turnus.ui.wizard.AbstractWizardPage;
 
 /**
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class MarkovModelSchedulerWizard extends Wizard implements IWorkbenchWizard {
 	
 	private class OptionsPage extends AbstractWizardPage {
 
-		private WidgetSelectFile wTraceFile;
-		private WidgetSelectFile wWeightsFile;
-		private WidgetSelectFile wInitialMappingFile;
+		private WidgetSelectFileCombo wTraceFile;
+		private WidgetSelectFileCombo wWeightsFile;
+		private WidgetSelectFileCombo wMappingFile;
 		private WidgetSpinnerInteger wBuffers;
  
 		private OptionsPage() {
@@ -83,20 +88,46 @@ public class MarkovModelSchedulerWizard extends Wizard implements IWorkbenchWiza
 
 		@Override
 		protected void createWidgets(Composite container) {
+			IProject project = EclipseUtils.getCurrentProject();
 
-			String[] inputs = { TRACE, TRACEZ };
-			wTraceFile = new WidgetSelectFile("Trace", "Trace file",  inputs, null, container);
+			// -- Trace File
+			String[] traceExtensions = { TRACE, TRACEZ };
+			List<String> initialTraceFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialTraceFiles = EclipseUtils.getPathsFromContainer(project, traceExtensions);
+			}
+
+			wTraceFile = new WidgetSelectFileCombo("Trace", "Trace file", traceExtensions, null, container);
+			if (!initialTraceFiles.isEmpty())
+				wTraceFile.setChoices(initialTraceFiles.toArray(new String[0]));
 			addWidget(wTraceFile);
-			
+
+			// -- Network weight file
 			String[] weightsExtension = { NETWORK_WEIGHT };
-			wWeightsFile = new WidgetSelectFile("Actions weights", "The actions weight file",  
-					weightsExtension, null, container);
+			List<String> initialExdfFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialExdfFiles = EclipseUtils.getPathsFromContainer(project, weightsExtension);
+			}
+			wWeightsFile = new WidgetSelectFileCombo("Weights", "The network weight file", weightsExtension, null,
+					container);
+			if (!initialExdfFiles.isEmpty())
+				wWeightsFile.setChoices(initialExdfFiles.toArray(new String[0]));
 			addWidget(wWeightsFile);
-			
+
+			// -- Network partition file
 			String[] mappingExtension = { NETWORK_PARTITIONING };
-			wInitialMappingFile = new WidgetSelectFile("Mapping", "Mapping configuration file", mappingExtension,
-					  null, container);
-			addWidget(wInitialMappingFile);
+			List<String> initialXcffFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialXcffFiles = EclipseUtils.getPathsFromContainer(project, mappingExtension);
+			}
+
+			wMappingFile = new WidgetSelectFileCombo("Mapping configuration", "Mapping configuration file",
+					mappingExtension, null, container);
+			if (!initialXcffFiles.isEmpty())
+				wMappingFile.setChoices(initialXcffFiles.toArray(new String[0]));
+			addWidget(wMappingFile);
+
+		
 			
 			wBuffers = new WidgetSpinnerInteger("Buffer Size", "Select the buffer size used for the simulation",  1, Integer.MAX_VALUE, 512, 512,
 					container);
@@ -113,7 +144,7 @@ public class MarkovModelSchedulerWizard extends Wizard implements IWorkbenchWiza
 		}
 		
 		public File getMappingFile() {
-			return wInitialMappingFile.getValue();
+			return wMappingFile.getValue();
 		}
 		
 		public int getBuffers() {
@@ -150,6 +181,7 @@ public class MarkovModelSchedulerWizard extends Wizard implements IWorkbenchWiza
 		configuration.setValue(ACTION_WEIGHTS, optionsPage.getWeightsFile());
 		configuration.setValue(MAPPING_FILE, optionsPage.getMappingFile());
 		configuration.setValue(BUFFER_SIZE_DEFAULT, optionsPage.getBuffers());
+		configuration.setValue(RELEASE_BUFFERS_AFTER_PROCESSING, true);
 
 		final Job job = new Job("Tabu Search Partitioning algorithm") {
 

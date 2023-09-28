@@ -34,12 +34,16 @@ package turnus.analysis.ui.partitioning;
 import static turnus.common.TurnusExtensions.NETWORK_WEIGHT;
 import static turnus.common.TurnusExtensions.TRACE;
 import static turnus.common.TurnusExtensions.TRACEZ;
-import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
-import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
+import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
+import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
+import static turnus.common.TurnusOptions.TRACE_FILE;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -55,13 +59,15 @@ import turnus.common.TurnusException;
 import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
 import turnus.ui.util.EclipseUtils;
-import turnus.ui.widget.WidgetSelectFile;
+import turnus.ui.widget.WidgetComboBox;
+import turnus.ui.widget.WidgetSelectFileCombo;
 import turnus.ui.widget.WidgetSpinnerInteger;
 import turnus.ui.wizard.AbstractWizardPage;
 
 /**
  * @author Simone Casale Brunet
  * @author Malgorzata Michalska
+ * @author Endri Bezati
  *
  */
 public class BalancedPipelinePartitioningWizard extends Wizard implements IWorkbenchWizard {
@@ -70,13 +76,15 @@ public class BalancedPipelinePartitioningWizard extends Wizard implements IWorkb
 	 * 
 	 * @author Simone Casale Brunet
 	 * @author Malgorzata Michalska
+	 * @author Endri Bezati
 	 *
 	 */
 	private class OptionsPage extends AbstractWizardPage {
 
-		private WidgetSelectFile wTraceFile;
-		private WidgetSelectFile wWeightsFile;
+		private WidgetSelectFileCombo wTraceFile;
+		private WidgetSelectFileCombo wWeightsFile;
 		private WidgetSpinnerInteger wUnits;
+		private WidgetComboBox wSchedulers;
  
 		private OptionsPage() {
 			super("Balanced Pipeline Partitioning algorithm");
@@ -86,19 +94,41 @@ public class BalancedPipelinePartitioningWizard extends Wizard implements IWorkb
 
 		@Override
 		protected void createWidgets(Composite container) {
-
-			String[] inputs = { TRACE, TRACEZ };
-			wTraceFile = new WidgetSelectFile("Trace", "Trace file", inputs,  null, container);
-			addWidget(wTraceFile);
+			IProject project = EclipseUtils.getCurrentProject();
 			
+			// -- Trace File
+			String[] traceExtensions = { TRACE, TRACEZ };
+			List<String> initialTraceFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialTraceFiles = EclipseUtils.getPathsFromContainer(project, traceExtensions);
+			}
+
+			wTraceFile = new WidgetSelectFileCombo("Trace", "Trace file", traceExtensions, null, container);
+			if (!initialTraceFiles.isEmpty())
+				wTraceFile.setChoices(initialTraceFiles.toArray(new String[0]));
+			addWidget(wTraceFile);
+
+			// -- Network weight file
 			String[] weightsExtension = { NETWORK_WEIGHT };
-			wWeightsFile = new WidgetSelectFile("Weights", "The network weight file", weightsExtension,
-					 null, container);
+			List<String> initialExdfFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialExdfFiles = EclipseUtils.getPathsFromContainer(project, weightsExtension);
+			}
+			wWeightsFile = new WidgetSelectFileCombo("Weights", "The network weight file", weightsExtension, null,
+					container);
+			if (!initialExdfFiles.isEmpty())
+				wWeightsFile.setChoices(initialExdfFiles.toArray(new String[0]));
 			addWidget(wWeightsFile);
 
+			// -- Units
 			wUnits = new WidgetSpinnerInteger("Units", "Select the number of available units", 1, Integer.MAX_VALUE, 1, 2,
 					container);
 			addWidget(wUnits);
+			
+			// -- Scheduler
+			String[] schedulers = {"ROUND_ROBIN", "NON_PREEMPTIVE", "FULL_PARALLEL"};
+			wSchedulers = new WidgetComboBox("Scheduler", "Select a scheduler", schedulers, schedulers[0],
+					container);
  
 		}
 		
@@ -112,6 +142,10 @@ public class BalancedPipelinePartitioningWizard extends Wizard implements IWorkb
 
 		public int getUnits() {
 			return wUnits.getValue().intValue();
+		}
+		
+		public String getSchedulingPolicy() {
+			return wSchedulers.getValue();
 		}
 
 	}
@@ -143,6 +177,7 @@ public class BalancedPipelinePartitioningWizard extends Wizard implements IWorkb
 		configuration.setValue(TRACE_FILE, optionsPage.getTraceFile());
 		configuration.setValue(ACTION_WEIGHTS, optionsPage.getWeightsFile());
 		configuration.setValue(ANALYSIS_PARTITIONING_UNITS, optionsPage.getUnits());
+		configuration.setValue(SCHEDULING_POLICY, optionsPage.getSchedulingPolicy());
 
 		final Job job = new Job("Balanced Pipeline Partitioning algorithm") {
 

@@ -35,6 +35,7 @@ import static turnus.common.TurnusExtensions.TRACE;
 import static turnus.common.TurnusExtensions.TRACEZ;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_COMM_BIT_ACCURATE;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
+import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 
 import java.io.File;
@@ -58,6 +59,7 @@ import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
 import turnus.ui.util.EclipseUtils;
 import turnus.ui.widget.WidgetCheckBox;
+import turnus.ui.widget.WidgetComboBox;
 import turnus.ui.widget.WidgetSelectFileCombo;
 import turnus.ui.widget.WidgetSpinnerInteger;
 import turnus.ui.wizard.AbstractWizardPage;
@@ -65,6 +67,7 @@ import turnus.ui.wizard.AbstractWizardPage;
 /**
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class CommunicationCostPartitioningWizard extends Wizard implements IWorkbenchWizard {
@@ -81,6 +84,7 @@ public class CommunicationCostPartitioningWizard extends Wizard implements IWork
 		private WidgetSelectFileCombo wTraceFile;
 		private WidgetSpinnerInteger wUnits;
 		private WidgetCheckBox wBitAccurate;
+		private WidgetComboBox wSchedulers;
 
 		private OptionsPage() {
 			super("Communication cost partitioning with KL algorithm");
@@ -110,6 +114,12 @@ public class CommunicationCostPartitioningWizard extends Wizard implements IWork
 
 			wBitAccurate = new WidgetCheckBox("Bit accurate", "Use the bit size in the cost value", false, container);
 			addWidget(wBitAccurate);
+			
+			// -- Scheduler
+			String[] schedulers = {"ROUND_ROBIN", "NON_PREEMPTIVE", "FULL_PARALLEL"};
+			wSchedulers = new WidgetComboBox("Scheduler", "Select a scheduler", schedulers, schedulers[0],
+					container);
+			
 		}
 
 		public File getTraceFile() {
@@ -122,6 +132,10 @@ public class CommunicationCostPartitioningWizard extends Wizard implements IWork
 
 		public int getUnits() {
 			return wUnits.getValue().intValue();
+		}
+		
+		public String getSchedulingPolicy() {
+			return wSchedulers.getValue();
 		}
 
 	}
@@ -153,6 +167,7 @@ public class CommunicationCostPartitioningWizard extends Wizard implements IWork
 		configuration.setValue(TRACE_FILE, optionsPage.getTraceFile());
 		configuration.setValue(ANALYSIS_PARTITIONING_COMM_BIT_ACCURATE, optionsPage.useBitAccurate());
 		configuration.setValue(ANALYSIS_PARTITIONING_UNITS, optionsPage.getUnits());
+		configuration.setValue(SCHEDULING_POLICY, optionsPage.getSchedulingPolicy());
 
 		final Job job = new Job("Communication cost partitioning analysis") {
 

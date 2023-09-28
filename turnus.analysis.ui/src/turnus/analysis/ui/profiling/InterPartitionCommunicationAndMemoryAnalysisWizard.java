@@ -82,8 +82,8 @@ public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard i
 		private WidgetCheckBox wSourceOwnsOutgoingBuffers;
 
 		private OptionsPage() {
-			super("Scheduled bottleneck analysis analysis");
-			setTitle("Scheduled bottleneck analysis");
+			super("Inter-Partition communciation and memory analysis");
+			setTitle("Inter-Partition communciation and memory analysis");
 			setDescription("Select the options and run the analysis");
 		}
 
