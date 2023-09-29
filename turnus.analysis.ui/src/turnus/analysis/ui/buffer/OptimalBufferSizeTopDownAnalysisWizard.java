@@ -40,6 +40,7 @@ import static turnus.common.TurnusOptions.ANALYSIS_BUFFER_BIT_ACCURATE;
 import static turnus.common.TurnusOptions.ANALYSIS_BUFFER_POW2;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.MAX_ITERATIONS;
+import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 
 import java.io.File;
@@ -57,7 +58,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
 
-import turnus.analysis.buffer.OptimalBufferSizeAnalysisFullParallelCli;
+import turnus.analysis.buffer.OptimalBufferSizeAnalysisTopDownCli;
 import turnus.common.TurnusException;
 import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
@@ -69,16 +70,14 @@ import turnus.ui.wizard.AbstractWizardPage;
 
 /**
  * 
- * @author Simone Casale Brunet
  * @author Endri Bezati
  *
  */
-public class OptimalBufferSizeAnalysisWizard extends Wizard implements IWorkbenchWizard {
+public class OptimalBufferSizeTopDownAnalysisWizard extends Wizard implements IWorkbenchWizard {
 
 	/**
 	 * The unique file page which contains the input and output file widgets
 	 * 
-	 * @author Simone Casale Brunet
 	 * @author Endri Bezati
 	 *
 	 */
@@ -177,7 +176,7 @@ public class OptimalBufferSizeAnalysisWizard extends Wizard implements IWorkbenc
 
 	private OptionsPage optionsPage;
 
-	public OptimalBufferSizeAnalysisWizard() {
+	public OptimalBufferSizeTopDownAnalysisWizard() {
 		super();
 
 		optionsPage = new OptionsPage();
@@ -206,13 +205,14 @@ public class OptimalBufferSizeAnalysisWizard extends Wizard implements IWorkbenc
 		configuration.setValue(ANALYSIS_BUFFER_BIT_ACCURATE, optionsPage.useBitAccurate());
 		configuration.setValue(ANALYSIS_BUFFER_POW2, optionsPage.usePow2());
 		configuration.setValue(MAX_ITERATIONS, optionsPage.getMaxIterations());
+		configuration.setValue(RELEASE_BUFFERS_AFTER_PROCESSING, true);
 
 		final Job job = new Job("Optimal buffer size analysis") {
 
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				try {
-					new OptimalBufferSizeAnalysisFullParallelCli().start(configuration, monitor);
+					new OptimalBufferSizeAnalysisTopDownCli().start(configuration, monitor);
 					EclipseUtils.refreshWorkspace(monitor);
 				} catch (TurnusException e) {
 					Logger.error(e.getMessage());

@@ -111,6 +111,11 @@
              name="Optimal Buffer size evaluation (with PCP propagation)">
       </command>
       <command
+             defaultHandler="turnus.analysis.ui.buffer.OptimalBufferSizeTopDownAnalysisHandler"
+             id="turnus.analysis.ui.command.analysis.buffer.optimalTopDown"
+             name="Optimal Buffer size evaluation Top Down">
+      </command>
+      <command
              defaultHandler="turnus.analysis.ui.buffer.OptimalBufferSizeExporterHandler"
              id="turnus.analysis.ui.command.analysis.buffer.optimalReport.configExporter"
              name="Optimal Buffer size report configurations exporter">
@@ -218,6 +223,12 @@
                   label="Optimal Buffer size evaluation (with PCP propagation)"
                   style="push"
                   tooltip="Evaluate the optimal buffer size evaluation (with partial cp propagation)">
+            </command>
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.buffer.optimalTopDown"
+                  label="Optimal Buffer size evaluation Top Down"
+                  style="push"
+                  tooltip="Evaluate the optimal buffer size evaluation with Top Down">
             </command>
          </menu>
          <menu
