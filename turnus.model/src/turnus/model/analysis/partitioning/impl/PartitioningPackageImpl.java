@@ -58,6 +58,8 @@ import turnus.model.analysis.partitioning.BalancedPipelinePartition;
 import turnus.model.analysis.partitioning.BalancedPipelinePartitioningReport;
 import turnus.model.analysis.partitioning.ComCostPartition;
 import turnus.model.analysis.partitioning.ComCostPartitioningReport;
+import turnus.model.analysis.partitioning.MetisPartitioning;
+import turnus.model.analysis.partitioning.MetisPartitioningReport;
 import turnus.model.analysis.partitioning.PartitioningFactory;
 import turnus.model.analysis.partitioning.PartitioningPackage;
 import turnus.model.analysis.partitioning.WorkloadBalancePartition;
@@ -143,6 +145,20 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 	 * @generated
 	 */
 	private EClass balancedPipelinePartitioningReportEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass metisPartitioningEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass metisPartitioningReportEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -512,6 +528,116 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 	 * @generated
 	 */
 	@Override
+	public EClass getMetisPartitioning() {
+		return metisPartitioningEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getMetisPartitioning_Actors() {
+		return (EReference)metisPartitioningEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getMetisPartitioning_Workload() {
+		return (EAttribute)metisPartitioningEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getMetisPartitioningReport() {
+		return metisPartitioningReportEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getMetisPartitioningReport_Network() {
+		return (EReference)metisPartitioningReportEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getMetisPartitioningReport_Partitions() {
+		return (EReference)metisPartitioningReportEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getMetisPartitioningReport_EdgeCut() {
+		return (EAttribute)metisPartitioningReportEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getMetisPartitioningReport_CommVolume() {
+		return (EAttribute)metisPartitioningReportEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getMetisPartitioningReport_Objtype() {
+		return (EAttribute)metisPartitioningReportEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getMetisPartitioningReport_Ptype() {
+		return (EAttribute)metisPartitioningReportEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getMetisPartitioningReport_Contig() {
+		return (EAttribute)metisPartitioningReportEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public PartitioningFactory getPartitioningFactory() {
 		return (PartitioningFactory)getEFactoryInstance();
 	}
@@ -565,6 +691,19 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		balancedPipelinePartitioningReportEClass = createEClass(BALANCED_PIPELINE_PARTITIONING_REPORT);
 		createEReference(balancedPipelinePartitioningReportEClass, BALANCED_PIPELINE_PARTITIONING_REPORT__PARTITIONS);
 		createEReference(balancedPipelinePartitioningReportEClass, BALANCED_PIPELINE_PARTITIONING_REPORT__NETWORK);
+
+		metisPartitioningEClass = createEClass(METIS_PARTITIONING);
+		createEReference(metisPartitioningEClass, METIS_PARTITIONING__ACTORS);
+		createEAttribute(metisPartitioningEClass, METIS_PARTITIONING__WORKLOAD);
+
+		metisPartitioningReportEClass = createEClass(METIS_PARTITIONING_REPORT);
+		createEReference(metisPartitioningReportEClass, METIS_PARTITIONING_REPORT__NETWORK);
+		createEReference(metisPartitioningReportEClass, METIS_PARTITIONING_REPORT__PARTITIONS);
+		createEAttribute(metisPartitioningReportEClass, METIS_PARTITIONING_REPORT__EDGE_CUT);
+		createEAttribute(metisPartitioningReportEClass, METIS_PARTITIONING_REPORT__COMM_VOLUME);
+		createEAttribute(metisPartitioningReportEClass, METIS_PARTITIONING_REPORT__OBJTYPE);
+		createEAttribute(metisPartitioningReportEClass, METIS_PARTITIONING_REPORT__PTYPE);
+		createEAttribute(metisPartitioningReportEClass, METIS_PARTITIONING_REPORT__CONTIG);
 	}
 
 	/**
@@ -604,6 +743,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		comCostPartitioningReportEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisReport());
 		workloadBalancePartitioningReportEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisReport());
 		balancedPipelinePartitioningReportEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisReport());
+		metisPartitioningReportEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisReport());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(comCostPartitioningReportEClass, ComCostPartitioningReport.class, "ComCostPartitioningReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -636,6 +776,19 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		initEClass(balancedPipelinePartitioningReportEClass, BalancedPipelinePartitioningReport.class, "BalancedPipelinePartitioningReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBalancedPipelinePartitioningReport_Partitions(), this.getBalancedPipelinePartition(), null, "partitions", null, 0, -1, BalancedPipelinePartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBalancedPipelinePartitioningReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, BalancedPipelinePartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(metisPartitioningEClass, MetisPartitioning.class, "MetisPartitioning", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getMetisPartitioning_Actors(), theDataflowPackage.getActor(), null, "actors", null, 0, -1, MetisPartitioning.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMetisPartitioning_Workload(), ecorePackage.getEDouble(), "workload", null, 0, 1, MetisPartitioning.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(metisPartitioningReportEClass, MetisPartitioningReport.class, "MetisPartitioningReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getMetisPartitioningReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, MetisPartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMetisPartitioningReport_Partitions(), this.getMetisPartitioning(), null, "partitions", null, 0, -1, MetisPartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMetisPartitioningReport_EdgeCut(), ecorePackage.getEInt(), "edgeCut", null, 0, 1, MetisPartitioningReport.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMetisPartitioningReport_CommVolume(), ecorePackage.getEInt(), "commVolume", null, 0, 1, MetisPartitioningReport.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMetisPartitioningReport_Objtype(), ecorePackage.getEString(), "objtype", null, 0, 1, MetisPartitioningReport.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMetisPartitioningReport_Ptype(), ecorePackage.getEString(), "ptype", null, 0, 1, MetisPartitioningReport.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMetisPartitioningReport_Contig(), ecorePackage.getEBoolean(), "contig", null, 0, 1, MetisPartitioningReport.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 	}
 
 } //PartitioningPackageImpl

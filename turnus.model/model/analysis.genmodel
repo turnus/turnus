@@ -540,6 +540,21 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference analysis.ecore#//partitioning/BalancedPipelinePartitioningReport/network"/>
       </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//partitioning/MetisPartitioning">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//partitioning/MetisPartitioning/actors"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/MetisPartitioning/workload"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//partitioning/MetisPartitioningReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//partitioning/MetisPartitioningReport/network"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//partitioning/MetisPartitioningReport/partitions"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/MetisPartitioningReport/edgeCut"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/MetisPartitioningReport/commVolume"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/MetisPartitioningReport/objtype"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/MetisPartitioningReport/ptype"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/MetisPartitioningReport/contig"/>
+      </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Pipelining" basePackage="turnus.model.analysis" disposableProviderFactory="true"
         ecorePackage="analysis.ecore#//pipelining">

@@ -135,6 +135,19 @@ public class PartitioningSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case PartitioningPackage.METIS_PARTITIONING: {
+				MetisPartitioning metisPartitioning = (MetisPartitioning)theEObject;
+				T result = caseMetisPartitioning(metisPartitioning);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PartitioningPackage.METIS_PARTITIONING_REPORT: {
+				MetisPartitioningReport metisPartitioningReport = (MetisPartitioningReport)theEObject;
+				T result = caseMetisPartitioningReport(metisPartitioningReport);
+				if (result == null) result = caseAnalysisReport(metisPartitioningReport);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -226,6 +239,36 @@ public class PartitioningSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseBalancedPipelinePartitioningReport(BalancedPipelinePartitioningReport object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Metis Partitioning</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Metis Partitioning</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMetisPartitioning(MetisPartitioning object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Metis Partitioning Report</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Metis Partitioning Report</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMetisPartitioningReport(MetisPartitioningReport object) {
 		return null;
 	}
 

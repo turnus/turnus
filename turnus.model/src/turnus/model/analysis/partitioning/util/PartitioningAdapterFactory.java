@@ -122,6 +122,14 @@ public class PartitioningAdapterFactory extends AdapterFactoryImpl {
 				return createBalancedPipelinePartitioningReportAdapter();
 			}
 			@Override
+			public Adapter caseMetisPartitioning(MetisPartitioning object) {
+				return createMetisPartitioningAdapter();
+			}
+			@Override
+			public Adapter caseMetisPartitioningReport(MetisPartitioningReport object) {
+				return createMetisPartitioningReportAdapter();
+			}
+			@Override
 			public Adapter caseAnalysisReport(AnalysisReport object) {
 				return createAnalysisReportAdapter();
 			}
@@ -226,6 +234,34 @@ public class PartitioningAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBalancedPipelinePartitioningReportAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.partitioning.MetisPartitioning <em>Metis Partitioning</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioning
+	 * @generated
+	 */
+	public Adapter createMetisPartitioningAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.partitioning.MetisPartitioningReport <em>Metis Partitioning Report</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioningReport
+	 * @generated
+	 */
+	public Adapter createMetisPartitioningReportAdapter() {
 		return null;
 	}
 

@@ -105,6 +105,24 @@ public interface PartitioningFactory extends EFactory {
 	BalancedPipelinePartitioningReport createBalancedPipelinePartitioningReport();
 
 	/**
+	 * Returns a new object of class '<em>Metis Partitioning</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Metis Partitioning</em>'.
+	 * @generated
+	 */
+	MetisPartitioning createMetisPartitioning();
+
+	/**
+	 * Returns a new object of class '<em>Metis Partitioning Report</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Metis Partitioning Report</em>'.
+	 * @generated
+	 */
+	MetisPartitioningReport createMetisPartitioningReport();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

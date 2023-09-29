@@ -483,6 +483,162 @@ public interface PartitioningPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link turnus.model.analysis.partitioning.impl.MetisPartitioningImpl <em>Metis Partitioning</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.analysis.partitioning.impl.MetisPartitioningImpl
+	 * @see turnus.model.analysis.partitioning.impl.PartitioningPackageImpl#getMetisPartitioning()
+	 * @generated
+	 */
+	int METIS_PARTITIONING = 6;
+
+	/**
+	 * The feature id for the '<em><b>Actors</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING__ACTORS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Workload</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING__WORKLOAD = 1;
+
+	/**
+	 * The number of structural features of the '<em>Metis Partitioning</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Metis Partitioning</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link turnus.model.analysis.partitioning.impl.MetisPartitioningReportImpl <em>Metis Partitioning Report</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.analysis.partitioning.impl.MetisPartitioningReportImpl
+	 * @see turnus.model.analysis.partitioning.impl.PartitioningPackageImpl#getMetisPartitioningReport()
+	 * @generated
+	 */
+	int METIS_PARTITIONING_REPORT = 7;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_REPORT__ALGORITHM = AnalysisPackage.ANALYSIS_REPORT__ALGORITHM;
+
+	/**
+	 * The feature id for the '<em><b>Date</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_REPORT__DATE = AnalysisPackage.ANALYSIS_REPORT__DATE;
+
+	/**
+	 * The feature id for the '<em><b>Network</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_REPORT__NETWORK = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Partitions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_REPORT__PARTITIONS = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Edge Cut</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_REPORT__EDGE_CUT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Comm Volume</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_REPORT__COMM_VOLUME = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Objtype</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_REPORT__OBJTYPE = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Ptype</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_REPORT__PTYPE = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Contig</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_REPORT__CONTIG = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 6;
+
+	/**
+	 * The number of structural features of the '<em>Metis Partitioning Report</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 7;
+
+	/**
+	 * The number of operations of the '<em>Metis Partitioning Report</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_REPORT_OPERATION_COUNT = AnalysisPackage.ANALYSIS_REPORT_OPERATION_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.partitioning.ComCostPartitioningReport <em>Com Cost Partitioning Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -752,6 +908,125 @@ public interface PartitioningPackage extends EPackage {
 	EReference getBalancedPipelinePartitioningReport_Network();
 
 	/**
+	 * Returns the meta object for class '{@link turnus.model.analysis.partitioning.MetisPartitioning <em>Metis Partitioning</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Metis Partitioning</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioning
+	 * @generated
+	 */
+	EClass getMetisPartitioning();
+
+	/**
+	 * Returns the meta object for the reference list '{@link turnus.model.analysis.partitioning.MetisPartitioning#getActors <em>Actors</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Actors</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioning#getActors()
+	 * @see #getMetisPartitioning()
+	 * @generated
+	 */
+	EReference getMetisPartitioning_Actors();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.partitioning.MetisPartitioning#getWorkload <em>Workload</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Workload</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioning#getWorkload()
+	 * @see #getMetisPartitioning()
+	 * @generated
+	 */
+	EAttribute getMetisPartitioning_Workload();
+
+	/**
+	 * Returns the meta object for class '{@link turnus.model.analysis.partitioning.MetisPartitioningReport <em>Metis Partitioning Report</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Metis Partitioning Report</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioningReport
+	 * @generated
+	 */
+	EClass getMetisPartitioningReport();
+
+	/**
+	 * Returns the meta object for the reference '{@link turnus.model.analysis.partitioning.MetisPartitioningReport#getNetwork <em>Network</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Network</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioningReport#getNetwork()
+	 * @see #getMetisPartitioningReport()
+	 * @generated
+	 */
+	EReference getMetisPartitioningReport_Network();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link turnus.model.analysis.partitioning.MetisPartitioningReport#getPartitions <em>Partitions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Partitions</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioningReport#getPartitions()
+	 * @see #getMetisPartitioningReport()
+	 * @generated
+	 */
+	EReference getMetisPartitioningReport_Partitions();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.partitioning.MetisPartitioningReport#getEdgeCut <em>Edge Cut</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Edge Cut</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioningReport#getEdgeCut()
+	 * @see #getMetisPartitioningReport()
+	 * @generated
+	 */
+	EAttribute getMetisPartitioningReport_EdgeCut();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.partitioning.MetisPartitioningReport#getCommVolume <em>Comm Volume</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Comm Volume</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioningReport#getCommVolume()
+	 * @see #getMetisPartitioningReport()
+	 * @generated
+	 */
+	EAttribute getMetisPartitioningReport_CommVolume();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.partitioning.MetisPartitioningReport#getObjtype <em>Objtype</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Objtype</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioningReport#getObjtype()
+	 * @see #getMetisPartitioningReport()
+	 * @generated
+	 */
+	EAttribute getMetisPartitioningReport_Objtype();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.partitioning.MetisPartitioningReport#getPtype <em>Ptype</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Ptype</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioningReport#getPtype()
+	 * @see #getMetisPartitioningReport()
+	 * @generated
+	 */
+	EAttribute getMetisPartitioningReport_Ptype();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.partitioning.MetisPartitioningReport#isContig <em>Contig</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Contig</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioningReport#isContig()
+	 * @see #getMetisPartitioningReport()
+	 * @generated
+	 */
+	EAttribute getMetisPartitioningReport_Contig();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -985,6 +1260,98 @@ public interface PartitioningPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BALANCED_PIPELINE_PARTITIONING_REPORT__NETWORK = eINSTANCE.getBalancedPipelinePartitioningReport_Network();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.analysis.partitioning.impl.MetisPartitioningImpl <em>Metis Partitioning</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.analysis.partitioning.impl.MetisPartitioningImpl
+		 * @see turnus.model.analysis.partitioning.impl.PartitioningPackageImpl#getMetisPartitioning()
+		 * @generated
+		 */
+		EClass METIS_PARTITIONING = eINSTANCE.getMetisPartitioning();
+
+		/**
+		 * The meta object literal for the '<em><b>Actors</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METIS_PARTITIONING__ACTORS = eINSTANCE.getMetisPartitioning_Actors();
+
+		/**
+		 * The meta object literal for the '<em><b>Workload</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METIS_PARTITIONING__WORKLOAD = eINSTANCE.getMetisPartitioning_Workload();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.analysis.partitioning.impl.MetisPartitioningReportImpl <em>Metis Partitioning Report</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.analysis.partitioning.impl.MetisPartitioningReportImpl
+		 * @see turnus.model.analysis.partitioning.impl.PartitioningPackageImpl#getMetisPartitioningReport()
+		 * @generated
+		 */
+		EClass METIS_PARTITIONING_REPORT = eINSTANCE.getMetisPartitioningReport();
+
+		/**
+		 * The meta object literal for the '<em><b>Network</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METIS_PARTITIONING_REPORT__NETWORK = eINSTANCE.getMetisPartitioningReport_Network();
+
+		/**
+		 * The meta object literal for the '<em><b>Partitions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METIS_PARTITIONING_REPORT__PARTITIONS = eINSTANCE.getMetisPartitioningReport_Partitions();
+
+		/**
+		 * The meta object literal for the '<em><b>Edge Cut</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METIS_PARTITIONING_REPORT__EDGE_CUT = eINSTANCE.getMetisPartitioningReport_EdgeCut();
+
+		/**
+		 * The meta object literal for the '<em><b>Comm Volume</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METIS_PARTITIONING_REPORT__COMM_VOLUME = eINSTANCE.getMetisPartitioningReport_CommVolume();
+
+		/**
+		 * The meta object literal for the '<em><b>Objtype</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METIS_PARTITIONING_REPORT__OBJTYPE = eINSTANCE.getMetisPartitioningReport_Objtype();
+
+		/**
+		 * The meta object literal for the '<em><b>Ptype</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METIS_PARTITIONING_REPORT__PTYPE = eINSTANCE.getMetisPartitioningReport_Ptype();
+
+		/**
+		 * The meta object literal for the '<em><b>Contig</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METIS_PARTITIONING_REPORT__CONTIG = eINSTANCE.getMetisPartitioningReport_Contig();
 
 	}
 

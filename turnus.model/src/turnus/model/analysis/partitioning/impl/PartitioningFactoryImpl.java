@@ -91,6 +91,8 @@ public class PartitioningFactoryImpl extends EFactoryImpl implements Partitionin
 			case PartitioningPackage.WORKLOAD_BALANCE_PARTITIONING_REPORT: return createWorkloadBalancePartitioningReport();
 			case PartitioningPackage.BALANCED_PIPELINE_PARTITION: return createBalancedPipelinePartition();
 			case PartitioningPackage.BALANCED_PIPELINE_PARTITIONING_REPORT: return createBalancedPipelinePartitioningReport();
+			case PartitioningPackage.METIS_PARTITIONING: return createMetisPartitioning();
+			case PartitioningPackage.METIS_PARTITIONING_REPORT: return createMetisPartitioningReport();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -160,6 +162,28 @@ public class PartitioningFactoryImpl extends EFactoryImpl implements Partitionin
 	public BalancedPipelinePartitioningReport createBalancedPipelinePartitioningReport() {
 		BalancedPipelinePartitioningReportImpl balancedPipelinePartitioningReport = new BalancedPipelinePartitioningReportImpl();
 		return balancedPipelinePartitioningReport;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public MetisPartitioning createMetisPartitioning() {
+		MetisPartitioningImpl metisPartitioning = new MetisPartitioningImpl();
+		return metisPartitioning;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public MetisPartitioningReport createMetisPartitioningReport() {
+		MetisPartitioningReportImpl metisPartitioningReport = new MetisPartitioningReportImpl();
+		return metisPartitioningReport;
 	}
 
 	/**
