@@ -43,12 +43,14 @@ import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
+import turnus.analysis.dot.PartitionedNetworkToDot;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
@@ -158,7 +160,10 @@ public class WorkloadBalancePartitioningCli implements IApplication {
 					partitioning.setSchedulerToAll(scheduling);
 
 				File xcfFile = changeExtension(reportFile, TurnusExtensions.NETWORK_PARTITIONING);
+				File dotFile = changeExtension(reportFile, TurnusExtensions.DOT);
 				new XmlNetworkPartitioningWriter().write(partitioning, xcfFile);
+				new PartitionedNetworkToDot(project.getNetwork(), partitioning)
+						.emit(FileSystems.getDefault().getPath(dotFile.getAbsolutePath()));
 				Logger.info("Network partitioning configuration stored in \"%s\"", xcfFile);
 
 			} catch (Exception e) {
@@ -175,8 +180,7 @@ public class WorkloadBalancePartitioningCli implements IApplication {
 	private void parse(String[] args) throws TurnusException {
 		CliParser cliParser = new CliParser().setOption(TRACE_FILE, true).setOption(ACTION_WEIGHTS, true)
 				.setOption(TRACE_WEIGHTER, false)//
-				.setOption(SCHEDULING_POLICY, false)
-				.setOption(ANALYSIS_PARTITIONING_UNITS, false)
+				.setOption(SCHEDULING_POLICY, false).setOption(ANALYSIS_PARTITIONING_UNITS, false)
 				.setOption(OUTPUT_DIRECTORY, false);
 
 		configuration = cliParser.parse(args);

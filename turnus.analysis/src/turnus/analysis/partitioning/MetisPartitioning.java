@@ -35,8 +35,12 @@ package turnus.analysis.partitioning;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -90,30 +94,34 @@ public class MetisPartitioning extends Analysis<MetisPartitioningReport> {
 
 		// -- Number of Actors and connections
 		int nbNodes = network.getActors().size();
-		int nbEdges = network.getBuffers().size();
-
-		System.out.println(String.format("%d %d", nbNodes, nbEdges));
+		int nbEdges = 0;
+		List<String> lines = new ArrayList<>();
 
 		for (int n = 1; n < network.getActors().size() + 1; n++) {
+			Set<String> adj = new HashSet<>();
 			Actor actor = network.getActor(integerToNodeLables.get(n));
-			if (actor.getOutputPorts().size() > 0) {
-				for (Port port : actor.getOutputPorts()) {
-					for (Buffer buffer : port.getOutputs()) {
-						String tagetActorLabel = buffer.getTarget().getOwner().getName();
-						int target = nodeLabelsToIntegers.get(tagetActorLabel);
-						System.out.print(target + " ");
-					}
-				}
-				
-			} else {
-				for (Port port : actor.getInputPorts()) {
-					String sourceActorLabel = port.getInput().getSource().getOwner().getName();
-					int source = nodeLabelsToIntegers.get(sourceActorLabel);
-					System.out.print(source + " ");
+
+			for (Port port : actor.getOutputPorts()) {
+				for (Buffer buffer : port.getOutputs()) {
+					String tagetActorLabel = buffer.getTarget().getOwner().getName();
+					int target = nodeLabelsToIntegers.get(tagetActorLabel);
+					adj.add(Integer.toString(target));
 				}
 			}
-			System.out.println();
+
+			for (Port port : actor.getInputPorts()) {
+				String sourceActorLabel = port.getInput().getSource().getOwner().getName();
+				int source = nodeLabelsToIntegers.get(sourceActorLabel);
+				adj.add(Integer.toString(source));
+			}
+			nbEdges += adj.size();
+			lines.add(String.join(" ", adj));
 		}
+
+		System.out.println(String.format("%d %d", nbNodes, nbEdges/2));
+		lines.stream().forEach(l -> {
+			System.out.println(l);
+		});
 
 	}
 

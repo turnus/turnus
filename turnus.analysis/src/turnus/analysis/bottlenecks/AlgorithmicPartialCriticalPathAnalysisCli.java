@@ -36,17 +36,21 @@ import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
+import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
+import turnus.analysis.dot.BottleneckNetworkToDot;
+import turnus.analysis.dot.PartitionedNetworkToDot;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
@@ -146,6 +150,9 @@ public class AlgorithmicPartialCriticalPathAnalysisCli implements IApplication {
 				}
 
 				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.BOTTLENECKS_REPORT);
+				File dotFile = changeExtension(reportFile, TurnusExtensions.DOT);
+				new BottleneckNetworkToDot(project.getNetwork(), report)
+						.emit(FileSystems.getDefault().getPath(dotFile.getAbsolutePath()));
 				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
 				Logger.info("Bottlenecks analysis report stored in \"%s\"", reportFile);
 

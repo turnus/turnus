@@ -155,6 +155,10 @@ public class TurnusExtensions {
 
 	/** The network partitioning mapping file */
 	public static final String NETWORK_PARTITIONING = "xcf";
+	
+	
+	/** Graphviz Dot file */
+	public static final String DOT = "dot";
 
 	/** the configuration file */
 	public static final String CONFIGURATION = "conf";

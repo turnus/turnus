@@ -40,6 +40,7 @@ import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
 import static turnus.common.TurnusOptions.INITIAL_ALGORITHM;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
+import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 import static turnus.common.TurnusOptions.SCHEDULING_WEIGHTS;
 import static turnus.common.TurnusOptions.TABU_GENERATOR;
@@ -48,19 +49,20 @@ import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
 import static turnus.common.TurnusOptions.WRITE_HIT_CONSTANT;
 import static turnus.common.TurnusOptions.WRITE_MISS_CONSTANT;
-import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
 import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
+import turnus.analysis.dot.PartitionedNetworkToDot;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
@@ -238,7 +240,10 @@ public class TabuSearchCli implements IApplication {
 				Logger.info("Tabu search partitioning report stored in \"%s\"", reportFile);
 
 				File xcfFile = changeExtension(reportFile, TurnusExtensions.NETWORK_PARTITIONING);
+				File dotFile = changeExtension(reportFile, TurnusExtensions.DOT);
 				new XmlNetworkPartitioningWriter().write(report.asNetworkPartitioning(), xcfFile);
+				new PartitionedNetworkToDot(project.getNetwork(), partitioning)
+				.emit(FileSystems.getDefault().getPath(dotFile.getAbsolutePath()));
 				Logger.info("Network partitioning configuration stored in \"%s\"", xcfFile);
 
 			} catch (Exception e) {
