@@ -31,11 +31,11 @@
  */
 package turnus.analysis.bottlenecks;
 
+import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.CONFIG_MINIMIZE_MEMORY_USAGE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
-import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
@@ -50,7 +50,6 @@ import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
 import turnus.analysis.dot.BottleneckNetworkToDot;
-import turnus.analysis.dot.PartitionedNetworkToDot;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
@@ -64,6 +63,7 @@ import turnus.model.trace.TraceProject;
 /**
  * 
  * @author Simone Casale-Brunet
+ * @author Endri Bezati
  *
  */
 public class AlgorithmicPartialCriticalPathAnalysisCli implements IApplication {

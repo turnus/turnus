@@ -101,17 +101,17 @@ public class NetworkToDot {
 		String srcInstanceName = buffer.getSource().getOwner().getName();
 		String tgtInstanceName = buffer.getTarget().getOwner().getName();
 
-		String source = srcInstanceName + ":" + buffer.getSource().getName();
-		String target = tgtInstanceName + ":" + buffer.getTarget().getName();
+		String srcPort = buffer.getSource().getName();
+		String srcTgt = buffer.getTarget().getName();
 
 		// emitter.emit("%s:e -> %s:w [color=\"%s\", label=\"sz=%d\"];", source, target,
 		// encodeColor(hashColor(buffer)), connectionBufferSize(buffer));
-		connectionColor(hashColor(buffer), source, target);
+		connectionColor(hashColor(buffer), srcInstanceName, srcPort, tgtInstanceName, srcTgt);
 
 	}
 
-	protected void connectionColor(Color color, String source, String target) {
-		emitter.emit("%s:e -> %s:w [color=\"%s\"];", source, target, encodeColor(color));
+	protected void connectionColor(Color color, String source, String srcPort, String target, String srcTgt) {
+		emitter.emit("%s:%s:e -> %s:%s:w [color=\"%s\"];", source, srcPort, target, srcTgt, encodeColor(color));
 	}
 
 	/**
