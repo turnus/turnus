@@ -1008,23 +1008,5 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="firings" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
-    <eSubpackages name="caseoptimal" nsURI="http://turnus.co/model/2017/analysis/scheduling/caseoptimal"
-        nsPrefix="turnus.model.analysis.scheduling.caseoptimal">
-      <eClassifiers xsi:type="ecore:EClass" name="CaseOptimalScheduleReport" eSuperTypes="#//AnalysisReport">
-        <eStructuralFeatures xsi:type="ecore:EReference" name="partitionSchedules"
-            upperBound="-1" eType="#//map/PartitionToActorSelectionScheduleMap" containment="true"/>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="traceFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="pipeline" upperBound="-1"
-            eType="#//scheduling/caseoptimal/Optimizer"/>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="partitionFilePath"
-            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      </eClassifiers>
-      <eClassifiers xsi:type="ecore:EEnum" name="Optimizer">
-        <eLiterals name="RLE"/>
-        <eLiterals name="KTAIL" value="1"/>
-      </eClassifiers>
-      <eClassifiers xsi:type="ecore:EClass" name="CaseOptimalActorSelectionSchedule"
-          eSuperTypes="#//scheduling/ActorSelectionSchedule"/>
-    </eSubpackages>
   </eSubpackages>
 </ecore:EPackage>

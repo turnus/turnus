@@ -78,11 +78,6 @@ import turnus.model.analysis.profiling.ProfilingPackage;
 import turnus.model.analysis.profiling.impl.ProfilingPackageImpl;
 
 import turnus.model.analysis.scheduling.SchedulingPackage;
-
-import turnus.model.analysis.scheduling.caseoptimal.CaseoptimalPackage;
-
-import turnus.model.analysis.scheduling.caseoptimal.impl.CaseoptimalPackageImpl;
-
 import turnus.model.analysis.scheduling.impl.SchedulingPackageImpl;
 
 import turnus.model.analysis.trace.TracePackage;
@@ -201,8 +196,6 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
 		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
 		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(registeredPackage instanceof SchedulingPackageImpl ? registeredPackage : SchedulingPackage.eINSTANCE);
-		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI);
-		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(registeredPackage instanceof CaseoptimalPackageImpl ? registeredPackage : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theBuffersPackage.createPackageContents();
@@ -216,7 +209,6 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 		thePostprocessingPackage.createPackageContents();
 		theProfilingPackage.createPackageContents();
 		theSchedulingPackage.createPackageContents();
-		theCaseoptimalPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theBuffersPackage.initializePackageContents();
@@ -230,7 +222,6 @@ public class BuffersPackageImpl extends EPackageImpl implements BuffersPackage {
 		thePostprocessingPackage.initializePackageContents();
 		theProfilingPackage.initializePackageContents();
 		theSchedulingPackage.initializePackageContents();
-		theCaseoptimalPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theBuffersPackage.freeze();

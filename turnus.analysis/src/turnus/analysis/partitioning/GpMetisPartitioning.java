@@ -168,28 +168,29 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 
 			Process metis = metisPB.start();
 			int exitCode = metis.waitFor();
-			System.out.println(exitCode);
 
 			// -- Read metis output
 			String metisOutput = metisInput.getAbsolutePath() + ".part." + Integer.toString(units);
 
-			BufferedReader reader;
-
-			try {
-				reader = new BufferedReader(new FileReader(metisOutput));
-				String line = reader.readLine();
+			try (BufferedReader br = new BufferedReader(new FileReader(metisOutput))) {
+				String line;
 				int actorIndex = 1;
-				while ((line = reader.readLine()) != null) {
-					// read next line
-					line = reader.readLine();
-					int partition = Integer.parseInt(line);
-					System.out.println(line);
-					String actor = integerToNodeLables.get(actorIndex);
-					partitioning.setPartition(actor, "p" + partition);
-					actorIndex++;
-				}
+				while ((line = br.readLine()) != null) {
+					try {
+						int partition = Integer.parseInt(line);
 
-				reader.close();
+						System.out.println(actorIndex);
+						// read next line
+
+						String actor = integerToNodeLables.get(actorIndex);
+						partitioning.setPartition(actor, "p" + partition);
+						actorIndex++;
+
+					} catch (NumberFormatException e) {
+						// Handle non-integer lines if needed
+						System.err.println("Skipping non-integer line: " + line);
+					}
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -251,13 +252,13 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 
 		// -- Metis partitioning
 		NetworkPartitioning partitioning = metisPartitioning(project.getNetwork());
-		for(String partition : partitioning.asPartitionActorsMap().keySet()) {
-			MetisPartitioning mp =  f.createMetisPartitioning();
+		for (String partition : partitioning.asPartitionActorsMap().keySet()) {
+			MetisPartitioning mp = f.createMetisPartitioning();
 			Double workload = 0.0;
-			for(String actorName : partitioning.asPartitionActorsMap().get(partition)) {
+			for (String actorName : partitioning.asPartitionActorsMap().get(partition)) {
 				Actor actor = project.getNetwork().getActor(actorName);
 				mp.getActors().add(actor);
-				workload+= actorWorkload.get(actor);
+				workload += actorWorkload.get(actor);
 			}
 			mp.setWorkload(workload);
 			report.getPartitions().add(mp);

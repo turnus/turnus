@@ -836,20 +836,6 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingTransition/firings"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingTransition/name"/>
       </genClasses>
-      <nestedGenPackages prefix="Caseoptimal" basePackage="turnus.model.analysis.scheduling"
-          disposableProviderFactory="true" ecorePackage="analysis.ecore#//scheduling/caseoptimal">
-        <genEnums typeSafeEnumCompatible="false" ecoreEnum="analysis.ecore#//scheduling/caseoptimal/Optimizer">
-          <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/caseoptimal/Optimizer/RLE"/>
-          <genEnumLiterals ecoreEnumLiteral="analysis.ecore#//scheduling/caseoptimal/Optimizer/KTAIL"/>
-        </genEnums>
-        <genClasses ecoreClass="analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport">
-          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/partitionSchedules"/>
-          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/traceFile"/>
-          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/pipeline"/>
-          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/caseoptimal/CaseOptimalScheduleReport/partitionFilePath"/>
-        </genClasses>
-        <genClasses ecoreClass="analysis.ecore#//scheduling/caseoptimal/CaseOptimalActorSelectionSchedule"/>
-      </nestedGenPackages>
     </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>

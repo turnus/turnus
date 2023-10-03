@@ -97,11 +97,6 @@ import turnus.model.analysis.scheduling.PartitionedActorFire;
 import turnus.model.analysis.scheduling.SchedulingFactory;
 import turnus.model.analysis.scheduling.SchedulingPackage;
 import turnus.model.analysis.scheduling.Sequence;
-
-import turnus.model.analysis.scheduling.caseoptimal.CaseoptimalPackage;
-
-import turnus.model.analysis.scheduling.caseoptimal.impl.CaseoptimalPackageImpl;
-
 import turnus.model.analysis.trace.TracePackage;
 
 import turnus.model.analysis.trace.impl.TracePackageImpl;
@@ -330,8 +325,6 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(registeredPackage instanceof PostprocessingPackageImpl ? registeredPackage : PostprocessingPackage.eINSTANCE);
 		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI);
 		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
-		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI);
-		CaseoptimalPackageImpl theCaseoptimalPackage = (CaseoptimalPackageImpl)(registeredPackage instanceof CaseoptimalPackageImpl ? registeredPackage : CaseoptimalPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theSchedulingPackage.createPackageContents();
@@ -345,7 +338,6 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 		thePipeliningPackage.createPackageContents();
 		thePostprocessingPackage.createPackageContents();
 		theProfilingPackage.createPackageContents();
-		theCaseoptimalPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theSchedulingPackage.initializePackageContents();
@@ -359,7 +351,6 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 		thePipeliningPackage.initializePackageContents();
 		thePostprocessingPackage.initializePackageContents();
 		theProfilingPackage.initializePackageContents();
-		theCaseoptimalPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theSchedulingPackage.freeze();
@@ -1179,14 +1170,10 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		CaseoptimalPackage theCaseoptimalPackage = (CaseoptimalPackage)EPackage.Registry.INSTANCE.getEPackage(CaseoptimalPackage.eNS_URI);
 		MapPackage theMapPackage = (MapPackage)EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI);
 		AnalysisPackage theAnalysisPackage = (AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
 		PostprocessingPackage thePostprocessingPackage = (PostprocessingPackage)EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI);
 		DataflowPackage theDataflowPackage = (DataflowPackage)EPackage.Registry.INSTANCE.getEPackage(DataflowPackage.eNS_URI);
-
-		// Add subpackages
-		getESubpackages().add(theCaseoptimalPackage);
 
 		// Create type parameters
 

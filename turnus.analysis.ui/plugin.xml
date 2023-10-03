@@ -121,11 +121,6 @@
              name="Optimal Buffer size report configurations exporter">
       </command>
       <command
-            defaultHandler="turnus.analysis.ui.scheduling.caseoptimal.CaseOptimalScheduleGenerationHandler"
-            id="turnus.analysis.ui.scheduling.caseoptimalSchedGen"
-            name="Case optimal scheduling">
-      </command>
-      <command
             defaultHandler="turnus.analysis.ui.scheduling.MarkovModelSchedulerHandler"
             id="turnus.analysis.ui.command.analysis.scheduling.simpleMarkowScheduler"
             name="Simple Markow Scheduler">
@@ -333,15 +328,6 @@
             <command
                   commandId="turnus.analysis.ui.command.analysis.trace.markovModel"
                   label="Actions markov model trace analysis"
-                  style="push">
-            </command>
-         </menu>
-         <menu
-               id="turnus.ui.menu.main.analysies.scheduling"
-               label="Schedule">
-            <command
-                  commandId="turnus.analysis.ui.scheduling.caseoptimalSchedGen"
-                  label="Case optimal scheduling"
                   style="push">
             </command>
          </menu>
