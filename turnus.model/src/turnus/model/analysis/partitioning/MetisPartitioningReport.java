@@ -35,6 +35,7 @@ import java.util.List;
 
 import turnus.model.analysis.AnalysisReport;
 
+import turnus.model.common.EScheduler;
 import turnus.model.dataflow.Network;
 
 /**
@@ -53,6 +54,7 @@ import turnus.model.dataflow.Network;
  *   <li>{@link turnus.model.analysis.partitioning.MetisPartitioningReport#getObjtype <em>Objtype</em>}</li>
  *   <li>{@link turnus.model.analysis.partitioning.MetisPartitioningReport#getPtype <em>Ptype</em>}</li>
  *   <li>{@link turnus.model.analysis.partitioning.MetisPartitioningReport#isContig <em>Contig</em>}</li>
+ *   <li>{@link turnus.model.analysis.partitioning.MetisPartitioningReport#getSchedulinPolicy <em>Schedulin Policy</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.partitioning.PartitioningPackage#getMetisPartitioningReport()
@@ -148,5 +150,30 @@ public interface MetisPartitioningReport extends AnalysisReport {
 	 * @generated
 	 */
 	boolean isContig();
+
+	/**
+	 * Returns the value of the '<em><b>Schedulin Policy</b></em>' attribute.
+	 * The literals are from the enumeration {@link turnus.model.common.EScheduler}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Schedulin Policy</em>' attribute.
+	 * @see turnus.model.common.EScheduler
+	 * @see #setSchedulinPolicy(EScheduler)
+	 * @see turnus.model.analysis.partitioning.PartitioningPackage#getMetisPartitioningReport_SchedulinPolicy()
+	 * @model
+	 * @generated
+	 */
+	EScheduler getSchedulinPolicy();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.partitioning.MetisPartitioningReport#getSchedulinPolicy <em>Schedulin Policy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Schedulin Policy</em>' attribute.
+	 * @see turnus.model.common.EScheduler
+	 * @see #getSchedulinPolicy()
+	 * @generated
+	 */
+	void setSchedulinPolicy(EScheduler value);
 
 } // MetisPartitioningReport

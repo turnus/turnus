@@ -638,6 +638,16 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 	 * @generated
 	 */
 	@Override
+	public EAttribute getMetisPartitioningReport_SchedulinPolicy() {
+		return (EAttribute)metisPartitioningReportEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public PartitioningFactory getPartitioningFactory() {
 		return (PartitioningFactory)getEFactoryInstance();
 	}
@@ -704,6 +714,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		createEAttribute(metisPartitioningReportEClass, METIS_PARTITIONING_REPORT__OBJTYPE);
 		createEAttribute(metisPartitioningReportEClass, METIS_PARTITIONING_REPORT__PTYPE);
 		createEAttribute(metisPartitioningReportEClass, METIS_PARTITIONING_REPORT__CONTIG);
+		createEAttribute(metisPartitioningReportEClass, METIS_PARTITIONING_REPORT__SCHEDULIN_POLICY);
 	}
 
 	/**
@@ -789,6 +800,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		initEAttribute(getMetisPartitioningReport_Objtype(), ecorePackage.getEString(), "objtype", null, 0, 1, MetisPartitioningReport.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMetisPartitioningReport_Ptype(), ecorePackage.getEString(), "ptype", null, 0, 1, MetisPartitioningReport.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMetisPartitioningReport_Contig(), ecorePackage.getEBoolean(), "contig", null, 0, 1, MetisPartitioningReport.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMetisPartitioningReport_SchedulinPolicy(), theCommonPackage.getEScheduler(), "schedulinPolicy", null, 0, 1, MetisPartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //PartitioningPackageImpl

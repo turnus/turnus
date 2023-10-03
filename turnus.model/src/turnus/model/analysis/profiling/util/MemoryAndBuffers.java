@@ -34,10 +34,8 @@ package turnus.model.analysis.profiling.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
-import turnus.model.dataflow.Port;
 import turnus.model.dataflow.Type;
 import turnus.model.dataflow.Variable;
 
@@ -114,7 +112,7 @@ public class MemoryAndBuffers {
 	/**
 	 * 
 	 */
-	public static List<Buffer> getInternalBuffersOfPartition(List<Actor> actors){
+	public static List<Buffer> getInternalBuffersOfPartition(List<Actor> actors) {
 		List<Buffer> buffers = new ArrayList<>();
 
 		for (Actor actor : actors) {
@@ -128,8 +126,7 @@ public class MemoryAndBuffers {
 
 		return buffers;
 	}
-	
-	
+
 	/**
 	 * Get the outgoing buffers of a partition.
 	 * 
@@ -150,17 +147,4 @@ public class MemoryAndBuffers {
 
 		return buffers;
 	}
-
-	public static long maxOutgoingBitsInPartition(List<Buffer> buffers) {
-		for (Buffer buffer : buffers) {
-			Actor srcActor = buffer.getSource().getOwner();
-			Port srcPort = buffer.getSource();
-			for (Action action : srcActor.getActions()) {
-				//action.ge
-			}
-		}
-
-		return 0;
-	}
-
 }

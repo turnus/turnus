@@ -94,6 +94,7 @@ public class ModelsRegister {
 		m.put(PIPELINING_IMPACT_ANALYSIS_REPORT, new XMIResourceFactoryImpl());
 		m.put(WORKLOAD_BALANCE_PARTITIONING_REPORT, new XMIResourceFactoryImpl());
 		m.put(BALANCED_PIPELINE_PARTITIONING_REPORT, new XMIResourceFactoryImpl());
+		m.put(METIS_PARTITIONING_REPORT, new XMIResourceFactoryImpl());
 		m.put(POST_PROCESSING_ACTOR_REPORT, new XMIResourceFactoryImpl());
 		m.put(POST_PROCESSING_ACTION_REPORT, new XMIResourceFactoryImpl());
 		m.put(SCHEDULED_BOTTLENECKS_REPORT, new XMIResourceFactoryImpl());

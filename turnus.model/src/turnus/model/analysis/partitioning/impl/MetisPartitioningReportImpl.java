@@ -53,6 +53,7 @@ import turnus.model.analysis.partitioning.MetisPartitioning;
 import turnus.model.analysis.partitioning.MetisPartitioningReport;
 import turnus.model.analysis.partitioning.PartitioningPackage;
 
+import turnus.model.common.EScheduler;
 import turnus.model.dataflow.Network;
 
 /**
@@ -72,6 +73,7 @@ import turnus.model.dataflow.Network;
  *   <li>{@link turnus.model.analysis.partitioning.impl.MetisPartitioningReportImpl#getObjtype <em>Objtype</em>}</li>
  *   <li>{@link turnus.model.analysis.partitioning.impl.MetisPartitioningReportImpl#getPtype <em>Ptype</em>}</li>
  *   <li>{@link turnus.model.analysis.partitioning.impl.MetisPartitioningReportImpl#isContig <em>Contig</em>}</li>
+ *   <li>{@link turnus.model.analysis.partitioning.impl.MetisPartitioningReportImpl#getSchedulinPolicy <em>Schedulin Policy</em>}</li>
  * </ul>
  *
  * @generated
@@ -186,6 +188,26 @@ public class MetisPartitioningReportImpl extends MinimalEObjectImpl.Container im
 	 * @ordered
 	 */
 	protected static final boolean CONTIG_EDEFAULT = false;
+
+	/**
+	 * The default value of the '{@link #getSchedulinPolicy() <em>Schedulin Policy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSchedulinPolicy()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final EScheduler SCHEDULIN_POLICY_EDEFAULT = EScheduler.FULL_PARALLEL;
+
+	/**
+	 * The cached value of the '{@link #getSchedulinPolicy() <em>Schedulin Policy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSchedulinPolicy()
+	 * @generated
+	 * @ordered
+	 */
+	protected EScheduler schedulinPolicy = SCHEDULIN_POLICY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -371,6 +393,29 @@ public class MetisPartitioningReportImpl extends MinimalEObjectImpl.Container im
 	 * @generated
 	 */
 	@Override
+	public EScheduler getSchedulinPolicy() {
+		return schedulinPolicy;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setSchedulinPolicy(EScheduler newSchedulinPolicy) {
+		EScheduler oldSchedulinPolicy = schedulinPolicy;
+		schedulinPolicy = newSchedulinPolicy == null ? SCHEDULIN_POLICY_EDEFAULT : newSchedulinPolicy;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PartitioningPackage.METIS_PARTITIONING_REPORT__SCHEDULIN_POLICY, oldSchedulinPolicy, schedulinPolicy));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case PartitioningPackage.METIS_PARTITIONING_REPORT__PARTITIONS:
@@ -406,6 +451,8 @@ public class MetisPartitioningReportImpl extends MinimalEObjectImpl.Container im
 				return getPtype();
 			case PartitioningPackage.METIS_PARTITIONING_REPORT__CONTIG:
 				return isContig();
+			case PartitioningPackage.METIS_PARTITIONING_REPORT__SCHEDULIN_POLICY:
+				return getSchedulinPolicy();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -432,6 +479,9 @@ public class MetisPartitioningReportImpl extends MinimalEObjectImpl.Container im
 				getPartitions().clear();
 				getPartitions().addAll((Collection<? extends MetisPartitioning>)newValue);
 				return;
+			case PartitioningPackage.METIS_PARTITIONING_REPORT__SCHEDULIN_POLICY:
+				setSchedulinPolicy((EScheduler)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -455,6 +505,9 @@ public class MetisPartitioningReportImpl extends MinimalEObjectImpl.Container im
 				return;
 			case PartitioningPackage.METIS_PARTITIONING_REPORT__PARTITIONS:
 				getPartitions().clear();
+				return;
+			case PartitioningPackage.METIS_PARTITIONING_REPORT__SCHEDULIN_POLICY:
+				setSchedulinPolicy(SCHEDULIN_POLICY_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -486,6 +539,8 @@ public class MetisPartitioningReportImpl extends MinimalEObjectImpl.Container im
 				return PTYPE_EDEFAULT == null ? getPtype() != null : !PTYPE_EDEFAULT.equals(getPtype());
 			case PartitioningPackage.METIS_PARTITIONING_REPORT__CONTIG:
 				return isContig() != CONTIG_EDEFAULT;
+			case PartitioningPackage.METIS_PARTITIONING_REPORT__SCHEDULIN_POLICY:
+				return schedulinPolicy != SCHEDULIN_POLICY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -504,6 +559,8 @@ public class MetisPartitioningReportImpl extends MinimalEObjectImpl.Container im
 		result.append(algorithm);
 		result.append(", date: ");
 		result.append(date);
+		result.append(", schedulinPolicy: ");
+		result.append(schedulinPolicy);
 		result.append(')');
 		return result.toString();
 	}

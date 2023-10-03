@@ -671,6 +671,7 @@
           changeable="false" volatile="true" transient="true" derived="true"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="contig" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           changeable="false" volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="schedulinPolicy" eType="ecore:EEnum common.ecore#//EScheduler"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="pipelining" nsURI="http://turnus.co/model/2015/analysis/pipelining"

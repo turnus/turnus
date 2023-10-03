@@ -620,13 +620,22 @@ public interface PartitioningPackage extends EPackage {
 	int METIS_PARTITIONING_REPORT__CONTIG = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 6;
 
 	/**
+	 * The feature id for the '<em><b>Schedulin Policy</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING_REPORT__SCHEDULIN_POLICY = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 7;
+
+	/**
 	 * The number of structural features of the '<em>Metis Partitioning Report</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METIS_PARTITIONING_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 7;
+	int METIS_PARTITIONING_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of operations of the '<em>Metis Partitioning Report</em>' class.
@@ -1027,6 +1036,17 @@ public interface PartitioningPackage extends EPackage {
 	EAttribute getMetisPartitioningReport_Contig();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.partitioning.MetisPartitioningReport#getSchedulinPolicy <em>Schedulin Policy</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Schedulin Policy</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioningReport#getSchedulinPolicy()
+	 * @see #getMetisPartitioningReport()
+	 * @generated
+	 */
+	EAttribute getMetisPartitioningReport_SchedulinPolicy();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1352,6 +1372,14 @@ public interface PartitioningPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute METIS_PARTITIONING_REPORT__CONTIG = eINSTANCE.getMetisPartitioningReport_Contig();
+
+		/**
+		 * The meta object literal for the '<em><b>Schedulin Policy</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METIS_PARTITIONING_REPORT__SCHEDULIN_POLICY = eINSTANCE.getMetisPartitioningReport_SchedulinPolicy();
 
 	}
 

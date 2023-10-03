@@ -554,6 +554,7 @@
         <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/MetisPartitioningReport/objtype"/>
         <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/MetisPartitioningReport/ptype"/>
         <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/MetisPartitioningReport/contig"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/MetisPartitioningReport/schedulinPolicy"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Pipelining" basePackage="turnus.model.analysis" disposableProviderFactory="true"

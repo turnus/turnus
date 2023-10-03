@@ -37,21 +37,33 @@ import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
+import static turnus.common.util.FileUtils.changeExtension;
+import static turnus.common.util.FileUtils.createDirectory;
+import static turnus.common.util.FileUtils.createFileWithTimeStamp;
+import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
+import turnus.analysis.dot.PartitionedNetworkToDot;
 import turnus.common.TurnusException;
+import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
 import turnus.common.configuration.Configuration.CliParser;
 import turnus.common.io.Logger;
+import turnus.common.util.EcoreUtils;
 import turnus.model.ModelsRegister;
+import turnus.model.analysis.partitioning.MetisPartitioning;
 import turnus.model.analysis.partitioning.MetisPartitioningReport;
+import turnus.model.dataflow.Actor;
+import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.mapping.NetworkWeight;
+import turnus.model.mapping.io.XmlNetworkPartitioningWriter;
 import turnus.model.mapping.io.XmlNetworkWeightReader;
 import turnus.model.trace.TraceProject;
 import turnus.model.trace.impl.splitted.SplittedTraceLoader;
@@ -63,19 +75,19 @@ import turnus.model.trace.weighter.WeighterUtils;
  * 
  * @author Endri Bezati
  */
-public class MetisPartitioningCli implements IApplication {
+public class GpMetisPartitioningCli implements IApplication {
 
 	private Configuration configuration;
 	private IProgressMonitor monitor = new NullProgressMonitor();
-	private MetisPartitioning analysis;
+	private GpMetisPartitioning analysis;
 
 	public static void main(String[] args) {
 		ModelsRegister.init();
 
-		MetisPartitioningCli cliApp = null;
+		GpMetisPartitioningCli cliApp = null;
 
 		try {
-			cliApp = new MetisPartitioningCli();
+			cliApp = new GpMetisPartitioningCli();
 			cliApp.parse(args);
 		} catch (TurnusException e) {
 			return;
@@ -123,7 +135,7 @@ public class MetisPartitioningCli implements IApplication {
 		{ 
 			monitor.subTask("Runnis the analysis");
 			try {
-				analysis = new MetisPartitioning(project, weighter);
+				analysis = new GpMetisPartitioning(project, weighter);
 				analysis.setConfiguration(configuration);
 				report = analysis.run();
 				Logger.infoRaw(report.toString());
@@ -131,6 +143,51 @@ public class MetisPartitioningCli implements IApplication {
 				throw new TurnusException("The analysis cannot be completed, " + e.getMessage(), e);
 			}
 		}
+		
+		// -- STEP 3 : Store the results
+		{
+			monitor.subTask("Storing the results");
+			try {
+				File outputPath = null;
+				if (configuration.hasValue(OUTPUT_DIRECTORY)) {
+					outputPath = configuration.getValue(OUTPUT_DIRECTORY);
+					createDirectory(outputPath);
+				} else {
+					outputPath = createOutputDirectory("partitioning", configuration);
+				}
+				
+				File reportFile = createFileWithTimeStamp(outputPath,
+						TurnusExtensions.METIS_PARTITIONING_REPORT);
+				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
+				Logger.info("Metis partitioning report stored in \"%s\"", reportFile);
+				
+				NetworkPartitioning partitioning = new NetworkPartitioning(project.getNetwork());
+				if (scheduling != null)
+					partitioning.setSchedulerToAll(scheduling);
+				int i = 0;
+				for(MetisPartitioning mp : report.getPartitions()) {
+					for(Actor actor : mp.getActors()) {
+						partitioning.setPartition(actor, "p" + i);
+					}
+					i++;
+				}
+				
+				File xcfFile = changeExtension(reportFile, TurnusExtensions.NETWORK_PARTITIONING);
+				File dotFile = changeExtension(reportFile, TurnusExtensions.DOT);
+				new XmlNetworkPartitioningWriter().write(partitioning, xcfFile);
+				new PartitionedNetworkToDot(project.getNetwork(), partitioning)
+						.emit(FileSystems.getDefault().getPath(dotFile.getAbsolutePath()));
+				Logger.info("Network partitioning configuration stored in \"%s\"", xcfFile);
+			}catch (Exception e) {
+				Logger.error("The report file cannot be stored");
+				String message = e.getLocalizedMessage();
+				if (message != null) {
+					Logger.error(" cause: %s", message);
+				}
+			}
+		}
+		
+		monitor.done();
 
 	}
 

@@ -60,6 +60,9 @@ public class TurnusExtensions {
 	/** The workload balance partitioning report file */
 	public static final String WORKLOAD_BALANCE_PARTITIONING_REPORT = "pwbal";
 	
+	/** The workload balance partitioning report file */
+	public static final String METIS_PARTITIONING_REPORT = "pmetis";
+	
 	/** The balanced pipeline partitioning report file */
 	public static final String BALANCED_PIPELINE_PARTITIONING_REPORT = "pbpipe";
 	
