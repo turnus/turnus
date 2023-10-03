@@ -16,8 +16,8 @@ public class BottleneckNetworkToDot extends NetworkToDot {
 
 	private Map<String, Integer> actorHeatMap;
 
-	final String[] colors = { "#339b26", "#529700", "#6a9200", "#828c00", "#988400", "#af7900", "#c56b00", "#da5900",
-			"#ed3f00", "#ff0000" };
+	final String[] colors = { "#cdb665", "#d0ac55", "#d4a147", "#d8963a", "#dc8a2f", "#e07c27", "#e56d22", "#e95c22",
+			"#ed4725", "#f02a2a" };
 
 	public BottleneckNetworkToDot(Network network, BottlenecksReport report) {
 		super(network);
@@ -72,8 +72,6 @@ public class BottleneckNetworkToDot extends NetworkToDot {
 		for (String actor : actorCpWeight.keySet()) {
 			double heat = (actorCpWeight.get(actor) * 100) / maxCpWeight;
 			int intHeat = (int) heat;
-
-			System.out.println(intHeat);
 			actorHeatMap.put(actor, mapPercentageToValue(intHeat));
 		}
 
@@ -95,7 +93,7 @@ public class BottleneckNetworkToDot extends NetworkToDot {
 			emitter.emit("<tr><td bgcolor=\"%s\"><font point-size=\"30\" color=\"#ffffff\"> %s </font></td></tr>",
 					colors[actorHeatMap.get(actorName)], actorName);
 		} else {
-			emitter.emit("<tr><td bgcolor=\"black\"><font point-size=\"30\" color=\"#ffffff\"> %s </font></td></tr>",
+			emitter.emit("<tr><td bgcolor=\"gray\"><font point-size=\"30\" color=\"#ffffff\"> %s </font></td></tr>",
 					actorName);
 		}
 
@@ -104,10 +102,10 @@ public class BottleneckNetworkToDot extends NetworkToDot {
 	@Override
 	protected void connectionColor(Color color, String source, String srcPort, String target, String srcTgt) {
 		if (actorHeatMap.containsKey(source) && actorHeatMap.containsKey(target)) {
-			emitter.emit("%s:%s:e -> %s:%s:w [color=\"red\"];", source, srcPort, target, srcTgt);
+			emitter.emit("%s:%s:e -> %s:%s:w [color=\"red\", penwidth=3];", source, srcPort, target, srcTgt);
 
 		} else {
-			emitter.emit("%s:%s:e -> %s:%s:w [color=\"black\"];", source, srcPort, target, srcTgt);
+			emitter.emit("%s:%s:e -> %s:%s:w [color=\"gray\"];", source, srcPort, target, srcTgt);
 
 		}
 	}
