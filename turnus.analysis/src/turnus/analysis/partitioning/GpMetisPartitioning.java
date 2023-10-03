@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -121,11 +122,14 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 		int nbNodes = network.getActors().size();
 		int nbEdges = 0;
 		List<String> lines = new ArrayList<>();
+		Set<Double> workload = new HashSet<>(actorWorkload.values());
+		workload.remove(1.0);
+		Double minWorkload = Collections.min(workload);
 
 		for (int n = 1; n < network.getActors().size() + 1; n++) {
 			Set<String> adj = new HashSet<>();
 			Actor actor = network.getActor(integerToNodeLables.get(n));
-
+			
 			for (Port port : actor.getOutputPorts()) {
 				for (Buffer buffer : port.getOutputs()) {
 					String tagetActorLabel = buffer.getTarget().getOwner().getName();
@@ -140,7 +144,12 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 				adj.add(Integer.toString(source));
 			}
 			nbEdges += adj.size();
-			lines.add(String.join(" ", adj));
+			int actorWeight = (int )(actorWorkload.get(actor) / minWorkload);
+			if(actorWeight == 0 ) {
+				actorWeight = 1;
+			}
+			String node = String.format("%s %s\n", actorWeight, String.join(" ", adj));
+			lines.add(node);
 		}
 
 		// -- Metis file
@@ -150,10 +159,10 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 			FileWriter writer = new FileWriter(metisInput);
 			StringBuffer sb = new StringBuffer();
 
-			sb.append(String.format("%d %d\n", nbNodes, nbEdges / 2));
+			sb.append(String.format("%d %d 010\n", nbNodes, nbEdges / 2));
 			lines.stream().forEach(l -> {
+				//sb.append(String.valueOf(actor));
 				sb.append(l);
-				sb.append("\n");
 			});
 
 			sb.append("\n");
@@ -162,7 +171,7 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 
 			// -- Call metis
 			ProcessBuilder metisPB = new ProcessBuilder("gpmetis", metisInput.getAbsolutePath(),
-					Integer.toString(units), "-contig");
+					Integer.toString(units));
 			metisPB.redirectErrorStream(true);
 			metisPB.directory(new File(System.getProperty("java.io.tmpdir")));
 
@@ -178,10 +187,6 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 				while ((line = br.readLine()) != null) {
 					try {
 						int partition = Integer.parseInt(line);
-
-						System.out.println(actorIndex);
-						// read next line
-
 						String actor = integerToNodeLables.get(actorIndex);
 						partitioning.setPartition(actor, "p" + partition);
 						actorIndex++;
