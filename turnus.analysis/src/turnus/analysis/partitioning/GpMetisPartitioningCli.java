@@ -77,6 +77,8 @@ import turnus.model.trace.weighter.WeighterUtils;
  */
 public class GpMetisPartitioningCli implements IApplication {
 
+	private static final String DEFAULT_SCHEDULING_POLICY = "ROUND_ROBIN";
+
 	private Configuration configuration;
 	private IProgressMonitor monitor = new NullProgressMonitor();
 	private GpMetisPartitioning analysis;
@@ -128,11 +130,13 @@ public class GpMetisPartitioningCli implements IApplication {
 			}
 			if (configuration.hasValue(SCHEDULING_POLICY)) {
 				scheduling = configuration.getValue(SCHEDULING_POLICY);
+			} else {
+				scheduling = DEFAULT_SCHEDULING_POLICY;
 			}
 		}
 
 		// -- STEP 2 : Run the analysis
-		{ 
+		{
 			monitor.subTask("Runnis the analysis");
 			try {
 				analysis = new GpMetisPartitioning(project, weighter);
@@ -143,7 +147,7 @@ public class GpMetisPartitioningCli implements IApplication {
 				throw new TurnusException("The analysis cannot be completed, " + e.getMessage(), e);
 			}
 		}
-		
+
 		// -- STEP 3 : Store the results
 		{
 			monitor.subTask("Storing the results");
@@ -155,30 +159,32 @@ public class GpMetisPartitioningCli implements IApplication {
 				} else {
 					outputPath = createOutputDirectory("partitioning", configuration);
 				}
-				
-				File reportFile = createFileWithTimeStamp(outputPath,
-						TurnusExtensions.METIS_PARTITIONING_REPORT);
+
+				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.METIS_PARTITIONING_REPORT);
 				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
 				Logger.info("Metis partitioning report stored in \"%s\"", reportFile);
-				
+
 				NetworkPartitioning partitioning = new NetworkPartitioning(project.getNetwork());
-				if (scheduling != null)
-					partitioning.setSchedulerToAll(scheduling);
-				int i = 0;
-				for(MetisPartitioning mp : report.getPartitions()) {
-					for(Actor actor : mp.getActors()) {
+
+				int i = 1;
+				for (MetisPartitioning mp : report.getPartitions()) {
+					for (Actor actor : mp.getActors()) {
 						partitioning.setPartition(actor, "p" + i);
 					}
 					i++;
 				}
-				
+
+				if (scheduling != null)
+					partitioning.setSchedulerToAll(scheduling);
+				Logger.info("Partitions created: " + report.getPartitions().size());
+
 				File xcfFile = changeExtension(reportFile, TurnusExtensions.NETWORK_PARTITIONING);
 				File dotFile = changeExtension(reportFile, TurnusExtensions.DOT);
 				new XmlNetworkPartitioningWriter().write(partitioning, xcfFile);
 				new PartitionedNetworkToDot(project.getNetwork(), partitioning)
 						.emit(FileSystems.getDefault().getPath(dotFile.getAbsolutePath()));
 				Logger.info("Network partitioning configuration stored in \"%s\"", xcfFile);
-			}catch (Exception e) {
+			} catch (Exception e) {
 				Logger.error("The report file cannot be stored");
 				String message = e.getLocalizedMessage();
 				if (message != null) {
@@ -186,7 +192,7 @@ public class GpMetisPartitioningCli implements IApplication {
 				}
 			}
 		}
-		
+
 		monitor.done();
 
 	}
