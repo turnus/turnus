@@ -40,11 +40,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.Stack;
 
 /**
  * 
+ * A simple directed graph class
+ * 
  * @author Simone Casale-Brunet
+ * @author Endri Bezati
  *
  */
 public class SimpleGraph<V> {
@@ -57,7 +61,7 @@ public class SimpleGraph<V> {
 		edges = new HashMap<>();
 	}
 
-	public boolean addNode(V object){
+	public boolean addNode(V object) {
 		if (vertices.contains(object))
 			return false;
 
@@ -65,9 +69,17 @@ public class SimpleGraph<V> {
 		return true;
 	}
 
-	public boolean addEdge(V source, V target){
+	public List<V> getVertices() {
+		return vertices;
+	}
+
+	public Collection<V> getAdjacentVertices(V vertex) {
+        return edges.getOrDefault(vertex, new ArrayList<>());
+    }
+	
+	public boolean addEdge(V source, V target) {
 		if (vertices.contains(source) && vertices.contains(target)) {
-			if(!edges.containsKey(source)){
+			if (!edges.containsKey(source)) {
 				edges.put(source, new HashSet<V>());
 			}
 			edges.get(source).add(target);
@@ -77,70 +89,78 @@ public class SimpleGraph<V> {
 		}
 
 	}
-	
-	 // The function to do Topological Sort. It uses
-    // recursive topologicalSortUtil()
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-    public List<V> topologicalSort()
-    {
-        Stack<V> stack = new Stack<V>();
- 
-        // Mark all the vertices as not visited
-        // Initialize adjacency list
-        int V = vertices.size();
-        boolean visited[] = new boolean[V];
-        
-		LinkedList<Integer> adj[] = new LinkedList[V];
-        for (int i = 0; i < V; i++){
-        	 visited[i] = false;
-        	 adj[i] = new LinkedList();
-        }
-           
-        // create an adicency list
-        for(Entry<V, Collection<V>> e : edges.entrySet()){
-        	V source = e.getKey();
-        	int sourceId = vertices.indexOf(source);
-        	for(Object target : e.getValue()){
-        		int targetId = vertices.indexOf(target);
-        		adj[sourceId].add(targetId);
-        	}
-        }
- 
-        // Call the recursive helper function to store
-        // Topological Sort starting from all vertices
-        // one by one
-        for (int i = 0; i < V; i++)
-            if (visited[i] == false)
-                topologicalSortUtil(i, visited, adj, stack);
- 
-        // Create List
-        List<V> sorted = new ArrayList<>();
-        while (stack.empty()==false)
-        	sorted.add(stack.pop());
-        return sorted;
-    }
-	
-	
-	// A recursive function used by topologicalSort
-    void topologicalSortUtil(int v, boolean visited[], LinkedList<Integer> adj[], Stack<V> stack)
-    {
-        // Mark the current node as visited.
-        visited[v] = true;
-        Integer i;
- 
-        // Recur for all the vertices adjacent to this
-        // vertex
-        Iterator<Integer> it = adj[v].iterator();
-        while (it.hasNext())
-        {
-            i = it.next();
-            if (!visited[i])
-                topologicalSortUtil(i, visited, adj, stack);
-        }
- 
-        // Push current vertex to stack which stores result
-        V object = vertices.get(v);
-        stack.push(object);
-    }
 
+	// The function to do Topological Sort. It uses
+	// recursive topologicalSortUtil()
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<V> topologicalSort() {
+		Stack<V> stack = new Stack<V>();
+
+		// Mark all the vertices as not visited
+		// Initialize adjacency list
+		int V = vertices.size();
+		boolean visited[] = new boolean[V];
+
+		LinkedList<Integer> adj[] = new LinkedList[V];
+		for (int i = 0; i < V; i++) {
+			visited[i] = false;
+			adj[i] = new LinkedList();
+		}
+
+		// create an adicency list
+		for (Entry<V, Collection<V>> e : edges.entrySet()) {
+			V source = e.getKey();
+			int sourceId = vertices.indexOf(source);
+			for (Object target : e.getValue()) {
+				int targetId = vertices.indexOf(target);
+				adj[sourceId].add(targetId);
+			}
+		}
+
+		// Call the recursive helper function to store
+		// Topological Sort starting from all vertices
+		// one by one
+		for (int i = 0; i < V; i++)
+			if (visited[i] == false)
+				topologicalSortUtil(i, visited, adj, stack);
+
+		// Create List
+		List<V> sorted = new ArrayList<>();
+		while (stack.empty() == false)
+			sorted.add(stack.pop());
+		return sorted;
+	}
+
+	// A recursive function used by topologicalSort
+	void topologicalSortUtil(int v, boolean visited[], LinkedList<Integer> adj[], Stack<V> stack) {
+		// Mark the current node as visited.
+		visited[v] = true;
+		Integer i;
+
+		// Recur for all the vertices adjacent to this
+		// vertex
+		Iterator<Integer> it = adj[v].iterator();
+		while (it.hasNext()) {
+			i = it.next();
+			if (!visited[i])
+				topologicalSortUtil(i, visited, adj, stack);
+		}
+
+		// Push current vertex to stack which stores result
+		V object = vertices.get(v);
+		stack.push(object);
+	}
+
+	public static <V> void dfs(V vertex, SimpleGraph<V> directedGraph, Stack<V> stack, Set<V> visited) {
+		visited.add(vertex);
+
+        for (V neighbor : directedGraph.getAdjacentVertices(vertex)) {
+            if (!visited.contains(neighbor)) {
+                dfs(neighbor, directedGraph, stack, visited);
+            }
+        }
+
+        stack.push(vertex);
+	}
+	
 }

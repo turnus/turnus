@@ -55,13 +55,15 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import turnus.analysis.Analysis;
+import turnus.analysis.hypergraph.WeightedActor;
+import turnus.analysis.hypergraph.WeightedEdge;
+import turnus.analysis.hypergraph.WeightedHyperGraph;
 import turnus.common.TurnusException;
 import turnus.common.io.Logger;
 import turnus.common.util.FileUtils;
 import turnus.model.analysis.partitioning.MetisPartitioning;
 import turnus.model.analysis.partitioning.MetisPartitioningReport;
 import turnus.model.analysis.partitioning.PartitioningFactory;
-import turnus.model.analysis.profiling.util.MemoryAndBuffers;
 import turnus.model.common.EScheduler;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
@@ -76,11 +78,11 @@ import turnus.model.trace.TraceProject;
 import turnus.model.trace.weighter.TraceWeighter;
 
 /**
- * Partitioning based on Metis graph partitioner
+ * Partitioning based on different hypergraph partitioning based on hmetis format 
  * 
  * @author Endri Bezati
  */
-public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
+public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 
 	public static final int DEFAULT_UNITS = 2;
 	public static final String DEFAULT_SCHEDULING_POLICY = "ROUND_ROBIN";
@@ -95,13 +97,15 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 
 	private TraceDecorator decorator;
 
-	public GpMetisPartitioning(TraceProject project, TraceWeighter traceWeighter) {
+	private boolean useMetis = false;
+
+	public HypergraphPartitioning(TraceProject project, TraceWeighter traceWeighter) {
 		super(project);
 		this.traceWeighter = traceWeighter;
 		this.actorWorkload = new HashMap<>();
 		this.bufferVolume = new HashMap<>();
 		this.decorator = project.getTraceDecorator();
-	} 
+	}
 
 	private boolean execInPath(String exec) {
 		return Stream.of(System.getenv("PATH").split(Pattern.quote(File.pathSeparator))).map(Paths::get)
@@ -110,121 +114,115 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 
 	private int bitsToMegaBytes(Long value) {
 		long ret = value / 8 / 1024 / 1024;
-		return (int) (ret == 0L ? 1 : ret); 
-	} 
-	
+		return (int) (ret == 0L ? 1 : ret);
+	}
+
 	private NetworkPartitioning metisPartitioning(Network network) {
 		NetworkPartitioning partitioning = new NetworkPartitioning(network);
-		Map<String, Integer> nodeLabelsToIntegers = new HashMap<>(network.getActors().size());
 		Map<Integer, String> integerToNodeLables = new HashMap<>(network.getActors().size());
-		int i = 1; 
 
+		Long minBufferVol = Collections.min(bufferVolume.values());
+		Double minWorkload = Collections.min(actorWorkload.values());
 		// -- Topological sort actors
 		List<Actor> topologicalSort = ActorsSorter.topologicalOrder(network.getActors());
-		
-		
-		// -- Node labels to integers
+
+		int hyperEdgeCounter = 0;
+		WeightedHyperGraph hg = new WeightedHyperGraph();
+
+		// -- Create hyper-edges
 		for (Actor actor : topologicalSort) {
-			nodeLabelsToIntegers.put(actor.getName(), i);
-			integerToNodeLables.put(i, actor.getName());
-			i++;
+			Long bufferWeight = 0L;
+			if (!actor.getOutgoingBuffers().isEmpty()) {
+				Set<Actor> nodes = new HashSet<>();
+				nodes.add(actor);
+				for (Buffer outgoing : actor.getOutgoingBuffers()) {
+					nodes.add(outgoing.getTarget().getOwner());
+					bufferWeight += bufferVolume.get(outgoing);
+				}
+				WeightedEdge edge = new WeightedEdge(hyperEdgeCounter, bitsToMegaBytes(bufferWeight));
+
+				Set<WeightedActor> weightedNodes = new HashSet<>();
+				for (Actor actorNode : nodes) {
+					WeightedActor weightedActor = new WeightedActor(topologicalSort.indexOf(actorNode) + 1, actorNode,
+							actorWorkload.get(actorNode)/minWorkload);
+					weightedNodes.add(weightedActor);
+				}
+
+				hg.addHyperedge(edge, weightedNodes);
+				hyperEdgeCounter++;
+			}
+			integerToNodeLables.put(topologicalSort.indexOf(actor)+1, actor.getName());
 		}
 
-		// -- Number of Actors and connections
-		int nbNodes = network.getActors().size();
-		int nbEdges = 0;
-		List<String> lines = new ArrayList<>();
-		Set<Double> workload = new HashSet<>(actorWorkload.values());
-		workload.remove(1.0);
-		Double minWorkload = Collections.min(workload);
-		Long minBufferVol = Collections.min(bufferVolume.values());
-
-		for (int n = 1; n < network.getActors().size() + 1; n++) {
-			Map<String, Long> adjWeight = new HashMap<>();
-			Set<String> adj = new HashSet<>();
-			Actor actor = network.getActor(integerToNodeLables.get(n));
-
-			for (Port port : actor.getOutputPorts()) {
-				for (Buffer buffer : port.getOutputs()) {
-					String tagetActorLabel = buffer.getTarget().getOwner().getName();
-					int target = nodeLabelsToIntegers.get(tagetActorLabel);
-					String label = Integer.toString(target);
-					adj.add(label);
-					Long bufferWeight = bufferVolume.get(buffer) / minBufferVol;
-					if (adjWeight.containsKey(label)) {
-						long current = adjWeight.get(label);
-						adjWeight.put(label, current + bufferWeight);
-					} else {
-						adjWeight.put(label, bufferWeight);
-					}
-				}
-			}
-
-			for (Port port : actor.getInputPorts()) {
-				Buffer buffer = port.getInput();
-				String sourceActorLabel = port.getInput().getSource().getOwner().getName();
-				int source = nodeLabelsToIntegers.get(sourceActorLabel);
-				String label = Integer.toString(source);
-				adj.add(label);
-				Long bufferWeight = bufferVolume.get(buffer) / minBufferVol;
-				if (adjWeight.containsKey(label)) {
-					long current = adjWeight.get(label);
-					adjWeight.put(label, current + bufferWeight);
-				} else {
-					adjWeight.put(label, bufferWeight);
-				}
-			}
-			nbEdges += adj.size();
-			int actorWeight = (int) (actorWorkload.get(actor) / minWorkload);
-			if (actorWeight == 0) {
-				actorWeight = 1;
-			}
-			String nodes = "";
-			for(String node : adj) {
-				nodes = nodes + String.format( "%s %s ", node, bitsToMegaBytes(adjWeight.get(node)));
-			}
-			int memoryWeight = (int) (MemoryAndBuffers.getActorPersistentMemmory(actor) / 1024 / 1024 / 8);
-			String node = String.format("%s %s %s\n", actorWeight, memoryWeight, nodes);
-			lines.add(node);
-		}
-
-		
-		
-		
-		// -- Metis file
+		// -- hMetis file
 		try {
-			File metisInput = FileUtils.createTempFile(network.getName(), ".metis", false);
+			File metisInput = FileUtils.createTempFile(network.getName(), ".hgraph", false);
 
 			FileWriter writer = new FileWriter(metisInput);
-			StringBuffer sb = new StringBuffer();
-
-			sb.append(String.format("%d %d 011 2\n", nbNodes, nbEdges / 2));
-			lines.stream().forEach(l -> {
-				// sb.append(String.valueOf(actor));
-				sb.append(l);
-			});
-
-			sb.append("\n");
+			StringBuffer sb = hg.tohMetis();
 			writer.write(sb.toString());
 			writer.close();
 
 			// -- Call metis
-			ProcessBuilder metisPB = new ProcessBuilder("gpmetis", metisInput.getAbsolutePath(),
-					Integer.toString(units), "-ptype=kway", "-objtype=vol", "-ubvec=1.02 1.8");
-			metisPB.redirectErrorStream(true);
-			metisPB.directory(new File(System.getProperty("java.io.tmpdir")));
+			String fileOutput;
+			if (useMetis) {
+				ProcessBuilder metisPB = new ProcessBuilder("gpmetis", metisInput.getAbsolutePath(),
+						Integer.toString(units), "-ptype=kway", "-objtype=vol", "-ubvec=1.02 1.8");
+				metisPB.redirectErrorStream(true);
+				metisPB.directory(new File(System.getProperty("java.io.tmpdir")));
 
-			Process metis = metisPB.start();
-			int exitCode = metis.waitFor();
-			String result = new String(metis.getInputStream().readAllBytes());
-			if (exitCode != 0) {
-				throw new TurnusException("gpmetis error: \n" + result);
+				Process metis = metisPB.start();
+				int exitCode = metis.waitFor();
+				String result = new String(metis.getInputStream().readAllBytes());
+				if (exitCode != 0) {
+					throw new TurnusException("gpmetis error: \n" + result);
+				}
+				Logger.info("\n" + result);
+				// -- Read metis output
+				fileOutput = metisInput.getAbsolutePath() + ".part." + Integer.toString(units);
+
+			} else {
+				final List<String> commands = new ArrayList<String>();
+				commands.add("KaHyPar");
+				// -- hypergraph
+				commands.add("-h");
+				commands.add(metisInput.getAbsolutePath());
+				// -- K parts 
+				commands.add("-k");
+				commands.add(String.valueOf(units));
+				// -- epsilon
+				commands.add("-e");
+				commands.add("0.02");
+				// --
+				commands.add("-o");
+				commands.add("cut");
+				// -- 
+				commands.add("-m");
+				commands.add("recursive");
+				// -- profile
+				commands.add("-p");
+				commands.add("/Users/endrix/git/kahypar/config/cut_rKaHyPar_sea20.ini");
+				// -- write file
+				commands.add("-w");
+				commands.add("1");
+				
+				
+				ProcessBuilder pb = new ProcessBuilder(commands);
+				pb.redirectErrorStream(true);
+				pb.directory(new File(System.getProperty("java.io.tmpdir")));
+				
+				Process partitioner = pb.start();
+				int exitCode = partitioner.waitFor();
+				String result = new String(partitioner.getInputStream().readAllBytes());
+				if (exitCode != 0) {
+					throw new TurnusException("partitioner error: \n" + result);
+				}
+				Logger.info("\n" + result);
+				
+				fileOutput = metisInput.getAbsolutePath() + ".part" + Integer.toString(units)+".epsilon0.02.seed-1.KaHyPar";
 			}
-			Logger.info("\n" + result);
-			// -- Read metis output
-			String metisOutput = metisInput.getAbsolutePath() + ".part." + Integer.toString(units);
 
-			try (BufferedReader br = new BufferedReader(new FileReader(metisOutput))) {
+			try (BufferedReader br = new BufferedReader(new FileReader(fileOutput))) {
 				String line;
 				int actorIndex = 1;
 				while ((line = br.readLine()) != null) {

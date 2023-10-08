@@ -97,6 +97,7 @@ public class PoiUtils {
 	 *            the comment message
 	 */
 	public static void setComment(CellBase cell, String message) {
+		@SuppressWarnings("rawtypes")
 		Drawing drawing = cell.getSheet().createDrawingPatriarch();
 		CreationHelper factory = cell.getSheet().getWorkbook().getCreationHelper();
 
