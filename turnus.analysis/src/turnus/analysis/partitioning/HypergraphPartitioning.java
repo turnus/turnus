@@ -40,6 +40,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -78,7 +79,8 @@ import turnus.model.trace.TraceProject;
 import turnus.model.trace.weighter.TraceWeighter;
 
 /**
- * Partitioning based on different hypergraph partitioning based on hmetis format 
+ * Partitioning based on different hypergraph partitioning based on hmetis
+ * format
  * 
  * @author Endri Bezati
  */
@@ -151,7 +153,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				hg.addHyperedge(edge, weightedNodes);
 				hyperEdgeCounter++;
 			}
-			integerToNodeLables.put(topologicalSort.indexOf(actor)+1, actor.getName());
+			integerToNodeLables.put(topologicalSort.indexOf(actor) + 1, actor.getName());
 		}
 
 		// -- hMetis file
@@ -182,35 +184,40 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				fileOutput = metisInput.getAbsolutePath() + ".part." + Integer.toString(units);
 
 			} else {
+
+				URL resource = HypergraphPartitioning.class.getClassLoader()
+						.getResource("kahypar/km1_kKaHyPar_sea20.ini");
+				File resourceFile = org.apache.commons.io.FileUtils.toFile(resource);
+				double epsilon = 0.01;
+				String epsilonString = String.valueOf(epsilon);
 				final List<String> commands = new ArrayList<String>();
 				commands.add("KaHyPar");
-				// -- hypergraph
+				// -- hyper-graph
 				commands.add("-h");
 				commands.add(metisInput.getAbsolutePath());
-				// -- K parts 
+				// -- K parts
 				commands.add("-k");
 				commands.add(String.valueOf(units));
 				// -- epsilon
 				commands.add("-e");
-				commands.add("0.02");
+				commands.add(epsilonString);
 				// --
 				commands.add("-o");
 				commands.add("km1");
-				// -- 
+				// --
 				commands.add("-m");
 				commands.add("direct");
 				// -- profile
 				commands.add("-p");
-				commands.add("/home/endrix/git/kahypar/config/km1_kKaHyPar_sea20.ini");
+				commands.add(resourceFile.getAbsolutePath());
 				// -- write file
 				commands.add("-w");
 				commands.add("1");
-				
-				
+
 				ProcessBuilder pb = new ProcessBuilder(commands);
 				pb.redirectErrorStream(true);
 				pb.directory(new File(System.getProperty("java.io.tmpdir")));
-				
+
 				Process partitioner = pb.start();
 				int exitCode = partitioner.waitFor();
 				String result = new String(partitioner.getInputStream().readAllBytes());
@@ -218,8 +225,9 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 					throw new TurnusException("partitioner error: \n" + result);
 				}
 				Logger.info("\n" + result);
-				
-				fileOutput = metisInput.getAbsolutePath() + ".part" + Integer.toString(units)+".epsilon0.02.seed-1.KaHyPar";
+
+				fileOutput = metisInput.getAbsolutePath() + ".part" + Integer.toString(units) + ".epsilon" + epsilonString
+						+ ".seed-1.KaHyPar";
 			}
 
 			try (BufferedReader br = new BufferedReader(new FileReader(fileOutput))) {
@@ -230,7 +238,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 						int partition = Integer.parseInt(line);
 						String actor = integerToNodeLables.get(actorIndex);
 						partitioning.setPartition(actor, "p" + partition);
-						System.out.println(actor + " : "+ "p" + partition);
+						System.out.println(actor + " : " + "p" + partition);
 						actorIndex++;
 
 					} catch (NumberFormatException e) {
