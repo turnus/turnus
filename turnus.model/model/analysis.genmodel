@@ -544,6 +544,7 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference analysis.ecore#//partitioning/MetisPartitioning/actors"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/MetisPartitioning/workload"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//partitioning/MetisPartitioning/partitionId"/>
       </genClasses>
       <genClasses ecoreClass="analysis.ecore#//partitioning/MetisPartitioningReport">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"

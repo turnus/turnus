@@ -549,6 +549,16 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 	 * @generated
 	 */
 	@Override
+	public EAttribute getMetisPartitioning_PartitionId() {
+		return (EAttribute)metisPartitioningEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getMetisPartitioningReport() {
 		return metisPartitioningReportEClass;
 	}
@@ -696,6 +706,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		metisPartitioningEClass = createEClass(METIS_PARTITIONING);
 		createEReference(metisPartitioningEClass, METIS_PARTITIONING__ACTORS);
 		createEAttribute(metisPartitioningEClass, METIS_PARTITIONING__WORKLOAD);
+		createEAttribute(metisPartitioningEClass, METIS_PARTITIONING__PARTITION_ID);
 
 		metisPartitioningReportEClass = createEClass(METIS_PARTITIONING_REPORT);
 		createEReference(metisPartitioningReportEClass, METIS_PARTITIONING_REPORT__NETWORK);
@@ -782,6 +793,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		initEClass(metisPartitioningEClass, MetisPartitioning.class, "MetisPartitioning", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMetisPartitioning_Actors(), theDataflowPackage.getActor(), null, "actors", null, 0, -1, MetisPartitioning.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMetisPartitioning_Workload(), ecorePackage.getEDouble(), "workload", null, 0, 1, MetisPartitioning.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMetisPartitioning_PartitionId(), ecorePackage.getEString(), "partitionId", null, 0, 1, MetisPartitioning.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(metisPartitioningReportEClass, MetisPartitioningReport.class, "MetisPartitioningReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMetisPartitioningReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, MetisPartitioningReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

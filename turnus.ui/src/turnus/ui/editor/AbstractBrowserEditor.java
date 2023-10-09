@@ -149,8 +149,9 @@ public abstract class AbstractBrowserEditor extends EditorPart {
 		browser.setText(htmlText);
 		menu = new Menu(browser);
 		addMenuItems(menu);
-		menu.setVisible(false);
+		menu.setVisible(true);
 		browser.setMenu(menu);
+		
 	}
 
 	/**

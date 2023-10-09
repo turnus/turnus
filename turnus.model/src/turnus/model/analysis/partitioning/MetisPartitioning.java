@@ -48,6 +48,7 @@ import turnus.model.dataflow.Actor;
  * <ul>
  *   <li>{@link turnus.model.analysis.partitioning.MetisPartitioning#getActors <em>Actors</em>}</li>
  *   <li>{@link turnus.model.analysis.partitioning.MetisPartitioning#getWorkload <em>Workload</em>}</li>
+ *   <li>{@link turnus.model.analysis.partitioning.MetisPartitioning#getPartitionId <em>Partition Id</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.partitioning.PartitioningPackage#getMetisPartitioning()
@@ -88,5 +89,27 @@ public interface MetisPartitioning extends EObject {
 	 * @generated
 	 */
 	void setWorkload(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Partition Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Partition Id</em>' attribute.
+	 * @see #setPartitionId(String)
+	 * @see turnus.model.analysis.partitioning.PartitioningPackage#getMetisPartitioning_PartitionId()
+	 * @model
+	 * @generated
+	 */
+	String getPartitionId();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.partitioning.MetisPartitioning#getPartitionId <em>Partition Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Partition Id</em>' attribute.
+	 * @see #getPartitionId()
+	 * @generated
+	 */
+	void setPartitionId(String value);
 
 } // MetisPartitioning

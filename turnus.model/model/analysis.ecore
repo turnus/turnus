@@ -656,6 +656,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="actors" upperBound="-1"
           eType="ecore:EClass dataflow.ecore#//Actor"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="workload" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="partitionId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="MetisPartitioningReport" eSuperTypes="#//AnalysisReport">
       <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>

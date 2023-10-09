@@ -60,6 +60,7 @@ import turnus.model.dataflow.Actor;
  * <ul>
  *   <li>{@link turnus.model.analysis.partitioning.impl.MetisPartitioningImpl#getActors <em>Actors</em>}</li>
  *   <li>{@link turnus.model.analysis.partitioning.impl.MetisPartitioningImpl#getWorkload <em>Workload</em>}</li>
+ *   <li>{@link turnus.model.analysis.partitioning.impl.MetisPartitioningImpl#getPartitionId <em>Partition Id</em>}</li>
  * </ul>
  *
  * @generated
@@ -94,6 +95,26 @@ public class MetisPartitioningImpl extends MinimalEObjectImpl.Container implemen
 	 * @ordered
 	 */
 	protected double workload = WORKLOAD_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPartitionId() <em>Partition Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPartitionId()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PARTITION_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPartitionId() <em>Partition Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPartitionId()
+	 * @generated
+	 * @ordered
+	 */
+	protected String partitionId = PARTITION_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -156,12 +177,37 @@ public class MetisPartitioningImpl extends MinimalEObjectImpl.Container implemen
 	 * @generated
 	 */
 	@Override
+	public String getPartitionId() {
+		return partitionId;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPartitionId(String newPartitionId) {
+		String oldPartitionId = partitionId;
+		partitionId = newPartitionId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PartitioningPackage.METIS_PARTITIONING__PARTITION_ID, oldPartitionId, partitionId));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case PartitioningPackage.METIS_PARTITIONING__ACTORS:
 				return getActors();
 			case PartitioningPackage.METIS_PARTITIONING__WORKLOAD:
 				return getWorkload();
+			case PartitioningPackage.METIS_PARTITIONING__PARTITION_ID:
+				return getPartitionId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -182,6 +228,9 @@ public class MetisPartitioningImpl extends MinimalEObjectImpl.Container implemen
 			case PartitioningPackage.METIS_PARTITIONING__WORKLOAD:
 				setWorkload((Double)newValue);
 				return;
+			case PartitioningPackage.METIS_PARTITIONING__PARTITION_ID:
+				setPartitionId((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -200,6 +249,9 @@ public class MetisPartitioningImpl extends MinimalEObjectImpl.Container implemen
 			case PartitioningPackage.METIS_PARTITIONING__WORKLOAD:
 				setWorkload(WORKLOAD_EDEFAULT);
 				return;
+			case PartitioningPackage.METIS_PARTITIONING__PARTITION_ID:
+				setPartitionId(PARTITION_ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -216,6 +268,8 @@ public class MetisPartitioningImpl extends MinimalEObjectImpl.Container implemen
 				return actors != null && !actors.isEmpty();
 			case PartitioningPackage.METIS_PARTITIONING__WORKLOAD:
 				return workload != WORKLOAD_EDEFAULT;
+			case PartitioningPackage.METIS_PARTITIONING__PARTITION_ID:
+				return PARTITION_ID_EDEFAULT == null ? partitionId != null : !PARTITION_ID_EDEFAULT.equals(partitionId);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -232,6 +286,8 @@ public class MetisPartitioningImpl extends MinimalEObjectImpl.Container implemen
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (workload: ");
 		result.append(workload);
+		result.append(", partitionId: ");
+		result.append(partitionId);
 		result.append(')');
 		return result.toString();
 	}

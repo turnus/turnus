@@ -166,12 +166,11 @@ public class HypergraphPartitioningCli implements IApplication {
 
 				NetworkPartitioning partitioning = new NetworkPartitioning(project.getNetwork());
 
-				int i = 1;
+				
 				for (MetisPartitioning mp : report.getPartitions()) {
 					for (Actor actor : mp.getActors()) {
-						partitioning.setPartition(actor, "p" + i);
+						partitioning.setPartition(actor, mp.getPartitionId());
 					}
-					i++;
 				}
 
 				if (scheduling != null)

@@ -144,7 +144,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				Set<WeightedActor> weightedNodes = new HashSet<>();
 				for (Actor actorNode : nodes) {
 					WeightedActor weightedActor = new WeightedActor(topologicalSort.indexOf(actorNode) + 1, actorNode,
-							actorWorkload.get(actorNode)/minWorkload);
+							actorWorkload.get(actorNode));
 					weightedNodes.add(weightedActor);
 				}
 
@@ -195,13 +195,13 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				commands.add("0.02");
 				// --
 				commands.add("-o");
-				commands.add("cut");
+				commands.add("km1");
 				// -- 
 				commands.add("-m");
-				commands.add("recursive");
+				commands.add("direct");
 				// -- profile
 				commands.add("-p");
-				commands.add("/Users/endrix/git/kahypar/config/cut_rKaHyPar_sea20.ini");
+				commands.add("/home/endrix/git/kahypar/config/km1_kKaHyPar_sea20.ini");
 				// -- write file
 				commands.add("-w");
 				commands.add("1");
@@ -230,6 +230,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 						int partition = Integer.parseInt(line);
 						String actor = integerToNodeLables.get(actorIndex);
 						partitioning.setPartition(actor, "p" + partition);
+						System.out.println(actor + " : "+ "p" + partition);
 						actorIndex++;
 
 					} catch (NumberFormatException e) {
@@ -306,6 +307,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				mp.getActors().add(actor);
 				workload += actorWorkload.get(actor);
 			}
+			mp.setPartitionId(partition);
 			mp.setWorkload(workload);
 			report.getPartitions().add(mp);
 		}

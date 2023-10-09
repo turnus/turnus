@@ -511,13 +511,22 @@ public interface PartitioningPackage extends EPackage {
 	int METIS_PARTITIONING__WORKLOAD = 1;
 
 	/**
+	 * The feature id for the '<em><b>Partition Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METIS_PARTITIONING__PARTITION_ID = 2;
+
+	/**
 	 * The number of structural features of the '<em>Metis Partitioning</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METIS_PARTITIONING_FEATURE_COUNT = 2;
+	int METIS_PARTITIONING_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Metis Partitioning</em>' class.
@@ -949,6 +958,17 @@ public interface PartitioningPackage extends EPackage {
 	EAttribute getMetisPartitioning_Workload();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.partitioning.MetisPartitioning#getPartitionId <em>Partition Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Partition Id</em>'.
+	 * @see turnus.model.analysis.partitioning.MetisPartitioning#getPartitionId()
+	 * @see #getMetisPartitioning()
+	 * @generated
+	 */
+	EAttribute getMetisPartitioning_PartitionId();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.partitioning.MetisPartitioningReport <em>Metis Partitioning Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1306,6 +1326,14 @@ public interface PartitioningPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute METIS_PARTITIONING__WORKLOAD = eINSTANCE.getMetisPartitioning_Workload();
+
+		/**
+		 * The meta object literal for the '<em><b>Partition Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METIS_PARTITIONING__PARTITION_ID = eINSTANCE.getMetisPartitioning_PartitionId();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.partitioning.impl.MetisPartitioningReportImpl <em>Metis Partitioning Report</em>}' class.

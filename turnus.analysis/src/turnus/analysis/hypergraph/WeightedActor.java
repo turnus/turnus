@@ -5,7 +5,7 @@ import java.util.Objects;
 import turnus.model.analysis.profiling.util.MemoryAndBuffers;
 import turnus.model.dataflow.Actor;
 
-public class WeightedActor {
+public class WeightedActor implements Comparable<WeightedActor>{
 	private int id;
 	private Actor actor;
 	private double workload;
@@ -20,8 +20,8 @@ public class WeightedActor {
 		return actor;
 	}
 
-	public String getId() {
-		return String.valueOf(id);
+	public int getId() {
+		return id;
 	}
 
 	public double getWorkload() {
@@ -48,6 +48,11 @@ public class WeightedActor {
 		WeightedActor other = (WeightedActor) obj;
 		return Objects.equals(actor, other.actor) && id == other.id
 				&& Double.doubleToLongBits(workload) == Double.doubleToLongBits(other.workload);
+	}
+
+	@Override
+	public int compareTo(WeightedActor o) {
+		return Integer.compare(this.getId(), o.getId());
 	}
 	
 

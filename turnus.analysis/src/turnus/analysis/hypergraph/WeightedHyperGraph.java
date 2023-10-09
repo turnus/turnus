@@ -33,7 +33,6 @@ package turnus.analysis.hypergraph;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -50,32 +49,19 @@ public class WeightedHyperGraph extends SimpleHyperGraph<WeightedActor, Weighted
 
 		sb.append(String.format("%d %d 11\n", nbHyperEdges, nbNodes));
 
-		Comparator<WeightedEdge> weightedEdgeComparator = Comparator.comparing(WeightedEdge::getId);
-		Comparator<WeightedActor> weightedActorComparator = Comparator.comparing(WeightedActor::getId);
-
 		List<WeightedEdge> edges = new ArrayList<>(hyperedges.keySet());
-		Collections.sort(edges, new Comparator<WeightedEdge>() {
-			@Override
-			public int compare(WeightedEdge o1, WeightedEdge o2) {
-				return weightedEdgeComparator.compare(o1, o2);
-			}
-		});
+		Collections.sort(edges);
 
 		for (WeightedEdge e : edges) {
 			Set<WeightedActor> weightedActors = hyperedges.get(e);
 
-			sb.append(String.format("%s %s\n", e.getWeight(),
-					weightedActors.stream().map(WeightedActor::getId).collect(Collectors.joining(" "))));
+			sb.append(String.format("%s %s\n", e.getWeight(), weightedActors.stream().map(WeightedActor::getId)
+					.map(String::valueOf).collect(Collectors.joining(" "))));
 		}
 
 		// -- Node weights
 		List<WeightedActor> nodes = new ArrayList<>(getVertices());
-		Collections.sort(nodes, new Comparator<WeightedActor>() {
-			@Override
-			public int compare(WeightedActor o1, WeightedActor o2) {
-				return weightedActorComparator.compare(o1, o2);
-			}
-		});
+		Collections.sort(nodes);
 
 		for (WeightedActor node : nodes) {
 			sb.append(String.format("%s\n", (int) node.getWorkload()));

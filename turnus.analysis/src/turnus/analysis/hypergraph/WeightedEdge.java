@@ -1,6 +1,6 @@
 package turnus.analysis.hypergraph;
 
-public class WeightedEdge {
+public class WeightedEdge implements Comparable<WeightedEdge>{
 	private int id;
 	private long weight;
 
@@ -15,5 +15,10 @@ public class WeightedEdge {
 
 	public long getWeight() {
 		return weight;
+	}
+
+	@Override
+	public int compareTo(WeightedEdge o) {
+		return Integer.compare(this.getId(), o.getId());
 	}
 }
