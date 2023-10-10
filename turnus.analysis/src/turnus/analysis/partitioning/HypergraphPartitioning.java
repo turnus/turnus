@@ -226,8 +226,8 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				}
 				Logger.info("\n" + result);
 
-				fileOutput = metisInput.getAbsolutePath() + ".part" + Integer.toString(units) + ".epsilon" + epsilonString
-						+ ".seed-1.KaHyPar";
+				fileOutput = metisInput.getAbsolutePath() + ".part" + Integer.toString(units) + ".epsilon"
+						+ epsilonString + ".seed-1.KaHyPar";
 			}
 
 			try (BufferedReader br = new BufferedReader(new FileReader(fileOutput))) {

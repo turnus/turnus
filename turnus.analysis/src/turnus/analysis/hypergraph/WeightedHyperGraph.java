@@ -42,29 +42,44 @@ import turnus.model.graph.SimpleHyperGraph;
 public class WeightedHyperGraph extends SimpleHyperGraph<WeightedActor, WeightedEdge> {
 
 	public StringBuffer tohMetis() {
+		return tohMetis(true, true);
+	}
+
+	public StringBuffer tohMetis(boolean withNodeWeights, boolean withHyperedgeWeight) {
 		StringBuffer sb = new StringBuffer();
 
 		int nbHyperEdges = hyperedges.size();
 		int nbNodes = getVertices().size();
 
-		sb.append(String.format("%d %d 11\n", nbHyperEdges, nbNodes));
+		if (!withNodeWeights && !withHyperedgeWeight) {
+			sb.append(String.format("%d %d\n", nbHyperEdges, nbNodes));
+		} else {
+			sb.append(String.format("%d %d %s%s\n", nbHyperEdges, nbNodes, withNodeWeights ? 1 : 0,
+					withHyperedgeWeight ? 1 : 0));
+		}
 
 		List<WeightedEdge> edges = new ArrayList<>(hyperedges.keySet());
 		Collections.sort(edges);
 
 		for (WeightedEdge e : edges) {
 			Set<WeightedActor> weightedActors = hyperedges.get(e);
-
-			sb.append(String.format("%s %s\n", e.getWeight(), weightedActors.stream().map(WeightedActor::getId)
-					.map(String::valueOf).collect(Collectors.joining(" "))));
+			if (withHyperedgeWeight) {
+				sb.append(String.format("%s %s\n", e.getWeight(), weightedActors.stream().map(WeightedActor::getId)
+						.map(String::valueOf).collect(Collectors.joining(" "))));
+			} else {
+				sb.append(String.format("%s\n", weightedActors.stream().map(WeightedActor::getId).map(String::valueOf)
+						.collect(Collectors.joining(" "))));
+			}
 		}
 
 		// -- Node weights
 		List<WeightedActor> nodes = new ArrayList<>(getVertices());
 		Collections.sort(nodes);
 
-		for (WeightedActor node : nodes) {
-			sb.append(String.format("%s\n", (int) node.getWorkload()));
+		if (withNodeWeights) {
+			for (WeightedActor node : nodes) {
+				sb.append(String.format("%s\n", (int) node.getWorkload()));
+			}
 		}
 
 		sb.append("\n");
