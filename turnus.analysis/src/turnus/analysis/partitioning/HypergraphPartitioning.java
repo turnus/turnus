@@ -33,6 +33,7 @@
 package turnus.analysis.partitioning;
 
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
+import static turnus.common.TurnusOptions.EXTERNAL_PARTITIONING_TOOL;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 
 import java.io.BufferedReader;
@@ -55,6 +56,8 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.SystemUtils;
+
 import turnus.analysis.Analysis;
 import turnus.analysis.hypergraph.WeightedActor;
 import turnus.analysis.hypergraph.WeightedEdge;
@@ -65,6 +68,7 @@ import turnus.common.util.FileUtils;
 import turnus.model.analysis.partitioning.MetisPartitioning;
 import turnus.model.analysis.partitioning.MetisPartitioningReport;
 import turnus.model.analysis.partitioning.PartitioningFactory;
+import turnus.model.analysis.profiling.util.MemoryAndBuffers;
 import turnus.model.common.EScheduler;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
@@ -88,7 +92,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 
 	public static final int DEFAULT_UNITS = 2;
 	public static final String DEFAULT_SCHEDULING_POLICY = "ROUND_ROBIN";
-	private static final String METIS_APP = "gpmetis";
+	private static final String DEFAULT_PARTITIONING_TOOL = "khmetis";
 	private TraceWeighter traceWeighter;
 	private int units;
 	private EScheduler schedulingPolicy;
@@ -99,7 +103,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 
 	private TraceDecorator decorator;
 
-	private boolean useMetis = false;
+	private String externalTool;
 
 	public HypergraphPartitioning(TraceProject project, TraceWeighter traceWeighter) {
 		super(project);
@@ -110,8 +114,10 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 	}
 
 	private boolean execInPath(String exec) {
+		final String app = SystemUtils.IS_OS_WINDOWS ? exec + ".exe" : exec;
+
 		return Stream.of(System.getenv("PATH").split(Pattern.quote(File.pathSeparator))).map(Paths::get)
-				.anyMatch(path -> Files.exists(path.resolve(exec)));
+				.anyMatch(path -> Files.exists(path.resolve(app)));
 	}
 
 	private int bitsToMegaBytes(Long value) {
@@ -140,6 +146,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				for (Buffer outgoing : actor.getOutgoingBuffers()) {
 					nodes.add(outgoing.getTarget().getOwner());
 					bufferWeight += bufferVolume.get(outgoing);
+					// bufferWeight += MemoryAndBuffers.getActorPersistentMemmory(outgoing.getTarget().getOwner());
 				}
 				WeightedEdge edge = new WeightedEdge(hyperEdgeCounter, bitsToMegaBytes(bufferWeight));
 
@@ -167,9 +174,31 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 
 			// -- Call metis
 			String fileOutput;
-			if (useMetis) {
-				ProcessBuilder metisPB = new ProcessBuilder("gpmetis", metisInput.getAbsolutePath(),
-						Integer.toString(units), "-ptype=kway", "-objtype=vol", "-ubvec=1.02 1.8");
+			if (externalTool.equals("khmetis")) {
+				List<String> commands = new ArrayList<>();
+				if (SystemUtils.IS_OS_WINDOWS) {
+					commands.add("khmetis.exe");
+				} else {
+					commands.add("khmetis");
+				}
+				// -- input file
+				commands.add(metisInput.getAbsolutePath());
+				// -- units
+				commands.add(Integer.toString(units));
+				// -- UBfactor
+				commands.add(Integer.toString(5));
+				// -- Nruns
+				commands.add(Integer.toString(20));
+				// -- CType
+				commands.add(Integer.toString(1));
+				// -- OType
+				commands.add(Integer.toString(1));
+				// -- Vcycle
+				commands.add(Integer.toString(2));
+				// -- dglvl
+				commands.add(Integer.toString(24));
+				
+				ProcessBuilder metisPB = new ProcessBuilder(commands);
 				metisPB.redirectErrorStream(true);
 				metisPB.directory(new File(System.getProperty("java.io.tmpdir")));
 
@@ -177,13 +206,14 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				int exitCode = metis.waitFor();
 				String result = new String(metis.getInputStream().readAllBytes());
 				if (exitCode != 0) {
-					throw new TurnusException("gpmetis error: \n" + result);
+					throw new TurnusException(externalTool + " error: \n" + result);
 				}
 				Logger.info("\n" + result);
+				
 				// -- Read metis output
 				fileOutput = metisInput.getAbsolutePath() + ".part." + Integer.toString(units);
 
-			} else {
+			} else if (externalTool.equals("KaHyPar")) {
 
 				URL resource = HypergraphPartitioning.class.getClassLoader()
 						.getResource("kahypar/km1_kKaHyPar_sea20.ini");
@@ -228,6 +258,8 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 
 				fileOutput = metisInput.getAbsolutePath() + ".part" + Integer.toString(units) + ".epsilon"
 						+ epsilonString + ".seed-1.KaHyPar";
+			} else {
+				throw new TurnusException("This partitioning tool is not supported: \n" + externalTool);
 			}
 
 			try (BufferedReader br = new BufferedReader(new FileReader(fileOutput))) {
@@ -292,14 +324,15 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 	public MetisPartitioningReport run() throws TurnusException {
 		units = configuration.getValue(ANALYSIS_PARTITIONING_UNITS, DEFAULT_UNITS);
 		schedulingPolicy = EScheduler.get(configuration.getValue(SCHEDULING_POLICY, DEFAULT_SCHEDULING_POLICY));
+		externalTool = configuration.getValue(EXTERNAL_PARTITIONING_TOOL, DEFAULT_PARTITIONING_TOOL);
 		PartitioningFactory f = PartitioningFactory.eINSTANCE;
 		MetisPartitioningReport report = f.createMetisPartitioningReport();
 		report.setNetwork(project.getNetwork());
 		report.setAlgorithm("Metis partitioner");
 		report.setSchedulinPolicy(schedulingPolicy);
 
-		if (!execInPath(METIS_APP)) {
-			throw new TurnusException("gpmetis not found in the path, please install metis.");
+		if (!execInPath(externalTool)) {
+			throw new TurnusException(externalTool + " not found in the path !");
 		}
 
 		// -- Calculate workload and total communication volume

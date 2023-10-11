@@ -42,6 +42,7 @@ import turnus.common.configuration.Option.Description;
  * This class contains the options used by TURNUS
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 @SuppressWarnings("rawtypes")
@@ -70,7 +71,7 @@ public class TurnusOptions {
 
 	@Description("The default buffer size used for the analysis when a specific size is not provided")
 	public static final Option<Integer> BUFFER_SIZE_DEFAULT;
-	
+
 	@Description("The file with buffer sizes")
 	public static final Option<File> BUFFER_SIZE_FILE;
 
@@ -79,7 +80,7 @@ public class TurnusOptions {
 
 	@Description("The input file used as input stimulus of the design under test")
 	public static final Option<File> CAL_STIMULUS_FILE;
-	
+
 	@Description("The output file from the design under test")
 	public static final Option<File> SIMULATION_OUTPUT_FILE;
 
@@ -97,7 +98,7 @@ public class TurnusOptions {
 
 	@Description("The mapping configuration map")
 	public static final Option<Map> MAPPING;
-	
+
 	@Description("The mapping configuration file. Supported file extensions is .xcf")
 	public static final Option<File> MAPPING_FILE;
 
@@ -133,7 +134,6 @@ public class TurnusOptions {
 
 	@Description("The trace file. Supported file extensions are: .trace and .tracez")
 	public static final Option<File> TRACE_FILE;
-	
 
 	@Description("The path to the actor selector schedule file. Supported file extensions are: assched")
 	public static final Option<String> ASSCHED_PATH;
@@ -146,7 +146,7 @@ public class TurnusOptions {
 
 	@Description("Print all the debug information")
 	public static final Option<Boolean> CONFIG_VERBOSE;
-	
+
 	@Description("Minimize the memory usage required by the analysies (the cost will be that some analysies could be slower)")
 	public static final Option<Boolean> CONFIG_MINIMIZE_MEMORY_USAGE;
 
@@ -155,73 +155,73 @@ public class TurnusOptions {
 
 	@Description("The actions weights file. Supported file extensions is .exdf")
 	public static final Option<File> ACTION_WEIGHTS;
-	
+
 	@Description("The actions software weights file. Supported file extensions is .exdf")
 	public static final Option<File> ACTION_WEIGHTS_SW;
-	
+
 	@Description("The actions hardware weights file. Supported file extensions is .exdf")
 	public static final Option<File> ACTION_WEIGHTS_HW;
-	
+
 	@Description("The buffers weights file. Supported file extensions is .cxdf")
 	public static final Option<File> COMMUNICATION_WEIGHTS;
-	
+
 	@Description("The buffers weights file. Supported file extensions is .sxdf")
 	public static final Option<File> SCHEDULING_WEIGHTS;
-	
+
 	@Description("The trace weighter used to weight the trace")
 	public static final Option<String> TRACE_WEIGHTER;
 
 	@Description("The maximum number of threads used for performing an analysis")
 	public static final Option<Integer> CONFIG_MAX_THREADS;
-	
+
 	@Description("The size of the shared queues used by parallel processes/threads used when performing the anylsis")
 	public static final Option<Integer> CONFIG_QUEUES_SIZE;
-	
+
 	@Description("The size of the input/output streams used when reading/writing a file during the anylsis process")
 	public static final Option<Integer> CONFIG_STREAM_BUFFERS_SIZE;
-	
+
 	@Description("The architecture name selected among the registered architecture models")
 	public static final Option<String> ARCHITECTURE_NAME;
-	
+
 	@Description("The time allowed for an analysis (used by local search methods). Expressed in minutes.")
 	public static final Option<Integer> ANALYSIS_TIME;
-	
+
 	@Description("The maximal number of iterations of an analysis")
 	public static final Option<Integer> MAX_ITERATIONS;
-	
+
 	@Description("Use post-processor simulation to evaluate moves in the partitioning algorithm. ")
 	public static final Option<Boolean> USE_SIMULATION;
-	
+
 	@Description("Scheduling policy that will be used for the post-processor simulation. ")
 	public static final Option<String> SCHEDULING_POLICY;
-	
+
 	@Description("Percentage of neighborhood that will be checked by the tabu search [0-1.0]. ")
 	public static final Option<Double> TABU_P;
-	
+
 	@Description("Number that will be used to initialize the random generators inside the tabu search. ")
 	public static final Option<Integer> TABU_SEED;
-	
+
 	@Description("Neighborhood generator to be used fir the tabu search. ")
 	public static final Option<String> TABU_GENERATOR;
-	
+
 	@Description("Partitioning algorithm to specify the initial configuration for the local/tabu search methods. ")
 	public static final Option<String> INITIAL_ALGORITHM;
-	
+
 	@Description("A constant to be assigned as latency for write hit. ")
 	public static final Option<Integer> WRITE_HIT_CONSTANT;
-	
+
 	@Description("A constant to be assigned as latency for write miss. ")
 	public static final Option<Integer> WRITE_MISS_CONSTANT;
-	
+
 	@Description("Store the recorded occupancy of each buffer.")
 	public static final Option<Boolean> RECORD_BUFFERS;
-	
+
 	@Description("Release the buffers after processing, not after the reading of data.")
 	public static final Option<Boolean> RELEASE_BUFFERS_AFTER_PROCESSING;
-	
+
 	@Description("The pipeline of optimisations to use in order to generate the compacted schedule")
 	public static final Option<String> SCHEDULE_OPTIMISATION_PIPELINE_STRING;
-	
+
 	@Description("The backend configurations to use for the benchmark, as csv")
 	public static final Option<String> BENCHMARK_BACKENDS;
 	@Description("Loop input stimulus N times")
@@ -229,7 +229,7 @@ public class TurnusOptions {
 
 	@Description("Compiler options to pass to the benchmark ")
 	public static final Option<String> BENCHMARK_COMPILER_OPTIONS;
-	
+
 	@Description("Other options to pass to the benchmark binary")
 	public static final Option<String> BENCHMARK_OTHER_OPTIONS;
 
@@ -238,75 +238,66 @@ public class TurnusOptions {
 
 	@Description("Frequency in MHz. ")
 	public static final Option<Double> FREQ;
-	
+
 	@Description("Software Frequency in MHz. ")
 	public static final Option<Double> FREQ_SW;
-	
+
 	@Description("Hardware Frequency in MHz. ")
 	public static final Option<Double> FREQ_HW;
-	
+
 	@Description("Owner of the outgoing buffer is the source partition. ")
 	public static final Option<Boolean> OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION;
-	
-	
-	
+
+	@Description("External partitioning tool")
+	public static final Option<String> EXTERNAL_PARTITIONING_TOOL;
+
 	// options are initialized here in order to make this file more readable
 	static {
-		BENCHMARK_N_LOOPS = Option.create()
-				.setName("benchmark_n_loops")
-				.setDescription("Loop input stimulus N times")
-				.setLongName("turnus.benchmark.n_loops")
-				.setType(Integer.class)
-				.build();
+		BENCHMARK_N_LOOPS = Option.create().setName("benchmark_n_loops").setDescription("Loop input stimulus N times")
+				.setLongName("turnus.benchmark.n_loops").setType(Integer.class).build();
 
-		BENCHMARK_COMPILER_OPTIONS=Option.create()
-				.setName("benchmark_compiler_options")
+		BENCHMARK_COMPILER_OPTIONS = Option.create().setName("benchmark_compiler_options")
 				.setDescription("Compiler options to pass to the benchmark ")
-				.setLongName("turnus.benchmark.compiler_options")
-				.setType(String.class)
-				.build();
-		
-		BENCHMARK_OTHER_OPTIONS=Option.create()
-				.setName("benchmark_other_options")
+				.setLongName("turnus.benchmark.compiler_options").setType(String.class).build();
+
+		BENCHMARK_OTHER_OPTIONS = Option.create().setName("benchmark_other_options")
 				.setDescription("Other options to pass to the benchmark binary")
-				.setLongName("turnus.benchmark.other_options")
-				.setType(String.class)
-				.build();
-		
-		BENCHMARK_BACKENDS=Option.create()
-				.setName("benchmark_backends")
+				.setLongName("turnus.benchmark.other_options").setType(String.class).build();
+
+		BENCHMARK_BACKENDS = Option.create().setName("benchmark_backends")
 				.setDescription("The backend configurations to use for the benchmark, as csv")
-				.setLongName("turnus.benchmark.backends")
-				.setType(String.class)
-				.build();
-		
+				.setLongName("turnus.benchmark.backends").setType(String.class).build();
+
 		MAX_ITERATIONS = Option.create().//
 				setName("maxIterations").//
 				setDescription("Defines the maximal number of iterations of the analysis")//
 				.setLongName("turnus.analysis.maxIterations").//
 				setType(Integer.class).build();
-		
+
 		CONFIG_MINIMIZE_MEMORY_USAGE = Option.create().//
 				setName("cminMemoryUsage").//
-				setDescription("Minimize the memory usage required by the analysies (the cost will be that some analysies could be slower)")//
+				setDescription(
+						"Minimize the memory usage required by the analysies (the cost will be that some analysies could be slower)")//
 				.setLongName("turnus.config.minimizeMemoryUsage").//
 				setType(Boolean.class).build();
-		
+
 		ARCHITECTURE_NAME = Option.create().//
 				setName("architecture").//
 				setDescription("The architecture name selected among the registered architecture models")//
 				.setLongName("turnus.mapping.architecture").//
 				setType(String.class).build();
-		
+
 		CONFIG_STREAM_BUFFERS_SIZE = Option.create().//
 				setName("cmaxStreamBufferSize").//
-				setDescription("The size of the input/output streams used when reading/writing a file during the anylsis process")//
+				setDescription(
+						"The size of the input/output streams used when reading/writing a file during the anylsis process")//
 				.setLongName("turnus.config.maxStreamBufferSize").//
 				setType(Integer.class).build();
-		
+
 		CONFIG_QUEUES_SIZE = Option.create().//
 				setName("cmaxQueueSize").//
-				setDescription("The size of the shared queues used by parallel processes/threads used when performing the anylsis")//
+				setDescription(
+						"The size of the shared queues used by parallel processes/threads used when performing the anylsis")//
 				.setLongName("turnus.config.maxQueueSize").//
 				setType(Integer.class).build();
 
@@ -333,7 +324,7 @@ public class TurnusOptions {
 				setDescription("The input file used as input stimulus of the design under test").//
 				setLongName("turnus.cal.stimulus").//
 				setType(File.class).build();
-		
+
 		SIMULATION_OUTPUT_FILE = Option.create().//
 				setName("output").//
 				setDescription("The output file of the design under test").//
@@ -345,7 +336,7 @@ public class TurnusOptions {
 				setDescription("The mapping configuration map").//
 				setLongName("turnus.mapping.map").//
 				setType(Map.class).build();
-		
+
 		MAPPING_FILE = Option.create().//
 				setName("xcf").//
 				setDescription("The mapping configuration file. Supported file extensions is .xcf").//
@@ -375,25 +366,25 @@ public class TurnusOptions {
 				setDescription("The action weights file. Supported file extensions is .exdf").//
 				setLongName("turnus.weight").//
 				setType(File.class).build();
-		
+
 		ACTION_WEIGHTS_SW = Option.create().//
 				setName("weightSW").//
 				setDescription("The action software weights file. Supported file extensions is .exdf").//
 				setLongName("turnus.weight.sw").//
 				setType(File.class).build();
-		
+
 		ACTION_WEIGHTS_HW = Option.create().//
 				setName("weightHW").//
 				setDescription("The action hardware weights file. Supported file extensions is .exdf").//
 				setLongName("turnus.weight.hw").//
 				setType(File.class).build();
-		
+
 		COMMUNICATION_WEIGHTS = Option.create().//
 				setName("communicationWeight").//
 				setDescription("The communication weights file. Supported file extensions is .cxdf").//
 				setLongName("turnus.weight.communication").//
 				setType(File.class).build();
-		
+
 		SCHEDULING_WEIGHTS = Option.create().//
 				setName("schedulingWeight").//
 				setDescription("The scheduling weights file. Supported file extensions is .sxdf").//
@@ -405,7 +396,7 @@ public class TurnusOptions {
 				setDescription("The trace-loader used to load the trace file").//
 				setLongName("turnus.traceLoader").//
 				setType(String.class).build();
-		
+
 		TRACE_WEIGHTER = Option.create().//
 				setName("traceWeighter").//
 				setDescription("The trace weighter used to weight the trace").//
@@ -429,7 +420,7 @@ public class TurnusOptions {
 				setDescription("The default buffer size used for the analysis when a specific size is not provided").//
 				setLongName("turnus.defaultBufferSize").//
 				setType(Integer.class).build();
-		
+
 		BUFFER_SIZE_FILE = Option.create().//
 				setName("bufferFile").//
 				setDescription("The file with buffer sizes used for the analysis").//
@@ -452,7 +443,7 @@ public class TurnusOptions {
 				setName("traceCompress").//
 				setDescription("Compress the generated trace file. A .tracez file created").//
 				setLongName("turnus.profiler.traceCompress").//
-				setType(Boolean.class).build();	 
+				setType(Boolean.class).build();
 
 		SPLIT_TRACE_DEPENDENCIES = Option.create().//
 				setName("splitLoaderDependencies").//
@@ -560,67 +551,72 @@ public class TurnusOptions {
 				setDescription("The maximum number of threads used for performing an analysis")//
 				.setLongName("turnus.config.maxThreads").//
 				setType(Integer.class).build();
-		
+
 		ANALYSIS_TIME = Option.create().//
 				setName("time").//
 				setDescription("Defines the amount of time (in minutes) allowed for an analysis")//
 				.setLongName("turnus.analysis.partitioning.time").//
 				setType(Integer.class).build();
-		
+
 		USE_SIMULATION = Option.create().//
 				setName("simulation").//
-				setDescription("Specifies if the post-processor simulation should be used to evaluate the move in the partitioning algorithm")//
+				setDescription(
+						"Specifies if the post-processor simulation should be used to evaluate the move in the partitioning algorithm")//
 				.setLongName("turnus.analysis.partitioning.simulation").//
 				setType(Boolean.class).build();
-		
+
 		SCHEDULING_POLICY = Option.create().//
 				setName("scheduling").//
 				setDescription("Specifies the scheduling policy that will be used by the post-processor simulation")//
 				.setLongName("turnus.analysis.partitioning.scheduling").//
 				setType(String.class).build();
-		
+
 		TABU_P = Option.create().//
 				setName("tabuP").//
-				setDescription("Specifies the percentage of neighboring solutions that will be checked by the tabu search. ")//
+				setDescription(
+						"Specifies the percentage of neighboring solutions that will be checked by the tabu search. ")//
 				.setLongName("turnus.analysis.partitioning.tabu.p").//
 				setType(Double.class).build();
-		
+
 		TABU_SEED = Option.create().//
 				setName("tabuSeed").//
-				setDescription("Specifies the number that will be used to initialize random generators in the tabu search. ")//
+				setDescription(
+						"Specifies the number that will be used to initialize random generators in the tabu search. ")//
 				.setLongName("turnus.analysis.partitioning.tabu.seed").//
 				setType(Integer.class).build();
-		
+
 		INITIAL_ALGORITHM = Option.create().//
 				setName("initialAlgorithm").//
-				setDescription("Specifies the partitioning heuristic that will provide an initial partitioning configuration: KL (Kerninghan-Lin), WB (Workload Balance), BP (Balanced Pipeline). ")//
+				setDescription(
+						"Specifies the partitioning heuristic that will provide an initial partitioning configuration: KL (Kerninghan-Lin), WB (Workload Balance), BP (Balanced Pipeline). ")//
 				.setLongName("turnus.analysis.partitioning.initial.algorithm").//
 				setType(String.class).build();
-		
+
 		TABU_GENERATOR = Option.create().//
 				setName("tabuGenerator").//
-				setDescription("Specifies the neighborhood generator to be used by tabu search: RANDOM, IDLE, COMM_FREQ, BALANCING, PROB, JOINT. ")//
+				setDescription(
+						"Specifies the neighborhood generator to be used by tabu search: RANDOM, IDLE, COMM_FREQ, BALANCING, PROB, JOINT. ")//
 				.setLongName("turnus.analysis.partitioning.tabu.generator").//
 				setType(String.class).build();
-		
+
 		WRITE_HIT_CONSTANT = Option.create().//
 				setName("writeHit").//
 				setDescription("Defines a constant to be assigned as latency for write hit.")//
 				.setLongName("turnus.analysis.write.hit.latency").//
 				setType(Integer.class).build();
-		
+
 		WRITE_MISS_CONSTANT = Option.create().//
 				setName("writeMiss").//
 				setDescription("Defines a constant to be assigned as latency for write miss.")//
 				.setLongName("turnus.analysis.write.miss.latency").//
 				setType(Integer.class).build();
-		
+
 		RECORD_BUFFERS = Option.create().//
 				setName("recordBuffers").//
 				setDescription("Store the recorded occupancy of each buffer. A .bxdf file is created.").//
 				setLongName("turnus.analysis.record.buffers").//
-				setType(Boolean.class).build();	 
-		
+				setType(Boolean.class).build();
+
 		RELEASE_BUFFERS_AFTER_PROCESSING = Option.create().//
 				setName("releaseAfterProcessing").//
 				setDescription("Release the space in fifos after processing, not after reading.").//
@@ -639,30 +635,33 @@ public class TurnusOptions {
 				.setDescription("The list of markow scheduler reports generated during the analyis")//
 				.setType(List.class)//
 				.build();
-		
+
 		FREQ = Option.create().//
 				setName("freq").//
 				setDescription("The Frequency in MHz ")//
 				.setLongName("turnus.freq").//
 				setType(Double.class).build();
-		
+
 		FREQ_SW = Option.create().//
 				setName("freqSW").//
 				setDescription("The Software Frequency in MHz ")//
 				.setLongName("turnus.freq.sw").//
 				setType(Double.class).build();
-		
+
 		FREQ_HW = Option.create().//
 				setName("freqHW").//
 				setDescription("The Hardware Frequency in MHz ")//
 				.setLongName("turnus.freq.hw").//
 				setType(Double.class).build();
-		
+
 		OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION = Option.create().//
 				setName("outBufferSrcOwner").//
 				setDescription("The outgoing buffer is owned by source partition").//
 				setLongName("turnus.analysis.buffer.owned.by.source").//
 				setType(Boolean.class).build();
+
+		EXTERNAL_PARTITIONING_TOOL = Option.create().setName("partTool").setDescription("External partitioning tool")
+				.setLongName("turnus.analysis.partitioning.exernal.tool").setType(String.class).build();
 
 	}
 

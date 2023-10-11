@@ -33,6 +33,7 @@ package turnus.analysis.partitioning;
 
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
+import static turnus.common.TurnusOptions.EXTERNAL_PARTITIONING_TOOL;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 import static turnus.common.TurnusOptions.TRACE_FILE;
@@ -201,6 +202,7 @@ public class HypergraphPartitioningCli implements IApplication {
 				.setOption(TRACE_FILE, true) //
 				.setOption(ACTION_WEIGHTS, true) //
 				.setOption(TRACE_WEIGHTER, false)//
+				.setOption(EXTERNAL_PARTITIONING_TOOL, false)//
 				.setOption(SCHEDULING_POLICY, false) //
 				.setOption(ANALYSIS_PARTITIONING_UNITS, false) //
 				.setOption(OUTPUT_DIRECTORY, false);
