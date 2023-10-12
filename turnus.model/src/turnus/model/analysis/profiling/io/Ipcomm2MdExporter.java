@@ -40,16 +40,15 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 	}
 
 	private Boolean isNumber(String n1, String n2) {
-        try {
-            Integer.parseInt(n1);
-            Integer.parseInt(n2);
-            return true;
-        }
-        catch(Exception x) {
-            return false;
-        }
-    }
-	
+		try {
+			Integer.parseInt(n1);
+			Integer.parseInt(n2);
+			return true;
+		} catch (Exception x) {
+			return false;
+		}
+	}
+
 	@Override
 	public void export(InterPartitionCommunicationAndMemoryReport data, File output) throws TurnusException {
 		try {
@@ -78,38 +77,37 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 
 					String s1 = o1.getPartitionId();
 					String s2 = o2.getPartitionId();
-					
-					 String[] pt1 = s1.split("((?<=[a-z])(?=[0-9]))|((?<=[0-9])(?=[a-z]))"); 
-				        String[] pt2 = s2.split("((?<=[a-z])(?=[0-9]))|((?<=[0-9])(?=[a-z]))"); 
-				//pt1 and pt2 arrays will have the string split in alphabets and numbers
 
-				        int i=0;
-				        if(Arrays.equals(pt1, pt2))
-				            return 0;
-				        else{
-				            for(i=0;i<Math.min(pt1.length, pt2.length);i++)
-				                if(!pt1[i].equals(pt2[i])) {
-				                    if(!isNumber(pt1[i],pt2[i])) {
-				                        if(pt1[i].compareTo(pt2[i])>0)
-				                            return 1;
-				                        else
-				                            return -1;
-				                    }
-				                    else {
-				                        int nu1 = Integer.parseInt(pt1[i]);
-				                        int nu2 = Integer.parseInt(pt2[i]);
-				                        if(nu1>nu2)
-				                            return 1;
-				                        else
-				                            return -1;
-				                    }
-				                }
-				        }
+					String[] pt1 = s1.split("((?<=[a-z])(?=[0-9]))|((?<=[0-9])(?=[a-z]))");
+					String[] pt2 = s2.split("((?<=[a-z])(?=[0-9]))|((?<=[0-9])(?=[a-z]))");
+					// pt1 and pt2 arrays will have the string split in alphabets and numbers
 
-				        if(pt1.length>i)
-				            return 1;
-				        else
-				            return -1;
+					int i = 0;
+					if (Arrays.equals(pt1, pt2))
+						return 0;
+					else {
+						for (i = 0; i < Math.min(pt1.length, pt2.length); i++)
+							if (!pt1[i].equals(pt2[i])) {
+								if (!isNumber(pt1[i], pt2[i])) {
+									if (pt1[i].compareTo(pt2[i]) > 0)
+										return 1;
+									else
+										return -1;
+								} else {
+									int nu1 = Integer.parseInt(pt1[i]);
+									int nu2 = Integer.parseInt(pt2[i]);
+									if (nu1 > nu2)
+										return 1;
+									else
+										return -1;
+								}
+							}
+					}
+
+					if (pt1.length > i)
+						return 1;
+					else
+						return -1;
 				}
 			});
 
