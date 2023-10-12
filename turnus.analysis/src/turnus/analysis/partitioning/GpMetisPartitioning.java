@@ -209,8 +209,22 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 			writer.close();
 
 			// -- Call metis
-			ProcessBuilder metisPB = new ProcessBuilder("gpmetis", metisInput.getAbsolutePath(),
-					Integer.toString(units), "-ptype=kway", "-objtype=vol", "-ubvec=1.02 1.8");
+			List<String> commands = new ArrayList<>();
+			// -- app
+			commands.add("gpmetis");
+			// -- input graph
+			commands.add(metisInput.getAbsolutePath());
+			// -- units
+			commands.add(Integer.toString(units));
+			// -- ptype
+			commands.add("-ptype=kway");
+			// -- objtype
+			commands.add("-objtype=cut");
+			// -- ubvec
+			commands.add("-ubvec=1.02 1.02");
+			
+			
+			ProcessBuilder metisPB = new ProcessBuilder(commands);
 			metisPB.redirectErrorStream(true);
 			metisPB.directory(new File(System.getProperty("java.io.tmpdir")));
 

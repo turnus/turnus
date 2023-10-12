@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -38,6 +39,17 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 
 	}
 
+	private Boolean isNumber(String n1, String n2) {
+        try {
+            Integer.parseInt(n1);
+            Integer.parseInt(n2);
+            return true;
+        }
+        catch(Exception x) {
+            return false;
+        }
+    }
+	
 	@Override
 	public void export(InterPartitionCommunicationAndMemoryReport data, File output) throws TurnusException {
 		try {
@@ -56,24 +68,60 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 			b.append("\n");
 
 			b.append("# Summary\n");
-			
+
 			List<InterPartitionData> sortedList = new ArrayList<>(data.getPartitionData());
+
 			Collections.sort(sortedList, new Comparator<InterPartitionData>() {
 
 				@Override
 				public int compare(InterPartitionData o1, InterPartitionData o2) {
+
+					String s1 = o1.getPartitionId();
+					String s2 = o2.getPartitionId();
 					
-					return o1.getPartitionId().compareTo(o2.getPartitionId());
+					 String[] pt1 = s1.split("((?<=[a-z])(?=[0-9]))|((?<=[0-9])(?=[a-z]))"); 
+				        String[] pt2 = s2.split("((?<=[a-z])(?=[0-9]))|((?<=[0-9])(?=[a-z]))"); 
+				//pt1 and pt2 arrays will have the string split in alphabets and numbers
+
+				        int i=0;
+				        if(Arrays.equals(pt1, pt2))
+				            return 0;
+				        else{
+				            for(i=0;i<Math.min(pt1.length, pt2.length);i++)
+				                if(!pt1[i].equals(pt2[i])) {
+				                    if(!isNumber(pt1[i],pt2[i])) {
+				                        if(pt1[i].compareTo(pt2[i])>0)
+				                            return 1;
+				                        else
+				                            return -1;
+				                    }
+				                    else {
+				                        int nu1 = Integer.parseInt(pt1[i]);
+				                        int nu2 = Integer.parseInt(pt2[i]);
+				                        if(nu1>nu2)
+				                            return 1;
+				                        else
+				                            return -1;
+				                    }
+				                }
+				        }
+
+				        if(pt1.length>i)
+				            return 1;
+				        else
+				            return -1;
 				}
 			});
-			
 
 			// b.append("\n| || Overall ||||| Critical Path ||||| ");
 			b.append("\n|                      ||| <center>Memory</center>  ||| <center>Interface</center>  |||||");
-			b.append("\n| Partition | Workload | # Actors | *Actors*| *Channels* | Total | #Incoming | Max Incoming Data | #Outgoing | Max Outgoing Data |");
-			b.append("\n|---        |--:       |--:       |--:    |--:      |--:    |--:       |--:       |--:       |--: |");
+			b.append(
+					"\n| Partition | Workload | # Actors | *Actors*| *Channels* | Total | #Incoming | Max Incoming Data | #Outgoing | Max Outgoing Data |");
+			b.append(
+					"\n|---        |--:       |--:       |--:    |--:      |--:    |--:       |--:       |--:       |--: |");
 			for (InterPartitionData datum : sortedList) {
-				b.append(String.format("\n|%s     | %.2f     | %d       | %s    | %s      | %s    |  %s      | %s      |  %s      | %s     ", //
+				b.append(String.format(
+						"\n|%s     | %.2f     | %d       | %s    | %s      | %s    |  %s      | %s      |  %s      | %s     ", //
 						datum.getPartitionId(), //
 						datum.getWorkload(), //
 						datum.getActors().size(), //
@@ -88,7 +136,7 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 			}
 
 			b.append("\n# Partitions\n");
-			for (InterPartitionData datum : sortedList ) {
+			for (InterPartitionData datum : sortedList) {
 				b.append(String.format("## Partition: %s\n", datum.getPartitionId()));
 
 				b.append("| Actor | Memory |\n");
@@ -107,7 +155,7 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 					for (Buffer buffer : datum.getInternalBuffers()) {
 						int depth = data.getBufferDepthMap().get(buffer);
 						long bitSize = depth * buffer.getType().getBits();
-						
+
 						b.append(String.format("|%-20s | %-20s | %-20s | %-20s | %-20s | %-20s | %-20s\n",
 								buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
 								buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(),
@@ -118,14 +166,14 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 				List<Buffer> externalBuffers;
 				if (data.isOutgoingBufferOwnedBySource()) {
 					externalBuffers = datum.getOutgoingBuffers();
-				}else {
+				} else {
 					externalBuffers = datum.getIncomingBuffers();
 				}
 
 				if (externalBuffers.size() > 0) {
-					if(data.isOutgoingBufferOwnedBySource()) {
+					if (data.isOutgoingBufferOwnedBySource()) {
 						b.append("\n| to  | source | source-port | target | target-port | type | depth | bytes\n");
-					}else {
+					} else {
 						b.append("\n| from| source | source-port | target | target-port | type | depth | bytes\n");
 					}
 					b.append("|:----|----|----|----|----|----|---:|---:\n");
@@ -134,7 +182,7 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 						int depth = data.getBufferDepthMap().get(buffer);
 						long bizSize = depth * buffer.getType().getBits();
 						String partition = "";
-						if(data.isOutgoingBufferOwnedBySource()) {
+						if (data.isOutgoingBufferOwnedBySource()) {
 							partition = data.getActorPartitionMap().get(buffer.getTarget().getOwner());
 						} else {
 							partition = data.getActorPartitionMap().get(buffer.getSource().getOwner());
