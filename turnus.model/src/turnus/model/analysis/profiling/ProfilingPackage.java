@@ -664,13 +664,31 @@ public interface ProfilingPackage extends EPackage {
 	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Mapping File</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__MAPPING_FILE = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Buffer File</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_FILE = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 10;
+
+	/**
 	 * The number of structural features of the '<em>Inter Partition Communication And Memory Report</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 9;
+	int INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 11;
 
 	/**
 	 * The number of operations of the '<em>Inter Partition Communication And Memory Report</em>' class.
@@ -1171,6 +1189,28 @@ public interface ProfilingPackage extends EPackage {
 	EAttribute getInterPartitionCommunicationAndMemoryReport_CpWeightScheduled();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getMappingFile <em>Mapping File</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Mapping File</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getMappingFile()
+	 * @see #getInterPartitionCommunicationAndMemoryReport()
+	 * @generated
+	 */
+	EAttribute getInterPartitionCommunicationAndMemoryReport_MappingFile();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getBufferFile <em>Buffer File</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Buffer File</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getBufferFile()
+	 * @see #getInterPartitionCommunicationAndMemoryReport()
+	 * @generated
+	 */
+	EAttribute getInterPartitionCommunicationAndMemoryReport_BufferFile();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1566,6 +1606,22 @@ public interface ProfilingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_CpWeightScheduled();
+
+		/**
+		 * The meta object literal for the '<em><b>Mapping File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__MAPPING_FILE = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_MappingFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Buffer File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_FILE = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_BufferFile();
 
 	}
 

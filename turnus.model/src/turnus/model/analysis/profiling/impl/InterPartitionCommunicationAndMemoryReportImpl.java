@@ -80,6 +80,8 @@ import turnus.model.dataflow.Network;
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getTime <em>Time</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#isDeadlock <em>Deadlock</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getCpWeightScheduled <em>Cp Weight Scheduled</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getMappingFile <em>Mapping File</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl#getBufferFile <em>Buffer File</em>}</li>
  * </ul>
  *
  * @generated
@@ -264,6 +266,46 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * @ordered
 	 */
 	protected double cpWeightScheduled = CP_WEIGHT_SCHEDULED_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMappingFile() <em>Mapping File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMappingFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MAPPING_FILE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMappingFile() <em>Mapping File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMappingFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected String mappingFile = MAPPING_FILE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBufferFile() <em>Buffer File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBufferFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BUFFER_FILE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBufferFile() <em>Buffer File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBufferFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected String bufferFile = BUFFER_FILE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -530,6 +572,52 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 	 * @generated
 	 */
 	@Override
+	public String getMappingFile() {
+		return mappingFile;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setMappingFile(String newMappingFile) {
+		String oldMappingFile = mappingFile;
+		mappingFile = newMappingFile;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__MAPPING_FILE, oldMappingFile, mappingFile));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getBufferFile() {
+		return bufferFile;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setBufferFile(String newBufferFile) {
+		String oldBufferFile = bufferFile;
+		bufferFile = newBufferFile;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_FILE, oldBufferFile, bufferFile));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA:
@@ -575,6 +663,10 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 				return isDeadlock();
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED:
 				return getCpWeightScheduled();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__MAPPING_FILE:
+				return getMappingFile();
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_FILE:
+				return getBufferFile();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -622,6 +714,12 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED:
 				setCpWeightScheduled((Double)newValue);
 				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__MAPPING_FILE:
+				setMappingFile((String)newValue);
+				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_FILE:
+				setBufferFile((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -667,6 +765,12 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED:
 				setCpWeightScheduled(CP_WEIGHT_SCHEDULED_EDEFAULT);
 				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__MAPPING_FILE:
+				setMappingFile(MAPPING_FILE_EDEFAULT);
+				return;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_FILE:
+				setBufferFile(BUFFER_FILE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -701,6 +805,10 @@ public class InterPartitionCommunicationAndMemoryReportImpl extends MinimalEObje
 				return deadlock != DEADLOCK_EDEFAULT;
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED:
 				return cpWeightScheduled != CP_WEIGHT_SCHEDULED_EDEFAULT;
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__MAPPING_FILE:
+				return MAPPING_FILE_EDEFAULT == null ? mappingFile != null : !MAPPING_FILE_EDEFAULT.equals(mappingFile);
+			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_FILE:
+				return BUFFER_FILE_EDEFAULT == null ? bufferFile != null : !BUFFER_FILE_EDEFAULT.equals(bufferFile);
 		}
 		return super.eIsSet(featureID);
 	}

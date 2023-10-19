@@ -718,6 +718,8 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/time"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/deadlock"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/cpWeightScheduled"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/mappingFile"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/bufferFile"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Scheduling" basePackage="turnus.model.analysis" disposableProviderFactory="true"

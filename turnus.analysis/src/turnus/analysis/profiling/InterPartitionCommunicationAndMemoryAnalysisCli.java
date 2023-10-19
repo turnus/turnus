@@ -119,6 +119,8 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 		BufferSize bufferSize = null;
 		boolean outgoingBufferOwnedBySource = false;
 		InterPartitionCommunicationAndMemoryReport report = null;
+		File mappingFile = null;
+		File bufferFile = null;
 
 		{
 			// -- Step 1 : parse the configuration
@@ -144,7 +146,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 
 			// -- Mapping configuration
 			try {
-				File mappingFile = configuration.getValue(MAPPING_FILE);
+				mappingFile = configuration.getValue(MAPPING_FILE);
 				XmlNetworkPartitioningReader reader = new XmlNetworkPartitioningReader();
 				partitioning = reader.load(mappingFile);
 			} catch (Exception e) {
@@ -152,7 +154,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 			}
 			// -- Buffer configuration
 			try {
-				File bufferFile = configuration.getValue(BUFFER_SIZE_FILE);
+				bufferFile = configuration.getValue(BUFFER_SIZE_FILE);
 				XmlBufferSizeReader reader = new XmlBufferSizeReader();
 				bufferSize = reader.load(bufferFile);
 			} catch (Exception e) {
@@ -191,6 +193,13 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 					outputPath = createOutputDirectory("profiling", configuration);
 				}
 				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.INTER_PARTITION_COMM_MEM_REPORT);
+
+				// -- Set path of the partition file
+				report.setMappingFile(mappingFile.getName());
+				// -- Set path of the buffer file
+				report.setBufferFile(bufferFile.getName());
+				
+				// -- Store the report
 				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
 				Logger.info("Inter-partition communication and memory report stored in \"%s\"", reportFile);
 

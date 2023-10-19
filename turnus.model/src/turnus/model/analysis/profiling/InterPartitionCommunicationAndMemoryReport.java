@@ -56,6 +56,8 @@ import turnus.model.dataflow.Network;
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getTime <em>Time</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#isDeadlock <em>Deadlock</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getCpWeightScheduled <em>Cp Weight Scheduled</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getMappingFile <em>Mapping File</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getBufferFile <em>Buffer File</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport()
@@ -233,5 +235,49 @@ public interface InterPartitionCommunicationAndMemoryReport extends AnalysisRepo
 	 * @generated
 	 */
 	void setCpWeightScheduled(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Mapping File</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Mapping File</em>' attribute.
+	 * @see #setMappingFile(String)
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport_MappingFile()
+	 * @model
+	 * @generated
+	 */
+	String getMappingFile();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getMappingFile <em>Mapping File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Mapping File</em>' attribute.
+	 * @see #getMappingFile()
+	 * @generated
+	 */
+	void setMappingFile(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Buffer File</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Buffer File</em>' attribute.
+	 * @see #setBufferFile(String)
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionCommunicationAndMemoryReport_BufferFile()
+	 * @model
+	 * @generated
+	 */
+	String getBufferFile();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport#getBufferFile <em>Buffer File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Buffer File</em>' attribute.
+	 * @see #getBufferFile()
+	 * @generated
+	 */
+	void setBufferFile(String value);
 
 } // InterPartitionCommunicationAndMemoryReport

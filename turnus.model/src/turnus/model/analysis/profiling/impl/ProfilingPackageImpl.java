@@ -712,6 +712,26 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 	 * @generated
 	 */
 	@Override
+	public EAttribute getInterPartitionCommunicationAndMemoryReport_MappingFile() {
+		return (EAttribute)interPartitionCommunicationAndMemoryReportEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getInterPartitionCommunicationAndMemoryReport_BufferFile() {
+		return (EAttribute)interPartitionCommunicationAndMemoryReportEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public ProfilingFactory getProfilingFactory() {
 		return (ProfilingFactory)getEFactoryInstance();
 	}
@@ -786,6 +806,8 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		createEAttribute(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__TIME);
 		createEAttribute(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__DEADLOCK);
 		createEAttribute(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED);
+		createEAttribute(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__MAPPING_FILE);
+		createEAttribute(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_FILE);
 	}
 
 	/**
@@ -878,6 +900,8 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		initEAttribute(getInterPartitionCommunicationAndMemoryReport_Time(), ecorePackage.getEDouble(), "time", null, 0, 1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInterPartitionCommunicationAndMemoryReport_Deadlock(), ecorePackage.getEBoolean(), "deadlock", null, 0, 1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInterPartitionCommunicationAndMemoryReport_CpWeightScheduled(), ecorePackage.getEDouble(), "cpWeightScheduled", null, 1, 1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInterPartitionCommunicationAndMemoryReport_MappingFile(), ecorePackage.getEString(), "mappingFile", null, 0, 1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInterPartitionCommunicationAndMemoryReport_BufferFile(), ecorePackage.getEString(), "bufferFile", null, 0, 1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //ProfilingPackageImpl

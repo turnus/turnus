@@ -242,7 +242,7 @@ public class TabuSearchCli implements IApplication {
 				File xcfFile = changeExtension(reportFile, TurnusExtensions.NETWORK_PARTITIONING);
 				File dotFile = changeExtension(reportFile, TurnusExtensions.DOT);
 				new XmlNetworkPartitioningWriter().write(report.asNetworkPartitioning(), xcfFile);
-				new PartitionedNetworkToDot(project.getNetwork(), partitioning)
+				new PartitionedNetworkToDot(project.getNetwork(), report.asNetworkPartitioning())
 				.emit(FileSystems.getDefault().getPath(dotFile.getAbsolutePath()));
 				Logger.info("Network partitioning configuration stored in \"%s\"", xcfFile);
 
