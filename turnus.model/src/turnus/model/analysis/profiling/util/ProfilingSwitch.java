@@ -142,6 +142,19 @@ public class ProfilingSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ProfilingPackage.LATENCY_REPORT: {
+				LatencyReport latencyReport = (LatencyReport)theEObject;
+				T result = caseLatencyReport(latencyReport);
+				if (result == null) result = caseAnalysisReport(latencyReport);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ProfilingPackage.LATENCY_DATA: {
+				LatencyData latencyData = (LatencyData)theEObject;
+				T result = caseLatencyData(latencyData);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -248,6 +261,36 @@ public class ProfilingSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseInterPartitionCommunicationAndMemoryReport(InterPartitionCommunicationAndMemoryReport object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Latency Report</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Latency Report</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLatencyReport(LatencyReport object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Latency Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Latency Data</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLatencyData(LatencyData object) {
 		return null;
 	}
 

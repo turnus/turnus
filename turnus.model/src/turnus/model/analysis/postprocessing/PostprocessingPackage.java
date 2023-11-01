@@ -699,6 +699,52 @@ public interface PostprocessingPackage extends EPackage {
 	int BUFFER_BLOCKING_REPORT_OPERATION_COUNT = POST_PROCESSING_DATA_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link turnus.model.analysis.postprocessing.impl.TimelineReportImpl <em>Timeline Report</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.analysis.postprocessing.impl.TimelineReportImpl
+	 * @see turnus.model.analysis.postprocessing.impl.PostprocessingPackageImpl#getTimelineReport()
+	 * @generated
+	 */
+	int TIMELINE_REPORT = 8;
+
+	/**
+	 * The feature id for the '<em><b>Network</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE_REPORT__NETWORK = POST_PROCESSING_DATA_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>File Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE_REPORT__FILE_NAME = POST_PROCESSING_DATA_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Timeline Report</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE_REPORT_FEATURE_COUNT = POST_PROCESSING_DATA_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Timeline Report</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMELINE_REPORT_OPERATION_COUNT = POST_PROCESSING_DATA_OPERATION_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.postprocessing.PostProcessingReport <em>Post Processing Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1230,6 +1276,38 @@ public interface PostprocessingPackage extends EPackage {
 	EReference getBufferBlockingReport_BlockingInstances();
 
 	/**
+	 * Returns the meta object for class '{@link turnus.model.analysis.postprocessing.TimelineReport <em>Timeline Report</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Timeline Report</em>'.
+	 * @see turnus.model.analysis.postprocessing.TimelineReport
+	 * @generated
+	 */
+	EClass getTimelineReport();
+
+	/**
+	 * Returns the meta object for the reference '{@link turnus.model.analysis.postprocessing.TimelineReport#getNetwork <em>Network</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Network</em>'.
+	 * @see turnus.model.analysis.postprocessing.TimelineReport#getNetwork()
+	 * @see #getTimelineReport()
+	 * @generated
+	 */
+	EReference getTimelineReport_Network();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.postprocessing.TimelineReport#getFileName <em>File Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>File Name</em>'.
+	 * @see turnus.model.analysis.postprocessing.TimelineReport#getFileName()
+	 * @see #getTimelineReport()
+	 * @generated
+	 */
+	EAttribute getTimelineReport_FileName();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1659,6 +1737,32 @@ public interface PostprocessingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BUFFER_BLOCKING_REPORT__BLOCKING_INSTANCES = eINSTANCE.getBufferBlockingReport_BlockingInstances();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.analysis.postprocessing.impl.TimelineReportImpl <em>Timeline Report</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.analysis.postprocessing.impl.TimelineReportImpl
+		 * @see turnus.model.analysis.postprocessing.impl.PostprocessingPackageImpl#getTimelineReport()
+		 * @generated
+		 */
+		EClass TIMELINE_REPORT = eINSTANCE.getTimelineReport();
+
+		/**
+		 * The meta object literal for the '<em><b>Network</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TIMELINE_REPORT__NETWORK = eINSTANCE.getTimelineReport_Network();
+
+		/**
+		 * The meta object literal for the '<em><b>File Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMELINE_REPORT__FILE_NAME = eINSTANCE.getTimelineReport_FileName();
 
 	}
 

@@ -43,12 +43,14 @@ import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
+import turnus.analysis.dot.PartitionedNetworkToDot;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
@@ -159,7 +161,9 @@ public class BalancedPipelinePartitioningCli implements IApplication {
 				File xcfFile = changeExtension(reportFile, TurnusExtensions.NETWORK_PARTITIONING);
 				new XmlNetworkPartitioningWriter().write(partitioning, xcfFile);
 				Logger.info("Network partitioning configuration stored in \"%s\"", xcfFile);
-
+				File dotFile = changeExtension(reportFile, TurnusExtensions.DOT);
+				new PartitionedNetworkToDot(project.getNetwork(), report.asNetworkPartitioning())
+				.emit(FileSystems.getDefault().getPath(dotFile.getAbsolutePath()));
 			} catch (Exception e) {
 				Logger.error("The report file cannot be stored");
 				String message = e.getLocalizedMessage();

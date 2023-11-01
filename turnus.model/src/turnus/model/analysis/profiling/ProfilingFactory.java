@@ -114,6 +114,24 @@ public interface ProfilingFactory extends EFactory {
 	InterPartitionCommunicationAndMemoryReport createInterPartitionCommunicationAndMemoryReport();
 
 	/**
+	 * Returns a new object of class '<em>Latency Report</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Latency Report</em>'.
+	 * @generated
+	 */
+	LatencyReport createLatencyReport();
+
+	/**
+	 * Returns a new object of class '<em>Latency Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Latency Data</em>'.
+	 * @generated
+	 */
+	LatencyData createLatencyData();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

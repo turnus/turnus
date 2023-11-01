@@ -114,6 +114,15 @@ public interface PostprocessingFactory extends EFactory {
 	BufferBlockingReport createBufferBlockingReport();
 
 	/**
+	 * Returns a new object of class '<em>Timeline Report</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Timeline Report</em>'.
+	 * @generated
+	 */
+	TimelineReport createTimelineReport();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

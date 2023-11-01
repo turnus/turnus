@@ -148,12 +148,12 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 					bufferWeight += bufferVolume.get(outgoing);
 					// bufferWeight += MemoryAndBuffers.getActorPersistentMemmory(outgoing.getTarget().getOwner());
 				}
-				WeightedEdge edge = new WeightedEdge(hyperEdgeCounter, bitsToMegaBytes(bufferWeight));
+				WeightedEdge edge = new WeightedEdge(hyperEdgeCounter, bitsToMegaBytes(bufferWeight/minBufferVol));
 
 				Set<WeightedActor> weightedNodes = new HashSet<>();
 				for (Actor actorNode : nodes) {
 					WeightedActor weightedActor = new WeightedActor(topologicalSort.indexOf(actorNode) + 1, actorNode,
-							actorWorkload.get(actorNode));
+							actorWorkload.get(actorNode)/minWorkload);
 					weightedNodes.add(weightedActor);
 				}
 
@@ -192,9 +192,9 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				// -- CType
 				commands.add(Integer.toString(1));
 				// -- OType
-				commands.add(Integer.toString(1));
-				// -- Vcycle
 				commands.add(Integer.toString(2));
+				// -- Vcycle
+				commands.add(Integer.toString(3));
 				// -- dglvl
 				commands.add(Integer.toString(24));
 				
@@ -205,7 +205,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				Process metis = metisPB.start();
 				int exitCode = metis.waitFor();
 				String result = new String(metis.getInputStream().readAllBytes());
-				if (exitCode != 0) {
+				if (exitCode > 1) {
 					throw new TurnusException(externalTool + " error: \n" + result);
 				}
 				Logger.info("\n" + result);

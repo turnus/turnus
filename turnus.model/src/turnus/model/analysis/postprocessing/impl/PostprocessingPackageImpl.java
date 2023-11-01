@@ -73,6 +73,7 @@ import turnus.model.analysis.postprocessing.SchedulerChecksPartition;
 import turnus.model.analysis.postprocessing.SchedulerChecksReport;
 import turnus.model.analysis.postprocessing.StatisticalActorPartition;
 
+import turnus.model.analysis.postprocessing.TimelineReport;
 import turnus.model.analysis.profiler.ProfilerPackage;
 
 import turnus.model.analysis.profiler.impl.ProfilerPackageImpl;
@@ -155,6 +156,13 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * @generated
 	 */
 	private EClass bufferBlockingReportEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass timelineReportEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -760,6 +768,36 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * @generated
 	 */
 	@Override
+	public EClass getTimelineReport() {
+		return timelineReportEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTimelineReport_Network() {
+		return (EReference)timelineReportEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTimelineReport_FileName() {
+		return (EAttribute)timelineReportEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public PostprocessingFactory getPostprocessingFactory() {
 		return (PostprocessingFactory)getEFactoryInstance();
 	}
@@ -839,6 +877,10 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		createEReference(bufferBlockingReportEClass, BUFFER_BLOCKING_REPORT__MAX_BLOCKED_OUTPUT_TOKENS);
 		createEReference(bufferBlockingReportEClass, BUFFER_BLOCKING_REPORT__MAX_BLOCKED_MULTIPLICATION);
 		createEReference(bufferBlockingReportEClass, BUFFER_BLOCKING_REPORT__BLOCKING_INSTANCES);
+
+		timelineReportEClass = createEClass(TIMELINE_REPORT);
+		createEReference(timelineReportEClass, TIMELINE_REPORT__NETWORK);
+		createEAttribute(timelineReportEClass, TIMELINE_REPORT__FILE_NAME);
 	}
 
 	/**
@@ -880,6 +922,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		actionStatisticsReportEClass.getESuperTypes().add(this.getPostProcessingData());
 		schedulerChecksReportEClass.getESuperTypes().add(this.getPostProcessingData());
 		bufferBlockingReportEClass.getESuperTypes().add(this.getPostProcessingData());
+		timelineReportEClass.getESuperTypes().add(this.getPostProcessingData());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(postProcessingReportEClass, PostProcessingReport.class, "PostProcessingReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -938,6 +981,10 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		initEReference(getBufferBlockingReport_MaxBlockedOutputTokens(), theMapPackage.getBufferToIntegerMap(), null, "maxBlockedOutputTokens", null, 0, -1, BufferBlockingReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBufferBlockingReport_MaxBlockedMultiplication(), theMapPackage.getBufferToDoubleMap(), null, "maxBlockedMultiplication", null, 0, -1, BufferBlockingReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBufferBlockingReport_BlockingInstances(), theMapPackage.getBufferToIntegerMap(), null, "blockingInstances", null, 0, -1, BufferBlockingReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(timelineReportEClass, TimelineReport.class, "TimelineReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTimelineReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, TimelineReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTimelineReport_FileName(), ecorePackage.getEString(), "fileName", null, 0, 1, TimelineReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //PostprocessingPackageImpl

@@ -61,7 +61,7 @@ import turnus.model.trace.weighter.TraceWeighter;
  * 
  * Adevs execution trace graph simulation engine
  * 
- * @author Simone Casale-Brunet 
+ * @author Simone Casale-Brunet
  * @author Malgorzata Michalska
  * @author Endri Bezati
  *
@@ -70,24 +70,26 @@ public class SimEngine {
 
 	private TraceProject tProject = null;
 	private TraceWeighter tWeighter = null;
-	private AdevsModel model = null;
+	protected AdevsModel model = null;
 	private NetworkPartitioning partitioning = null;
 	private BufferSize bufferSize = null;
 	private CommunicationWeight communicationWeight = null;
 	private SchedulingWeight schedulingWeight = null;
 	private boolean releaseAfterProcessing = false;
-	private boolean printActorStatus = false;
+	protected boolean printActorStatus = false;
 
 	private double timer = 0;
 	private boolean deadlock = false;
 	private String simulationName = "Post-scheduling simulation";
 
-	private Collection<DataCollector> dataCollectors = new HashSet<DataCollector>();
+	private Collection<DataCollector> dataCollectors;
 
 	public SimEngine() {
+		dataCollectors = new HashSet<DataCollector>();
 	}
 
 	public SimEngine(String simulationName) {
+		this();
 		this.simulationName = simulationName;
 	}
 
@@ -95,7 +97,7 @@ public class SimEngine {
 		dataCollectors.add(collector);
 	}
 
-	private void printActorStatus(double timer) {
+	protected void printActorStatus(double timer) {
 		for (AtomicActor actor : model.getActors()) {
 			Logger.debug(timer + ": " + actor.getActor().getName() + ": " + actor.getCurrentStatus());
 		}

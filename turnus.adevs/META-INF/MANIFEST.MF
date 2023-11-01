@@ -16,5 +16,6 @@ Bundle-ClassPath: .
 Export-Package: turnus.adevs,
  turnus.adevs.logging,
  turnus.adevs.logging.impl,
+ turnus.adevs.model,
  turnus.adevs.simulation
 Automatic-Module-Name: turnus.adevs

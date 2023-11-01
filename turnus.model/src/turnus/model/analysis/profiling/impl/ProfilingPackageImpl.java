@@ -75,6 +75,8 @@ import turnus.model.analysis.profiling.InterPartitionData;
 import turnus.model.analysis.profiling.IntraActionCommunicationData;
 import turnus.model.analysis.profiling.IntraActionCommunicationReport;
 import turnus.model.analysis.profiling.IntraActorCommunicationData;
+import turnus.model.analysis.profiling.LatencyData;
+import turnus.model.analysis.profiling.LatencyReport;
 import turnus.model.analysis.profiling.ProfilingFactory;
 import turnus.model.analysis.profiling.ProfilingPackage;
 import turnus.model.analysis.profiling.ProfilingStatsActorData;
@@ -147,6 +149,20 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 	 * @generated
 	 */
 	private EClass interPartitionCommunicationAndMemoryReportEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass latencyReportEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass latencyDataEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -732,6 +748,126 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 	 * @generated
 	 */
 	@Override
+	public EClass getLatencyReport() {
+		return latencyReportEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getLatencyReport_Time() {
+		return (EAttribute)latencyReportEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getLatencyReport_MappingFile() {
+		return (EAttribute)latencyReportEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getLatencyReport_BufferFile() {
+		return (EAttribute)latencyReportEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLatencyReport_Source() {
+		return (EReference)latencyReportEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLatencyReport_Targets() {
+		return (EReference)latencyReportEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLatencyReport_Network() {
+		return (EReference)latencyReportEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getLatencyData() {
+		return latencyDataEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLatencyData_Actor() {
+		return (EReference)latencyDataEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLatencyData_Action() {
+		return (EReference)latencyDataEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getLatencyData_Latency() {
+		return (EAttribute)latencyDataEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getLatencyData_Throughput() {
+		return (EAttribute)latencyDataEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public ProfilingFactory getProfilingFactory() {
 		return (ProfilingFactory)getEFactoryInstance();
 	}
@@ -808,6 +944,20 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		createEAttribute(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__CP_WEIGHT_SCHEDULED);
 		createEAttribute(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__MAPPING_FILE);
 		createEAttribute(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_FILE);
+
+		latencyReportEClass = createEClass(LATENCY_REPORT);
+		createEAttribute(latencyReportEClass, LATENCY_REPORT__TIME);
+		createEAttribute(latencyReportEClass, LATENCY_REPORT__MAPPING_FILE);
+		createEAttribute(latencyReportEClass, LATENCY_REPORT__BUFFER_FILE);
+		createEReference(latencyReportEClass, LATENCY_REPORT__SOURCE);
+		createEReference(latencyReportEClass, LATENCY_REPORT__TARGETS);
+		createEReference(latencyReportEClass, LATENCY_REPORT__NETWORK);
+
+		latencyDataEClass = createEClass(LATENCY_DATA);
+		createEReference(latencyDataEClass, LATENCY_DATA__ACTOR);
+		createEReference(latencyDataEClass, LATENCY_DATA__ACTION);
+		createEAttribute(latencyDataEClass, LATENCY_DATA__LATENCY);
+		createEAttribute(latencyDataEClass, LATENCY_DATA__THROUGHPUT);
 	}
 
 	/**
@@ -847,6 +997,7 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		intraActionCommunicationReportEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisReport());
 		profilingStatsReportEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisReport());
 		interPartitionCommunicationAndMemoryReportEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisReport());
+		latencyReportEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisReport());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(intraActionCommunicationReportEClass, IntraActionCommunicationReport.class, "IntraActionCommunicationReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -902,6 +1053,20 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		initEAttribute(getInterPartitionCommunicationAndMemoryReport_CpWeightScheduled(), ecorePackage.getEDouble(), "cpWeightScheduled", null, 1, 1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInterPartitionCommunicationAndMemoryReport_MappingFile(), ecorePackage.getEString(), "mappingFile", null, 0, 1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInterPartitionCommunicationAndMemoryReport_BufferFile(), ecorePackage.getEString(), "bufferFile", null, 0, 1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(latencyReportEClass, LatencyReport.class, "LatencyReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLatencyReport_Time(), ecorePackage.getEDouble(), "time", null, 0, 1, LatencyReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLatencyReport_MappingFile(), ecorePackage.getEString(), "mappingFile", null, 0, 1, LatencyReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLatencyReport_BufferFile(), ecorePackage.getEString(), "bufferFile", null, 0, 1, LatencyReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLatencyReport_Source(), this.getLatencyData(), null, "source", null, 0, 1, LatencyReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLatencyReport_Targets(), this.getLatencyData(), null, "targets", null, 0, -1, LatencyReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLatencyReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, LatencyReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(latencyDataEClass, LatencyData.class, "LatencyData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLatencyData_Actor(), theDataflowPackage.getActor(), null, "actor", null, 0, 1, LatencyData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLatencyData_Action(), theDataflowPackage.getAction(), null, "action", null, 0, 1, LatencyData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLatencyData_Latency(), ecorePackage.getEDouble(), "latency", null, 0, -1, LatencyData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLatencyData_Throughput(), ecorePackage.getEDouble(), "throughput", null, 0, 1, LatencyData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //ProfilingPackageImpl

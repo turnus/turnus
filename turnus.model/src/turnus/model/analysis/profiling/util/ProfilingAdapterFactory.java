@@ -127,6 +127,14 @@ public class ProfilingAdapterFactory extends AdapterFactoryImpl {
 				return createInterPartitionCommunicationAndMemoryReportAdapter();
 			}
 			@Override
+			public Adapter caseLatencyReport(LatencyReport object) {
+				return createLatencyReportAdapter();
+			}
+			@Override
+			public Adapter caseLatencyData(LatencyData object) {
+				return createLatencyDataAdapter();
+			}
+			@Override
 			public Adapter caseAnalysisReport(AnalysisReport object) {
 				return createAnalysisReportAdapter();
 			}
@@ -245,6 +253,34 @@ public class ProfilingAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createInterPartitionCommunicationAndMemoryReportAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.profiling.LatencyReport <em>Latency Report</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.profiling.LatencyReport
+	 * @generated
+	 */
+	public Adapter createLatencyReportAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.profiling.LatencyData <em>Latency Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.profiling.LatencyData
+	 * @generated
+	 */
+	public Adapter createLatencyDataAdapter() {
 		return null;
 	}
 

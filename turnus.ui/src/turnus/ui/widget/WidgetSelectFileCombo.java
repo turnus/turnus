@@ -159,6 +159,7 @@ public class WidgetSelectFileCombo extends Widget<File> {
 		comboBox.setItems(choices);
 		comboBox.setText(choices[0]);
 		setValue(new File(choices[0]), true);
+		comboBox.redraw();
 	}
 	
 	

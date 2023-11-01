@@ -701,6 +701,171 @@ public interface ProfilingPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link turnus.model.analysis.profiling.impl.LatencyReportImpl <em>Latency Report</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.analysis.profiling.impl.LatencyReportImpl
+	 * @see turnus.model.analysis.profiling.impl.ProfilingPackageImpl#getLatencyReport()
+	 * @generated
+	 */
+	int LATENCY_REPORT = 7;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_REPORT__ALGORITHM = AnalysisPackage.ANALYSIS_REPORT__ALGORITHM;
+
+	/**
+	 * The feature id for the '<em><b>Date</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_REPORT__DATE = AnalysisPackage.ANALYSIS_REPORT__DATE;
+
+	/**
+	 * The feature id for the '<em><b>Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_REPORT__TIME = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Mapping File</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_REPORT__MAPPING_FILE = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Buffer File</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_REPORT__BUFFER_FILE = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_REPORT__SOURCE = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Targets</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_REPORT__TARGETS = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Network</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_REPORT__NETWORK = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 5;
+
+	/**
+	 * The number of structural features of the '<em>Latency Report</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_REPORT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_REPORT_FEATURE_COUNT + 6;
+
+	/**
+	 * The number of operations of the '<em>Latency Report</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_REPORT_OPERATION_COUNT = AnalysisPackage.ANALYSIS_REPORT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link turnus.model.analysis.profiling.impl.LatencyDataImpl <em>Latency Data</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.analysis.profiling.impl.LatencyDataImpl
+	 * @see turnus.model.analysis.profiling.impl.ProfilingPackageImpl#getLatencyData()
+	 * @generated
+	 */
+	int LATENCY_DATA = 8;
+
+	/**
+	 * The feature id for the '<em><b>Actor</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_DATA__ACTOR = 0;
+
+	/**
+	 * The feature id for the '<em><b>Action</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_DATA__ACTION = 1;
+
+	/**
+	 * The feature id for the '<em><b>Latency</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_DATA__LATENCY = 2;
+
+	/**
+	 * The feature id for the '<em><b>Throughput</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_DATA__THROUGHPUT = 3;
+
+	/**
+	 * The number of structural features of the '<em>Latency Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_DATA_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Latency Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LATENCY_DATA_OPERATION_COUNT = 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.profiling.IntraActionCommunicationReport <em>Intra Action Communication Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1211,6 +1376,136 @@ public interface ProfilingPackage extends EPackage {
 	EAttribute getInterPartitionCommunicationAndMemoryReport_BufferFile();
 
 	/**
+	 * Returns the meta object for class '{@link turnus.model.analysis.profiling.LatencyReport <em>Latency Report</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Latency Report</em>'.
+	 * @see turnus.model.analysis.profiling.LatencyReport
+	 * @generated
+	 */
+	EClass getLatencyReport();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.LatencyReport#getTime <em>Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Time</em>'.
+	 * @see turnus.model.analysis.profiling.LatencyReport#getTime()
+	 * @see #getLatencyReport()
+	 * @generated
+	 */
+	EAttribute getLatencyReport_Time();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.LatencyReport#getMappingFile <em>Mapping File</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Mapping File</em>'.
+	 * @see turnus.model.analysis.profiling.LatencyReport#getMappingFile()
+	 * @see #getLatencyReport()
+	 * @generated
+	 */
+	EAttribute getLatencyReport_MappingFile();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.LatencyReport#getBufferFile <em>Buffer File</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Buffer File</em>'.
+	 * @see turnus.model.analysis.profiling.LatencyReport#getBufferFile()
+	 * @see #getLatencyReport()
+	 * @generated
+	 */
+	EAttribute getLatencyReport_BufferFile();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link turnus.model.analysis.profiling.LatencyReport#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Source</em>'.
+	 * @see turnus.model.analysis.profiling.LatencyReport#getSource()
+	 * @see #getLatencyReport()
+	 * @generated
+	 */
+	EReference getLatencyReport_Source();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link turnus.model.analysis.profiling.LatencyReport#getTargets <em>Targets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Targets</em>'.
+	 * @see turnus.model.analysis.profiling.LatencyReport#getTargets()
+	 * @see #getLatencyReport()
+	 * @generated
+	 */
+	EReference getLatencyReport_Targets();
+
+	/**
+	 * Returns the meta object for the reference '{@link turnus.model.analysis.profiling.LatencyReport#getNetwork <em>Network</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Network</em>'.
+	 * @see turnus.model.analysis.profiling.LatencyReport#getNetwork()
+	 * @see #getLatencyReport()
+	 * @generated
+	 */
+	EReference getLatencyReport_Network();
+
+	/**
+	 * Returns the meta object for class '{@link turnus.model.analysis.profiling.LatencyData <em>Latency Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Latency Data</em>'.
+	 * @see turnus.model.analysis.profiling.LatencyData
+	 * @generated
+	 */
+	EClass getLatencyData();
+
+	/**
+	 * Returns the meta object for the reference '{@link turnus.model.analysis.profiling.LatencyData#getActor <em>Actor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Actor</em>'.
+	 * @see turnus.model.analysis.profiling.LatencyData#getActor()
+	 * @see #getLatencyData()
+	 * @generated
+	 */
+	EReference getLatencyData_Actor();
+
+	/**
+	 * Returns the meta object for the reference '{@link turnus.model.analysis.profiling.LatencyData#getAction <em>Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Action</em>'.
+	 * @see turnus.model.analysis.profiling.LatencyData#getAction()
+	 * @see #getLatencyData()
+	 * @generated
+	 */
+	EReference getLatencyData_Action();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link turnus.model.analysis.profiling.LatencyData#getLatency <em>Latency</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Latency</em>'.
+	 * @see turnus.model.analysis.profiling.LatencyData#getLatency()
+	 * @see #getLatencyData()
+	 * @generated
+	 */
+	EAttribute getLatencyData_Latency();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.LatencyData#getThroughput <em>Throughput</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Throughput</em>'.
+	 * @see turnus.model.analysis.profiling.LatencyData#getThroughput()
+	 * @see #getLatencyData()
+	 * @generated
+	 */
+	EAttribute getLatencyData_Throughput();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1622,6 +1917,106 @@ public interface ProfilingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__BUFFER_FILE = eINSTANCE.getInterPartitionCommunicationAndMemoryReport_BufferFile();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.analysis.profiling.impl.LatencyReportImpl <em>Latency Report</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.analysis.profiling.impl.LatencyReportImpl
+		 * @see turnus.model.analysis.profiling.impl.ProfilingPackageImpl#getLatencyReport()
+		 * @generated
+		 */
+		EClass LATENCY_REPORT = eINSTANCE.getLatencyReport();
+
+		/**
+		 * The meta object literal for the '<em><b>Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LATENCY_REPORT__TIME = eINSTANCE.getLatencyReport_Time();
+
+		/**
+		 * The meta object literal for the '<em><b>Mapping File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LATENCY_REPORT__MAPPING_FILE = eINSTANCE.getLatencyReport_MappingFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Buffer File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LATENCY_REPORT__BUFFER_FILE = eINSTANCE.getLatencyReport_BufferFile();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LATENCY_REPORT__SOURCE = eINSTANCE.getLatencyReport_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Targets</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LATENCY_REPORT__TARGETS = eINSTANCE.getLatencyReport_Targets();
+
+		/**
+		 * The meta object literal for the '<em><b>Network</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LATENCY_REPORT__NETWORK = eINSTANCE.getLatencyReport_Network();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.analysis.profiling.impl.LatencyDataImpl <em>Latency Data</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.analysis.profiling.impl.LatencyDataImpl
+		 * @see turnus.model.analysis.profiling.impl.ProfilingPackageImpl#getLatencyData()
+		 * @generated
+		 */
+		EClass LATENCY_DATA = eINSTANCE.getLatencyData();
+
+		/**
+		 * The meta object literal for the '<em><b>Actor</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LATENCY_DATA__ACTOR = eINSTANCE.getLatencyData_Actor();
+
+		/**
+		 * The meta object literal for the '<em><b>Action</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LATENCY_DATA__ACTION = eINSTANCE.getLatencyData_Action();
+
+		/**
+		 * The meta object literal for the '<em><b>Latency</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LATENCY_DATA__LATENCY = eINSTANCE.getLatencyData_Latency();
+
+		/**
+		 * The meta object literal for the '<em><b>Throughput</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LATENCY_DATA__THROUGHPUT = eINSTANCE.getLatencyData_Throughput();
 
 	}
 

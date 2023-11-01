@@ -44,40 +44,40 @@ public class TurnusExtensions {
 
 	/** The bottleneck report file */
 	public static final String BOTTLENECKS_REPORT = "bottlenecks";
-	
+
 	/** The scheduled bottleneck report file */
 	public static final String SCHEDULED_BOTTLENECKS_REPORT = "sbottlenecks";
 
 	/** The bounded buffers report file */
 	public static final String BOUNDED_BUFFER_REPORT = "boundbuffer";
-	
+
 	/** The optimal buffers report file */
 	public static final String OPTIMAL_BUFFER_REPORT = "optimalbuffer";
 
 	/** The communication cost partitioning report file */
 	public static final String COMM_COST_PARTITIONING_REPORT = "pcomm";
-	
+
 	/** The workload balance partitioning report file */
 	public static final String WORKLOAD_BALANCE_PARTITIONING_REPORT = "pwbal";
-	
+
 	/** The workload balance partitioning report file */
 	public static final String METIS_PARTITIONING_REPORT = "pmetis";
-	
+
 	/** The balanced pipeline partitioning report file */
 	public static final String BALANCED_PIPELINE_PARTITIONING_REPORT = "pbpipe";
-	
-	/** The post processing  report file */
+
+	/** The post processing report file */
 	public static final String POST_PROCESSING_REPORT = "ppreport";
-	
+
 	/** The post processing (actor) report file */
 	public static final String POST_PROCESSING_ACTOR_REPORT = "pproar";
-	
+
 	/** The post processing (action) report file */
 	public static final String POST_PROCESSING_ACTION_REPORT = "pproan";
-	
+
 	/** The post processing (action) report file */
 	public static final String SCHEDULER_CHECKS_REPORT = "screport";
-	
+
 	/** The post processing (blocking buffers) report file */
 	public static final String BUFFER_BLOCKING_REPORT = "bbreport";
 
@@ -89,7 +89,7 @@ public class TurnusExtensions {
 
 	/** The buffer site configuration XML file */
 	public static final String BUFFER_SIZE = "bxdf";
-	
+
 	/** The profiling stats report file */
 	public static final String PROFILING_STATS_REPORT = "profstat";
 
@@ -98,7 +98,7 @@ public class TurnusExtensions {
 
 	/** The impact-analysis report file */
 	public static final String IMPACT_ANALYSIS_REPORT = "impact";
-	
+
 	/** The scheduled impact-analysis report file */
 	public static final String SCHEDULED_IMPACT_ANALYSIS_REPORT = "simpact";
 
@@ -110,7 +110,7 @@ public class TurnusExtensions {
 
 	/** The network weights XML file */
 	public static final String NETWORK_WEIGHT = "exdf";
-	
+
 	/** The network scheduling weights XML file */
 	public static final String SCHEDULE_WEIGHT = "sxdf";
 
@@ -158,27 +158,35 @@ public class TurnusExtensions {
 
 	/** The network partitioning mapping file */
 	public static final String NETWORK_PARTITIONING = "xcf";
-	
-	
+
 	/** Graphviz Dot file */
 	public static final String DOT = "dot";
+	
+	/** Json file */
+	public static final String JSON = "json";
 
 	/** the configuration file */
 	public static final String CONFIGURATION = "conf";
 
 	/** The memory profiling file */
 	public static final String PROFILING_MEMORY = "mprof";
-	
+
 	/** The communication weights file */
 	public static final String COMMUNICATION_WEIGHT = "cxdf";
-	
+
 	/** The Intra-Action communication analysis report file */
 	public static final String INTRA_ACTION_COMM_REPORT = "iacomm";
-	
+
 	/** The Inter-Partition communication and memory analysis report file */
 	public static final String INTER_PARTITION_COMM_MEM_REPORT = "ipcomm";
 
-	/** The actor selection schedule*/
+	/** The latency profiling file */
+	public static final String LATENCY_REPORT = "lprof";
+	
+	/** The time line report file */
+	public static final String TIMELINE_REPORT = "tlreport";
+
+	/** The actor selection schedule */
 	public static final String ACTOR_SELECTION_SCHEDULE = "assched";
 	/** Markov scheduler report file */
 	public static final String MARKOV_SCHEDULER = "mvsched";

@@ -251,6 +251,13 @@ public class TurnusOptions {
 	@Description("External partitioning tool")
 	public static final Option<String> EXTERNAL_PARTITIONING_TOOL;
 
+	@Description("Source pair of actor:action for latency analysis.")
+	public static final Option<String> LATENCY_SOURCE;
+	
+	@Description("The list of actor action pair for latency analysis.")
+	public static final Option<List<String>> LATENCY_TARGETS;
+	
+	
 	// options are initialized here in order to make this file more readable
 	static {
 		BENCHMARK_N_LOOPS = Option.create().setName("benchmark_n_loops").setDescription("Loop input stimulus N times")
@@ -663,6 +670,19 @@ public class TurnusOptions {
 		EXTERNAL_PARTITIONING_TOOL = Option.create().setName("partTool").setDescription("External partitioning tool")
 				.setLongName("turnus.analysis.partitioning.exernal.tool").setType(String.class).build();
 
+		LATENCY_TARGETS = Option.create()//
+				.setName("latencyTargets")//
+				.setDescription("The list of actor action pair for latency analysis")//
+				.setLongName("turnus.analysis.profiling.latency.targets")//
+				.setType(List.class)//
+				.build();
+		
+		LATENCY_SOURCE = Option.create().//
+				setName("latencySource").//
+				setDescription("Source pair of actor:action for latency analysis.")//
+				.setLongName("turnus.analysis.profiling.latency.source").//
+				setType(String.class).build();
+		
 	}
 
 	/**

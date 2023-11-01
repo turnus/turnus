@@ -796,6 +796,10 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="blockingInstances" upperBound="-1"
           eType="#//map/BufferToIntegerMap" containment="true"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TimelineReport" eSuperTypes="#//postprocessing/PostProcessingData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="profiling" nsURI="http://turnus.co/model/2015/analysis/profiling"
       nsPrefix="turnus.model.analysis.profiling">
@@ -877,6 +881,23 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="mappingFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="bufferFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LatencyReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="mappingFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bufferFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//profiling/LatencyData"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="targets" upperBound="-1"
+          eType="#//profiling/LatencyData" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LatencyData">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="actor" eType="ecore:EClass dataflow.ecore#//Actor"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass dataflow.ecore#//Action"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="latency" upperBound="-1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="throughput" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="scheduling" nsURI="http://turnus.co/model/2017/analysis/scheduling"

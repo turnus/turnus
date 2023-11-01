@@ -656,6 +656,11 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/BufferBlockingReport/maxBlockedMultiplication"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/BufferBlockingReport/blockingInstances"/>
       </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//postprocessing/TimelineReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/TimelineReport/network"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/TimelineReport/fileName"/>
+      </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Profiling" basePackage="turnus.model.analysis" disposableProviderFactory="true"
         ecorePackage="analysis.ecore#//profiling">
@@ -720,6 +725,24 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/cpWeightScheduled"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/mappingFile"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/bufferFile"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiling/LatencyReport">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/LatencyReport/time"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/LatencyReport/mappingFile"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/LatencyReport/bufferFile"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/LatencyReport/source"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/LatencyReport/targets"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/LatencyReport/network"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//profiling/LatencyData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/LatencyData/actor"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//profiling/LatencyData/action"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/LatencyData/latency"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/LatencyData/throughput"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Scheduling" basePackage="turnus.model.analysis" disposableProviderFactory="true"

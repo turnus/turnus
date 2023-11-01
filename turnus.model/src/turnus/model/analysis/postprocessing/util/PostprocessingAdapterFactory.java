@@ -131,6 +131,10 @@ public class PostprocessingAdapterFactory extends AdapterFactoryImpl {
 				return createBufferBlockingReportAdapter();
 			}
 			@Override
+			public Adapter caseTimelineReport(TimelineReport object) {
+				return createTimelineReportAdapter();
+			}
+			@Override
 			public Adapter caseAnalysisReport(AnalysisReport object) {
 				return createAnalysisReportAdapter();
 			}
@@ -263,6 +267,20 @@ public class PostprocessingAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBufferBlockingReportAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.analysis.postprocessing.TimelineReport <em>Timeline Report</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.analysis.postprocessing.TimelineReport
+	 * @generated
+	 */
+	public Adapter createTimelineReportAdapter() {
 		return null;
 	}
 

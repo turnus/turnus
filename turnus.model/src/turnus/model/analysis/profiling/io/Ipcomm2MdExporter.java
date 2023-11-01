@@ -163,41 +163,43 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 					}
 					b.append("[Internal Buffers]\n");
 				}
-				List<Buffer> externalBuffers;
-				if (data.isOutgoingBufferOwnedBySource()) {
-					externalBuffers = datum.getOutgoingBuffers();
-				} else {
-					externalBuffers = datum.getIncomingBuffers();
-				}
+				
+				
 
-				if (externalBuffers.size() > 0) {
-					if (data.isOutgoingBufferOwnedBySource()) {
-						b.append("\n| to  | source | source-port | target | target-port | type | depth | bytes\n");
-					} else {
-						b.append("\n| from| source | source-port | target | target-port | type | depth | bytes\n");
-					}
+				// -- Outgoing buffer
+				if (datum.getOutgoingBuffers().size() > 0) {
+					b.append("\n| to  | source | source-port | target | target-port | type | depth | bytes\n");
 					b.append("|:----|----|----|----|----|----|---:|---:\n");
 
-					for (Buffer buffer : externalBuffers) {
+					for (Buffer buffer : datum.getOutgoingBuffers()) {
 						int depth = data.getBufferDepthMap().get(buffer);
 						long bizSize = depth * buffer.getType().getBits();
-						String partition = "";
-						if (data.isOutgoingBufferOwnedBySource()) {
-							partition = data.getActorPartitionMap().get(buffer.getTarget().getOwner());
-						} else {
-							partition = data.getActorPartitionMap().get(buffer.getSource().getOwner());
-						}
+						String partition = data.getActorPartitionMap().get(buffer.getTarget().getOwner());
+
 						b.append(String.format("|%-20s |%-20s | %-20s | %-20s | %-20s | %-20s | %-20s | %-20s\n",
 								partition, buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
 								buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(),
 								buffer.getType().toString(), depth, StringUtils.formatBytes(bizSize, true)));
 					}
-					if (data.isOutgoingBufferOwnedBySource()) {
-						b.append("[Outgoing Buffers]\n");
-					} else {
-						b.append("[Incoming Buffers]\n");
-					}
+					b.append("[Outgoing Buffers]\n");
 				}
+				
+				// -- Incoming buffer
+				if (datum.getIncomingBuffers().size() > 0) {
+					b.append("\n| from| source | source-port | target | target-port | type | depth | bytes\n");
+					b.append("|:----|----|----|----|----|----|---:|---:\n");
+					for (Buffer buffer : datum.getIncomingBuffers()) {
+						int depth = data.getBufferDepthMap().get(buffer);
+						long bizSize = depth * buffer.getType().getBits();
+						String partition = data.getActorPartitionMap().get(buffer.getSource().getOwner());
+						b.append(String.format("|%-20s |%-20s | %-20s | %-20s | %-20s | %-20s | %-20s | %-20s\n",
+								partition, buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
+								buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(),
+								buffer.getType().toString(), depth, StringUtils.formatBytes(bizSize, true)));
+					}
+					b.append("[Incoming Buffers]\n");
+				}
+
 			}
 
 			b.append("\n");

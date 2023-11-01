@@ -92,6 +92,7 @@ public class PostprocessingFactoryImpl extends EFactoryImpl implements Postproce
 			case PostprocessingPackage.SCHEDULER_CHECKS_REPORT: return createSchedulerChecksReport();
 			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION: return createSchedulerChecksPartition();
 			case PostprocessingPackage.BUFFER_BLOCKING_REPORT: return createBufferBlockingReport();
+			case PostprocessingPackage.TIMELINE_REPORT: return createTimelineReport();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -172,6 +173,17 @@ public class PostprocessingFactoryImpl extends EFactoryImpl implements Postproce
 	public BufferBlockingReport createBufferBlockingReport() {
 		BufferBlockingReportImpl bufferBlockingReport = new BufferBlockingReportImpl();
 		return bufferBlockingReport;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public TimelineReport createTimelineReport() {
+		TimelineReportImpl timelineReport = new TimelineReportImpl();
+		return timelineReport;
 	}
 
 	/**

@@ -31,5 +31,6 @@ Export-Package: turnus.analysis,
  turnus.analysis.trace.markov
 Import-Package: turnus.adevs.logging,
  turnus.adevs.logging.impl,
+ turnus.adevs.model,
  turnus.adevs.simulation
 Automatic-Module-Name: turnus.analysis

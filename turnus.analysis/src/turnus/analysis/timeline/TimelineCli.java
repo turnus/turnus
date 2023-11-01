@@ -29,22 +29,19 @@
  * for the parts of Eclipse libraries used as well as that of the  covered work.
  * 
  */
-package turnus.analysis.partitioning;
+package turnus.analysis.timeline;
 
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
-import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
-import static turnus.common.TurnusOptions.ANALYSIS_TIME;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_DEFAULT;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
 import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
-import static turnus.common.TurnusOptions.INITIAL_ALGORITHM;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
+import static turnus.common.TurnusOptions.RECORD_BUFFERS;
 import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
-import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 import static turnus.common.TurnusOptions.SCHEDULING_WEIGHTS;
 import static turnus.common.TurnusOptions.TRACE_FILE;
-import static turnus.common.TurnusOptions.USE_SIMULATION;
+import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
 import static turnus.common.TurnusOptions.WRITE_HIT_CONSTANT;
 import static turnus.common.TurnusOptions.WRITE_MISS_CONSTANT;
 import static turnus.common.util.FileUtils.changeExtension;
@@ -53,14 +50,20 @@ import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
-import java.nio.file.FileSystems;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonWriter;
+import javax.json.JsonWriterFactory;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
-import turnus.analysis.dot.PartitionedNetworkToDot;
+import turnus.adevs.simulation.SimEngine;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
@@ -68,8 +71,9 @@ import turnus.common.configuration.Configuration.CliParser;
 import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
 import turnus.model.ModelsRegister;
-import turnus.model.analysis.postprocessing.ActorStatisticsReport;
-import turnus.model.common.EScheduler;
+import turnus.model.analysis.postprocessing.PostProcessingReport;
+import turnus.model.analysis.postprocessing.TimelineReport;
+import turnus.model.dataflow.Network;
 import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.CommunicationWeight;
 import turnus.model.mapping.NetworkPartitioning;
@@ -78,8 +82,8 @@ import turnus.model.mapping.SchedulingWeight;
 import turnus.model.mapping.io.XmlBufferSizeReader;
 import turnus.model.mapping.io.XmlCommunicationWeightReader;
 import turnus.model.mapping.io.XmlNetworkPartitioningReader;
-import turnus.model.mapping.io.XmlNetworkPartitioningWriter;
 import turnus.model.mapping.io.XmlNetworkWeightReader;
+import turnus.model.mapping.io.XmlSchedulingWeightReader;
 import turnus.model.trace.TraceProject;
 import turnus.model.trace.impl.splitted.SplittedTraceLoader;
 import turnus.model.trace.weighter.TraceWeighter;
@@ -87,21 +91,18 @@ import turnus.model.trace.weighter.WeighterUtils;
 
 /**
  * 
- * @author Malgorzata Michalska
- * 
+ * @author Endri Bezati
+ *
  */
-public class CommFreqLocalSearchCli implements IApplication {
-	private Configuration configuration;
-	private CommFreqLocalSearch search;
-	private IProgressMonitor monitor = new NullProgressMonitor();
-	
-	public static void main(String[] args) {
+public class TimelineCli implements IApplication {
+
+	public static void main(String[] args) throws TurnusException {
 		ModelsRegister.init();
 
-		CommFreqLocalSearchCli cliApp = null;
+		TimelineCli cliApp = null;
 
 		try {
-			cliApp = new CommFreqLocalSearchCli();
+			cliApp = new TimelineCli();
 			cliApp.parse(args);
 		} catch (TurnusException e) {
 			return;
@@ -113,95 +114,128 @@ public class CommFreqLocalSearchCli implements IApplication {
 			Logger.error("Application error: %s", e.getMessage());
 		}
 	}
-	
-	private void run() throws TurnusException {
-		monitor.beginTask("Communication frequency local search partitioning analysis", IProgressMonitor.UNKNOWN);
 
-		TraceProject project = null;
-		TraceWeighter weighter = null;
+	private Configuration configuration;
+	private SimEngine simulation;
+
+	private IProgressMonitor monitor = new NullProgressMonitor();
+
+	private void parse(String[] args) throws TurnusException {
+		CliParser cliParser = new CliParser().setOption(TRACE_FILE, true)//
+				.setOption(ACTION_WEIGHTS, true)//
+				.setOption(MAPPING_FILE, true)//
+				.setOption(TRACE_WEIGHTER, false)//
+				.setOption(COMMUNICATION_WEIGHTS, false) //
+				.setOption(SCHEDULING_WEIGHTS, false) //
+				.setOption(WRITE_HIT_CONSTANT, false) //
+				.setOption(WRITE_MISS_CONSTANT, false) //
+				.setOption(BUFFER_SIZE_DEFAULT, false)//
+				.setOption(BUFFER_SIZE_FILE, false)//
+				.setOption(RECORD_BUFFERS, false)//
+				.setOption(RELEASE_BUFFERS_AFTER_PROCESSING, false)//
+				.setOption(OUTPUT_DIRECTORY, false);
+		configuration = cliParser.parse(args);
+	}
+
+	private PostProcessingReport run() throws TurnusException {
+		monitor.beginTask("Post processing simulation", IProgressMonitor.UNKNOWN);
+		TraceProject tProject = null;
+		TraceWeighter tWeighter = null;
+		SchedulingWeight schWeight = null;
 		NetworkPartitioning partitioning = null;
 		CommunicationWeight communication = null;
-		SchedulingWeight schedWeight = null;
-		String scheduling = null;
 		BufferSize bufferSize = null;
 		int defaultBufferSize = 0;
-		
-		ActorStatisticsReport report = null;
+		NetworkWeight weights = null;
+		Network network = null;
+		PostProcessingReport report = null;
 
 		{ // STEP 1 : parse the configuration
 			monitor.subTask("Parsing the configuration");
 			try {
 				File traceFile = configuration.getValue(TRACE_FILE);
-				project = TraceProject.open(traceFile);
-				project.loadTrace(new SplittedTraceLoader(), configuration);
+				tProject = TraceProject.open(traceFile);
+				tProject.loadTrace(new SplittedTraceLoader(), configuration);
+				network = tProject.getNetwork();
 			} catch (Exception e) {
-				throw new TurnusException("The trace project cannot be loaded", e);
+				throw new TurnusException("Trace file is not valid", e);
 			}
+
 			try {
 				File weightsFile = configuration.getValue(ACTION_WEIGHTS);
-				NetworkWeight weights = new XmlNetworkWeightReader().load(weightsFile);
-				weighter = WeighterUtils.getTraceWeighter(configuration, weights);
+				weights = new XmlNetworkWeightReader().load(weightsFile);
+				tWeighter = WeighterUtils.getTraceWeighter(configuration, weights);
 			} catch (Exception e) {
-				throw new TurnusException("The weights file cannot be loaded", e);
+				throw new TurnusException("Weights file is not valid", e);
 			}
-			// either the mapping configuration or the scheduling policy must be specified, if both, only the mapping is taken
-			if (configuration.hasValue(MAPPING_FILE)) {
+
+			try {
 				File mappingFile = configuration.getValue(MAPPING_FILE);
 				XmlNetworkPartitioningReader reader = new XmlNetworkPartitioningReader();
-				partitioning = reader.load(mappingFile);	
-			} 
-			else if (configuration.hasValue(SCHEDULING_POLICY)) {
-				scheduling = configuration.getValue(SCHEDULING_POLICY);
-				if (!schedulingRecognized(scheduling)) {
-					scheduling = "UNDEFINED";
-					Logger.warning("Scheduling policy not recognized. Full parallel will be assumed by default.");
-				}
-			} 
-			else {
-				throw new TurnusException("The mapping configuration or the scheduling policy must be specified.");
+				partitioning = reader.load(mappingFile);
+			} catch (Exception e) {
+				throw new TurnusException("Mapping file is not valid", e);
 			}
-			if (configuration.hasValue(BUFFER_SIZE_FILE)) {
+
+			if (configuration.getValue(RECORD_BUFFERS)) {
+				bufferSize = new BufferSize(tProject.getNetwork());
+				bufferSize.setDefaultSize(Integer.MAX_VALUE);
+				Logger.info(
+						"Record buffers occupancy option chosen. Simulation will be run with all buffer sizes equal to Integer.MAX_VALUE.");
+			} else if (configuration.hasValue(BUFFER_SIZE_FILE)) {
 				File bufferFile = configuration.getValue(BUFFER_SIZE_FILE);
 				XmlBufferSizeReader reader = new XmlBufferSizeReader();
 				bufferSize = reader.load(bufferFile);
-			} 
-			else if (configuration.hasValue(BUFFER_SIZE_DEFAULT)) { // if both parameters are specified, then the default one is ignored
+			} else if (configuration.hasValue(BUFFER_SIZE_DEFAULT)) { // if both parameters are specified, then the
+																		// default one is ignored
 				defaultBufferSize = configuration.getValue(BUFFER_SIZE_DEFAULT);
-				bufferSize = new BufferSize(project.getNetwork());
+				bufferSize = new BufferSize(tProject.getNetwork());
 				bufferSize.setDefaultSize(defaultBufferSize);
-			} 
-			else {
+			} else {
 				throw new TurnusException("Buffer sizes are not specified.");
 			}
-			
+
 			if (configuration.hasValue(COMMUNICATION_WEIGHTS)) {
 				File communicationWeightsFile = configuration.getValue(COMMUNICATION_WEIGHTS);
-				XmlCommunicationWeightReader reader = new XmlCommunicationWeightReader(project.getNetwork());
+				XmlCommunicationWeightReader reader = new XmlCommunicationWeightReader(network);
 				communication = reader.load(communicationWeightsFile);
-				
+
 				if (configuration.hasValue(WRITE_HIT_CONSTANT)) {
 					communication.setWriteHitConstant(configuration.getValue(WRITE_HIT_CONSTANT));
 				}
 				if (configuration.hasValue(WRITE_MISS_CONSTANT)) {
 					communication.setWriteMissConstant(configuration.getValue(WRITE_MISS_CONSTANT));
 				}
-			} 
-		}
+			}
 
+			if (configuration.hasValue(SCHEDULING_WEIGHTS)) {
+				File schWeightsFile = configuration.getValue(SCHEDULING_WEIGHTS);
+				schWeight = new XmlSchedulingWeightReader().load(schWeightsFile);
+			}
+		}
+		
+		TimelineCollector timelineCollector = new TimelineCollector(network, partitioning);
 		{ // STEP 2 : Run the analysis
-			monitor.subTask("Running the analysis");
+			monitor.subTask("Running the simulation");
 			try {
-				search = new CommFreqLocalSearch(project, weighter, communication, schedWeight, bufferSize, configuration.getValue(RELEASE_BUFFERS_AFTER_PROCESSING));
-				search.setConfiguration(configuration);
-				if (partitioning == null) {
-					search.generateInitialPartitioning(scheduling);
-				} else {
-					search.loadPartitioning(partitioning);
-				}
-				report = search.run();
-				Logger.infoRaw(report.toString());
+				
+
+				simulation = new SimEngine();
+				simulation.setTraceProject(tProject);
+				simulation.setTraceWeighter(tWeighter);
+				simulation.setNetworkPartitioning(partitioning);
+				simulation.setBufferSize(bufferSize);
+				simulation.setCommunicationWeight(communication);
+				simulation.setSchedulingWeight(schWeight);
+				if (configuration.getValue(RELEASE_BUFFERS_AFTER_PROCESSING))
+					simulation.setReleaseAfterProcessing();
+
+				simulation.addDataCollector(timelineCollector);
+
+				report = simulation.run();
+
 			} catch (Exception e) {
-				throw new TurnusException("The analysis cannot be completed", e);
+				throw new TurnusException("The simulation cannot be completed", e);
 			}
 		}
 
@@ -213,19 +247,33 @@ public class CommFreqLocalSearchCli implements IApplication {
 					outputPath = configuration.getValue(OUTPUT_DIRECTORY);
 					createDirectory(outputPath);
 				} else {
-					outputPath = createOutputDirectory("partitioning", configuration);
+					outputPath = createOutputDirectory("post-processing", configuration);
 				}
 
-				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.POST_PROCESSING_ACTOR_REPORT);
-				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
-				Logger.info("Communication frequency local search partitioning report stored in \"%s\"", reportFile);
+				// Logger.infoRaw(report.toString());
 
-				File xcfFile = changeExtension(reportFile, TurnusExtensions.NETWORK_PARTITIONING);
-				new XmlNetworkPartitioningWriter().write(report.asNetworkPartitioning(), xcfFile);
-				Logger.info("Network partitioning configuration stored in \"%s\"", xcfFile);
-				File dotFile = changeExtension(reportFile, TurnusExtensions.DOT);
-				new PartitionedNetworkToDot(project.getNetwork(), report.asNetworkPartitioning())
-				.emit(FileSystems.getDefault().getPath(dotFile.getAbsolutePath()));
+				// store the scheduler checks report
+				File reportFileTimeline = createFileWithTimeStamp(outputPath, TurnusExtensions.TIMELINE_REPORT);
+				TimelineReport timelineReport = report.getReport(TimelineReport.class);
+				EcoreUtils.storeEObject(timelineReport, tProject.getResourceSet(), reportFileTimeline);
+				Logger.info("Timeline report stored in \"%s\"", reportFileTimeline);
+
+				File jsonFile = changeExtension(reportFileTimeline, TurnusExtensions.JSON);
+				JsonObject trace = timelineCollector.getJsonObject(jsonFile.getName());
+				
+				try(FileWriter jsonTraceFile = new FileWriter(jsonFile)){
+					JsonWriterFactory writerFactory = Json.createWriterFactory(null);
+					JsonWriter jsonWriter = writerFactory.createWriter(jsonTraceFile);
+					
+					jsonWriter.write(trace);
+					
+					jsonWriter.close();
+				}catch (IOException e) {
+					throw new TurnusException("The simulation cannot be completed", e);
+				}
+
+				
+
 			} catch (Exception e) {
 				Logger.error("The report file cannot be stored");
 				String message = e.getLocalizedMessage();
@@ -235,28 +283,8 @@ public class CommFreqLocalSearchCli implements IApplication {
 			}
 		}
 		monitor.done();
-	}
-	
-	private void parse(String[] args) throws TurnusException {
-		CliParser cliParser = new CliParser()
-				.setOption(TRACE_FILE, true)//
-				.setOption(ACTION_WEIGHTS, true)//	
-				.setOption(COMMUNICATION_WEIGHTS, false) //
-				.setOption(SCHEDULING_WEIGHTS, false) //
-				.setOption(WRITE_HIT_CONSTANT, false) //
-				.setOption(WRITE_MISS_CONSTANT, false) //
-				.setOption(MAPPING_FILE, false)//
-				.setOption(SCHEDULING_POLICY, false)//
-				.setOption(INITIAL_ALGORITHM, false)//
-				.setOption(ANALYSIS_PARTITIONING_UNITS, false)//
-				.setOption(BUFFER_SIZE_DEFAULT, false)//
-				.setOption(BUFFER_SIZE_FILE, false)//
-				.setOption(USE_SIMULATION, false)//
-				.setOption(ANALYSIS_TIME, false)//
-				.setOption(RELEASE_BUFFERS_AFTER_PROCESSING, false)//
-				.setOption(OUTPUT_DIRECTORY, false);
 
-		configuration = cliParser.parse(args);
+		return report;
 	}
 
 	@Override
@@ -280,23 +308,6 @@ public class CommFreqLocalSearchCli implements IApplication {
 
 	@Override
 	public void stop() {
-		if (search != null) {
-			search.cancel();
-		}
-	}
-
-	public void start(Configuration configuration, IProgressMonitor monitor) throws TurnusException {
-		this.configuration = configuration;
-		this.monitor = monitor;
-		run();
-	}
-	
-	private boolean schedulingRecognized(String scheduling) {
-		for (EScheduler scheduler : EScheduler.VALUES) {
-			if (scheduler.getLiteral().equals(scheduling))
-				return true;
-		}
-		
-		return false;
+		// TODO Auto-generated method stub
 	}
 }

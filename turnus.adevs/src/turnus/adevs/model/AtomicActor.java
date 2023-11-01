@@ -534,6 +534,7 @@ public class AtomicActor extends Atomic<PortValue> {
 		}
 	}
 
+	
 	@Override
 	public double ta() {
 		switch (status) {
@@ -616,6 +617,9 @@ public class AtomicActor extends Atomic<PortValue> {
 		return actor;
 	}
 
+	public Action getCurrentAction() {
+		return currentAction;
+	}
 	public Status getCurrentStatus() {
 		return status;
 	}

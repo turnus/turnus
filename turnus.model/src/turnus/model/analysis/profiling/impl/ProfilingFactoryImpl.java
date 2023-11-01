@@ -92,6 +92,8 @@ public class ProfilingFactoryImpl extends EFactoryImpl implements ProfilingFacto
 			case ProfilingPackage.PROFILING_STATS_ACTOR_DATA: return createProfilingStatsActorData();
 			case ProfilingPackage.INTER_PARTITION_DATA: return createInterPartitionData();
 			case ProfilingPackage.INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT: return createInterPartitionCommunicationAndMemoryReport();
+			case ProfilingPackage.LATENCY_REPORT: return createLatencyReport();
+			case ProfilingPackage.LATENCY_DATA: return createLatencyData();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -172,6 +174,28 @@ public class ProfilingFactoryImpl extends EFactoryImpl implements ProfilingFacto
 	public InterPartitionCommunicationAndMemoryReport createInterPartitionCommunicationAndMemoryReport() {
 		InterPartitionCommunicationAndMemoryReportImpl interPartitionCommunicationAndMemoryReport = new InterPartitionCommunicationAndMemoryReportImpl();
 		return interPartitionCommunicationAndMemoryReport;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public LatencyReport createLatencyReport() {
+		LatencyReportImpl latencyReport = new LatencyReportImpl();
+		return latencyReport;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public LatencyData createLatencyData() {
+		LatencyDataImpl latencyData = new LatencyDataImpl();
+		return latencyData;
 	}
 
 	/**

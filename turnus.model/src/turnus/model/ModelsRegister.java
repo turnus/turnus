@@ -102,6 +102,7 @@ public class ModelsRegister {
 		m.put(POST_PROCESSING_REPORT, new XMIResourceFactoryImpl());
 		m.put(INTRA_ACTION_COMM_REPORT, new XMIResourceFactoryImpl());
 		m.put(INTER_PARTITION_COMM_MEM_REPORT, new XMIResourceFactoryImpl());
+		m.put(LATENCY_REPORT, new XMIResourceFactoryImpl());
 		m.put(OPTIMAL_BUFFER_REPORT, new XMIResourceFactoryImpl());
 		m.put(SCHEDULER_CHECKS_REPORT, new XMIResourceFactoryImpl());
 		m.put(SCHEDULED_IMPACT_ANALYSIS_REPORT, new XMIResourceFactoryImpl());
