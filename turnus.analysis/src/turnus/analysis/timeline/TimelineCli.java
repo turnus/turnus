@@ -63,7 +63,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
-import turnus.adevs.simulation.SimEngine;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
@@ -116,7 +115,7 @@ public class TimelineCli implements IApplication {
 	}
 
 	private Configuration configuration;
-	private SimEngine simulation;
+	private TimelineSimEngine simulation;
 
 	private IProgressMonitor monitor = new NullProgressMonitor();
 
@@ -220,7 +219,7 @@ public class TimelineCli implements IApplication {
 			try {
 				
 
-				simulation = new SimEngine();
+				simulation = new TimelineSimEngine();
 				simulation.setTraceProject(tProject);
 				simulation.setTraceWeighter(tWeighter);
 				simulation.setNetworkPartitioning(partitioning);
@@ -259,8 +258,9 @@ public class TimelineCli implements IApplication {
 				Logger.info("Timeline report stored in \"%s\"", reportFileTimeline);
 
 				File jsonFile = changeExtension(reportFileTimeline, TurnusExtensions.JSON);
+				//JsonObject trace = simulation.getJsonObject(jsonFile.getName());//timelineCollector.getJsonObject(jsonFile.getName());
 				JsonObject trace = timelineCollector.getJsonObject(jsonFile.getName());
-				
+
 				try(FileWriter jsonTraceFile = new FileWriter(jsonFile)){
 					JsonWriterFactory writerFactory = Json.createWriterFactory(null);
 					JsonWriter jsonWriter = writerFactory.createWriter(jsonTraceFile);

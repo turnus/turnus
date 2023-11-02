@@ -1,6 +1,8 @@
 package turnus.analysis.timeline;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
@@ -19,7 +21,7 @@ import turnus.model.dataflow.Network;
 import turnus.model.dataflow.util.ActorsSorter;
 import turnus.model.mapping.NetworkPartitioning;
 
-public class TimelineCollector implements ActorDataCollector, ActorPartitionDataCollector {
+public class TimelineCollector implements ActorDataCollector {
 
 	Network network;
 	NetworkPartitioning partitioning;
@@ -27,12 +29,20 @@ public class TimelineCollector implements ActorDataCollector, ActorPartitionData
 	double endSimulation;
 	List<Actor> actorsTopologicalSorted;
 
+	Map<Actor, Boolean> scheduledActors;
+
 	public TimelineCollector(Network network, NetworkPartitioning partitioning) {
 		this.network = network;
 		this.partitioning = partitioning;
 		this.endSimulation = 0.0;
-		
+
 		actorsTopologicalSorted = ActorsSorter.topologicalOrder(network.getActors());
+
+		scheduledActors = new HashMap<>();
+
+		for (Actor actor : network.getActors()) {
+			scheduledActors.put(actor, true);
+		}
 	}
 
 	public JsonObject getJsonObject(String fileName) {
@@ -40,9 +50,9 @@ public class TimelineCollector implements ActorDataCollector, ActorPartitionData
 
 		trace.add("schemaVersion", 1);
 		trace.add("record_shapes", 1);
-		
+
 		// -- Actor process labels
-		for(Actor actor : actorsTopologicalSorted) {
+		for (Actor actor : actorsTopologicalSorted) {
 			traceEvents.add(Json.createObjectBuilder()//
 					.add("name", "process_name")//
 					.add("ph", "M")//
@@ -58,9 +68,9 @@ public class TimelineCollector implements ActorDataCollector, ActorPartitionData
 					.add("tid", actorsTopologicalSorted.indexOf(actor))//
 					.add("args", Json.createObjectBuilder().add("name", "firing")));
 		}
-		
+
 		// -- Sort index
-		for(Actor actor : actorsTopologicalSorted) {
+		for (Actor actor : actorsTopologicalSorted) {
 			traceEvents.add(Json.createObjectBuilder()//
 					.add("name", "process_sort_index")//
 					.add("ph", "M")//
@@ -68,10 +78,9 @@ public class TimelineCollector implements ActorDataCollector, ActorPartitionData
 					.add("pid", actorsTopologicalSorted.indexOf(actor))//
 					.add("tid", actorsTopologicalSorted.indexOf(actor))//
 					.add("args", Json.createObjectBuilder().add("sort_index", actorsTopologicalSorted.indexOf(actor))));
-			
+
 		}
-		
-		
+
 		trace.add("traceEvents", traceEvents);
 		trace.add("traceName", fileName);
 
@@ -99,46 +108,6 @@ public class TimelineCollector implements ActorDataCollector, ActorPartitionData
 	}
 
 	@Override
-	public void logActorTerminated(String partitionId, Actor actor, double time) {
-		traceEvents.add(Json.createObjectBuilder()//
-				.add("name", actor.getName())//
-				.add("ph", "E")//
-				.add("ts", time)//
-				.add("pid", "Partitioning")//
-				.add("tid", partitionId));
-
-	}
-
-	@Override
-	public void logScheduleActor(String partitionId, Actor actor, double time) {
-		
-
-	}
-
-	@Override
-	public void logCheckActor(String partitionId, Actor actor, double time) {
-		/*traceEvents.add(Json.createObjectBuilder()//
-				.add("name", actor.getName())//
-				.add("ph", "B")//
-				.add("ts", time)//
-				.add("pid", "Partitioning")//
-				.add("tid", partitionId));*/
-
-	}
-
-	@Override
-	public void logCheckedConditions(Actor actor, int conditionsChecked, boolean isInput, double time) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void logFailedConditions(Actor actor, int conditionsFailed, boolean isInput, double time) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void logIsSchedulable(Action action, long stepId, double time) {
 		// TODO Auto-generated method stub
 
@@ -163,6 +132,14 @@ public class TimelineCollector implements ActorDataCollector, ActorPartitionData
 				.add("pid", pid)//
 				.add("tid", pid)//
 				.add("args", Json.createObjectBuilder().add("stepId", stepId)));
+		
+		String partition = partitioning.getPartition(actor);
+		traceEvents.add(Json.createObjectBuilder()//
+				.add("name", actor.getName())//
+				.add("ph", "B")//
+				.add("ts", time)//
+				.add("pid", "partitioning")//
+				.add("tid", partition));
 
 	}
 
@@ -178,6 +155,14 @@ public class TimelineCollector implements ActorDataCollector, ActorPartitionData
 				.add("pid", pid)//
 				.add("tid", pid)//
 				.add("args", Json.createObjectBuilder().add("stepId", stepId)));
+		
+		String partition = partitioning.getPartition(actor);
+		traceEvents.add(Json.createObjectBuilder()//
+				.add("name", actor.getName())//
+				.add("ph", "E")//
+				.add("ts", time)//
+				.add("pid", "partitioning")//
+				.add("tid", partition));
 
 	}
 
