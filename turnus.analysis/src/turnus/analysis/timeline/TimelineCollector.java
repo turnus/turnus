@@ -10,7 +10,6 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
 import turnus.adevs.logging.ActorDataCollector;
-import turnus.adevs.logging.ActorPartitionDataCollector;
 import turnus.model.analysis.postprocessing.PostProcessingData;
 import turnus.model.analysis.postprocessing.PostprocessingFactory;
 import turnus.model.analysis.postprocessing.TimelineReport;
@@ -30,6 +29,8 @@ public class TimelineCollector implements ActorDataCollector {
 	List<Actor> actorsTopologicalSorted;
 
 	Map<Actor, Boolean> scheduledActors;
+	
+	Map<Action, Double> actionStartTime;
 
 	public TimelineCollector(Network network, NetworkPartitioning partitioning) {
 		this.network = network;
@@ -43,6 +44,9 @@ public class TimelineCollector implements ActorDataCollector {
 		for (Actor actor : network.getActors()) {
 			scheduledActors.put(actor, true);
 		}
+		
+		actionStartTime = new HashMap<>();
+		
 	}
 
 	public JsonObject getJsonObject(String fileName) {
@@ -77,7 +81,7 @@ public class TimelineCollector implements ActorDataCollector {
 					.add("ts", endSimulation)//
 					.add("pid", actorsTopologicalSorted.indexOf(actor))//
 					.add("tid", actorsTopologicalSorted.indexOf(actor))//
-					.add("args", Json.createObjectBuilder().add("sort_index", actorsTopologicalSorted.indexOf(actor))));
+					.add("args", Json.createObjectBuilder().add("sort_index", actorsTopologicalSorted.indexOf(actor) +1 )));
 
 		}
 
@@ -121,49 +125,59 @@ public class TimelineCollector implements ActorDataCollector {
 
 	@Override
 	public void logStartProcessing(Action action, long stepId, double time) {
+		/*
 		Actor actor = action.getOwner();
 		int pid = actorsTopologicalSorted.indexOf(actor);
-
+		long ss = stepId;
+		String actionName = action.getName();
 		traceEvents.add(Json.createObjectBuilder()//
-				.add("name", action.getName())//
+				.add("name", actionName)//
 				.add("cat", "action")//
 				.add("ph", "B")//
 				.add("ts", time)//
 				.add("pid", pid)//
 				.add("tid", pid)//
-				.add("args", Json.createObjectBuilder().add("stepId", stepId)));
+				.add("args", Json.createObjectBuilder().add("stepId", ss)));
 		
 		String partition = partitioning.getPartition(actor);
 		traceEvents.add(Json.createObjectBuilder()//
-				.add("name", actor.getName())//
+				.add("name", actionName)//
 				.add("ph", "B")//
 				.add("ts", time)//
 				.add("pid", "partitioning")//
-				.add("tid", partition));
-
+				.add("tid", partition)//
+				.add("args", Json.createObjectBuilder().add("stepId", ss)));
+		 	*/
+		actionStartTime.put(action, time);
 	}
 
 	@Override
 	public void logEndProcessing(Action action, long stepId, double time) {
 		Actor actor = action.getOwner();
 		int pid = actorsTopologicalSorted.indexOf(actor);
+		long ss = stepId;
+		String actionName = action.getName();
+		double duration = time-actionStartTime.get(action);
+		
 		traceEvents.add(Json.createObjectBuilder()//
-				.add("name", action.getName())//
+				.add("name", actionName)//
 				.add("cat", "action")//
-				.add("ph", "E")//
-				.add("ts", time)//
+				.add("ph", "X")//
+				.add("ts", actionStartTime.get(action))//
+				.add("dur", duration)//
 				.add("pid", pid)//
 				.add("tid", pid)//
-				.add("args", Json.createObjectBuilder().add("stepId", stepId)));
+				.add("args", Json.createObjectBuilder().add("stepId", ss)));
 		
 		String partition = partitioning.getPartition(actor);
 		traceEvents.add(Json.createObjectBuilder()//
 				.add("name", actor.getName())//
-				.add("ph", "E")//
-				.add("ts", time)//
+				.add("ph", "X")//
+				.add("ts", actionStartTime.get(action))//
+				.add("dur", duration)//
 				.add("pid", "partitioning")//
-				.add("tid", partition));
-
+				.add("tid", partition)//
+				.add("args", Json.createObjectBuilder().add("stepId", ss)));
 	}
 
 	@Override

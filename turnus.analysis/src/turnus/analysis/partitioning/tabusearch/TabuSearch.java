@@ -118,7 +118,7 @@ public class TabuSearch extends TabuSearchAbstract {
 	public void setGenerator(String generator) {
 		if (generator == null) {
 			movesGenerator = new IdleMovesGenerator(project);
-			Logger.warning("No neighborhood generator specified, random generator will be used.");
+			Logger.warning("No neighborhood generator specified, idle generator will be used.");
 		} else {
 			if (generator.equals("RANDOM"))
 				movesGenerator = new RandomMovesGenerator(project);

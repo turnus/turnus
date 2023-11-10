@@ -64,4 +64,9 @@ public class FullParallelPartition extends AtomicActorPartition {
 	public boolean canExecute() {
 		return true;
 	}
+	
+	@Override
+	public int parallelActors() {
+		return Integer.MAX_VALUE;
+	}
 }

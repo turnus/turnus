@@ -133,7 +133,7 @@ public class OptimalBufferSizeAnalysisCriticalBlockingCli implements IApplicatio
 				report = analysis.run();
 				Logger.infoRaw(report.toString());
 			} catch (Exception e) {
-				throw new TurnusException("The analysis cannot be completed", e);
+				throw new TurnusException("The analysis cannot be completed: " + e, e);
 			}
 		}
 

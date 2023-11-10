@@ -39,7 +39,7 @@ import turnus.model.dataflow.Actor;
 
 /**
  * 
- * @author Simone Casale-Brunet 
+ * @author Simone Casale-Brunet
  * @author Malgorzata Michalska
  *
  */
@@ -69,7 +69,6 @@ public class RoundRobinPartition extends AtomicActorPartition {
 				next++;
 			}
 		}
-
 		return actorsToExecute;
 	}
 
@@ -77,4 +76,10 @@ public class RoundRobinPartition extends AtomicActorPartition {
 	public boolean canExecute() {
 		return runningActors.isEmpty();
 	}
+
+	@Override
+	public int parallelActors() {
+		return 1;
+	}
+
 }

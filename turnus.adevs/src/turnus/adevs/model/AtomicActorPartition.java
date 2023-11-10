@@ -49,7 +49,7 @@ import turnus.model.dataflow.Actor;
 /**
  * This is an implementation of the Atomic Actor Partition.
  * 
- * @author Simone Casale-Brunet 
+ * @author Simone Casale-Brunet
  * @author Malgorzata Michalska
  *
  */
@@ -62,14 +62,14 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 	protected AdevsDataLogger dataLogger;
 
 	// ----- THE OVERALL ACTORS PORT ID MAP
-	private Map<Integer, Actor> ACTORS_PORTS_ID_MAP;
+	protected Map<Integer, Actor> ACTORS_PORTS_ID_MAP;
 
 	// --- THE ACTORS PARTITIONER SCHEDULER PORTS
-	private Map<Actor, Integer> PORT_PARTITION_SEND_ASK_SCHEDULABILITY;
-	private Map<Actor, Integer> PORT_PARTITION_RECEIVE_SCHEDULABILITY;
-	private Map<Actor, Integer> PORT_PARTITION_SEND_ENABLE;
-	private Map<Actor, Integer> PORT_PARTITION_RECEIVE_END_OF_FIRING;
-	private Map<Actor, Integer> PORT_PARTITION_RECEIVE_END_OF_READING;
+	protected Map<Actor, Integer> PORT_PARTITION_SEND_ASK_SCHEDULABILITY;
+	protected Map<Actor, Integer> PORT_PARTITION_RECEIVE_SCHEDULABILITY;
+	protected Map<Actor, Integer> PORT_PARTITION_SEND_ENABLE;
+	protected Map<Actor, Integer> PORT_PARTITION_RECEIVE_END_OF_FIRING;
+	protected Map<Actor, Integer> PORT_PARTITION_RECEIVE_END_OF_READING;
 
 	public enum Status {
 		IDLE, CHECK_SCHEDULABILITY, WAITING, SCHEDULING;
@@ -77,25 +77,27 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 
 	protected Status status = Status.CHECK_SCHEDULABILITY;
 
-	
 	protected List<Actor> runningActors = new ArrayList<Actor>();
 	protected List<Actor> schedulableActors = new ArrayList<Actor>();
-	
-	private List<Actor> aliveActors; // actors that have not terminated yet
-	private List<Actor> actorsToCheck = new ArrayList<Actor>(); // actors whose schedulability must be verified
-	private List<Actor> blockedReadingActors = new ArrayList<Actor>();
-	private List<Actor> blockedWritingActors = new ArrayList<Actor>();
-	
-	private List<Actor> endReadingQueue = new ArrayList<Actor>();
-	private Map<Actor, Object[]> endFiringQueue = new HashMap<Actor, Object[]>(); // used to store the received end-of-firing signals, 
-																				// if they arrive simultaneously to the check schedulability procedure
-	private double schedulabilityReceived = 0;
+
+	protected List<Actor> aliveActors; // actors that have not terminated yet
+	protected List<Actor> actorsToCheck = new ArrayList<Actor>(); // actors whose schedulability must be verified
+	protected List<Actor> blockedReadingActors = new ArrayList<Actor>();
+	protected List<Actor> blockedWritingActors = new ArrayList<Actor>();
+
+	protected List<Actor> endReadingQueue = new ArrayList<Actor>();
+	protected Map<Actor, Object[]> endFiringQueue = new HashMap<Actor, Object[]>(); // used to store the received
+																					// end-of-firing signals,
+																					// if they arrive simultaneously to
+																					// the check schedulability
+																					// procedure
+	protected double schedulabilityReceived = 0;
 	protected double localTime = 0;
-	
-	private Action lastExecutedAction = null;
+
+	protected Action lastExecutedAction = null;
 	protected double lastPartitionFinishTime = 0;
-	
-	protected AtomicActorPartition(List<Actor> actors, String partitionId){
+
+	protected AtomicActorPartition(List<Actor> actors, String partitionId) {
 		this.actors = ImmutableList.copyOf(actors);
 		this.aliveActors = new ArrayList<Actor>(actors);
 		this.partitionId = partitionId;
@@ -119,12 +121,14 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 
 	@Override
 	public void delta_int() {
-		//Logger.debug("delta_int at %f : actor partition=%s", localTime, this.toString());
+		// Logger.debug("delta_int at %f : actor partition=%s", localTime,
+		// this.toString());
 	}
 
 	@Override
 	public void delta_ext(double e, Collection<PortValue> xb) {
-		//Logger.debug("delta_ext at %f : actor partition=%s", localTime, this.toString());
+		// Logger.debug("delta_ext at %f : actor partition=%s", localTime,
+		// this.toString());
 		localTime += e;
 		for (PortValue inPortValue : xb) {
 			int port = inPortValue.getPort();
@@ -134,14 +138,15 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 					lastPartitionFinishTime = localTime;
 				}
 				if (status == Status.IDLE) {
-					Object[] receivedEndData = (Object[])inPortValue.getValue();
-					processEndFiring(actor, (boolean)receivedEndData[1], (Action)receivedEndData[0]);
+					Object[] receivedEndData = (Object[]) inPortValue.getValue();
+					processEndFiring(actor, (boolean) receivedEndData[1], (Action) receivedEndData[0]);
 					if (canExecute())
 						status = Status.CHECK_SCHEDULABILITY;
 				} else { // ongoing schedulability check procedure
-					endFiringQueue.put(actor, (Object[])inPortValue.getValue());
+					endFiringQueue.put(actor, (Object[]) inPortValue.getValue());
 				}
-			} else if (port == PORT_PARTITION_RECEIVE_END_OF_READING.get(actor)) { // this part should be deactivated if an option is used
+			} else if (port == PORT_PARTITION_RECEIVE_END_OF_READING.get(actor)) { // this part should be deactivated if
+																					// an option is used
 				if (status == Status.IDLE) {
 					processEndReading(actor);
 					if (canExecute())
@@ -154,63 +159,66 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 				schedulabilityReceived++;
 				if (value == 0) { // 0 = is schedulable
 					schedulableActors.add(actor);
-				}
-				else if (value == 1) { // 1 = is blocked reading
+				} else if (value == 1) { // 1 = is blocked reading
 					blockedReadingActors.add(actor);
-				}
-				else if (value == 2) { // 2 = is blocked writing
+				} else if (value == 2) { // 2 = is blocked writing
 					blockedWritingActors.add(actor);
 				}
 				// remove the first condition?
 				if (status == Status.WAITING && schedulabilityReceived == actorsToCheck.size())
-					status = Status.SCHEDULING; // start scheduling if schedulability information received from all actors
+					status = Status.SCHEDULING; // start scheduling if schedulability information received from all
+												// actors
 			}
 		}
 	}
-	
-	private void processEndFiring(Actor actor, boolean isAlive, Action executedAction) {
+
+	protected void processEndFiring(Actor actor, boolean isAlive, Action executedAction) {
 		if (actors.contains(actor)) // update only if it is an actor of THIS partition
 			lastExecutedAction = executedAction;
-		
+
 		if (!isAlive) { // isAlive: true if there is at least one more step to be fired.
 			aliveActors.remove(actor);
 			dataLogger.logActorTerminated(partitionId, actor, localTime);
 		}
-		
+
 		runningActors.remove(actor);
-		blockedReadingActors.removeAll(actor.getSuccessors()); // successors in the blocked reading state must be re-checked
-		blockedWritingActors.removeAll(actor.getPredecessors()); // predecessors in the blocked writing state must be re-checked
-		
+		blockedReadingActors.removeAll(actor.getSuccessors()); // successors in the blocked reading state must be
+																// re-checked
+		blockedWritingActors.removeAll(actor.getPredecessors()); // predecessors in the blocked writing state must be
+																	// re-checked
+
 		actorsToCheck.clear();
-		actorsToCheck.addAll(aliveActors); 
-		actorsToCheck.removeAll(runningActors); 
-		actorsToCheck.removeAll(schedulableActors); 
-		actorsToCheck.removeAll(blockedReadingActors); 
-		actorsToCheck.removeAll(blockedWritingActors); 
-		
-		// at this stage actorsToCheck should contain only the actors 
+		actorsToCheck.addAll(aliveActors);
+		actorsToCheck.removeAll(runningActors);
+		actorsToCheck.removeAll(schedulableActors);
+		actorsToCheck.removeAll(blockedReadingActors);
+		actorsToCheck.removeAll(blockedWritingActors);
+
+		// at this stage actorsToCheck should contain only the actors
 		// whose schedulability cannot be deduced and must be checked
 	}
-	
-	private void processEndReading(Actor actor) {
+
+	protected void processEndReading(Actor actor) {
 		if (!actors.contains(actor)) { // applies only if it's an actor from ANOTHER partition
-			blockedWritingActors.removeAll(actor.getPredecessors()); // predecessors in the blocked writing state must be re-checked
-			
+			blockedWritingActors.removeAll(actor.getPredecessors()); // predecessors in the blocked writing state must
+																		// be re-checked
+
 			actorsToCheck.clear();
-			actorsToCheck.addAll(aliveActors); 
-			actorsToCheck.removeAll(runningActors); 
-			actorsToCheck.removeAll(schedulableActors); 
-			actorsToCheck.removeAll(blockedReadingActors); 
-			actorsToCheck.removeAll(blockedWritingActors); 
-			
-			// at this stage actorsToCheck should contain only the actors 
+			actorsToCheck.addAll(aliveActors);
+			actorsToCheck.removeAll(runningActors);
+			actorsToCheck.removeAll(schedulableActors);
+			actorsToCheck.removeAll(blockedReadingActors);
+			actorsToCheck.removeAll(blockedWritingActors);
+
+			// at this stage actorsToCheck should contain only the actors
 			// whose schedulability cannot be deduced and must be checked
 		}
 	}
 
 	@Override
 	public void output_func(Collection<PortValue> yb) {
-		//Logger.debug("output_func at %f : actor partition=%s", localTime, this.toString());
+		// Logger.debug("output_func at %f : actor partition=%s", localTime,
+		// this.toString());
 		switch (status) {
 		case CHECK_SCHEDULABILITY: {
 			if (!actorsToCheck.isEmpty()) {
@@ -228,21 +236,26 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 				Actor endReading = endReadingQueue.iterator().next();
 				processEndReading(endReading);
 				endReadingQueue.remove(endReading);
-			} else { 
+			} else {
 				Entry<Actor, Object[]> endFiring = endFiringQueue.entrySet().iterator().next();
-				processEndFiring(endFiring.getKey(), (boolean)endFiring.getValue()[1], (Action)endFiring.getValue()[0]);
+				processEndFiring(endFiring.getKey(), (boolean) endFiring.getValue()[1],
+						(Action) endFiring.getValue()[0]);
 				endFiringQueue.remove(endFiring.getKey());
 			}
-			// stay in CHECK_SCHEDULABILITY state till all enqueued end-of-reading / end-of-firing signals are processed
-				
+			// stay in CHECK_SCHEDULABILITY state till all enqueued end-of-reading /
+			// end-of-firing signals are processed
+
 			break;
 		}
 		case SCHEDULING: {
-			for (Actor actor : getSchedulables()) { // getSchedulables() is implemented differently for different scheduler types
-				runningActors.add(actor);
-				schedulableActors.remove(actor);
-				yb.add(new PortValue(PORT_PARTITION_SEND_ENABLE.get(actor), lastExecutedAction));
-				dataLogger.logScheduleActor(partitionId, actor, localTime);
+			for (Actor actor : getSchedulables()) { // getSchedulables() is implemented differently for different
+													// scheduler types
+				if (runningActors.size() < parallelActors()) {
+					runningActors.add(actor);
+					schedulableActors.remove(actor);
+					yb.add(new PortValue(PORT_PARTITION_SEND_ENABLE.get(actor), lastExecutedAction));
+					dataLogger.logScheduleActor(partitionId, actor, localTime);
+				}
 			}
 			if (endReadingQueue.isEmpty() && endFiringQueue.isEmpty()) {
 				status = Status.IDLE;
@@ -254,7 +267,8 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 				status = Status.CHECK_SCHEDULABILITY;
 			} else { // process the enqueued end-of-firing signals
 				Entry<Actor, Object[]> endFiring = endFiringQueue.entrySet().iterator().next();
-				processEndFiring(endFiring.getKey(), (boolean)endFiring.getValue()[1], (Action)endFiring.getValue()[0]);
+				processEndFiring(endFiring.getKey(), (boolean) endFiring.getValue()[1],
+						(Action) endFiring.getValue()[0]);
 				endFiringQueue.remove(endFiring.getKey());
 				status = Status.CHECK_SCHEDULABILITY;
 			}
@@ -291,4 +305,6 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 	public abstract List<Actor> getSchedulables();
 
 	public abstract boolean canExecute();
+
+	public abstract int parallelActors();
 }
