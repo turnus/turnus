@@ -81,7 +81,7 @@ public class TimelineCollector implements ActorDataCollector {
 					.add("ts", endSimulation)//
 					.add("pid", actorsTopologicalSorted.indexOf(actor))//
 					.add("tid", actorsTopologicalSorted.indexOf(actor))//
-					.add("args", Json.createObjectBuilder().add("sort_index", actorsTopologicalSorted.indexOf(actor))));
+					.add("args", Json.createObjectBuilder().add("sort_index", actorsTopologicalSorted.indexOf(actor) +1 )));
 
 		}
 

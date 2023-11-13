@@ -49,9 +49,6 @@ import org.eclipse.swt.widgets.Composite;
 import turnus.common.TurnusRuntimeException;
 import turnus.common.configuration.Option;
 import turnus.ui.Icon;
-import turnus.ui.widget.launch.ILaunchWidget;
-import turnus.ui.widget.launch.LaunchWidgetSelectProject;
-import turnus.ui.widget.launch.LaunchWidgetSelectResource;
 
 /**
  * 

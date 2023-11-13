@@ -365,7 +365,8 @@ public class OptimalBufferSizeAnalysisHeavyBlocking extends Analysis<OptimalBuff
 		Map<Buffer, Double> result = new HashMap<>();
 		for (Buffer b : nonCriticalBuffers) {
 			if (bbReport.getMaxBlockedMultiplication().keySet().contains(b))
-				result.put(b, (double)bbReport.getMaxBlockedMultiplication().get(b));
+				if(bbReport.getMaxBlockedMultiplication().get(b) != null)
+					result.put(b, (double)bbReport.getMaxBlockedMultiplication().get(b));
 		}
 		
 		return result;

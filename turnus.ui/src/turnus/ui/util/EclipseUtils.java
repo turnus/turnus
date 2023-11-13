@@ -82,6 +82,7 @@ import turnus.ui.TurnusUiConstants;
  * This class contains some utilities methods for the Eclipse user interface
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class EclipseUtils {
@@ -303,6 +304,7 @@ public class EclipseUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Collections.reverse(files);
 		return files;
 
 	}

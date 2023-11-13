@@ -63,6 +63,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
+import turnus.adevs.simulation.SimEngine;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
@@ -115,7 +116,7 @@ public class TimelineCli implements IApplication {
 	}
 
 	private Configuration configuration;
-	private TimelineSimEngine simulation;
+	private SimEngine simulation;
 
 	private IProgressMonitor monitor = new NullProgressMonitor();
 
@@ -219,7 +220,7 @@ public class TimelineCli implements IApplication {
 			try {
 				
 
-				simulation = new TimelineSimEngine();
+				simulation = new SimEngine();
 				simulation.setTraceProject(tProject);
 				simulation.setTraceWeighter(tWeighter);
 				simulation.setNetworkPartitioning(partitioning);
