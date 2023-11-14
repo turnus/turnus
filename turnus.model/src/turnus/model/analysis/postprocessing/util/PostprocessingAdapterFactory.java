@@ -31,6 +31,7 @@
  */
 package turnus.model.analysis.postprocessing.util;
 
+import java.util.Map;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 
@@ -133,6 +134,10 @@ public class PostprocessingAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseTimelineReport(TimelineReport object) {
 				return createTimelineReportAdapter();
+			}
+			@Override
+			public Adapter casePartitionToActorStatisticalActorPartition(Map.Entry<String, StatisticalActorPartition> object) {
+				return createPartitionToActorStatisticalActorPartitionAdapter();
 			}
 			@Override
 			public Adapter caseAnalysisReport(AnalysisReport object) {
@@ -281,6 +286,20 @@ public class PostprocessingAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTimelineReportAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>Partition To Actor Statistical Actor Partition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see java.util.Map.Entry
+	 * @generated
+	 */
+	public Adapter createPartitionToActorStatisticalActorPartitionAdapter() {
 		return null;
 	}
 

@@ -661,6 +661,11 @@
             ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/TimelineReport/network"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/TimelineReport/fileName"/>
       </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//postprocessing/PartitionToActorStatisticalActorPartition">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//postprocessing/PartitionToActorStatisticalActorPartition/key"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//postprocessing/PartitionToActorStatisticalActorPartition/value"/>
+      </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Profiling" basePackage="turnus.model.analysis" disposableProviderFactory="true"
         ecorePackage="analysis.ecore#//profiling">
@@ -711,6 +716,7 @@
             ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionData/incomingBuffers"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionData/outgoingBuffers"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//profiling/InterPartitionData/occupancy"/>
       </genClasses>
       <genClasses ecoreClass="analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//profiling/InterPartitionCommunicationAndMemoryReport/partitionData"/>

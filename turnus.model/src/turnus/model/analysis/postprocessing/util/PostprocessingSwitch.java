@@ -31,6 +31,7 @@
  */
 package turnus.model.analysis.postprocessing.util;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -154,6 +155,12 @@ public class PostprocessingSwitch<T> extends Switch<T> {
 				TimelineReport timelineReport = (TimelineReport)theEObject;
 				T result = caseTimelineReport(timelineReport);
 				if (result == null) result = casePostProcessingData(timelineReport);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PostprocessingPackage.PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION: {
+				@SuppressWarnings("unchecked") Map.Entry<String, StatisticalActorPartition> partitionToActorStatisticalActorPartition = (Map.Entry<String, StatisticalActorPartition>)theEObject;
+				T result = casePartitionToActorStatisticalActorPartition(partitionToActorStatisticalActorPartition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -293,6 +300,21 @@ public class PostprocessingSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTimelineReport(TimelineReport object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Partition To Actor Statistical Actor Partition</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Partition To Actor Statistical Actor Partition</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePartitionToActorStatisticalActorPartition(Map.Entry<String, StatisticalActorPartition> object) {
 		return null;
 	}
 

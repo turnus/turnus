@@ -226,7 +226,7 @@ public interface PostprocessingPackage extends EPackage {
 	int ACTOR_STATISTICS_REPORT__EXECUTION_TIME = POST_PROCESSING_DATA_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Partitions</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Partitions</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -745,6 +745,52 @@ public interface PostprocessingPackage extends EPackage {
 	int TIMELINE_REPORT_OPERATION_COUNT = POST_PROCESSING_DATA_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link turnus.model.analysis.postprocessing.impl.PartitionToActorStatisticalActorPartitionImpl <em>Partition To Actor Statistical Actor Partition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.analysis.postprocessing.impl.PartitionToActorStatisticalActorPartitionImpl
+	 * @see turnus.model.analysis.postprocessing.impl.PostprocessingPackageImpl#getPartitionToActorStatisticalActorPartition()
+	 * @generated
+	 */
+	int PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION = 9;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Partition To Actor Statistical Actor Partition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Partition To Actor Statistical Actor Partition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION_OPERATION_COUNT = 0;
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.postprocessing.PostProcessingReport <em>Post Processing Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -841,10 +887,10 @@ public interface PostprocessingPackage extends EPackage {
 	EAttribute getActorStatisticsReport_ExecutionTime();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link turnus.model.analysis.postprocessing.ActorStatisticsReport#getPartitions <em>Partitions</em>}'.
+	 * Returns the meta object for the map '{@link turnus.model.analysis.postprocessing.ActorStatisticsReport#getPartitions <em>Partitions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Partitions</em>'.
+	 * @return the meta object for the map '<em>Partitions</em>'.
 	 * @see turnus.model.analysis.postprocessing.ActorStatisticsReport#getPartitions()
 	 * @see #getActorStatisticsReport()
 	 * @generated
@@ -1308,6 +1354,40 @@ public interface PostprocessingPackage extends EPackage {
 	EAttribute getTimelineReport_FileName();
 
 	/**
+	 * Returns the meta object for class '{@link java.util.Map.Entry <em>Partition To Actor Statistical Actor Partition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Partition To Actor Statistical Actor Partition</em>'.
+	 * @see java.util.Map.Entry
+	 * @model keyDataType="org.eclipse.emf.ecore.EString"
+	 *        valueType="turnus.model.analysis.postprocessing.StatisticalActorPartition" valueContainment="true"
+	 * @generated
+	 */
+	EClass getPartitionToActorStatisticalActorPartition();
+
+	/**
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getPartitionToActorStatisticalActorPartition()
+	 * @generated
+	 */
+	EAttribute getPartitionToActorStatisticalActorPartition_Key();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link java.util.Map.Entry <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getPartitionToActorStatisticalActorPartition()
+	 * @generated
+	 */
+	EReference getPartitionToActorStatisticalActorPartition_Value();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1409,7 +1489,7 @@ public interface PostprocessingPackage extends EPackage {
 		EAttribute ACTOR_STATISTICS_REPORT__EXECUTION_TIME = eINSTANCE.getActorStatisticsReport_ExecutionTime();
 
 		/**
-		 * The meta object literal for the '<em><b>Partitions</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Partitions</b></em>' map feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1763,6 +1843,32 @@ public interface PostprocessingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TIMELINE_REPORT__FILE_NAME = eINSTANCE.getTimelineReport_FileName();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.analysis.postprocessing.impl.PartitionToActorStatisticalActorPartitionImpl <em>Partition To Actor Statistical Actor Partition</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.analysis.postprocessing.impl.PartitionToActorStatisticalActorPartitionImpl
+		 * @see turnus.model.analysis.postprocessing.impl.PostprocessingPackageImpl#getPartitionToActorStatisticalActorPartition()
+		 * @generated
+		 */
+		EClass PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION = eINSTANCE.getPartitionToActorStatisticalActorPartition();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION__KEY = eINSTANCE.getPartitionToActorStatisticalActorPartition_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION__VALUE = eINSTANCE.getPartitionToActorStatisticalActorPartition_Value();
 
 	}
 

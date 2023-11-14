@@ -31,14 +31,10 @@
  */
 package turnus.model.analysis.postprocessing.impl;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 
 import org.eclipse.emf.ecore.EClass;
@@ -46,8 +42,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -114,14 +108,14 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	protected double executionTime = EXECUTION_TIME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPartitions() <em>Partitions</em>}' containment reference list.
+	 * The cached value of the '{@link #getPartitions() <em>Partitions</em>}' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPartitions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<StatisticalActorPartition> partitions;
+	protected EMap<String, StatisticalActorPartition> partitions;
 
 	/**
 	 * The cached value of the '{@link #getIdleTimes() <em>Idle Times</em>}' map.
@@ -291,11 +285,11 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	 * @generated
 	 */
 	@Override
-	public List<StatisticalActorPartition> getPartitions() {
+	public Map<String, StatisticalActorPartition> getPartitions() {
 		if (partitions == null) {
-			partitions = new EObjectContainmentEList<StatisticalActorPartition>(StatisticalActorPartition.class, this, PostprocessingPackage.ACTOR_STATISTICS_REPORT__PARTITIONS);
+			partitions = new EcoreEMap<String,StatisticalActorPartition>(PostprocessingPackage.Literals.PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION, PartitionToActorStatisticalActorPartitionImpl.class, this, PostprocessingPackage.ACTOR_STATISTICS_REPORT__PARTITIONS);
 		}
-		return partitions;
+		return partitions.map();
 	}
 
 	/**
@@ -405,7 +399,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case PostprocessingPackage.ACTOR_STATISTICS_REPORT__PARTITIONS:
-				return ((InternalEList<?>)getPartitions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)((EMap.InternalMapView<String, StatisticalActorPartition>)getPartitions()).eMap()).basicRemove(otherEnd, msgs);
 			case PostprocessingPackage.ACTOR_STATISTICS_REPORT__IDLE_TIMES:
 				return ((InternalEList<?>)((EMap.InternalMapView<String, Double>)getIdleTimes()).eMap()).basicRemove(otherEnd, msgs);
 			case PostprocessingPackage.ACTOR_STATISTICS_REPORT__BLOCKED_READING_TIMES:
@@ -432,7 +426,8 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 			case PostprocessingPackage.ACTOR_STATISTICS_REPORT__EXECUTION_TIME:
 				return getExecutionTime();
 			case PostprocessingPackage.ACTOR_STATISTICS_REPORT__PARTITIONS:
-				return getPartitions();
+				if (coreType) return ((EMap.InternalMapView<String, StatisticalActorPartition>)getPartitions()).eMap();
+				else return getPartitions();
 			case PostprocessingPackage.ACTOR_STATISTICS_REPORT__IDLE_TIMES:
 				if (coreType) return ((EMap.InternalMapView<String, Double>)getIdleTimes()).eMap();
 				else return getIdleTimes();
@@ -469,8 +464,7 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 				setExecutionTime((Double)newValue);
 				return;
 			case PostprocessingPackage.ACTOR_STATISTICS_REPORT__PARTITIONS:
-				getPartitions().clear();
-				getPartitions().addAll((Collection<? extends StatisticalActorPartition>)newValue);
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, StatisticalActorPartition>)getPartitions()).eMap()).set(newValue);
 				return;
 			case PostprocessingPackage.ACTOR_STATISTICS_REPORT__IDLE_TIMES:
 				((EStructuralFeature.Setting)((EMap.InternalMapView<String, Double>)getIdleTimes()).eMap()).set(newValue);
@@ -578,9 +572,9 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 		b.append(String.format("\n Standard deviation of occupancy...: %.2f", getOccupancyDeviation()) + "%");
 		b.append("\n");
 		
-		int pNumber = 1;
-		for (StatisticalActorPartition partition : getPartitions()) {
-			b.append(String.format("\n Partition (%d):\n", pNumber++));
+		for (String id : getPartitions().keySet()) {
+			StatisticalActorPartition partition = getPartitions().get(id);
+			b.append(String.format("\n Partition (%s):\n", id));
 			b.append(String.format("\t occupancy: %.2f", partition.getOccupancy()));
 			b.append("%\n Actors:\n");
 			for (String actorName : partition.getActors()) {
@@ -600,13 +594,12 @@ public class ActorStatisticsReportImpl extends PostProcessingDataImpl implements
 	@Override
 	public NetworkPartitioning asNetworkPartitioning() {
 		NetworkPartitioning partitioning = new NetworkPartitioning(getNetwork());
-		int partition = 1;
-		for (StatisticalActorPartition data : getPartitions()) {
-			String component = "p" + (partition++);
-			for (String actorName : data.getActors()) {
-				partitioning.setPartition(actorName, component);
+		
+		for (String partition : getPartitions().keySet()) {
+			for (String actorName : getPartitions().get(partition).getActors()) {
+				partitioning.setPartition(actorName, partition);
 			}
-			partitioning.setScheduler(component, data.getSchedulingPolicy());
+			partitioning.setScheduler(partition, getPartitions().get(partition).getSchedulingPolicy());
 		}
 		return partitioning;
 	}

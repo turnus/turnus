@@ -307,4 +307,8 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 	public abstract boolean canExecute();
 
 	public abstract int parallelActors();
+
+	public Status getCurrentStatus() {
+		return status;
+	}
 }

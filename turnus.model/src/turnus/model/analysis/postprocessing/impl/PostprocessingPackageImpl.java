@@ -31,6 +31,7 @@
  */
 package turnus.model.analysis.postprocessing.impl;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -163,6 +164,13 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * @generated
 	 */
 	private EClass timelineReportEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass partitionToActorStatisticalActorPartitionEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -798,6 +806,36 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 	 * @generated
 	 */
 	@Override
+	public EClass getPartitionToActorStatisticalActorPartition() {
+		return partitionToActorStatisticalActorPartitionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getPartitionToActorStatisticalActorPartition_Key() {
+		return (EAttribute)partitionToActorStatisticalActorPartitionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getPartitionToActorStatisticalActorPartition_Value() {
+		return (EReference)partitionToActorStatisticalActorPartitionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public PostprocessingFactory getPostprocessingFactory() {
 		return (PostprocessingFactory)getEFactoryInstance();
 	}
@@ -881,6 +919,10 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		timelineReportEClass = createEClass(TIMELINE_REPORT);
 		createEReference(timelineReportEClass, TIMELINE_REPORT__NETWORK);
 		createEAttribute(timelineReportEClass, TIMELINE_REPORT__FILE_NAME);
+
+		partitionToActorStatisticalActorPartitionEClass = createEClass(PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION);
+		createEAttribute(partitionToActorStatisticalActorPartitionEClass, PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION__KEY);
+		createEReference(partitionToActorStatisticalActorPartitionEClass, PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION__VALUE);
 	}
 
 	/**
@@ -936,7 +978,7 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		initEClass(actorStatisticsReportEClass, ActorStatisticsReport.class, "ActorStatisticsReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getActorStatisticsReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getActorStatisticsReport_ExecutionTime(), ecorePackage.getEDouble(), "executionTime", null, 0, 1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getActorStatisticsReport_Partitions(), this.getStatisticalActorPartition(), null, "partitions", null, 0, -1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getActorStatisticsReport_Partitions(), this.getPartitionToActorStatisticalActorPartition(), null, "partitions", null, 0, -1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActorStatisticsReport_IdleTimes(), theMapPackage.getStringToDoubleMap(), null, "idleTimes", null, 0, -1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActorStatisticsReport_BlockedReadingTimes(), theMapPackage.getStringToDoubleMap(), null, "blockedReadingTimes", null, 0, -1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActorStatisticsReport_BlockedWritingTimes(), theMapPackage.getStringToDoubleMap(), null, "blockedWritingTimes", null, 0, -1, ActorStatisticsReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -985,6 +1027,10 @@ public class PostprocessingPackageImpl extends EPackageImpl implements Postproce
 		initEClass(timelineReportEClass, TimelineReport.class, "TimelineReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTimelineReport_Network(), theDataflowPackage.getNetwork(), null, "network", null, 0, 1, TimelineReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTimelineReport_FileName(), ecorePackage.getEString(), "fileName", null, 0, 1, TimelineReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(partitionToActorStatisticalActorPartitionEClass, Map.Entry.class, "PartitionToActorStatisticalActorPartition", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPartitionToActorStatisticalActorPartition_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPartitionToActorStatisticalActorPartition_Value(), this.getStatisticalActorPartition(), null, "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //PostprocessingPackageImpl

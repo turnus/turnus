@@ -538,7 +538,7 @@ public class NetworkWeightEditor extends EditorPart {
 				}
 			}
 		} catch (Exception e) {
-			throw new PartInitException("Input file is corrupted or not valid");
+			throw new PartInitException("Input file is corrupted or not valid: " + e.getMessage());
 		}
 		setSite(site);
 		setInput(input);

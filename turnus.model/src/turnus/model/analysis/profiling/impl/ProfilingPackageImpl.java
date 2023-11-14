@@ -628,6 +628,16 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 	 * @generated
 	 */
 	@Override
+	public EAttribute getInterPartitionData_Occupancy() {
+		return (EAttribute)interPartitionDataEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getInterPartitionCommunicationAndMemoryReport() {
 		return interPartitionCommunicationAndMemoryReportEClass;
 	}
@@ -931,6 +941,7 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		createEReference(interPartitionDataEClass, INTER_PARTITION_DATA__INTERNAL_BUFFERS);
 		createEReference(interPartitionDataEClass, INTER_PARTITION_DATA__INCOMING_BUFFERS);
 		createEReference(interPartitionDataEClass, INTER_PARTITION_DATA__OUTGOING_BUFFERS);
+		createEAttribute(interPartitionDataEClass, INTER_PARTITION_DATA__OCCUPANCY);
 
 		interPartitionCommunicationAndMemoryReportEClass = createEClass(INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT);
 		createEReference(interPartitionCommunicationAndMemoryReportEClass, INTER_PARTITION_COMMUNICATION_AND_MEMORY_REPORT__PARTITION_DATA);
@@ -1040,6 +1051,7 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		initEReference(getInterPartitionData_InternalBuffers(), theDataflowPackage.getBuffer(), null, "internalBuffers", null, 0, -1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInterPartitionData_IncomingBuffers(), theDataflowPackage.getBuffer(), null, "incomingBuffers", null, 0, -1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInterPartitionData_OutgoingBuffers(), theDataflowPackage.getBuffer(), null, "outgoingBuffers", null, 0, -1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInterPartitionData_Occupancy(), ecorePackage.getEDouble(), "occupancy", null, 0, 1, InterPartitionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(interPartitionCommunicationAndMemoryReportEClass, InterPartitionCommunicationAndMemoryReport.class, "InterPartitionCommunicationAndMemoryReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getInterPartitionCommunicationAndMemoryReport_PartitionData(), this.getInterPartitionData(), null, "partitionData", null, 0, -1, InterPartitionCommunicationAndMemoryReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

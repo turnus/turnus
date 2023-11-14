@@ -110,12 +110,12 @@ public class ActorStatistics2MdExporter implements FileExporter<ActorStatisticsR
 		b.append(String.format("* **Standard deviation of occupancy**: %.2f", data.getOccupancyDeviation()) + "%\n");
 		b.append("\n");
 
-		int pNumber = 1;
-		for (StatisticalActorPartition partition : data.getPartitions()) {
+		for(String id : data.getPartitions().keySet()) {
+			StatisticalActorPartition partition = data.getPartitions().get(id);
 			if (isParent) {
-				b.append(String.format("## Partition - %d\n", pNumber++));
+				b.append(String.format("## Partition - %s\n", id));
 			} else {
-				b.append(String.format("### Partition - %d\n", pNumber++));
+				b.append(String.format("### Partition - %s\n", id));
 			}
 			b.append("\n");
 			b.append(String.format("* **Occupancy**: %.2f", partition.getOccupancy()) + "%\n");

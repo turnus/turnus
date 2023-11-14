@@ -537,13 +537,22 @@ public interface ProfilingPackage extends EPackage {
 	int INTER_PARTITION_DATA__OUTGOING_BUFFERS = 10;
 
 	/**
+	 * The feature id for the '<em><b>Occupancy</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTER_PARTITION_DATA__OCCUPANCY = 11;
+
+	/**
 	 * The number of structural features of the '<em>Inter Partition Data</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTER_PARTITION_DATA_FEATURE_COUNT = 11;
+	int INTER_PARTITION_DATA_FEATURE_COUNT = 12;
 
 	/**
 	 * The number of operations of the '<em>Inter Partition Data</em>' class.
@@ -1245,6 +1254,17 @@ public interface ProfilingPackage extends EPackage {
 	EReference getInterPartitionData_OutgoingBuffers();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.analysis.profiling.InterPartitionData#getOccupancy <em>Occupancy</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Occupancy</em>'.
+	 * @see turnus.model.analysis.profiling.InterPartitionData#getOccupancy()
+	 * @see #getInterPartitionData()
+	 * @generated
+	 */
+	EAttribute getInterPartitionData_Occupancy();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport <em>Inter Partition Communication And Memory Report</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1819,6 +1839,14 @@ public interface ProfilingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference INTER_PARTITION_DATA__OUTGOING_BUFFERS = eINSTANCE.getInterPartitionData_OutgoingBuffers();
+
+		/**
+		 * The meta object literal for the '<em><b>Occupancy</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTER_PARTITION_DATA__OCCUPANCY = eINSTANCE.getInterPartitionData_Occupancy();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.analysis.profiling.impl.InterPartitionCommunicationAndMemoryReportImpl <em>Inter Partition Communication And Memory Report</em>}' class.

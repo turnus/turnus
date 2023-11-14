@@ -70,6 +70,7 @@ import turnus.model.dataflow.Buffer;
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getInternalBuffers <em>Internal Buffers</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getIncomingBuffers <em>Incoming Buffers</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getOutgoingBuffers <em>Outgoing Buffers</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.impl.InterPartitionDataImpl#getOccupancy <em>Occupancy</em>}</li>
  * </ul>
  *
  * @generated
@@ -254,6 +255,26 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @ordered
 	 */
 	protected EList<Buffer> outgoingBuffers;
+
+	/**
+	 * The default value of the '{@link #getOccupancy() <em>Occupancy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOccupancy()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double OCCUPANCY_EDEFAULT = 0.0;
+
+	/**
+	 * The cached value of the '{@link #getOccupancy() <em>Occupancy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOccupancy()
+	 * @generated
+	 * @ordered
+	 */
+	protected double occupancy = OCCUPANCY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -493,6 +514,29 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	@Override
+	public double getOccupancy() {
+		return occupancy;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setOccupancy(double newOccupancy) {
+		double oldOccupancy = occupancy;
+		occupancy = newOccupancy;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ProfilingPackage.INTER_PARTITION_DATA__OCCUPANCY, oldOccupancy, occupancy));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ProfilingPackage.INTER_PARTITION_DATA__ACTORS:
@@ -517,6 +561,8 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 				return getIncomingBuffers();
 			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFERS:
 				return getOutgoingBuffers();
+			case ProfilingPackage.INTER_PARTITION_DATA__OCCUPANCY:
+				return getOccupancy();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -567,6 +613,9 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 				getOutgoingBuffers().clear();
 				getOutgoingBuffers().addAll((Collection<? extends Buffer>)newValue);
 				return;
+			case ProfilingPackage.INTER_PARTITION_DATA__OCCUPANCY:
+				setOccupancy((Double)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -612,6 +661,9 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFERS:
 				getOutgoingBuffers().clear();
 				return;
+			case ProfilingPackage.INTER_PARTITION_DATA__OCCUPANCY:
+				setOccupancy(OCCUPANCY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -646,6 +698,8 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 				return incomingBuffers != null && !incomingBuffers.isEmpty();
 			case ProfilingPackage.INTER_PARTITION_DATA__OUTGOING_BUFFERS:
 				return outgoingBuffers != null && !outgoingBuffers.isEmpty();
+			case ProfilingPackage.INTER_PARTITION_DATA__OCCUPANCY:
+				return occupancy != OCCUPANCY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -674,6 +728,8 @@ public class InterPartitionDataImpl extends MinimalEObjectImpl.Container impleme
 		result.append(partitionId);
 		result.append(", persistentBuffers: ");
 		result.append(persistentBuffers);
+		result.append(", occupancy: ");
+		result.append(occupancy);
 		result.append(')');
 		return result.toString();
 	}

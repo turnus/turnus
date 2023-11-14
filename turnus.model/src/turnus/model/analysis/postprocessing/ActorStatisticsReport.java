@@ -31,7 +31,6 @@
  */
 package turnus.model.analysis.postprocessing;
 
-import java.util.List;
 import java.util.Map;
 
 import turnus.model.dataflow.Network;
@@ -115,20 +114,21 @@ public interface ActorStatisticsReport extends PostProcessingData {
 	void setExecutionTime(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Partitions</b></em>' containment reference list.
-	 * The list contents are of type {@link turnus.model.analysis.postprocessing.StatisticalActorPartition}.
+	 * Returns the value of the '<em><b>Partitions</b></em>' map.
+	 * The key is of type {@link java.lang.String},
+	 * and the value is of type {@link turnus.model.analysis.postprocessing.StatisticalActorPartition},
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Partitions</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Partitions</em>' containment reference list.
+	 * @return the value of the '<em>Partitions</em>' map.
 	 * @see turnus.model.analysis.postprocessing.PostprocessingPackage#getActorStatisticsReport_Partitions()
-	 * @model containment="true"
+	 * @model mapType="turnus.model.analysis.postprocessing.PartitionToActorStatisticalActorPartition&lt;org.eclipse.emf.ecore.EString, turnus.model.analysis.postprocessing.StatisticalActorPartition&gt;"
 	 * @generated
 	 */
-	List<StatisticalActorPartition> getPartitions();
+	Map<String, StatisticalActorPartition> getPartitions();
 
 	/**
 	 * Returns the value of the '<em><b>Idle Times</b></em>' map.

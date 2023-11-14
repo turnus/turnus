@@ -37,12 +37,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import turnus.adevs.logging.impl.ActorStatisticsCollector;
 import turnus.analysis.Analysis;
 import turnus.analysis.bottlenecks.AlgorithmicPartialCriticalPathAnalysis;
 import turnus.analysis.bottlenecks.ScheduledPartialCriticalPathAnalysis;
 import turnus.common.TurnusException;
 import turnus.model.analysis.bottlenecks.BottlenecksReport;
 import turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport;
+import turnus.model.analysis.postprocessing.ActorStatisticsReport;
 import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
 import turnus.model.analysis.profiling.InterPartitionData;
 import turnus.model.analysis.profiling.ProfilingFactory;
@@ -164,6 +166,7 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		cpAnalysis.setConfiguration(configuration);
 		cpAnalysis.setWeighter(weighter);
 		cpAnalysis.setBufferSize(bufferSize);
+		
 
 		// -- Run partial critical path analysis
 		BottlenecksReport initialCp = cpAnalysis.run();
@@ -174,7 +177,10 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		// simulation
 		ScheduledPartialCriticalPathAnalysis cpAnalysisScheduled = new ScheduledPartialCriticalPathAnalysis(project);
 		cpAnalysisScheduled.setConfiguration(configuration);
+		ActorStatisticsCollector actorStatsCollector = new ActorStatisticsCollector(network, partitioning);
+		cpAnalysisScheduled.registerCollector(actorStatsCollector);
 
+		
 		// -- Get scheduled partial critical path analysis, and set necessary values to
 		// the report
 		BottlenecksWithSchedulingReport bottlenecksWithSchedulingReport = cpAnalysisScheduled.run();
@@ -191,6 +197,8 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		// -- Calculate workload for each actor
 		processTrace();
 
+		ActorStatisticsReport actorStatsReport  = actorStatsCollector.generateReport();
+		
 		for (String partId : pMap.keySet()) {
 			List<String> actorInstances = pMap.get(partId);
 
@@ -199,6 +207,10 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 
 			// -- Set partition Id
 			partitionDatum.setPartitionId(partId);
+			
+			// -- Set occupancy
+			double occupancy = actorStatsReport.getPartitions().get(partId).getOccupancy();
+			partitionDatum.setOccupancy(occupancy);
 
 			// -- Add actor instances
 			for (String actorInstance : actorInstances) {

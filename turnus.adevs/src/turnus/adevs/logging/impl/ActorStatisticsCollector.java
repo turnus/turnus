@@ -257,7 +257,7 @@ public class ActorStatisticsCollector implements ActorDataCollector, Cloneable {
 			
 			partition.setOccupancy(workloadPc);
 			
-			report.getPartitions().add(partition);
+			report.getPartitions().put(entry.getKey(), partition);
 		}
 		avg /= partitioning.asPartitionActorsMap().size();
 		
@@ -305,7 +305,7 @@ public class ActorStatisticsCollector implements ActorDataCollector, Cloneable {
 	
 	private double stddev(ActorStatisticsReport report, double average) {
 		double sumsquared = 0;
-		for (StatisticalActorPartition p : report.getPartitions()) {
+		for (StatisticalActorPartition p : report.getPartitions().values()) {
 			sumsquared += Math.pow(p.getOccupancy() - average, 2);
 		}
 		

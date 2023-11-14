@@ -58,6 +58,7 @@ import turnus.model.dataflow.Buffer;
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getInternalBuffers <em>Internal Buffers</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getIncomingBuffers <em>Incoming Buffers</em>}</li>
  *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getOutgoingBuffers <em>Outgoing Buffers</em>}</li>
+ *   <li>{@link turnus.model.analysis.profiling.InterPartitionData#getOccupancy <em>Occupancy</em>}</li>
  * </ul>
  *
  * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData()
@@ -266,5 +267,27 @@ public interface InterPartitionData extends EObject {
 	 * @generated
 	 */
 	List<Buffer> getOutgoingBuffers();
+
+	/**
+	 * Returns the value of the '<em><b>Occupancy</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Occupancy</em>' attribute.
+	 * @see #setOccupancy(double)
+	 * @see turnus.model.analysis.profiling.ProfilingPackage#getInterPartitionData_Occupancy()
+	 * @model
+	 * @generated
+	 */
+	double getOccupancy();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.analysis.profiling.InterPartitionData#getOccupancy <em>Occupancy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Occupancy</em>' attribute.
+	 * @see #getOccupancy()
+	 * @generated
+	 */
+	void setOccupancy(double value);
 
 } // InterPartitionData

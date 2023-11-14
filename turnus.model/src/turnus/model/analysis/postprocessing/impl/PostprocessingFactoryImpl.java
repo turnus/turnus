@@ -31,6 +31,7 @@
  */
 package turnus.model.analysis.postprocessing.impl;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -93,6 +94,7 @@ public class PostprocessingFactoryImpl extends EFactoryImpl implements Postproce
 			case PostprocessingPackage.SCHEDULER_CHECKS_PARTITION: return createSchedulerChecksPartition();
 			case PostprocessingPackage.BUFFER_BLOCKING_REPORT: return createBufferBlockingReport();
 			case PostprocessingPackage.TIMELINE_REPORT: return createTimelineReport();
+			case PostprocessingPackage.PARTITION_TO_ACTOR_STATISTICAL_ACTOR_PARTITION: return (EObject)createPartitionToActorStatisticalActorPartition();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -184,6 +186,16 @@ public class PostprocessingFactoryImpl extends EFactoryImpl implements Postproce
 	public TimelineReport createTimelineReport() {
 		TimelineReportImpl timelineReport = new TimelineReportImpl();
 		return timelineReport;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map.Entry<String, StatisticalActorPartition> createPartitionToActorStatisticalActorPartition() {
+		PartitionToActorStatisticalActorPartitionImpl partitionToActorStatisticalActorPartition = new PartitionToActorStatisticalActorPartitionImpl();
+		return partitionToActorStatisticalActorPartition;
 	}
 
 	/**
