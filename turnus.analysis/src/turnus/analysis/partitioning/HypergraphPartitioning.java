@@ -68,7 +68,6 @@ import turnus.common.util.FileUtils;
 import turnus.model.analysis.partitioning.MetisPartitioning;
 import turnus.model.analysis.partitioning.MetisPartitioningReport;
 import turnus.model.analysis.partitioning.PartitioningFactory;
-import turnus.model.analysis.profiling.util.MemoryAndBuffers;
 import turnus.model.common.EScheduler;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
@@ -125,6 +124,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 		return (int) (ret == 0L ? 1 : ret);
 	}
 
+	@SuppressWarnings("resource")
 	private NetworkPartitioning metisPartitioning(Network network) {
 		NetworkPartitioning partitioning = new NetworkPartitioning(network);
 		Map<Integer, String> integerToNodeLables = new HashMap<>(network.getActors().size());
@@ -146,7 +146,6 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				for (Buffer outgoing : actor.getOutgoingBuffers()) {
 					nodes.add(outgoing.getTarget().getOwner());
 					bufferWeight += bufferVolume.get(outgoing);
-					// bufferWeight += MemoryAndBuffers.getActorPersistentMemmory(outgoing.getTarget().getOwner());
 				}
 				WeightedEdge edge = new WeightedEdge(hyperEdgeCounter, bitsToMegaBytes(bufferWeight/minBufferVol));
 
@@ -168,13 +167,16 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 			File metisInput = FileUtils.createTempFile(network.getName(), ".hgraph", false);
 
 			FileWriter writer = new FileWriter(metisInput);
-			StringBuffer sb = hg.tohMetis();
-			writer.write(sb.toString());
-			writer.close();
+			
 
 			// -- Call metis
 			String fileOutput;
 			if (externalTool.equals("khmetis")) {
+				// -- Populate input
+				StringBuffer sb = hg.tohMetis();
+				writer.write(sb.toString());
+				writer.close();
+				
 				List<String> commands = new ArrayList<>();
 				if (SystemUtils.IS_OS_WINDOWS) {
 					commands.add("khmetis.exe");
@@ -214,7 +216,11 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				fileOutput = metisInput.getAbsolutePath() + ".part." + Integer.toString(units);
 
 			} else if (externalTool.equals("KaHyPar")) {
-
+				// -- Populate input
+				StringBuffer sb = hg.tohMetis();
+				writer.write(sb.toString());
+				writer.close();
+				
 				URL resource = HypergraphPartitioning.class.getClassLoader()
 						.getResource("kahypar/km1_kKaHyPar_sea20.ini");
 				File resourceFile = org.apache.commons.io.FileUtils.toFile(resource);
@@ -258,6 +264,37 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 
 				fileOutput = metisInput.getAbsolutePath() + ".part" + Integer.toString(units) + ".epsilon"
 						+ epsilonString + ".seed-1.KaHyPar";
+			} else if (externalTool.equals("patoh")) {
+				// -- Populate input
+				StringBuffer sb = hg.toPatoh();
+				writer.write(sb.toString());
+				writer.close();
+				
+				List<String> commands = new ArrayList<>();
+				if (SystemUtils.IS_OS_WINDOWS) {
+					throw new TurnusException(externalTool + " Not supported in Windows \n");
+				} else {
+					commands.add("patoh");
+				}
+				// -- input file
+				commands.add(metisInput.getAbsolutePath());
+				// -- units
+				commands.add(Integer.toString(units));
+				
+				ProcessBuilder metisPB = new ProcessBuilder(commands);
+				metisPB.redirectErrorStream(true);
+				metisPB.directory(new File(System.getProperty("java.io.tmpdir")));
+
+				Process metis = metisPB.start();
+				int exitCode = metis.waitFor();
+				String result = new String(metis.getInputStream().readAllBytes());
+				if (exitCode >= 1) {
+					throw new TurnusException(externalTool + " error: \n" + result);
+				}
+				Logger.info("\n" + result);
+				
+				// -- Read metis output
+				fileOutput = metisInput.getAbsolutePath() + ".part." + Integer.toString(units);
 			} else {
 				throw new TurnusException("This partitioning tool is not supported: \n" + externalTool);
 			}
