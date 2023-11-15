@@ -2,18 +2,19 @@ package turnus.analysis.hypergraph;
 
 import java.util.Objects;
 
-import turnus.model.analysis.profiling.util.MemoryAndBuffers;
 import turnus.model.dataflow.Actor;
 
 public class WeightedActor implements Comparable<WeightedActor>{
 	private int id;
 	private Actor actor;
 	private double workload;
+	private long memory;
 
 	public WeightedActor(int id, Actor actor, double workload) {
 		this.id = id;
 		this.actor = actor;
 		this.workload = workload;
+		this.memory = 0;
 	}
 
 	public Actor getActor() {
@@ -28,8 +29,12 @@ public class WeightedActor implements Comparable<WeightedActor>{
 		return workload;
 	}
 
+	public void setMemory(long memory) {
+		this.memory = memory;
+	}
+	
 	public long getMemory() {
-		return MemoryAndBuffers.getActorPersistentMemmory(actor);
+		return memory;
 	}
 
 	@Override

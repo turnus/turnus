@@ -59,21 +59,25 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.SystemUtils;
 
 import turnus.analysis.Analysis;
+import turnus.analysis.buffer.BoundedBufferAnalysis;
 import turnus.analysis.hypergraph.WeightedActor;
 import turnus.analysis.hypergraph.WeightedEdge;
 import turnus.analysis.hypergraph.WeightedHyperGraph;
 import turnus.common.TurnusException;
 import turnus.common.io.Logger;
 import turnus.common.util.FileUtils;
+import turnus.model.analysis.buffers.BoundedBuffersReport;
 import turnus.model.analysis.partitioning.MetisPartitioning;
 import turnus.model.analysis.partitioning.MetisPartitioningReport;
 import turnus.model.analysis.partitioning.PartitioningFactory;
+import turnus.model.analysis.profiling.util.MemoryAndBuffers;
 import turnus.model.common.EScheduler;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
 import turnus.model.dataflow.Port;
 import turnus.model.dataflow.util.ActorsSorter;
+import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.trace.Step;
 import turnus.model.trace.Trace.Order;
@@ -119,13 +123,25 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				.anyMatch(path -> Files.exists(path.resolve(app)));
 	}
 
-	private int bitsToMegaBytes(Long value) {
+	private int bitsToMegaBytes(long value) {
 		long ret = value / 8 / 1024 / 1024;
 		return (int) (ret == 0L ? 1 : ret);
 	}
+	
+	private int bitsToKiloBytes(long value) {
+		long ret = value / 8 / 1024 ;
+		return (int) (ret == 0L ? 1 : ret);
+	}
 
+	
+	private long getTotalBitsOfBuffer(BufferSize bufferSize, Buffer buffer) {
+		int depth = bufferSize.getSize(buffer);
+		long bits = buffer.getType().getBits();
+		return depth * bits;
+	}
+	
 	@SuppressWarnings("resource")
-	private NetworkPartitioning metisPartitioning(Network network) {
+	private NetworkPartitioning metisPartitioning(Network network, BufferSize minBufferConfiguration) {
 		NetworkPartitioning partitioning = new NetworkPartitioning(network);
 		Map<Integer, String> integerToNodeLables = new HashMap<>(network.getActors().size());
 
@@ -143,10 +159,12 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 			if (!actor.getOutgoingBuffers().isEmpty()) {
 				Set<Actor> nodes = new HashSet<>();
 				nodes.add(actor);
+				
 				for (Buffer outgoing : actor.getOutgoingBuffers()) {
 					nodes.add(outgoing.getTarget().getOwner());
 					bufferWeight += bufferVolume.get(outgoing);
 				}
+				
 				WeightedEdge edge = new WeightedEdge(hyperEdgeCounter, bitsToMegaBytes(bufferWeight/minBufferVol));
 
 				Set<WeightedActor> weightedNodes = new HashSet<>();
@@ -154,6 +172,12 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 					WeightedActor weightedActor = new WeightedActor(topologicalSort.indexOf(actorNode) + 1, actorNode,
 							actorWorkload.get(actorNode)/minWorkload);
 					weightedNodes.add(weightedActor);
+					long persistentMemory = MemoryAndBuffers.getActorPersistentMemmory(actorNode);
+					// -- Output Buffers memory 
+					for(Buffer buffer : actorNode.getOutgoingBuffers()) {
+						persistentMemory+= getTotalBitsOfBuffer(minBufferConfiguration, buffer);
+					}
+					weightedActor.setMemory(bitsToMegaBytes(persistentMemory));
 				}
 
 				hg.addHyperedge(edge, weightedNodes);
@@ -280,6 +304,10 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				commands.add(metisInput.getAbsolutePath());
 				// -- units
 				commands.add(Integer.toString(units));
+				// -- Balance on both
+				//commands.add("BO=C");
+				// --  cUt Metric
+				//commands.add("UM=O");
 				
 				ProcessBuilder metisPB = new ProcessBuilder(commands);
 				metisPB.redirectErrorStream(true);
@@ -371,12 +399,22 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 		if (!execInPath(externalTool)) {
 			throw new TurnusException(externalTool + " not found in the path !");
 		}
-
+		
+		// -- Run bounded buffer analysis for a total cost of memory
+		BoundedBuffersReport minimalBufferData = null;
+		BufferSize minBufferConfiguration = null;
+		// evaluate the minimal non-blocking buffer size
+		Logger.info("Evaluate the minimal buffer size configuration");
+		BoundedBufferAnalysis boundedBufferAnalysis = new BoundedBufferAnalysis(project);
+		boundedBufferAnalysis.setConfiguration(configuration);
+		minimalBufferData = boundedBufferAnalysis.run();
+		minBufferConfiguration = minimalBufferData.asBufferSize();
+		
 		// -- Calculate workload and total communication volume
 		processTrace();
 
 		// -- Metis partitioning
-		NetworkPartitioning partitioning = metisPartitioning(project.getNetwork());
+		NetworkPartitioning partitioning = metisPartitioning(project.getNetwork(),minBufferConfiguration);
 		for (String partition : partitioning.asPartitionActorsMap().keySet()) {
 			MetisPartitioning mp = f.createMetisPartitioning();
 			Double workload = 0.0;

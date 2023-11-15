@@ -85,40 +85,41 @@ public class WeightedHyperGraph extends SimpleHyperGraph<WeightedActor, Weighted
 		sb.append("\n");
 		return sb;
 	}
-	
+
 	public StringBuffer toPatoh() {
 		return toPatoh(true, true, true);
 	}
-	
+
 	public StringBuffer toPatoh(boolean withNodeWeights, boolean withHyperedgeWeight, boolean withMemoryWeight) {
 		StringBuffer sb = new StringBuffer();
-		
+
 		int nbHyperEdges = hyperedges.size();
 		int nbNodes = getVertices().size();
 
 		List<WeightedEdge> edges = new ArrayList<>(hyperedges.keySet());
 		Collections.sort(edges);
-		
+
 		int pins = 0;
 		for (WeightedEdge e : edges) {
 			Set<WeightedActor> weightedActors = hyperedges.get(e);
-			pins+=weightedActors.size();
+			pins += weightedActors.size();
 		}
-		
+
 		int weights = 0;
-		
-		if(withNodeWeights) {
+
+		if (withNodeWeights) {
 			weights += 1;
 		}
-		
-		if(withHyperedgeWeight) {
+
+		if (withHyperedgeWeight) {
 			weights += 2;
 		}
-		
+
 		if (weights == 0) {
-			sb.append(String.format("1 %d %d %d\n", nbNodes, nbHyperEdges , pins));
+			sb.append(String.format("1 %d %d %d\n", nbNodes, nbHyperEdges, pins));
 		} else {
-			sb.append(String.format("1 %d %d %d %d %s \n", nbNodes, nbHyperEdges, pins, weights, withMemoryWeight ? 2 : 1));
+			sb.append(String.format("1 %d %d %d %d %s \n", nbNodes, nbHyperEdges, pins, weights,
+					withMemoryWeight ? 2 : 1));
 		}
 
 		for (WeightedEdge e : edges) {
@@ -138,17 +139,17 @@ public class WeightedHyperGraph extends SimpleHyperGraph<WeightedActor, Weighted
 
 		if (withNodeWeights) {
 			for (WeightedActor node : nodes) {
-				if(withMemoryWeight) {
-					sb.append(String.format("%s %d ", (int) node.getWorkload(), node.getMemory()/1024));
-				}else {
+				if (withMemoryWeight) {
+					sb.append(String.format("%s %d ", (int) node.getWorkload(), node.getMemory()));
+				} else {
 					sb.append(String.format("%s ", (int) node.getWorkload()));
 				}
 			}
 		}
-		
+
 		sb.append("\n");
 		return sb;
-		
+
 	}
 
 }

@@ -183,7 +183,7 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 			for(String node : adj) {
 				nodes = nodes + String.format( "%s %s ", node, bitsToMegaBytes(adjWeight.get(node)));
 			}
-			int memoryWeight = (int) (MemoryAndBuffers.getActorPersistentMemmory(actor) / 1024 / 1024 / 8);
+			int memoryWeight = (int) (bitsToMegaBytes(MemoryAndBuffers.getActorPersistentMemmory(actor)));
 			String node = String.format("%s %s %s\n", actorWeight, memoryWeight, nodes);
 			lines.add(node);
 		}
@@ -219,9 +219,10 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 			// -- ptype
 			commands.add("-ptype=kway");
 			// -- objtype
-			commands.add("-objtype=cut");
+			commands.add("-objtype=vol");
 			// -- ubvec
-			commands.add("-ubvec=1.02 1.02");
+			//commands.add("-ubvec=1.08 1.6");
+			commands.add("-ncuts=10");
 			
 			
 			ProcessBuilder metisPB = new ProcessBuilder(commands);
