@@ -36,6 +36,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+
 import turnus.adevs.model.AtomicActor;
 import turnus.adevs.model.AtomicActor.Status;
 import turnus.adevs.simulation.SimEngine;
@@ -160,12 +162,25 @@ public class LatencyAnalysis extends Analysis<LatencyReport> {
 		// -- Target latencies
 		for(Pair<String, String> tgt : tgtLatencies) {
 			LatencyData data = f.createLatencyData();
-			List<Double> tgtEndLatency = measuredLatencies.get(tgt); 
+			List<Double> tgtEndLatency = measuredLatencies.get(tgt);
+			
+			DescriptiveStatistics stats = new DescriptiveStatistics();
+			
 			for(int i = 0; i < tgtEndLatency.size(); i++) {
-				data.getLatency().add(tgtEndLatency.get(i) - srcStartLatency.get(i));
+				double latency = tgtEndLatency.get(i) - srcStartLatency.get(i);
+				data.getLatency().add(latency);
+				stats.addValue(latency);
 			}
 			
 			Double throughput = tgtEndLatency.get(tgtEndLatency.size() - 1) / tgtEndLatency.size();
+			
+			double p90 = stats.getPercentile(90);
+			double p95 = stats.getPercentile(95);
+			double p99 = stats.getPercentile(99);
+			System.out.println("P90 : " + p90);
+			System.out.println("P95 : " + p95);
+			System.out.println("P99 : " + p99);
+			
 			
 			Actor actor = network.getActor(tgt.v1);
 			Action action = actor.getAction(tgt.v2);
