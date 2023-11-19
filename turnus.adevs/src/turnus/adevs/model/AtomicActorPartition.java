@@ -51,7 +51,7 @@ import turnus.model.dataflow.Actor;
  * 
  * @author Simone Casale-Brunet
  * @author Malgorzata Michalska
- *
+ * @author Endri Bezati
  */
 
 public abstract class AtomicActorPartition extends Atomic<PortValue> {

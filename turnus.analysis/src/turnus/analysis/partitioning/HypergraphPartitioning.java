@@ -289,7 +289,8 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				fileOutput = metisInput.getAbsolutePath() + ".part" + Integer.toString(units) + ".epsilon"
 						+ epsilonString + ".seed-1.KaHyPar";
 			} else if (externalTool.equals("patoh")) {
-				// -- Populate input
+				
+				// -- Populate input for PatoH input file format
 				StringBuffer sb = hg.toPatoh();
 				writer.write(sb.toString());
 				writer.close();
@@ -308,6 +309,11 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				//commands.add("BO=C");
 				// --  cUt Metric
 				//commands.add("UM=O");
+				// -- PA : Partitioning Algorithm
+				commands.add("PA=13");
+				// -- FI(f) : Final Imbalance ratio
+				commands.add("FI=0.05");
+				
 				
 				ProcessBuilder metisPB = new ProcessBuilder(commands);
 				metisPB.redirectErrorStream(true);
