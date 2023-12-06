@@ -114,18 +114,18 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 			});
 
 			// b.append("\n| || Overall ||||| Critical Path ||||| ");
-			b.append("\n|                      ||| <center>Memory</center>  ||| <center>Interface</center>  |||||");
+			b.append("\n|                      |||| <center>Memory</center>  ||| <center>Interface</center>  ||||");
 			b.append(
-					"\n| Partition | Occupancy % | Workload | # Actors | *Actors*| *Channels* | Total | #Incoming | Max Incoming Data | #Outgoing | Max Outgoing Data |");
+					"\n| Partition | # Actors |  Workload | Occupancy % | *Actors*| *Channels* | Total | #Incoming | Max Incoming Data | #Outgoing | Max Outgoing Data |");
 			b.append(
 					"\n|---        |--:        |--:       |--:       |--:    |--:      |--:    |--:       |--:       |--:       |--: |");
 			for (InterPartitionData datum : sortedList) {
 				b.append(String.format(
-						"\n|%s     | %.2f      | %.2f      | %d       | %s    | %s      | %s    |  %s      | %s      |  %s      | %s     ", //
+						"\n|%s     | %d      | %.2f      | %.2f       | %s    | %s      | %s    |  %s      | %s      |  %s      | %s     ", //
 						datum.getPartitionId(), //
-						datum.getOccupancy(), //
-						datum.getWorkload(), //
 						datum.getActors().size(), //
+						datum.getWorkload(), //
+						datum.getOccupancy(), //
 						StringUtils.formatBytes(datum.getPersistentMemory(), true), //
 						StringUtils.formatBytes(datum.getPersistentBuffers(), true), //
 						StringUtils.formatBytes(datum.getPersistentMemory() + datum.getPersistentBuffers(), true), //
