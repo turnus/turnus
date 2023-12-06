@@ -41,6 +41,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.swt.widgets.Display;
 
 import turnus.common.util.EcoreUtils;
 import turnus.model.analysis.profiler.ActorDynamicData;
@@ -231,7 +232,11 @@ public class DynamicAnalysisReportEditor extends AbstractBrowserEditor {
 
 	public DynamicAnalysisReportEditor() {
 		super();
-		addStyle("basic.css");
+		if (Display.isSystemDarkTheme()) {
+			addStyle("darkmode.css");
+		}else {
+			addStyle("basic.css");
+		}
 		addJs("basic.js");
 
 	}

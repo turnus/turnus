@@ -34,6 +34,7 @@ package turnus.ui.editor.analysis;
 import java.io.File;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.swt.widgets.Display;
 
 import turnus.common.TurnusException;
 import turnus.common.io.FileExporter;
@@ -51,7 +52,12 @@ public class AnalysisReportMarkdownEditor extends AbstractBrowserEditor {
 
 	public AnalysisReportMarkdownEditor() {
 		super();
-		addStyle("basic.css");
+		if (Display.isSystemDarkTheme()) {
+			addStyle("darkmode.css");
+		}else {
+			addStyle("basic.css");
+		}
+		
 	}
 
 	@Override

@@ -14,6 +14,8 @@ body {
     min-width: 600px;
     margin: 0 auto;
     padding: 0 50px;
+    color: white;
+    background-color: #2f2f2f;
 }
 a {
     background-color: transparent;
@@ -61,7 +63,7 @@ input[type="checkbox"] {
     padding: 0;
 }
 table {
-    font-size: 12px;
+    font-size: 12x;
     border-collapse: collapse;
     border-spacing: 0;
 }
@@ -359,11 +361,11 @@ table td {
     border: 1px solid #ddd;
 }
 table tr {
-    background-color: #fff;
+    background-color: #424242;
     border-top: 1px solid #ccc;
 }
 table tr:nth-child(2n) {
-    background-color: #f8f8f8;
+    background-color: #5e5e5e;
 }
 img {
     max-width: 100%;
