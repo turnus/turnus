@@ -48,6 +48,7 @@ import turnus.common.TurnusRuntimeException;
  * This class defines an implementation of the Ecliple {@link Handler}
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class EclipseConsoleHandler extends Handler {
@@ -67,15 +68,16 @@ public class EclipseConsoleHandler extends Handler {
 		public void run() {
 			String message = getFormatter().format(record);
 			IOConsoleOutputStream outStream = console.newOutputStream();
-
-			if (record.getLevel() == Level.SEVERE) {
-				outStream.setColor(new Color(null, 255, 0, 0));
-			} else if (record.getLevel() == Level.WARNING) {
-				outStream.setColor(new Color(null, 250, 133, 50));
-			} else if (record.getLevel() == Level.FINER) {
-				outStream.setColor(new Color(null, 133, 200, 62));
-			} else {
-				outStream.setColor(new Color(null, 0, 0, 156));
+			if (!Display.isSystemDarkTheme()) {
+				if (record.getLevel() == Level.SEVERE) {
+					outStream.setColor(new Color(null, 255, 0, 0));
+				} else if (record.getLevel() == Level.WARNING) {
+					outStream.setColor(new Color(null, 250, 133, 50));
+				} else if (record.getLevel() == Level.FINER) {
+					outStream.setColor(new Color(null, 133, 200, 62));
+				} else {
+					outStream.setColor(new Color(null, 0, 0, 156));
+				}
 			}
 
 			try {
@@ -92,8 +94,7 @@ public class EclipseConsoleHandler extends Handler {
 	/**
 	 * Build the Eclipse console handler
 	 * 
-	 * @param currentConsole
-	 *            the current eclipse process console
+	 * @param currentConsole the current eclipse process console
 	 * 
 	 */
 	public EclipseConsoleHandler(IConsole console) {

@@ -14,7 +14,7 @@ body {
     min-width: 600px;
     margin: 0 auto;
     padding: 0 50px;
-    color: white;
+    color: rgb(200, 200, 200);
     background-color: #2f2f2f;
 }
 a {
