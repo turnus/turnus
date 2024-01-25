@@ -40,6 +40,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.annotation.Target;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -55,9 +56,11 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import turnus.analysis.Analysis;
+import turnus.analysis.buffer.BoundedBufferAnalysis;
 import turnus.common.TurnusException;
 import turnus.common.io.Logger;
 import turnus.common.util.FileUtils;
+import turnus.model.analysis.buffers.BoundedBuffersReport;
 import turnus.model.analysis.partitioning.MetisPartitioning;
 import turnus.model.analysis.partitioning.MetisPartitioningReport;
 import turnus.model.analysis.partitioning.PartitioningFactory;
@@ -68,6 +71,7 @@ import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
 import turnus.model.dataflow.Port;
 import turnus.model.dataflow.util.ActorsSorter;
+import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.trace.Step;
 import turnus.model.trace.Trace.Order;
@@ -101,7 +105,7 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 		this.actorWorkload = new HashMap<>();
 		this.bufferVolume = new HashMap<>();
 		this.decorator = project.getTraceDecorator();
-	} 
+	}
 
 	private boolean execInPath(String exec) {
 		return Stream.of(System.getenv("PATH").split(Pattern.quote(File.pathSeparator))).map(Paths::get)
@@ -109,20 +113,64 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 	}
 
 	private int bitsToMegaBytes(Long value) {
-		long ret = value / 8 / 1024 / 1024;
-		return (int) (ret == 0L ? 1 : ret); 
-	} 
+		long ret = value / 8 / 1024;
+		return (int) (ret == 0L ? 1 : ret);
+	}
+
+	private long getTotalBitsOfBuffer(BufferSize bufferSize, Buffer buffer) {
+		int depth = bufferSize.getSize(buffer);
+		long bits = buffer.getType().getBits();
+		return depth * bits;
+	}
+
+	private void metisDot(Network network, BufferSize minBufferConfiguration) {
+
+		long total= 0;
+		
+		System.out.println("strict digraph  {");
+		for (Actor actor : network.getActors()) {
+
+			long persistentMemory = MemoryAndBuffers.getActorPersistentMemmory(actor);
+
+			for (Buffer outgoing : actor.getOutgoingBuffers()) {
+				persistentMemory += getTotalBitsOfBuffer(minBufferConfiguration, outgoing);
+			}
+
+			total += persistentMemory;
 	
-	private NetworkPartitioning metisPartitioning(Network network) {
+			int actorWeight = (int) (actorWorkload.get(actor).longValue());
+			if (actorWeight == 0) {
+				actorWeight = 1;
+			}
+
+			System.out.println(
+					String.format("%s [workload=%d, memory=%s]", actor.getName(), actorWeight, persistentMemory/8/1024/1024));
+		}
+
+		for (Actor actor : network.getActors()) {
+			for (Port port : actor.getOutputPorts()) {
+				for (Buffer buffer : port.getOutputs()) {
+					String tagetActorLabel = buffer.getTarget().getOwner().getName();
+					Long bufferWeight = bufferVolume.get(buffer);
+					System.out
+							.println(String.format("%s -> %s [data=%d]", actor.getName(), tagetActorLabel, bufferWeight));
+				}
+			}
+
+		}
+		System.out.println("}");
+		System.out.println("total mem: " + total/8/1024/1024/1024);
+	}
+
+	private NetworkPartitioning metisPartitioning(Network network, BufferSize minBufferConfiguration) {
 		NetworkPartitioning partitioning = new NetworkPartitioning(network);
 		Map<String, Integer> nodeLabelsToIntegers = new HashMap<>(network.getActors().size());
 		Map<Integer, String> integerToNodeLables = new HashMap<>(network.getActors().size());
-		int i = 1; 
+		int i = 1;
 
 		// -- Topological sort actors
 		List<Actor> topologicalSort = ActorsSorter.topologicalOrder(network.getActors());
-		
-		
+
 		// -- Node labels to integers
 		for (Actor actor : topologicalSort) {
 			nodeLabelsToIntegers.put(actor.getName(), i);
@@ -130,6 +178,8 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 			i++;
 		}
 
+		metisDot(network, minBufferConfiguration);
+		
 		// -- Number of Actors and connections
 		int nbNodes = network.getActors().size();
 		int nbEdges = 0;
@@ -143,6 +193,11 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 			Map<String, Long> adjWeight = new HashMap<>();
 			Set<String> adj = new HashSet<>();
 			Actor actor = network.getActor(integerToNodeLables.get(n));
+			long persistentMemory = MemoryAndBuffers.getActorPersistentMemmory(actor);
+
+			for (Buffer outgoing : actor.getOutgoingBuffers()) {
+				persistentMemory += getTotalBitsOfBuffer(minBufferConfiguration, outgoing);
+			}
 
 			for (Port port : actor.getOutputPorts()) {
 				for (Buffer buffer : port.getOutputs()) {
@@ -150,7 +205,7 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 					int target = nodeLabelsToIntegers.get(tagetActorLabel);
 					String label = Integer.toString(target);
 					adj.add(label);
-					Long bufferWeight = bufferVolume.get(buffer) / minBufferVol;
+					Long bufferWeight = bufferVolume.get(buffer);
 					if (adjWeight.containsKey(label)) {
 						long current = adjWeight.get(label);
 						adjWeight.put(label, current + bufferWeight);
@@ -166,7 +221,7 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 				int source = nodeLabelsToIntegers.get(sourceActorLabel);
 				String label = Integer.toString(source);
 				adj.add(label);
-				Long bufferWeight = bufferVolume.get(buffer) / minBufferVol;
+				Long bufferWeight = bufferVolume.get(buffer);
 				if (adjWeight.containsKey(label)) {
 					long current = adjWeight.get(label);
 					adjWeight.put(label, current + bufferWeight);
@@ -175,22 +230,20 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 				}
 			}
 			nbEdges += adj.size();
-			int actorWeight = (int) (actorWorkload.get(actor) / minWorkload);
+			int actorWeight = (int) (actorWorkload.get(actor).intValue());
 			if (actorWeight == 0) {
 				actorWeight = 1;
 			}
 			String nodes = "";
-			for(String node : adj) {
-				nodes = nodes + String.format( "%s %s ", node, bitsToMegaBytes(adjWeight.get(node)));
+			for (String node : adj) {
+				nodes = nodes + String.format("%s %s ", node, bitsToMegaBytes(adjWeight.get(node)));
 			}
-			int memoryWeight = (int) (bitsToMegaBytes(MemoryAndBuffers.getActorPersistentMemmory(actor)));
+			int memoryWeight = (int) (bitsToMegaBytes(persistentMemory));
 			String node = String.format("%s %s %s\n", actorWeight, memoryWeight, nodes);
+			System.out.println(actor.getName() + " : " + (int) actorWeight + ", " + memoryWeight);
 			lines.add(node);
 		}
 
-		
-		
-		
 		// -- Metis file
 		try {
 			File metisInput = FileUtils.createTempFile(network.getName(), ".metis", false);
@@ -221,10 +274,11 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 			// -- objtype
 			commands.add("-objtype=vol");
 			// -- ubvec
-			//commands.add("-ubvec=1.08 1.6");
+			//commands.add("-ufactor=1.001");
+			//commands.add("-ubvec=1.5 1.5");
 			commands.add("-ncuts=10");
-			
-			
+			commands.add("-contig");
+
 			ProcessBuilder metisPB = new ProcessBuilder(commands);
 			metisPB.redirectErrorStream(true);
 			metisPB.directory(new File(System.getProperty("java.io.tmpdir")));
@@ -310,11 +364,21 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 			throw new TurnusException("gpmetis not found in the path, please install metis.");
 		}
 
+		// -- Run bounded buffer analysis for a total cost of memory
+		BoundedBuffersReport minimalBufferData = null;
+		BufferSize minBufferConfiguration = null;
+		// evaluate the minimal non-blocking buffer size
+		Logger.info("Evaluate the minimal buffer size configuration");
+		BoundedBufferAnalysis boundedBufferAnalysis = new BoundedBufferAnalysis(project);
+		boundedBufferAnalysis.setConfiguration(configuration);
+		minimalBufferData = boundedBufferAnalysis.run();
+		minBufferConfiguration = minimalBufferData.asBufferSize();
+
 		// -- Calculate workload and total communication volume
 		processTrace();
 
 		// -- Metis partitioning
-		NetworkPartitioning partitioning = metisPartitioning(project.getNetwork());
+		NetworkPartitioning partitioning = metisPartitioning(project.getNetwork(), minBufferConfiguration);
 		for (String partition : partitioning.asPartitionActorsMap().keySet()) {
 			MetisPartitioning mp = f.createMetisPartitioning();
 			Double workload = 0.0;

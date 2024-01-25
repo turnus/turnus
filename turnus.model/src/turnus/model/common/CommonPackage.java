@@ -337,8 +337,8 @@ public interface CommonPackage extends EPackage {
 	EClass getAttributable();
 
 	/**
-	 * Returns the meta object for the map '
-	 * {@link turnus.common.Attributable#getAttributesTable <em>Attributes
+	 * Returns the meta object for the map
+	 * '{@link turnus.common.Attributable#getAttributesTable <em>Attributes
 	 * Table</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 *
 	 * @return the meta object for the map '<em>Attributes Table</em>'.
@@ -513,8 +513,8 @@ public interface CommonPackage extends EPackage {
 	EAttribute getStatisticalData_SecondMoment();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link turnus.model.common.StatisticalData#getStandardDeviation <em>Standard
+	 * Returns the meta object for the attribute
+	 * '{@link turnus.model.common.StatisticalData#getStandardDeviation <em>Standard
 	 * Deviation</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 *
 	 * @return the meta object for the attribute '<em>Standard Deviation</em>'.
@@ -723,7 +723,7 @@ public interface CommonPackage extends EPackage {
 		EAttribute STATISTICAL_DATA__STANDARD_DEVIATION = eINSTANCE.getStatisticalData_StandardDeviation();
 
 		/**
-		 * The meta object literal for the ' {@link turnus.model.common.EOperator
+		 * The meta object literal for the '{@link turnus.model.common.EOperator
 		 * <em>EOperator</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 *
 		 * @see turnus.model.common.EOperator

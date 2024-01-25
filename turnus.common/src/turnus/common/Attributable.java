@@ -121,5 +121,5 @@ public interface Attributable {
 	 *            the attribute value to be mapped
 	 */
 	void setAttribute(String name, Object value);
-
+	
 }

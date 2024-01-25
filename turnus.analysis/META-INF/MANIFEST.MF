@@ -7,7 +7,8 @@ Bundle-Activator: turnus.analysis.Activator
 Bundle-Vendor: turnus
 Require-Bundle: turnus.common;bundle-version="1.0.0",
  turnus.model;bundle-version="1.0.0",
- org.eclipse.xtend.lib
+ org.eclipse.xtend.lib,
+ turnus.adevs
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Export-Package: turnus.analysis,

@@ -56,12 +56,14 @@ public class RoundRobinPartition extends AtomicActorPartition {
 
 	@Override
 	public List<Actor> getSchedulables() {
+
 		ArrayList<Actor> actorsList = new ArrayList<Actor>(actors);
 		actorsToExecute.clear();
 		if (!schedulableActors.isEmpty()) {
 			while (actorsToExecute.isEmpty()) {
 				if (next == actors.size())
 					next = 0;
+					//next = actorsList.indexOf(schedulableActors.get(schedulableActors.size() - 1));
 				Actor nextActor = actorsList.get(next);
 				dataLogger.logCheckActor(partitionId, nextActor, localTime);
 				if (schedulableActors.contains(nextActor)) {
@@ -70,6 +72,7 @@ public class RoundRobinPartition extends AtomicActorPartition {
 				next++;
 			}
 		}
+
 		return actorsToExecute;
 	}
 

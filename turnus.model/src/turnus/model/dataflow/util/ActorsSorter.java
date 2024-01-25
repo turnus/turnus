@@ -39,7 +39,7 @@ import java.util.List;
 
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
-import turnus.model.graph.SimpleGraph;
+import turnus.model.graph.SimpleG;
 
 /**
  * 
@@ -49,7 +49,7 @@ import turnus.model.graph.SimpleGraph;
 public class ActorsSorter {
 
 	public static List<Actor> topologicalOrder(Collection<Actor> actors) {
-		SimpleGraph<Actor> g = new SimpleGraph<>();
+		SimpleG<Actor> g = new SimpleG<>();
 		for (Actor actor : actors) {
 			g.addNode(actor);
 		}

@@ -37,13 +37,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
+import turnus.adevs.schedulers.DataDemandDrivenPartition;
 import turnus.adevs.schedulers.FullParallelPartition;
 import turnus.adevs.schedulers.NonPreemptivePartition;
+import turnus.adevs.schedulers.RandomPartition;
 import turnus.adevs.schedulers.RoundRobinPartition;
 import turnus.common.TurnusRuntimeException;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
+import turnus.model.dataflow.util.ActorsSorter;
 import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.CommunicationWeight;
 import turnus.model.mapping.NetworkPartitioning;
@@ -169,6 +172,7 @@ public class AdevsModelBuilder {
 	}
 	
 	private List<Actor> getActorObjectsList(List<String> actorsName, Network network) {
+		List<Actor> topologicalSort = ActorsSorter.topologicalOrder(network.getActors());
 		List<Actor> targetActors = new ArrayList<Actor>();
 		for(String actorName : actorsName){
 			Actor actor = network.getActor(actorName);
@@ -176,8 +180,9 @@ public class AdevsModelBuilder {
 				throw new TurnusRuntimeException("Actor "+actorName+" not found on this network");
 			}
 			targetActors.add(actor);
-			
 		}
+		
+		targetActors.sort((a, b) -> Integer.compare(topologicalSort.indexOf(a), topologicalSort.indexOf(b)));
 		
 		return targetActors;
 	}
@@ -185,11 +190,15 @@ public class AdevsModelBuilder {
 	private AtomicActorPartition getPartitionObject(String scheduling, String partitionId, List<Actor> targetActors) {
 		switch (scheduling) {
 		case "FULL_PARALLEL":
-			return new FullParallelPartition(targetActors, partitionId);
+			return new FullParallelPartition(targetActors, partitionId); 
 		case "ROUND_ROBIN":
 			return new RoundRobinPartition(targetActors, partitionId);
 		case "NON_PREEMPTIVE":
 			return new NonPreemptivePartition(targetActors, partitionId);
+		case "DATA_DEMAND_DRIVEN":
+			return new DataDemandDrivenPartition(targetActors, partitionId);
+		case "RANDOM":
+			return new RandomPartition(targetActors, partitionId);	
 		default:
 			return new FullParallelPartition(targetActors, partitionId);
 		}

@@ -4,7 +4,7 @@
     templateDirectory="/turnus.model/template" dynamicTemplates="true" modelName="Common"
     rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" suppressEMFTypes="true"
     codeFormatting="true" commentFormatting="true" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="7.0" copyrightFields="false" operationReflection="true" importOrganizing="true"
+    complianceLevel="17.0" copyrightFields="false" operationReflection="true" importOrganizing="true"
     cleanup="true">
   <foreignModel>common.ecore</foreignModel>
   <genPackages prefix="Common" basePackage="turnus.model" disposableProviderFactory="true"
@@ -47,7 +47,8 @@
       <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/FULL_PARALLEL"/>
       <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/ROUND_ROBIN"/>
       <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/NON_PREEMPTIVE"/>
-      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/STATIC"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/DATA_DEMAND_DRIVEN"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/RANDOM"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="common.ecore#//EType">
       <genEnumLiterals ecoreEnumLiteral="common.ecore#//EType/INT"/>

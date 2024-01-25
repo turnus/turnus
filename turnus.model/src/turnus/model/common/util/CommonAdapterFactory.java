@@ -96,7 +96,7 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	 *
 	 * @generated
 	 */
-	protected CommonSwitch<Adapter> modelSwitch = new CommonSwitch<Adapter>() {
+	protected CommonSwitch<Adapter> modelSwitch = new CommonSwitch<>() {
 		@Override
 		public Adapter caseAttributable(Attributable object) {
 			return createAttributableAdapter();

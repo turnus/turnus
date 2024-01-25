@@ -140,7 +140,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 		return depth * bits;
 	}
 	
-	@SuppressWarnings("resource")
+
 	private NetworkPartitioning metisPartitioning(Network network, BufferSize minBufferConfiguration) {
 		NetworkPartitioning partitioning = new NetworkPartitioning(network);
 		Map<Integer, String> integerToNodeLables = new HashMap<>(network.getActors().size());

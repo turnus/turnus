@@ -536,7 +536,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(eSchedulerEEnum, EScheduler.FULL_PARALLEL);
 		addEEnumLiteral(eSchedulerEEnum, EScheduler.ROUND_ROBIN);
 		addEEnumLiteral(eSchedulerEEnum, EScheduler.NON_PREEMPTIVE);
-		addEEnumLiteral(eSchedulerEEnum, EScheduler.STATIC);
+		addEEnumLiteral(eSchedulerEEnum, EScheduler.DATA_DEMAND_DRIVEN);
+		addEEnumLiteral(eSchedulerEEnum, EScheduler.RANDOM);
 
 		initEEnum(eTypeEEnum, EType.class, "EType");
 		addEEnumLiteral(eTypeEEnum, EType.INT);

@@ -33,6 +33,7 @@ package turnus.adevs.model;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 import adevs.Atomic;
 import adevs.Digraph.PortValue;
@@ -96,6 +97,7 @@ public class AtomicBuffer extends Atomic<PortValue> {
 	
 	private int requestedSpace;
 	private int requestedTokensNumber;
+	Random random = new Random();
 	
 	private boolean hasTokens; //FIXME: int missingTokens, like for missingSpace
 	private int missingSpace;
@@ -311,11 +313,11 @@ public class AtomicBuffer extends Atomic<PortValue> {
 		}
 
 		if (rxStatus == RxStatus.RECEIVING) {
-			return getCkIn();
+			return 0.1 + (0.5 - 0.1) * random.nextDouble();//getCkIn();
 		}
 
 		if (txStatus == TxStatus.SENDING) {
-			return getCkOut();
+			return 0.1 + (0.5 - 0.1) * random.nextDouble();//getCkOut();
 		}
 		
 		if (rxStatus == RxStatus.END_RECEIVING || txStatus == TxStatus.END_SENDING) {

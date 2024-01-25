@@ -47,7 +47,8 @@
     <eLiterals name="FULL_PARALLEL" literal="FULL_PARALLEL"/>
     <eLiterals name="ROUND_ROBIN" value="1" literal="ROUND_ROBIN"/>
     <eLiterals name="NON_PREEMPTIVE" value="2" literal="NON_PREEMPTIVE"/>
-    <eLiterals name="STATIC" value="3" literal="STATIC"/>
+    <eLiterals name="DATA_DEMAND_DRIVEN" value="3" literal="DATA_DEMAND_DRIVEN"/>
+    <eLiterals name="RANDOM" value="4" literal="RANDOM"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="EType">
     <eLiterals name="INT" literal="INT"/>

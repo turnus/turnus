@@ -78,14 +78,23 @@ public enum EScheduler implements Enumerator {
 	NON_PREEMPTIVE(2, "NON_PREEMPTIVE", "NON_PREEMPTIVE"),
 
 	/**
-	 * The '<em><b>STATIC</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>DATA DEMAND DRIVEN</b></em>' literal object. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 *
-	 * @see #STATIC_VALUE
+	 * @see #DATA_DEMAND_DRIVEN_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	STATIC(3, "STATIC", "STATIC");
+	DATA_DEMAND_DRIVEN(3, "DATA_DEMAND_DRIVEN", "DATA_DEMAND_DRIVEN"),
+	/**
+	 * The '<em><b>RANDOM</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
+	 * @see #RANDOM_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	RANDOM(4, "RANDOM", "RANDOM");
 
 	/**
 	 * The '<em><b>FULL PARALLEL</b></em>' literal value. <!-- begin-user-doc -->
@@ -133,19 +142,26 @@ public enum EScheduler implements Enumerator {
 	public static final int NON_PREEMPTIVE_VALUE = 2;
 
 	/**
-	 * The '<em><b>STATIC</b></em>' literal value. <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>STATIC</b></em>' literal object isn't clear, there
-	 * really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+	 * The '<em><b>DATA DEMAND DRIVEN</b></em>' literal value. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 *
-	 * @see #STATIC
+	 * @see #DATA_DEMAND_DRIVEN
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int STATIC_VALUE = 3;
+	public static final int DATA_DEMAND_DRIVEN_VALUE = 3;
+
+	/**
+	 * The '<em><b>RANDOM</b></em>' literal value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
+	 * @see #RANDOM
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int RANDOM_VALUE = 4;
 
 	/**
 	 * An array of all the '<em><b>EScheduler</b></em>' enumerators. <!--
@@ -154,7 +170,7 @@ public enum EScheduler implements Enumerator {
 	 * @generated
 	 */
 	private static final EScheduler[] VALUES_ARRAY = new EScheduler[] { FULL_PARALLEL, ROUND_ROBIN, NON_PREEMPTIVE,
-			STATIC, };
+			DATA_DEMAND_DRIVEN, RANDOM, };
 
 	/**
 	 * A public read-only list of all the '<em><b>EScheduler</b></em>' enumerators.
@@ -214,8 +230,10 @@ public enum EScheduler implements Enumerator {
 			return ROUND_ROBIN;
 		case NON_PREEMPTIVE_VALUE:
 			return NON_PREEMPTIVE;
-		case STATIC_VALUE:
-			return STATIC;
+		case DATA_DEMAND_DRIVEN_VALUE:
+			return DATA_DEMAND_DRIVEN;
+		case RANDOM_VALUE:
+			return RANDOM;
 		}
 		return null;
 	}

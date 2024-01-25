@@ -257,6 +257,9 @@ public class TurnusOptions {
 	@Description("The list of actor action pair for latency analysis.")
 	public static final Option<List<String>> LATENCY_TARGETS;
 	
+	@Description("A text file repesenting a partition with each line a string identifying the instance and name and a number for the partition.")
+	public static final Option<File> TXT_PARTITION;
+	
 	
 	// options are initialized here in order to make this file more readable
 	static {
@@ -682,6 +685,13 @@ public class TurnusOptions {
 				setDescription("Source pair of actor:action for latency analysis.")//
 				.setLongName("turnus.analysis.profiling.latency.source").//
 				setType(String.class).build();
+		
+		
+		TXT_PARTITION = Option.create().//
+				setName("txtPartition").//
+				setDescription("A text partition file.").//
+				setLongName("turnus.txtPartition").//
+				setType(File.class).build();
 		
 	}
 
