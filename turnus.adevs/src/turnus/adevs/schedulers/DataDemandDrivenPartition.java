@@ -1,7 +1,6 @@
 package turnus.adevs.schedulers;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -10,16 +9,21 @@ import turnus.adevs.model.AtomicActorPartition;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
 
+/**
+ * 
+ * @author Endri Bezati
+ *
+ */
 public class DataDemandDrivenPartition extends AtomicActorPartition {
 
 	private Queue<Actor> waitingList;
 	private Actor currentActor;
-	private boolean start;
+	private int next;
 
 	public DataDemandDrivenPartition(List<Actor> actors, String partitionId) {
 		super(actors, partitionId);
 		waitingList = new LinkedList<>();
-		start = true;
+		next = 0;
 	}
 
 	private List<Actor> getPredecessors(Actor actor) {
@@ -44,65 +48,60 @@ public class DataDemandDrivenPartition extends AtomicActorPartition {
 		List<Actor> actorsToExecute = new ArrayList<>();
 
 		if (!schedulableActors.isEmpty()) {
-			//System.out.println("S:" + schedulableActors);
-			//System.out.println("WB:" + waitingList);
-			if (waitingList.isEmpty()) {
-				// -- inverse order 
-				//Collections.reverse(schedulableActors);
-				
-				if(start) {
-					waitingList.addAll(schedulableActors);
-					start = false;
+			if (currentActor != null) {
+				if (blockedReadingActors.contains(currentActor)) {
+					for (Actor actor : getPredecessors(currentActor)) {
+						if (schedulableActors.contains(actor)) {
+							if (!waitingList.contains(actor))
+								waitingList.add(actor);
+						}
+					}
 				} else {
-					waitingList.offer(schedulableActors.get(schedulableActors.size() - 1));
+					for (Actor actor : getSuccessors(currentActor)) {
+						if (schedulableActors.contains(actor)) {
+							if (!waitingList.contains(actor))
+								waitingList.add(actor);
+						}
+					}
 				}
-				
-			
-				currentActor = waitingList.poll();
-				//System.out.println("WA:" + waitingList);
-				if (partitionId.equals("0")) {
-					System.out.println(currentActor);
-					System.out.println();
+
+				if (waitingList.isEmpty()) {
+					currentActor = getNextRR();
+				} else {
+					currentActor = getNextDD();
 				}
-				actorsToExecute.add(currentActor);
 			} else {
-				// -- Successors
-				List<Actor> successors = getSuccessors(currentActor);
-
-				for (Actor actor : successors) {
-					if (schedulableActors.contains(actor)) {
-						if (!waitingList.contains(actor)) {
-							waitingList.offer(actor);
-						}
-					}
-				}
-
-				// -- Predecessors
-				List<Actor> predecessors = getPredecessors(currentActor);
-				for (Actor actor : predecessors) {
-					if (schedulableActors.contains(actor)) {
-						if (!waitingList.contains(actor)) {
-							//if(!actor.getIncomingBuffers().isEmpty()) {
-								waitingList.offer(actor);								
-							//}
-						}
-					}
-				}
-
-				currentActor = waitingList.poll();
-				//System.out.println("WA:" + waitingList);
-				if (partitionId.equals("0")) {
-					System.out.println(currentActor);
-					System.out.println();
-				}
-
-	
-				actorsToExecute.add(currentActor);
+				currentActor = getNextRR();
 			}
 
+			// System.out.println(currentActor);
+
+			actorsToExecute.add(currentActor);
 		}
 
 		return actorsToExecute;
+	}
+
+	private Actor getNextRR() {
+		List<Actor> actorsToExecute = new ArrayList<>();
+		while (actorsToExecute.isEmpty()) {
+			if (next == actors.size())
+				next = 0;
+			Actor nextActor = actors.get(next);
+			if (schedulableActors.contains(nextActor)) {
+				actorsToExecute.add(actors.get(next));
+			}
+			next++;
+		}
+
+		return actorsToExecute.get(0);
+	}
+
+	private Actor getNextDD() {
+		Actor actor = waitingList.poll();
+		next = actors.indexOf(actor);
+		next++;
+		return actor;
 	}
 
 	@Override
