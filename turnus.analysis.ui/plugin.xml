@@ -130,6 +130,11 @@
             id="turnus.analysis.ui.command.analysis.profiling.Latency"
             name="Latency and Throughput analysis">
       </command>
+      <command
+            defaultHandler="turnus.analysis.ui.timeline.JsonTimelineHandler"
+            id="turnus.analysis.ui.command.timeline.JsonTimeline"
+            name="Json Timeline Simulation">
+      </command>
    </extension>
    
       <extension
@@ -349,6 +354,15 @@
          <command
                commandId="turnus.analysis.ui.command.abstractNetworkWeight"
                label="Evaluate an abstract network weight file"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:turnus.ui.menu.main.timeline">
+         <command
+               commandId="turnus.analysis.ui.command.timeline.JsonTimeline"
+               label="Json Timeline Simulation"
                style="push">
          </command>
       </menuContribution>

@@ -177,7 +177,7 @@ public class TimelineCli implements IApplication {
 				throw new TurnusException("Mapping file is not valid", e);
 			}
 
-			if (configuration.getValue(RECORD_BUFFERS)) {
+			if (configuration.hasValue(RECORD_BUFFERS)) {
 				bufferSize = new BufferSize(tProject.getNetwork());
 				bufferSize.setDefaultSize(Integer.MAX_VALUE);
 				Logger.info(
@@ -305,6 +305,13 @@ public class TimelineCli implements IApplication {
 		}
 
 		return IApplication.EXIT_OK;
+	}
+
+	
+	public void start(Configuration configuration, IProgressMonitor monitor) throws Exception {
+		this.configuration = configuration;
+		this.monitor = monitor;
+		run();
 	}
 
 	@Override
