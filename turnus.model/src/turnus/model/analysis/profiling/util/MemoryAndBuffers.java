@@ -109,6 +109,8 @@ public class MemoryAndBuffers {
 		return buffers;
 	}
 
+	
+	
 	/**
 	 * 
 	 */
@@ -147,4 +149,40 @@ public class MemoryAndBuffers {
 
 		return buffers;
 	}
+	
+	
+	public static List<Actor> getIncomingActorsOfPartition(List<Actor> actors) {
+		List<Actor> borderActors = new ArrayList<>();
+
+		for (Actor actor : actors) {
+			for (Buffer buffer : actor.getIncomingBuffers()) {
+				Actor srcActor = buffer.getSource().getOwner();
+				if (!actors.contains(srcActor)) {
+					borderActors.add(actor);
+					break;
+				}
+			}
+		}
+
+		return borderActors;
+	}
+
+	
+	public static List<Actor> getOutgoingActorsOfPartition(List<Actor> actors) {
+		List<Actor> borderActors = new ArrayList<>();
+
+		for (Actor actor : actors) {
+			for (Buffer buffer : actor.getOutgoingBuffers()) {
+				Actor tgtActor = buffer.getTarget().getOwner();
+				if (!actors.contains(tgtActor)) {
+					borderActors.add(actor);
+					break;
+				}
+			}
+		}
+
+		return borderActors;
+	}
+	
+	
 }

@@ -102,6 +102,7 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 			case DataflowPackage.TYPE_BOOLEAN: return createTypeBoolean();
 			case DataflowPackage.TYPE_DOUBLE: return createTypeDouble();
 			case DataflowPackage.TYPE_UNDEFINED: return createTypeUndefined();
+			case DataflowPackage.TYPE_TENSOR: return createTypeTensor();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -292,6 +293,17 @@ public class DataflowFactoryImpl extends EFactoryImpl implements DataflowFactory
 	public TypeUndefined createTypeUndefined() {
 		TypeUndefinedImpl typeUndefined = new TypeUndefinedImpl();
 		return typeUndefined;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public TypeTensor createTypeTensor() {
+		TypeTensorImpl typeTensor = new TypeTensorImpl();
+		return typeTensor;
 	}
 
 	/**

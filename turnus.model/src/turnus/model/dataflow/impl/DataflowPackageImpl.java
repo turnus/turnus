@@ -58,6 +58,7 @@ import turnus.model.dataflow.TypeDouble;
 import turnus.model.dataflow.TypeInt;
 import turnus.model.dataflow.TypeList;
 import turnus.model.dataflow.TypeString;
+import turnus.model.dataflow.TypeTensor;
 import turnus.model.dataflow.TypeUint;
 import turnus.model.dataflow.TypeUndefined;
 import turnus.model.dataflow.Variable;
@@ -195,6 +196,13 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * @generated
 	 */
 	private EClass typeUndefinedEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeTensorEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1247,6 +1255,36 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * @generated
 	 */
 	@Override
+	public EClass getTypeTensor() {
+		return typeTensorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTypeTensor_TensorType() {
+		return (EReference)typeTensorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTypeTensor_Shape() {
+		return (EAttribute)typeTensorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public DataflowFactory getDataflowFactory() {
 		return (DataflowFactory)getEFactoryInstance();
 	}
@@ -1385,6 +1423,10 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 
 		typeUndefinedEClass = createEClass(TYPE_UNDEFINED);
 		createEAttribute(typeUndefinedEClass, TYPE_UNDEFINED__SIZE);
+
+		typeTensorEClass = createEClass(TYPE_TENSOR);
+		createEReference(typeTensorEClass, TYPE_TENSOR__TENSOR_TYPE);
+		createEAttribute(typeTensorEClass, TYPE_TENSOR__SHAPE);
 	}
 
 	/**
@@ -1436,6 +1478,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		typeBooleanEClass.getESuperTypes().add(this.getType());
 		typeDoubleEClass.getESuperTypes().add(this.getType());
 		typeUndefinedEClass.getESuperTypes().add(this.getType());
+		typeTensorEClass.getESuperTypes().add(this.getType());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(networkEClass, Network.class, "Network", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1577,6 +1620,10 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 
 		initEClass(typeUndefinedEClass, TypeUndefined.class, "TypeUndefined", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTypeUndefined_Size(), ecorePackage.getEInt(), "size", null, 1, 1, TypeUndefined.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeTensorEClass, TypeTensor.class, "TypeTensor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypeTensor_TensorType(), this.getType(), null, "tensorType", null, 0, 1, TypeTensor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeTensor_Shape(), ecorePackage.getELong(), "shape", null, 1, -1, TypeTensor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -171,6 +171,10 @@ public class DataflowAdapterFactory extends AdapterFactoryImpl {
 				return createTypeUndefinedAdapter();
 			}
 			@Override
+			public Adapter caseTypeTensor(TypeTensor object) {
+				return createTypeTensorAdapter();
+			}
+			@Override
 			public Adapter caseAttributable(Attributable object) {
 				return createAttributableAdapter();
 			}
@@ -443,6 +447,20 @@ public class DataflowAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeUndefinedAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link turnus.model.dataflow.TypeTensor <em>Type Tensor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see turnus.model.dataflow.TypeTensor
+	 * @generated
+	 */
+	public Adapter createTypeTensorAdapter() {
 		return null;
 	}
 

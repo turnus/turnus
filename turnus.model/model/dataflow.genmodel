@@ -149,5 +149,9 @@
     <genClasses ecoreClass="dataflow.ecore#//TypeUndefined">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataflow.ecore#//TypeUndefined/size"/>
     </genClasses>
+    <genClasses ecoreClass="dataflow.ecore#//TypeTensor">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataflow.ecore#//TypeTensor/tensorType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataflow.ecore#//TypeTensor/shape"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

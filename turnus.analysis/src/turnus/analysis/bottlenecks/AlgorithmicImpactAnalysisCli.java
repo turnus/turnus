@@ -45,12 +45,14 @@ import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
+import turnus.analysis.dot.BottleneckNetworkToDot;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
@@ -137,6 +139,9 @@ public class AlgorithmicImpactAnalysisCli implements IApplication {
 				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
 				Logger.info("Impact analysis report stored in \"%s\"", reportFile);
 
+				File dotFile = changeExtension(reportFile, TurnusExtensions.DOT);
+				new BottleneckNetworkToDot(project.getNetwork(), report.getInitialBottlenecks())
+						.emit(FileSystems.getDefault().getPath(dotFile.getAbsolutePath()));
 				File cpFile = changeExtension(reportFile, TurnusExtensions.BOTTLENECKS_REPORT);
 				EcoreUtils.storeEObject(report.getInitialBottlenecks(), project.getResourceSet(), cpFile);
 				Logger.info("Initial bottleneck analysis report stored in \"%s\"", cpFile);
