@@ -38,6 +38,7 @@ import java.util.Random;
 import adevs.Atomic;
 import adevs.Digraph.PortValue;
 import turnus.common.TurnusRuntimeException;
+import turnus.common.io.Logger;
 import turnus.model.dataflow.Buffer;
 import turnus.model.mapping.data.MemoryAccess;
 
@@ -79,7 +80,7 @@ public class AtomicBuffer extends Atomic<PortValue> {
 	private int size;
 	
 	///** the buffer local time */
-	//private double localTime = 0;
+	private double localTime = 0;
 	
 	/** true if the receive (in) interface is enabled */
 	private boolean rxEnabled;
@@ -152,7 +153,7 @@ public class AtomicBuffer extends Atomic<PortValue> {
 		txTokens = 0;
 		tokensToRelease = 0;
 		
-	//	localTime = 0.0;
+		localTime = 0.0;
 	}
 	
 	@Override
@@ -187,8 +188,8 @@ public class AtomicBuffer extends Atomic<PortValue> {
 
 	@Override
 	public void delta_ext(double e, Collection<PortValue> xb) {
-		//Logger.debug("delta_ext at %f e=%f: buffer=%s", localTime, e, buffer.toString());
-		//localTime += e;
+		//Logger.info("delta_ext at %f e=%f: buffer=%s", localTime, e, buffer.toString());
+		localTime += e;
 		
 		for (PortValue inPortValue : xb) {
 			switch (inPortValue.getPort()) {

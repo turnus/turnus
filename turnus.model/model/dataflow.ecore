@@ -115,6 +115,10 @@
         eType="#//Guard" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//Actor"
         changeable="false" volatile="true" transient="true" derived="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="production" upperBound="-1"
+        eType="#//map/PortsToLongMap" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="consumption" upperBound="-1"
+        eType="#//map/PortsToLongMap" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Procedure" eSuperTypes="common.ecore#//Attributable">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -207,4 +211,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="shape" lowerBound="1" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
   </eClassifiers>
+  <eSubpackages name="map" nsURI="http://turnus.co/model/2015/dataflow/map" nsPrefix="turnus.model.dataflow.map">
+    <eClassifiers xsi:type="ecore:EClass" name="PortsToLongMap" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="#//Port"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELongObject"/>
+    </eClassifiers>
+  </eSubpackages>
 </ecore:EPackage>

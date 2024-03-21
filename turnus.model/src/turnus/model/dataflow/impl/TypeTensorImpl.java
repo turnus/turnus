@@ -60,14 +60,10 @@ import turnus.model.dataflow.TypeTensor;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link turnus.model.dataflow.impl.TypeTensorImpl#getEtype
- * <em>Etype</em>}</li>
- * <li>{@link turnus.model.dataflow.impl.TypeTensorImpl#getBits
- * <em>Bits</em>}</li>
- * <li>{@link turnus.model.dataflow.impl.TypeTensorImpl#getTensorType <em>Tensor
- * Type</em>}</li>
- * <li>{@link turnus.model.dataflow.impl.TypeTensorImpl#getShape
- * <em>Shape</em>}</li>
+ *   <li>{@link turnus.model.dataflow.impl.TypeTensorImpl#getEtype <em>Etype</em>}</li>
+ *   <li>{@link turnus.model.dataflow.impl.TypeTensorImpl#getBits <em>Bits</em>}</li>
+ *   <li>{@link turnus.model.dataflow.impl.TypeTensorImpl#getTensorType <em>Tensor Type</em>}</li>
+ *   <li>{@link turnus.model.dataflow.impl.TypeTensorImpl#getShape <em>Shape</em>}</li>
  * </ul>
  *
  * @generated
@@ -94,9 +90,8 @@ public class TypeTensorImpl extends MinimalEObjectImpl.Container implements Type
 	protected static final long BITS_EDEFAULT = 0L;
 
 	/**
-	 * The cached value of the '{@link #getTensorType() <em>Tensor Type</em>}'
-	 * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getTensorType() <em>Tensor Type</em>}' containment reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getTensorType()
 	 * @generated
 	 * @ordered
@@ -106,7 +101,6 @@ public class TypeTensorImpl extends MinimalEObjectImpl.Container implements Type
 	/**
 	 * The cached value of the '{@link #getShape() <em>Shape</em>}' attribute list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #getShape()
 	 * @generated
 	 * @ordered
@@ -115,7 +109,6 @@ public class TypeTensorImpl extends MinimalEObjectImpl.Container implements Type
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected TypeTensorImpl() {
@@ -124,7 +117,6 @@ public class TypeTensorImpl extends MinimalEObjectImpl.Container implements Type
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -134,7 +126,6 @@ public class TypeTensorImpl extends MinimalEObjectImpl.Container implements Type
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -161,7 +152,6 @@ public class TypeTensorImpl extends MinimalEObjectImpl.Container implements Type
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -171,26 +161,20 @@ public class TypeTensorImpl extends MinimalEObjectImpl.Container implements Type
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetTensorType(Type newTensorType, NotificationChain msgs) {
 		Type oldTensorType = tensorType;
 		tensorType = newTensorType;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					DataflowPackage.TYPE_TENSOR__TENSOR_TYPE, oldTensorType, newTensorType);
-			if (msgs == null)
-				msgs = notification;
-			else
-				msgs.add(notification);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DataflowPackage.TYPE_TENSOR__TENSOR_TYPE, oldTensorType, newTensorType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -198,22 +182,18 @@ public class TypeTensorImpl extends MinimalEObjectImpl.Container implements Type
 		if (newTensorType != tensorType) {
 			NotificationChain msgs = null;
 			if (tensorType != null)
-				msgs = ((InternalEObject) tensorType).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - DataflowPackage.TYPE_TENSOR__TENSOR_TYPE, null, msgs);
+				msgs = ((InternalEObject)tensorType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DataflowPackage.TYPE_TENSOR__TENSOR_TYPE, null, msgs);
 			if (newTensorType != null)
-				msgs = ((InternalEObject) newTensorType).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - DataflowPackage.TYPE_TENSOR__TENSOR_TYPE, null, msgs);
+				msgs = ((InternalEObject)newTensorType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DataflowPackage.TYPE_TENSOR__TENSOR_TYPE, null, msgs);
 			msgs = basicSetTensorType(newTensorType, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DataflowPackage.TYPE_TENSOR__TENSOR_TYPE,
-					newTensorType, newTensorType));
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DataflowPackage.TYPE_TENSOR__TENSOR_TYPE, newTensorType, newTensorType));
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -226,105 +206,98 @@ public class TypeTensorImpl extends MinimalEObjectImpl.Container implements Type
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case DataflowPackage.TYPE_TENSOR__TENSOR_TYPE:
-			return basicSetTensorType(null, msgs);
+			case DataflowPackage.TYPE_TENSOR__TENSOR_TYPE:
+				return basicSetTensorType(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case DataflowPackage.TYPE_TENSOR__ETYPE:
-			return getEtype();
-		case DataflowPackage.TYPE_TENSOR__BITS:
-			return getBits();
-		case DataflowPackage.TYPE_TENSOR__TENSOR_TYPE:
-			return getTensorType();
-		case DataflowPackage.TYPE_TENSOR__SHAPE:
-			return getShape();
+			case DataflowPackage.TYPE_TENSOR__ETYPE:
+				return getEtype();
+			case DataflowPackage.TYPE_TENSOR__BITS:
+				return getBits();
+			case DataflowPackage.TYPE_TENSOR__TENSOR_TYPE:
+				return getTensorType();
+			case DataflowPackage.TYPE_TENSOR__SHAPE:
+				return getShape();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case DataflowPackage.TYPE_TENSOR__TENSOR_TYPE:
-			setTensorType((Type) newValue);
-			return;
-		case DataflowPackage.TYPE_TENSOR__SHAPE:
-			getShape().clear();
-			getShape().addAll((Collection<? extends Long>) newValue);
-			return;
+			case DataflowPackage.TYPE_TENSOR__TENSOR_TYPE:
+				setTensorType((Type)newValue);
+				return;
+			case DataflowPackage.TYPE_TENSOR__SHAPE:
+				getShape().clear();
+				getShape().addAll((Collection<? extends Long>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case DataflowPackage.TYPE_TENSOR__TENSOR_TYPE:
-			setTensorType((Type) null);
-			return;
-		case DataflowPackage.TYPE_TENSOR__SHAPE:
-			getShape().clear();
-			return;
+			case DataflowPackage.TYPE_TENSOR__TENSOR_TYPE:
+				setTensorType((Type)null);
+				return;
+			case DataflowPackage.TYPE_TENSOR__SHAPE:
+				getShape().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case DataflowPackage.TYPE_TENSOR__ETYPE:
-			return getEtype() != ETYPE_EDEFAULT;
-		case DataflowPackage.TYPE_TENSOR__BITS:
-			return getBits() != BITS_EDEFAULT;
-		case DataflowPackage.TYPE_TENSOR__TENSOR_TYPE:
-			return tensorType != null;
-		case DataflowPackage.TYPE_TENSOR__SHAPE:
-			return shape != null && !shape.isEmpty();
+			case DataflowPackage.TYPE_TENSOR__ETYPE:
+				return getEtype() != ETYPE_EDEFAULT;
+			case DataflowPackage.TYPE_TENSOR__BITS:
+				return getBits() != BITS_EDEFAULT;
+			case DataflowPackage.TYPE_TENSOR__TENSOR_TYPE:
+				return tensorType != null;
+			case DataflowPackage.TYPE_TENSOR__SHAPE:
+				return shape != null && !shape.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (shape: ");

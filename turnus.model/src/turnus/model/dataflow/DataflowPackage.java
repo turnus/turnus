@@ -633,13 +633,31 @@ public interface DataflowPackage extends EPackage {
 	int ACTION__OWNER = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Production</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTION__PRODUCTION = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Consumption</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTION__CONSUMPTION = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 6;
+
+	/**
 	 * The number of structural features of the '<em>Action</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION_FEATURE_COUNT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 5;
+	int ACTION_FEATURE_COUNT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 7;
 
 	/**
 	 * The operation id for the '<em>Get Guard</em>' operation.
@@ -2185,6 +2203,28 @@ public interface DataflowPackage extends EPackage {
 	EReference getAction_Owner();
 
 	/**
+	 * Returns the meta object for the map '{@link turnus.model.dataflow.Action#getProduction <em>Production</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Production</em>'.
+	 * @see turnus.model.dataflow.Action#getProduction()
+	 * @see #getAction()
+	 * @generated
+	 */
+	EReference getAction_Production();
+
+	/**
+	 * Returns the meta object for the map '{@link turnus.model.dataflow.Action#getConsumption <em>Consumption</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Consumption</em>'.
+	 * @see turnus.model.dataflow.Action#getConsumption()
+	 * @see #getAction()
+	 * @generated
+	 */
+	EReference getAction_Consumption();
+
+	/**
 	 * Returns the meta object for the '{@link turnus.model.dataflow.Action#getGuard(java.lang.String) <em>Get Guard</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3159,6 +3199,22 @@ public interface DataflowPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ACTION__OWNER = eINSTANCE.getAction_Owner();
+
+		/**
+		 * The meta object literal for the '<em><b>Production</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTION__PRODUCTION = eINSTANCE.getAction_Production();
+
+		/**
+		 * The meta object literal for the '<em><b>Consumption</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTION__CONSUMPTION = eINSTANCE.getAction_Consumption();
 
 		/**
 		 * The meta object literal for the '<em><b>Get Guard</b></em>' operation.

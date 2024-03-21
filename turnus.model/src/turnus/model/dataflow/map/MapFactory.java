@@ -29,52 +29,34 @@
  * for the parts of Eclipse libraries used as well as that of the  covered work.
  * 
  */
-package turnus.model.dataflow.util;
+package turnus.model.dataflow.map;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import turnus.model.dataflow.Actor;
-import turnus.model.dataflow.Buffer;
-import turnus.model.graph.SimpleG;
-import turnus.model.graph.SimpleGraph;
+import org.eclipse.emf.ecore.EFactory;
 
 /**
- * 
- * @author Simone Casale-Brunet
- *
+ * <!-- begin-user-doc -->
+ * The <b>Factory</b> for the model.
+ * It provides a create method for each non-abstract class of the model.
+ * <!-- end-user-doc -->
+ * @see turnus.model.dataflow.map.MapPackage
+ * @generated
  */
-public class ActorsSorter {
+public interface MapFactory extends EFactory {
+	/**
+	 * The singleton instance of the factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	MapFactory eINSTANCE = turnus.model.dataflow.map.impl.MapFactoryImpl.init();
 
-	public static List<Actor> topologicalOrder(Collection<Actor> actors) {
-		SimpleG<Actor> g = new SimpleG<>();
-		for (Actor actor : actors) {
-			g.addNode(actor);
-		}
+	/**
+	 * Returns the package supported by this factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the package supported by this factory.
+	 * @generated
+	 */
+	MapPackage getMapPackage();
 
-		for (Actor actor : actors) {
-			for (Buffer outgoing : actor.getOutgoingBuffers()) {
-				g.addEdge(actor, outgoing.getTarget().getOwner());
-			}
-		}
-
-		return g.topologicalSort();
-
-	}
-
-	public static List<Actor> alphabeticalOrder(Collection<Actor> actors) {
-		List<Actor> sortedList = new ArrayList<>(actors);
-		Collections.sort(sortedList, new Comparator<Actor>() {
-			@Override
-			public int compare(Actor o1, Actor o2) {
-				return o1.getName().compareTo(o2.getName());
-			}
-		});
-
-		return sortedList;
-	}
-
-}
+} //MapFactory
