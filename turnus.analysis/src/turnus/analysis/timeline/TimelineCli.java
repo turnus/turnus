@@ -131,7 +131,6 @@ public class TimelineCli implements IApplication {
 				.setOption(WRITE_MISS_CONSTANT, false) //
 				.setOption(BUFFER_SIZE_DEFAULT, false)//
 				.setOption(BUFFER_SIZE_FILE, false)//
-				.setOption(RECORD_BUFFERS, false)//
 				.setOption(RELEASE_BUFFERS_AFTER_PROCESSING, false)//
 				.setOption(OUTPUT_DIRECTORY, false);
 		configuration = cliParser.parse(args);
@@ -177,12 +176,7 @@ public class TimelineCli implements IApplication {
 				throw new TurnusException("Mapping file is not valid", e);
 			}
 
-			if (configuration.getValue(RECORD_BUFFERS)) {
-				bufferSize = new BufferSize(tProject.getNetwork());
-				bufferSize.setDefaultSize(Integer.MAX_VALUE);
-				Logger.info(
-						"Record buffers occupancy option chosen. Simulation will be run with all buffer sizes equal to Integer.MAX_VALUE.");
-			} else if (configuration.hasValue(BUFFER_SIZE_FILE)) {
+			if (configuration.hasValue(BUFFER_SIZE_FILE)) {
 				File bufferFile = configuration.getValue(BUFFER_SIZE_FILE);
 				XmlBufferSizeReader reader = new XmlBufferSizeReader();
 				bufferSize = reader.load(bufferFile);
@@ -193,6 +187,15 @@ public class TimelineCli implements IApplication {
 				bufferSize.setDefaultSize(defaultBufferSize);
 			} else {
 				throw new TurnusException("Buffer sizes are not specified.");
+			}
+
+			if (configuration.hasValue(RECORD_BUFFERS)) {
+				if (configuration.getValue(RECORD_BUFFERS)) {
+					bufferSize = new BufferSize(tProject.getNetwork());
+					bufferSize.setDefaultSize(Integer.MAX_VALUE);
+					Logger.info(
+							"Record buffers occupancy option chosen. Simulation will be run with all buffer sizes equal to Integer.MAX_VALUE.");
+				}
 			}
 
 			if (configuration.hasValue(COMMUNICATION_WEIGHTS)) {
@@ -213,12 +216,11 @@ public class TimelineCli implements IApplication {
 				schWeight = new XmlSchedulingWeightReader().load(schWeightsFile);
 			}
 		}
-		
+
 		TimelineCollector timelineCollector = new TimelineCollector(network, partitioning);
 		{ // STEP 2 : Run the analysis
 			monitor.subTask("Running the simulation");
 			try {
-				
 
 				simulation = new SimEngine();
 				simulation.setTraceProject(tProject);
@@ -259,21 +261,20 @@ public class TimelineCli implements IApplication {
 				Logger.info("Timeline report stored in \"%s\"", reportFileTimeline);
 
 				File jsonFile = changeExtension(reportFileTimeline, TurnusExtensions.JSON);
-				//JsonObject trace = simulation.getJsonObject(jsonFile.getName());//timelineCollector.getJsonObject(jsonFile.getName());
+				// JsonObject trace =
+				// simulation.getJsonObject(jsonFile.getName());//timelineCollector.getJsonObject(jsonFile.getName());
 				JsonObject trace = timelineCollector.getJsonObject(jsonFile.getName());
 
-				try(FileWriter jsonTraceFile = new FileWriter(jsonFile)){
+				try (FileWriter jsonTraceFile = new FileWriter(jsonFile)) {
 					JsonWriterFactory writerFactory = Json.createWriterFactory(null);
 					JsonWriter jsonWriter = writerFactory.createWriter(jsonTraceFile);
-					
+
 					jsonWriter.write(trace);
-					
+
 					jsonWriter.close();
-				}catch (IOException e) {
+				} catch (IOException e) {
 					throw new TurnusException("The simulation cannot be completed", e);
 				}
-
-				
 
 			} catch (Exception e) {
 				Logger.error("The report file cannot be stored");
@@ -305,6 +306,12 @@ public class TimelineCli implements IApplication {
 		}
 
 		return IApplication.EXIT_OK;
+	}
+
+	public void start(Configuration configuration, IProgressMonitor monitor) throws Exception {
+		this.configuration = configuration;
+		this.monitor = monitor;
+		run();
 	}
 
 	@Override

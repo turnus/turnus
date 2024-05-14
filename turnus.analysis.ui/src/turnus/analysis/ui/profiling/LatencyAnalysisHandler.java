@@ -1,7 +1,7 @@
 /* 
  * TURNUS - www.turnus.co
  * 
- * Copyright (C) 2010-2016 EPFL SCI STI MM
+ * Copyright (C) 2023 Endri Bezati
  *
  * This file is part of TURNUS.
  *
@@ -29,52 +29,29 @@
  * for the parts of Eclipse libraries used as well as that of the  covered work.
  * 
  */
-package turnus.model.dataflow.util;
+package turnus.analysis.ui.profiling;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import turnus.model.dataflow.Actor;
-import turnus.model.dataflow.Buffer;
-import turnus.model.graph.SimpleG;
-import turnus.model.graph.SimpleGraph;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
- * 
- * @author Simone Casale-Brunet
- *
+ * author Endri Bezati
  */
-public class ActorsSorter {
+public class LatencyAnalysisHandler extends AbstractHandler {
 
-	public static List<Actor> topologicalOrder(Collection<Actor> actors) {
-		SimpleG<Actor> g = new SimpleG<>();
-		for (Actor actor : actors) {
-			g.addNode(actor);
-		}
-
-		for (Actor actor : actors) {
-			for (Buffer outgoing : actor.getOutgoingBuffers()) {
-				g.addEdge(actor, outgoing.getTarget().getOwner());
-			}
-		}
-
-		return g.topologicalSort();
-
-	}
-
-	public static List<Actor> alphabeticalOrder(Collection<Actor> actors) {
-		List<Actor> sortedList = new ArrayList<>(actors);
-		Collections.sort(sortedList, new Comparator<Actor>() {
-			@Override
-			public int compare(Actor o1, Actor o2) {
-				return o1.getName().compareTo(o2.getName());
-			}
-		});
-
-		return sortedList;
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		// -- Get workbench window
+		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+		
+		// -- Create a new wizard and open it
+		Wizard wizard = new LatencyAnalysisWizard();
+		return new WizardDialog(window.getShell(), wizard).open();
 	}
 
 }

@@ -58,9 +58,12 @@ import turnus.model.dataflow.TypeDouble;
 import turnus.model.dataflow.TypeInt;
 import turnus.model.dataflow.TypeList;
 import turnus.model.dataflow.TypeString;
+import turnus.model.dataflow.TypeTensor;
 import turnus.model.dataflow.TypeUint;
 import turnus.model.dataflow.TypeUndefined;
 import turnus.model.dataflow.Variable;
+import turnus.model.dataflow.map.MapPackage;
+import turnus.model.dataflow.map.impl.MapPackageImpl;
 import turnus.model.versioning.VersioningPackage;
 
 /**
@@ -197,6 +200,13 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	private EClass typeUndefinedEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeTensorEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -247,11 +257,17 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		CommonPackage.eINSTANCE.eClass();
 		VersioningPackage.eINSTANCE.eClass();
 
+		// Obtain or create and register interdependencies
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI);
+		MapPackageImpl theMapPackage = (MapPackageImpl)(registeredPackage instanceof MapPackageImpl ? registeredPackage : MapPackage.eINSTANCE);
+
 		// Create package meta-data objects
 		theDataflowPackage.createPackageContents();
+		theMapPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theDataflowPackage.initializePackageContents();
+		theMapPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theDataflowPackage.freeze();
@@ -767,6 +783,26 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * @generated
 	 */
 	@Override
+	public EReference getAction_Production() {
+		return (EReference)actionEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAction_Consumption() {
+		return (EReference)actionEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EOperation getAction__GetGuard__String() {
 		return actionEClass.getEOperations().get(0);
 	}
@@ -1247,6 +1283,36 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * @generated
 	 */
 	@Override
+	public EClass getTypeTensor() {
+		return typeTensorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTypeTensor_TensorType() {
+		return (EReference)typeTensorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTypeTensor_Shape() {
+		return (EAttribute)typeTensorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public DataflowFactory getDataflowFactory() {
 		return (DataflowFactory)getEFactoryInstance();
 	}
@@ -1323,6 +1389,8 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		createEReference(actionEClass, ACTION__OUTPUT_PORTS);
 		createEReference(actionEClass, ACTION__GUARDS);
 		createEReference(actionEClass, ACTION__OWNER);
+		createEReference(actionEClass, ACTION__PRODUCTION);
+		createEReference(actionEClass, ACTION__CONSUMPTION);
 		createEOperation(actionEClass, ACTION___GET_GUARD__STRING);
 
 		procedureEClass = createEClass(PROCEDURE);
@@ -1385,6 +1453,10 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 
 		typeUndefinedEClass = createEClass(TYPE_UNDEFINED);
 		createEAttribute(typeUndefinedEClass, TYPE_UNDEFINED__SIZE);
+
+		typeTensorEClass = createEClass(TYPE_TENSOR);
+		createEReference(typeTensorEClass, TYPE_TENSOR__TENSOR_TYPE);
+		createEAttribute(typeTensorEClass, TYPE_TENSOR__SHAPE);
 	}
 
 	/**
@@ -1411,8 +1483,12 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
+		MapPackage theMapPackage = (MapPackage)EPackage.Registry.INSTANCE.getEPackage(MapPackage.eNS_URI);
 		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 		VersioningPackage theVersioningPackage = (VersioningPackage)EPackage.Registry.INSTANCE.getEPackage(VersioningPackage.eNS_URI);
+
+		// Add subpackages
+		getESubpackages().add(theMapPackage);
 
 		// Create type parameters
 
@@ -1436,6 +1512,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		typeBooleanEClass.getESuperTypes().add(this.getType());
 		typeDoubleEClass.getESuperTypes().add(this.getType());
 		typeUndefinedEClass.getESuperTypes().add(this.getType());
+		typeTensorEClass.getESuperTypes().add(this.getType());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(networkEClass, Network.class, "Network", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1513,6 +1590,8 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		initEReference(getAction_OutputPorts(), this.getPort(), this.getPort_Writers(), "outputPorts", null, 0, -1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAction_Guards(), this.getGuard(), null, "guards", null, 0, -1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAction_Owner(), this.getActor(), null, "owner", null, 0, 1, Action.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getAction_Production(), theMapPackage.getPortsToLongMap(), null, "production", null, 0, -1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAction_Consumption(), theMapPackage.getPortsToLongMap(), null, "consumption", null, 0, -1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = initEOperation(getAction__GetGuard__String(), this.getGuard(), "getGuard", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "tag", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1577,6 +1656,10 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 
 		initEClass(typeUndefinedEClass, TypeUndefined.class, "TypeUndefined", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTypeUndefined_Size(), ecorePackage.getEInt(), "size", null, 1, 1, TypeUndefined.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeTensorEClass, TypeTensor.class, "TypeTensor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypeTensor_TensorType(), this.getType(), null, "tensorType", null, 0, 1, TypeTensor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeTensor_Shape(), ecorePackage.getELong(), "shape", null, 1, -1, TypeTensor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

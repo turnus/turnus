@@ -633,13 +633,31 @@ public interface DataflowPackage extends EPackage {
 	int ACTION__OWNER = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Production</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTION__PRODUCTION = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Consumption</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTION__CONSUMPTION = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 6;
+
+	/**
 	 * The number of structural features of the '<em>Action</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION_FEATURE_COUNT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 5;
+	int ACTION_FEATURE_COUNT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 7;
 
 	/**
 	 * The operation id for the '<em>Get Guard</em>' operation.
@@ -1585,6 +1603,71 @@ public interface DataflowPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link turnus.model.dataflow.impl.TypeTensorImpl <em>Type Tensor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.dataflow.impl.TypeTensorImpl
+	 * @see turnus.model.dataflow.impl.DataflowPackageImpl#getTypeTensor()
+	 * @generated
+	 */
+	int TYPE_TENSOR = 18;
+
+	/**
+	 * The feature id for the '<em><b>Etype</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TENSOR__ETYPE = TYPE__ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>Bits</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TENSOR__BITS = TYPE__BITS;
+
+	/**
+	 * The feature id for the '<em><b>Tensor Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TENSOR__TENSOR_TYPE = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Shape</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TENSOR__SHAPE = TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Type Tensor</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TENSOR_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Type Tensor</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TENSOR_OPERATION_COUNT = TYPE_OPERATION_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.dataflow.Network <em>Network</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2120,6 +2203,28 @@ public interface DataflowPackage extends EPackage {
 	EReference getAction_Owner();
 
 	/**
+	 * Returns the meta object for the map '{@link turnus.model.dataflow.Action#getProduction <em>Production</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Production</em>'.
+	 * @see turnus.model.dataflow.Action#getProduction()
+	 * @see #getAction()
+	 * @generated
+	 */
+	EReference getAction_Production();
+
+	/**
+	 * Returns the meta object for the map '{@link turnus.model.dataflow.Action#getConsumption <em>Consumption</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Consumption</em>'.
+	 * @see turnus.model.dataflow.Action#getConsumption()
+	 * @see #getAction()
+	 * @generated
+	 */
+	EReference getAction_Consumption();
+
+	/**
 	 * Returns the meta object for the '{@link turnus.model.dataflow.Action#getGuard(java.lang.String) <em>Get Guard</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2633,6 +2738,38 @@ public interface DataflowPackage extends EPackage {
 	EAttribute getTypeUndefined_Size();
 
 	/**
+	 * Returns the meta object for class '{@link turnus.model.dataflow.TypeTensor <em>Type Tensor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Tensor</em>'.
+	 * @see turnus.model.dataflow.TypeTensor
+	 * @generated
+	 */
+	EClass getTypeTensor();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link turnus.model.dataflow.TypeTensor#getTensorType <em>Tensor Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Tensor Type</em>'.
+	 * @see turnus.model.dataflow.TypeTensor#getTensorType()
+	 * @see #getTypeTensor()
+	 * @generated
+	 */
+	EReference getTypeTensor_TensorType();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link turnus.model.dataflow.TypeTensor#getShape <em>Shape</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Shape</em>'.
+	 * @see turnus.model.dataflow.TypeTensor#getShape()
+	 * @see #getTypeTensor()
+	 * @generated
+	 */
+	EAttribute getTypeTensor_Shape();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3064,6 +3201,22 @@ public interface DataflowPackage extends EPackage {
 		EReference ACTION__OWNER = eINSTANCE.getAction_Owner();
 
 		/**
+		 * The meta object literal for the '<em><b>Production</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTION__PRODUCTION = eINSTANCE.getAction_Production();
+
+		/**
+		 * The meta object literal for the '<em><b>Consumption</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTION__CONSUMPTION = eINSTANCE.getAction_Consumption();
+
+		/**
 		 * The meta object literal for the '<em><b>Get Guard</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3474,6 +3627,32 @@ public interface DataflowPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TYPE_UNDEFINED__SIZE = eINSTANCE.getTypeUndefined_Size();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.dataflow.impl.TypeTensorImpl <em>Type Tensor</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.dataflow.impl.TypeTensorImpl
+		 * @see turnus.model.dataflow.impl.DataflowPackageImpl#getTypeTensor()
+		 * @generated
+		 */
+		EClass TYPE_TENSOR = eINSTANCE.getTypeTensor();
+
+		/**
+		 * The meta object literal for the '<em><b>Tensor Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_TENSOR__TENSOR_TYPE = eINSTANCE.getTypeTensor_TensorType();
+
+		/**
+		 * The meta object literal for the '<em><b>Shape</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TYPE_TENSOR__SHAPE = eINSTANCE.getTypeTensor_Shape();
 
 	}
 

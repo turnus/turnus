@@ -132,6 +132,10 @@
                   id="turnus.ui.menu.main.utilities"
                   label="Utilities">
             </menu>
+            <menu
+                  id="turnus.ui.menu.main.timeline"
+                  label="Timeline">
+            </menu>
          </menu>
       </menuContribution>
       <menuContribution

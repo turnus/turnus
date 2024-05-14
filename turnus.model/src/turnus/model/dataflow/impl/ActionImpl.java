@@ -34,14 +34,18 @@ package turnus.model.dataflow.impl;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 import turnus.model.common.impl.AttributableImpl;
 import turnus.model.dataflow.Action;
@@ -49,6 +53,8 @@ import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.DataflowPackage;
 import turnus.model.dataflow.Guard;
 import turnus.model.dataflow.Port;
+import turnus.model.dataflow.map.MapPackage;
+import turnus.model.dataflow.map.impl.PortsToLongMapImpl;
 import turnus.model.dataflow.util.ActionAdapter;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -65,6 +71,8 @@ import com.google.common.collect.HashBiMap;
  *   <li>{@link turnus.model.dataflow.impl.ActionImpl#getOutputPorts <em>Output Ports</em>}</li>
  *   <li>{@link turnus.model.dataflow.impl.ActionImpl#getGuards <em>Guards</em>}</li>
  *   <li>{@link turnus.model.dataflow.impl.ActionImpl#getOwner <em>Owner</em>}</li>
+ *   <li>{@link turnus.model.dataflow.impl.ActionImpl#getProduction <em>Production</em>}</li>
+ *   <li>{@link turnus.model.dataflow.impl.ActionImpl#getConsumption <em>Consumption</em>}</li>
  * </ul>
  *
  * @generated
@@ -114,6 +122,26 @@ public class ActionImpl extends AttributableImpl implements Action {
 	 * @ordered
 	 */
 	protected EList<Guard> guards;
+
+	/**
+	 * The cached value of the '{@link #getProduction() <em>Production</em>}' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProduction()
+	 * @generated
+	 * @ordered
+	 */
+	protected EMap<Port, Long> production;
+
+	/**
+	 * The cached value of the '{@link #getConsumption() <em>Consumption</em>}' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConsumption()
+	 * @generated
+	 * @ordered
+	 */
+	protected EMap<Port, Long> consumption;
 
 	/**
 	 * The map of guard and tags
@@ -211,6 +239,32 @@ public class ActionImpl extends AttributableImpl implements Action {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Map<Port, Long> getProduction() {
+		if (production == null) {
+			production = new EcoreEMap<Port,Long>(MapPackage.Literals.PORTS_TO_LONG_MAP, PortsToLongMapImpl.class, this, DataflowPackage.ACTION__PRODUCTION);
+		}
+		return production.map();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Map<Port, Long> getConsumption() {
+		if (consumption == null) {
+			consumption = new EcoreEMap<Port,Long>(MapPackage.Literals.PORTS_TO_LONG_MAP, PortsToLongMapImpl.class, this, DataflowPackage.ACTION__CONSUMPTION);
+		}
+		return consumption.map();
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated NOT
@@ -248,6 +302,10 @@ public class ActionImpl extends AttributableImpl implements Action {
 				return ((InternalEList<?>)getOutputPorts()).basicRemove(otherEnd, msgs);
 			case DataflowPackage.ACTION__GUARDS:
 				return ((InternalEList<?>)getGuards()).basicRemove(otherEnd, msgs);
+			case DataflowPackage.ACTION__PRODUCTION:
+				return ((InternalEList<?>)((EMap.InternalMapView<Port, Long>)getProduction()).eMap()).basicRemove(otherEnd, msgs);
+			case DataflowPackage.ACTION__CONSUMPTION:
+				return ((InternalEList<?>)((EMap.InternalMapView<Port, Long>)getConsumption()).eMap()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -269,6 +327,12 @@ public class ActionImpl extends AttributableImpl implements Action {
 				return getGuards();
 			case DataflowPackage.ACTION__OWNER:
 				return getOwner();
+			case DataflowPackage.ACTION__PRODUCTION:
+				if (coreType) return ((EMap.InternalMapView<Port, Long>)getProduction()).eMap();
+				else return getProduction();
+			case DataflowPackage.ACTION__CONSUMPTION:
+				if (coreType) return ((EMap.InternalMapView<Port, Long>)getConsumption()).eMap();
+				else return getConsumption();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -296,6 +360,12 @@ public class ActionImpl extends AttributableImpl implements Action {
 				getGuards().clear();
 				getGuards().addAll((Collection<? extends Guard>)newValue);
 				return;
+			case DataflowPackage.ACTION__PRODUCTION:
+				((EStructuralFeature.Setting)((EMap.InternalMapView<Port, Long>)getProduction()).eMap()).set(newValue);
+				return;
+			case DataflowPackage.ACTION__CONSUMPTION:
+				((EStructuralFeature.Setting)((EMap.InternalMapView<Port, Long>)getConsumption()).eMap()).set(newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -319,6 +389,12 @@ public class ActionImpl extends AttributableImpl implements Action {
 			case DataflowPackage.ACTION__GUARDS:
 				getGuards().clear();
 				return;
+			case DataflowPackage.ACTION__PRODUCTION:
+				getProduction().clear();
+				return;
+			case DataflowPackage.ACTION__CONSUMPTION:
+				getConsumption().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -340,6 +416,10 @@ public class ActionImpl extends AttributableImpl implements Action {
 				return guards != null && !guards.isEmpty();
 			case DataflowPackage.ACTION__OWNER:
 				return getOwner() != null;
+			case DataflowPackage.ACTION__PRODUCTION:
+				return production != null && !production.isEmpty();
+			case DataflowPackage.ACTION__CONSUMPTION:
+				return consumption != null && !consumption.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

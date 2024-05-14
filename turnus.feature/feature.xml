@@ -24,26 +24,6 @@ This file is part of TURNUS. TURNUS is free software: you can redistribute it an
       <discovery label="mars" url="http://download.eclipse.org/releases/mars"/>
    </url>
 
-   <requires>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.core.resources" version="3.9.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.filesystem"/>
-      <import plugin="org.eclipse.emf" version="3.0.4" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.emf.common" version="2.11.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.11.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.debug.core" version="3.9.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.ecore.xmi" version="2.10.0" match="greaterOrEqual"/>
-      <import plugin="com.google.guava" version="15.0.0" match="greaterOrEqual"/>
-      <import plugin="org.apache.commons.io" version="2.2.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.jgit" version="3.4.2" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.debug.ui" version="3.10.2" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.console" version="3.5.300" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.expressions" version="3.4.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.ide" version="3.10.2" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.forms"/>
-   </requires>
 
    <plugin
          id="turnus.analysis"

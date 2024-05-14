@@ -204,6 +204,15 @@ public interface DataflowFactory extends EFactory {
 	TypeUndefined createTypeUndefined();
 
 	/**
+	 * Returns a new object of class '<em>Type Tensor</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Tensor</em>'.
+	 * @generated
+	 */
+	TypeTensor createTypeTensor();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

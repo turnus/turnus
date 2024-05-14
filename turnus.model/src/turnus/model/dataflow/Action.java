@@ -33,6 +33,7 @@ package turnus.model.dataflow;
 
 import java.util.List;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 
 import turnus.common.Attributable;
@@ -51,6 +52,8 @@ import turnus.common.Attributable;
  *   <li>{@link turnus.model.dataflow.Action#getOutputPorts <em>Output Ports</em>}</li>
  *   <li>{@link turnus.model.dataflow.Action#getGuards <em>Guards</em>}</li>
  *   <li>{@link turnus.model.dataflow.Action#getOwner <em>Owner</em>}</li>
+ *   <li>{@link turnus.model.dataflow.Action#getProduction <em>Production</em>}</li>
+ *   <li>{@link turnus.model.dataflow.Action#getConsumption <em>Consumption</em>}</li>
  * </ul>
  *
  * @see turnus.model.dataflow.DataflowPackage#getAction()
@@ -150,6 +153,32 @@ public interface Action extends EObject, Attributable {
 	 * @generated
 	 */
 	Actor getOwner();
+
+	/**
+	 * Returns the value of the '<em><b>Production</b></em>' map.
+	 * The key is of type {@link turnus.model.dataflow.Port},
+	 * and the value is of type {@link java.lang.Long},
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Production</em>' map.
+	 * @see turnus.model.dataflow.DataflowPackage#getAction_Production()
+	 * @model mapType="turnus.model.dataflow.map.PortsToLongMap&lt;turnus.model.dataflow.Port, org.eclipse.emf.ecore.ELongObject&gt;"
+	 * @generated
+	 */
+	Map<Port, Long> getProduction();
+
+	/**
+	 * Returns the value of the '<em><b>Consumption</b></em>' map.
+	 * The key is of type {@link turnus.model.dataflow.Port},
+	 * and the value is of type {@link java.lang.Long},
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Consumption</em>' map.
+	 * @see turnus.model.dataflow.DataflowPackage#getAction_Consumption()
+	 * @model mapType="turnus.model.dataflow.map.PortsToLongMap&lt;turnus.model.dataflow.Port, org.eclipse.emf.ecore.ELongObject&gt;"
+	 * @generated
+	 */
+	Map<Port, Long> getConsumption();
 
 	/**
 	 * <!-- begin-user-doc -->

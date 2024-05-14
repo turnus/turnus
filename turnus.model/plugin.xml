@@ -31,6 +31,14 @@
             genModel="model/dataflow.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dataflow -->
+      <package
+            uri="http://turnus.co/model/2015/dataflow/map"
+            class="turnus.model.dataflow.map.MapPackage"
+            genModel="model/dataflow.genmodel"/>
+   </extension>
+
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated architecture -->
