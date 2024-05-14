@@ -38,6 +38,8 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import turnus.adevs.schedulers.DataDemandDrivenPartition;
+import turnus.adevs.schedulers.DiscrepancyBasic;
+import turnus.adevs.schedulers.DiscrepancyMaxLocalChildren;
 import turnus.adevs.schedulers.FullParallelPartition;
 import turnus.adevs.schedulers.NonPreemptivePartition;
 import turnus.adevs.schedulers.RandomPartition;
@@ -198,7 +200,11 @@ public class AdevsModelBuilder {
 		case "DATA_DEMAND_DRIVEN":
 			return new DataDemandDrivenPartition(targetActors, partitionId);
 		case "RANDOM":
-			return new RandomPartition(targetActors, partitionId);	
+			return new RandomPartition(targetActors, partitionId);
+		case "DISCREPANCY_BASIC":
+			return new DiscrepancyBasic(targetActors, partitionId, this.traceProject);
+		case "DISCREPANCY_MAX_LOCAL_CHILDREN":
+			return new DiscrepancyMaxLocalChildren(targetActors, partitionId, this.traceProject);
 		default:
 			return new FullParallelPartition(targetActors, partitionId);
 		}

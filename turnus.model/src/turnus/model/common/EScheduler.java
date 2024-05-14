@@ -94,7 +94,25 @@ public enum EScheduler implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RANDOM(4, "RANDOM", "RANDOM");
+	RANDOM(4, "RANDOM", "RANDOM"),
+	/**
+	 * The '<em><b>DISCREPANCY_BASIC</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @see #DISCREPANCY_BASIC_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DISCREPANCY_BASIC(5, "DISCREPANCY_BASIC", "DISCREPANCY_BASIC"),
+	/**
+	 * The '<em><b>DISCREPANCY_MAX_LOCAL_CHILDREN</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @see #DISCREPANCY_MAX_LOCAL_CHILDREN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DISCREPANCY_MAX_LOCAL_CHILDREN(6, "DISCREPANCY_MAX_LOCAL_CHILDREN", "DISCREPANCY_MAX_LOCAL_CHILDREN");
 
 	/**
 	 * The '<em><b>FULL PARALLEL</b></em>' literal value. <!-- begin-user-doc -->
@@ -164,13 +182,35 @@ public enum EScheduler implements Enumerator {
 	public static final int RANDOM_VALUE = 4;
 
 	/**
+	 * The '<em><b>DISCREPANCY_BASIC</b></em>' literal value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
+	 * @see #DISCREPANCY_BASIC
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DISCREPANCY_BASIC_VALUE = 5;
+	
+	/**
+	 * The '<em><b>DISCREPANCY_MAX_LOCAL_CHILDREN</b></em>' literal value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
+	 * @see #DISCREPANCY_MAX_LOCAL_CHILDREN
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DISCREPANCY_MAX_LOCAL_CHILDREN_VALUE = 6;
+
+	/**
 	 * An array of all the '<em><b>EScheduler</b></em>' enumerators. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 *
 	 * @generated
 	 */
 	private static final EScheduler[] VALUES_ARRAY = new EScheduler[] { FULL_PARALLEL, ROUND_ROBIN, NON_PREEMPTIVE,
-			DATA_DEMAND_DRIVEN, RANDOM, };
+			DATA_DEMAND_DRIVEN, RANDOM, DISCREPANCY_BASIC, DISCREPANCY_MAX_LOCAL_CHILDREN };
 
 	/**
 	 * A public read-only list of all the '<em><b>EScheduler</b></em>' enumerators.
@@ -234,6 +274,10 @@ public enum EScheduler implements Enumerator {
 			return DATA_DEMAND_DRIVEN;
 		case RANDOM_VALUE:
 			return RANDOM;
+		case DISCREPANCY_BASIC_VALUE:
+			return DISCREPANCY_BASIC;
+		case DISCREPANCY_MAX_LOCAL_CHILDREN_VALUE:
+			return DISCREPANCY_MAX_LOCAL_CHILDREN;
 		}
 		return null;
 	}

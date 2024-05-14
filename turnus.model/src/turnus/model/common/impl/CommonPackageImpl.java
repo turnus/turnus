@@ -538,6 +538,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(eSchedulerEEnum, EScheduler.NON_PREEMPTIVE);
 		addEEnumLiteral(eSchedulerEEnum, EScheduler.DATA_DEMAND_DRIVEN);
 		addEEnumLiteral(eSchedulerEEnum, EScheduler.RANDOM);
+		addEEnumLiteral(eSchedulerEEnum, EScheduler.DISCREPANCY_BASIC);
+		addEEnumLiteral(eSchedulerEEnum, EScheduler.DISCREPANCY_MAX_LOCAL_CHILDREN);
 
 		initEEnum(eTypeEEnum, EType.class, "EType");
 		addEEnumLiteral(eTypeEEnum, EType.INT);

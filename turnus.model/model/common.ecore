@@ -49,6 +49,8 @@
     <eLiterals name="NON_PREEMPTIVE" value="2" literal="NON_PREEMPTIVE"/>
     <eLiterals name="DATA_DEMAND_DRIVEN" value="3" literal="DATA_DEMAND_DRIVEN"/>
     <eLiterals name="RANDOM" value="4" literal="RANDOM"/>
+    <eLiterals name="DISCREPANCY_BASIC" value="5" literal="DISCREPANCY_BASIC"/>
+    <eLiterals name="DISCREPANCY_MAX_LOCAL_CHILDREN" value="6" literal="DISCREPANCY_MAX_LOCAL_CHILDREN"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="EType">
     <eLiterals name="INT" literal="INT"/>
