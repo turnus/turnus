@@ -1668,6 +1668,62 @@ public interface DataflowPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link turnus.model.dataflow.impl.TypeByteImpl <em>Type Byte</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see turnus.model.dataflow.impl.TypeByteImpl
+	 * @see turnus.model.dataflow.impl.DataflowPackageImpl#getTypeByte()
+	 * @generated
+	 */
+	int TYPE_BYTE = 19;
+
+	/**
+	 * The feature id for the '<em><b>Etype</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_BYTE__ETYPE = TYPE__ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>Bits</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_BYTE__BITS = TYPE__BITS;
+
+	/**
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_BYTE__SIZE = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Type Byte</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_BYTE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Type Byte</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_BYTE_OPERATION_COUNT = TYPE_OPERATION_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.dataflow.Network <em>Network</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2770,6 +2826,27 @@ public interface DataflowPackage extends EPackage {
 	EAttribute getTypeTensor_Shape();
 
 	/**
+	 * Returns the meta object for class '{@link turnus.model.dataflow.TypeByte <em>Type Byte</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Byte</em>'.
+	 * @see turnus.model.dataflow.TypeByte
+	 * @generated
+	 */
+	EClass getTypeByte();
+
+	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.dataflow.TypeByte#getSize <em>Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Size</em>'.
+	 * @see turnus.model.dataflow.TypeByte#getSize()
+	 * @see #getTypeByte()
+	 * @generated
+	 */
+	EAttribute getTypeByte_Size();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3653,6 +3730,24 @@ public interface DataflowPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TYPE_TENSOR__SHAPE = eINSTANCE.getTypeTensor_Shape();
+
+		/**
+		 * The meta object literal for the '{@link turnus.model.dataflow.impl.TypeByteImpl <em>Type Byte</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see turnus.model.dataflow.impl.TypeByteImpl
+		 * @see turnus.model.dataflow.impl.DataflowPackageImpl#getTypeByte()
+		 * @generated
+		 */
+		EClass TYPE_BYTE = eINSTANCE.getTypeByte();
+
+		/**
+		 * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TYPE_BYTE__SIZE = eINSTANCE.getTypeByte_Size();
 
 	}
 

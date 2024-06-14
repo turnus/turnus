@@ -155,6 +155,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataflow.ecore#//TypeTensor/tensorType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataflow.ecore#//TypeTensor/shape"/>
     </genClasses>
+    <genClasses ecoreClass="dataflow.ecore#//TypeByte">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataflow.ecore#//TypeByte/size"/>
+    </genClasses>
     <nestedGenPackages prefix="Map" basePackage="turnus.model.dataflow" disposableProviderFactory="true"
         ecorePackage="dataflow.ecore#//map">
       <genClasses ecoreClass="dataflow.ecore#//map/PortsToLongMap">
