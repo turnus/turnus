@@ -40,6 +40,8 @@ import java.util.Map.Entry;
 import turnus.adevs.schedulers.DataDemandDrivenPartition;
 import turnus.adevs.schedulers.DiscrepancyBasic;
 import turnus.adevs.schedulers.DiscrepancyMaxLocalChildren;
+import turnus.adevs.schedulers.DiscrepancyTimeWeighted;
+import turnus.adevs.schedulers.DiscrepancyMaxLocalChildrenTimeWeighted;
 import turnus.adevs.schedulers.FullParallelPartition;
 import turnus.adevs.schedulers.NonPreemptivePartition;
 import turnus.adevs.schedulers.RandomPartition;
@@ -190,6 +192,7 @@ public class AdevsModelBuilder {
 	}
 	
 	private AtomicActorPartition getPartitionObject(String scheduling, String partitionId, List<Actor> targetActors) {
+//		TraceDecorator traceDecorator = traceProject.getTraceDecorator();
 		switch (scheduling) {
 		case "FULL_PARALLEL":
 			return new FullParallelPartition(targetActors, partitionId); 
@@ -205,6 +208,10 @@ public class AdevsModelBuilder {
 			return new DiscrepancyBasic(targetActors, partitionId, this.traceProject);
 		case "DISCREPANCY_MAX_LOCAL_CHILDREN":
 			return new DiscrepancyMaxLocalChildren(targetActors, partitionId, this.traceProject);
+		case "DISCREPANCY_TIME_WEIGHTED":
+			return new DiscrepancyTimeWeighted(targetActors, partitionId, this.traceProject, this.traceWeighter);
+		case "DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED":
+			return new DiscrepancyMaxLocalChildrenTimeWeighted(targetActors, partitionId, this.traceProject, this.traceWeighter);
 		default:
 			return new FullParallelPartition(targetActors, partitionId);
 		}

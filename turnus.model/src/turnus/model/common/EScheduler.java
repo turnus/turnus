@@ -112,7 +112,25 @@ public enum EScheduler implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DISCREPANCY_MAX_LOCAL_CHILDREN(6, "DISCREPANCY_MAX_LOCAL_CHILDREN", "DISCREPANCY_MAX_LOCAL_CHILDREN");
+	DISCREPANCY_MAX_LOCAL_CHILDREN(6, "DISCREPANCY_MAX_LOCAL_CHILDREN", "DISCREPANCY_MAX_LOCAL_CHILDREN"),
+	/**
+	 * The '<em><b>DISCREPANCY_TIME_WEIGHTED</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @see #DISCREPANCY_TIME_WEIGHTED_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DISCREPANCY_TIME_WEIGHTED(7, "DISCREPANCY_TIME_WEIGHTED", "DISCREPANCY_TIME_WEIGHTED"),
+	/**
+	 * The '<em><b>DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @see #DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED(8, "DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED", "DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED");
 
 	/**
 	 * The '<em><b>FULL PARALLEL</b></em>' literal value. <!-- begin-user-doc -->
@@ -202,6 +220,28 @@ public enum EScheduler implements Enumerator {
 	 * @ordered
 	 */
 	public static final int DISCREPANCY_MAX_LOCAL_CHILDREN_VALUE = 6;
+	
+	/**
+	 * The '<em><b>DISCREPANCY_TIME_WEIGHTED</b></em>' literal value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
+	 * @see #DISCREPANCY_TIME_WEIGHTED
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DISCREPANCY_TIME_WEIGHTED_VALUE = 7;
+	
+	/**
+	 * The '<em><b>DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED</b></em>' literal value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
+	 * @see #DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED_VALUE = 8;
 
 	/**
 	 * An array of all the '<em><b>EScheduler</b></em>' enumerators. <!--
@@ -210,7 +250,8 @@ public enum EScheduler implements Enumerator {
 	 * @generated
 	 */
 	private static final EScheduler[] VALUES_ARRAY = new EScheduler[] { FULL_PARALLEL, ROUND_ROBIN, NON_PREEMPTIVE,
-			DATA_DEMAND_DRIVEN, RANDOM, DISCREPANCY_BASIC, DISCREPANCY_MAX_LOCAL_CHILDREN };
+			DATA_DEMAND_DRIVEN, RANDOM, DISCREPANCY_BASIC, DISCREPANCY_MAX_LOCAL_CHILDREN, DISCREPANCY_TIME_WEIGHTED,
+			DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED };
 
 	/**
 	 * A public read-only list of all the '<em><b>EScheduler</b></em>' enumerators.
@@ -278,6 +319,10 @@ public enum EScheduler implements Enumerator {
 			return DISCREPANCY_BASIC;
 		case DISCREPANCY_MAX_LOCAL_CHILDREN_VALUE:
 			return DISCREPANCY_MAX_LOCAL_CHILDREN;
+		case DISCREPANCY_TIME_WEIGHTED_VALUE:
+			return DISCREPANCY_TIME_WEIGHTED;
+		case DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED_VALUE:
+			return DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED;
 		}
 		return null;
 	}

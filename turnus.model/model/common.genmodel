@@ -51,6 +51,8 @@
       <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/RANDOM"/>
       <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/DISCREPANCY_BASIC"/>
       <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/DISCREPANCY_MAX_LOCAL_CHILDREN"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/DISCREPANCY_TIME_WEIGHTED"/>
+      <genEnumLiterals ecoreEnumLiteral="common.ecore#//EScheduler/DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="common.ecore#//EType">
       <genEnumLiterals ecoreEnumLiteral="common.ecore#//EType/INT"/>

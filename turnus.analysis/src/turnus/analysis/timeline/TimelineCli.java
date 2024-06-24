@@ -131,6 +131,7 @@ public class TimelineCli implements IApplication {
 				.setOption(WRITE_MISS_CONSTANT, false) //
 				.setOption(BUFFER_SIZE_DEFAULT, false)//
 				.setOption(BUFFER_SIZE_FILE, false)//
+				.setOption(RECORD_BUFFERS, false)//
 				.setOption(RELEASE_BUFFERS_AFTER_PROCESSING, false)//
 				.setOption(OUTPUT_DIRECTORY, false);
 		configuration = cliParser.parse(args);
@@ -180,22 +181,20 @@ public class TimelineCli implements IApplication {
 				File bufferFile = configuration.getValue(BUFFER_SIZE_FILE);
 				XmlBufferSizeReader reader = new XmlBufferSizeReader();
 				bufferSize = reader.load(bufferFile);
-			} else if (configuration.hasValue(BUFFER_SIZE_DEFAULT)) { // if both parameters are specified, then the
+			} else if (configuration.hasValue(BUFFER_SIZE_DEFAULT)) { // if both parameters are specified, then the //
 																		// default one is ignored
 				defaultBufferSize = configuration.getValue(BUFFER_SIZE_DEFAULT);
 				bufferSize = new BufferSize(tProject.getNetwork());
 				bufferSize.setDefaultSize(defaultBufferSize);
-			} else {
-				throw new TurnusException("Buffer sizes are not specified.");
-			}
-
-			if (configuration.hasValue(RECORD_BUFFERS)) {
+			} else if (configuration.hasValue(RECORD_BUFFERS)) {
 				if (configuration.getValue(RECORD_BUFFERS)) {
 					bufferSize = new BufferSize(tProject.getNetwork());
 					bufferSize.setDefaultSize(Integer.MAX_VALUE);
 					Logger.info(
 							"Record buffers occupancy option chosen. Simulation will be run with all buffer sizes equal to Integer.MAX_VALUE.");
 				}
+			} else {
+				throw new TurnusException("Buffer sizes are not specified.");
 			}
 
 			if (configuration.hasValue(COMMUNICATION_WEIGHTS)) {
