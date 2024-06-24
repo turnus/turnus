@@ -102,10 +102,10 @@ public class BottleneckNetworkToDot extends NetworkToDot {
 	@Override
 	protected void connectionColor(Color color, String source, String srcPort, String target, String srcTgt) {
 		if (actorHeatMap.containsKey(source) && actorHeatMap.containsKey(target)) {
-			emitter.emit("%s:%s:e -> %s:%s:w [color=\"red\", penwidth=3];", source, srcPort, target, srcTgt);
+			emitter.emit("\"%s\":%s:e -> \"%s\":%s:w [color=\"red\", penwidth=3];", source, srcPort, target, srcTgt);
 
 		} else {
-			emitter.emit("%s:%s:e -> %s:%s:w [color=\"gray\"];", source, srcPort, target, srcTgt);
+			emitter.emit("\"%s\":%s:e -> \"%s\":%s:w [color=\"gray\"];", source, srcPort, target, srcTgt);
 
 		}
 	}

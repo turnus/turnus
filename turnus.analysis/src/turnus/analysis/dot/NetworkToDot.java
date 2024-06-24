@@ -57,7 +57,7 @@ public class NetworkToDot {
 	}
 
 	private void instance(Actor actor) {
-		emitter.emit("%s [label=<", actor.getName());
+		emitter.emit("\"%s\" [label=<", actor.getName());
 		emitter.increaseIndentation();
 
 		emitter.emit("<table border=\"0\" cellborder=\"1\" cellspacing=\"0\">");
@@ -111,7 +111,7 @@ public class NetworkToDot {
 	}
 
 	protected void connectionColor(Color color, String source, String srcPort, String target, String srcTgt) {
-		emitter.emit("%s:%s:e -> %s:%s:w [color=\"%s\"];", source, srcPort, target, srcTgt, encodeColor(color));
+		emitter.emit("\"%s\"::%s:e -> \"%s\":%s:w [color=\"%s\"];", source, srcPort, target, srcTgt, encodeColor(color));
 	}
 
 	/**
