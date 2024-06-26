@@ -36,8 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-
 import turnus.adevs.model.AtomicActor;
 import turnus.adevs.model.AtomicActor.Status;
 import turnus.adevs.simulation.SimEngine;
@@ -113,14 +111,15 @@ public class LatencyAnalysis extends Analysis<LatencyReport> {
 					if (actor.getCurrentStatus() == Status.END_FIRING) {
 						if (actor.getActor().getName().equals(tgt.v1)) {
 							if (actor.getCurrentAction().getName().equals(tgt.v2)) {
-								measuredLatencies.get(tgt).add(timer);							}
+								measuredLatencies.get(tgt).add(timer);
+							}
 						}
 					}
 				}
 			}
 		}
-		
-		public Map<Pair<String, String>, List<Double>> getMeasuredLatencies(){
+
+		public Map<Pair<String, String>, List<Double>> getMeasuredLatencies() {
 			return measuredLatencies;
 		}
 
@@ -141,10 +140,10 @@ public class LatencyAnalysis extends Analysis<LatencyReport> {
 		LatencyReport report = f.createLatencyReport();
 		report.setNetwork(network);
 		report.setAlgorithm("Latency Estimation");
-		
+
 		Map<Pair<String, String>, List<Double>> measuredLatencies = simulation.getMeasuredLatencies();
 		List<Double> srcStartLatency = measuredLatencies.get(srcLatency);
-		
+
 		// -- Source latency
 		{
 			LatencyData data = f.createLatencyData();
@@ -153,35 +152,24 @@ public class LatencyAnalysis extends Analysis<LatencyReport> {
 			Action action = actor.getAction(srcLatency.v2);
 			data.setActor(actor);
 			data.setAction(action);
-			
+
 			Double throughput = srcStartLatency.get(srcStartLatency.size() - 1) / srcStartLatency.size();
 			data.setThroughput(throughput);
 			report.setSource(data);
 		}
-		
+
 		// -- Target latencies
-		for(Pair<String, String> tgt : tgtLatencies) {
+		for (Pair<String, String> tgt : tgtLatencies) {
 			LatencyData data = f.createLatencyData();
 			List<Double> tgtEndLatency = measuredLatencies.get(tgt);
-			
-			DescriptiveStatistics stats = new DescriptiveStatistics();
-			
-			for(int i = 0; i < tgtEndLatency.size(); i++) {
+
+			for (int i = 0; i < tgtEndLatency.size(); i++) {
 				double latency = tgtEndLatency.get(i) - srcStartLatency.get(i);
 				data.getLatency().add(latency);
-				stats.addValue(latency);
 			}
-			
+
 			Double throughput = tgtEndLatency.get(tgtEndLatency.size() - 1) / tgtEndLatency.size();
-			
-			double p90 = stats.getPercentile(90);
-			double p95 = stats.getPercentile(95);
-			double p99 = stats.getPercentile(99);
-			System.out.println("P90 : " + p90);
-			System.out.println("P95 : " + p95);
-			System.out.println("P99 : " + p99);
-			
-			
+
 			Actor actor = network.getActor(tgt.v1);
 			Action action = actor.getAction(tgt.v2);
 			data.setActor(actor);
@@ -190,7 +178,7 @@ public class LatencyAnalysis extends Analysis<LatencyReport> {
 			report.getTargets().add(data);
 		}
 		report.setTime(ppReport.getTime());
-		
+
 		return report;
 	}
 

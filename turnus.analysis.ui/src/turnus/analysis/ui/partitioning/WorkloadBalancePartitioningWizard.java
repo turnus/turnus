@@ -41,6 +41,7 @@ import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -58,6 +59,8 @@ import turnus.analysis.partitioning.WorkloadBalancePartitioningCli;
 import turnus.common.TurnusException;
 import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
+import turnus.model.analysis.AnalysisFactory;
+import turnus.model.common.EScheduler;
 import turnus.ui.util.EclipseUtils;
 import turnus.ui.widget.WidgetComboBox;
 import turnus.ui.widget.WidgetSelectFileCombo;
@@ -125,8 +128,13 @@ public class WorkloadBalancePartitioningWizard extends Wizard implements IWorkbe
 			addWidget(wUnits);
 			
 			// -- Scheduler
-			String[] schedulers = {"ROUND_ROBIN", "NON_PREEMPTIVE", "FULL_PARALLEL"};
-			wSchedulers = new WidgetComboBox("Scheduler", "Select a scheduler", schedulers, schedulers[0],
+			List<String> scheds = new ArrayList<>();
+			for (var s : EScheduler.values()){
+				scheds.add(s.getName());
+			}
+			
+			String[] schedulers = scheds.toArray(new String[0]);
+			wSchedulers = new WidgetComboBox("Scheduler", "Select a scheduler", schedulers , schedulers[0],
 					container);
 
 		}

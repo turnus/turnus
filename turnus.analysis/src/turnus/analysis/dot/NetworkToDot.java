@@ -111,7 +111,7 @@ public class NetworkToDot {
 	}
 
 	protected void connectionColor(Color color, String source, String srcPort, String target, String srcTgt) {
-		emitter.emit("\"%s\"::%s:e -> \"%s\":%s:w [color=\"%s\"];", source, srcPort, target, srcTgt, encodeColor(color));
+		emitter.emit("\"%s\":%s:e -> \"%s\":%s:w [color=\"%s\"];", source, srcPort, target, srcTgt, encodeColor(color));
 	}
 
 	/**

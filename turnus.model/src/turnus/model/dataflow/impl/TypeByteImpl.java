@@ -137,7 +137,7 @@ public class TypeByteImpl extends MinimalEObjectImpl.Container implements TypeBy
 	 */
 	@Override
 	public long getBits() {
-		return this.size*8;
+		return this.size*8L;
 	}
 
 	/**
