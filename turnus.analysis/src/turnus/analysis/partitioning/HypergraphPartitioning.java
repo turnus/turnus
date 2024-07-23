@@ -99,6 +99,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 	private TraceWeighter traceWeighter;
 	private int units;
 	private EScheduler schedulingPolicy;
+	private NetworkPartitioning fixedPartitioning;
 
 	private Map<Buffer, Long> bufferVolume;
 
@@ -115,6 +116,10 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 		this.bufferVolume = new HashMap<>();
 		this.decorator = project.getTraceDecorator();
 	}
+	
+	public void loadFixedPartitioning(NetworkPartitioning partitioning) {
+		this.fixedPartitioning = partitioning;
+	}
 
 	private boolean execInPath(String exec) {
 		final String app = SystemUtils.IS_OS_WINDOWS ? exec + ".exe" : exec;
@@ -128,6 +133,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 		return (int) (ret == 0L ? 1 : ret);
 	}
 	
+	@SuppressWarnings("unused")
 	private int bitsToKiloBytes(long value) {
 		long ret = value / 8 / 1024 ;
 		return (int) (ret == 0L ? 1 : ret);
@@ -149,7 +155,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 		Double minWorkload = Collections.min(actorWorkload.values());
 		// -- Topological sort actors
 		List<Actor> topologicalSort = ActorsSorter.topologicalOrder(network.getActors());
-
+		StringBuffer fixedPartitionSb = null;
 		int hyperEdgeCounter = 0;
 		WeightedHyperGraph hg = new WeightedHyperGraph();
 
@@ -185,14 +191,29 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 			}
 			integerToNodeLables.put(topologicalSort.indexOf(actor) + 1, actor.getName());
 		}
+		// -- Fixed partitioning for the hyper-graph tools that supports it
+		if(fixedPartitioning != null) {
+			fixedPartitionSb = new StringBuffer();
+			for(Actor actor : topologicalSort) {
+				fixedPartitionSb.append(String.format("%s\n", fixedPartitioning.getPartition(actor)));
+			}
+		}
+		
+		
 
 		// -- hMetis file
 		try {
 			File metisInput = FileUtils.createTempFile(network.getName(), ".hgraph", false);
-
+			File fixedMetisInput = null;
+			
 			FileWriter writer = new FileWriter(metisInput);
 			
-
+			if(fixedPartitioning != null) {
+				fixedMetisInput = FileUtils.createTempFile(network.getName(), ".fixed", false);
+				FileWriter fixedWriter = new FileWriter(fixedMetisInput);
+				fixedWriter.write(fixedPartitionSb.toString());
+				fixedWriter.close();
+			}
 			// -- Call metis
 			String fileOutput;
 			if (externalTool.equals("khmetis")) {
@@ -203,26 +224,30 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				
 				List<String> commands = new ArrayList<>();
 				if (SystemUtils.IS_OS_WINDOWS) {
-					commands.add("khmetis.exe");
+					commands.add("shmetis.exe");
 				} else {
-					commands.add("khmetis");
+					commands.add("shmetis");
 				}
 				// -- input file
 				commands.add(metisInput.getAbsolutePath());
+				// -- fixed file
+				if (fixedPartitioning != null) {
+					commands.add(fixedMetisInput.getAbsolutePath());
+				}
 				// -- units
 				commands.add(Integer.toString(units));
 				// -- UBfactor
 				commands.add(Integer.toString(5));
 				// -- Nruns
-				commands.add(Integer.toString(20));
+				//commands.add(Integer.toString(40));
 				// -- CType
-				commands.add(Integer.toString(1));
+				//commands.add(Integer.toString(1));
 				// -- OType
-				commands.add(Integer.toString(2));
+				//commands.add(Integer.toString(2));
 				// -- Vcycle
-				commands.add(Integer.toString(3));
+				//commands.add(Integer.toString(3));
 				// -- dglvl
-				commands.add(Integer.toString(24));
+				//commands.add(Integer.toString(24));
 				
 				ProcessBuilder metisPB = new ProcessBuilder(commands);
 				metisPB.redirectErrorStream(true);
@@ -232,7 +257,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				int exitCode = metis.waitFor();
 				String result = new String(metis.getInputStream().readAllBytes());
 				if (exitCode > 1) {
-					throw new TurnusException(externalTool + " error: \n" + result);
+					//throw new TurnusException(externalTool + " error: \n" + result);
 				}
 				Logger.info("\n" + result);
 				
@@ -255,6 +280,10 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				// -- hyper-graph
 				commands.add("-h");
 				commands.add(metisInput.getAbsolutePath());
+				if (fixedPartitioning != null) {
+					commands.add("-f");
+					commands.add(fixedMetisInput.getAbsolutePath());
+				}
 				// -- K parts
 				commands.add("-k");
 				commands.add(String.valueOf(units));

@@ -90,8 +90,8 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 		private WidgetCheckBox wRealeaseAfterProcessing;
 
 		private OptionsPage() {
-			super("Inter-Partition communciation and memory analysis");
-			setTitle("Inter-Partition communciation and memory analysis");
+			super("Turnus Timeline using Chrome Tracing format");
+			setTitle("Turnus Timeline");
 			setDescription("Select the options and run the analysis");
 		}
 
@@ -146,6 +146,7 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 					bufferExtension, null, container);
 			if (!initialBxdffFiles.isEmpty())
 				wBufferSizeFile.setChoices(initialBxdffFiles.toArray(new String[0]));
+			
 			addWidget(wBufferSizeFile);
 
 			
