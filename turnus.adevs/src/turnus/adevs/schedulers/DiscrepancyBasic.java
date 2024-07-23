@@ -87,8 +87,8 @@ public class DiscrepancyBasic extends AtomicActorPartition {
 	private Map<Actor, Long> discrepancy_increments;
 	private Long discrepancy_increment_sum;
 
-	public DiscrepancyBasic(List<Actor> actors, String partitionId, TraceProject traceProject) {
-		super(actors, partitionId);
+	public DiscrepancyBasic(List<Actor> actors, String partitionId, int processingElements, TraceProject traceProject) {
+		super(actors, partitionId, processingElements);
 		discrepancy_increments = new HashMap<Actor, Long>();
 		for (Actor actor : actors) {
 			Iterator<Step> steps = traceProject.getTrace().getSteps(Order.INCREASING_ID, actor.getName()).iterator();
@@ -140,9 +140,6 @@ public class DiscrepancyBasic extends AtomicActorPartition {
 		return runningActors.isEmpty();
 	}
 
-	@Override
-	public int parallelActors() {
-		return 1;
-	}
+	
 
 }

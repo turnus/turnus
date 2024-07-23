@@ -96,11 +96,14 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 
 	protected Action lastExecutedAction = null;
 	protected double lastPartitionFinishTime = 0;
+	
+	protected int processingElements;
 
-	protected AtomicActorPartition(List<Actor> actors, String partitionId) {
+	protected AtomicActorPartition(List<Actor> actors, String partitionId, int processingElements) {
 		this.actors = ImmutableList.copyOf(actors);
 		this.aliveActors = new ArrayList<Actor>(actors);
 		this.partitionId = partitionId;
+		this.processingElements = processingElements; 
 		this.actorsToCheck.addAll(aliveActors);
 	}
 
@@ -248,9 +251,10 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 			break;
 		}
 		case SCHEDULING: {
+			
 			for (Actor actor : getSchedulables()) { // getSchedulables() is implemented differently for different
 													// scheduler types
-				if (runningActors.size() < parallelActors()) {
+ 				if (runningActors.size() < processingElements()) {
 					runningActors.add(actor);
 					schedulableActors.remove(actor);
 					yb.add(new PortValue(PORT_PARTITION_SEND_ENABLE.get(actor), lastExecutedAction));
@@ -306,7 +310,9 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 
 	public abstract boolean canExecute();
 
-	public abstract int parallelActors();
+	public int processingElements() {
+		return processingElements;
+	}
 
 	public Status getCurrentStatus() {
 		return status;

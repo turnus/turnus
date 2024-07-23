@@ -92,8 +92,8 @@ public class DiscrepancyTimeWeighted extends AtomicActorPartition {
 	private BigInteger discrepancy_increment_sum;
 
 
-	public DiscrepancyTimeWeighted(List<Actor> actors, String partitionId, TraceProject traceProject, TraceWeighter traceWeighter) {
-		super(actors, partitionId);
+	public DiscrepancyTimeWeighted(List<Actor> actors, String partitionId, int processingElements, TraceProject traceProject, TraceWeighter traceWeighter) {
+		super(actors, partitionId, processingElements);
 		actor_avg_weight = new HashMap<Actor, BigInteger>();
 		actor_frequency = new HashMap<Actor, BigInteger>();
 		for (Actor actor : actors) {
@@ -150,7 +150,7 @@ public class DiscrepancyTimeWeighted extends AtomicActorPartition {
 	}
 
 	@Override
-	public int parallelActors() {
+	public int processingElements() {
 		return 1;
 	}
 

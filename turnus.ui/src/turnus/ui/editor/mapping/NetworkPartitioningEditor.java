@@ -453,7 +453,7 @@ public class NetworkPartitioningEditor extends EditorPart {
 
 	/** the columns names */
 	private final String[] mappingColumnNames = new String[] { "Actor", "Component" };
-	private final String[] schedulerColumnNames = new String[] { "Partition", "Scheduling-Policy" };
+	private final String[] schedulerColumnNames = new String[] { "Partition", "Scheduling-Policy", "Processing Elements" };
 	private final static String[] schedulingPolicies;
 
 	static {

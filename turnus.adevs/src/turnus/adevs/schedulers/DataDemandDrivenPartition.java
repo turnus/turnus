@@ -20,8 +20,8 @@ public class DataDemandDrivenPartition extends AtomicActorPartition {
 	private Actor currentActor;
 	private int next;
 
-	public DataDemandDrivenPartition(List<Actor> actors, String partitionId) {
-		super(actors, partitionId);
+	public DataDemandDrivenPartition(List<Actor> actors, String partitionId, int processingElements) {
+		super(actors, partitionId, processingElements);
 		waitingList = new LinkedList<>();
 		next = 0;
 	}
@@ -109,9 +109,5 @@ public class DataDemandDrivenPartition extends AtomicActorPartition {
 		return runningActors.isEmpty();
 	}
 
-	@Override
-	public int parallelActors() {
-		return 1;
-	}
-
+	
 }

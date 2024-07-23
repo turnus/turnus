@@ -50,8 +50,8 @@ public class RoundRobinPartition extends AtomicActorPartition {
 
 	private int next = 0;
 
-	public RoundRobinPartition(List<Actor> actors, String partitionId) {
-		super(actors, partitionId);
+	public RoundRobinPartition(List<Actor> actors, String partitionId, int processingElements) {
+		super(actors, partitionId, processingElements);
 	}
 
 	@Override
@@ -59,8 +59,8 @@ public class RoundRobinPartition extends AtomicActorPartition {
 
 		ArrayList<Actor> actorsList = new ArrayList<Actor>(actors);
 		actorsToExecute.clear();
-		if (!schedulableActors.isEmpty()) {
-			while (actorsToExecute.isEmpty()) {
+		if (!schedulableActors.isEmpty()) {		
+			while ((actorsToExecute.size() < schedulableActors.size()) && (actorsToExecute.size() < processingElements())) {
 				if (next == actors.size())
 					next = 0;
 					//next = actorsList.indexOf(schedulableActors.get(schedulableActors.size() - 1));
@@ -78,12 +78,8 @@ public class RoundRobinPartition extends AtomicActorPartition {
 
 	@Override
 	public boolean canExecute() {
-		return runningActors.isEmpty();
+		return runningActors.size() < processingElements();
 	}
 
-	@Override
-	public int parallelActors() {
-		return 1;
-	}
 
 }

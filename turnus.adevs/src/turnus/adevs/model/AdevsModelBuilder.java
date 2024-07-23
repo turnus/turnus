@@ -64,7 +64,7 @@ import turnus.model.trace.weighter.TraceWeighter;
 
 /**
  * 
- * @author Simone Casale-Brunet 
+ * @author Simone Casale-Brunet
  * @author Malgorzata Michalska
  *
  */
@@ -77,9 +77,10 @@ public class AdevsModelBuilder {
 	private CommunicationWeight communicationWeight;
 	private SchedulingWeight schedulingWeight;
 	private boolean releaseAfterProcessing;
-	
-	public AdevsModelBuilder(TraceProject traceProject, TraceWeighter traceWeighter, NetworkPartitioning partitioning, 
-			BufferSize bufferSize, CommunicationWeight communicationWeight, SchedulingWeight schedulingWeight, boolean release) {
+
+	public AdevsModelBuilder(TraceProject traceProject, TraceWeighter traceWeighter, NetworkPartitioning partitioning,
+			BufferSize bufferSize, CommunicationWeight communicationWeight, SchedulingWeight schedulingWeight,
+			boolean release) {
 		this.traceProject = traceProject;
 		this.traceWeighter = traceWeighter;
 		this.partitioning = partitioning;
@@ -88,24 +89,25 @@ public class AdevsModelBuilder {
 		this.schedulingWeight = schedulingWeight;
 		this.releaseAfterProcessing = release;
 	}
-	
+
 	public AdevsModel build() {
 		Network network = traceProject.getNetwork();
 		Trace trace = traceProject.getTrace();
 		TraceDecorator traceDecorator = traceProject.getTraceDecorator();
 		AdevsModel model = new AdevsModel();
 		PortsIdentifier portsIdentifier = new PortsIdentifier(network);
-		
+
 		for (Buffer buffer : network.getBuffers()) {
 			AtomicBuffer atomicBuffer = new AtomicBuffer(buffer, bufferSize.getSize(buffer));
 			if (communicationWeight != null) {
 				atomicBuffer.setReadCommunicationCost(communicationWeight.getReadWeights(buffer));
-				atomicBuffer.setWriteConstants(communicationWeight.getWriteHitConstant(), communicationWeight.getWriteMissConstant());
+				atomicBuffer.setWriteConstants(communicationWeight.getWriteHitConstant(),
+						communicationWeight.getWriteMissConstant());
 				atomicBuffer.setWriteCommunicationCost(communicationWeight.getWriteWeights(buffer));
 			}
 			model.add(atomicBuffer);
 		}
-		
+
 		for (Actor actor : network.getActors()) {
 			Iterator<Step> steps = trace.getSteps(Order.INCREASING_ID, actor.getName()).iterator();
 			AtomicActor atomicActor = new AtomicActor(actor, steps, traceWeighter, schedulingWeight, traceDecorator);
@@ -113,105 +115,127 @@ public class AdevsModelBuilder {
 				atomicActor.setReleaseAfterProcessinng();
 			atomicActor.configure(portsIdentifier);
 			model.add(atomicActor);
-			
+
 			// couple each actor with incoming fifos
 			for (Buffer buffer : actor.getIncomingBuffers()) {
 				AtomicBuffer atomicBuffer = model.getBuffer(buffer);
-				model.couple(atomicBuffer, AtomicBuffer.PORT_TX_SEND_HAS_TOKENS, atomicActor, portsIdentifier.PORT_IN_RECEIVE_HAS_TOKENS.get(buffer));
-				model.couple(atomicBuffer, AtomicBuffer.PORT_TX_SEND_TOKENS, atomicActor, portsIdentifier.PORT_IN_RECEIVE_TOKENS.get(buffer));	
-				model.couple(atomicActor, portsIdentifier.PORT_IN_SEND_ASK_TOKENS.get(buffer), atomicBuffer, AtomicBuffer.PORT_TX_RECEIVE_ASK_TOKENS);
-				model.couple(atomicActor, portsIdentifier.PORT_IN_SEND_HAS_TOKENS.get(buffer), atomicBuffer, AtomicBuffer.PORT_TX_RECEIVE_HAS_TOKENS);
-				model.couple(atomicActor, portsIdentifier.PORT_IN_RELEASE_BUFFER.get(buffer), atomicBuffer, AtomicBuffer.PORT_TX_RECEIVE_RELEASE_BUFFER);
+				model.couple(atomicBuffer, AtomicBuffer.PORT_TX_SEND_HAS_TOKENS, atomicActor,
+						portsIdentifier.PORT_IN_RECEIVE_HAS_TOKENS.get(buffer));
+				model.couple(atomicBuffer, AtomicBuffer.PORT_TX_SEND_TOKENS, atomicActor,
+						portsIdentifier.PORT_IN_RECEIVE_TOKENS.get(buffer));
+				model.couple(atomicActor, portsIdentifier.PORT_IN_SEND_ASK_TOKENS.get(buffer), atomicBuffer,
+						AtomicBuffer.PORT_TX_RECEIVE_ASK_TOKENS);
+				model.couple(atomicActor, portsIdentifier.PORT_IN_SEND_HAS_TOKENS.get(buffer), atomicBuffer,
+						AtomicBuffer.PORT_TX_RECEIVE_HAS_TOKENS);
+				model.couple(atomicActor, portsIdentifier.PORT_IN_RELEASE_BUFFER.get(buffer), atomicBuffer,
+						AtomicBuffer.PORT_TX_RECEIVE_RELEASE_BUFFER);
 			}
-			
+
 			// couple each actor with outgoing fifos
 			for (Buffer buffer : actor.getOutgoingBuffers()) {
 				AtomicBuffer atomicBuffer = model.getBuffer(buffer);
-				model.couple(atomicActor, portsIdentifier.PORT_OUT_SEND_HAS_SPACE.get(buffer), atomicBuffer, AtomicBuffer.PORT_RX_RECEIVE_HAS_SPACE);
-				model.couple(atomicActor, portsIdentifier.PORT_OUT_SEND_TOKENS.get(buffer), atomicBuffer, AtomicBuffer.PORT_RX_RECEIVE_TOKENS);
-				model.couple(atomicBuffer, AtomicBuffer.PORT_RX_SEND_HAS_SPACE, atomicActor, portsIdentifier.PORT_OUT_RECEIVE_HAS_SPACE.get(buffer));
-				model.couple(atomicBuffer, AtomicBuffer.PORT_RX_SEND_TOKENS_RECEIVED, atomicActor, portsIdentifier.PORT_OUT_RECEIVE_TOKENS_RECEIVED.get(buffer));
+				model.couple(atomicActor, portsIdentifier.PORT_OUT_SEND_HAS_SPACE.get(buffer), atomicBuffer,
+						AtomicBuffer.PORT_RX_RECEIVE_HAS_SPACE);
+				model.couple(atomicActor, portsIdentifier.PORT_OUT_SEND_TOKENS.get(buffer), atomicBuffer,
+						AtomicBuffer.PORT_RX_RECEIVE_TOKENS);
+				model.couple(atomicBuffer, AtomicBuffer.PORT_RX_SEND_HAS_SPACE, atomicActor,
+						portsIdentifier.PORT_OUT_RECEIVE_HAS_SPACE.get(buffer));
+				model.couple(atomicBuffer, AtomicBuffer.PORT_RX_SEND_TOKENS_RECEIVED, atomicActor,
+						portsIdentifier.PORT_OUT_RECEIVE_TOKENS_RECEIVED.get(buffer));
 			}
 		}
-		
-		// build a single buffer partition (all fifos together, all enabled - TODO: communication interfaces)
+
+		// build a single buffer partition (all fifos together, all enabled - TODO:
+		// communication interfaces)
 		Collection<Buffer> buffers = network.getBuffers();
 		AtomicBufferPartition bufferPartition = new AtomicBufferPartition(buffers);
 		bufferPartition.configure(portsIdentifier);
 		model.add(bufferPartition);
-				
+
 		for (Buffer buffer : buffers) {
 			AtomicBuffer atomicBuffer = model.getBuffer(buffer);
-			model.couple(bufferPartition, portsIdentifier.PORT_OUT_SEND_ENABLE_RX.get(buffer), atomicBuffer, AtomicBuffer.PORT_RX_ENABLE);
-			model.couple(bufferPartition, portsIdentifier.PORT_OUT_SEND_ENABLE_TX.get(buffer), atomicBuffer, AtomicBuffer.PORT_TX_ENABLE);
+			model.couple(bufferPartition, portsIdentifier.PORT_OUT_SEND_ENABLE_RX.get(buffer), atomicBuffer,
+					AtomicBuffer.PORT_RX_ENABLE);
+			model.couple(bufferPartition, portsIdentifier.PORT_OUT_SEND_ENABLE_TX.get(buffer), atomicBuffer,
+					AtomicBuffer.PORT_TX_ENABLE);
 		}
-		
-		// build actor partitions according to a NetworkPartitioning Object (read from file or given by an algorithm)
+
+		// build actor partitions according to a NetworkPartitioning Object (read from
+		// file or given by an algorithm)
 		for (Entry<String, List<String>> partitionUnit : partitioning.asPartitionActorsMap().entrySet()) {
 			String component = partitionUnit.getKey();
 			List<Actor> targetActors = getActorObjectsList(partitionUnit.getValue(), network);
-			
-			AtomicActorPartition actorPartition = getPartitionObject(partitioning.getScheduler(component), component, targetActors);
+
+			AtomicActorPartition actorPartition = getPartitionObject(partitioning.getScheduler(component), component,
+					partitioning.getProcessingElements(component), targetActors);
 			actorPartition.configure(portsIdentifier);
 			model.add(actorPartition);
-			
+
 			for (Actor actor : targetActors) {
 				AtomicActor atomicActor = model.getActor(actor);
-				model.couple(actorPartition, portsIdentifier.PORT_PARTITION_SEND_ASK_SCHEDULABILITY.get(actor), atomicActor, AtomicActor.PORT_PARTITION_RECEIVE_ASK_SCHEDULABILITY);
-				model.couple(actorPartition, portsIdentifier.PORT_PARTITION_SEND_ENABLE.get(actor), atomicActor, AtomicActor.PORT_PARTITION_RECEIVE_ENABLE);
-				model.couple(atomicActor, AtomicActor.PORT_PARTITION_SEND_SCHEDULABILITY, actorPartition, portsIdentifier.PORT_PARTITION_RECEIVE_SCHEDULABILITY.get(actor));
+				model.couple(actorPartition, portsIdentifier.PORT_PARTITION_SEND_ASK_SCHEDULABILITY.get(actor),
+						atomicActor, AtomicActor.PORT_PARTITION_RECEIVE_ASK_SCHEDULABILITY);
+				model.couple(actorPartition, portsIdentifier.PORT_PARTITION_SEND_ENABLE.get(actor), atomicActor,
+						AtomicActor.PORT_PARTITION_RECEIVE_ENABLE);
+				model.couple(atomicActor, AtomicActor.PORT_PARTITION_SEND_SCHEDULABILITY, actorPartition,
+						portsIdentifier.PORT_PARTITION_RECEIVE_SCHEDULABILITY.get(actor));
 			}
 		}
-		
+
 		for (Actor actor : network.getActors()) {
 			AtomicActor atomicActor = model.getActor(actor);
 			for (String partitionId : partitioning.asPartitionActorsMap().keySet()) {
 				AtomicActorPartition atomicActorPartition = model.getAtomicActorPartition(partitionId);
-				model.couple(atomicActor, AtomicActor.PORT_PARTITION_SEND_END_OF_FIRING, atomicActorPartition, portsIdentifier.PORT_PARTITION_RECEIVE_END_OF_FIRING.get(atomicActor.getActor()));
-				model.couple(atomicActor, AtomicActor.PORT_PARTITION_SEND_END_OF_READING, atomicActorPartition, portsIdentifier.PORT_PARTITION_RECEIVE_END_OF_READING.get(atomicActor.getActor()));
+				model.couple(atomicActor, AtomicActor.PORT_PARTITION_SEND_END_OF_FIRING, atomicActorPartition,
+						portsIdentifier.PORT_PARTITION_RECEIVE_END_OF_FIRING.get(atomicActor.getActor()));
+				model.couple(atomicActor, AtomicActor.PORT_PARTITION_SEND_END_OF_READING, atomicActorPartition,
+						portsIdentifier.PORT_PARTITION_RECEIVE_END_OF_READING.get(atomicActor.getActor()));
 			}
 		}
-		
+
 		return model;
 	}
-	
+
 	private List<Actor> getActorObjectsList(List<String> actorsName, Network network) {
 		List<Actor> topologicalSort = ActorsSorter.topologicalOrder(network.getActors());
 		List<Actor> targetActors = new ArrayList<Actor>();
-		for(String actorName : actorsName){
+		for (String actorName : actorsName) {
 			Actor actor = network.getActor(actorName);
-			if(actor == null){
-				throw new TurnusRuntimeException("Actor "+actorName+" not found on this network");
+			if (actor == null) {
+				throw new TurnusRuntimeException("Actor " + actorName + " not found on this network");
 			}
 			targetActors.add(actor);
 		}
-		
+
 		targetActors.sort((a, b) -> Integer.compare(topologicalSort.indexOf(a), topologicalSort.indexOf(b)));
-		
+
 		return targetActors;
 	}
-	
-	private AtomicActorPartition getPartitionObject(String scheduling, String partitionId, List<Actor> targetActors) {
+
+	private AtomicActorPartition getPartitionObject(String scheduling, String partitionId, int processingElements,
+			List<Actor> targetActors) {
 //		TraceDecorator traceDecorator = traceProject.getTraceDecorator();
 		switch (scheduling) {
 		case "FULL_PARALLEL":
-			return new FullParallelPartition(targetActors, partitionId); 
+			return new FullParallelPartition(targetActors, partitionId);
 		case "ROUND_ROBIN":
-			return new RoundRobinPartition(targetActors, partitionId);
+			return new RoundRobinPartition(targetActors, partitionId, processingElements);
 		case "NON_PREEMPTIVE":
-			return new NonPreemptivePartition(targetActors, partitionId);
+			return new NonPreemptivePartition(targetActors, partitionId, processingElements);
 		case "DATA_DEMAND_DRIVEN":
-			return new DataDemandDrivenPartition(targetActors, partitionId);
+			return new DataDemandDrivenPartition(targetActors, partitionId, processingElements);
 		case "RANDOM":
-			return new RandomPartition(targetActors, partitionId);
+			return new RandomPartition(targetActors, partitionId, processingElements);
 		case "DISCREPANCY_BASIC":
-			return new DiscrepancyBasic(targetActors, partitionId, this.traceProject);
+			return new DiscrepancyBasic(targetActors, partitionId, processingElements, this.traceProject);
 		case "DISCREPANCY_MAX_LOCAL_CHILDREN":
-			return new DiscrepancyMaxLocalChildren(targetActors, partitionId, this.traceProject);
+			return new DiscrepancyMaxLocalChildren(targetActors, partitionId, processingElements, this.traceProject);
 		case "DISCREPANCY_TIME_WEIGHTED":
-			return new DiscrepancyTimeWeighted(targetActors, partitionId, this.traceProject, this.traceWeighter);
+			return new DiscrepancyTimeWeighted(targetActors, partitionId, processingElements, this.traceProject,
+					this.traceWeighter);
 		case "DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED":
-			return new DiscrepancyMaxLocalChildrenTimeWeighted(targetActors, partitionId, this.traceProject, this.traceWeighter);
+			return new DiscrepancyMaxLocalChildrenTimeWeighted(targetActors, partitionId, processingElements,
+					this.traceProject, this.traceWeighter);
 		default:
 			return new FullParallelPartition(targetActors, partitionId);
 		}

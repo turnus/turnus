@@ -99,8 +99,8 @@ public class DiscrepancyMaxLocalChildren extends AtomicActorPartition {
 	
 	private List<Actor> top_order_all_actors;
 
-	public DiscrepancyMaxLocalChildren(List<Actor> actors, String partitionId, TraceProject traceProject) {
-		super(actors, partitionId);
+	public DiscrepancyMaxLocalChildren(List<Actor> actors, String partitionId, int processingElements, TraceProject traceProject) {
+		super(actors, partitionId, processingElements);
 		top_order_all_actors = new ArrayList<Actor>();
 		for (Actor actor : ActorsSorter.topologicalOrder(traceProject.getNetwork().getActors())) {
 				top_order_all_actors.add(actor);
@@ -175,11 +175,6 @@ public class DiscrepancyMaxLocalChildren extends AtomicActorPartition {
 	@Override
 	public boolean canExecute() {
 		return runningActors.isEmpty();
-	}
-
-	@Override
-	public int parallelActors() {
-		return 1;
 	}
 
 }

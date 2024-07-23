@@ -37,6 +37,7 @@ import static turnus.model.mapping.io.XmlNetworkPartitioningMarkup.CONFIGURATION
 import static turnus.model.mapping.io.XmlNetworkPartitioningMarkup.CONFIGURATION_NETWORK;
 import static turnus.model.mapping.io.XmlNetworkPartitioningMarkup.PARTITION;
 import static turnus.model.mapping.io.XmlNetworkPartitioningMarkup.PARTITION_ID;
+import static turnus.model.mapping.io.XmlNetworkPartitioningMarkup.PROCESSING_ELEMENTS;
 import static turnus.model.mapping.io.XmlNetworkPartitioningMarkup.SCHEDULING_POLICY;
 
 import java.io.BufferedInputStream;
@@ -77,10 +78,11 @@ public class XmlNetworkPartitioningReader {
 		NetworkPartitioning partitioning = null;
 		String component = null;
 		String scheduling = null;
+		String pe = null;
 		String actor = null;
-		
+
 		final ArrayList<String> actorsOrder = new ArrayList<>();
-		
+
 		try {
 			while (reader.hasNext()) {
 				reader.next();
@@ -108,6 +110,23 @@ public class XmlNetworkPartitioningReader {
 							scheduling = EScheduler.FULL_PARALLEL.getLiteral();
 						}
 						partitioning.setScheduler(component, scheduling);
+						pe = reader.getAttributeValue("", PROCESSING_ELEMENTS);
+						if (pe == null) {
+							Logger.warning("No processing element has been defined for parition \"" + component
+									+ "\". One processing element will be assumed as default.");
+							partitioning.setProcessingElements(component, 1);
+						} else {
+							try {
+								int value = Integer.parseInt(pe);
+
+								partitioning.setProcessingElements(component, value <= 1 ? 1 : value);
+							} catch (NumberFormatException ex) {
+								Logger.warning(
+										"Processing elements \"%s\" not a number. One processing element will be assumed as default.",
+										scheduling);
+								partitioning.setProcessingElements(component, 1);
+							}
+						}
 					} else if (xmlElement.equals(ACTOR)) {
 						actor = reader.getAttributeValue("", ACTOR_ID);
 						if (actor == null) {
@@ -145,23 +164,23 @@ public class XmlNetworkPartitioningReader {
 
 		// create the actors sorter
 		Comparator<String> actorsSorter = new Comparator<String>() {
-			
+
 			private final List<String> actors = ImmutableList.copyOf(actorsOrder);
-			
+
 			@Override
 			public int compare(String o1, String o2) {
 				int v1 = actors.indexOf(o1);
 				int v2 = actors.indexOf(o2);
-				if(v1 == v2){
+				if (v1 == v2) {
 					return o1.compareTo(o2);
-				}else{
+				} else {
 					return Integer.compare(v1, v2);
 				}
 			}
 		};
-		
-	 partitioning.setActorsSorter(actorsSorter);
-		
+
+		partitioning.setActorsSorter(actorsSorter);
+
 		return partitioning;
 
 	}

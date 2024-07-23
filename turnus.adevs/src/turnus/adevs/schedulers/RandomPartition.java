@@ -16,8 +16,8 @@ import turnus.model.dataflow.Actor;
 
 public class RandomPartition extends AtomicActorPartition {
 
-	public RandomPartition(List<Actor> actors, String partitionId) {
-		super(actors, partitionId);
+	public RandomPartition(List<Actor> actors, String partitionId, int processingElements) {
+		super(actors, partitionId, processingElements);
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class RandomPartition extends AtomicActorPartition {
 	}
 
 	@Override
-	public int parallelActors() {
+	public int processingElements() {
 		return 1;
 	}
 

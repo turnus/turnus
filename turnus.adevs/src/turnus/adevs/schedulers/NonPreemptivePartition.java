@@ -51,8 +51,8 @@ public class NonPreemptivePartition extends AtomicActorPartition {
 	private int next = 0;
 	private boolean firstFiring = true;
 
-	public NonPreemptivePartition(List<Actor> actors, String partitionId) {
-		super(actors,partitionId);
+	public NonPreemptivePartition(List<Actor> actors, String partitionId, int processingElements) {
+		super(actors, partitionId, processingElements);
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public class NonPreemptivePartition extends AtomicActorPartition {
 	}
 	
 	@Override
-	public int parallelActors() {
+	public int processingElements() {
 		return 1;
 	}
 
