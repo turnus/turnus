@@ -68,6 +68,7 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import turnus.common.io.Logger;
 import turnus.common.util.FileUtils;
+import turnus.common.util.Triplet;
 import turnus.model.common.EScheduler;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.mapping.io.XmlNetworkPartitioningReader;
@@ -76,6 +77,7 @@ import turnus.model.mapping.io.XmlNetworkPartitioningWriter;
 /**
  * 
  * @author Simone Casale Brunet
+ * @authir Endri Bezati
  *
  */
 public class NetworkPartitioningEditor extends EditorPart {
@@ -153,7 +155,16 @@ public class NetworkPartitioningEditor extends EditorPart {
 
 		@Override
 		public boolean canModify(Object element, String property) {
-			return property.equals(schedulerColumnNames[S_POLICY]);
+			int colIndex = Arrays.asList(schedulerColumnNames).indexOf(property);
+			switch (colIndex) {
+			case S_POLICY:
+				return true;
+			case S_PE:
+				return true;
+			default: 
+				return false;
+
+			}
 		}
 
 		@Override
@@ -163,14 +174,18 @@ public class NetworkPartitioningEditor extends EditorPart {
 
 			Object result = "";
 			@SuppressWarnings("unchecked")
-			Map.Entry<String, String> e = (Map.Entry<String, String>) o;
+			// Map.Entry<String, String> e = (Map.Entry<String, String>) o;
+			Triplet<String, String, Integer> e = (Triplet<String, String, Integer>) o;
 
 			switch (columnIndex) {
 			case S_COMPONENT:
-				result = e.getKey();
+				result = e.v1;
 				break;
 			case S_POLICY:
-				result = Arrays.asList(schedulingPolicies).indexOf(e.getValue());
+				result = Arrays.asList(schedulingPolicies).indexOf(e.v2);
+				break;
+			case S_PE:
+				result = String.valueOf(e.v3);
 				break;
 			default:
 				break;
@@ -188,11 +203,32 @@ public class NetworkPartitioningEditor extends EditorPart {
 
 				TableItem item = (TableItem) o;
 				@SuppressWarnings("unchecked")
-				Map.Entry<String, String> e = (Map.Entry<String, String>) item.getData();
-				String oldValue = e.getValue();
+				Triplet<String, String, Integer> e = (Triplet<String, String, Integer>) item.getData();
+
+				String oldValue = e.v2;
 				if (!intString.equals(oldValue)) {
-					String partition = e.getKey();
+					String partition = e.v1;
 					partitioning.setScheduler(partition, intString);
+					setDirty(true);
+				}
+				schedulingViewer.refresh();
+			} else if (property.equals(schedulerColumnNames[S_PE])) {
+
+				Integer intString;
+				try {
+					String choice = (String) value;
+					intString = Integer.valueOf(choice);
+				} catch (NumberFormatException ex) {
+					intString = 1;
+				}
+				
+				TableItem item = (TableItem) o;
+				@SuppressWarnings("unchecked")
+				Triplet<String, String, Integer> e = (Triplet<String, String, Integer>) item.getData();
+				Integer oldValue = e.v3;
+				if (!intString.equals(oldValue)) {
+					String partition = e.v1;
+					partitioning.setProcessingElements(partition, intString);
 					setDirty(true);
 				}
 				schedulingViewer.refresh();
@@ -217,7 +253,7 @@ public class NetworkPartitioningEditor extends EditorPart {
 		@Override
 		public Object[] getElements(Object inputElement) {
 			if (inputElement instanceof NetworkPartitioning) {
-				return partitioning.asPartitionSchedulerMap().entrySet().toArray();
+				return partitioning.asPartitionSchedulerPeList().toArray();
 			} else {
 				return new Object[0];
 			}
@@ -305,14 +341,17 @@ public class NetworkPartitioningEditor extends EditorPart {
 		public String getColumnText(Object o, int columnIndex) {
 			String result = "";
 			@SuppressWarnings("unchecked")
-			Map.Entry<String, String> e = (Map.Entry<String, String>) o;
+			Triplet<String, String, Integer> e = (Triplet<String, String, Integer>) o;
 
 			switch (columnIndex) {
 			case S_COMPONENT:
-				result = e.getKey();
+				result = e.v1;
 				break;
 			case S_POLICY:
-				result = e.getValue();
+				result = e.v2;
+				break;
+			case S_PE:
+				result = String.valueOf(e.v3);
 				break;
 			default:
 				break;
@@ -397,16 +436,20 @@ public class NetworkPartitioningEditor extends EditorPart {
 		@Override
 		@SuppressWarnings("unchecked")
 		public int compare(Viewer viewer, Object o1, Object o2) {
-			Map.Entry<String, String> e1 = (Map.Entry<String, String>) o1;
-			Map.Entry<String, String> e2 = (Map.Entry<String, String>) o2;
+
+			Triplet<String, String, Integer> e1 = (Triplet<String, String, Integer>) o1;
+			Triplet<String, String, Integer> e2 = (Triplet<String, String, Integer>) o2;
 
 			int rc = 0;
 			switch (propertyIndex) {
 			case S_COMPONENT:
-				rc = e1.getKey().compareTo(e2.getKey());
+				rc = e1.v1.compareTo(e2.v1);
 				break;
 			case S_POLICY:
-				rc = e1.getValue().compareTo(e2.getValue());
+				rc = e1.v2.compareTo(e2.v2);
+				break;
+			case S_PE:
+				rc = e1.v3.compareTo(e2.v3);
 				break;
 			default:
 				rc = 0;
@@ -448,12 +491,14 @@ public class NetworkPartitioningEditor extends EditorPart {
 	private final int M_ACTOR = 0;
 	private final int M_COMPONENT = 1;
 
+	private final int S_PE = 2;
 	private final int S_POLICY = 1;
 	private final int S_COMPONENT = 0;
 
 	/** the columns names */
 	private final String[] mappingColumnNames = new String[] { "Actor", "Component" };
-	private final String[] schedulerColumnNames = new String[] { "Partition", "Scheduling-Policy", "Processing Elements" };
+	private final String[] schedulerColumnNames = new String[] { "Partition", "Scheduling-Policy",
+			"Processing Elements" };
 	private final static String[] schedulingPolicies;
 
 	static {
@@ -591,14 +636,20 @@ public class NetworkPartitioningEditor extends EditorPart {
 			// column: actor
 			TableColumn column = new TableColumn(schedulingTable, SWT.LEFT, S_COMPONENT);
 			column.setText(schedulerColumnNames[S_COMPONENT]);
-			column.setWidth(400);
+			column.setWidth(200);
 			column.addSelectionListener(getSchedulingSelectionAdapter(column, S_COMPONENT));
 
 			// column: component
 			column = new TableColumn(schedulingTable, SWT.LEFT, S_POLICY);
 			column.setText(schedulerColumnNames[S_POLICY]);
-			column.setWidth(100);
+			column.setWidth(300);
 			column.addSelectionListener(getSchedulingSelectionAdapter(column, S_POLICY));
+
+			// column: processing elements
+			column = new TableColumn(schedulingTable, SWT.LEFT, S_PE);
+			column.setText(schedulerColumnNames[S_PE]);
+			column.setWidth(150);
+			column.addSelectionListener(getSchedulingSelectionAdapter(column, S_PE));
 
 			// create the scheduling viewer
 			schedulingViewer.setUseHashlookup(true);
@@ -609,6 +660,8 @@ public class NetworkPartitioningEditor extends EditorPart {
 			// Create the cell editors
 			CellEditor[] editors = new CellEditor[schedulerColumnNames.length];
 			editors[S_POLICY] = new ComboBoxCellEditor(schedulingTable, schedulingPolicies);
+			editors[S_PE] = new TextCellEditor(schedulingTable);
+
 			// set the editors
 			schedulingViewer.setCellEditors(editors);
 			schedulingViewer.setCellModifier(new SchedulingCellModifier());
@@ -620,13 +673,11 @@ public class NetworkPartitioningEditor extends EditorPart {
 	}
 
 	/**
-	 * Create a new {@link SelectionAdapter} for adding the sorting facility to
-	 * the column
+	 * Create a new {@link SelectionAdapter} for adding the sorting facility to the
+	 * column
 	 * 
-	 * @param column
-	 *            the mappingTable column
-	 * @param index
-	 *            the column number index
+	 * @param column the mappingTable column
+	 * @param index  the column number index
 	 * @return
 	 */
 	private SelectionAdapter getMappingSelectionAdapter(final TableColumn column, final int index) {
@@ -644,13 +695,11 @@ public class NetworkPartitioningEditor extends EditorPart {
 	}
 
 	/**
-	 * Create a new {@link SelectionAdapter} for adding the sorting facility to
-	 * the column
+	 * Create a new {@link SelectionAdapter} for adding the sorting facility to the
+	 * column
 	 * 
-	 * @param column
-	 *            the mappingTable column
-	 * @param index
-	 *            the column number index
+	 * @param column the mappingTable column
+	 * @param index  the column number index
 	 * @return
 	 */
 	private SelectionAdapter getSchedulingSelectionAdapter(final TableColumn column, final int index) {

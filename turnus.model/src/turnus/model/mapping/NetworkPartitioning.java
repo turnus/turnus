@@ -41,6 +41,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import turnus.common.util.Triplet;
 import turnus.model.common.EScheduler;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Network;
@@ -112,6 +113,19 @@ public class NetworkPartitioning implements Cloneable {
 		}
 
 		return new HashMap<>(schedulingMap);
+	}
+	
+	public List<Triplet<String, String, Integer>> asPartitionSchedulerPeList(){
+		List<Triplet<String, String, Integer>> list = new ArrayList<>();
+		Collection<String> alivePartitions = new HashSet<>(partitionMap.values());
+		Collection<String> partitions = schedulingMap.keySet();
+		for (String p : partitions) {
+			if (alivePartitions.contains(p)) {
+				Triplet<String, String, Integer> triplet = Triplet.create(p, getScheduler(p), getProcessingElements(p));
+				list.add(triplet);
+			}
+		}
+		return list;
 	}
 
 	@Override

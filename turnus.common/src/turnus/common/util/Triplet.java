@@ -101,7 +101,7 @@ public class Triplet<T, V, U> {
 			Triplet<?, ?, ?> po = (Triplet<?, ?, ?>) o;
 			return (po.v1.equals(v1)) && (po.v2.equals(v2)) && (po.v3.equals(v3));
 		}
-		return true;
+		return false;
 	}
 	
 	@Override

@@ -38,6 +38,7 @@ import static turnus.model.mapping.io.XmlNetworkPartitioningMarkup.CONFIGURATION
 import static turnus.model.mapping.io.XmlNetworkPartitioningMarkup.PARTITION;
 import static turnus.model.mapping.io.XmlNetworkPartitioningMarkup.PARTITIONING;
 import static turnus.model.mapping.io.XmlNetworkPartitioningMarkup.PARTITION_ID;
+import static turnus.model.mapping.io.XmlNetworkPartitioningMarkup.PROCESSING_ELEMENTS;
 import static turnus.model.mapping.io.XmlNetworkPartitioningMarkup.SCHEDULING_POLICY;
 
 import java.io.BufferedOutputStream;
@@ -85,7 +86,9 @@ public class XmlNetworkPartitioningWriter {
 				writer.writeStartElement(PARTITION);
 				writer.writeAttribute(PARTITION_ID, component);
 				String schedulingPolicy = data.getScheduler(component);
+				String processingElements = String.valueOf(data.getProcessingElements(component));
 				writer.writeAttribute(SCHEDULING_POLICY, schedulingPolicy);
+				writer.writeAttribute(PROCESSING_ELEMENTS, processingElements);
 				for (String actor : entry.getValue()) {
 					writer.writeEmptyElement(ACTOR);
 					writer.writeAttribute(ACTOR_ID, actor);
