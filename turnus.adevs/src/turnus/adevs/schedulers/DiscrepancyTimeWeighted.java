@@ -127,31 +127,34 @@ public class DiscrepancyTimeWeighted extends AtomicActorPartition {
 		actorsToExecute.clear();
 		List<DiscrepancyPriorityTriple> schedulableActorsPriority = new ArrayList<DiscrepancyPriorityTriple>();
 		if (!schedulableActors.isEmpty()) {
-			for (Actor actor : schedulableActors) {
-				DiscrepancyPriorityTriple triple = new DiscrepancyPriorityTriple(actor,
-						current_discrepancy.get(actor), actor_frequency.get(actor).multiply(actor_avg_weight.get(actor)));
-				schedulableActorsPriority.add(triple);
-			}
-			Actor next = Collections.max(schedulableActorsPriority).getFirst();
-			for (Actor actor : actor_frequency.keySet()) {
-				current_discrepancy.put(actor, current_discrepancy.get(actor).add( actor_avg_weight.get(next).multiply( actor_frequency.get(actor).multiply( actor_avg_weight.get(actor))) ));
-				if (actor == next) {
-					current_discrepancy.put(actor, current_discrepancy.get(actor).subtract(actor_avg_weight.get(actor).multiply(discrepancy_increment_sum)));
+			List<Actor> schedulableActorsCopy = new ArrayList<Actor>(schedulableActors);
+			while ((!schedulableActorsCopy.isEmpty()) && (runningActors.size() + actorsToExecute.size() < processingElements())) {
+				schedulableActorsPriority.clear();
+				for (Actor actor : schedulableActorsCopy) {
+					DiscrepancyPriorityTriple triple = new DiscrepancyPriorityTriple(actor,
+							current_discrepancy.get(actor), actor_frequency.get(actor).multiply(actor_avg_weight.get(actor)));
+					schedulableActorsPriority.add(triple);
 				}
+				DiscrepancyPriorityTriple next_triple = Collections.max(schedulableActorsPriority);
+				Actor next = next_triple.getFirst();
+				for (Actor actor : actor_frequency.keySet()) {
+					current_discrepancy.put(actor, current_discrepancy.get(actor).add( actor_avg_weight.get(next).multiply( actor_frequency.get(actor).multiply( actor_avg_weight.get(actor))) ));
+					if (actor == next) {
+						current_discrepancy.put(actor, current_discrepancy.get(actor).subtract(actor_avg_weight.get(actor).multiply(discrepancy_increment_sum)));
+					}
+				}
+				schedulableActorsCopy.remove(next);
+				actorsToExecute.add(next);
 			}
-			actorsToExecute.add(next);
 		}
 		return actorsToExecute;
 	}
 
 	@Override
 	public boolean canExecute() {
-		return runningActors.isEmpty();
+		return runningActors.size() < processingElements();
 	}
-
-	@Override
-	public int processingElements() {
-		return 1;
-	}
+	
+	
 
 }

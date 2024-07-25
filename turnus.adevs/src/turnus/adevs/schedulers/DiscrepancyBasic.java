@@ -118,26 +118,32 @@ public class DiscrepancyBasic extends AtomicActorPartition {
 		actorsToExecute.clear();
 		List<DiscrepancyPriorityTriple> schedulableActorsPriority = new ArrayList<DiscrepancyPriorityTriple>();
 		if (!schedulableActors.isEmpty()) {
-			for (Actor act : schedulableActors) {
-				DiscrepancyPriorityTriple triple = new DiscrepancyPriorityTriple(act,
-						current_discrepancy.get(act), discrepancy_increments.get(act));
-				schedulableActorsPriority.add(triple);
-			}
-			Actor next = Collections.max(schedulableActorsPriority).getFirst();
-			for (Actor actor : discrepancy_increments.keySet()) {
-				current_discrepancy.put(actor, current_discrepancy.get(actor) + discrepancy_increments.get(actor));
-				if (actor == next) {
-					current_discrepancy.put(actor, current_discrepancy.get(actor) - discrepancy_increment_sum);
+			List<Actor> schedulableActorsCopy = new ArrayList<Actor>(schedulableActors);
+			while ((!schedulableActorsCopy.isEmpty()) && (runningActors.size() + actorsToExecute.size() < processingElements())) {
+				schedulableActorsPriority.clear();
+				for (Actor act : schedulableActorsCopy) {
+					DiscrepancyPriorityTriple triple = new DiscrepancyPriorityTriple(act,
+							current_discrepancy.get(act), discrepancy_increments.get(act));
+					schedulableActorsPriority.add(triple);
 				}
+				DiscrepancyPriorityTriple next_triple = Collections.max(schedulableActorsPriority);
+				Actor next = next_triple.getFirst();
+				for (Actor actor : discrepancy_increments.keySet()) {
+					current_discrepancy.put(actor, current_discrepancy.get(actor) + discrepancy_increments.get(actor));
+					if (actor == next) {
+						current_discrepancy.put(actor, current_discrepancy.get(actor) - discrepancy_increment_sum);
+					}
+				}
+				schedulableActorsCopy.remove(next);
+				actorsToExecute.add(next);
 			}
-			actorsToExecute.add(next);
 		}
 		return actorsToExecute;
 	}
 
 	@Override
 	public boolean canExecute() {
-		return runningActors.isEmpty();
+		return runningActors.size() < processingElements();
 	}
 
 	
