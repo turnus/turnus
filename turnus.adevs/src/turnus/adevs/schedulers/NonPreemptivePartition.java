@@ -81,12 +81,7 @@ public class NonPreemptivePartition extends AtomicActorPartition {
 
 	@Override
 	public boolean canExecute() {
-		return runningActors.isEmpty();
+		return runningActors.size() < processingElements();
 	}
 	
-	@Override
-	public int processingElements() {
-		return 1;
-	}
-
 }
