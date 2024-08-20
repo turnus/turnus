@@ -148,7 +148,7 @@ public class AtomicBuffer extends Atomic<PortValue> {
 		missingSpace = 0;
 		
 		maxTokensInFifo = 0;
-		tokensInFifo = 0;
+		tokensInFifo = buffer.getInitialTokens();
 		rxTokens = 0;
 		txTokens = 0;
 		tokensToRelease = 0;

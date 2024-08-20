@@ -120,6 +120,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dataflow.ecore#//Buffer/target"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataflow.ecore#//Buffer/type"/>
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference dataflow.ecore#//Buffer/owner"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataflow.ecore#//Buffer/initialTokens"/>
     </genClasses>
     <genClasses ecoreClass="dataflow.ecore#//Guard">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dataflow.ecore#//Guard/tag"/>

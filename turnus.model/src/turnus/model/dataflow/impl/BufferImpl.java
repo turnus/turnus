@@ -59,6 +59,7 @@ import turnus.model.dataflow.Type;
  *   <li>{@link turnus.model.dataflow.impl.BufferImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link turnus.model.dataflow.impl.BufferImpl#getType <em>Type</em>}</li>
  *   <li>{@link turnus.model.dataflow.impl.BufferImpl#getOwner <em>Owner</em>}</li>
+ *   <li>{@link turnus.model.dataflow.impl.BufferImpl#getInitialTokens <em>Initial Tokens</em>}</li>
  * </ul>
  *
  * @generated
@@ -93,6 +94,26 @@ public class BufferImpl extends AttributableImpl implements Buffer {
 	 * @ordered
 	 */
 	protected Type type;
+
+	/**
+	 * The default value of the '{@link #getInitialTokens() <em>Initial Tokens</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInitialTokens()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int INITIAL_TOKENS_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getInitialTokens() <em>Initial Tokens</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInitialTokens()
+	 * @generated
+	 * @ordered
+	 */
+	protected int initialTokens = INITIAL_TOKENS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -297,6 +318,29 @@ public class BufferImpl extends AttributableImpl implements Buffer {
 	 * @generated
 	 */
 	@Override
+	public int getInitialTokens() {
+		return initialTokens;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setInitialTokens(int newInitialTokens) {
+		int oldInitialTokens = initialTokens;
+		initialTokens = newInitialTokens;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DataflowPackage.BUFFER__INITIAL_TOKENS, oldInitialTokens, initialTokens));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case DataflowPackage.BUFFER__SOURCE:
@@ -347,6 +391,8 @@ public class BufferImpl extends AttributableImpl implements Buffer {
 				return getType();
 			case DataflowPackage.BUFFER__OWNER:
 				return getOwner();
+			case DataflowPackage.BUFFER__INITIAL_TOKENS:
+				return getInitialTokens();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -367,6 +413,9 @@ public class BufferImpl extends AttributableImpl implements Buffer {
 				return;
 			case DataflowPackage.BUFFER__TYPE:
 				setType((Type)newValue);
+				return;
+			case DataflowPackage.BUFFER__INITIAL_TOKENS:
+				setInitialTokens((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -389,6 +438,9 @@ public class BufferImpl extends AttributableImpl implements Buffer {
 			case DataflowPackage.BUFFER__TYPE:
 				setType((Type)null);
 				return;
+			case DataflowPackage.BUFFER__INITIAL_TOKENS:
+				setInitialTokens(INITIAL_TOKENS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -409,6 +461,8 @@ public class BufferImpl extends AttributableImpl implements Buffer {
 				return type != null;
 			case DataflowPackage.BUFFER__OWNER:
 				return getOwner() != null;
+			case DataflowPackage.BUFFER__INITIAL_TOKENS:
+				return initialTokens != INITIAL_TOKENS_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

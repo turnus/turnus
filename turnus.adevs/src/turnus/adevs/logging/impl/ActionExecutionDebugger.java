@@ -117,4 +117,10 @@ public class ActionExecutionDebugger implements ActorDataCollector{
 		
 	}
 
+	@Override
+	public void logEndProcessingWithCore(Action action, long stepId, int core, double time) {
+		System.out.println(time + " : ["+action.getOwner().getName()+"] "+action.getName() +" ("+stepId+") -> endProcessing in core" + core);	
+		
+	}
+
 }

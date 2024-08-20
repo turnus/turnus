@@ -87,7 +87,7 @@ public class TypeByteImpl extends MinimalEObjectImpl.Container implements TypeBy
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int SIZE_EDEFAULT = 0;
+	protected static final long SIZE_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getSize() <em>Size</em>}' attribute.
@@ -97,7 +97,7 @@ public class TypeByteImpl extends MinimalEObjectImpl.Container implements TypeBy
 	 * @generated
 	 * @ordered
 	 */
-	protected int size = SIZE_EDEFAULT;
+	protected long size = SIZE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -133,10 +133,11 @@ public class TypeByteImpl extends MinimalEObjectImpl.Container implements TypeBy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	@Override
 	public long getBits() {
+		// TODO: implement this method to return the 'Bits' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
 		return this.size*8L;
 	}
 
@@ -146,7 +147,7 @@ public class TypeByteImpl extends MinimalEObjectImpl.Container implements TypeBy
 	 * @generated
 	 */
 	@Override
-	public int getSize() {
+	public long getSize() {
 		return size;
 	}
 
@@ -156,8 +157,8 @@ public class TypeByteImpl extends MinimalEObjectImpl.Container implements TypeBy
 	 * @generated
 	 */
 	@Override
-	public void setSize(int newSize) {
-		int oldSize = size;
+	public void setSize(long newSize) {
+		long oldSize = size;
 		size = newSize;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DataflowPackage.TYPE_BYTE__SIZE, oldSize, size));
@@ -190,7 +191,7 @@ public class TypeByteImpl extends MinimalEObjectImpl.Container implements TypeBy
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case DataflowPackage.TYPE_BYTE__SIZE:
-				setSize((Integer)newValue);
+				setSize((Long)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

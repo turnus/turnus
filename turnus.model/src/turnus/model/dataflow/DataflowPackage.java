@@ -1088,13 +1088,22 @@ public interface DataflowPackage extends EPackage {
 	int BUFFER__OWNER = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Initial Tokens</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUFFER__INITIAL_TOKENS = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Buffer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUFFER_FEATURE_COUNT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 4;
+	int BUFFER_FEATURE_COUNT = CommonPackage.ATTRIBUTABLE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Buffer</em>' class.
@@ -2572,6 +2581,17 @@ public interface DataflowPackage extends EPackage {
 	EReference getBuffer_Owner();
 
 	/**
+	 * Returns the meta object for the attribute '{@link turnus.model.dataflow.Buffer#getInitialTokens <em>Initial Tokens</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Initial Tokens</em>'.
+	 * @see turnus.model.dataflow.Buffer#getInitialTokens()
+	 * @see #getBuffer()
+	 * @generated
+	 */
+	EAttribute getBuffer_InitialTokens();
+
+	/**
 	 * Returns the meta object for class '{@link turnus.model.dataflow.Guard <em>Guard</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3518,6 +3538,14 @@ public interface DataflowPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BUFFER__OWNER = eINSTANCE.getBuffer_Owner();
+
+		/**
+		 * The meta object literal for the '<em><b>Initial Tokens</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BUFFER__INITIAL_TOKENS = eINSTANCE.getBuffer_InitialTokens();
 
 		/**
 		 * The meta object literal for the '{@link turnus.model.dataflow.impl.GuardImpl <em>Guard</em>}' class.
