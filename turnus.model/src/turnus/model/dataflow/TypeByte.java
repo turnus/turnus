@@ -54,12 +54,12 @@ public interface TypeByte extends Type {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Size</em>' attribute.
-	 * @see #setSize(int)
+	 * @see #setSize(long)
 	 * @see turnus.model.dataflow.DataflowPackage#getTypeByte_Size()
 	 * @model required="true"
 	 * @generated
 	 */
-	int getSize();
+	long getSize();
 
 	/**
 	 * Sets the value of the '{@link turnus.model.dataflow.TypeByte#getSize <em>Size</em>}' attribute.
@@ -69,6 +69,6 @@ public interface TypeByte extends Type {
 	 * @see #getSize()
 	 * @generated
 	 */
-	void setSize(int value);
+	void setSize(long value);
 
 } // TypeByte

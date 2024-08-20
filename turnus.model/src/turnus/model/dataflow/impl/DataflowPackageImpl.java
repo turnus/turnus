@@ -1081,6 +1081,16 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 	 * @generated
 	 */
 	@Override
+	public EAttribute getBuffer_InitialTokens() {
+		return (EAttribute)bufferEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getGuard() {
 		return guardEClass;
 	}
@@ -1451,6 +1461,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		createEReference(bufferEClass, BUFFER__TARGET);
 		createEReference(bufferEClass, BUFFER__TYPE);
 		createEReference(bufferEClass, BUFFER__OWNER);
+		createEAttribute(bufferEClass, BUFFER__INITIAL_TOKENS);
 
 		guardEClass = createEClass(GUARD);
 		createEAttribute(guardEClass, GUARD__TAG);
@@ -1658,6 +1669,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		initEReference(getBuffer_Target(), this.getPort(), this.getPort_Input(), "target", null, 1, 1, Buffer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBuffer_Type(), this.getType(), null, "type", null, 1, 1, Buffer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBuffer_Owner(), this.getNetwork(), null, "owner", null, 0, 1, Buffer.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBuffer_InitialTokens(), ecorePackage.getEInt(), "initialTokens", "0", 0, 1, Buffer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(guardEClass, Guard.class, "Guard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGuard_Tag(), ecorePackage.getEString(), "tag", null, 1, 1, Guard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1694,7 +1706,7 @@ public class DataflowPackageImpl extends EPackageImpl implements DataflowPackage
 		initEAttribute(getTypeTensor_Shape(), ecorePackage.getELong(), "shape", null, 1, -1, TypeTensor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeByteEClass, TypeByte.class, "TypeByte", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTypeByte_Size(), ecorePackage.getEInt(), "size", null, 1, 1, TypeByte.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeByte_Size(), ecorePackage.getELong(), "size", null, 1, 1, TypeByte.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

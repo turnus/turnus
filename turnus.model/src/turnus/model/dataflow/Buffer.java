@@ -48,6 +48,7 @@ import turnus.common.Attributable;
  *   <li>{@link turnus.model.dataflow.Buffer#getTarget <em>Target</em>}</li>
  *   <li>{@link turnus.model.dataflow.Buffer#getType <em>Type</em>}</li>
  *   <li>{@link turnus.model.dataflow.Buffer#getOwner <em>Owner</em>}</li>
+ *   <li>{@link turnus.model.dataflow.Buffer#getInitialTokens <em>Initial Tokens</em>}</li>
  * </ul>
  *
  * @see turnus.model.dataflow.DataflowPackage#getBuffer()
@@ -151,5 +152,28 @@ public interface Buffer extends EObject, Attributable {
 	 * @generated
 	 */
 	Network getOwner();
+
+	/**
+	 * Returns the value of the '<em><b>Initial Tokens</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Initial Tokens</em>' attribute.
+	 * @see #setInitialTokens(int)
+	 * @see turnus.model.dataflow.DataflowPackage#getBuffer_InitialTokens()
+	 * @model default="0"
+	 * @generated
+	 */
+	int getInitialTokens();
+
+	/**
+	 * Sets the value of the '{@link turnus.model.dataflow.Buffer#getInitialTokens <em>Initial Tokens</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Initial Tokens</em>' attribute.
+	 * @see #getInitialTokens()
+	 * @generated
+	 */
+	void setInitialTokens(int value);
 
 } // Buffer
