@@ -47,6 +47,7 @@ public class XmlNetworkPartitioningMarkup {
 	public static final String PARTITION = "partition";
 	public static final String PARTITION_ID = "id";
 	public static final String SCHEDULING_POLICY = "scheduling";
+	public static final String PROCESSING_ELEMENTS = "pe";
 	public static final String ACTOR = "instance";
 	public static final String ACTOR_ID = "id";
 

@@ -661,4 +661,9 @@ public class CriticalPathCollector implements ActorDataCollector, ActorPartition
 	public void logStartProducing(Action action, long stepId, double time) {
 
 	}
+
+	@Override
+	public void logEndProcessingWithCore(Action action, long stepId, int core, double time) {
+		
+	}
 }

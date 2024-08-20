@@ -155,6 +155,12 @@ public class AdevsDataLogger {
 		}
 	}
 
+	public void logEndProcessingWithCore(Action action, long stepId, int core, double time) {
+		for (ActorDataCollector collector : actorDataCollectors) {
+			collector.logEndProcessingWithCore(action, stepId, core, time);
+		}
+	}
+	
 	public void logStartProducing(Action action, long stepId, double time) {
 		for (ActorDataCollector collector : actorDataCollectors) {
 			collector.logStartProducing(action, stepId, time);

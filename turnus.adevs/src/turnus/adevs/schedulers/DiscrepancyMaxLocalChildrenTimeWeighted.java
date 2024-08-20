@@ -103,8 +103,8 @@ public class DiscrepancyMaxLocalChildrenTimeWeighted extends AtomicActorPartitio
 	
 	private List<Actor> top_order_all_actors;
 
-	public DiscrepancyMaxLocalChildrenTimeWeighted(List<Actor> actors, String partitionId, TraceProject traceProject, TraceWeighter traceWeighter) {
-		super(actors, partitionId);
+	public DiscrepancyMaxLocalChildrenTimeWeighted(List<Actor> actors, String partitionId, int processingElements, TraceProject traceProject, TraceWeighter traceWeighter) {
+		super(actors, partitionId, processingElements);
 		top_order_all_actors = new ArrayList<Actor>();
 		for (Actor actor : ActorsSorter.topologicalOrder(traceProject.getNetwork().getActors())) {
 				top_order_all_actors.add(actor);
@@ -186,7 +186,7 @@ public class DiscrepancyMaxLocalChildrenTimeWeighted extends AtomicActorPartitio
 	}
 
 	@Override
-	public int parallelActors() {
+	public int processingElements() {
 		return 1;
 	}
 

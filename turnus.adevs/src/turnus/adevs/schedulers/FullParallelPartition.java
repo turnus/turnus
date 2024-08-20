@@ -49,7 +49,7 @@ public class FullParallelPartition extends AtomicActorPartition {
 	private List<Actor> actorsToExecute = new ArrayList<>();
 
 	public FullParallelPartition(List<Actor> actors, String partitionId) {
-		super(actors, partitionId); 
+		super(actors, partitionId, actors.size()); 
 	}
 
 	@Override
@@ -66,8 +66,4 @@ public class FullParallelPartition extends AtomicActorPartition {
 		return true;
 	}
 	
-	@Override
-	public int parallelActors() {
-		return Integer.MAX_VALUE;
-	}
 }

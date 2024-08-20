@@ -41,6 +41,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import turnus.common.util.Triplet;
 import turnus.model.common.EScheduler;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Network;
@@ -48,18 +49,23 @@ import turnus.model.dataflow.Network;
 public class NetworkPartitioning implements Cloneable {
 
 	private Comparator<String> actorsSorter;
-	private Map<String, String> partitionMap = new HashMap<>();
-	private Map<String, String> schedulingMap = new HashMap<>();
+	private Map<String, String> partitionMap;
+	private Map<String, Integer> processingElementsMap;
+	private Map<String, String> schedulingMap;
 
 	private String networkName;
 
 	public NetworkPartitioning(Network network) {
 		this(network.getName());
+		
 	}
 
 	public NetworkPartitioning(String network) {
+		partitionMap = new HashMap<>();
+		processingElementsMap = new HashMap<>();
+		schedulingMap = new HashMap<>();
 		networkName = network;
-		
+
 		// by default use an alphabetical sorter
 		actorsSorter = new Comparator<String>() {
 
@@ -87,7 +93,7 @@ public class NetworkPartitioning implements Cloneable {
 			String component = e.getValue();
 			map.get(component).add(actor);
 		}
-		
+
 		for (String component : components) {
 			map.get(component).sort(actorsSorter);
 		}
@@ -95,8 +101,6 @@ public class NetworkPartitioning implements Cloneable {
 		return map;
 
 	}
-	
-	
 
 	public Map<String, String> asPartitionSchedulerMap() {
 		// check if all partitions are alive
@@ -109,6 +113,19 @@ public class NetworkPartitioning implements Cloneable {
 		}
 
 		return new HashMap<>(schedulingMap);
+	}
+	
+	public List<Triplet<String, String, Integer>> asPartitionSchedulerPeList(){
+		List<Triplet<String, String, Integer>> list = new ArrayList<>();
+		Collection<String> alivePartitions = new HashSet<>(partitionMap.values());
+		Collection<String> partitions = schedulingMap.keySet();
+		for (String p : partitions) {
+			if (alivePartitions.contains(p)) {
+				Triplet<String, String, Integer> triplet = Triplet.create(p, getScheduler(p), getProcessingElements(p));
+				list.add(triplet);
+			}
+		}
+		return list;
 	}
 
 	@Override
@@ -131,6 +148,13 @@ public class NetworkPartitioning implements Cloneable {
 		return partitionMap.get(actor);
 	}
 
+	public Integer getProcessingElements(String partition) {
+		if (processingElementsMap.containsKey(partition))
+			return processingElementsMap.get(partition);
+		else
+			return 1;
+	}
+
 	public Set<String> getPartitions() {
 		Set<String> components = new HashSet<>(partitionMap.values());
 		for (String component : partitionMap.values()) {
@@ -151,30 +175,30 @@ public class NetworkPartitioning implements Cloneable {
 		return partitionMap.containsKey(actor);
 	}
 
-	public void setActorsSorter(Comparator<String> actorsSorter){
+	public void setActorsSorter(Comparator<String> actorsSorter) {
 		this.actorsSorter = actorsSorter;
 	}
-	
-	public void setActorsSorter(final List<String> orderedActors){
-		
+
+	public void setActorsSorter(final List<String> orderedActors) {
+
 		actorsSorter = new Comparator<String>() {
-			
+
 			private final List<String> list = new ArrayList<>(orderedActors);
-			
+
 			@Override
 			public int compare(String o1, String o2) {
 				int v1 = list.indexOf(o1);
 				int v2 = list.indexOf(o2);
-				if(v1 == v2){
+				if (v1 == v2) {
 					return o1.compareTo(o2);
-				}else{
+				} else {
 					return Integer.compare(v1, v2);
 				}
 			}
 		};
-		
+
 	}
-	
+
 	public void setPartition(Actor actor, String partition) {
 		setPartition(actor.getName(), partition);
 	}
@@ -188,10 +212,14 @@ public class NetworkPartitioning implements Cloneable {
 		}
 	}
 
+	public void setProcessingElements(String partition, Integer processingElements) {
+		processingElementsMap.put(partition, processingElements);
+	}
+
 	public void setScheduler(String component, String schedulingPolicy) {
 		schedulingMap.put(component, schedulingPolicy);
 	}
-	
+
 	public void setSchedulerToAll(String schedulingPolicy) {
 		for (String component : partitionMap.values()) {
 			schedulingMap.put(component, schedulingPolicy);

@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import com.google.common.collect.HashMultiset;
@@ -47,6 +48,7 @@ import turnus.adevs.logging.AdevsDataLogger;
 import turnus.common.TurnusException;
 import turnus.common.io.Logger;
 import turnus.common.io.ProgressPrinter;
+import turnus.common.util.Pair;
 import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
@@ -88,9 +90,12 @@ public class AtomicActor extends Atomic<PortValue> {
 	public static final int PORT_PARTITION_RECEIVE_ENABLE = 2;
 	public static final int PORT_PARTITION_SEND_END_OF_FIRING = 3;
 	public static final int PORT_PARTITION_SEND_END_OF_READING = 4;
+	public static final int PORT_PARTITION_RECEIVE_CORE = 5;
 
 	public enum Status {
-		DISABLED, SEND_HAS_TOKENS, AWAIT_HAS_TOKENS, BLOCKED_READING, SEND_HAS_SPACE, AWAIT_HAS_SPACE, BLOCKED_WRITING, SEND_SCHEDULABLE, SCHEDULABLE, SCHEDULE_ACTION, READING, AWAIT_TOKENS, RELEASE_BUFFERS, PROCESSING, WRITING, AWAIT_END_CONFIRMATION, END_FIRING, TERMINATED;
+		DISABLED, SEND_HAS_TOKENS, AWAIT_HAS_TOKENS, BLOCKED_READING, SEND_HAS_SPACE, AWAIT_HAS_SPACE, BLOCKED_WRITING,
+		SEND_SCHEDULABLE, SCHEDULABLE, SCHEDULE_ACTION, READING, AWAIT_TOKENS, RELEASE_BUFFERS, PROCESSING, WRITING,
+		AWAIT_END_CONFIRMATION, END_FIRING, TERMINATED;
 	}
 
 	/** the actor local time */
@@ -134,6 +139,8 @@ public class AtomicActor extends Atomic<PortValue> {
 	// table used to store unprofiled transitions
 	private Set<Action> unprofiledDirectTransitions;
 	private Map<Action, Set<Action>> unprofiledJumpTransitions;
+
+	private int attributedCore;
 
 	public AtomicActor(Actor actor, Iterator<Step> steps, TraceWeighter traceWeighter,
 			SchedulingWeight schedulingWeight, TraceDecorator traceDecorator) {
@@ -227,6 +234,7 @@ public class AtomicActor extends Atomic<PortValue> {
 		case PROCESSING: {
 			localTime += ta();
 			dataLogger.logEndProcessing(currentAction, currentStep.getId(), localTime);
+			dataLogger.logEndProcessingWithCore(currentAction, currentStep.getId(), attributedCore, localTime);
 			if (releaseAfterProcessing && !buffersToRelease.isEmpty()) {
 				status = Status.RELEASE_BUFFERS;
 			} else if (out_tokensToWrite.isEmpty()) { // no writing required
@@ -294,7 +302,15 @@ public class AtomicActor extends Atomic<PortValue> {
 			int port = inPortValue.getPort();
 			if (port == PORT_PARTITION_RECEIVE_ENABLE && status == Status.SCHEDULABLE) {
 				dataLogger.logIsEnabled(currentAction, currentStep.getId(), localTime);
-				lastActionFromPartition = (Action) inPortValue.getValue();
+				@SuppressWarnings("unchecked")
+				Pair<Optional<Action>, Integer> actionCore = (Pair<Optional<Action>, Integer>) inPortValue.getValue();
+				Optional<Action> action = actionCore.v1;
+				if(action.isEmpty()) {
+					lastActionFromPartition = null;
+				}else {					
+					lastActionFromPartition = actionCore.v1.get();
+				}
+				attributedCore = actionCore.v2;
 				status = Status.SCHEDULE_ACTION;
 			} else if (port == PORT_PARTITION_RECEIVE_ASK_SCHEDULABILITY) {
 				if (status == Status.DISABLED) {
@@ -534,7 +550,6 @@ public class AtomicActor extends Atomic<PortValue> {
 		}
 	}
 
-	
 	@Override
 	public double ta() {
 		switch (status) {
@@ -594,7 +609,8 @@ public class AtomicActor extends Atomic<PortValue> {
 				return schedulingWeight.getWeight(actor.getName(), currentAction.getName()).getMeanClockCycles();
 			} else if (!unprofiledDirectTransitions.contains(currentAction)) {
 				unprofiledDirectTransitions.add(currentAction);
-				Logger.warning("No transition found for actor " + actor.getName() + ", action " + currentAction.getName());
+				Logger.warning(
+						"No transition found for actor " + actor.getName() + ", action " + currentAction.getName());
 			}
 
 			return 0;
@@ -604,9 +620,10 @@ public class AtomicActor extends Atomic<PortValue> {
 				return schedulingWeight
 						.getWeight(actor.getName(), lastActionFromPartition.getName(), currentAction.getName())
 						.getMeanClockCycles();
-			} else if(!unprofiledJumpTransitions.get(lastActionFromPartition).contains(currentAction)){
+			} else if (!unprofiledJumpTransitions.get(lastActionFromPartition).contains(currentAction)) {
 				unprofiledJumpTransitions.get(lastActionFromPartition).add(currentAction);
-				Logger.warning("No transition found for actor " + actor.getName() + ", action " + currentAction.getName() + ", source action " + lastActionFromPartition.getName());
+				Logger.warning("No transition found for actor " + actor.getName() + ", action "
+						+ currentAction.getName() + ", source action " + lastActionFromPartition.getName());
 			}
 
 			return 0;
@@ -620,6 +637,7 @@ public class AtomicActor extends Atomic<PortValue> {
 	public Action getCurrentAction() {
 		return currentAction;
 	}
+
 	public Status getCurrentStatus() {
 		return status;
 	}

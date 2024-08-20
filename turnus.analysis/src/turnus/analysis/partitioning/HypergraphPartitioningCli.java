@@ -34,6 +34,7 @@ package turnus.analysis.partitioning;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.EXTERNAL_PARTITIONING_TOOL;
+import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 import static turnus.common.TurnusOptions.TRACE_FILE;
@@ -64,6 +65,7 @@ import turnus.model.analysis.partitioning.MetisPartitioningReport;
 import turnus.model.dataflow.Actor;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.mapping.NetworkWeight;
+import turnus.model.mapping.io.XmlNetworkPartitioningReader;
 import turnus.model.mapping.io.XmlNetworkPartitioningWriter;
 import turnus.model.mapping.io.XmlNetworkWeightReader;
 import turnus.model.trace.TraceProject;
@@ -109,6 +111,7 @@ public class HypergraphPartitioningCli implements IApplication {
 		TraceProject project = null;
 		TraceWeighter weighter = null;
 		String scheduling = null;
+		NetworkPartitioning fixedPartitioning = null;
 
 		MetisPartitioningReport report = null;
 
@@ -129,6 +132,12 @@ public class HypergraphPartitioningCli implements IApplication {
 			} catch (Exception e) {
 				throw new TurnusException("The weights file cannot be loaded", e);
 			}
+			if (configuration.hasValue(MAPPING_FILE)) {
+				File mappingFile = configuration.getValue(MAPPING_FILE);
+				XmlNetworkPartitioningReader reader = new XmlNetworkPartitioningReader();
+				fixedPartitioning = reader.load(mappingFile);	
+			} 
+			
 			if (configuration.hasValue(SCHEDULING_POLICY)) {
 				scheduling = configuration.getValue(SCHEDULING_POLICY);
 			} else {
@@ -142,6 +151,9 @@ public class HypergraphPartitioningCli implements IApplication {
 			try {
 				analysis = new HypergraphPartitioning(project, weighter);
 				analysis.setConfiguration(configuration);
+				if(fixedPartitioning != null) {
+					analysis.loadFixedPartitioning(fixedPartitioning);
+				}
 				report = analysis.run();
 				Logger.infoRaw(report.toString());
 			} catch (Exception e) {
@@ -202,6 +214,7 @@ public class HypergraphPartitioningCli implements IApplication {
 				.setOption(TRACE_FILE, true) //
 				.setOption(ACTION_WEIGHTS, true) //
 				.setOption(TRACE_WEIGHTER, false)//
+				.setOption(MAPPING_FILE, false)//
 				.setOption(EXTERNAL_PARTITIONING_TOOL, false)//
 				.setOption(SCHEDULING_POLICY, false) //
 				.setOption(ANALYSIS_PARTITIONING_UNITS, false) //

@@ -42,8 +42,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import turnus.analysis.Analysis;
 import turnus.common.io.Logger;
+import turnus.common.util.EcoreUtils;
 import turnus.model.analysis.partitioning.BalancedPipelinePartition;
 import turnus.model.analysis.partitioning.BalancedPipelinePartitioningReport;
 import turnus.model.analysis.partitioning.PartitioningFactory;
@@ -307,7 +310,8 @@ public class BalancedPipelinePartitioning extends Analysis<BalancedPipelineParti
 		toBeReduced.sortElementsDesc(); // the most occupied actors will be assigned first
 		for (Actor a : toBeReduced.getActors()) {
 			Partition newPartition = findMostCommonUnit(a); // assign the actor to the unit with which the average number of common predecessors is the highest
-			newPartition.getActors().add(a);
+			if(newPartition != toBeReduced)
+				newPartition.getActors().add(a);
 		}
 		generatedPartitions.remove(toBeReduced); 
 	}

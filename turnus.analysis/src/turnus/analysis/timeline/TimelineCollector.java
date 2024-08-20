@@ -153,31 +153,7 @@ public class TimelineCollector implements ActorDataCollector {
 
 	@Override
 	public void logEndProcessing(Action action, long stepId, double time) {
-		Actor actor = action.getOwner();
-		int pid = actorsTopologicalSorted.indexOf(actor);
-		long ss = stepId;
-		String actionName = action.getName();
-		double duration = time-actionStartTime.get(action);
 		
-		traceEvents.add(Json.createObjectBuilder()//
-				.add("name", actionName)//
-				.add("cat", "action")//
-				.add("ph", "X")//
-				.add("ts", actionStartTime.get(action))//
-				.add("dur", duration)//
-				.add("pid", pid)//
-				.add("tid", pid)//
-				.add("args", Json.createObjectBuilder().add("stepId", ss)));
-		
-		String partition = partitioning.getPartition(actor);
-		traceEvents.add(Json.createObjectBuilder()//
-				.add("name", actor.getName())//
-				.add("ph", "X")//
-				.add("ts", actionStartTime.get(action))//
-				.add("dur", duration)//
-				.add("pid", "partitioning")//
-				.add("tid", partition)//
-				.add("args", Json.createObjectBuilder().add("stepId", ss)));
 	}
 
 	@Override
@@ -214,6 +190,36 @@ public class TimelineCollector implements ActorDataCollector {
 	public void logProduceTokens(Action action, long stepId, Buffer buffer, int tokens, double time) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void logEndProcessingWithCore(Action action, long stepId, int core, double time) {
+		Actor actor = action.getOwner();
+		int pid = actorsTopologicalSorted.indexOf(actor);
+		long ss = stepId;
+		String actionName = action.getName();
+		double duration = time-actionStartTime.get(action);
+		
+		traceEvents.add(Json.createObjectBuilder()//
+				.add("name", actionName)//
+				.add("cat", "action")//
+				.add("ph", "X")//
+				.add("ts", actionStartTime.get(action))//
+				.add("dur", duration)//
+				.add("pid", pid)//
+				.add("tid", pid)//
+				.add("args", Json.createObjectBuilder().add("stepId", ss)));
+		
+		String partition = partitioning.getPartition(actor);
+		traceEvents.add(Json.createObjectBuilder()//
+				.add("name", actor.getName())//
+				.add("ph", "X")//
+				.add("ts", actionStartTime.get(action))//
+				.add("dur", duration)//
+				.add("pid", "partitioning")//
+				.add("tid", partition + ":" + core)//
+				.add("args", Json.createObjectBuilder().add("stepId", ss)));
+		
 	}
 
 }

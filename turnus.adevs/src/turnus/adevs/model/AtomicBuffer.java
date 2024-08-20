@@ -38,7 +38,6 @@ import java.util.Random;
 import adevs.Atomic;
 import adevs.Digraph.PortValue;
 import turnus.common.TurnusRuntimeException;
-import turnus.common.io.Logger;
 import turnus.model.dataflow.Buffer;
 import turnus.model.mapping.data.MemoryAccess;
 
@@ -80,6 +79,7 @@ public class AtomicBuffer extends Atomic<PortValue> {
 	private int size;
 	
 	///** the buffer local time */
+	@SuppressWarnings("unused")
 	private double localTime = 0;
 	
 	/** true if the receive (in) interface is enabled */
