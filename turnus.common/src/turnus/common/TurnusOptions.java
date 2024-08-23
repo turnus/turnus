@@ -261,6 +261,9 @@ public class TurnusOptions {
 	public static final Option<File> TXT_PARTITION;
 	
 	
+	@Description("Additional tool argumetns for external tools.")
+	public static final Option<String> ADDITIONAL_TOOL_ARGUMENTS;
+	
 	// options are initialized here in order to make this file more readable
 	static {
 		BENCHMARK_N_LOOPS = Option.create().setName("benchmark_n_loops").setDescription("Loop input stimulus N times")
@@ -692,6 +695,13 @@ public class TurnusOptions {
 				setDescription("A text partition file.").//
 				setLongName("turnus.txtPartition").//
 				setType(File.class).build();
+		
+		ADDITIONAL_TOOL_ARGUMENTS = Option.create().//
+				setName("additionalArgs").//
+				setDescription("Additional external arguments.")//
+				.setLongName("turnus.analysis.external.tool.args").//
+				setType(String.class).build();
+		
 		
 	}
 

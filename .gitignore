@@ -37,3 +37,5 @@ xtend-gen
 # Specific rules to ignore Xtext arifacts
 plugin.xml_gen
 .antlr-generator-*.jar 
+
+Traces/
