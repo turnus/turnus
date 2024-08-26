@@ -36,6 +36,7 @@ import static turnus.model.common.StatisticalData.Util.asStatisticalData;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 
@@ -123,11 +124,16 @@ public class ProfiledBuffer {
 	/** the buffer under profiling */
 	private Buffer buffer;
 	private ProfilingData bufferData;
-	private ArrayDeque<ProfiledStep> tokens;
+	private ArrayDeque<Optional<ProfiledStep>> tokens;
 
 	public ProfiledBuffer(Buffer buffer) {
 		this.buffer = buffer;
 		tokens = new ArrayDeque<>(512);
+		if (buffer.getInitialTokens() > 0) {
+			for (int i = 0; i < buffer.getInitialTokens(); i++) {
+				tokens.addLast(Optional.empty());
+			}
+		}
 		bufferData = new ProfilingData();
 	}
 
@@ -148,10 +154,10 @@ public class ProfiledBuffer {
 	}
 
 	public void produceToken(ProfiledStep producer) {
-		tokens.addLast(producer);
+		tokens.addLast(Optional.ofNullable(producer));
 	}
 
-	public ProfiledStep consumeToken() {
+	public Optional<ProfiledStep> consumeToken() {
 		return tokens.removeFirst();
 	}
 
