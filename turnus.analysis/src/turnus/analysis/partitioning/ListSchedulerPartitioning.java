@@ -92,6 +92,8 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 	private static final String METIS_APP = "gpmetis";
 	private TraceWeighter traceWeighter;
 	private int units;
+	private String machine_file = "mparam_4";
+	private String machine_file_path = "/home/toni/work/turnus-tools/mparam_4";
 	private String alg = "GreedyBsp";
 	private String additionalArguments;
 	private Boolean schedule = true;
@@ -248,7 +250,8 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 			commands.add(file_path);
 			
 			commands.add("-m");
-			commands.add(Integer.toString(units));
+			commands.add(machine_file_path);
+//			commands.add(Integer.toString(units));
 			
 			 commands.add("--"+ this.alg);
 			 commands.add("-o");
@@ -271,11 +274,11 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 		    
 		    String ospOutput;
 		    if (this.schedule) {
-				ospOutput = file_path.substring(0, lastSeparator) + "_p" + Integer.toString(units) + "_"+this.alg+"_schedule.txt";
-			
+//				ospOutput = file_path.substring(0, lastSeparator) + "_p" + Integer.toString(units) + "_"+this.alg+"_schedule.txt";
+				ospOutput = file_path.substring(0, lastSeparator) + "_" + machine_file + "_"+this.alg+"_schedule.txt";			
 			} else {
-				ospOutput = file_path.substring(0, lastSeparator) + "_p" + Integer.toString(units) + "_"+this.alg+"_partition.txt";
-				
+//				ospOutput = file_path.substring(0, lastSeparator) + "_p" + Integer.toString(units) + "_"+this.alg+"_partition.txt";
+				ospOutput = file_path.substring(0, lastSeparator) + "_" + machine_file + "_"+this.alg+"_partition.txt";				
 			}
 			
 			
