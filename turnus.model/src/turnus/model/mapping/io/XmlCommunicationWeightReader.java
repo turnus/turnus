@@ -166,10 +166,10 @@ public class XmlCommunicationWeightReader {
 									+ "\": latency not specified. Line " + reader.getLocation().getLineNumber());
 						}
 
-						frequency = Double.parseDouble(reader.getAttributeValue("", FREQUENCY))*1000;
+						//frequency = Double.parseDouble(reader.getAttributeValue("", FREQUENCY))*1000;
 
 						double percentageVal = Double.parseDouble(percentageStr);
-						double latencyVal = Double.parseDouble(latencyStr) / frequency;
+						double latencyVal = Double.parseDouble(latencyStr) ;/// frequency;
 						
 						readWeights.get(buffer).add(new MemoryAccess(level, "read", type, percentageVal, latencyVal));
 					} else if (xmlElement.equals(WRITE)) {
@@ -189,10 +189,10 @@ public class XmlCommunicationWeightReader {
 									+ "\": latency not specified. Line " + reader.getLocation().getLineNumber());
 						}
 
-						frequency = Double.parseDouble(reader.getAttributeValue("", FREQUENCY))*1000;
+						//frequency = Double.parseDouble(reader.getAttributeValue("", FREQUENCY))*1000;
 
 						double percentageVal = Double.parseDouble(percentageStr);
-						double latencyVal = Double.parseDouble(latencyStr) / frequency;
+						double latencyVal = Double.parseDouble(latencyStr);// / frequency;
 						
 						writeWeights.get(buffer).add(new MemoryAccess(level, "write", type, percentageVal, latencyVal));
 					}

@@ -314,11 +314,11 @@ public class AtomicBuffer extends Atomic<PortValue> {
 		}
 
 		if (rxStatus == RxStatus.RECEIVING) {
-			return 0.1 + (0.5 - 0.1) * random.nextDouble();//getCkIn();
+			return getCkIn();
 		}
 
 		if (txStatus == TxStatus.SENDING) {
-			return 0.1 + (0.5 - 0.1) * random.nextDouble();//getCkOut();
+			return getCkOut();
 		}
 		
 		if (rxStatus == RxStatus.END_RECEIVING || txStatus == TxStatus.END_SENDING) {
@@ -342,10 +342,14 @@ public class AtomicBuffer extends Atomic<PortValue> {
 	}
 	
 	private double getCkIn() {
+		if (ckIn == 0.0)
+			return 0.1 + (0.5 - 0.1) * random.nextDouble();
 		return ckIn;
 	}
 	
 	private double getCkOut() {
+		if (ckOut == 0.0)
+            return 0.1 + (0.5 - 0.1) * random.nextDouble();
 		return ckOut;
 	}
 
