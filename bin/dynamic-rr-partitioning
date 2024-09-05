@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function readlink_rec {
+	res="$(readlink $1 || echo $1)"
+	if [ $res = $1 ]
+	then
+		echo $res
+	else
+		readlink_rec $res
+	fi
+}
+
+# Get the directory of the script
+script_dir=$(dirname "$(readlink -f "$0")")
+
+# Navigate up one level to get the root of the bin directory
+root=$(dirname "$script_dir")
+
+timeline="$root/turnus.analysis/target/turnus-cli-dynamicRRpart.jar"
+
+if [ -f "$timeline" ]
+then
+	java -jar $timeline "$@"
+else
+	echo "Turnus is not compiled. Please, run \"mvn install\" to compile Turnus."
+	exit 1
+fi
