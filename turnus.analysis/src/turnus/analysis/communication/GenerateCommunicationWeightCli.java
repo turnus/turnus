@@ -1,5 +1,6 @@
 package turnus.analysis.communication;
 
+import static turnus.common.TurnusOptions.BANDWIDTH;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.TRACE_FILE;
@@ -66,7 +67,7 @@ public class GenerateCommunicationWeightCli implements IApplication {
 		CliParser cliParser = new CliParser()//
 				.setOption(TRACE_FILE, true)//
 				.setOption(MAPPING_FILE, true)//
-				.setOption(OUTPUT_DIRECTORY, false);
+				.setOption(BANDWIDTH, true).setOption(OUTPUT_DIRECTORY, false);
 		configuration = cliParser.parse(args);
 	}
 
@@ -101,6 +102,13 @@ public class GenerateCommunicationWeightCli implements IApplication {
 				throw new TurnusException("The mapping configuration file cannot be loaded.", e);
 			}
 
+			// -- Bandwidth
+			try {
+				bandwidthGBytes = configuration.getValue(BANDWIDTH);
+			} catch (Exception e) {
+				throw new TurnusException("The given bandwidth is not correct.", e);
+			}
+
 			// -- Get buffers crossing partitions
 			Network network = project.getNetwork();
 
@@ -122,7 +130,7 @@ public class GenerateCommunicationWeightCli implements IApplication {
 				for (Buffer buffer : crossBuffers) {
 					Type bufferType = buffer.getType();
 					long bits = bufferType.getBits();
-					double cost_ns = bits / (bandwidthGBytes*1024*1024*1024*8) * 1e9;
+					double cost_ns = bits / (bandwidthGBytes * 1024 * 1024 * 1024 * 8) * 1e9;
 					MemoryAccess readAccess = new MemoryAccess("PCIe", "read", "hit", 1.0, cost_ns);
 					MemoryAccess writeAccess = new MemoryAccess("PCIe", "write", "hit", 1.0, cost_ns);
 
@@ -135,10 +143,9 @@ public class GenerateCommunicationWeightCli implements IApplication {
 			// -- Save the communication weights
 			CommunicationWeight communicationWeight = new CommunicationWeight();
 			communicationWeight.setNetworkName(network.getName());
-			communicationWeight.setReadWeights(readWeights);
+			// communicationWeight.setReadWeights(readWeights);
 			communicationWeight.setWriteWeights(writeWeights);
 
-			
 			{ // STEP 3 : Store the results
 				monitor.subTask("Storing the results");
 				try {
@@ -150,10 +157,9 @@ public class GenerateCommunicationWeightCli implements IApplication {
 						outputPath = createOutputDirectory("communication", configuration);
 					}
 
-					
 					File cxdfFile = createFileWithTimeStamp(outputPath, TurnusExtensions.COMMUNICATION_WEIGHT);
 					new XmlCommunicationWeightWriter().write(communicationWeight, network, cxdfFile);
-					
+
 					Logger.info("Network communication weight stored in \"%s\"", cxdfFile);
 
 				} catch (Exception e) {
@@ -165,7 +171,7 @@ public class GenerateCommunicationWeightCli implements IApplication {
 				}
 			}
 			monitor.done();
-			
+
 		}
 	}
 

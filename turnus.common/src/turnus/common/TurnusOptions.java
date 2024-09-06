@@ -261,6 +261,9 @@ public class TurnusOptions {
 	public static final Option<File> TXT_PARTITION;
 	
 	
+	@Description("Bandwidth in GHz. ")
+	public static final Option<Double> BANDWIDTH;
+	
 	// options are initialized here in order to make this file more readable
 	static {
 		BENCHMARK_N_LOOPS = Option.create().setName("benchmark_n_loops").setDescription("Loop input stimulus N times")
@@ -692,6 +695,12 @@ public class TurnusOptions {
 				setDescription("A text partition file.").//
 				setLongName("turnus.txtPartition").//
 				setType(File.class).build();
+		
+		BANDWIDTH = Option.create().//
+				setName("bandwidth").//
+				setDescription("The Bandwidth in GHz ")//
+				.setLongName("turnus.bandwidth").//
+				setType(Double.class).build();
 		
 	}
 
