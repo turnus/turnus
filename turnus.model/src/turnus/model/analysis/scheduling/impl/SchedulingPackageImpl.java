@@ -50,6 +50,8 @@ import turnus.model.analysis.buffers.BuffersPackage;
 
 import turnus.model.analysis.buffers.impl.BuffersPackageImpl;
 
+import turnus.model.analysis.communication.CommunicationPackage;
+import turnus.model.analysis.communication.impl.CommunicationPackageImpl;
 import turnus.model.analysis.impl.AnalysisPackageImpl;
 
 import turnus.model.analysis.map.MapPackage;
@@ -325,6 +327,8 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(registeredPackage instanceof PostprocessingPackageImpl ? registeredPackage : PostprocessingPackage.eINSTANCE);
 		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI);
 		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommunicationPackage.eNS_URI);
+		CommunicationPackageImpl theCommunicationPackage = (CommunicationPackageImpl)(registeredPackage instanceof CommunicationPackageImpl ? registeredPackage : CommunicationPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theSchedulingPackage.createPackageContents();
@@ -338,6 +342,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 		thePipeliningPackage.createPackageContents();
 		thePostprocessingPackage.createPackageContents();
 		theProfilingPackage.createPackageContents();
+		theCommunicationPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theSchedulingPackage.initializePackageContents();
@@ -351,6 +356,7 @@ public class SchedulingPackageImpl extends EPackageImpl implements SchedulingPac
 		thePipeliningPackage.initializePackageContents();
 		thePostprocessingPackage.initializePackageContents();
 		theProfilingPackage.initializePackageContents();
+		theCommunicationPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theSchedulingPackage.freeze();

@@ -136,6 +136,14 @@
             genModel="model/analysis.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://turnus.co/model/2015/analysis/communication"
+            class="turnus.model.analysis.communication.CommunicationPackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
    <extension
          point="turnus.model.versioner">
       <versioner

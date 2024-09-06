@@ -57,6 +57,8 @@ import turnus.model.analysis.buffers.BuffersPackage;
 
 import turnus.model.analysis.buffers.impl.BuffersPackageImpl;
 
+import turnus.model.analysis.communication.CommunicationPackage;
+import turnus.model.analysis.communication.impl.CommunicationPackageImpl;
 import turnus.model.analysis.impl.AnalysisPackageImpl;
 
 import turnus.model.analysis.map.MapPackage;
@@ -244,6 +246,8 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
 		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
 		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(registeredPackage instanceof SchedulingPackageImpl ? registeredPackage : SchedulingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommunicationPackage.eNS_URI);
+		CommunicationPackageImpl theCommunicationPackage = (CommunicationPackageImpl)(registeredPackage instanceof CommunicationPackageImpl ? registeredPackage : CommunicationPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theBottlenecksPackage.createPackageContents();
@@ -257,6 +261,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 		thePostprocessingPackage.createPackageContents();
 		theProfilingPackage.createPackageContents();
 		theSchedulingPackage.createPackageContents();
+		theCommunicationPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theBottlenecksPackage.initializePackageContents();
@@ -270,6 +275,7 @@ public class BottlenecksPackageImpl extends EPackageImpl implements BottlenecksP
 		thePostprocessingPackage.initializePackageContents();
 		theProfilingPackage.initializePackageContents();
 		theSchedulingPackage.initializePackageContents();
+		theCommunicationPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theBottlenecksPackage.freeze();

@@ -23,6 +23,7 @@ import org.eclipse.equinox.app.IApplicationContext;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
+import turnus.common.configuration.Option;
 import turnus.common.configuration.Configuration.CliParser;
 import turnus.common.io.Logger;
 import turnus.model.ModelsRegister;
@@ -39,7 +40,7 @@ import turnus.model.mapping.io.XmlNetworkPartitioningReader;
 import turnus.model.trace.TraceProject;
 import turnus.model.trace.impl.splitted.SplittedTraceLoader;
 
-public class GenerateCommunicationWeightCli implements IApplication {
+public class LinearCommunicationWeightCli implements IApplication {
 
 	private Configuration configuration;
 	private IProgressMonitor monitor = new NullProgressMonitor();
@@ -47,10 +48,10 @@ public class GenerateCommunicationWeightCli implements IApplication {
 	public static void main(String[] args) throws TurnusException {
 		ModelsRegister.init();
 
-		GenerateCommunicationWeightCli cliApp = null;
+		LinearCommunicationWeightCli cliApp = null;
 
 		try {
-			cliApp = new GenerateCommunicationWeightCli();
+			cliApp = new LinearCommunicationWeightCli();
 			cliApp.parse(args);
 		} catch (TurnusException e) {
 			return;
@@ -63,11 +64,19 @@ public class GenerateCommunicationWeightCli implements IApplication {
 		}
 	}
 
+	private final Option<Double> FIXED_OVERHEAD_LATENCY = Option.create().//
+			setName("latency").//
+			setDescription("Fixed overhead latency")//
+			.setLongName("turnus.fixedlatency").//
+			setType(Double.class).build();
+
 	private void parse(String[] args) throws TurnusException {
 		CliParser cliParser = new CliParser()//
 				.setOption(TRACE_FILE, true)//
 				.setOption(MAPPING_FILE, true)//
-				.setOption(BANDWIDTH, true).setOption(OUTPUT_DIRECTORY, false);
+				.setOption(BANDWIDTH, true) //
+				.setOption(FIXED_OVERHEAD_LATENCY, false) //
+				.setOption(OUTPUT_DIRECTORY, false);
 		configuration = cliParser.parse(args);
 	}
 
@@ -79,6 +88,7 @@ public class GenerateCommunicationWeightCli implements IApplication {
 		File mappingFile = null;
 
 		double bandwidthGBytes = 25.0;
+		double fixedOverheadLatency = 0.0;
 
 		{
 			// -- Step 1 : parse the configuration
@@ -102,6 +112,14 @@ public class GenerateCommunicationWeightCli implements IApplication {
 				throw new TurnusException("The mapping configuration file cannot be loaded.", e);
 			}
 
+			// -- Fixed overhead latency
+			try {
+				if (configuration.hasValue(FIXED_OVERHEAD_LATENCY)) {
+					fixedOverheadLatency = configuration.getValue(FIXED_OVERHEAD_LATENCY);
+				}
+			} catch (Exception e) {
+				throw new TurnusException("The given bandwidth is not correct.", e);
+			}
 			// -- Bandwidth
 			try {
 				bandwidthGBytes = configuration.getValue(BANDWIDTH);
@@ -130,7 +148,8 @@ public class GenerateCommunicationWeightCli implements IApplication {
 				for (Buffer buffer : crossBuffers) {
 					Type bufferType = buffer.getType();
 					long bits = bufferType.getBits();
-					double cost_ns = bits / (bandwidthGBytes * 1024 * 1024 * 1024 * 8) * 1e9;
+					// -- TODO: support other time units apart from ns
+					double cost_ns = fixedOverheadLatency + bits / (bandwidthGBytes * 1024 * 1024 * 1024 * 8) * 1e9;
 					MemoryAccess readAccess = new MemoryAccess("PCIe", "read", "hit", 1.0, cost_ns);
 					MemoryAccess writeAccess = new MemoryAccess("PCIe", "write", "hit", 1.0, cost_ns);
 

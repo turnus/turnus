@@ -869,5 +869,26 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//scheduling/MarkovSchedulingTransition/name"/>
       </genClasses>
     </nestedGenPackages>
+    <nestedGenPackages prefix="Communication" disposableProviderFactory="true" ecorePackage="analysis.ecore#//communication">
+      <genClasses ecoreClass="analysis.ecore#//communication/CommunicationWeigthReport">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//communication/CommunicationWeigthReport/network"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference analysis.ecore#//communication/CommunicationWeigthReport/model"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference analysis.ecore#//communication/CommunicationWeigthReport/bufferLatency"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//communication/CommunicationModel">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//communication/CommunicationModel/name"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//communication/LinearCommunicationModel">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//communication/LinearCommunicationModel/constantBandwidth"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//communication/LinearCommunicationModel/fixedOverheadLatency"/>
+      </genClasses>
+      <genClasses ecoreClass="analysis.ecore#//communication/SigmoidCommunicationModel">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//communication/SigmoidCommunicationModel/carryingCapacity"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//communication/SigmoidCommunicationModel/growthRate"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute analysis.ecore#//communication/SigmoidCommunicationModel/midpoint"/>
+      </genClasses>
+    </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>
