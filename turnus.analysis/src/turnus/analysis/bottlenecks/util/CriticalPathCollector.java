@@ -666,4 +666,10 @@ public class CriticalPathCollector implements ActorDataCollector, ActorPartition
 	public void logEndProcessingWithCore(Action action, long stepId, int core, double time) {
 		
 	}
+
+	@Override
+	public void logEndProduceTokens(Action action, long stepId, Buffer buffer, double time) {
+		// TODO Auto-generated method stub
+		
+	}
 }

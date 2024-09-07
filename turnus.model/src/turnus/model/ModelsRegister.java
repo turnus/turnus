@@ -42,6 +42,7 @@ import turnus.common.io.Logger;
 import turnus.model.analysis.AnalysisPackage;
 import turnus.model.analysis.bottlenecks.BottlenecksPackage;
 import turnus.model.analysis.buffers.BuffersPackage;
+import turnus.model.analysis.communication.CommunicationPackage;
 import turnus.model.analysis.map.MapPackage;
 import turnus.model.analysis.partitioning.PartitioningPackage;
 import turnus.model.analysis.pipelining.PipeliningPackage;
@@ -108,11 +109,13 @@ public class ModelsRegister {
 		m.put(SCHEDULED_IMPACT_ANALYSIS_REPORT, new XMIResourceFactoryImpl());
 		m.put(PROFILING_STATS_REPORT, new XMIResourceFactoryImpl());
 		m.put(MARKOV_SCHEDULER, new XMIResourceFactoryImpl());
+		m.put(COMM_WEIGHT_REPORT, new XMIResourceFactoryImpl());
 
 		CommonPackage.eINSTANCE.eClass();
 		DataflowPackage.eINSTANCE.eClass();
 		ArchitecturePackage.eINSTANCE.eClass();
 		CommonPackage.eINSTANCE.eClass();
+		CommunicationPackage.eINSTANCE.eClass();
 		AnalysisPackage.eINSTANCE.eClass();
 		MapPackage.eINSTANCE.eClass();
 		ProfilerPackage.eINSTANCE.eClass();

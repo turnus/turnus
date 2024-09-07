@@ -177,4 +177,10 @@ public class BufferBlockingCollector implements ActorDataCollector, Cloneable {
 		
 	}
 
+	@Override
+	public void logEndProduceTokens(Action action, long stepId, Buffer buffer, double time) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

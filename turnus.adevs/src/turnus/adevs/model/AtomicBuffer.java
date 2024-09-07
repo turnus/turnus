@@ -384,10 +384,13 @@ public class AtomicBuffer extends Atomic<PortValue> {
 		if (writeCommunicationCost != null) {
 			for (MemoryAccess ma : wcc) {
 				if (ma.getMode().equals("write")) {
+					ckOut += ma.getPercentage() * ma.getLatency();
+					/*
 					if (ma.getType().equals("hit"))
 						ckOut += ma.getPercentage() * writeHitLatency;
 					else if (ma.getType().equals("miss"))
 						ckOut += ma.getPercentage() * writeMissLatency;
+					*/
 				}
 			}
 		}

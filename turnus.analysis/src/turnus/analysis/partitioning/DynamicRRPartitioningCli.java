@@ -189,6 +189,12 @@ public class DynamicRRPartitioningCli implements IApplication {
 		public void logProduceTokens(Action action, long stepId, Buffer buffer, int tokens, double time) {
 		}
 
+		@Override
+		public void logEndProduceTokens(Action action, long stepId, Buffer buffer, double time) {
+			// TODO Auto-generated method stub
+			
+		}
+
 	}
 
 	private PostProcessingReport run() throws TurnusException {

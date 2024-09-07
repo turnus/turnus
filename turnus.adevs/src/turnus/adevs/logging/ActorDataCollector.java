@@ -63,4 +63,7 @@ public interface ActorDataCollector extends DataCollector {
 	public void logConsumeTokens(Action action, long stepId, Buffer buffer, int tokens, double time); // the same time as in logStartProcessing (but we log also buffers etc.)
 
 	public void logProduceTokens(Action action, long stepId, Buffer buffer, int tokens, double time); // the same time as in logEndFiring (but we log also buffers etc.)
+	
+	public void logEndProduceTokens(Action action, long stepId, Buffer buffer, double time); 
+
 }

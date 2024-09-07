@@ -162,7 +162,7 @@ public class LinearCommunicationWeightCli implements IApplication {
 			// -- Save the communication weights
 			CommunicationWeight communicationWeight = new CommunicationWeight();
 			communicationWeight.setNetworkName(network.getName());
-			// communicationWeight.setReadWeights(readWeights);
+			//communicationWeight.setReadWeights(readWeights);
 			communicationWeight.setWriteWeights(writeWeights);
 
 			{ // STEP 3 : Store the results
