@@ -1,6 +1,5 @@
 package turnus.analysis.communication;
 
-import static turnus.common.TurnusOptions.BANDWIDTH;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.TRACE_FILE;
@@ -23,8 +22,8 @@ import org.eclipse.equinox.app.IApplicationContext;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
-import turnus.common.configuration.Option;
 import turnus.common.configuration.Configuration.CliParser;
+import turnus.common.configuration.Option;
 import turnus.common.io.Logger;
 import turnus.model.ModelsRegister;
 import turnus.model.analysis.profiling.util.MemoryAndBuffers;
@@ -68,6 +67,12 @@ public class LinearCommunicationWeightCli implements IApplication {
 			setName("latency").//
 			setDescription("Fixed overhead latency")//
 			.setLongName("turnus.fixedlatency").//
+			setType(Double.class).build();
+	
+	public static final Option<Double> BANDWIDTH = Option.create().//
+			setName("bandwidth").//
+			setDescription("The Bandwidth in GB/s ")//
+			.setLongName("turnus.bandwidth").//
 			setType(Double.class).build();
 
 	private void parse(String[] args) throws TurnusException {

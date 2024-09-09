@@ -33,10 +33,13 @@ package turnus.analysis.profiling;
 
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
+import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.TRACE_FILE;
+import static turnus.common.TurnusOptions.WRITE_HIT_CONSTANT;
+import static turnus.common.TurnusOptions.WRITE_MISS_CONSTANT;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
@@ -57,9 +60,11 @@ import turnus.common.util.EcoreUtils;
 import turnus.model.ModelsRegister;
 import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
 import turnus.model.mapping.BufferSize;
+import turnus.model.mapping.CommunicationWeight;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.mapping.NetworkWeight;
 import turnus.model.mapping.io.XmlBufferSizeReader;
+import turnus.model.mapping.io.XmlCommunicationWeightReader;
 import turnus.model.mapping.io.XmlNetworkPartitioningReader;
 import turnus.model.mapping.io.XmlNetworkWeightReader;
 import turnus.model.trace.TraceProject;
@@ -105,7 +110,9 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 				.setOption(ACTION_WEIGHTS, true)//
 				.setOption(MAPPING_FILE, true)//
 				.setOption(BUFFER_SIZE_FILE, true)//
-				.setOption(OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION, false).setOption(OUTPUT_DIRECTORY, false);
+				.setOption(COMMUNICATION_WEIGHTS, false)//
+				.setOption(OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION, false)//
+				.setOption(OUTPUT_DIRECTORY, false);
 
 		configuration = cliParser.parse(args);
 	}
@@ -116,6 +123,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 		TraceProject project = null;
 		TraceWeighter weighter = null;
 		NetworkPartitioning partitioning = null;
+		CommunicationWeight communication = null;
 		BufferSize bufferSize = null;
 		boolean outgoingBufferOwnedBySource = false;
 		InterPartitionCommunicationAndMemoryReport report = null;
@@ -160,7 +168,12 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 			} catch (Exception e) {
 				throw new TurnusException("The buffer configuration file cannot be loaded.", e);
 			}
+			if (configuration.hasValue(COMMUNICATION_WEIGHTS)) {
+				File communicationWeightsFile = configuration.getValue(COMMUNICATION_WEIGHTS);
+				XmlCommunicationWeightReader reader = new XmlCommunicationWeightReader(project.getNetwork());
+				communication = reader.load(communicationWeightsFile);
 
+			}
 			// -- Outgoing buffer owned by source partition
 			if (configuration.getValue(OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION)) {
 				outgoingBufferOwnedBySource = true;
@@ -173,7 +186,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 			monitor.subTask("Running the analysis");
 			try {
 				analysis = new InterPartitionCommunicationAndMemoryAnalysis(project, weighter, bufferSize, partitioning,
-						outgoingBufferOwnedBySource);
+						communication, outgoingBufferOwnedBySource);
 				analysis.setConfiguration(configuration);
 				report = analysis.run();
 				Logger.infoRaw(report.toString());
@@ -198,7 +211,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 				report.setMappingFile(mappingFile.getName());
 				// -- Set path of the buffer file
 				report.setBufferFile(bufferFile.getName());
-				
+
 				// -- Store the report
 				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
 				Logger.info("Inter-partition communication and memory report stored in \"%s\"", reportFile);

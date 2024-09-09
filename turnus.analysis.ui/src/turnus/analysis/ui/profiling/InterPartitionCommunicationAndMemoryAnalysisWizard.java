@@ -32,6 +32,7 @@
 package turnus.analysis.ui.profiling;
 
 import static turnus.common.TurnusExtensions.BUFFER_SIZE;
+import static turnus.common.TurnusExtensions.COMMUNICATION_WEIGHT;
 import static turnus.common.TurnusExtensions.NETWORK_PARTITIONING;
 import static turnus.common.TurnusExtensions.NETWORK_WEIGHT;
 import static turnus.common.TurnusExtensions.TRACE;
@@ -39,6 +40,7 @@ import static turnus.common.TurnusExtensions.TRACEZ;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
+import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
 import static turnus.common.TurnusOptions.OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 
@@ -53,6 +55,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
@@ -67,6 +71,40 @@ import turnus.ui.wizard.AbstractWizardPage;
 
 public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard implements IWorkbenchWizard {
 
+	
+	private class ToggleListener implements ModifyListener {
+		final private WidgetSelectFileCombo fileSelector;
+
+		public ToggleListener(WidgetSelectFileCombo widget) {
+			this.fileSelector = widget;
+			disable();
+		}
+
+		public void enable() {
+			this.fileSelector.setEnabled(true);
+			this.fileSelector.setVisible(true);
+		}
+
+		public void disable() {
+			this.fileSelector.setEnabled(false);
+			this.fileSelector.setVisible(false);
+		}
+
+		void toggle() {
+			if (fileSelector.isEnabled()) {
+				disable();
+			} else {
+				enable();
+			}
+		}
+
+		@Override
+		public void modifyText(ModifyEvent e) {
+			toggle();
+		}
+
+	}
+	
 	/**
 	 * The unique file page which contains the input and output file widgets
 	 * 
@@ -80,6 +118,9 @@ public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard i
 		private WidgetSelectFileCombo wMappingFile;
 		private WidgetSelectFileCombo wBufferSizeFile;
 		private WidgetCheckBox wSourceOwnsOutgoingBuffers;
+		private WidgetSelectFileCombo wCommunicationFile;
+		private WidgetCheckBox wUseCommunication;
+
 
 		private OptionsPage() {
 			super("Inter-Partition communciation and memory analysis");
@@ -140,6 +181,25 @@ public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard i
 				wBufferSizeFile.setChoices(initialBxdffFiles.toArray(new String[0]));
 			addWidget(wBufferSizeFile);
 
+			// -- Communication file
+			wUseCommunication = new WidgetCheckBox("Use communication weights", " Enable communication weight file",
+					false, container);
+			addWidget(wUseCommunication);
+			String[] commExtension = { COMMUNICATION_WEIGHT };
+			List<String> initialXcxdffFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialXcxdffFiles = EclipseUtils.getPathsFromContainer(project, commExtension);
+			}
+			wCommunicationFile = new WidgetSelectFileCombo("Communication weight file", "Communication weight file",
+					commExtension, null, container);
+			if (!initialXcxdffFiles.isEmpty())
+				wCommunicationFile.setChoices(initialXcxdffFiles.toArray(new String[0]));
+
+			wUseCommunication.addModifyListener(new ToggleListener(wCommunicationFile));
+
+			addWidget(wCommunicationFile);
+			
+			
 			wSourceOwnsOutgoingBuffers = new WidgetCheckBox("Source partition owns outgoing buffers",
 					"Source partition owns outgoing buffers", false, container);
 			addWidget(wSourceOwnsOutgoingBuffers);
@@ -164,6 +224,15 @@ public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard i
 
 		public boolean getSourceOwnsOutgoingBuffers() {
 			return wSourceOwnsOutgoingBuffers.getValue();
+		}
+		
+		public File getCommunicationWeightFile() {
+			if(wUseCommunication.getValue()) {
+				return wCommunicationFile.getValue();
+				
+			}else {
+				return null;
+			}
 		}
 
 	}
@@ -195,6 +264,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard i
 		configuration.setValue(ACTION_WEIGHTS, optionsPage.getWeightsFile());
 		configuration.setValue(MAPPING_FILE, optionsPage.getMappingFile());
 		configuration.setValue(BUFFER_SIZE_FILE, optionsPage.getBufferSizeFile());
+		configuration.setValue(COMMUNICATION_WEIGHTS, optionsPage.getCommunicationWeightFile());
 		configuration.setValue(OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION, optionsPage.getSourceOwnsOutgoingBuffers());
 
 		final Job job = new Job("Inter partition communication and memory analysis") {
