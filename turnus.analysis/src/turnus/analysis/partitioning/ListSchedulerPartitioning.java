@@ -32,6 +32,7 @@
 
 package turnus.analysis.partitioning;
 
+import static turnus.common.TurnusOptions.ADDITIONAL_TOOL_ARGUMENTS;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 
@@ -40,19 +41,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.annotation.Target;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Vector;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
+import java.util.Vector;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -137,10 +134,7 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 
 		List<String> lines = new ArrayList<>();	
 			
-		int div = 1000000;
-		
-		long total= 0;
-		
+	
 		lines.add("digraph  {\n");
 		System.out.println("strict digraph  {");
 		for (Actor actor : actor_map) {
@@ -148,18 +142,19 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 			long persistentMemory = MemoryAndBuffers.getActorPersistentMemmory(actor);
 			//System.out.println(actor);
 			
-			for (Buffer outgoing : actor.getOutgoingBuffers()) {
-				persistentMemory += getTotalBitsOfBuffer(minBufferConfiguration, outgoing);
-			}
+			long transientMemory = 0;
 			
-			total += persistentMemory;
+			for (Buffer outgoing : actor.getOutgoingBuffers()) {
+				transientMemory += getTotalBitsOfBuffer(minBufferConfiguration, outgoing);
+			}
+
 	
 			int actorWeight = (int) (actorWorkload.get(actor).longValue());
 			if (actorWeight == 0) {
 				actorWeight = 1;
 			}
 
-			lines.add(String.format("%s[work_weight=%d mem_weight=%s comm_weight=%s]\n", nodeLabelsToIntegers.get(actor.getName()), actorWeight, persistentMemory/8/1024/1024, persistentMemory/8/1024/1024));
+			lines.add(String.format("%s[work_weight=%d mem_weight=%s comm_weight=%s]\n", nodeLabelsToIntegers.get(actor.getName()), actorWeight, persistentMemory/8/1024/1024, transientMemory/8/1024/1024));
 
 			//System.out.println(
 			//		String.format("%s [workload=%d, memory=%s]", actor.getName(), actorWeight, persistentMemory/8/1024/1024));
@@ -170,7 +165,7 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 				for (Buffer buffer : port.getOutputs()) {
 					String tagetActorLabel = buffer.getTarget().getOwner().getName();
 					Long bufferWeight = bufferVolume.get(buffer);
-					lines.add(String.format("%s->%s [comm_weight=%d]\n", nodeLabelsToIntegers.get(actor.getName()), nodeLabelsToIntegers.get(tagetActorLabel), bufferWeight / div ));
+					lines.add(String.format("%s->%s [comm_weight=%d]\n", nodeLabelsToIntegers.get(actor.getName()), nodeLabelsToIntegers.get(tagetActorLabel), bufferWeight/8/1024/1024 ));
 					
 					//System.out
 					//		.println(String.format("%s -> %s [data=%d]", actor.getName(), tagetActorLabel, bufferWeight));
