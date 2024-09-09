@@ -32,7 +32,6 @@
 
 package turnus.analysis.partitioning;
 
-import static turnus.common.TurnusOptions.ADDITIONAL_TOOL_ARGUMENTS;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 
@@ -41,15 +40,19 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.annotation.Target;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Vector;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Vector;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -105,7 +108,6 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 
 	private TraceDecorator decorator;
 
-
 	public ListSchedulerPartitioning(TraceProject project, TraceWeighter traceWeighter) {
 		super(project);
 		this.traceWeighter = traceWeighter;
@@ -119,7 +121,6 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 		return Stream.of(System.getenv("PATH").split(Pattern.quote(File.pathSeparator))).map(Paths::get)
 				.anyMatch(path -> Files.exists(path.resolve(exec)));
 	}
-
 
 	private int bitsToMegaBytes(Long value) {
 		long ret = value / 8 / 1024;

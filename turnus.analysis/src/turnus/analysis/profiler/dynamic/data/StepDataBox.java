@@ -76,7 +76,8 @@ public class StepDataBox {
 		@Override
 		public void logRead(Buffer buffer, ProfiledStep producer) {
 		}
-
+		
+	
 		@Override
 		public void logRead(Variable variable, int count) {
 
@@ -386,6 +387,17 @@ public class StepDataBox {
 		consumedTokens.add(buffer);
 	}
 
+	/**
+	 * Read a token produced by initialTokens
+	 * 
+	 * @param buffer
+	 *            the buffer where the token has been read
+	 */
+	public void logRead(Buffer buffer) {
+		// log the read
+		consumedTokens.add(buffer);
+	}
+	
 	/**
 	 * Read a state variable
 	 * 

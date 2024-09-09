@@ -39,6 +39,7 @@ import static turnus.common.TurnusOptions.COMPRESS_TRACE;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
@@ -102,8 +103,7 @@ public class DynamicProfiler {
 	/**
 	 * Constructor. Create a new dynamic profiler.
 	 * 
-	 * @param network
-	 *            the network under test
+	 * @param network the network under test
 	 */
 	public DynamicProfiler(Network network) {
 		this.network = network;
@@ -237,8 +237,12 @@ public class DynamicProfiler {
 	 * @param value
 	 */
 	public void logRead(Buffer buffer, Object value) {
-		ProfiledStep producer = profiledBuffers.get(buffer).consumeToken();
-		stepData.logRead(buffer, producer);
+		Optional<ProfiledStep> producer = profiledBuffers.get(buffer).consumeToken();
+		if (!producer.isEmpty()) {
+			stepData.logRead(buffer, producer.get());
+		} else {
+			stepData.logRead(buffer);
+		}
 	}
 
 	/**
@@ -249,8 +253,12 @@ public class DynamicProfiler {
 	 */
 	public void logRead(Buffer buffer, int count, Object... values) {
 		for (int i = 0; i < count; i++) {
-			ProfiledStep producer = profiledBuffers.get(buffer).consumeToken();
-			stepData.logRead(buffer, producer);
+			Optional<ProfiledStep> producer = profiledBuffers.get(buffer).consumeToken();
+			if (!producer.isEmpty()) {
+				stepData.logRead(buffer, producer.get());
+			} else {
+				stepData.logRead(buffer);
+			}
 		}
 	}
 
