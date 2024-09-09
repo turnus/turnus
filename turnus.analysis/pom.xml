@@ -11,7 +11,7 @@
     </parent>
 
     <properties>
-        <tycho-version>3.0.4</tycho-version>
+        <tycho-version>3.0.5</tycho-version>
     </properties>
 
     <dependencies>
@@ -19,31 +19,31 @@
         <dependency>
             <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.equinox.app</artifactId>
-            <version>1.5.0</version>            <!-- Update to the version you're using -->
+            <version>1.6.200</version>            <!-- Update to the version you're using -->
         </dependency>
 
         <dependency>
             <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.core.runtime</artifactId>
-            <version>3.17.0</version>            <!-- Update this version as well -->
+            <version>3.26.0</version>           
         </dependency>
 
         <dependency>
             <groupId>org.eclipse.emf</groupId>
             <artifactId>org.eclipse.emf.ecore</artifactId>
-            <version>2.24.0</version>            <!-- Replace with the correct version -->
+            <version>2.26.0</version>            
         </dependency>
 
         <dependency>
             <groupId>org.eclipse.emf</groupId>
             <artifactId>org.eclipse.emf.ecore.xmi</artifactId>
-            <version>2.10.1</version>
+            <version>2.16.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>31.1-jre</version>            <!-- Ensure this version matches your requirements -->
+            <version>30.1-jre</version>            
         </dependency>
 
         <!-- Other dependencies if required -->
@@ -212,6 +212,33 @@
                             </filters>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>turnus-cli-dlinearcommweight</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>turnus-cli-dlinearcommweight</finalName>
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>turnus.analysis.communication.LinearCommunicationWeightCli</mainClass>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                        <exclude>module-info.class</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
@@ -308,6 +335,25 @@
                             <archive>
                                 <manifest>
                                     <mainClass>turnus.analysis.partitioning.DynamicRRPartitioningCli</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    	<profile>
+            <id>turnus-cli-linearcommweight</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>turnus.analysis.communication.LinearCommunicationWeightCli</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>

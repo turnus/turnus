@@ -30,7 +30,6 @@ hs_err_pid*
 
 # ECLIPSE
 # src-gen folders are ignored with a specific .gitignore inside each
-bin
 xtend-gen
 .metadata
 
