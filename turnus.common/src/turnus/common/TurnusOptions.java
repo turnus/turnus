@@ -264,6 +264,10 @@ public class TurnusOptions {
 	@Description("Bandwidth in GHz. ")
 	public static final Option<Double> BANDWIDTH;
 	
+	@Description("Additional tool argumetns for external tools.")
+	public static final Option<String> ADDITIONAL_TOOL_ARGUMENTS;
+	
+	
 	// options are initialized here in order to make this file more readable
 	static {
 		BENCHMARK_N_LOOPS = Option.create().setName("benchmark_n_loops").setDescription("Loop input stimulus N times")
@@ -701,6 +705,13 @@ public class TurnusOptions {
 				setDescription("The Bandwidth in GHz ")//
 				.setLongName("turnus.bandwidth").//
 				setType(Double.class).build();
+		
+		ADDITIONAL_TOOL_ARGUMENTS = Option.create().//
+				setName("additionalArgs").//
+				setDescription("Additional external arguments.")//
+				.setLongName("turnus.analysis.external.tool.args").//
+				setType(String.class).build();
+		
 		
 	}
 
