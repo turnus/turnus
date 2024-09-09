@@ -49,6 +49,8 @@ import turnus.model.analysis.buffers.BuffersPackage;
 
 import turnus.model.analysis.buffers.impl.BuffersPackageImpl;
 
+import turnus.model.analysis.communication.CommunicationPackage;
+import turnus.model.analysis.communication.impl.CommunicationPackageImpl;
 import turnus.model.analysis.map.MapPackage;
 
 import turnus.model.analysis.map.impl.MapPackageImpl;
@@ -171,6 +173,8 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
 		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
 		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(registeredPackage instanceof SchedulingPackageImpl ? registeredPackage : SchedulingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommunicationPackage.eNS_URI);
+		CommunicationPackageImpl theCommunicationPackage = (CommunicationPackageImpl)(registeredPackage instanceof CommunicationPackageImpl ? registeredPackage : CommunicationPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theAnalysisPackage.createPackageContents();
@@ -184,6 +188,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 		thePostprocessingPackage.createPackageContents();
 		theProfilingPackage.createPackageContents();
 		theSchedulingPackage.createPackageContents();
+		theCommunicationPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theAnalysisPackage.initializePackageContents();
@@ -197,6 +202,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 		thePostprocessingPackage.initializePackageContents();
 		theProfilingPackage.initializePackageContents();
 		theSchedulingPackage.initializePackageContents();
+		theCommunicationPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theAnalysisPackage.freeze();
@@ -304,6 +310,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 		PostprocessingPackage thePostprocessingPackage = (PostprocessingPackage)EPackage.Registry.INSTANCE.getEPackage(PostprocessingPackage.eNS_URI);
 		ProfilingPackage theProfilingPackage = (ProfilingPackage)EPackage.Registry.INSTANCE.getEPackage(ProfilingPackage.eNS_URI);
 		SchedulingPackage theSchedulingPackage = (SchedulingPackage)EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
+		CommunicationPackage theCommunicationPackage = (CommunicationPackage)EPackage.Registry.INSTANCE.getEPackage(CommunicationPackage.eNS_URI);
 
 		// Add subpackages
 		getESubpackages().add(theProfilerPackage);
@@ -316,6 +323,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 		getESubpackages().add(thePostprocessingPackage);
 		getESubpackages().add(theProfilingPackage);
 		getESubpackages().add(theSchedulingPackage);
+		getESubpackages().add(theCommunicationPackage);
 
 		// Create type parameters
 

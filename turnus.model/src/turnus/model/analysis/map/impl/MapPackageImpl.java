@@ -50,6 +50,8 @@ import turnus.model.analysis.buffers.BuffersPackage;
 
 import turnus.model.analysis.buffers.impl.BuffersPackageImpl;
 
+import turnus.model.analysis.communication.CommunicationPackage;
+import turnus.model.analysis.communication.impl.CommunicationPackageImpl;
 import turnus.model.analysis.impl.AnalysisPackageImpl;
 
 import turnus.model.analysis.map.MapFactory;
@@ -328,6 +330,8 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		ProfilingPackageImpl theProfilingPackage = (ProfilingPackageImpl)(registeredPackage instanceof ProfilingPackageImpl ? registeredPackage : ProfilingPackage.eINSTANCE);
 		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
 		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(registeredPackage instanceof SchedulingPackageImpl ? registeredPackage : SchedulingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommunicationPackage.eNS_URI);
+		CommunicationPackageImpl theCommunicationPackage = (CommunicationPackageImpl)(registeredPackage instanceof CommunicationPackageImpl ? registeredPackage : CommunicationPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theMapPackage.createPackageContents();
@@ -341,6 +345,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		thePostprocessingPackage.createPackageContents();
 		theProfilingPackage.createPackageContents();
 		theSchedulingPackage.createPackageContents();
+		theCommunicationPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theMapPackage.initializePackageContents();
@@ -354,6 +359,7 @@ public class MapPackageImpl extends EPackageImpl implements MapPackage {
 		thePostprocessingPackage.initializePackageContents();
 		theProfilingPackage.initializePackageContents();
 		theSchedulingPackage.initializePackageContents();
+		theCommunicationPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theMapPackage.freeze();

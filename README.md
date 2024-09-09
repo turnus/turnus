@@ -4,27 +4,16 @@
 
 A design space exploration and optimization framework for dynamic dataflow programs.
 
-## Download
-
-The Eclipse plugins can be downloaded from this repository:
-
-```
-http://scistimm.epfl.ch/turnus/eclipse/
-```
 
 
-Please make sure to use the latest [Eclipse Neon](http://www.eclipse.org/downloads/packages/eclipse-rcp-and-rap-developers/neon1a) *for RCP and RAP Developers*.
+Please make sure to use [Eclipse 2023.06](https://www.eclipse.org/downloads/packages/release/2023-06/r) *Eclipse IDE for Java and DSL Developers*.
 
 ## Build from sources
 If you want to build the latest version from the sources you should clone all the repositories and successively use maven to build all the plugins. Here an example:
 
 ```
-mkdir turnus
-cd turnus
 git clone https://github.com/turnus/turnus.git
-git clone https://github.com/turnus/turnus.orcc.git
-git clone https://github.com/turnus/turnus.p2.git
-cd turnus.p2
+cd turnus
 mvn clean install
 ```
 

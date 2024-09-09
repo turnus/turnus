@@ -344,4 +344,10 @@ public class ActionStatisticsCollector implements ActorDataCollector {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void logEndProduceTokens(Action action, long stepId, Buffer buffer, double time) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -71,8 +71,9 @@ public class AnalysisReportMarkdownEditor extends AbstractBrowserEditor {
 				// try delete now the file
 				output.delete();
 			} catch (Exception e) {
-			}
-			return HtmlUtils.markdown2Html(md);
+			} 
+			String string = HtmlUtils.markdown2Html(md);
+			return string;
 		} catch (Exception e) {
 			throw new TurnusException("File cannot be converted to an md file", e);
 		}

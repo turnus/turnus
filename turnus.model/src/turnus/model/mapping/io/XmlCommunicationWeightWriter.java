@@ -259,6 +259,23 @@ public class XmlCommunicationWeightWriter {
 					writer.writeAttribute(TYPE, ma.getType().toLowerCase());		
 				}
 				writer.writeEndElement();
+				
+				
+				writer.writeStartElement(MEMORY);
+				writer.writeAttribute(LEVEL, "PCIe");
+				for (MemoryAccess ma : weight.getReadAccessByLevel(buffer, "PCIe")) {
+					writer.writeEmptyElement(READ);
+					writer.writeAttribute(PERCENTAGE, "" + ma.getPercentage());
+					writer.writeAttribute(LATENCY, "" + ma.getLatency());
+					writer.writeAttribute(TYPE, ma.getType().toLowerCase());		
+				}
+				for (MemoryAccess ma : weight.getWriteAccessByLevel(buffer, "PCIe")) {
+					writer.writeEmptyElement(WRITE);
+					writer.writeAttribute(PERCENTAGE, "" + ma.getPercentage());
+					writer.writeAttribute(LATENCY, "" + ma.getLatency());
+					writer.writeAttribute(TYPE, ma.getType().toLowerCase());		
+				}			   
+				writer.writeEndElement();
 			   
 				writer.writeEndElement();
 			}

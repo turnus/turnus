@@ -48,6 +48,8 @@ import turnus.model.analysis.buffers.BuffersPackage;
 
 import turnus.model.analysis.buffers.impl.BuffersPackageImpl;
 
+import turnus.model.analysis.communication.CommunicationPackage;
+import turnus.model.analysis.communication.impl.CommunicationPackageImpl;
 import turnus.model.analysis.impl.AnalysisPackageImpl;
 
 import turnus.model.analysis.map.MapPackage;
@@ -237,6 +239,8 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		PostprocessingPackageImpl thePostprocessingPackage = (PostprocessingPackageImpl)(registeredPackage instanceof PostprocessingPackageImpl ? registeredPackage : PostprocessingPackage.eINSTANCE);
 		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SchedulingPackage.eNS_URI);
 		SchedulingPackageImpl theSchedulingPackage = (SchedulingPackageImpl)(registeredPackage instanceof SchedulingPackageImpl ? registeredPackage : SchedulingPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommunicationPackage.eNS_URI);
+		CommunicationPackageImpl theCommunicationPackage = (CommunicationPackageImpl)(registeredPackage instanceof CommunicationPackageImpl ? registeredPackage : CommunicationPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theProfilingPackage.createPackageContents();
@@ -250,6 +254,7 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		thePipeliningPackage.createPackageContents();
 		thePostprocessingPackage.createPackageContents();
 		theSchedulingPackage.createPackageContents();
+		theCommunicationPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theProfilingPackage.initializePackageContents();
@@ -263,6 +268,7 @@ public class ProfilingPackageImpl extends EPackageImpl implements ProfilingPacka
 		thePipeliningPackage.initializePackageContents();
 		thePostprocessingPackage.initializePackageContents();
 		theSchedulingPackage.initializePackageContents();
+		theCommunicationPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theProfilingPackage.freeze();

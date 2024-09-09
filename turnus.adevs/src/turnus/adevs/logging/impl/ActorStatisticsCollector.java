@@ -342,4 +342,10 @@ public class ActorStatisticsCollector implements ActorDataCollector, Cloneable {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void logEndProduceTokens(Action action, long stepId, Buffer buffer, double time) {
+		// TODO Auto-generated method stub
+		
+	}
 }

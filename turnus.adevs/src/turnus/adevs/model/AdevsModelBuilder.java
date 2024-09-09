@@ -214,7 +214,6 @@ public class AdevsModelBuilder {
 
 	private AtomicActorPartition getPartitionObject(String scheduling, String partitionId, int processingElements,
 			List<Actor> targetActors) {
-//		TraceDecorator traceDecorator = traceProject.getTraceDecorator();
 		switch (scheduling) {
 		case "FULL_PARALLEL":
 			return new FullParallelPartition(targetActors, partitionId);

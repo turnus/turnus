@@ -144,6 +144,7 @@ public class Configuration {
 				}
 
 			} catch (Exception e) {
+				Logger.error(e.getMessage());
 				Logger.error("The command line cannot be parsed. See the help:");
 				printHelp();
 				throw new TurnusException("Command line parsing error", e);

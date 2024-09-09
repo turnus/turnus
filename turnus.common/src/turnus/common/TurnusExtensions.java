@@ -35,6 +35,7 @@ package turnus.common;
  * This class contains the file extensions used by TURNUS
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class TurnusExtensions {
@@ -161,7 +162,7 @@ public class TurnusExtensions {
 
 	/** Graphviz Dot file */
 	public static final String DOT = "dot";
-	
+
 	/** Json file */
 	public static final String JSON = "json";
 
@@ -182,12 +183,16 @@ public class TurnusExtensions {
 
 	/** The latency profiling file */
 	public static final String LATENCY_REPORT = "lprof";
-	
+
 	/** The time line report file */
 	public static final String TIMELINE_REPORT = "tlreport";
 
 	/** The actor selection schedule */
 	public static final String ACTOR_SELECTION_SCHEDULE = "assched";
+
 	/** Markov scheduler report file */
 	public static final String MARKOV_SCHEDULER = "mvsched";
+
+	/** Communication weight report */
+	public static final String COMM_WEIGHT_REPORT = "commw";
 }

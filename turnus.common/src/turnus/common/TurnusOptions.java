@@ -261,8 +261,8 @@ public class TurnusOptions {
 	public static final Option<File> TXT_PARTITION;
 	
 	
-	@Description("Additional tool argumetns for external tools.")
-	public static final Option<String> ADDITIONAL_TOOL_ARGUMENTS;
+	@Description("Bandwidth in GHz. ")
+	public static final Option<Double> BANDWIDTH;
 	
 	// options are initialized here in order to make this file more readable
 	static {
@@ -696,12 +696,11 @@ public class TurnusOptions {
 				setLongName("turnus.txtPartition").//
 				setType(File.class).build();
 		
-		ADDITIONAL_TOOL_ARGUMENTS = Option.create().//
-				setName("additionalArgs").//
-				setDescription("Additional external arguments.")//
-				.setLongName("turnus.analysis.external.tool.args").//
-				setType(String.class).build();
-		
+		BANDWIDTH = Option.create().//
+				setName("bandwidth").//
+				setDescription("The Bandwidth in GHz ")//
+				.setLongName("turnus.bandwidth").//
+				setType(Double.class).build();
 		
 	}
 

@@ -305,9 +305,9 @@ public class AtomicActor extends Atomic<PortValue> {
 				@SuppressWarnings("unchecked")
 				Pair<Optional<Action>, Integer> actionCore = (Pair<Optional<Action>, Integer>) inPortValue.getValue();
 				Optional<Action> action = actionCore.v1;
-				if(action.isEmpty()) {
+				if (action.isEmpty()) {
 					lastActionFromPartition = null;
-				}else {					
+				} else {
 					lastActionFromPartition = actionCore.v1.get();
 				}
 				attributedCore = actionCore.v2;
@@ -392,7 +392,9 @@ public class AtomicActor extends Atomic<PortValue> {
 					}
 				} else if (port == PORT_OUT_RECEIVE_TOKENS_RECEIVED.get(buffer)) {
 					if (status == Status.AWAIT_END_CONFIRMATION) {
+						dataLogger.logEndProduceTokens(currentAction, currentStep.getId(), buffer, localTime);
 						writtenBuffers++;
+						// -- TODO: Add logEndProducing with buffer id here
 						if (writtenBuffers == out_tokensToWrite.elementSet().size()) {
 							dataLogger.logEndFiring(currentAction, currentStep.getId(), localTime);
 							status = Status.END_FIRING;

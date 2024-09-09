@@ -99,7 +99,7 @@ public class UpdateDiagramFeature extends DefaultUpdateDiagramFeature {
 		return hasDoneChanges;
 	}
 
-	@Override
+	@Override 
 	public boolean update(IUpdateContext context) {
 		if (!(context.getPictogramElement() instanceof Diagram)) {
 			Logger.warning("UpdateDiagramFeature has been used with a non Diagram parameter: %s",

@@ -32,7 +32,6 @@
 package turnus.analysis.partitioning;
 
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
-import static turnus.common.TurnusOptions.ADDITIONAL_TOOL_ARGUMENTS;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
@@ -72,12 +71,9 @@ import turnus.model.trace.weighter.TraceWeighter;
 import turnus.model.trace.weighter.WeighterUtils;
 
 /**
- * OneStopParallel graph partitioning Cli
+ * Metis graph partitioning Cli
  * 
- * @author Endri Bezati 
- * @author Toni Boehnlein 
- * @author Pal Andras Papp 
- * @author Raphael S. Steiner
+ * @author Endri Bezati
  */
 public class ListSchedulerPartitioningCli implements IApplication {
 
@@ -137,7 +133,6 @@ public class ListSchedulerPartitioningCli implements IApplication {
 			} else {
 				scheduling = DEFAULT_SCHEDULING_POLICY;
 			}
-			
 		}
 
 		// -- STEP 2 : Run the analysis
@@ -209,8 +204,7 @@ public class ListSchedulerPartitioningCli implements IApplication {
 				.setOption(TRACE_WEIGHTER, false)//
 				.setOption(SCHEDULING_POLICY, false) //
 				.setOption(ANALYSIS_PARTITIONING_UNITS, false) //
-				.setOption(OUTPUT_DIRECTORY, false) //
-				.setOption(ADDITIONAL_TOOL_ARGUMENTS, false);
+				.setOption(OUTPUT_DIRECTORY, false);
 
 		configuration = cliParser.parse(args);
 	}

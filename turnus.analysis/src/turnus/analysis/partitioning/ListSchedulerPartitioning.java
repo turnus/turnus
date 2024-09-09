@@ -32,7 +32,6 @@
 
 package turnus.analysis.partitioning;
 
-import static turnus.common.TurnusOptions.ADDITIONAL_TOOL_ARGUMENTS;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 
@@ -41,15 +40,19 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.annotation.Target;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Vector;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Vector;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -78,12 +81,9 @@ import turnus.model.trace.TraceProject;
 import turnus.model.trace.weighter.TraceWeighter;
 
 /**
- * Partitioning based on OneStopParalle graph partitioner
+ * Partitioning based on Metis graph partitioner
  * 
- * @author Endri Bezati 
- * @author Toni Boehnlein 
- * @author Pal Andras Papp 
- * @author Raphael S. Steiner
+ * @author Endri Bezati
  */
 public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport> {
 
@@ -92,11 +92,6 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 	private static final String METIS_APP = "gpmetis";
 	private TraceWeighter traceWeighter;
 	private int units;
-	private String machine_file = "mparam_4";
-	private String machine_file_path = "/home/toni/work/turnus-tools/mparam_4";
-	private String alg = "GreedyBsp";
-	private String additionalArguments;
-	private Boolean schedule = true;
 	private EScheduler schedulingPolicy;
 
 	private Map<Buffer, Long> bufferVolume;
@@ -111,7 +106,6 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 		this.actorWorkload = new HashMap<>();
 		this.bufferVolume = new HashMap<>();
 		this.decorator = project.getTraceDecorator();
-		this.additionalArguments = "";
 	}
 
 	private boolean execInPath(String exec) {
@@ -134,30 +128,32 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 
 		List<String> lines = new ArrayList<>();	
 			
-	
+		int div = 1000000;
+		
+		long total= 0;
+		
 		lines.add("digraph  {\n");
 		System.out.println("strict digraph  {");
 		for (Actor actor : actor_map) {
 
 			long persistentMemory = MemoryAndBuffers.getActorPersistentMemmory(actor);
-			//System.out.println(actor);
-			
-			long transientMemory = 0;
+			System.out.println(actor);
 			
 			for (Buffer outgoing : actor.getOutgoingBuffers()) {
-				transientMemory += getTotalBitsOfBuffer(minBufferConfiguration, outgoing);
+				persistentMemory += getTotalBitsOfBuffer(minBufferConfiguration, outgoing);
 			}
-
+			
+			total += persistentMemory;
 	
 			int actorWeight = (int) (actorWorkload.get(actor).longValue());
 			if (actorWeight == 0) {
 				actorWeight = 1;
 			}
 
-			lines.add(String.format("%s[work_weight=%d mem_weight=%s comm_weight=%s]\n", nodeLabelsToIntegers.get(actor.getName()), actorWeight, persistentMemory/8/1024/1024, transientMemory/8/1024/1024));
+			lines.add(String.format("%s[work_weight=%d mem_weight=%s comm_weight=%s]\n", nodeLabelsToIntegers.get(actor.getName()), actorWeight, persistentMemory/8/1024/1024, 1));
 
-			//System.out.println(
-			//		String.format("%s [workload=%d, memory=%s]", actor.getName(), actorWeight, persistentMemory/8/1024/1024));
+			System.out.println(
+					String.format("%s [workload=%d, memory=%s]", actor.getName(), actorWeight, persistentMemory/8/1024/1024));
 		}
 
 		for (Actor actor : network.getActors()) {
@@ -165,7 +161,7 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 				for (Buffer buffer : port.getOutputs()) {
 					String tagetActorLabel = buffer.getTarget().getOwner().getName();
 					Long bufferWeight = bufferVolume.get(buffer);
-					lines.add(String.format("%s->%s [comm_weight=%d]\n", nodeLabelsToIntegers.get(actor.getName()), nodeLabelsToIntegers.get(tagetActorLabel), bufferWeight/8/1024/1024 ));
+					lines.add(String.format("%s->%s [comm_weight=%d]\n", nodeLabelsToIntegers.get(actor.getName()), nodeLabelsToIntegers.get(tagetActorLabel), bufferWeight / div ));
 					
 					//System.out
 					//		.println(String.format("%s -> %s [data=%d]", actor.getName(), tagetActorLabel, bufferWeight));
@@ -175,15 +171,15 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 		}
 		
 		lines.add("}");
-		//System.out.println("}");
-		//System.out.println("total mem: " + total/8/1024/1024/1024);
+		System.out.println("}");
+		System.out.println("total mem: " + total/8/1024/1024/1024);
 		
 		String ret = "";
 		
 		try {
-			File ospInput = FileUtils.createTempFile(network.getName(), ".dot", false);
+			File metisInput = FileUtils.createTempFile(network.getName(), ".dot", false);
 
-			FileWriter writer = new FileWriter(ospInput);
+			FileWriter writer = new FileWriter(metisInput);
 			StringBuffer sb = new StringBuffer();
 			
 			
@@ -195,7 +191,7 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 			sb.append("\n");
 			writer.write(sb.toString());
 			System.out.println("file written");
-			ret = ospInput.getAbsolutePath();
+			ret = metisInput.getAbsolutePath();
 			
 			writer.close();
 		} catch (Exception e) {
@@ -231,57 +227,59 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 		
 
 			List<String> commands = new ArrayList<>();
-
-			// OneStopParallel variants
-			if (this.schedule) {
-				commands.add("OneStopParallel");
-			} else {
-				commands.add("OneStopParallel_Partition");
-			}
+			// -- app
+			commands.add("./oneStopParallel");
+			// -- input graph
 
 						
 			System.out.println(file_path);
 			
-			commands.add("-g");	
+			commands.add("-g");
 			commands.add(file_path);
 			
 			commands.add("-m");
-			commands.add(machine_file_path);
-//			commands.add(Integer.toString(units));
+			commands.add(Integer.toString(units));
+
+			String algo_name = "CoarseWavefront";
 			
-			 commands.add("--"+ this.alg);
+			 commands.add("--"+ algo_name);
 			 commands.add("-o");
+			// -- units
+//			commands.add(" -m "+ Integer.toString(units));
+			
+//			commands.add(" --greedyetf ");
+			// -- ptype
+			//commands.add("-ptype=kway");
+			// -- objtype
+			//commands.add("-objtype=vol");
+			// -- ubvec
+			//commands.add("-ufactor=1.001");
+			//commands.add("-ubvec=1.5 1.5");
+			//commands.add("-ncuts=10");
+			//commands.add("-contig");
 			
 			System.out.println(commands);
 			
 		try {
-			ProcessBuilder ospPB = new ProcessBuilder(commands);
-			ospPB.redirectErrorStream(true);
-			ospPB.directory(new File(System.getProperty("java.io.tmpdir")));
+			ProcessBuilder metisPB = new ProcessBuilder(commands);
+			metisPB.redirectErrorStream(true);
+			metisPB.directory(new File(System.getProperty("java.io.tmpdir")));
 
-			Process osp = ospPB.start();
-			osp.waitFor();
-			String result = new String(osp.getInputStream().readAllBytes());
+			Process metis = metisPB.start();
+			metis.waitFor();
+			String result = new String(metis.getInputStream().readAllBytes());
 
 			Logger.info("\n" + result);
-			// -- Read OneStopParallel output
+			// -- Read metis output
 			
 		    int lastSeparator = file_path.lastIndexOf(".");
 		    
-		    String ospOutput;
-		    if (this.schedule) {
-//				ospOutput = file_path.substring(0, lastSeparator) + "_p" + Integer.toString(units) + "_"+this.alg+"_schedule.txt";
-				ospOutput = file_path.substring(0, lastSeparator) + "_" + machine_file + "_"+this.alg+"_schedule.txt";			
-			} else {
-//				ospOutput = file_path.substring(0, lastSeparator) + "_p" + Integer.toString(units) + "_"+this.alg+"_partition.txt";
-				ospOutput = file_path.substring(0, lastSeparator) + "_" + machine_file + "_"+this.alg+"_partition.txt";				
-			}
+			String metisOutput = file_path.substring(0, lastSeparator) + "_p" + Integer.toString(units) + "_"+algo_name+"_schedule.txt";
+
+			System.out.println(metisOutput);
 			
 			
-			System.out.println(ospOutput);
-			
-		
-			try (BufferedReader br = new BufferedReader(new FileReader(ospOutput))) {
+			try (BufferedReader br = new BufferedReader(new FileReader(metisOutput))) {
 				String line;
 				int actorIndex = 0;
 					
@@ -359,28 +357,6 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 	public MetisPartitioningReport run() throws TurnusException {
 		units = configuration.getValue(ANALYSIS_PARTITIONING_UNITS, DEFAULT_UNITS);
 		schedulingPolicy = EScheduler.get(configuration.getValue(SCHEDULING_POLICY, DEFAULT_SCHEDULING_POLICY));
-		if(configuration.hasValue(ADDITIONAL_TOOL_ARGUMENTS)) {
-			//System.out.println("Reading additinal arguments");
-			this.additionalArguments = configuration.getValue(ADDITIONAL_TOOL_ARGUMENTS);
-			String[] input = additionalArguments.split(" ");
-			for (int i = 0; i < input.length-1; i++) {
-				
-				//System.out.println(i+ " arg: " + input[i]);
-				if (input[i].equals("-alg")) {
-					this.alg = input[i+1];
-					//System.out.println("setting alg: " + this.alg);
-					i++;
-				} else if (input[i].equals("-schedule")) {
-					if (input[i+1].equals("true")) {
-						this.schedule = true;
-					} else {
-						this.schedule = false;
-					}
-					i++;
-				}
-			}
-		}
-		
 		PartitioningFactory f = PartitioningFactory.eINSTANCE;
 		MetisPartitioningReport report = f.createMetisPartitioningReport();
 		report.setNetwork(project.getNetwork());
@@ -404,7 +380,8 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 		// -- Calculate workload and total communication volume
 		processTrace();
 
-	    NetworkPartitioning partitioning = metisPartitioning(project.getNetwork(), minBufferConfiguration);
+		// -- Metis partitioning
+		NetworkPartitioning partitioning = metisPartitioning(project.getNetwork(), minBufferConfiguration);
 		for (String partition : partitioning.asPartitionActorsMap().keySet()) {
 			MetisPartitioning mp = f.createMetisPartitioning();
 			Double workload = 0.0;

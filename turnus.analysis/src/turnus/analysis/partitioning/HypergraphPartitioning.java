@@ -359,6 +359,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 				// -- Read metis output
 				fileOutput = metisInput.getAbsolutePath() + ".part." + Integer.toString(units);
 			} else {
+				writer.close();
 				throw new TurnusException("This partitioning tool is not supported: \n" + externalTool);
 			}
 
@@ -385,7 +386,6 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 			partitioning.setSchedulerToAll(schedulingPolicy.getName());
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

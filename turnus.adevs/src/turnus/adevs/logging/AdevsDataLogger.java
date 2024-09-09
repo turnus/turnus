@@ -113,6 +113,12 @@ public class AdevsDataLogger {
 		}
 	}
 
+	public void logEndProduceTokens(Action action, long stepId, Buffer buffer, double time) {
+		for (ActorDataCollector collector : actorDataCollectors) {
+			collector.logEndProduceTokens(action, stepId, buffer, time);
+		}
+	}
+	
 	public void logScheduleActor(String partitionId, Actor actor, double time) {
 		for (ActorPartitionDataCollector collector : actorPartitionDataCollectors) {
 			collector.logScheduleActor(partitionId, actor, time);

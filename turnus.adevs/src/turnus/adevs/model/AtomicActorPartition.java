@@ -293,7 +293,6 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 							break;
 						}
 					}
-					System.out.println(actor.getName() + " ; " + runOnCore);
 					Optional<Action> optionalLastExecutedAction = Optional.ofNullable(lastExecutedAction);
 					Pair<Optional<Action>, Integer> actionCore = Pair.create(optionalLastExecutedAction, runOnCore);
 					yb.add(new PortValue(PORT_PARTITION_SEND_ENABLE.get(actor), actionCore));

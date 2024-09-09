@@ -1040,4 +1040,27 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
   </eSubpackages>
+  <eSubpackages name="communication" nsURI="http://turnus.co/model/2015/analysis/communication"
+      nsPrefix="turnus.model.analysis.communication">
+    <eClassifiers xsi:type="ecore:EClass" name="CommunicationWeigthReport" eSuperTypes="#//AnalysisReport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="network" eType="ecore:EClass dataflow.ecore#//Network"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="model" eType="#//communication/CommunicationModel"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="bufferLatency" upperBound="-1"
+          eType="#//map/BufferToDoubleMap"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CommunicationModel">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LinearCommunicationModel" eSuperTypes="#//communication/CommunicationModel">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="constantBandwidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="fixedOverheadLatency"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SigmoidCommunicationModel" eSuperTypes="#//communication/CommunicationModel">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="carryingCapacity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="growthRate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="midpoint" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+  </eSubpackages>
 </ecore:EPackage>
