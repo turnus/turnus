@@ -92,8 +92,8 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 	private static final String METIS_APP = "gpmetis";
 	private TraceWeighter traceWeighter;
 	private int units;
-	private String machine_file = "mparam_4";
-	private String machine_file_path = "/home/toni/work/turnus-tools/mparam_4";
+	private String machine_file = "mparam_2";
+	private String machine_file_path = "/home/toni/work/turnus-tools/mparam_2";
 	private String alg = "GreedyBsp";
 	private String additionalArguments;
 	private Boolean schedule = true;
@@ -285,7 +285,8 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 				String line;
 				int actorIndex = 0;
 					
-	
+				br.readLine();
+				br.readLine();
 
 				while ((line = br.readLine()) != null) {
 					try {
