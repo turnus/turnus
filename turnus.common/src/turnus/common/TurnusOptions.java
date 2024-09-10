@@ -700,11 +700,7 @@ public class TurnusOptions {
 				setLongName("turnus.txtPartition").//
 				setType(File.class).build();
 		
-		BANDWIDTH = Option.create().//
-				setName("bandwidth").//
-				setDescription("The Bandwidth in GHz ")//
-				.setLongName("turnus.bandwidth").//
-				setType(Double.class).build();
+
 		
 		ADDITIONAL_TOOL_ARGUMENTS = Option.create().//
 				setName("additionalArgs").//

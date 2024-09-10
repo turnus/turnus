@@ -32,12 +32,14 @@
 package turnus.analysis.ui.timeline;
 
 import static turnus.common.TurnusExtensions.BUFFER_SIZE;
+import static turnus.common.TurnusExtensions.COMMUNICATION_WEIGHT;
 import static turnus.common.TurnusExtensions.NETWORK_PARTITIONING;
 import static turnus.common.TurnusExtensions.NETWORK_WEIGHT;
 import static turnus.common.TurnusExtensions.TRACE;
 import static turnus.common.TurnusExtensions.TRACEZ;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
+import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
 import static turnus.common.TurnusOptions.TRACE_FILE;
@@ -53,6 +55,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
@@ -73,7 +77,39 @@ import turnus.ui.wizard.AbstractWizardPage;
  */
 public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 
-	
+	private class ToggleListener implements ModifyListener {
+		final private WidgetSelectFileCombo fileSelector;
+
+		public ToggleListener(WidgetSelectFileCombo widget) {
+			this.fileSelector = widget;
+			disable();
+		}
+
+		public void enable() {
+			this.fileSelector.setEnabled(true);
+			this.fileSelector.setVisible(true);
+		}
+
+		public void disable() {
+			this.fileSelector.setEnabled(false);
+			this.fileSelector.setVisible(false);
+		}
+
+		void toggle() {
+			if (fileSelector.isEnabled()) {
+				disable();
+			} else {
+				enable();
+			}
+		}
+
+		@Override
+		public void modifyText(ModifyEvent e) {
+			toggle();
+		}
+
+	}
+
 	
 	/**
 	 * The unique file page which contains the input and output file widgets
@@ -88,6 +124,8 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 		private WidgetSelectFileCombo wMappingFile;
 		private WidgetSelectFileCombo wBufferSizeFile;
 		private WidgetCheckBox wRealeaseAfterProcessing;
+		private WidgetSelectFileCombo wCommunicationFile;
+		private WidgetCheckBox wUseCommunication;
 
 		private OptionsPage() {
 			super("Turnus Timeline using Chrome Tracing format");
@@ -148,11 +186,32 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 				wBufferSizeFile.setChoices(initialBxdffFiles.toArray(new String[0]));
 			
 			addWidget(wBufferSizeFile);
+			
+			// -- Communication file
+			wUseCommunication = new WidgetCheckBox("Use communication weights", " Enable communication weight file",
+					false, container);
+			addWidget(wUseCommunication);
+			String[] commExtension = { COMMUNICATION_WEIGHT };
+			List<String> initialXcxdffFiles = new ArrayList<>();
+			if (project != null && project.isOpen()) {
+				initialXcxdffFiles = EclipseUtils.getPathsFromContainer(project, commExtension);
+			}
+			wCommunicationFile = new WidgetSelectFileCombo("Communication weight file", "Communication weight file",
+					commExtension, null, container);
+			if (!initialXcxdffFiles.isEmpty())
+				wCommunicationFile.setChoices(initialXcxdffFiles.toArray(new String[0]));
+
+			wUseCommunication.addModifyListener(new ToggleListener(wCommunicationFile));
+
+			addWidget(wCommunicationFile);
+
 
 			
 			wRealeaseAfterProcessing = new WidgetCheckBox("Release buffers after processing",
 					"Release buffers after processing", true, container);
 			addWidget(wRealeaseAfterProcessing);
+			
+			
 		}
 
 		public File getMappingFile() {
@@ -168,6 +227,7 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 		}
 
 		public File getBufferSizeFile() {
+			
 			return wBufferSizeFile.getValue();
 		}
 		
@@ -175,6 +235,14 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 			return wRealeaseAfterProcessing.getValue();
 		}
 
+		public File getCommunicationWeightFile() {
+			if(wUseCommunication.getValue()) {
+				return wCommunicationFile.getValue();
+				
+			}else {
+				return null;
+			}
+		}
 		
 
 	}
@@ -206,6 +274,7 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 		configuration.setValue(ACTION_WEIGHTS, optionsPage.getWeightsFile());
 		configuration.setValue(MAPPING_FILE, optionsPage.getMappingFile());
 		configuration.setValue(BUFFER_SIZE_FILE, optionsPage.getBufferSizeFile());
+		configuration.setValue(COMMUNICATION_WEIGHTS, optionsPage.getCommunicationWeightFile());
 		configuration.setValue(RELEASE_BUFFERS_AFTER_PROCESSING, optionsPage.getRealeaseAfterProcessing());
 
 		final Job job = new Job("Inter partition communication and memory analysis") {

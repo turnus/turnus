@@ -54,6 +54,7 @@ import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
 import turnus.model.dataflow.Port;
 import turnus.model.mapping.BufferSize;
+import turnus.model.mapping.CommunicationWeight;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.trace.Step;
 import turnus.model.trace.Trace.Order;
@@ -72,6 +73,8 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 
 	private NetworkPartitioning partitioning;
 
+	private CommunicationWeight communication;
+
 	private Network network;
 
 	private boolean outgoingBufferOwnedBySource;
@@ -84,7 +87,8 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 	private TraceDecorator decorator;
 
 	public InterPartitionCommunicationAndMemoryAnalysis(TraceProject project, TraceWeighter weighter,
-			BufferSize bufferSize, NetworkPartitioning partitioning, boolean outgoingBufferOwnedBySource) {
+			BufferSize bufferSize, NetworkPartitioning partitioning, CommunicationWeight communication,
+			boolean outgoingBufferOwnedBySource) {
 		super(project);
 		this.weighter = weighter;
 		this.bufferSize = bufferSize;
@@ -95,11 +99,13 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		this.bufferMaxIncomingBitsMap = new HashMap<>();
 		this.bufferMaxOutgoingBitsMap = new HashMap<>();
 
+		this.communication = communication;
 		this.decorator = project.getTraceDecorator();
 	}
 
 	/**
-	 * Calculate the actor workload and the max incoming and outgoing data from an actor
+	 * Calculate the actor workload and the max incoming and outgoing data from an
+	 * actor
 	 */
 	private void processTrace() {
 
@@ -166,7 +172,6 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		cpAnalysis.setConfiguration(configuration);
 		cpAnalysis.setWeighter(weighter);
 		cpAnalysis.setBufferSize(bufferSize);
-		
 
 		// -- Run partial critical path analysis
 		BottlenecksReport initialCp = cpAnalysis.run();
@@ -179,8 +184,10 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		cpAnalysisScheduled.setConfiguration(configuration);
 		ActorStatisticsCollector actorStatsCollector = new ActorStatisticsCollector(network, partitioning);
 		cpAnalysisScheduled.registerCollector(actorStatsCollector);
+		if (communication != null) {
+			cpAnalysisScheduled.setCommunicationWeight(communication);
+		}
 
-		
 		// -- Get scheduled partial critical path analysis, and set necessary values to
 		// the report
 		BottlenecksWithSchedulingReport bottlenecksWithSchedulingReport = cpAnalysisScheduled.run();
@@ -197,8 +204,8 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 		// -- Calculate workload for each actor
 		processTrace();
 
-		ActorStatisticsReport actorStatsReport  = actorStatsCollector.generateReport();
-		
+		ActorStatisticsReport actorStatsReport = actorStatsCollector.generateReport();
+
 		for (String partId : pMap.keySet()) {
 			List<String> actorInstances = pMap.get(partId);
 
@@ -207,7 +214,7 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 
 			// -- Set partition Id
 			partitionDatum.setPartitionId(partId);
-			
+
 			// -- Set occupancy
 			double occupancy = actorStatsReport.getPartitions().get(partId).getOccupancy();
 			partitionDatum.setOccupancy(occupancy);
@@ -262,7 +269,7 @@ public class InterPartitionCommunicationAndMemoryAnalysis extends Analysis<Inter
 
 			partitionDatum.getOutgoingBuffers().addAll(outgoingBuffers);
 			partitionDatum.getIncomingBuffers().addAll(incomingBuffers);
-			
+
 			if (outgoingBufferOwnedBySource) {
 				for (Buffer buffer : outgoingBuffers) {
 					internalBuffersPersistentMemory += getTotalBitsOfBuffer(buffer);
