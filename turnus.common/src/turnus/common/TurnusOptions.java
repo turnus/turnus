@@ -261,8 +261,8 @@ public class TurnusOptions {
 	public static final Option<File> TXT_PARTITION;
 	
 	
-	@Description("Bandwidth in GHz. ")
-	public static final Option<Double> BANDWIDTH;
+//	@Description("Bandwidth in GHz. ")
+//	public static final Option<Double> BANDWIDTH;
 	
 	@Description("Additional tool argumetns for external tools.")
 	public static final Option<String> ADDITIONAL_TOOL_ARGUMENTS;
