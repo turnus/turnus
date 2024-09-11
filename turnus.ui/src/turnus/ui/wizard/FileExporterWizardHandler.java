@@ -47,6 +47,7 @@ import turnus.common.TurnusException;
 import turnus.common.util.FileUtils;
 import turnus.ui.TurnusUiConstants;
 import turnus.ui.wizard.impl.GraphmlFileExporterWizard;
+import turnus.ui.wizard.impl.HtmlFileExporterWizard;
 import turnus.ui.wizard.impl.XlsFileExporterWizard;
 
 /**
@@ -60,6 +61,7 @@ import turnus.ui.wizard.impl.XlsFileExporterWizard;
  * 
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class FileExporterWizardHandler extends AbstractHandler {
@@ -101,6 +103,9 @@ public class FileExporterWizardHandler extends AbstractHandler {
 			break;
 		case "graphml":
 			wizard = new GraphmlFileExporterWizard();
+			break;
+		case "html":
+			wizard = new HtmlFileExporterWizard();
 			break;
 
 		default:

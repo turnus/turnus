@@ -209,6 +209,11 @@
             output="md">
       </exporter>
       <exporter
+            class="turnus.model.analysis.bottlenecks.io.Bottlenecks2HtmlExporter"
+            input="bottlenecks"
+            output="html">
+      </exporter>
+      <exporter
             class="turnus.model.analysis.bottlenecks.io.Impact2XlsExporter"
             input="impact"
             output="xlsx">
@@ -247,6 +252,11 @@
             class="turnus.model.analysis.profiling.io.Ipcomm2MdExporter"
             input="ipcomm"
             output="md">
+      </exporter>
+      <exporter
+            class="turnus.model.analysis.profiling.io.Ipcomm2HtmlExporter"
+            input="ipcomm"
+            output="html">
       </exporter>
       <exporter
             class="turnus.model.analysis.profiling.io.Lprof2MdExporter"

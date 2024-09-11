@@ -40,12 +40,13 @@ import turnus.common.TurnusException;
 import turnus.common.io.FileExporter;
 import turnus.common.io.FileExporterFactory;
 import turnus.common.util.FileUtils;
+import turnus.model.utils.HtmlUtils;
 import turnus.ui.editor.AbstractBrowserEditor;
-import turnus.ui.util.HtmlUtils;
 
 /**
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class AnalysisReportMarkdownEditor extends AbstractBrowserEditor {

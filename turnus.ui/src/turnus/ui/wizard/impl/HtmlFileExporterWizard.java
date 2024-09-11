@@ -1,7 +1,7 @@
 /* 
  * TURNUS - www.turnus.co
  * 
- * Copyright (C) 2010-2016 EPFL SCI STI MM
+ * Copyright (C) 2024 Endri Bezati
  *
  * This file is part of TURNUS.
  *
@@ -29,43 +29,22 @@
  * for the parts of Eclipse libraries used as well as that of the  covered work.
  * 
  */
-package turnus.ui.tester;
 
-import org.eclipse.core.expressions.PropertyTester;
-import org.eclipse.core.resources.IFile;
+package turnus.ui.wizard.impl;
 
 import turnus.common.io.FileExporterFactory;
+import turnus.ui.wizard.AbstractFileExporterWizard;
 
 /**
+ * This class defines a HTML file exporter wizard. Available input file
+ * extensions are handled by the {@link FileExporterFactory}.
  * 
- * @author Simone Casale Brunet
  * @author Endri Bezati
- *
  */
-public class FileExporterTester extends PropertyTester {
+public class HtmlFileExporterWizard extends AbstractFileExporterWizard {
 
-	@Override
-	public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
-		if ("toXLS".equals(property)) {
-			if (receiver instanceof IFile) {
-				IFile file = (IFile) receiver;
-				String ext = file.getFileExtension();
-				return FileExporterFactory.INSTANCE.hasExporter(ext, "xlsx");
-			}
-		} else if ("toGRAPHML".equals(property)) {
-			if (receiver instanceof IFile) {
-				IFile file = (IFile) receiver;
-				String ext = file.getFileExtension();
-				return FileExporterFactory.INSTANCE.hasExporter(ext, "graphml");
-			}
-		} else if ("toHTML".equals(property)) {
-			if (receiver instanceof IFile) {
-				IFile file = (IFile) receiver;
-				String ext = file.getFileExtension();
-				return FileExporterFactory.INSTANCE.hasExporter(ext, "html");
-			}
-		}
-		return false;
+	public HtmlFileExporterWizard() {
+		super("html");
 	}
 
 }

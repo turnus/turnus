@@ -41,6 +41,7 @@ import static turnus.common.TurnusExtensions.TRACE;
 import static turnus.common.TurnusExtensions.TRACEZ;
 import static turnus.common.TurnusExtensions.TRACE_SIZE;
 import static turnus.common.TurnusExtensions.XDF;
+import static turnus.common.TurnusExtensions.INTER_PARTITION_COMM_MEM_REPORT;
 
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.IFile;
@@ -103,6 +104,11 @@ public class FileExtensionTester extends PropertyTester {
 			if (receiver instanceof IFile) {
 				IFile file = (IFile) receiver;
 				return (TRACE_SIZE.equals(file.getFileExtension()));
+			}
+		} else if ("isIPCOMM".equals(property)) {
+			if (receiver instanceof IFile) {
+				IFile file = (IFile) receiver;
+				return (INTER_PARTITION_COMM_MEM_REPORT.equals(file.getFileExtension()));
 			}
 		}
 
