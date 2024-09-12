@@ -49,41 +49,49 @@ import turnus.model.dataflow.Actor;
  * The {@link ComCostPartitioningReport} MD file exporter
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
-public class Pcomm2MdExporter implements FileExporter<ComCostPartitioningReport> {
+public class Pcomm2MdExporter implements FileExporter<ComCostPartitioningReport, StringBuffer> {
 
+	
+	@Override
+	public StringBuffer content(ComCostPartitioningReport data) {
+		StringBuffer b = new StringBuffer();
+		b.append("# Communication cost partitioning analysis report\n");
+		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+		b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
+		b.append(String.format("* **Bit accurate**: %s\n", data.isBitAccurate()));
+		b.append(String.format("* **Units**: %d\n", data.getPartitions().size()));
+
+		b.append("\n");
+		b.append("| partition || internal cost | external cost\n");
+		b.append("|:----|:----|:----|:----\n");
+		int partition = 1;
+		for (ComCostPartition pdata : data.getPartitions()) {
+			String component = "p" + (partition++);
+			long totI = pdata.getInternalCost();
+			long totE = pdata.getExternalCost();
+			b.append(String.format("|  **%s**  | **actors** | %d | %d\n", component, totI, totE));
+			for (Actor actor : pdata.getActors()) {
+				double ip = ((double) pdata.getInternalCostMap().get(actor) / totI) * 100;
+				String ips = StringUtils.format(ip) + "%";
+				double ep = ((double) pdata.getExternalCostMap().get(actor) / totE) * 100;
+				String eps = StringUtils.format(ep) + "%";
+				b.append(String.format("| | %s | %s | %s\n", actor.getName(), ips, eps));
+			}
+		}
+		// b.append("[Partitioning configuration]\n");
+		b.append("\n");
+		return b;
+	}
+	
 	@Override
 	public void export(ComCostPartitioningReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
 
-			StringBuffer b = new StringBuffer();
-			b.append("# Communication cost partitioning analysis report\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
-			b.append(String.format("* **Bit accurate**: %s\n", data.isBitAccurate()));
-			b.append(String.format("* **Units**: %d\n", data.getPartitions().size()));
-
-			b.append("\n");
-			b.append("| partition || internal cost | external cost\n");
-			b.append("|:----|:----|:----|:----\n");
-			int partition = 1;
-			for (ComCostPartition pdata : data.getPartitions()) {
-				String component = "p" + (partition++);
-				long totI = pdata.getInternalCost();
-				long totE = pdata.getExternalCost();
-				b.append(String.format("|  **%s**  | **actors** | %d | %d\n", component, totI, totE));
-				for (Actor actor : pdata.getActors()) {
-					double ip = ((double) pdata.getInternalCostMap().get(actor) / totI) * 100;
-					String ips = StringUtils.format(ip) + "%";
-					double ep = ((double) pdata.getExternalCostMap().get(actor) / totE) * 100;
-					String eps = StringUtils.format(ep) + "%";
-					b.append(String.format("| | %s | %s | %s\n", actor.getName(), ips, eps));
-				}
-			}
-			// b.append("[Partitioning configuration]\n");
-			b.append("\n");
+			StringBuffer b = content(data);
 			
 			writer.write(b.toString());
 			writer.close();

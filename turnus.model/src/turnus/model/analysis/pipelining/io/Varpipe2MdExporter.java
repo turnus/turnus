@@ -53,83 +53,90 @@ import turnus.model.analysis.pipelining.ActionsVariablePipeliningReport;
  * The {@link ActionsVariablePipeliningReport} MD file exporter
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
-public class Varpipe2MdExporter implements FileExporter<ActionsVariablePipeliningReport> {
+public class Varpipe2MdExporter implements FileExporter<ActionsVariablePipeliningReport, StringBuffer> {
+
+	@Override
+	public StringBuffer content(ActionsVariablePipeliningReport data) {
+		StringBuffer b = new StringBuffer();
+		b.append("# Pipelining with variable utilization analysis report\n");
+		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+		b.append(String.format("* **Algorithm**: %s\n", data.getAlgorithm()));
+
+		b.append("\n");
+		b.append("|       |        |             | consecutive firings ||| pipelinable firings |||\n");
+		b.append("| Actor | Action | pipelinable | average | min | max   | average | min | max \n");
+		b.append("|:----|:----|:----|:----|:----|:----|:----|:----|:----\n");
+
+		List<ActionVariablePipeliningData> actionsData = new ArrayList<>(data.getActionsData());
+
+		Collections.sort(actionsData, new Comparator<ActionVariablePipeliningData>() {
+			@Override
+			public int compare(ActionVariablePipeliningData o1, ActionVariablePipeliningData o2) {
+				boolean p1 = o1.isPipelinable();
+				boolean p2 = o2.isPipelinable();
+				if (p1 != p2) {
+					return -Boolean.compare(p1, p2);
+				}
+
+				double d1 = o1.getPipelinableFirings().getMin();
+				double d2 = o2.getPipelinableFirings().getMin();
+				int result = -Double.compare(d1, d2);
+				if (result != 0) {
+					return result;
+				}
+
+				d1 = o1.getPipelinableFirings().getMean();
+				d2 = o2.getPipelinableFirings().getMean();
+				result = -Double.compare(d1, d2);
+				if (result != 0) {
+					return result;
+				}
+
+				d1 = o1.getPipelinableFirings().getMax();
+				d2 = o2.getPipelinableFirings().getMax();
+				result = -Double.compare(d1, d2);
+				if (result != 0) {
+					return result;
+				}
+
+				String v1 = o1.getAction().getOwner().getName();
+				String v2 = o1.getAction().getOwner().getName();
+				if (v1.equals(v2)) {
+					v1 = o1.getAction().getName();
+					v2 = o2.getAction().getName();
+				}
+				return v1.compareTo(v2);
+			}
+		});
+
+		for (ActionVariablePipeliningData adata : actionsData) {
+			String actor = adata.getAction().getOwner().getName();
+			String action = adata.getAction().getName();
+			String pipelinable = Boolean.toString(adata.isPipelinable());
+			String fMean = format(adata.getConsecutiveFirings().getMean());
+			String fMin = format(adata.getConsecutiveFirings().getMin());
+			String fMax = format(adata.getConsecutiveFirings().getMax());
+			String pMean = format(adata.getPipelinableFirings().getMean());
+			String pMin = format(adata.getPipelinableFirings().getMin());
+			String pMax = format(adata.getPipelinableFirings().getMax());
+			b.append(String.format("| %s | %s | %s | %s | %s | %s | %s | %s | %s\n", actor, action, pipelinable, fMean,
+					fMin, fMax, pMean, pMin, pMax));
+
+		}
+		// b.append("[Results]\n");
+		b.append("\n");
+		return b;
+	}
 
 	@Override
 	public void export(ActionsVariablePipeliningReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
 
-			StringBuffer b = new StringBuffer();
-			b.append("# Pipelining with variable utilization analysis report\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append(String.format("* **Algorithm**: %s\n", data.getAlgorithm()));
-
-			b.append("\n");
-			b.append("|       |        |             | consecutive firings ||| pipelinable firings |||\n");
-			b.append("| Actor | Action | pipelinable | average | min | max   | average | min | max \n");
-			b.append("|:----|:----|:----|:----|:----|:----|:----|:----|:----\n");
-
-			List<ActionVariablePipeliningData> actionsData = new ArrayList<>(data.getActionsData());
-
-			Collections.sort(actionsData, new Comparator<ActionVariablePipeliningData>() {
-				@Override
-				public int compare(ActionVariablePipeliningData o1, ActionVariablePipeliningData o2) {
-					boolean p1 = o1.isPipelinable();
-					boolean p2 = o2.isPipelinable();
-					if (p1 != p2) {
-						return -Boolean.compare(p1, p2);
-					}
-
-					double d1 = o1.getPipelinableFirings().getMin();
-					double d2 = o2.getPipelinableFirings().getMin();
-					int result = -Double.compare(d1, d2);
-					if (result != 0) {
-						return result;
-					}
-
-					d1 = o1.getPipelinableFirings().getMean();
-					d2 = o2.getPipelinableFirings().getMean();
-					result = -Double.compare(d1, d2);
-					if (result != 0) {
-						return result;
-					}
-
-					d1 = o1.getPipelinableFirings().getMax();
-					d2 = o2.getPipelinableFirings().getMax();
-					result = -Double.compare(d1, d2);
-					if (result != 0) {
-						return result;
-					}
-
-					String v1 = o1.getAction().getOwner().getName();
-					String v2 = o1.getAction().getOwner().getName();
-					if (v1.equals(v2)) {
-						v1 = o1.getAction().getName();
-						v2 = o2.getAction().getName();
-					}
-					return v1.compareTo(v2);
-				}
-			});
-
-			for (ActionVariablePipeliningData adata : actionsData) {
-				String actor = adata.getAction().getOwner().getName();
-				String action = adata.getAction().getName();
-				String pipelinable = Boolean.toString(adata.isPipelinable());
-				String fMean = format(adata.getConsecutiveFirings().getMean());
-				String fMin = format(adata.getConsecutiveFirings().getMin());
-				String fMax = format(adata.getConsecutiveFirings().getMax());
-				String pMean = format(adata.getPipelinableFirings().getMean());
-				String pMin = format(adata.getPipelinableFirings().getMin());
-				String pMax = format(adata.getPipelinableFirings().getMax());
-				b.append(String.format("| %s | %s | %s | %s | %s | %s | %s | %s | %s\n", actor, action, pipelinable,
-						fMean, fMin, fMax, pMean, pMin, pMax));
-
-			}
-			// b.append("[Results]\n");
-			b.append("\n");
+			StringBuffer b = content(data);
 
 			writer.write(b.toString());
 			writer.close();

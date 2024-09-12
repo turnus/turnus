@@ -57,9 +57,17 @@ import turnus.model.dataflow.Action;
 /**
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
-public class ScheduledImpact2XlsExporter implements FileExporter<ScheduledImpactAnalysisReport> {
+public class ScheduledImpact2XlsExporter implements FileExporter<ScheduledImpactAnalysisReport, XSSFWorkbook> {
+
+	@Override
+	public XSSFWorkbook content(ScheduledImpactAnalysisReport report) {
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		write(workbook, report);
+		return workbook;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -79,8 +87,7 @@ public class ScheduledImpact2XlsExporter implements FileExporter<ScheduledImpact
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		write(workbook, report);
+		XSSFWorkbook workbook = content(report);
 
 		try {
 			workbook.write(fileOut);
@@ -184,7 +191,7 @@ public class ScheduledImpact2XlsExporter implements FileExporter<ScheduledImpact
 				cell = row.createCell(2);
 				if (cp.containsKey(ratio))
 					cell.setCellValue(cp.get(ratio));
-				else 
+				else
 					cell.setCellValue("");
 			}
 		}

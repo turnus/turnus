@@ -53,7 +53,37 @@ import turnus.model.analysis.postprocessing.SchedulerChecksReport;
  * @author Endri Bezati
  *
  */
-public class PostProcessing2MdExporter implements FileExporter<PostProcessingReport> {
+public class PostProcessing2MdExporter implements FileExporter<PostProcessingReport, StringBuffer> {
+
+	@Override
+	public StringBuffer content(PostProcessingReport data) {
+		StringBuffer b = new StringBuffer();
+
+		// -- Title
+		b.append("# Post Processing report");
+		b.append("\n");
+		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+		b.append(String.format("* **Execution Time**: %.2f\n", data.getTime()));
+		b.append(String.format("* **Deadlock**: %s\n", data.isDeadlock()));
+
+		// -- Actor Statistics report
+		b.append(ActorStatistics2MdExporter.report(data.getReport(ActorStatisticsReport.class), false));
+		b.append("\n");
+
+		// -- Action Statistics report
+		b.append(ActionStatistics2MdExporter.report(data.getReport(ActionStatisticsReport.class), false));
+		b.append("\n");
+
+		// -- Scheduling Checks report
+		b.append(SchedulerChecks2MdExporter.report(data.getReport(SchedulerChecksReport.class), false));
+		b.append("\n");
+
+		// -- Buffer Blocking report
+		// -- Action Statistics report
+		b.append(BufferBlocking2MdExporter.report(data.getReport(BufferBlockingReport.class), false));
+		b.append("\n");
+		return b;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -69,31 +99,7 @@ public class PostProcessing2MdExporter implements FileExporter<PostProcessingRep
 	public void export(PostProcessingReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
-			StringBuffer b = new StringBuffer();
-
-			// -- Title
-			b.append("# Post Processing report");
-			b.append("\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append(String.format("* **Execution Time**: %.2f\n", data.getTime()));
-			b.append(String.format("* **Deadlock**: %s\n", data.isDeadlock()));
-
-			// -- Actor Statistics report
-			b.append(ActorStatistics2MdExporter.report(data.getReport(ActorStatisticsReport.class), false));
-			b.append("\n");
-
-			// -- Action Statistics report
-			b.append(ActionStatistics2MdExporter.report(data.getReport(ActionStatisticsReport.class), false));
-			b.append("\n");
-
-			// -- Scheduling Checks report
-			b.append(SchedulerChecks2MdExporter.report(data.getReport(SchedulerChecksReport.class), false));
-			b.append("\n");
-
-			// -- Buffer Blocking report
-			// -- Action Statistics report
-			b.append(BufferBlocking2MdExporter.report(data.getReport(BufferBlockingReport.class), false));
-			b.append("\n");
+			StringBuffer b = content(data);
 
 			writer.write(b.toString());
 			writer.close();

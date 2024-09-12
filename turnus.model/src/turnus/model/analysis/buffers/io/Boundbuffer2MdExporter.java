@@ -51,61 +51,64 @@ import turnus.model.analysis.buffers.BoundedBufferData;
 import turnus.model.analysis.buffers.BoundedBuffersReport;
 import turnus.model.dataflow.Buffer;
 
-
-
 /**
  * The {@link BoundedBuffersReport} MD file exporter
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
-public class Boundbuffer2MdExporter implements FileExporter<BoundedBuffersReport> {
+public class Boundbuffer2MdExporter implements FileExporter<BoundedBuffersReport, StringBuffer> {
 
-	
-	
+	@Override
+	public StringBuffer content(BoundedBuffersReport data) {
+		StringBuffer b = new StringBuffer();
+		b.append("# Bounded buffer size analysis report\n");
+		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+		b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
+		b.append(String.format("* **Bit accurate**: %s\n", data.isBitAccurate()));
+		b.append(String.format("* **Power of 2**: %s\n", data.isPow2()));
+
+		List<BoundedBufferData> bdata = new ArrayList<>(data.getBuffersData());
+		Collections.sort(bdata, new Comparator<BoundedBufferData>() {
+			@Override
+			public int compare(BoundedBufferData o1, BoundedBufferData o2) {
+				String b1 = o1.getBuffer().toString();
+				String b2 = o2.getBuffer().toString();
+				return b1.compareTo(b2);
+			}
+		});
+		b.append("\n");
+
+		b.append("| tokens | bit \n");
+		b.append("|:----|:----\n");
+		b.append(String.format("|%d | %s (%s) \n", data.getTokenSize(), formatBits(data.getBitSize()),
+				formatBytes(data.getBitSize(), true)));
+		b.append("[overall buffer size]\n");
+
+		b.append("\n");
+
+		b.append("| source | source-port | target | target-port | type | tokens | bits\n");
+		b.append("|:----|:----|:----|:----|:----|:----|:----\n");
+		for (BoundedBufferData bd : bdata) {
+			Buffer buffer = bd.getBuffer();
+			b.append(String.format("|%-20s | %-20s | %-20s | %-20s | %-20s | %-20s | %-20s\n",
+					buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
+					buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(), buffer.getType().toString(),
+					Integer.toString(bd.getTokenSize()), formatBits(bd.getTokenSize() * buffer.getType().getBits())));
+		}
+		b.append("[buffer size configuration]\n");
+
+		b.append("\n\n");
+		return b;
+	}
+
 	@Override
 	public void export(BoundedBuffersReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
 
-			StringBuffer b = new StringBuffer();
-			b.append("# Bounded buffer size analysis report\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
-			b.append(String.format("* **Bit accurate**: %s\n", data.isBitAccurate()));
-			b.append(String.format("* **Power of 2**: %s\n", data.isPow2()));
-
-			List<BoundedBufferData> bdata = new ArrayList<>(data.getBuffersData());
-			Collections.sort(bdata, new Comparator<BoundedBufferData>() {
-				@Override
-				public int compare(BoundedBufferData o1, BoundedBufferData o2) {
-					String b1 = o1.getBuffer().toString();
-					String b2 = o2.getBuffer().toString();
-					return b1.compareTo(b2);
-				}
-			});
-			b.append("\n");
-
-			b.append("| tokens | bit \n");
-			b.append("|:----|:----\n");
-			b.append(String.format("|%d | %s (%s) \n", data.getTokenSize(), formatBits(data.getBitSize()), formatBytes(data.getBitSize(), true)));
-			b.append("[overall buffer size]\n");
-
-			b.append("\n");
-
-			b.append("| source | source-port | target | target-port | type | tokens | bits\n");
-			b.append("|:----|:----|:----|:----|:----|:----|:----\n");
-			for (BoundedBufferData bd : bdata) {
-				Buffer buffer = bd.getBuffer();
-				b.append(String.format("|%-20s | %-20s | %-20s | %-20s | %-20s | %-20s | %-20s\n",
-						buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
-						buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(),
-						buffer.getType().toString(), Integer.toString(bd.getTokenSize()),
-						formatBits(bd.getTokenSize() * buffer.getType().getBits())));
-			}
-			b.append("[buffer size configuration]\n");
-
-			b.append("\n\n");
+			StringBuffer b = content(data);
 
 			writer.write(b.toString());
 			writer.close();

@@ -63,7 +63,7 @@ import turnus.model.trace.Dependency.Kind;
  * @author Simone Casale Brunet
  *
  */
-public class Tsize2XlsExporter implements FileExporter<TraceSizeReport> {
+public class Tsize2XlsExporter implements FileExporter<TraceSizeReport, XSSFWorkbook> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -84,10 +84,8 @@ public class Tsize2XlsExporter implements FileExporter<TraceSizeReport> {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
 
-		TraceSizeAnalysis size = new TraceSizeAnalysis(data);
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		writeSummary(workbook, size);
-		writeDetails(workbook, size);
+		
+		XSSFWorkbook workbook = content(data);
 
 		try {
 			workbook.write(fileOut);
@@ -280,6 +278,15 @@ public class Tsize2XlsExporter implements FileExporter<TraceSizeReport> {
 			}
 		}
 
+	}
+
+	@Override
+	public XSSFWorkbook content(TraceSizeReport data) {
+		TraceSizeAnalysis size = new TraceSizeAnalysis(data);
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		writeSummary(workbook, size);
+		writeDetails(workbook, size);
+		return workbook;
 	}
 
 }

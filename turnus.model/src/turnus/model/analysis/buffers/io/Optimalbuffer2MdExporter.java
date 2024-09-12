@@ -60,10 +60,110 @@ import turnus.model.mapping.BufferSize;
 
 /**
  * 
+ * The {@link OptimalBuffersReport} XLS file exporter
+ * 
  * @author Simone Casale Brunet
  *
  */
-public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersReport> {
+public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersReport, StringBuffer> {
+
+	@Override
+	public StringBuffer content(OptimalBuffersReport data) {
+		StringBuffer b = new StringBuffer();
+		b.append("# Optimal buffer size analysis report\n");
+		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+		b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
+		b.append(String.format("* **Bit accurate**: %s\n", data.isBitAccurate()));
+		b.append(String.format("* **Power of 2**: %s\n", data.isPow2()));
+		b.append("\n");
+
+		List<OptimalBufferData> bdata = new ArrayList<>(data.getBuffersData());
+		BottlenecksWithSchedulingReport initialCp = data.getInitialBottlenecks();
+		BoundedBuffersReport initialBuffer = data.getInitialBufferConfiguration();
+
+		double nominal_cp = initialCp.getCpWeight();
+		int nominal_tokens = initialBuffer.getTokenSize();
+		long nominal_bit = initialBuffer.getBitSize();
+
+		b.append("| iteration | cp reduction | tokens || bit|| \n");
+		b.append("|:----|:----|:----|:----|:----|:----|:----\n");
+		b.append(String.format("| nominal |   |  %d |  | %d (%s) | |\n", nominal_tokens, nominal_bit,
+				StringUtils.formatBytes(nominal_bit, true)));
+		int i = 1;
+		for (OptimalBufferData o : bdata) {
+			double cp = o.getBottlenecksData().getCpWeight();
+			int tokens = o.getBufferData().getTokenSize();
+			long bit = o.getBufferData().getBitSize();
+			//double kbit = getKb(bit);
+
+			double cp_reduction = (1.0 - cp / nominal_cp) * 100.0;
+			double bit_increase = (((double) bit) / nominal_bit - 1) * 100.0;
+			double tokens_increase = (((double) tokens) / nominal_tokens - 1) * 100.0;
+			b.append(String.format("| %d | -%s  | %d  | %s |  %d (%s) | %s \n", i++, format(cp_reduction) + "%", tokens,
+					format(tokens_increase) + "%", bit, StringUtils.formatBytes(bit, true),
+					format(bit_increase) + "%"));
+		}
+		b.append("[Summary]\n");
+		b.append("\n\n");
+
+		// create a table
+		Network network = data.getNetwork();
+		Table<Integer, Buffer, Integer> resultsTable = HashBasedTable.create();
+		BufferSize bsize = initialBuffer.asBufferSize();
+		for (Buffer buffer : network.getBuffers()) {
+			resultsTable.put(0, buffer, bsize.getSize(buffer));
+		}
+
+		int iteration = 1;
+		for (OptimalBufferData o : bdata) {
+			bsize = o.getBufferData().asBufferSize();
+			for (Buffer buffer : network.getBuffers()) {
+				resultsTable.put(iteration, buffer, bsize.getSize(buffer));
+			}
+			iteration++;
+		}
+
+		b.append("| Source | Source-Port | Target | Target-Port  | Nominal ");
+		for (i = 1; i < iteration; i++) {
+			b.append("| Conf. " + i);
+		}
+		b.append("\n");
+		b.append("|:----|:----|:----|:----");
+		for (i = 0; i < iteration; i++) {
+			b.append("|:----");
+		}
+		b.append("\n");
+
+		List<Buffer> buffers = new ArrayList<>(network.getBuffers());
+		Collections.sort(buffers, new Comparator<Buffer>() {
+
+			@Override
+			public int compare(Buffer o1, Buffer o2) {
+				return o1.toString().compareTo(o2.toString());
+			}
+		});
+
+		for (Buffer buffer : buffers) {
+			b.append(buffer.getSource().getOwner().getName() + " | " + buffer.getSource().getName() + "|");
+			b.append(buffer.getTarget().getOwner().getName() + " | " + buffer.getTarget().getName());
+
+			int oldSize = 0;
+			for (i = 0; i < iteration; i++) {
+				int tokens = resultsTable.get(i, buffer);
+				long bit = tokens * buffer.getType().getBits();
+				if (i > 0 && tokens != oldSize) {
+					b.append("| **" + tokens + "** **(" + StringUtils.formatBytes(bit, true) + ")**");
+				} else {
+					b.append("| " + tokens + " (" + StringUtils.formatBytes(bit, true) + ")");
+				}
+				oldSize = tokens;
+			}
+			b.append("\n");
+		}
+
+		b.append("\n\n");
+		return b;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -75,6 +175,7 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 
 	}
 
+	@SuppressWarnings("unused")
 	private static double getKb(long bit) {
 		return ((double) bit) / 1024.0 / 8.0;
 	}
@@ -85,98 +186,8 @@ public class Optimalbuffer2MdExporter implements FileExporter<OptimalBuffersRepo
 		try {
 			writer = new FileWriter(output);
 
-			StringBuffer b = new StringBuffer();
-			b.append("# Optimal buffer size analysis report\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
-			b.append(String.format("* **Bit accurate**: %s\n", data.isBitAccurate()));
-			b.append(String.format("* **Power of 2**: %s\n", data.isPow2()));
-			b.append("\n");
+			StringBuffer b = content(data);
 
-			List<OptimalBufferData> bdata = new ArrayList<>(data.getBuffersData());
-			BottlenecksWithSchedulingReport initialCp = data.getInitialBottlenecks();
-			BoundedBuffersReport initialBuffer = data.getInitialBufferConfiguration();
-
-			double nominal_cp = initialCp.getCpWeight();
-			int nominal_tokens = initialBuffer.getTokenSize();
-			long nominal_bit = initialBuffer.getBitSize();
-
-			b.append("| iteration | cp reduction | tokens || bit|| \n");
-			b.append("|:----|:----|:----|:----|:----|:----|:----\n");
-			b.append(String.format("| nominal |   |  %d |  | %d (%s) | |\n", nominal_tokens, nominal_bit,
-					StringUtils.formatBytes(nominal_bit, true)));
-			int i = 1;
-			for (OptimalBufferData o : bdata) {
-				double cp = o.getBottlenecksData().getCpWeight();
-				int tokens = o.getBufferData().getTokenSize();
-				long bit = o.getBufferData().getBitSize();
-				double kbit = getKb(bit);
-
-				double cp_reduction = (1.0 - cp / nominal_cp) * 100.0;
-				double bit_increase = (((double) bit) / nominal_bit - 1) * 100.0;
-				double tokens_increase = (((double) tokens) / nominal_tokens - 1) * 100.0;
-				b.append(String.format("| %d | -%s  | %d  | %s |  %d (%s) | %s \n", i++, format(cp_reduction) + "%",
-						tokens, format(tokens_increase) + "%", bit, StringUtils.formatBytes(bit, true), format(bit_increase) + "%"));
-			}
-			b.append("[Summary]\n");
-			b.append("\n\n");
-
-			// create a table
-			Network network = data.getNetwork();
-			Table<Integer, Buffer, Integer> resultsTable = HashBasedTable.create();
-			BufferSize bsize = initialBuffer.asBufferSize();
-			for (Buffer buffer : network.getBuffers()) {
-				resultsTable.put(0, buffer, bsize.getSize(buffer));
-			}
-
-			int iteration = 1;
-			for (OptimalBufferData o : bdata) {
-				bsize = o.getBufferData().asBufferSize();
-				for (Buffer buffer : network.getBuffers()) {
-					resultsTable.put(iteration, buffer, bsize.getSize(buffer));
-				}
-				iteration++;
-			}
-
-			b.append("| Source | Source-Port | Target | Target-Port  | Nominal ");
-			for (i = 1; i < iteration; i++) {
-				b.append("| Conf. " + i);
-			}
-			b.append("\n");
-			b.append("|:----|:----|:----|:----");
-			for (i = 0; i < iteration; i++) {
-				b.append("|:----");
-			}
-			b.append("\n");
-
-			List<Buffer> buffers = new ArrayList<>(network.getBuffers());
-			Collections.sort(buffers, new Comparator<Buffer>() {
-
-				@Override
-				public int compare(Buffer o1, Buffer o2) {
-					return o1.toString().compareTo(o2.toString());
-				}
-			});
-
-			for (Buffer buffer : buffers) {
-				b.append(buffer.getSource().getOwner().getName() + " | " + buffer.getSource().getName() + "|");
-				b.append(buffer.getTarget().getOwner().getName() + " | " + buffer.getTarget().getName());
-
-				int oldSize = 0;
-				for (i = 0; i < iteration; i++) {
-					int tokens = resultsTable.get(i, buffer);
-					long bit = tokens * buffer.getType().getBits();
-					if (i > 0 && tokens != oldSize) {
-						b.append("| **" + tokens + "** **(" + StringUtils.formatBytes(bit, true) + ")**");
-					} else {
-						b.append("| " + tokens + " (" + StringUtils.formatBytes(bit, true) + ")");
-					}
-					oldSize = tokens;
-				}
-				b.append("\n");
-			}
-
-			b.append("\n\n");
 			writer.write(b.toString());
 			writer.close();
 		} catch (Exception e) {

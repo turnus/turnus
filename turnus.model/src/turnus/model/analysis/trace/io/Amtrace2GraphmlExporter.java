@@ -54,7 +54,7 @@ import turnus.model.analysis.trace.MarkovModelActionData;
 import turnus.model.analysis.trace.MarkowModelTraceReport;
 import turnus.model.dataflow.Action;
 
-public class Amtrace2GraphmlExporter implements FileExporter<MarkowModelTraceReport> {
+public class Amtrace2GraphmlExporter implements FileExporter<MarkowModelTraceReport, XMLStreamWriter> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -201,6 +201,12 @@ public class Amtrace2GraphmlExporter implements FileExporter<MarkowModelTraceRep
 		}
 
 		writer.writeEndElement();
+	}
+
+	@Override
+	public XMLStreamWriter content(MarkowModelTraceReport object) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

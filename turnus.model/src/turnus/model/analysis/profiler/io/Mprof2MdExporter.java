@@ -55,7 +55,7 @@ import turnus.model.analysis.profiler.MemoryProfilingReport;
 import turnus.model.analysis.profiler.SharedVariableAccessData;
 import turnus.model.analysis.profiler.StateVariableAccessData;
 
-public class Mprof2MdExporter implements FileExporter<MemoryProfilingReport> {
+public class Mprof2MdExporter implements FileExporter<MemoryProfilingReport, StringBuffer> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -72,79 +72,7 @@ public class Mprof2MdExporter implements FileExporter<MemoryProfilingReport> {
 		try {
 			FileWriter writer = new FileWriter(output);
 
-			StringBuffer b = new StringBuffer();
-			b.append("# Memory profiling analysis report\n");
-			b.append(String.format("* **Network**: %s\n", report.getNetworkName()));
-			b.append(String.format("* **Algorithm**: %s\n", report.getAlgorithm()));
-
-			List<ActionMemoryProfilingData> actionsData = new ArrayList<>(report.getActionsData());
-			Collections.sort(actionsData, new Comparator<ActionMemoryProfilingData>() {
-				@Override
-				public int compare(ActionMemoryProfilingData o1, ActionMemoryProfilingData o2) {
-					String s1 = o1.getActor();
-					String s2 = o1.getActor();
-					int result = s1.compareTo(s2);
-					if (result != 0) {
-						return result;
-					}
-					s1 = o1.getAction();
-					s2 = o2.getAction();
-					return s1.compareTo(s2);
-				}
-			});
-
-			for (ActionMemoryProfilingData data : actionsData) {
-				b.append(String.format("## %s : %s \n", data.getActor(), data.getAction()));
-
-				List<SharedVariableAccessData> shvars = new ArrayList<>();
-				List<LocalVariableAccessData> lvars = new ArrayList<>();
-				List<StateVariableAccessData> svars = new ArrayList<>();
-				List<BufferAccessData> buffs = new ArrayList<>();
-
-				// get the reads
-				for (MemoryAccessData memoryData : data.getReads()) {
-					if (memoryData instanceof SharedVariableAccessData) {
-						shvars.add((SharedVariableAccessData) memoryData);
-					} else if (memoryData instanceof LocalVariableAccessData) {
-						lvars.add((LocalVariableAccessData) memoryData);
-					} else if (memoryData instanceof StateVariableAccessData) {
-						svars.add((StateVariableAccessData) memoryData);
-					} else if (memoryData instanceof BufferAccessData) {
-						buffs.add((BufferAccessData) memoryData);
-					} else {
-						Logger.debug("Memory data %s not recognized", memoryData);
-					}
-				}
-
-				// print the reads
-				b.append("### Reads \n");
-				b.append(printTables(shvars, lvars, svars, buffs));
-
-				// get the writes
-				shvars.clear();
-				lvars.clear();
-				svars.clear();
-				buffs.clear();
-				for (MemoryAccessData memoryData : data.getWrites()) {
-					if (memoryData instanceof SharedVariableAccessData) {
-						shvars.add((SharedVariableAccessData) memoryData);
-					} else if (memoryData instanceof LocalVariableAccessData) {
-						lvars.add((LocalVariableAccessData) memoryData);
-					} else if (memoryData instanceof StateVariableAccessData) {
-						svars.add((StateVariableAccessData) memoryData);
-					} else if (memoryData instanceof BufferAccessData) {
-						buffs.add((BufferAccessData) memoryData);
-					} else {
-						Logger.debug("Memory data %s not recognized", memoryData);
-					}
-				}
-
-				// print the writes
-				b.append("### Writes \n");
-				b.append(printTables(shvars, lvars, svars, buffs));
-			}
-
-			b.append("\n");
+			StringBuffer b = content(report);
 
 			writer.write(b.toString());
 			writer.close();
@@ -263,6 +191,84 @@ public class Mprof2MdExporter implements FileExporter<MemoryProfilingReport> {
 
 		b.append("\n");
 		return b.toString();
+	}
+
+	@Override
+	public StringBuffer content(MemoryProfilingReport report) {
+		StringBuffer b = new StringBuffer();
+		b.append("# Memory profiling analysis report\n");
+		b.append(String.format("* **Network**: %s\n", report.getNetworkName()));
+		b.append(String.format("* **Algorithm**: %s\n", report.getAlgorithm()));
+
+		List<ActionMemoryProfilingData> actionsData = new ArrayList<>(report.getActionsData());
+		Collections.sort(actionsData, new Comparator<ActionMemoryProfilingData>() {
+			@Override
+			public int compare(ActionMemoryProfilingData o1, ActionMemoryProfilingData o2) {
+				String s1 = o1.getActor();
+				String s2 = o1.getActor();
+				int result = s1.compareTo(s2);
+				if (result != 0) {
+					return result;
+				}
+				s1 = o1.getAction();
+				s2 = o2.getAction();
+				return s1.compareTo(s2);
+			}
+		});
+
+		for (ActionMemoryProfilingData data : actionsData) {
+			b.append(String.format("## %s : %s \n", data.getActor(), data.getAction()));
+
+			List<SharedVariableAccessData> shvars = new ArrayList<>();
+			List<LocalVariableAccessData> lvars = new ArrayList<>();
+			List<StateVariableAccessData> svars = new ArrayList<>();
+			List<BufferAccessData> buffs = new ArrayList<>();
+
+			// get the reads
+			for (MemoryAccessData memoryData : data.getReads()) {
+				if (memoryData instanceof SharedVariableAccessData) {
+					shvars.add((SharedVariableAccessData) memoryData);
+				} else if (memoryData instanceof LocalVariableAccessData) {
+					lvars.add((LocalVariableAccessData) memoryData);
+				} else if (memoryData instanceof StateVariableAccessData) {
+					svars.add((StateVariableAccessData) memoryData);
+				} else if (memoryData instanceof BufferAccessData) {
+					buffs.add((BufferAccessData) memoryData);
+				} else {
+					Logger.debug("Memory data %s not recognized", memoryData);
+				}
+			}
+
+			// print the reads
+			b.append("### Reads \n");
+			b.append(printTables(shvars, lvars, svars, buffs));
+
+			// get the writes
+			shvars.clear();
+			lvars.clear();
+			svars.clear();
+			buffs.clear();
+			for (MemoryAccessData memoryData : data.getWrites()) {
+				if (memoryData instanceof SharedVariableAccessData) {
+					shvars.add((SharedVariableAccessData) memoryData);
+				} else if (memoryData instanceof LocalVariableAccessData) {
+					lvars.add((LocalVariableAccessData) memoryData);
+				} else if (memoryData instanceof StateVariableAccessData) {
+					svars.add((StateVariableAccessData) memoryData);
+				} else if (memoryData instanceof BufferAccessData) {
+					buffs.add((BufferAccessData) memoryData);
+				} else {
+					Logger.debug("Memory data %s not recognized", memoryData);
+				}
+			}
+
+			// print the writes
+			b.append("### Writes \n");
+			b.append(printTables(shvars, lvars, svars, buffs));
+		}
+
+		b.append("\n");
+		return b;
 	}
 
 }

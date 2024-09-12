@@ -49,7 +49,7 @@ import turnus.model.analysis.trace.CompressedTraceReport;
 import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
 
-public class Ctrace2MdExporter implements FileExporter<CompressedTraceReport> {
+public class Ctrace2MdExporter implements FileExporter<CompressedTraceReport, StringBuffer> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -63,74 +63,80 @@ public class Ctrace2MdExporter implements FileExporter<CompressedTraceReport> {
 		try {
 			FileWriter writer = new FileWriter(output);
 
-			StringBuffer b = new StringBuffer();
-			b.append("# Compressed execution trace graph analysis report\n");
-			b.append("* **Network**: ").append(report.getNetwork().getName()).append("\n");
-
-			b.append("## Adjacency matrix\n");
-
-			List<Action> actions = new ArrayList<>();
-			for (Actor actor : report.getNetwork().getActors()) {
-				actions.addAll(actor.getActions());
-			}
-			// sort the actions by their name
-			Collections.sort(actions, new Comparator<Action>() {
-				@Override
-				public int compare(Action o1, Action o2) {
-					Actor a1 = o1.getOwner();
-					Actor a2 = o2.getOwner();
-					if (a1 != a2) {
-						return a1.getName().compareTo(a2.getName());
-					} else {
-						return o1.getName().compareTo(o2.getName());
-					}
-				}
-			});
-
-			// create the table definition
-			b.append("| ");
-			for (Action action : actions) {
-				String name = action.getOwner().getName() + "," + action.getName();
-				b.append(" | ").append(name);
-			}
-			b.append("\n");
-			for (int i = 0; i < actions.size(); i++) {
-				b.append("|:---");
-			}
-			b.append("\n");
-
-			// populate the matrix
-			for (Action action1 : actions) {
-				CompressedStep step1 = report.getSteps(action1);
-
-				String name = action1.getOwner().getName() + "," + action1.getName();
-				b.append("| **").append(name).append("**");
-
-				for (Action action2 : actions) {
-					CompressedStep step2 = report.getSteps(action2);
-
-					// evaluate outgoings step1->step2
-					long outgoings = 0;
-					for (CompressedDependency out : step1.getOutgoings()) {
-						if (out.getTarget() == step2) {
-							outgoings += out.getCount();
-						}
-					}
-
-					b.append(String.format(" | %d", outgoings));
-
-				}
-				b.append("| \n");
-			}
-			b.append("[Edge w->v in the graph is represented as a[w][n]=n, where n is the edge weight]\n");
-			b.append("\n");
-
+			StringBuffer b = content(report);
+			
 			writer.write(b.toString());
 			writer.close();
 		} catch (Exception e) {
 			throw new TurnusException("Export fails", e);
 		}
 
+	}
+
+	@Override
+	public StringBuffer content(CompressedTraceReport report) {
+		StringBuffer b = new StringBuffer();
+		b.append("# Compressed execution trace graph analysis report\n");
+		b.append("* **Network**: ").append(report.getNetwork().getName()).append("\n");
+
+		b.append("## Adjacency matrix\n");
+
+		List<Action> actions = new ArrayList<>();
+		for (Actor actor : report.getNetwork().getActors()) {
+			actions.addAll(actor.getActions());
+		}
+		// sort the actions by their name
+		Collections.sort(actions, new Comparator<Action>() {
+			@Override
+			public int compare(Action o1, Action o2) {
+				Actor a1 = o1.getOwner();
+				Actor a2 = o2.getOwner();
+				if (a1 != a2) {
+					return a1.getName().compareTo(a2.getName());
+				} else {
+					return o1.getName().compareTo(o2.getName());
+				}
+			}
+		});
+
+		// create the table definition
+		b.append("| ");
+		for (Action action : actions) {
+			String name = action.getOwner().getName() + "," + action.getName();
+			b.append(" | ").append(name);
+		}
+		b.append("\n");
+		for (int i = 0; i < actions.size(); i++) {
+			b.append("|:---");
+		}
+		b.append("\n");
+
+		// populate the matrix
+		for (Action action1 : actions) {
+			CompressedStep step1 = report.getSteps(action1);
+
+			String name = action1.getOwner().getName() + "," + action1.getName();
+			b.append("| **").append(name).append("**");
+
+			for (Action action2 : actions) {
+				CompressedStep step2 = report.getSteps(action2);
+
+				// evaluate outgoings step1->step2
+				long outgoings = 0;
+				for (CompressedDependency out : step1.getOutgoings()) {
+					if (out.getTarget() == step2) {
+						outgoings += out.getCount();
+					}
+				}
+
+				b.append(String.format(" | %d", outgoings));
+
+			}
+			b.append("| \n");
+		}
+		b.append("[Edge w->v in the graph is represented as a[w][n]=n, where n is the edge weight]\n");
+		b.append("\n");
+		return b;
 	}
 
 }

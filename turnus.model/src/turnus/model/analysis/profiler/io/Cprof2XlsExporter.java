@@ -60,22 +60,20 @@ import turnus.model.dataflow.Network;
  * The {@link CodeProfilingReport} XLS file exporter
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
-public class Cprof2XlsExporter implements FileExporter<CodeProfilingReport> {
+public class Cprof2XlsExporter implements FileExporter<CodeProfilingReport, XSSFWorkbook> {
 
 	@Override
 	public void export(CodeProfilingReport data, File output) throws TurnusException {
-		HalsteadCodeAnalysis report = new HalsteadCodeAnalysis(data);
 		FileOutputStream fileOut = null;
 		try {
 			fileOut = new FileOutputStream(output);
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		writeSummary(workbook, data.getNetwork(), report);
-		writeDetails(workbook, report);
+		XSSFWorkbook workbook = content(data);
 
 		try {
 			workbook.write(fileOut);
@@ -364,6 +362,15 @@ public class Cprof2XlsExporter implements FileExporter<CodeProfilingReport> {
 			}
 		}
 
+	}
+
+	@Override
+	public XSSFWorkbook content(CodeProfilingReport data) {
+		HalsteadCodeAnalysis report = new HalsteadCodeAnalysis(data);
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		writeSummary(workbook, data.getNetwork(), report);
+		writeDetails(workbook, report);
+		return workbook;
 	}
 
 }

@@ -58,6 +58,7 @@ import org.apache.commons.io.FilenameUtils;
  * {@link FileExporterFactory}
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public abstract class AbstractFileExporterWizard extends Wizard implements IWorkbenchWizard {
@@ -86,11 +87,9 @@ public abstract class AbstractFileExporterWizard extends Wizard implements IWork
 
 			wInputFile = new WidgetSelectFile("File", "Input file to be exported", inputs, inputFile, container);
 			addWidget(wInputFile);
-
 					
 			String intialOutputFileName = FilenameUtils.removeExtension(inputFile.getAbsolutePath()) + "." + output[0];
 	
-			
 			File initialOutputFile = new File(intialOutputFileName);
 			wOutputFile = new WidgetCreateFile("Output", "Output file", output, initialOutputFile, container);
 			addWidget(wOutputFile);
@@ -163,7 +162,7 @@ public abstract class AbstractFileExporterWizard extends Wizard implements IWork
 
 			String inputExt = FileUtils.getExtension(inputFile);
 			String outExt = FileUtils.getExtension(outputFile);
-			FileExporter<?> exporter = FileExporterFactory.INSTANCE.getExporter(inputExt, outExt);
+			FileExporter<?, ?> exporter = FileExporterFactory.INSTANCE.getExporter(inputExt, outExt);
 			exporter.export(inputFile, outputFile);
 
 			Logger.info("File exported in \"%s\"", outputFile);

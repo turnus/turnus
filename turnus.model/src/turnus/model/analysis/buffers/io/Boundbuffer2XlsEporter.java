@@ -52,10 +52,20 @@ import turnus.model.analysis.buffers.BoundedBuffersReport;
 
 /**
  * 
+ * The {@link BoundedBuffersReport} XLS file exporter
+ * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
-public class Boundbuffer2XlsEporter implements FileExporter<BoundedBuffersReport> {
+public class Boundbuffer2XlsEporter implements FileExporter<BoundedBuffersReport, XSSFWorkbook> {
+
+	@Override
+	public XSSFWorkbook content(BoundedBuffersReport report) {
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		write(workbook, report);
+		return workbook;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -75,8 +85,7 @@ public class Boundbuffer2XlsEporter implements FileExporter<BoundedBuffersReport
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		write(workbook, report);
+		XSSFWorkbook workbook = content(report);
 
 		try {
 			workbook.write(fileOut);
@@ -207,7 +216,7 @@ public class Boundbuffer2XlsEporter implements FileExporter<BoundedBuffersReport
 				cell.setCellValue(bd.getBuffer().getType().toString());
 				cell = row.createCell(bits);
 				cell.setCellValue(bd.getBuffer().getType().getBits() * count);
-				
+
 				cRow++;
 				lastRow = cRow;
 			}

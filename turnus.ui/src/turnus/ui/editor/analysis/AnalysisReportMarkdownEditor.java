@@ -55,24 +55,24 @@ public class AnalysisReportMarkdownEditor extends AbstractBrowserEditor {
 		super();
 		if (Display.isSystemDarkTheme()) {
 			addStyle("darkmode.css");
-		}else {
+		} else {
 			addStyle("basic.css");
 		}
-		
+
 	}
 
 	@Override
 	protected String toHtml(IFile iFile) throws TurnusException {
 		try {
 			File output = FileUtils.createTempFile(iFile.getName(), ".md", true);
-			FileExporter<?> exporter = FileExporterFactory.INSTANCE.getExporter(iFile.getFileExtension(), "md");
+			FileExporter<?, ?> exporter = FileExporterFactory.INSTANCE.getExporter(iFile.getFileExtension(), "md");
 			exporter.export(FileUtils.getFile(iFile), output);
 			String md = FileUtils.toString(output);
 			try {
 				// try delete now the file
 				output.delete();
 			} catch (Exception e) {
-			} 
+			}
 			String string = HtmlUtils.markdown2Html(md);
 			return string;
 		} catch (Exception e) {

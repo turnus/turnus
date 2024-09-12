@@ -42,11 +42,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import turnus.analysis.Analysis;
 import turnus.common.io.Logger;
-import turnus.common.util.EcoreUtils;
 import turnus.model.analysis.partitioning.BalancedPipelinePartition;
 import turnus.model.analysis.partitioning.BalancedPipelinePartitioningReport;
 import turnus.model.analysis.partitioning.PartitioningFactory;

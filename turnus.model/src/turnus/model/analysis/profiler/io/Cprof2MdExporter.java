@@ -54,52 +54,17 @@ import turnus.model.dataflow.Network;
  * The {@link CodeProfilingReport} MD file exporter
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
-public class Cprof2MdExporter implements FileExporter<CodeProfilingReport> {
+public class Cprof2MdExporter implements FileExporter<CodeProfilingReport, StringBuffer> {
 
 	@Override
 	public void export(CodeProfilingReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
 
-			HalsteadCodeAnalysis a = new HalsteadCodeAnalysis(data);
-			HalsteadAnalysis dN = a.getNetworkAnalysis();
-			StringBuffer b = new StringBuffer();
-			
-			b.append("# Halstead complexity analysis report\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append("\n");
-			
-			b.append("| Actors | Classes | Buffers \n");
-			b.append("|:--- |:--- |:--- \n");
-			Network net = data.getNetwork();
-			b.append(String.format("| %d | %d | %d \n", net.getActors().size(), net.getActorClasses().size(), net.getBuffers().size()));
-			b.append("\n");
-
-			b.append("| NoL | n | n1 | n2 | N | N1 | N2 | D | V | B \n");
-			b.append("|:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- \n");
-			b.append(String.format("| %d | %d | %d | %d | %d | %d | %d | %s | %s | %s \n", dN.NoL(), dN.n(), dN.n1(),
-					dN.n2(), dN.N(), dN.N1(), dN.N2(), StringUtils.format(dN.D()), StringUtils.format(dN.V()),
-					StringUtils.format(dN.B())));
-			b.append("\n");
-
-			b.append("## Actor classes\n");
-			List<HalsteadAnalysis> classData = new ArrayList<>(a.getActorClassesAnalysis());
-			Collections.sort(classData, new Comparator<HalsteadAnalysis>() {
-				@Override
-				public int compare(HalsteadAnalysis o1, HalsteadAnalysis o2) {
-					return o1.blockName().compareTo(o2.blockName());
-				}
-			});
-
-			b.append("| Actor-Class | NoL | n | n1 | n2 | N | N1 | N2 | D | V | B \n");
-			b.append("|:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- \n");
-			for (HalsteadAnalysis d : classData) {
-				b.append(String.format("| %s | %d | %d | %d | %d | %d | %d | %d | %s | %s | %s \n", d.blockName(),
-						d.NoL(), d.n(), d.n1(), d.n2(), d.N(), d.N1(), d.N2(), StringUtils.format(d.D()),
-						StringUtils.format(d.V()), StringUtils.format(d.B())));
-			}
+			StringBuffer b = content(data);
 
 			writer.write(b.toString());
 			writer.close();
@@ -116,6 +81,49 @@ public class Cprof2MdExporter implements FileExporter<CodeProfilingReport> {
 			throw new TurnusException("The input file \"" + input + "\" is not a valid analysis file");
 		}
 		export(data, output);
+	}
+
+	@Override
+	public StringBuffer content(CodeProfilingReport data) {
+		HalsteadCodeAnalysis a = new HalsteadCodeAnalysis(data);
+		HalsteadAnalysis dN = a.getNetworkAnalysis();
+		StringBuffer b = new StringBuffer();
+
+		b.append("# Halstead complexity analysis report\n");
+		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+		b.append("\n");
+
+		b.append("| Actors | Classes | Buffers \n");
+		b.append("|:--- |:--- |:--- \n");
+		Network net = data.getNetwork();
+		b.append(String.format("| %d | %d | %d \n", net.getActors().size(), net.getActorClasses().size(),
+				net.getBuffers().size()));
+		b.append("\n");
+
+		b.append("| NoL | n | n1 | n2 | N | N1 | N2 | D | V | B \n");
+		b.append("|:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- \n");
+		b.append(String.format("| %d | %d | %d | %d | %d | %d | %d | %s | %s | %s \n", dN.NoL(), dN.n(), dN.n1(),
+				dN.n2(), dN.N(), dN.N1(), dN.N2(), StringUtils.format(dN.D()), StringUtils.format(dN.V()),
+				StringUtils.format(dN.B())));
+		b.append("\n");
+
+		b.append("## Actor classes\n");
+		List<HalsteadAnalysis> classData = new ArrayList<>(a.getActorClassesAnalysis());
+		Collections.sort(classData, new Comparator<HalsteadAnalysis>() {
+			@Override
+			public int compare(HalsteadAnalysis o1, HalsteadAnalysis o2) {
+				return o1.blockName().compareTo(o2.blockName());
+			}
+		});
+
+		b.append("| Actor-Class | NoL | n | n1 | n2 | N | N1 | N2 | D | V | B \n");
+		b.append("|:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- |:--- \n");
+		for (HalsteadAnalysis d : classData) {
+			b.append(String.format("| %s | %d | %d | %d | %d | %d | %d | %d | %s | %s | %s \n", d.blockName(), d.NoL(),
+					d.n(), d.n1(), d.n2(), d.N(), d.N1(), d.N2(), StringUtils.format(d.D()), StringUtils.format(d.V()),
+					StringUtils.format(d.B())));
+		}
+		return b;
 	}
 
 }

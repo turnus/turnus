@@ -53,9 +53,9 @@ import turnus.model.analysis.bottlenecks.BottlenecksReport;
  * The {@link BottlenecksReport} MD file exporter
  * 
  * @author Simone Casale Brunet
- *
+ * @author Endri Bezati
  */
-public class Bottlenecks2MdExporter implements FileExporter<BottlenecksReport> {
+public class Bottlenecks2MdExporter implements FileExporter<BottlenecksReport, StringBuffer> {
 
 	public StringBuffer content(BottlenecksReport data) {
 		StringBuffer b = new StringBuffer();

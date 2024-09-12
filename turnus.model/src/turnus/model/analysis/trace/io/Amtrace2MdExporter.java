@@ -48,7 +48,7 @@ import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Network;
 
-public class Amtrace2MdExporter implements FileExporter<MarkowModelTraceReport> {
+public class Amtrace2MdExporter implements FileExporter<MarkowModelTraceReport, StringBuffer> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -62,54 +62,7 @@ public class Amtrace2MdExporter implements FileExporter<MarkowModelTraceReport> 
 		try {
 			FileWriter writer = new FileWriter(output);
 
-			Network network = report.getNetwork();
-			StringBuffer b = new StringBuffer();
-			b.append("# Actions Markov model trace transformation\n");
-			b.append("* **Network**: ").append(network.getName()).append("\n\n");
-
-			// print actors static report
-			b.append("## Actors model\n");
-			b.append("| Actor | static | \n");
-			b.append("|-------|--------\n");
-			for (Actor actor : network.getActors()) {
-				List<MarkovModelActionData> data = report.getData(actor);
-				String isStatic = "yes";
-				for (MarkovModelActionData d : data) {
-					if (d.getSuccessorsMap().isEmpty()) {
-						isStatic = "undefined";
-						break;
-					} else if (d.getSuccessorsMap().size() != 1) {
-						isStatic = "no";
-						break;
-					}
-				}
-				b.append(String.format("| %s | %s |\n", actor.getName(), isStatic));
-			}
-			b.append("\n");
-
-			b.append("## Actions data\n");
-			for (Actor actor : network.getActors()) {
-				List<MarkovModelActionData> data = report.getData(actor);
-				b.append(String.format("### Actor \"%s\" \n", actor.getName()));
-				for (MarkovModelActionData e : data) {
-					String fisrt = e.isFirst() ? "(first to fire)" : "";
-					b.append(String.format("#### Action \"%s\" %s\n", e.getAction().getName(), fisrt));
-					long successors = e.getSuccessors();
-					if (successors > 0) {
-						b.append("| Successor | Probability |\n");
-						b.append("|-----------|--------------\n");
-						for (Entry<Action, Long> succ : e.getSuccessorsMap().entrySet()) {
-							double p = ((double) succ.getValue()) / successors;
-							b.append(String.format("| %s | %s |\n", succ.getKey().getName(), StringUtils.format(p)));
-						}
-						b.append("\n");
-					} else {
-						b.append("No successors\n");
-					}
-
-				}
-				b.append("\n");
-			}
+			StringBuffer b = content(report);
 
 			writer.write(b.toString());
 			writer.close();
@@ -117,6 +70,59 @@ public class Amtrace2MdExporter implements FileExporter<MarkowModelTraceReport> 
 			throw new TurnusException("Export fails", e);
 		}
 
+	}
+
+	@Override
+	public StringBuffer content(MarkowModelTraceReport report) {
+		Network network = report.getNetwork();
+		StringBuffer b = new StringBuffer();
+		b.append("# Actions Markov model trace transformation\n");
+		b.append("* **Network**: ").append(network.getName()).append("\n\n");
+
+		// print actors static report
+		b.append("## Actors model\n");
+		b.append("| Actor | static | \n");
+		b.append("|-------|--------\n");
+		for (Actor actor : network.getActors()) {
+			List<MarkovModelActionData> data = report.getData(actor);
+			String isStatic = "yes";
+			for (MarkovModelActionData d : data) {
+				if (d.getSuccessorsMap().isEmpty()) {
+					isStatic = "undefined";
+					break;
+				} else if (d.getSuccessorsMap().size() != 1) {
+					isStatic = "no";
+					break;
+				}
+			}
+			b.append(String.format("| %s | %s |\n", actor.getName(), isStatic));
+		}
+		b.append("\n");
+
+		b.append("## Actions data\n");
+		for (Actor actor : network.getActors()) {
+			List<MarkovModelActionData> data = report.getData(actor);
+			b.append(String.format("### Actor \"%s\" \n", actor.getName()));
+			for (MarkovModelActionData e : data) {
+				String fisrt = e.isFirst() ? "(first to fire)" : "";
+				b.append(String.format("#### Action \"%s\" %s\n", e.getAction().getName(), fisrt));
+				long successors = e.getSuccessors();
+				if (successors > 0) {
+					b.append("| Successor | Probability |\n");
+					b.append("|-----------|--------------\n");
+					for (Entry<Action, Long> succ : e.getSuccessorsMap().entrySet()) {
+						double p = ((double) succ.getValue()) / successors;
+						b.append(String.format("| %s | %s |\n", succ.getKey().getName(), StringUtils.format(p)));
+					}
+					b.append("\n");
+				} else {
+					b.append("No successors\n");
+				}
+
+			}
+			b.append("\n");
+		}
+		return b;
 	}
 
 }

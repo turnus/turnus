@@ -49,6 +49,7 @@ import turnus.common.Activator;
  * in the the {@code turnus.common.io.fileExporter} extension point.
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class FileExporterFactory {
@@ -57,7 +58,7 @@ public class FileExporterFactory {
 	public static final FileExporterFactory INSTANCE = new FileExporterFactory();
 
 	/** (input extension, output extension, exporter) table */
-	private Table<String, String, FileExporter<?>> exporters;
+	private Table<String, String, FileExporter<?, ?>> exporters;
 
 	/**
 	 * Private builder for the factory
@@ -78,7 +79,7 @@ public class FileExporterFactory {
 					if (out.startsWith(".")) {
 						out.replaceFirst(".", "");
 					}
-					FileExporter<?> exporter = (FileExporter<?>) element.createExecutableExtension("class");
+					FileExporter<?, ?> exporter = (FileExporter<?, ?>) element.createExecutableExtension("class");
 					exporters.put(in, out, exporter);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -93,8 +94,7 @@ public class FileExporterFactory {
 	 * Get the set of supported output file extension for a given input file
 	 * extension
 	 * 
-	 * @param input
-	 *            the input file extension (with or without {@code "."})
+	 * @param input the input file extension (with or without {@code "."})
 	 * @return the set of supported output file extensions (without {@code "."})
 	 */
 	public Set<String> getSupportedOutputs(String input) {
@@ -117,8 +117,7 @@ public class FileExporterFactory {
 	 * Get the set of supported input file extension for a given output file
 	 * extension
 	 * 
-	 * @param output
-	 *            the output file extension (with or without {@code "."})
+	 * @param output the output file extension (with or without {@code "."})
 	 * @return the set of supported input file extensions (without {@code "."})
 	 */
 	public Set<String> getSupportedInputs(String output) {
@@ -131,7 +130,7 @@ public class FileExporterFactory {
 			output = output.replaceFirst(".", "");
 		}
 
-		for (Cell<String, String, FileExporter<?>> e : exporters.cellSet()) {
+		for (Cell<String, String, FileExporter<?, ?>> e : exporters.cellSet()) {
 			if (e.getColumnKey().equals(output))
 				inputs.add(e.getRowKey());
 		}
@@ -142,13 +141,11 @@ public class FileExporterFactory {
 	 * Get the {@link FileExporter} for a given couple of input and output file
 	 * extensions
 	 * 
-	 * @param input
-	 *            the input file extension (with or without {@code "."})
-	 * @param output
-	 *            the output file extension (with or without {@code "."})
+	 * @param input  the input file extension (with or without {@code "."})
+	 * @param output the output file extension (with or without {@code "."})
 	 * @return the file exporter if any, null otherwise
 	 */
-	public FileExporter<?> getExporter(String input, String output) {
+	public FileExporter<?, ?> getExporter(String input, String output) {
 		if (input == null || output == null) {
 			return null;
 		}
@@ -165,13 +162,11 @@ public class FileExporterFactory {
 	}
 
 	/**
-	 * Check if there is any registered {@link FileExporter} for a given couple
-	 * of input and output file extensions
+	 * Check if there is any registered {@link FileExporter} for a given couple of
+	 * input and output file extensions
 	 * 
-	 * @param input
-	 *            the input file extension (with or without {@code "."})
-	 * @param output
-	 *            the output file extension (with or without {@code "."})
+	 * @param input  the input file extension (with or without {@code "."})
+	 * @param output the output file extension (with or without {@code "."})
 	 * @return true if a file exporter exists, false otherwise
 	 */
 	public boolean hasExporter(String input, String output) {

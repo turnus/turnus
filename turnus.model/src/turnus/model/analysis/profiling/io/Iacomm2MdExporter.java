@@ -52,7 +52,7 @@ import turnus.model.dataflow.Actor;
  * 
  * @author Endri Bezati
  */
-public class Iacomm2MdExporter implements FileExporter<IntraActionCommunicationReport> {
+public class Iacomm2MdExporter implements FileExporter<IntraActionCommunicationReport, StringBuffer> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -63,118 +63,128 @@ public class Iacomm2MdExporter implements FileExporter<IntraActionCommunicationR
 		export(data, output);
 
 	}
+	
+	
+
+	@Override
+	public StringBuffer content(IntraActionCommunicationReport data) {
+		StringBuffer b = new StringBuffer();
+		b.append("# Intra actor communication report\n");
+		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+		b.append(String.format("* **Algorithm**: %s\n", data.getAlgorithm()));
+		b.append("\n");
+
+		for (IntraActorCommunicationData idata : data.getActorsData()) {
+			b.append(String.format("## Actor : %s\n", idata.getActor().getName()));
+			b.append(
+					"| **Kind**  | **Mean** | **Min** | **Max** | **Sum** | **Samples** | **Sum of Squares** |**Geometric Mean** |\n");
+			b.append(
+					"|:--        |  --:     | --:     | --:     | --:     | --:         | --:                | --:               |\n");
+			double mean = idata.getConsumedTokens().getMean();
+			double min = idata.getConsumedTokens().getMin();
+			double max = idata.getConsumedTokens().getMax();
+			double sum = idata.getConsumedTokens().getSum();
+			double sample = idata.getConsumedTokens().getSamples();
+			double sumOfSquares = idata.getConsumedTokens().getSumOfSquares();
+			double geometricMean = idata.getConsumedTokens().getGeometricMean();
+			b.append(String.format("Consumed | %.1f | %.1f |%.1f |%.1f |%.1f |%.1f |%.1f \n", mean, min, max, sum,
+					sample, sumOfSquares, geometricMean));
+			mean = idata.getProducedTokens().getMean();
+			min = idata.getProducedTokens().getMin();
+			max = idata.getProducedTokens().getMax();
+			sum = idata.getProducedTokens().getSum();
+			sample = idata.getProducedTokens().getSamples();
+			sumOfSquares = idata.getProducedTokens().getSumOfSquares();
+			geometricMean = idata.getProducedTokens().getGeometricMean();
+			b.append(String.format("Produced | %.1f | %.1f |%.1f |%.1f |%.1f |%.1f |%.1f \n", mean, min, max, sum,
+					sample, sumOfSquares, geometricMean));
+
+			if (!idata.getTokensProducersMap().values().isEmpty()) {
+				b.append("\n");
+
+				b.append(
+						"| **Actor**  | **Mean** | **Min** | **Max** | **Sum** | **Samples** | **Sum of Squares** |**Geometric Mean** |\n");
+				b.append(
+						"|:--        |  --:     | --:     | --:     | --:     | --:         | --:                | --:               |\n");
+				for (Actor actor : idata.getTokensProducersMap().keySet()) {
+					mean = idata.getTokensProducersMap().get(actor).getMean();
+					min = idata.getTokensProducersMap().get(actor).getMin();
+					max = idata.getTokensProducersMap().get(actor).getMax();
+					sum = idata.getTokensProducersMap().get(actor).getSum();
+					sample = idata.getTokensProducersMap().get(actor).getSamples();
+					sumOfSquares = idata.getTokensProducersMap().get(actor).getSumOfSquares();
+					geometricMean = idata.getTokensProducersMap().get(actor).getGeometricMean();
+					b.append(String.format("%s | %.1f | %.1f |%.1f |%.1f |%.1f |%.1f |%.1f \n", actor.getName(),
+							mean, min, max, sum, sample, sumOfSquares, geometricMean));
+				}
+
+				b.append("[Producers overview]\n");
+			}
+
+			b.append("\n");
+
+			for (IntraActionCommunicationData iact : idata.getActionsData()) {
+				b.append(String.format("### Action : %s\n", iact.getAction().getName()));
+
+				b.append(
+						"| **Kind**  | **Mean** | **Min** | **Max** | **Sum** | **Samples** | **Sum of Squares** |**Geometric Mean** |\n");
+				b.append(
+						"|:--        |  --:     | --:     | --:     | --:     | --:         | --:                | --:               |\n");
+				mean = iact.getConsumedTokens().getMean();
+				min = iact.getConsumedTokens().getMin();
+				max = iact.getConsumedTokens().getMax();
+				sum = iact.getConsumedTokens().getSum();
+				sample = iact.getConsumedTokens().getSamples();
+				sumOfSquares = iact.getConsumedTokens().getSumOfSquares();
+				geometricMean = iact.getConsumedTokens().getGeometricMean();
+				b.append(String.format("Consumed | %.1f | %.1f |%.1f |%.1f |%.1f |%.1f |%.1f \n", mean, min, max,
+						sum, sample, sumOfSquares, geometricMean));
+				mean = iact.getProducedTokens().getMean();
+				min = iact.getProducedTokens().getMin();
+				max = iact.getProducedTokens().getMax();
+				sum = iact.getProducedTokens().getSum();
+				sample = iact.getProducedTokens().getSamples();
+				sumOfSquares = iact.getProducedTokens().getSumOfSquares();
+				geometricMean = iact.getProducedTokens().getGeometricMean();
+				b.append(String.format("Produced | %.1f | %.1f |%.1f |%.1f |%.1f |%.1f |%.1f \n", mean, min, max,
+						sum, sample, sumOfSquares, geometricMean));
+
+				if (!iact.getTokensProducersMap().values().isEmpty()) {
+					b.append("\n");
+
+					b.append(
+							"| **Actor**  | **Actor** | **Mean** | **Min** | **Max** | **Sum** | **Samples** | **Sum of Squares** |**Geometric Mean** |\n");
+					b.append(
+							"|:--         |  :--      |  --:      | --:     | --:     | --:     | --:         | --:                | --:               |\n");
+					for (Action action : iact.getTokensProducersMap().keySet()) {
+						mean = iact.getTokensProducersMap().get(action).getMean();
+						min = iact.getTokensProducersMap().get(action).getMin();
+						max = iact.getTokensProducersMap().get(action).getMax();
+						sum = iact.getTokensProducersMap().get(action).getSum();
+						sample = iact.getTokensProducersMap().get(action).getSamples();
+						sumOfSquares = iact.getTokensProducersMap().get(action).getSumOfSquares();
+						geometricMean = iact.getTokensProducersMap().get(action).getGeometricMean();
+						b.append(String.format("%s | %s | %.1f | %.1f |%.1f |%.1f |%.1f |%.1f |%.1f \n",
+								action.getOwner().getName(), action.getName(), mean, min, max, sum, sample,
+								sumOfSquares, geometricMean));
+					}
+
+					b.append("[Producers]\n");
+				}
+			}
+		}
+
+		b.append("\n");
+		return b;
+	}
+
+
 
 	@Override
 	public void export(IntraActionCommunicationReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
-			StringBuffer b = new StringBuffer();
-			b.append("# Intra actor communication report\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append(String.format("* **Algorithm**: %s\n", data.getAlgorithm()));
-			b.append("\n");
-
-			for (IntraActorCommunicationData idata : data.getActorsData()) {
-				b.append(String.format("## Actor : %s\n", idata.getActor().getName()));
-				b.append(
-						"| **Kind**  | **Mean** | **Min** | **Max** | **Sum** | **Samples** | **Sum of Squares** |**Geometric Mean** |\n");
-				b.append(
-						"|:--        |  --:     | --:     | --:     | --:     | --:         | --:                | --:               |\n");
-				double mean = idata.getConsumedTokens().getMean();
-				double min = idata.getConsumedTokens().getMin();
-				double max = idata.getConsumedTokens().getMax();
-				double sum = idata.getConsumedTokens().getSum();
-				double sample = idata.getConsumedTokens().getSamples();
-				double sumOfSquares = idata.getConsumedTokens().getSumOfSquares();
-				double geometricMean = idata.getConsumedTokens().getGeometricMean();
-				b.append(String.format("Consumed | %.1f | %.1f |%.1f |%.1f |%.1f |%.1f |%.1f \n", mean, min, max, sum,
-						sample, sumOfSquares, geometricMean));
-				mean = idata.getProducedTokens().getMean();
-				min = idata.getProducedTokens().getMin();
-				max = idata.getProducedTokens().getMax();
-				sum = idata.getProducedTokens().getSum();
-				sample = idata.getProducedTokens().getSamples();
-				sumOfSquares = idata.getProducedTokens().getSumOfSquares();
-				geometricMean = idata.getProducedTokens().getGeometricMean();
-				b.append(String.format("Produced | %.1f | %.1f |%.1f |%.1f |%.1f |%.1f |%.1f \n", mean, min, max, sum,
-						sample, sumOfSquares, geometricMean));
-
-				if (!idata.getTokensProducersMap().values().isEmpty()) {
-					b.append("\n");
-
-					b.append(
-							"| **Actor**  | **Mean** | **Min** | **Max** | **Sum** | **Samples** | **Sum of Squares** |**Geometric Mean** |\n");
-					b.append(
-							"|:--        |  --:     | --:     | --:     | --:     | --:         | --:                | --:               |\n");
-					for (Actor actor : idata.getTokensProducersMap().keySet()) {
-						mean = idata.getTokensProducersMap().get(actor).getMean();
-						min = idata.getTokensProducersMap().get(actor).getMin();
-						max = idata.getTokensProducersMap().get(actor).getMax();
-						sum = idata.getTokensProducersMap().get(actor).getSum();
-						sample = idata.getTokensProducersMap().get(actor).getSamples();
-						sumOfSquares = idata.getTokensProducersMap().get(actor).getSumOfSquares();
-						geometricMean = idata.getTokensProducersMap().get(actor).getGeometricMean();
-						b.append(String.format("%s | %.1f | %.1f |%.1f |%.1f |%.1f |%.1f |%.1f \n", actor.getName(),
-								mean, min, max, sum, sample, sumOfSquares, geometricMean));
-					}
-
-					b.append("[Producers overview]\n");
-				}
-
-				b.append("\n");
-
-				for (IntraActionCommunicationData iact : idata.getActionsData()) {
-					b.append(String.format("### Action : %s\n", iact.getAction().getName()));
-
-					b.append(
-							"| **Kind**  | **Mean** | **Min** | **Max** | **Sum** | **Samples** | **Sum of Squares** |**Geometric Mean** |\n");
-					b.append(
-							"|:--        |  --:     | --:     | --:     | --:     | --:         | --:                | --:               |\n");
-					mean = iact.getConsumedTokens().getMean();
-					min = iact.getConsumedTokens().getMin();
-					max = iact.getConsumedTokens().getMax();
-					sum = iact.getConsumedTokens().getSum();
-					sample = iact.getConsumedTokens().getSamples();
-					sumOfSquares = iact.getConsumedTokens().getSumOfSquares();
-					geometricMean = iact.getConsumedTokens().getGeometricMean();
-					b.append(String.format("Consumed | %.1f | %.1f |%.1f |%.1f |%.1f |%.1f |%.1f \n", mean, min, max,
-							sum, sample, sumOfSquares, geometricMean));
-					mean = iact.getProducedTokens().getMean();
-					min = iact.getProducedTokens().getMin();
-					max = iact.getProducedTokens().getMax();
-					sum = iact.getProducedTokens().getSum();
-					sample = iact.getProducedTokens().getSamples();
-					sumOfSquares = iact.getProducedTokens().getSumOfSquares();
-					geometricMean = iact.getProducedTokens().getGeometricMean();
-					b.append(String.format("Produced | %.1f | %.1f |%.1f |%.1f |%.1f |%.1f |%.1f \n", mean, min, max,
-							sum, sample, sumOfSquares, geometricMean));
-
-					if (!iact.getTokensProducersMap().values().isEmpty()) {
-						b.append("\n");
-
-						b.append(
-								"| **Actor**  | **Actor** | **Mean** | **Min** | **Max** | **Sum** | **Samples** | **Sum of Squares** |**Geometric Mean** |\n");
-						b.append(
-								"|:--         |  :--      |  --:      | --:     | --:     | --:     | --:         | --:                | --:               |\n");
-						for (Action action : iact.getTokensProducersMap().keySet()) {
-							mean = iact.getTokensProducersMap().get(action).getMean();
-							min = iact.getTokensProducersMap().get(action).getMin();
-							max = iact.getTokensProducersMap().get(action).getMax();
-							sum = iact.getTokensProducersMap().get(action).getSum();
-							sample = iact.getTokensProducersMap().get(action).getSamples();
-							sumOfSquares = iact.getTokensProducersMap().get(action).getSumOfSquares();
-							geometricMean = iact.getTokensProducersMap().get(action).getGeometricMean();
-							b.append(String.format("%s | %s | %.1f | %.1f |%.1f |%.1f |%.1f |%.1f |%.1f \n",
-									action.getOwner().getName(), action.getName(), mean, min, max, sum, sample,
-									sumOfSquares, geometricMean));
-						}
-
-						b.append("[Producers]\n");
-					}
-				}
-			}
-
-			b.append("\n");
+			StringBuffer b = content(data);
 			writer.write(b.toString());
 			writer.close();
 

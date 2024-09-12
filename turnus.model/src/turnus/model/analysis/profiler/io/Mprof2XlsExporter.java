@@ -62,7 +62,7 @@ import turnus.model.analysis.profiler.MemoryProfilingReport;
 import turnus.model.analysis.profiler.SharedVariableAccessData;
 import turnus.model.analysis.profiler.StateVariableAccessData;
 
-public class Mprof2XlsExporter implements FileExporter<MemoryProfilingReport> {
+public class Mprof2XlsExporter implements FileExporter<MemoryProfilingReport, XSSFWorkbook> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -82,28 +82,9 @@ public class Mprof2XlsExporter implements FileExporter<MemoryProfilingReport> {
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		XSSFWorkbook workbook = new XSSFWorkbook();
-
-		List<ActionMemoryProfilingData> actionsData = new ArrayList<>(report.getActionsData());
-		Collections.sort(actionsData, new Comparator<ActionMemoryProfilingData>() {
-			@Override
-			public int compare(ActionMemoryProfilingData o1, ActionMemoryProfilingData o2) {
-				String s1 = o1.getActor();
-				String s2 = o1.getActor();
-				int result = s1.compareTo(s2);
-				if (result != 0) {
-					return result;
-				}
-				s1 = o1.getAction();
-				s2 = o2.getAction();
-				return s1.compareTo(s2);
-			}
-		});
-		writeSummary(workbook, report.getAlgorithm(), report.getNetworkName(), report.getDate(), actionsData);
-		writeSharedVariables(workbook, actionsData);
-		writeStateVariables(workbook, actionsData);
-		writeLocalVariables(workbook, actionsData);
-		writeBuffers(workbook, actionsData);
+		
+		XSSFWorkbook workbook = content(report);
+		
 		try {
 			workbook.write(fileOut);
 		} catch (Exception e) {
@@ -478,6 +459,33 @@ public class Mprof2XlsExporter implements FileExporter<MemoryProfilingReport> {
 			row.createCell(5).setCellValue(writeMax);
 		}
 
+	}
+
+	@Override
+	public XSSFWorkbook content(MemoryProfilingReport report) {
+		XSSFWorkbook workbook = new XSSFWorkbook();
+
+		List<ActionMemoryProfilingData> actionsData = new ArrayList<>(report.getActionsData());
+		Collections.sort(actionsData, new Comparator<ActionMemoryProfilingData>() {
+			@Override
+			public int compare(ActionMemoryProfilingData o1, ActionMemoryProfilingData o2) {
+				String s1 = o1.getActor();
+				String s2 = o1.getActor();
+				int result = s1.compareTo(s2);
+				if (result != 0) {
+					return result;
+				}
+				s1 = o1.getAction();
+				s2 = o2.getAction();
+				return s1.compareTo(s2);
+			}
+		});
+		writeSummary(workbook, report.getAlgorithm(), report.getNetworkName(), report.getDate(), actionsData);
+		writeSharedVariables(workbook, actionsData);
+		writeStateVariables(workbook, actionsData);
+		writeLocalVariables(workbook, actionsData);
+		writeBuffers(workbook, actionsData);
+		return workbook;
 	}
 
 }

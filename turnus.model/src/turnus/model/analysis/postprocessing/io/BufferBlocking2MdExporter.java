@@ -50,7 +50,15 @@ import turnus.model.dataflow.Buffer;
  * @author Endri Bezati
  *
  */
-public class BufferBlocking2MdExporter implements FileExporter<BufferBlockingReport> {
+public class BufferBlocking2MdExporter implements FileExporter<BufferBlockingReport, StringBuffer> {
+
+	@Override
+	public StringBuffer content(BufferBlockingReport data) {
+		StringBuffer b = new StringBuffer();
+
+		b.append(report(data, true));
+		return b;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -66,9 +74,7 @@ public class BufferBlocking2MdExporter implements FileExporter<BufferBlockingRep
 	public void export(BufferBlockingReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
-			StringBuffer b = new StringBuffer();
-
-			b.append(report(data, true));
+			StringBuffer b = content(data);
 
 			writer.write(b.toString());
 			writer.close();
@@ -95,7 +101,7 @@ public class BufferBlocking2MdExporter implements FileExporter<BufferBlockingRep
 			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
 			b.append("\n");
 		}
-		
+
 		b.append("## Blocked Buffers \n");
 
 		b.append("| Source || Target || Max Nbr Tokens | Max Time | Nbr of Blockings \n");

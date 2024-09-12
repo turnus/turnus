@@ -57,9 +57,17 @@ import turnus.model.analysis.pipelining.ActionsVariablePipeliningReport;
 /**
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
-public class Varpipe2XlsExporter implements FileExporter<ActionsVariablePipeliningReport> {
+public class Varpipe2XlsExporter implements FileExporter<ActionsVariablePipeliningReport, XSSFWorkbook> {
+
+	@Override
+	public XSSFWorkbook content(ActionsVariablePipeliningReport report) {
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		writeSummary(workbook, report);
+		return workbook;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -78,9 +86,7 @@ public class Varpipe2XlsExporter implements FileExporter<ActionsVariablePipelini
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		writeSummary(workbook, report);
-
+		XSSFWorkbook workbook = content(report);
 		try {
 			workbook.write(fileOut);
 		} catch (Exception e) {

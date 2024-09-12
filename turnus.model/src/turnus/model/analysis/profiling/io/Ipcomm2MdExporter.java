@@ -27,7 +27,7 @@ import turnus.model.dataflow.Buffer;
  * 
  * @author Endri Bezati
  */
-public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicationAndMemoryReport> {
+public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicationAndMemoryReport, StringBuffer> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -49,8 +49,8 @@ public class Ipcomm2MdExporter implements FileExporter<InterPartitionCommunicati
 		}
 	}
 
-	
-	protected StringBuffer content(InterPartitionCommunicationAndMemoryReport data) {
+	@Override
+	public StringBuffer content(InterPartitionCommunicationAndMemoryReport data) {
 		StringBuffer b = new StringBuffer();
 		b.append("# Inter-Partition communication and memory report\n");
 		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));

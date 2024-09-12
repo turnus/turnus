@@ -62,9 +62,10 @@ import turnus.model.dataflow.Buffer;
  * This class defines an XLS exporter for the {@link DynamicProfilingReport}
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
-public class Dprof2XlsExporter implements FileExporter<DynamicProfilingReport> {
+public class Dprof2XlsExporter implements FileExporter<DynamicProfilingReport, XSSFWorkbook> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -281,6 +282,14 @@ public class Dprof2XlsExporter implements FileExporter<DynamicProfilingReport> {
 			worksheet.setRowGroupCollapsed(initialRow + 1, true);
 		}
 
+	}
+
+	@Override
+	public XSSFWorkbook content(DynamicProfilingReport data) {
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		writeActorsSummary(workbook, data.getActorsData());
+		writeBuffersSummary(workbook, data.getBuffersData());
+		return workbook;
 	}
 
 }

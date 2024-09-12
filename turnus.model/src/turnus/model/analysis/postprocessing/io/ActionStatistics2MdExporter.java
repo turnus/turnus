@@ -51,7 +51,18 @@ import turnus.model.dataflow.Actor;
  * @author Endri Bezati
  *
  */
-public class ActionStatistics2MdExporter implements FileExporter<ActionStatisticsReport> {
+public class ActionStatistics2MdExporter implements FileExporter<ActionStatisticsReport, StringBuffer> {
+
+	
+	
+	
+	@Override
+	public StringBuffer content(ActionStatisticsReport data) {
+		StringBuffer b = new StringBuffer();
+
+		b.append(report(data, true));
+		return b;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
