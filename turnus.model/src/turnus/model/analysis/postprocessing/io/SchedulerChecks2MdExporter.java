@@ -14,7 +14,7 @@ import turnus.model.analysis.postprocessing.SchedulerChecksPartition;
 import turnus.model.analysis.postprocessing.SchedulerChecksReport;
 import turnus.model.dataflow.Actor;
 
-public class SchedulerChecks2MdExporter implements FileExporter<SchedulerChecksReport> {
+public class SchedulerChecks2MdExporter implements FileExporter<SchedulerChecksReport, StringBuffer> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -30,9 +30,7 @@ public class SchedulerChecks2MdExporter implements FileExporter<SchedulerChecksR
 	public void export(SchedulerChecksReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
-			StringBuffer b = new StringBuffer();
-
-			b.append(report(data, true));
+			StringBuffer b = content(data);
 
 			writer.write(b.toString());
 			writer.close();
@@ -124,6 +122,13 @@ public class SchedulerChecks2MdExporter implements FileExporter<SchedulerChecksR
 			}
 		}
 
+		return b;
+	}
+
+	@Override
+	public StringBuffer content(SchedulerChecksReport data) {
+		StringBuffer b = new StringBuffer();
+		b.append(report(data, true));
 		return b;
 	}
 

@@ -42,36 +42,32 @@ import turnus.common.TurnusException;
  * FileExporter is then made available through the {@link FileExporterFactory}.
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
- * @param <T>
- *            the object type supported by the exporter
+ * @param <T> the object type supported by the exporter
  */
-public interface FileExporter<T> {
+public interface FileExporter<T, U> {
 
 	/**
 	 * Export the given input file to the given output file
 	 * 
-	 * @param input
-	 *            the input file
-	 * @param output
-	 *            the output file
-	 * @throws TurnusException
-	 *             raised when an error occurred and the input file cannot be
-	 *             exported
+	 * @param input  the input file
+	 * @param output the output file
+	 * @throws TurnusException raised when an error occurred and the input file
+	 *                         cannot be exported
 	 */
 	void export(File input, File output) throws TurnusException;
 
 	/**
 	 * Export the given object to the output file
 	 * 
-	 * @param object
-	 *            the object to be exported
-	 * @param output
-	 *            the output file
-	 * @throws TurnusException
-	 *             raised when an error occurred and the object cannot be
-	 *             exported
+	 * @param object the object to be exported
+	 * @param output the output file
+	 * @throws TurnusException raised when an error occurred and the object cannot
+	 *                         be exported
 	 */
 	void export(T object, File output) throws TurnusException;
+
+	U content(T object);
 
 }

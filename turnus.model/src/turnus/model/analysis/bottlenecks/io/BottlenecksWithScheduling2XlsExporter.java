@@ -58,9 +58,20 @@ import turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport;
 /**
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
-public class BottlenecksWithScheduling2XlsExporter implements FileExporter<BottlenecksWithSchedulingReport>{
+public class BottlenecksWithScheduling2XlsExporter implements FileExporter<BottlenecksWithSchedulingReport, XSSFWorkbook>{
+
+	
+	
+	@Override
+	public XSSFWorkbook content(BottlenecksWithSchedulingReport report) {
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		writeSummary(workbook, report);
+		writeActionsData(workbook, report);
+		return workbook;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -79,9 +90,7 @@ public class BottlenecksWithScheduling2XlsExporter implements FileExporter<Bottl
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		writeSummary(workbook, report);
-		writeActionsData(workbook, report);
+			XSSFWorkbook workbook = content(report);
 
 		try {
 			workbook.write(fileOut);

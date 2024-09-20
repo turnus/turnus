@@ -58,6 +58,8 @@ import java.util.stream.Stream;
 
 import org.apache.commons.lang3.SystemUtils;
 
+import com.google.common.collect.Lists;
+
 import turnus.analysis.Analysis;
 import turnus.analysis.buffer.BoundedBufferAnalysis;
 import turnus.analysis.hypergraph.WeightedActor;
@@ -155,6 +157,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 		Double minWorkload = Collections.min(actorWorkload.values());
 		// -- Topological sort actors
 		List<Actor> topologicalSort = ActorsSorter.topologicalOrder(network.getActors());
+		topologicalSort = Lists.reverse(topologicalSort);
 		StringBuffer fixedPartitionSb = null;
 		int hyperEdgeCounter = 0;
 		WeightedHyperGraph hg = new WeightedHyperGraph();

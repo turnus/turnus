@@ -53,7 +53,46 @@ import turnus.model.dataflow.Actor;
  * @author Endri Bezati
  *
  */
-public class WorkloadBalancePartition2MdExporter implements FileExporter<WorkloadBalancePartitioningReport> {
+public class WorkloadBalancePartition2MdExporter
+		implements FileExporter<WorkloadBalancePartitioningReport, StringBuffer> {
+
+	@Override
+	public StringBuffer content(WorkloadBalancePartitioningReport data) {
+		StringBuffer b = new StringBuffer();
+		b.append("# Workload Balance partitioning analysis report\n");
+		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+		b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
+		b.append(String.format("* **Scheduling Policy**: %s\n", data.getSchedulinPolicy().getName()));
+		b.append(String.format("* **Units**: %d\n", data.getPartitions().size()));
+		b.append("\n");
+
+		int pNumber = 1;
+
+		b.append(String.format("## Overview\n"));
+		b.append("| **Partition**  | **Actors** | **Workload** | **Persistent Memory** |\n");
+		b.append("|:--             |  --:       | --:          | --:                   | \n");
+		for (WorkloadBalancePartition pdata : data.getPartitions()) {
+			long persistenMemory = MemoryAndBuffers.getActorsPesistenMemory(pdata.getActors());
+			b.append(String.format("| %d |   %d |         %.2f | %s                    \n", pNumber,
+					pdata.getActors().size(), pdata.getWorkload(), StringUtils.formatBytes(persistenMemory, true)));
+			pNumber++;
+		}
+
+		b.append("\n");
+		pNumber = 1;
+		for (WorkloadBalancePartition pdata : data.getPartitions()) {
+			b.append(String.format("## Partition - %d\n", pNumber++));
+			b.append(String.format("* **Workload**: %.2f\n", pdata.getWorkload()));
+			b.append("\n");
+			b.append("| **Actors** | \n");
+			b.append("|:--         | \n");
+			for (Actor actor : pdata.getActors()) {
+				b.append(String.format("| %s | \n", actor.getName()));
+			}
+		}
+
+		return b;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -71,39 +110,8 @@ public class WorkloadBalancePartition2MdExporter implements FileExporter<Workloa
 		try {
 			FileWriter writer = new FileWriter(output);
 
-			StringBuffer b = new StringBuffer();
-			b.append("# Workload Balance partitioning analysis report\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
-			b.append(String.format("* **Scheduling Policy**: %s\n", data.getSchedulinPolicy().getName()));
-			b.append(String.format("* **Units**: %d\n", data.getPartitions().size()));
-			b.append("\n");
-
-			int pNumber = 1;
-
-			b.append(String.format("## Overview\n"));
-			b.append("| **Partition**  | **Actors** | **Workload** | **Persistent Memory** |\n");
-			b.append("|:--             |  --:       | --:          | --:                   | \n");
-			for (WorkloadBalancePartition pdata : data.getPartitions()) {
-				long persistenMemory = MemoryAndBuffers.getActorsPesistenMemory(pdata.getActors());
-				b.append(String.format("| %d |   %d |         %.2f | %s                    \n", pNumber,
-						pdata.getActors().size(), pdata.getWorkload(), StringUtils.formatBytes(persistenMemory, true)));
-				pNumber++;
-			}
-
-			b.append("\n");
-			pNumber = 1;
-			for (WorkloadBalancePartition pdata : data.getPartitions()) {
-				b.append(String.format("## Partition - %d\n", pNumber++));
-				b.append(String.format("* **Workload**: %.2f\n", pdata.getWorkload()));
-				b.append("\n");
-				b.append("| **Actors** | \n");
-				b.append("|:--         | \n");
-				for (Actor actor : pdata.getActors()) {
-					b.append(String.format("| %s | \n", actor.getName()));
-				}
-			}
-
+			StringBuffer b = content(data);
+			
 			writer.write(b.toString());
 			writer.close();
 		} catch (IOException e) {

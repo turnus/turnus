@@ -57,9 +57,17 @@ import turnus.model.dataflow.Action;
 /**
  * 
  * @author Simone Casale Brunet
+ * @authro Endri Bezati
  *
  */
-public class Impact2XlsExporter implements FileExporter<ImpactAnalysisReport> {
+public class Impact2XlsExporter implements FileExporter<ImpactAnalysisReport, XSSFWorkbook> {
+
+	@Override
+	public XSSFWorkbook content(ImpactAnalysisReport report) {
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		write(workbook, report);
+		return workbook;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -79,8 +87,7 @@ public class Impact2XlsExporter implements FileExporter<ImpactAnalysisReport> {
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		write(workbook, report);
+		XSSFWorkbook workbook = content(report);
 
 		try {
 			workbook.write(fileOut);

@@ -21,6 +21,13 @@
             id="turnus.ui.exportWizard.graphML"
             name="GraphML file exporter">
       </wizard>
+      <wizard
+            category="turnus.ui.exportWizard"
+            class="turnus.ui.wizard.impl.HtmlFileExporterWizard"
+            icon="icon/report.png"
+            id="turnus.ui.exportWizard.html"
+            name="HTML file exporter">
+      </wizard>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
@@ -111,6 +118,33 @@
                      <test
                            forcePluginActivation="true"
                            property="turnus.file.exporter.toGRAPHML">
+                     </test>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="turnus.ui.command.fileExporter"
+               icon="icon/report.png"
+               id="turnus.ui.command.fileExporter.toHtml"
+               label="Export to HTML"
+               style="push"
+               tooltip="Export the data to html">
+            <parameter
+                  name="turnus.ui.command.fileExporter.outExtension"
+                  value="html">
+            </parameter>
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeMenuSelection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <test
+                           forcePluginActivation="true"
+                           property="turnus.file.exporter.toHTML">
                      </test>
                   </iterate>
                </with>
@@ -239,14 +273,14 @@
             class="turnus.ui.tester.FileExtensionTester"
             id="turnus.property.tester.file.extension"
             namespace="turnus.file.extension"
-            properties="isTRACE, isTRACEZ, isDPROF, isCPROF, isNET, isARCH, isNL, isXDF, isCAL, isTSIZE"
+            properties="isTRACE, isTRACEZ, isDPROF, isCPROF, isNET, isARCH, isNL, isXDF, isCAL, isTSIZE, isIPCOMM"
             type="org.eclipse.core.runtime.IAdaptable">
       </propertyTester>
       <propertyTester
             class="turnus.ui.tester.FileExporterTester"
             id="turnus.property.tester.file.exporter"
             namespace="turnus.file.exporter"
-            properties="toXLS, toGRAPHML"
+            properties="toXLS, toGRAPHML, toHTML"
             type="org.eclipse.core.runtime.IAdaptable">
       </propertyTester>
    </extension>

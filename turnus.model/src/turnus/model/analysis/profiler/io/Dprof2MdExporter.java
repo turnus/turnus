@@ -55,46 +55,14 @@ import turnus.model.dataflow.Buffer;
  * @author Simone Casale Brunet
  *
  */
-public class Dprof2MdExporter implements FileExporter<DynamicProfilingReport> {
+public class Dprof2MdExporter implements FileExporter<DynamicProfilingReport, StringBuffer> {
 
 	@Override
 	public void export(DynamicProfilingReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
 
-			StringBuffer b = new StringBuffer();
-			b.append("# Dynamic profiling analysis report\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-
-			b.append("## Actors operator calls\n");
-			b.append("| Actor | Class | Sum | Mean | Min | Max\n");
-			b.append("|:------|:------|:----|:-----|:----|:----\n");
-
-			List<ActorDynamicData> actorsData = new ArrayList<>(data.getActorsData());
-			for (ActorDynamicData d : actorsData) {
-				StatisticalData sum = StatisticalData.Util.sum(d.getOperandsCalls().values());
-				b.append(String.format("| %s | %s| %d | %s | %d | %d\n", d.getActor().getName(),
-						d.getActor().getActorClass().getName(), (long) sum.getSum(), StringUtils.format(sum.getMean()),
-						(long) sum.getMin(), (long) sum.getMax()));
-			}
-
-			b.append("## Buffers utilization\n");
-			List<BufferDynamicData> buffersData = new ArrayList<>(data.getBuffersData());
-
-			b.append("| Source || Target || Write  ||  Read || Unconsumed \n");
-			b.append("| Actor | Port | Actor | Port |  Sum |  Mean |  Sum | Mean | . \n");
-			b.append("|:------|:------|:----|:-----|:----|:----|:----|:----|:----\n");
-			for (BufferDynamicData buff : buffersData) {
-				Buffer buffer = buff.getBuffer();
-				b.append(String.format("| %s | %s | %s | %s |  %d | %s  | %d  | %s | %d \n",
-						buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
-						buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(),
-						(long) buff.getWrites().getSum(), StringUtils.format(buff.getWrites().getMean()),
-						(long) buff.getReads().getSum(), StringUtils.format(buff.getReads().getMean()),
-						buff.getUnconsumedTokens()));
-
-			}
-			b.append("\n");
+			StringBuffer b = content(data);
 
 			writer.write(b.toString());
 			writer.close();
@@ -111,6 +79,44 @@ public class Dprof2MdExporter implements FileExporter<DynamicProfilingReport> {
 			throw new TurnusException("The input file \"" + input + "\" is not a valid analysis file");
 		}
 		export(data, output);
+	}
+
+	@Override
+	public StringBuffer content(DynamicProfilingReport data) {
+		StringBuffer b = new StringBuffer();
+		b.append("# Dynamic profiling analysis report\n");
+		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+
+		b.append("## Actors operator calls\n");
+		b.append("| Actor | Class | Sum | Mean | Min | Max\n");
+		b.append("|:------|:------|:----|:-----|:----|:----\n");
+
+		List<ActorDynamicData> actorsData = new ArrayList<>(data.getActorsData());
+		for (ActorDynamicData d : actorsData) {
+			StatisticalData sum = StatisticalData.Util.sum(d.getOperandsCalls().values());
+			b.append(String.format("| %s | %s| %d | %s | %d | %d\n", d.getActor().getName(),
+					d.getActor().getActorClass().getName(), (long) sum.getSum(), StringUtils.format(sum.getMean()),
+					(long) sum.getMin(), (long) sum.getMax()));
+		}
+
+		b.append("## Buffers utilization\n");
+		List<BufferDynamicData> buffersData = new ArrayList<>(data.getBuffersData());
+
+		b.append("| Source || Target || Write  ||  Read || Unconsumed \n");
+		b.append("| Actor | Port | Actor | Port |  Sum |  Mean |  Sum | Mean | . \n");
+		b.append("|:------|:------|:----|:-----|:----|:----|:----|:----|:----\n");
+		for (BufferDynamicData buff : buffersData) {
+			Buffer buffer = buff.getBuffer();
+			b.append(String.format("| %s | %s | %s | %s |  %d | %s  | %d  | %s | %d \n",
+					buffer.getSource().getOwner().getName(), buffer.getSource().getName(),
+					buffer.getTarget().getOwner().getName(), buffer.getTarget().getName(),
+					(long) buff.getWrites().getSum(), StringUtils.format(buff.getWrites().getMean()),
+					(long) buff.getReads().getSum(), StringUtils.format(buff.getReads().getMean()),
+					buff.getUnconsumedTokens()));
+
+		}
+		b.append("\n");
+		return b;
 	}
 
 }

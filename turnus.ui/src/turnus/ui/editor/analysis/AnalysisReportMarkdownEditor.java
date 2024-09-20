@@ -40,12 +40,13 @@ import turnus.common.TurnusException;
 import turnus.common.io.FileExporter;
 import turnus.common.io.FileExporterFactory;
 import turnus.common.util.FileUtils;
+import turnus.model.utils.HtmlUtils;
 import turnus.ui.editor.AbstractBrowserEditor;
-import turnus.ui.util.HtmlUtils;
 
 /**
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class AnalysisReportMarkdownEditor extends AbstractBrowserEditor {
@@ -54,24 +55,24 @@ public class AnalysisReportMarkdownEditor extends AbstractBrowserEditor {
 		super();
 		if (Display.isSystemDarkTheme()) {
 			addStyle("darkmode.css");
-		}else {
+		} else {
 			addStyle("basic.css");
 		}
-		
+
 	}
 
 	@Override
 	protected String toHtml(IFile iFile) throws TurnusException {
 		try {
 			File output = FileUtils.createTempFile(iFile.getName(), ".md", true);
-			FileExporter<?> exporter = FileExporterFactory.INSTANCE.getExporter(iFile.getFileExtension(), "md");
+			FileExporter<?, ?> exporter = FileExporterFactory.INSTANCE.getExporter(iFile.getFileExtension(), "md");
 			exporter.export(FileUtils.getFile(iFile), output);
 			String md = FileUtils.toString(output);
 			try {
 				// try delete now the file
 				output.delete();
 			} catch (Exception e) {
-			} 
+			}
 			String string = HtmlUtils.markdown2Html(md);
 			return string;
 		} catch (Exception e) {

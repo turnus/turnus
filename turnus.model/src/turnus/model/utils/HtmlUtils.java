@@ -29,7 +29,7 @@
  * for the parts of Eclipse libraries used as well as that of the  covered work.
  * 
  */
-package turnus.ui.util;
+package turnus.model.utils;
 
 import java.io.InputStream;
 import java.util.Arrays;

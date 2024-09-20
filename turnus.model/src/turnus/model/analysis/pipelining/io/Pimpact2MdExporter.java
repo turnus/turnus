@@ -54,11 +54,76 @@ import turnus.model.analysis.pipelining.ImpactAnalysisReport;
 import turnus.model.dataflow.Action;
 
 /**
- * 
+ * The pipeline {@link ImpactAnalysisReport} MD file exporter
  * @author Simone Casale Brunet
  *
  */
-public class Pimpact2MdExporter implements FileExporter<ImpactAnalysisReport> {
+public class Pimpact2MdExporter implements FileExporter<ImpactAnalysisReport, StringBuffer> {
+
+	
+	
+	
+	
+	@Override
+	public StringBuffer content(ImpactAnalysisReport report) {
+		StringBuffer b = new StringBuffer();
+		b.append("# Pipelining algorithmic impact analysis analysis report\n");
+		b.append(String.format("* **Network**: %s\n", report.getNetwork().getName()));
+		b.append(String.format("* **Algorithm**: %s\n", report.getAlgorithm()));
+
+		Set<Action> pipelinables = new HashSet<>();
+		{
+			ActionsVariablePipeliningReport data = report.getPiplenablesActions();
+			if (data != null) {
+				for (ActionVariablePipeliningData d : data.getActionsData()) {
+					if (d.isPipelinable()) {
+						pipelinables.add(d.getAction());
+					}
+				}
+			}
+		}
+		b.append(String.format("* **Pipelinable actions**: %d\n", pipelinables.size()));
+
+		Set<Action> criticalActions = new HashSet<>();
+		{
+			BottlenecksReport data = report.getInitialBottlenecks();
+			if (data != null) {
+				for (ActionBottlenecksData d : data.getActionsData()) {
+					if (d.getCpWeight() > 0) {
+						criticalActions.add(d.getAction());
+					}
+				}
+			}
+		}
+		b.append(String.format("* **Critical actions**: %d\n", criticalActions.size()));
+
+		Set<Action> pipelinableAndCriticals = Sets.intersection(pipelinables, criticalActions);
+		b.append(String.format("* **Pipelinable and Critical actions**: %d\n", pipelinableAndCriticals.size()));
+
+		// and the table
+		b.append("\n## Pipelinable and critical actions\n");
+		b.append("|Actor | Action|\n");
+		b.append("|:---|:---\n");
+		for (Action action : pipelinableAndCriticals) {
+			b.append(String.format("| %s | %s\n", action.getOwner().getName(), action.getName()));
+		}
+
+		b.append("\n");
+
+		if (!pipelinableAndCriticals.isEmpty()) {
+			b.append("\n## Crirical path lenght reduction estimation\n");
+
+			b.append("|Actor | Action | Reduction\n");
+			b.append("|:---|:---|:---\n");
+			for (ImpactAnalysisData data : report.getImpactData()) {
+				Action action = data.getActions().get(0);
+				b.append(String.format("| %s | %s | %s\n", action.getOwner().getName(), action.getName(),
+						StringUtils.format(data.getCpReduction()) + "%"));
+			}
+			b.append("\n");
+		}
+		return b;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -75,62 +140,7 @@ public class Pimpact2MdExporter implements FileExporter<ImpactAnalysisReport> {
 		try {
 			FileWriter writer = new FileWriter(output);
 
-			StringBuffer b = new StringBuffer();
-			b.append("# Pipelining algorithmic impact analysis analysis report\n");
-			b.append(String.format("* **Network**: %s\n", report.getNetwork().getName()));
-			b.append(String.format("* **Algorithm**: %s\n", report.getAlgorithm()));
-
-			Set<Action> pipelinables = new HashSet<>();
-			{
-				ActionsVariablePipeliningReport data = report.getPiplenablesActions();
-				if (data != null) {
-					for (ActionVariablePipeliningData d : data.getActionsData()) {
-						if (d.isPipelinable()) {
-							pipelinables.add(d.getAction());
-						}
-					}
-				}
-			}
-			b.append(String.format("* **Pipelinable actions**: %d\n", pipelinables.size()));
-
-			Set<Action> criticalActions = new HashSet<>();
-			{
-				BottlenecksReport data = report.getInitialBottlenecks();
-				if (data != null) {
-					for (ActionBottlenecksData d : data.getActionsData()) {
-						if (d.getCpWeight() > 0) {
-							criticalActions.add(d.getAction());
-						}
-					}
-				}
-			}
-			b.append(String.format("* **Critical actions**: %d\n", criticalActions.size()));
-
-			Set<Action> pipelinableAndCriticals = Sets.intersection(pipelinables, criticalActions);
-			b.append(String.format("* **Pipelinable and Critical actions**: %d\n", pipelinableAndCriticals.size()));
-
-			// and the table
-			b.append("\n## Pipelinable and critical actions\n");
-			b.append("|Actor | Action|\n");
-			b.append("|:---|:---\n");
-			for (Action action : pipelinableAndCriticals) {
-				b.append(String.format("| %s | %s\n", action.getOwner().getName(), action.getName()));
-			}
-
-			b.append("\n");
-
-			if (!pipelinableAndCriticals.isEmpty()) {
-				b.append("\n## Crirical path lenght reduction estimation\n");
-
-				b.append("|Actor | Action | Reduction\n");
-				b.append("|:---|:---|:---\n");
-				for (ImpactAnalysisData data : report.getImpactData()) {
-					Action action = data.getActions().get(0);
-					b.append(String.format("| %s | %s | %s\n", action.getOwner().getName(), action.getName(),
-							StringUtils.format(data.getCpReduction()) + "%"));
-				}
-				b.append("\n");
-			}
+			StringBuffer b = content(report);
 
 			writer.write(b.toString());
 			writer.close();

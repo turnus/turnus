@@ -54,73 +54,79 @@ import turnus.model.dataflow.Action;
  * The {@link ImpactAnalysisReport} MD file exporter
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
-public class Impact2MdExporter implements FileExporter<ImpactAnalysisReport> {
+public class Impact2MdExporter implements FileExporter<ImpactAnalysisReport, StringBuffer> {
+
+	
+	@Override
+	public StringBuffer content(ImpactAnalysisReport data) {
+		StringBuffer b = new StringBuffer();
+		boolean classLevel = data.isClassLevel();
+
+		b.append("# Impact analysis report\n");
+		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+		b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
+		b.append(String.format("* **Class-level**: %s\n", classLevel));
+		b.append("\n");
+
+		List<ImpactAnalysisData> idata = new ArrayList<>(data.getImpactData());
+		Collections.sort(idata, new Comparator<ImpactAnalysisData>() {
+			@Override
+			public int compare(ImpactAnalysisData o1, ImpactAnalysisData o2) {
+				double v1 = 0;
+				double v2 = 0;
+
+				for (Double e : o1.getCpReductionMap().values()) {
+					v1 = Math.max(v1, e);
+				}
+
+				for (Double e : o2.getCpReductionMap().values()) {
+					v2 = Math.max(v2, e);
+				}
+
+				return -Double.compare(v1, v2);
+			}
+		});
+
+		for (ImpactAnalysisData i : idata) {
+			b.append("\n## Impact analysis number ").append(idata.indexOf(i) + 1);
+			if (classLevel) {
+				b.append("\n* **Actor class:** ").append(i.getActorClass().getName());
+				b.append("\n* **Actions:** ");
+				for (Action action : i.getActions()) {
+					b.append(" (").append(action.getOwner().getName()).append(",");
+					b.append(action.getName()).append(")");
+				}
+			} else {
+				Action action = i.getActions().get(0);
+				b.append("\n**Action:** ");
+				b.append(" (").append(action.getOwner().getName()).append(",");
+				b.append(action.getName()).append(")");
+			}
+
+			b.append("\n\n| Weight-reduction | CriticalPath-reduction \n");
+			b.append("|:----|:----\n");
+
+			Map<Double, Double> map = i.getCpReductionMap();
+			List<Double> ratios = new ArrayList<>(map.keySet());
+			Collections.sort(ratios);
+			for (double ratio : ratios) {
+				String reductionStr = StringUtils.format(map.get(ratio));
+				String ratioStr = StringUtils.format(ratio);
+				b.append(String.format("| %s | %s |\n", ratioStr, reductionStr));
+			}
+			b.append("[the weight reduction and the corresponding critical path length reduction]\n");
+		}
+		return b;
+	}
 
 	@Override
 	public void export(ImpactAnalysisReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
-
-			StringBuffer b = new StringBuffer();
-			boolean classLevel = data.isClassLevel();
-
-			b.append("# Impact analysis report\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
-			b.append(String.format("* **Class-level**: %s\n", classLevel));
-			b.append("\n");
-
-			List<ImpactAnalysisData> idata = new ArrayList<>(data.getImpactData());
-			Collections.sort(idata, new Comparator<ImpactAnalysisData>() {
-				@Override
-				public int compare(ImpactAnalysisData o1, ImpactAnalysisData o2) {
-					double v1 = 0;
-					double v2 = 0;
-
-					for (Double e : o1.getCpReductionMap().values()) {
-						v1 = Math.max(v1, e);
-					}
-
-					for (Double e : o2.getCpReductionMap().values()) {
-						v2 = Math.max(v2, e);
-					}
-
-					return -Double.compare(v1, v2);
-				}
-			});
-
-			for (ImpactAnalysisData i : idata) {
-				b.append("\n## Impact analysis number ").append(idata.indexOf(i) + 1);
-				if (classLevel) {
-					b.append("\n* **Actor class:** ").append(i.getActorClass().getName());
-					b.append("\n* **Actions:** ");
-					for (Action action : i.getActions()) {
-						b.append(" (").append(action.getOwner().getName()).append(",");
-						b.append(action.getName()).append(")");
-					}
-				} else {
-					Action action = i.getActions().get(0);
-					b.append("\n**Action:** ");
-					b.append(" (").append(action.getOwner().getName()).append(",");
-					b.append(action.getName()).append(")");
-				}
-
-				b.append("\n\n| Weight-reduction | CriticalPath-reduction \n");
-				b.append("|:----|:----\n");
-
-				Map<Double, Double> map = i.getCpReductionMap();
-				List<Double> ratios = new ArrayList<>(map.keySet());
-				Collections.sort(ratios);
-				for (double ratio : ratios) {
-					String reductionStr = StringUtils.format(map.get(ratio));
-					String ratioStr = StringUtils.format(ratio);
-					b.append(String.format("| %s | %s |\n", ratioStr, reductionStr));
-				}
-				b.append("[the weight reduction and the corresponding critical path length reduction]\n");
-			}
-
+			StringBuffer b = content(data);
 			
 			writer.write(b.toString());
 			writer.close();

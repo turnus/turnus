@@ -38,8 +38,7 @@ import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.TRACE_FILE;
-import static turnus.common.TurnusOptions.WRITE_HIT_CONSTANT;
-import static turnus.common.TurnusOptions.WRITE_MISS_CONSTANT;
+import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
@@ -59,6 +58,7 @@ import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
 import turnus.model.ModelsRegister;
 import turnus.model.analysis.profiling.InterPartitionCommunicationAndMemoryReport;
+import turnus.model.analysis.profiling.io.Ipcomm2HtmlExporter;
 import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.CommunicationWeight;
 import turnus.model.mapping.NetworkPartitioning;
@@ -206,7 +206,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 					outputPath = createOutputDirectory("profiling", configuration);
 				}
 				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.INTER_PARTITION_COMM_MEM_REPORT);
-
+				File htmlReport = changeExtension(reportFile, "html");
 				// -- Set path of the partition file
 				report.setMappingFile(mappingFile.getName());
 				// -- Set path of the buffer file
@@ -214,6 +214,8 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 
 				// -- Store the report
 				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
+				Ipcomm2HtmlExporter htmlExporter = new Ipcomm2HtmlExporter(); 
+				htmlExporter.export(reportFile, htmlReport);
 				Logger.info("Inter-partition communication and memory report stored in \"%s\"", reportFile);
 
 			} catch (Exception e) {

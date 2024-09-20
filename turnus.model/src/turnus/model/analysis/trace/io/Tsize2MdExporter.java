@@ -49,7 +49,7 @@ import turnus.model.analysis.trace.TraceSizeReport;
 import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
 
-public class Tsize2MdExporter implements FileExporter<TraceSizeReport> {
+public class Tsize2MdExporter implements FileExporter<TraceSizeReport, StringBuffer> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -62,111 +62,7 @@ public class Tsize2MdExporter implements FileExporter<TraceSizeReport> {
 		try {
 			FileWriter writer = new FileWriter(output);
 
-			StringBuffer b = new StringBuffer();
-			b.append("# Execution trace graph size\n");
-
-			b.append("* **Network**: ").append(report.getNetwork().getName()).append("\n");
-			b.append("* **Firings**: ").append(report.getFirings()).append("\n");
-			b.append("* **Dependencies**: ").append(report.getDependencies()).append("\n");
-			b.append("\n");
-
-			b.append("## Dependencies\n");
-
-			b.append("| Kind | Count|| \n");
-			b.append("|:---- |:----  |:----\n");
-			for (Entry<String, Long> e : report.getDependenciesKinds().entrySet()) {
-				double p = ((double) e.getValue()) / report.getDependencies() * 100;
-				b.append(String.format("| %s | %d | %s%s\n", e.getKey(), e.getValue(), StringUtils.format(p), "%"));
-			}
-			b.append("\n");
-
-			b.append("## Actors data\n");
-			List<Actor> actors = new ArrayList<>(report.getNetwork().getActors());
-			Collections.sort(actors, new Comparator<Actor>() {
-				@Override
-				public int compare(Actor o1, Actor o2) {
-					return o1.getName().compareTo(o2.getName());
-				}
-			});
-
-			b.append("| Actor | Firings|| Incomings|| Outgoings||\n");
-			b.append("|:---- |:----  |:---- |:---- |:---- |:---- |:----\n");
-			for (Actor actor : actors) {
-				String firings = "0";
-				String pFirings = "0%";
-				if (report.getActorsFirings().containsKey(actor)) {
-					long value = report.getActorsFirings().get(actor);
-					firings = Long.toString(value);
-					pFirings = StringUtils.format(((double) value) / report.getFirings() * 100.0);
-
-				}
-				String incomings = "0";
-				String pIncomings = "0%";
-				if (report.getActorsIncoming().containsKey(actor)) {
-					long value = report.getActorsIncoming().get(actor);
-					incomings = Long.toString(value);
-					pIncomings = StringUtils.format(((double) value) / report.getDependencies() * 100.0);
-				}
-
-				String outgoings = "0";
-				String pOutgoings = "0%";
-				if (report.getActorsOutgoings().containsKey(actor)) {
-					long value = report.getActorsOutgoings().get(actor);
-					outgoings = Long.toString(value);
-					pOutgoings = StringUtils.format(((double) value) / report.getDependencies() * 100.0);
-				}
-
-				b.append(String.format("| %s | %s | %s%s | %s | %s%s | %s | %s%s |\n", actor.getName(), firings, pFirings,
-						"%", incomings, pIncomings, "%", outgoings, pOutgoings, "%"));
-			}
-
-			b.append("## Actions data\n");
-			List<Action> actions = new ArrayList<>();
-			for (Actor actor : actors) {
-				actions.addAll(actor.getActions());
-			}
-			Collections.sort(actions, new Comparator<Action>() {
-
-				@Override
-				public int compare(Action o1, Action o2) {
-					int rc = o1.getOwner().getName().compareTo(o2.getOwner().getName());
-					if (rc == 0) {
-						rc = o1.getName().compareTo(o2.getName());
-					}
-					return rc;
-				}
-			});
-			b.append("| Actor | Action | Firings|| Incomings|| Outgoings||\n");
-			b.append("|:---- |:----  |:---- |:---- |:---- |:---- |:---- |:----\n");
-
-			for (Action action : actions) {
-				String firings = "0";
-				String pFirings = "0%";
-				if (report.getActionsFirings().containsKey(action)) {
-					long value = report.getActionsFirings().get(action);
-					firings = Long.toString(value);
-					pFirings = StringUtils.format(((double) value) / report.getFirings() * 100.0) +"%";
-
-				}
-				String incomings = "0";
-				String pIncomings = "0%";
-				if (report.getActionsIncomings().containsKey(action)) {
-					long value = report.getActionsIncomings().get(action);
-					incomings = Long.toString(value);
-					pIncomings = StringUtils.format(((double) value) / report.getDependencies() * 100.0) +"%";
-				}
-
-				String outgoings = "0";
-				String pOutgoings = "0%";
-				if (report.getActionsOutgoings().containsKey(action)) {
-					long value = report.getActionsOutgoings().get(action);
-					outgoings = Long.toString(value);
-					pOutgoings = StringUtils.format(((double) value) / report.getDependencies() * 100.0) +"%";
-				}
-
-				b.append(String.format("| %s | %s | %s | %s | %s | %s | %s | %s |\n", action.getOwner().getName(),
-						action.getName(), firings, pFirings, incomings, pIncomings, outgoings, pOutgoings));
-			}
+			StringBuffer b = content(report);
 
 			writer.write(b.toString());
 
@@ -175,6 +71,116 @@ public class Tsize2MdExporter implements FileExporter<TraceSizeReport> {
 			throw new TurnusException("Export fails", e);
 		}
 
+	}
+
+	@Override
+	public StringBuffer content(TraceSizeReport report) {
+		StringBuffer b = new StringBuffer();
+		b.append("# Execution trace graph size\n");
+
+		b.append("* **Network**: ").append(report.getNetwork().getName()).append("\n");
+		b.append("* **Firings**: ").append(report.getFirings()).append("\n");
+		b.append("* **Dependencies**: ").append(report.getDependencies()).append("\n");
+		b.append("\n");
+
+		b.append("## Dependencies\n");
+
+		b.append("| Kind | Count|| \n");
+		b.append("|:---- |:----  |:----\n");
+		for (Entry<String, Long> e : report.getDependenciesKinds().entrySet()) {
+			double p = ((double) e.getValue()) / report.getDependencies() * 100;
+			b.append(String.format("| %s | %d | %s%s\n", e.getKey(), e.getValue(), StringUtils.format(p), "%"));
+		}
+		b.append("\n");
+
+		b.append("## Actors data\n");
+		List<Actor> actors = new ArrayList<>(report.getNetwork().getActors());
+		Collections.sort(actors, new Comparator<Actor>() {
+			@Override
+			public int compare(Actor o1, Actor o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
+
+		b.append("| Actor | Firings|| Incomings|| Outgoings||\n");
+		b.append("|:---- |:----  |:---- |:---- |:---- |:---- |:----\n");
+		for (Actor actor : actors) {
+			String firings = "0";
+			String pFirings = "0%";
+			if (report.getActorsFirings().containsKey(actor)) {
+				long value = report.getActorsFirings().get(actor);
+				firings = Long.toString(value);
+				pFirings = StringUtils.format(((double) value) / report.getFirings() * 100.0);
+
+			}
+			String incomings = "0";
+			String pIncomings = "0%";
+			if (report.getActorsIncoming().containsKey(actor)) {
+				long value = report.getActorsIncoming().get(actor);
+				incomings = Long.toString(value);
+				pIncomings = StringUtils.format(((double) value) / report.getDependencies() * 100.0);
+			}
+
+			String outgoings = "0";
+			String pOutgoings = "0%";
+			if (report.getActorsOutgoings().containsKey(actor)) {
+				long value = report.getActorsOutgoings().get(actor);
+				outgoings = Long.toString(value);
+				pOutgoings = StringUtils.format(((double) value) / report.getDependencies() * 100.0);
+			}
+
+			b.append(String.format("| %s | %s | %s%s | %s | %s%s | %s | %s%s |\n", actor.getName(), firings, pFirings,
+					"%", incomings, pIncomings, "%", outgoings, pOutgoings, "%"));
+		}
+
+		b.append("## Actions data\n");
+		List<Action> actions = new ArrayList<>();
+		for (Actor actor : actors) {
+			actions.addAll(actor.getActions());
+		}
+		Collections.sort(actions, new Comparator<Action>() {
+
+			@Override
+			public int compare(Action o1, Action o2) {
+				int rc = o1.getOwner().getName().compareTo(o2.getOwner().getName());
+				if (rc == 0) {
+					rc = o1.getName().compareTo(o2.getName());
+				}
+				return rc;
+			}
+		});
+		b.append("| Actor | Action | Firings|| Incomings|| Outgoings||\n");
+		b.append("|:---- |:----  |:---- |:---- |:---- |:---- |:---- |:----\n");
+
+		for (Action action : actions) {
+			String firings = "0";
+			String pFirings = "0%";
+			if (report.getActionsFirings().containsKey(action)) {
+				long value = report.getActionsFirings().get(action);
+				firings = Long.toString(value);
+				pFirings = StringUtils.format(((double) value) / report.getFirings() * 100.0) + "%";
+
+			}
+			String incomings = "0";
+			String pIncomings = "0%";
+			if (report.getActionsIncomings().containsKey(action)) {
+				long value = report.getActionsIncomings().get(action);
+				incomings = Long.toString(value);
+				pIncomings = StringUtils.format(((double) value) / report.getDependencies() * 100.0) + "%";
+			}
+
+			String outgoings = "0";
+			String pOutgoings = "0%";
+			if (report.getActionsOutgoings().containsKey(action)) {
+				long value = report.getActionsOutgoings().get(action);
+				outgoings = Long.toString(value);
+				pOutgoings = StringUtils.format(((double) value) / report.getDependencies() * 100.0) + "%";
+			}
+
+			b.append(String.format("| %s | %s | %s | %s | %s | %s | %s | %s |\n", action.getOwner().getName(),
+					action.getName(), firings, pFirings, incomings, pIncomings, outgoings, pOutgoings));
+		}
+		return b;
 	}
 
 }

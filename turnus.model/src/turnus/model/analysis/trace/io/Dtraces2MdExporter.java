@@ -48,7 +48,7 @@ import turnus.model.analysis.trace.ComparedTrace;
 import turnus.model.analysis.trace.CompressedTraceReport;
 import turnus.model.analysis.trace.TraceComparatorReport;
 
-public class Dtraces2MdExporter implements FileExporter<TraceComparatorReport> {
+public class Dtraces2MdExporter implements FileExporter<TraceComparatorReport, StringBuffer> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -61,65 +61,8 @@ public class Dtraces2MdExporter implements FileExporter<TraceComparatorReport> {
 	public void export(TraceComparatorReport report, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
-			StringBuffer b = new StringBuffer();
-			b.append("# Trace comparator report\n");
 
-			CompressedTraceReport ref = report.getReference();
-			List<ComparedTrace> traces = new ArrayList<>(report.getTraces());
-
-			b.append("## Traces\n");
-			b.append("| ID | Trace file | Equal | Network name \n");
-			b.append("|:---|:---|:---\n");
-			b.append(String.format("| Reference | %s | | %s\n", ref.getTraceFile(), ref.getNetwork().getName()));
-
-			for (ComparedTrace trace : traces) {
-				int id = traces.indexOf(trace);
-				CompressedTraceReport cTrace = trace.getCompressedTrace();
-				b.append(String.format("| %d | %s | %b | %s\n", id, cTrace.getTraceFile(), trace.isEqual(),
-						cTrace.getNetwork().getName()));
-			}
-			b.append("\n");
-
-			b.append("## Differences\n");
-			b.append("| ID |  dSteps | dDependencies \n");
-			b.append("|:---|:---|:---\n");
-			for (ComparedTrace trace : traces) {
-				int id = traces.indexOf(trace);
-				b.append(String.format("| %d | %d | %d\n", id, trace.getDSteps(), trace.getDDependencies()));
-			}
-			b.append("\n");
-
-			for (ComparedTrace trace : traces) {
-				b.append("### Trace ").append(traces.indexOf(trace)).append("\n");
-				b.append("**file**: ").append(trace.getCompressedTrace().getTraceFile()).append("\n");
-				b.append("\n");
-				
-				List<ComparedAction> actions = new ArrayList<>(trace.getActions());
-				Collections.sort(actions, new Comparator<ComparedAction>() {
-					@Override
-					public int compare(ComparedAction o1, ComparedAction o2) {
-						if (o1.isFound() != o2.isFound()) {
-							return Boolean.compare(o1.isFound(), o2.isFound());
-						} else if (o1.getDSteps() != o2.getDSteps()) {
-							return -Long.compare(o1.getDSteps(), o2.getDSteps());
-						} else if (o1.getDIncomings() != o2.getDIncomings()) {
-							return -Long.compare(o1.getDIncomings(), o2.getDIncomings());
-						} else {
-							return -Long.compare(o1.getDOutgoings(), o2.getDOutgoings());
-						}
-					}
-				});
-				
-				
-				b.append("| Actor |  Action | Found | dSteps | dIncomings | dOutgoings \n");
-				b.append("|:---|:---|:---|:---|:---|:---\n");
-				for(ComparedAction action : actions){
-					String actorName = action.getAction().getOwner().getName();
-					String actionName = action.getAction().getName();
-					b.append(String.format("| %s | %s | %b | %d | %d | %d\n", actorName, actionName, action.isFound(), action.getDSteps(), action.getDIncomings(), action.getDOutgoings()));
-				}
-				b.append("\n");
-			}
+			StringBuffer b = content(report);
 
 			writer.write(b.toString());
 			writer.close();
@@ -127,6 +70,70 @@ public class Dtraces2MdExporter implements FileExporter<TraceComparatorReport> {
 			throw new TurnusException("Export fails", e);
 		}
 
+	}
+
+	@Override
+	public StringBuffer content(TraceComparatorReport report) {
+		StringBuffer b = new StringBuffer();
+		b.append("# Trace comparator report\n");
+
+		CompressedTraceReport ref = report.getReference();
+		List<ComparedTrace> traces = new ArrayList<>(report.getTraces());
+
+		b.append("## Traces\n");
+		b.append("| ID | Trace file | Equal | Network name \n");
+		b.append("|:---|:---|:---\n");
+		b.append(String.format("| Reference | %s | | %s\n", ref.getTraceFile(), ref.getNetwork().getName()));
+
+		for (ComparedTrace trace : traces) {
+			int id = traces.indexOf(trace);
+			CompressedTraceReport cTrace = trace.getCompressedTrace();
+			b.append(String.format("| %d | %s | %b | %s\n", id, cTrace.getTraceFile(), trace.isEqual(),
+					cTrace.getNetwork().getName()));
+		}
+		b.append("\n");
+
+		b.append("## Differences\n");
+		b.append("| ID |  dSteps | dDependencies \n");
+		b.append("|:---|:---|:---\n");
+		for (ComparedTrace trace : traces) {
+			int id = traces.indexOf(trace);
+			b.append(String.format("| %d | %d | %d\n", id, trace.getDSteps(), trace.getDDependencies()));
+		}
+		b.append("\n");
+
+		for (ComparedTrace trace : traces) {
+			b.append("### Trace ").append(traces.indexOf(trace)).append("\n");
+			b.append("**file**: ").append(trace.getCompressedTrace().getTraceFile()).append("\n");
+			b.append("\n");
+
+			List<ComparedAction> actions = new ArrayList<>(trace.getActions());
+			Collections.sort(actions, new Comparator<ComparedAction>() {
+				@Override
+				public int compare(ComparedAction o1, ComparedAction o2) {
+					if (o1.isFound() != o2.isFound()) {
+						return Boolean.compare(o1.isFound(), o2.isFound());
+					} else if (o1.getDSteps() != o2.getDSteps()) {
+						return -Long.compare(o1.getDSteps(), o2.getDSteps());
+					} else if (o1.getDIncomings() != o2.getDIncomings()) {
+						return -Long.compare(o1.getDIncomings(), o2.getDIncomings());
+					} else {
+						return -Long.compare(o1.getDOutgoings(), o2.getDOutgoings());
+					}
+				}
+			});
+
+			b.append("| Actor |  Action | Found | dSteps | dIncomings | dOutgoings \n");
+			b.append("|:---|:---|:---|:---|:---|:---\n");
+			for (ComparedAction action : actions) {
+				String actorName = action.getAction().getOwner().getName();
+				String actionName = action.getAction().getName();
+				b.append(String.format("| %s | %s | %b | %d | %d | %d\n", actorName, actionName, action.isFound(),
+						action.getDSteps(), action.getDIncomings(), action.getDOutgoings()));
+			}
+			b.append("\n");
+		}
+		return b;
 	}
 
 }

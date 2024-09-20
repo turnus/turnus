@@ -53,11 +53,23 @@ import turnus.model.analysis.partitioning.ComCostPartitioningReport;
 import turnus.model.dataflow.Actor;
 
 /**
+ * The {@link ComCostPartitioningReport} XLS file exporter
  * 
- * @author @author Simone Casale Brunet
+ * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
-public class Pcomm2XlsExporter implements FileExporter<ComCostPartitioningReport> {
+public class Pcomm2XlsExporter implements FileExporter<ComCostPartitioningReport, XSSFWorkbook> {
+
+	
+	
+	
+	@Override
+	public XSSFWorkbook content(ComCostPartitioningReport report) {
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		writeSummary(workbook, report);
+		return workbook;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -77,8 +89,7 @@ public class Pcomm2XlsExporter implements FileExporter<ComCostPartitioningReport
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		writeSummary(workbook, report);
+		XSSFWorkbook workbook = content(report);
 
 		try {
 			workbook.write(fileOut);

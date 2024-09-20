@@ -40,13 +40,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import turnus.common.TurnusException;
 import turnus.common.io.FileExporter;
@@ -58,9 +57,9 @@ import turnus.model.analysis.bottlenecks.BottlenecksReport;
 /**
  * 
  * @author Simone Casale Brunet
- *
+ * @author Endri Bezati
  */
-public class Bottlenecks2XlsExporter implements FileExporter<BottlenecksReport> {
+public class Bottlenecks2XlsExporter implements FileExporter<BottlenecksReport, XSSFWorkbook> {
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -80,10 +79,8 @@ public class Bottlenecks2XlsExporter implements FileExporter<BottlenecksReport> 
 		} catch (Exception e) {
 			throw new TurnusException("The output file \"" + output + "\" cannot be generated");
 		}
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		writeSummary(workbook, report);
-		writeActionsData(workbook, report);
-
+		XSSFWorkbook workbook = content(report);
+		
 		try {
 			workbook.write(fileOut);
 		} catch (Exception e) {
@@ -282,6 +279,15 @@ public class Bottlenecks2XlsExporter implements FileExporter<BottlenecksReport> 
 
 		}
 
+	}
+
+	@Override
+	public XSSFWorkbook content(BottlenecksReport report) {
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		writeSummary(workbook, report);
+		writeActionsData(workbook, report);
+		
+		return workbook;
 	}
 
 }

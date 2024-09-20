@@ -48,7 +48,7 @@ import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 
 import turnus.common.TurnusException;
-import turnus.ui.util.HtmlUtils;
+import turnus.model.utils.HtmlUtils;
 
 /**
  * This class defines an extensible browser editor.

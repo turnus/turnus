@@ -218,6 +218,7 @@ public class FileUtils {
 			if (!extension.startsWith(".")) {
 				extension = "." + extension;
 			}
+			name = name.replaceAll("/", "_");
 			return new File(path, name + extension);
 		} catch (Exception e) {
 			throw new TurnusException("Impossible to create a file in \"" + path + "\"  with name \"" + name

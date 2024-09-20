@@ -54,10 +54,75 @@ import turnus.model.dataflow.Action;
  * The {@link ScheduledImpactAnalysisReport} MD file exporter
  * 
  * @author Malgorzata Michalska
+ * @author Endri Bezati
  *
  */
-public class ScheduledImpact2MdExporter implements FileExporter<ScheduledImpactAnalysisReport> {
-	
+public class ScheduledImpact2MdExporter implements FileExporter<ScheduledImpactAnalysisReport, StringBuffer> {
+
+	@Override
+	public StringBuffer content(ScheduledImpactAnalysisReport data) {
+		StringBuffer b = new StringBuffer();
+		boolean classLevel = data.isClassLevel();
+
+		b.append("# Scheduled impact analysis report\n");
+		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
+		b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
+		b.append(String.format("* **Class-level**: %s\n", classLevel));
+		b.append("\n");
+
+		List<ScheduledImpactAnalysisData> sidata = new ArrayList<>(data.getScheduledImpactData());
+		Collections.sort(sidata, new Comparator<ScheduledImpactAnalysisData>() {
+			@Override
+			public int compare(ScheduledImpactAnalysisData o1, ScheduledImpactAnalysisData o2) {
+				double v1 = 0;
+				double v2 = 0;
+
+				for (Double e : o1.getCpReductionMap().values()) {
+					v1 = Math.max(v1, e);
+				}
+
+				for (Double e : o2.getCpReductionMap().values()) {
+					v2 = Math.max(v2, e);
+				}
+
+				return -Double.compare(v1, v2);
+			}
+		});
+
+		for (ScheduledImpactAnalysisData si : sidata) {
+			b.append("\n## Scheduled impact analysis number ").append(sidata.indexOf(si) + 1);
+			if (classLevel) {
+				b.append("\n* **Actor class:** ").append(si.getActorClass().getName());
+				b.append("\n* **Actions:** ");
+				for (Action action : si.getActions()) {
+					b.append(" (").append(action.getOwner().getName()).append(",");
+					b.append(action.getName()).append(")");
+				}
+			} else {
+				Action action = si.getActions().get(0);
+				b.append("\n**Action:** ");
+				b.append(" (").append(action.getOwner().getName()).append(",");
+				b.append(action.getName()).append(")");
+			}
+
+			b.append("\n\n| Weight-reduction | Time-reduction | CriticalPath-reduction \n");
+			b.append("|:----|:----|:----\n");
+
+			Map<Double, Double> time = si.getTimeReductionMap();
+			Map<Double, Double> cp = si.getCpReductionMap();
+			List<Double> ratios = new ArrayList<>(cp.keySet());
+			Collections.sort(ratios);
+			for (double ratio : ratios) {
+				String cpReductionStr = (cp.containsKey(ratio)) ? StringUtils.format(cp.get(ratio)) : " ";
+				String etReductionStr = (time.containsKey(ratio)) ? StringUtils.format(time.get(ratio)) : " ";
+				String ratioStr = StringUtils.format(ratio);
+				b.append(String.format("| %s | %s | %s |\n", ratioStr, etReductionStr, cpReductionStr));
+			}
+			b.append("[the weight reduction and the corresponding critical path length reduction]\n");
+		}
+		return b;
+	}
+
 	@Override
 	public void export(File input, File output) throws TurnusException {
 		ScheduledImpactAnalysisReport data = EcoreUtils.loadEObject(new ResourceSetImpl(), input);
@@ -72,67 +137,8 @@ public class ScheduledImpact2MdExporter implements FileExporter<ScheduledImpactA
 		try {
 			FileWriter writer = new FileWriter(output);
 
-			StringBuffer b = new StringBuffer();
-			boolean classLevel = data.isClassLevel();
+			StringBuffer b = content(data);
 
-			b.append("# Scheduled impact analysis report\n");
-			b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
-			b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
-			b.append(String.format("* **Class-level**: %s\n", classLevel));
-			b.append("\n");
-
-			List<ScheduledImpactAnalysisData> sidata = new ArrayList<>(data.getScheduledImpactData());
-			Collections.sort(sidata, new Comparator<ScheduledImpactAnalysisData>() {
-				@Override
-				public int compare(ScheduledImpactAnalysisData o1, ScheduledImpactAnalysisData o2) {
-					double v1 = 0;
-					double v2 = 0;
-
-					for (Double e : o1.getCpReductionMap().values()) {
-						v1 = Math.max(v1, e);
-					}
-
-					for (Double e : o2.getCpReductionMap().values()) {
-						v2 = Math.max(v2, e);
-					}
-
-					return -Double.compare(v1, v2);
-				}
-			});
-
-			for (ScheduledImpactAnalysisData si : sidata) {
-				b.append("\n## Scheduled impact analysis number ").append(sidata.indexOf(si) + 1);
-				if (classLevel) {
-					b.append("\n* **Actor class:** ").append(si.getActorClass().getName());
-					b.append("\n* **Actions:** ");
-					for (Action action : si.getActions()) {
-						b.append(" (").append(action.getOwner().getName()).append(",");
-						b.append(action.getName()).append(")");
-					}
-				} else {
-					Action action = si.getActions().get(0);
-					b.append("\n**Action:** ");
-					b.append(" (").append(action.getOwner().getName()).append(",");
-					b.append(action.getName()).append(")");
-				}
-
-				b.append("\n\n| Weight-reduction | Time-reduction | CriticalPath-reduction \n");
-				b.append("|:----|:----|:----\n");
-
-				Map<Double, Double> time = si.getTimeReductionMap();
-				Map<Double, Double> cp = si.getCpReductionMap();
-				List<Double> ratios = new ArrayList<>(cp.keySet());
-				Collections.sort(ratios);
-				for (double ratio : ratios) {
-					String cpReductionStr = (cp.containsKey(ratio)) ? StringUtils.format(cp.get(ratio)) : " ";
-					String etReductionStr = (time.containsKey(ratio)) ? StringUtils.format(time.get(ratio)) : " ";
-					String ratioStr = StringUtils.format(ratio);
-					b.append(String.format("| %s | %s | %s |\n", ratioStr, etReductionStr, cpReductionStr));
-				}
-				b.append("[the weight reduction and the corresponding critical path length reduction]\n");
-			}
-
-			
 			writer.write(b.toString());
 			writer.close();
 		} catch (Exception e) {

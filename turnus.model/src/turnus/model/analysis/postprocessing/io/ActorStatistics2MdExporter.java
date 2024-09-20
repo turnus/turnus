@@ -54,7 +54,15 @@ import turnus.model.dataflow.Variable;
  * @author Endri Bezati
  *
  */
-public class ActorStatistics2MdExporter implements FileExporter<ActorStatisticsReport> {
+public class ActorStatistics2MdExporter implements FileExporter<ActorStatisticsReport, StringBuffer> {
+
+	@Override
+	public StringBuffer content(ActorStatisticsReport data) {
+		StringBuffer b = new StringBuffer();
+
+		b.append(report(data, true));
+		return b;
+	}
 
 	@Override
 	public void export(File input, File output) throws TurnusException {
@@ -70,9 +78,7 @@ public class ActorStatistics2MdExporter implements FileExporter<ActorStatisticsR
 	public void export(ActorStatisticsReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
-			StringBuffer b = new StringBuffer();
-
-			b.append(report(data, true));
+			StringBuffer b = content(data);
 
 			writer.write(b.toString());
 			writer.close();
@@ -110,7 +116,7 @@ public class ActorStatistics2MdExporter implements FileExporter<ActorStatisticsR
 		b.append(String.format("* **Standard deviation of occupancy**: %.2f", data.getOccupancyDeviation()) + "%\n");
 		b.append("\n");
 
-		for(String id : data.getPartitions().keySet()) {
+		for (String id : data.getPartitions().keySet()) {
 			StatisticalActorPartition partition = data.getPartitions().get(id);
 			if (isParent) {
 				b.append(String.format("## Partition - %s\n", id));
@@ -119,22 +125,22 @@ public class ActorStatistics2MdExporter implements FileExporter<ActorStatisticsR
 			}
 			b.append("\n");
 			b.append(String.format("* **Occupancy**: %.2f", partition.getOccupancy()) + "%\n");
-			
-			
+
 			long partitionPersitentMemory = 0;
 			for (String actorName : partition.getActors()) {
 				Actor actor = data.getNetwork().getActor(actorName);
-				for(Variable variable : actor.getVariables()) {
-					if(variable.isPersistent()) {
+				for (Variable variable : actor.getVariables()) {
+					if (variable.isPersistent()) {
 						Type type = variable.getType();
 						long bits = type.getBits();
-						partitionPersitentMemory+= bits;
+						partitionPersitentMemory += bits;
 					}
 				}
 			}
-			b.append(String.format("* **Persistent Memory**: %s\n", StringUtils.formatBytes(partitionPersitentMemory, true)));
+			b.append(String.format("* **Persistent Memory**: %s\n",
+					StringUtils.formatBytes(partitionPersitentMemory, true)));
 			b.append(String.format("* **Scheduling Policy**: %s\n", partition.getSchedulingPolicy()));
-			
+
 			b.append("\n");
 			b.append("| Actor | Processing | Schedulable | Blocked Reading | Blocked Writing \n");
 			b.append("|:--    | --:        | --:         | --:             | --:             \n");

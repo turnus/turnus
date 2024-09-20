@@ -11,8 +11,10 @@ import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
 import turnus.model.analysis.scheduling.MarkovSimpleSchedulerReport;
 
-public class Mvsched2MdExporter  implements FileExporter<MarkovSimpleSchedulerReport> {
+public class Mvsched2MdExporter  implements FileExporter<MarkovSimpleSchedulerReport, StringBuffer> {
 
+	
+	
 	@Override
 	public void export(File input, File output) throws TurnusException {
 		MarkovSimpleSchedulerReport data = EcoreUtils.loadEObject(new ResourceSetImpl(), input);
@@ -23,10 +25,10 @@ public class Mvsched2MdExporter  implements FileExporter<MarkovSimpleSchedulerRe
 	}
 
 	@Override
-	public void export(MarkovSimpleSchedulerReport object, File output) throws TurnusException {
+	public void export(MarkovSimpleSchedulerReport data, File output) throws TurnusException {
 		try {
 			FileWriter writer = new FileWriter(output);
-			StringBuffer b = new StringBuffer();
+			StringBuffer b = content(data);
 			
 			
 			writer.write(b.toString());
@@ -35,6 +37,13 @@ public class Mvsched2MdExporter  implements FileExporter<MarkovSimpleSchedulerRe
 			Logger.warning("The \"" + output + "\" output file has not been correctly written");
 		}
 		
+	}
+
+	@Override
+	public StringBuffer content(MarkovSimpleSchedulerReport data) {
+		StringBuffer b = new StringBuffer();
+		// -- TODO : Implement me
+		return b;
 	}
 
 }
