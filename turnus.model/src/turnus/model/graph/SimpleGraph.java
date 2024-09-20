@@ -74,9 +74,9 @@ public class SimpleGraph<V> {
 	}
 
 	public Collection<V> getAdjacentVertices(V vertex) {
-        return edges.getOrDefault(vertex, new ArrayList<>());
-    }
-	
+		return edges.getOrDefault(vertex, new ArrayList<>());
+	}
+
 	public boolean addEdge(V source, V target) {
 		if (vertices.contains(source) && vertices.contains(target)) {
 			if (!edges.containsKey(source)) {
@@ -88,6 +88,51 @@ public class SimpleGraph<V> {
 			return false;
 		}
 
+	}
+
+	// Function to detect and remove cycles
+	public void detectAndRemoveCycles() {
+		Set<V> visited = new HashSet<>();
+		Set<V> recStack = new HashSet<>();
+		for (V vertex : vertices) {
+			if (detectCycleUtil(vertex, visited, recStack)) {
+				removeCycle(vertex, recStack);
+			}
+		}
+	}
+
+	// Utility function to detect cycle
+	private boolean detectCycleUtil(V v, Set<V> visited, Set<V> recStack) {
+		if (recStack.contains(v)) {
+			return true;
+		}
+		if (visited.contains(v)) {
+			return false;
+		}
+		visited.add(v);
+		recStack.add(v);
+		if (edges.containsKey(v)) {
+			for (V neighbor : edges.get(v)) {
+				if (detectCycleUtil(neighbor, visited, recStack)) {
+					return true;
+				}
+			}
+		}
+		recStack.remove(v);
+		return false;
+	}
+
+	// Function to remove cycle
+	private void removeCycle(V start, Set<V> recStack) {
+		V current = start;
+		while (recStack.contains(current)) {
+			if (edges.get(current).isEmpty()) {
+				break;
+			}
+			V next = edges.get(current).iterator().next();
+			edges.get(current).remove(next);
+			current = next;
+		}
 	}
 
 	// The function to do Topological Sort. It uses
@@ -154,13 +199,13 @@ public class SimpleGraph<V> {
 	public static <V> void dfs(V vertex, SimpleGraph<V> directedGraph, Stack<V> stack, Set<V> visited) {
 		visited.add(vertex);
 
-        for (V neighbor : directedGraph.getAdjacentVertices(vertex)) {
-            if (!visited.contains(neighbor)) {
-                dfs(neighbor, directedGraph, stack, visited);
-            }
-        }
+		for (V neighbor : directedGraph.getAdjacentVertices(vertex)) {
+			if (!visited.contains(neighbor)) {
+				dfs(neighbor, directedGraph, stack, visited);
+			}
+		}
 
-        stack.push(vertex);
+		stack.push(vertex);
 	}
-	
+
 }

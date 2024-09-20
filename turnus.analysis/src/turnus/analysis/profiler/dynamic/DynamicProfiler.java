@@ -86,7 +86,7 @@ public class DynamicProfiler {
 	/** the number of successors. Used to generate the {@link Step#getId()} */
 	private long firing;
 	/** the network under profiling */
-	private Network network;
+	protected Network network;
 	/** the output directory */
 	private File outPath;
 	/** the profiled actors */
