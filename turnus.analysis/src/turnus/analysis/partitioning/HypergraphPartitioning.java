@@ -399,7 +399,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 	private void processTrace() {
 
 		for (Buffer buffer : project.getNetwork().getBuffers()) {
-			bufferVolume.put(buffer, 0L);
+			bufferVolume.put(buffer, 1L);
 		}
 
 		for (Actor actor : project.getNetwork().getActors()) {
@@ -421,6 +421,7 @@ public class HypergraphPartitioning extends Analysis<MetisPartitioningReport> {
 			actorWorkload.put(actor, sum);
 		}
 
+	
 	}
 
 	@Override

@@ -39,8 +39,9 @@ import static turnus.common.TurnusExtensions.TRACE;
 import static turnus.common.TurnusExtensions.TRACEZ;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
-import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
+import static turnus.common.TurnusOptions.MAPPING_AS_ANALYSIS_NAME;
+import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 
@@ -71,7 +72,6 @@ import turnus.ui.wizard.AbstractWizardPage;
 
 public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard implements IWorkbenchWizard {
 
-	
 	private class ToggleListener implements ModifyListener {
 		final private WidgetSelectFileCombo fileSelector;
 
@@ -104,7 +104,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard i
 		}
 
 	}
-	
+
 	/**
 	 * The unique file page which contains the input and output file widgets
 	 * 
@@ -120,7 +120,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard i
 		private WidgetCheckBox wSourceOwnsOutgoingBuffers;
 		private WidgetSelectFileCombo wCommunicationFile;
 		private WidgetCheckBox wUseCommunication;
-
+		private WidgetCheckBox wSameNameAsMapping;
 
 		private OptionsPage() {
 			super("Inter-Partition communciation and memory analysis");
@@ -198,11 +198,14 @@ public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard i
 			wUseCommunication.addModifyListener(new ToggleListener(wCommunicationFile));
 
 			addWidget(wCommunicationFile);
-			
-			
+
 			wSourceOwnsOutgoingBuffers = new WidgetCheckBox("Source partition owns outgoing buffers",
 					"Source partition owns outgoing buffers", false, container);
 			addWidget(wSourceOwnsOutgoingBuffers);
+
+			wSameNameAsMapping = new WidgetCheckBox("Use the same name for the report as the mapping file",
+					"Use the same name for the report as the mapping file", false, container);
+			addWidget(wSameNameAsMapping);
 
 		}
 
@@ -225,12 +228,16 @@ public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard i
 		public boolean getSourceOwnsOutgoingBuffers() {
 			return wSourceOwnsOutgoingBuffers.getValue();
 		}
-		
+
+		public boolean getSameNameAsMapping() {
+			return wSameNameAsMapping.getValue();
+		}
+
 		public File getCommunicationWeightFile() {
-			if(wUseCommunication.getValue()) {
+			if (wUseCommunication.getValue()) {
 				return wCommunicationFile.getValue();
-				
-			}else {
+
+			} else {
 				return null;
 			}
 		}
@@ -238,23 +245,21 @@ public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard i
 	}
 
 	private OptionsPage optionsPage;
-	
-	
+
 	public InterPartitionCommunicationAndMemoryAnalysisWizard() {
 		super();
 		optionsPage = new OptionsPage();
 		setNeedsProgressMonitor(true);
 		EclipseUtils.openDefaultConsole();
 	}
-	
-	
+
 	@Override
 	public void addPages() {
 		addPage(optionsPage);
 	}
-	
+
 	@Override
-	public void init(IWorkbench workbench, IStructuredSelection selection) {		
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
 	}
 
 	@Override
@@ -266,6 +271,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard i
 		configuration.setValue(BUFFER_SIZE_FILE, optionsPage.getBufferSizeFile());
 		configuration.setValue(COMMUNICATION_WEIGHTS, optionsPage.getCommunicationWeightFile());
 		configuration.setValue(OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION, optionsPage.getSourceOwnsOutgoingBuffers());
+		configuration.setValue(MAPPING_AS_ANALYSIS_NAME, optionsPage.getSameNameAsMapping());
 
 		final Job job = new Job("Inter partition communication and memory analysis") {
 			@Override
@@ -273,14 +279,13 @@ public class InterPartitionCommunicationAndMemoryAnalysisWizard extends Wizard i
 				try {
 					new InterPartitionCommunicationAndMemoryAnalysisCli().start(configuration, monitor);
 					EclipseUtils.refreshWorkspace(monitor);
-				}catch (Exception e) {
+				} catch (Exception e) {
 					Logger.error(e.getMessage());
 				}
 				return Status.OK_STATUS;
 			}
 		};
-		
-		
+
 		job.setUser(true);
 		job.schedule();
 

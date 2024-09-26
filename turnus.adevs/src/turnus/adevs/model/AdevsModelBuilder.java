@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import turnus.adevs.schedulers.DataDemandDrivenPartition;
@@ -96,7 +97,10 @@ public class AdevsModelBuilder {
 		TraceDecorator traceDecorator = traceProject.getTraceDecorator();
 		AdevsModel model = new AdevsModel();
 		PortsIdentifier portsIdentifier = new PortsIdentifier(network);
-
+		Map<String, List<String>> partitionMap = partitioning.asPartitionActorsMap();
+		
+		
+		
 		for (Buffer buffer : network.getBuffers()) {
 			AtomicBuffer atomicBuffer = new AtomicBuffer(buffer, bufferSize.getSize(buffer));
 			if (communicationWeight != null) {
@@ -162,7 +166,7 @@ public class AdevsModelBuilder {
 
 		// build actor partitions according to a NetworkPartitioning Object (read from
 		// file or given by an algorithm)
-		for (Entry<String, List<String>> partitionUnit : partitioning.asPartitionActorsMap().entrySet()) {
+		for (Entry<String, List<String>> partitionUnit : partitionMap.entrySet()) {
 			String component = partitionUnit.getKey();
 			List<Actor> targetActors = getActorObjectsList(partitionUnit.getValue(), network);
 
@@ -182,9 +186,11 @@ public class AdevsModelBuilder {
 			}
 		}
 
+		
 		for (Actor actor : network.getActors()) {
 			AtomicActor atomicActor = model.getActor(actor);
-			for (String partitionId : partitioning.asPartitionActorsMap().keySet()) {
+		
+			for (String partitionId : partitionMap.keySet()) {
 				AtomicActorPartition atomicActorPartition = model.getAtomicActorPartition(partitionId);
 				model.couple(atomicActor, AtomicActor.PORT_PARTITION_SEND_END_OF_FIRING, atomicActorPartition,
 						portsIdentifier.PORT_PARTITION_RECEIVE_END_OF_FIRING.get(atomicActor.getActor()));

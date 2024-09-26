@@ -113,7 +113,9 @@ public class AtomicBuffer extends Atomic<PortValue> {
 	 * constant latencies for hit or miss for writes (write latencies are not reported by numap!)
 	 * considered only if the communication costs are specified
 	 */
+	@SuppressWarnings("unused")
 	private int writeHitLatency;
+	@SuppressWarnings("unused")
 	private int writeMissLatency;
 	
 	/** the input clock */
