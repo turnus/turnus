@@ -32,9 +32,11 @@
 package turnus.analysis.timeline;
 
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
+import static turnus.common.TurnusOptions.ANALYSIS_NAME;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_DEFAULT;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
 import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
+import static turnus.common.TurnusOptions.MAPPING_AS_ANALYSIS_NAME;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.RECORD_BUFFERS;
@@ -47,6 +49,7 @@ import static turnus.common.TurnusOptions.WRITE_MISS_CONSTANT;
 import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
+import static turnus.common.util.FileUtils.createFile;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
@@ -133,6 +136,8 @@ public class TimelineCli implements IApplication {
 				.setOption(BUFFER_SIZE_FILE, false)//
 				.setOption(RECORD_BUFFERS, false)//
 				.setOption(RELEASE_BUFFERS_AFTER_PROCESSING, false)//
+				.setOption(ANALYSIS_NAME, false)//
+				.setOption(MAPPING_AS_ANALYSIS_NAME, false)//
 				.setOption(OUTPUT_DIRECTORY, false);
 		configuration = cliParser.parse(args);
 	}
@@ -149,6 +154,8 @@ public class TimelineCli implements IApplication {
 		NetworkWeight weights = null;
 		Network network = null;
 		PostProcessingReport report = null;
+		String analysisName = "";
+		File mappingFile = null;
 
 		{ // STEP 1 : parse the configuration
 			monitor.subTask("Parsing the configuration");
@@ -170,7 +177,7 @@ public class TimelineCli implements IApplication {
 			}
 
 			try {
-				File mappingFile = configuration.getValue(MAPPING_FILE);
+				mappingFile = configuration.getValue(MAPPING_FILE);
 				XmlNetworkPartitioningReader reader = new XmlNetworkPartitioningReader();
 				partitioning = reader.load(mappingFile);
 			} catch (Exception e) {
@@ -214,6 +221,23 @@ public class TimelineCli implements IApplication {
 				File schWeightsFile = configuration.getValue(SCHEDULING_WEIGHTS);
 				schWeight = new XmlSchedulingWeightReader().load(schWeightsFile);
 			}
+
+			// -- Name of the analysis
+			try {
+
+				if (configuration.hasValue(MAPPING_AS_ANALYSIS_NAME)) {
+					analysisName = mappingFile.getName();
+					analysisName = analysisName.substring(0, analysisName.lastIndexOf('.'));
+				}
+
+				// -- analysis name has priority over the MAPPING_AS_ANALYSIS_NAME
+				if (configuration.hasValue(ANALYSIS_NAME)) {
+					analysisName = configuration.getValue(ANALYSIS_NAME);
+				}
+
+			} catch (Exception e) {
+				throw new TurnusException("The given name has an issue", e);
+			}
 		}
 
 		TimelineCollector timelineCollector = new TimelineCollector(network, partitioning);
@@ -254,7 +278,15 @@ public class TimelineCli implements IApplication {
 				// Logger.infoRaw(report.toString());
 
 				// store the scheduler checks report
-				File reportFileTimeline = createFileWithTimeStamp(outputPath, TurnusExtensions.TIMELINE_REPORT);
+
+				File reportFileTimeline;
+
+				if (analysisName.isEmpty()) {
+					reportFileTimeline = createFileWithTimeStamp(outputPath, TurnusExtensions.TIMELINE_REPORT);
+				} else {
+					reportFileTimeline = createFile(outputPath, analysisName, TurnusExtensions.TIMELINE_REPORT);
+				}
+
 				TimelineReport timelineReport = report.getReport(TimelineReport.class);
 				EcoreUtils.storeEObject(timelineReport, tProject.getResourceSet(), reportFileTimeline);
 				Logger.info("Timeline report stored in \"%s\"", reportFileTimeline);

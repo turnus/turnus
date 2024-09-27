@@ -1,6 +1,7 @@
 package turnus.analysis.partitioning;
 
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
+import static turnus.common.TurnusOptions.ANALYSIS_NAME;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_DEFAULT;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
@@ -15,6 +16,7 @@ import static turnus.common.TurnusOptions.WRITE_HIT_CONSTANT;
 import static turnus.common.TurnusOptions.WRITE_MISS_CONSTANT;
 import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
+import static turnus.common.util.FileUtils.createFile;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
@@ -95,6 +97,7 @@ public class DynamicRRPartitioningCli implements IApplication {
 				.setOption(BUFFER_SIZE_DEFAULT, false)//
 				.setOption(BUFFER_SIZE_FILE, false)//
 				.setOption(RELEASE_BUFFERS_AFTER_PROCESSING, false)//
+				.setOption(ANALYSIS_NAME, false)//
 				.setOption(OUTPUT_DIRECTORY, false);
 		configuration = cliParser.parse(args);
 	}
@@ -114,17 +117,17 @@ public class DynamicRRPartitioningCli implements IApplication {
 		public void init() {
 			allocation = new HashMap<>();
 		}
-	
+
 		@Override
 		public void logEndSimulation(double time) {
 		}
 
 		@Override
 		public PostProcessingData generateReport() {
-			
+
 			return null;
 		}
-		
+
 		public NetworkPartitioning getPartitioning() {
 			NetworkPartitioning partitioning = new NetworkPartitioning(network);
 			for (Actor actor : network.getActors()) {
@@ -133,8 +136,8 @@ public class DynamicRRPartitioningCli implements IApplication {
 
 			// -- PE to 1 and round robin scheduling
 			for (int i = 0; i < nPE; i++) {
-				partitioning.setProcessingElements("p"+i, 1);
-				partitioning.setScheduler("p"+i, "ROUND_ROBIN");
+				partitioning.setProcessingElements("p" + i, 1);
+				partitioning.setScheduler("p" + i, "ROUND_ROBIN");
 			}
 			return partitioning;
 		}
@@ -192,7 +195,7 @@ public class DynamicRRPartitioningCli implements IApplication {
 		@Override
 		public void logEndProduceTokens(Action action, long stepId, Buffer buffer, double time) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 	}
@@ -210,6 +213,7 @@ public class DynamicRRPartitioningCli implements IApplication {
 		Network network = null;
 		PostProcessingReport report = null;
 		int numberOfPEs = 2;
+		String analysisName = "";
 
 		{ // STEP 1 : parse the configuration
 			monitor.subTask("Parsing the configuration");
@@ -281,6 +285,18 @@ public class DynamicRRPartitioningCli implements IApplication {
 				File schWeightsFile = configuration.getValue(SCHEDULING_WEIGHTS);
 				schWeight = new XmlSchedulingWeightReader().load(schWeightsFile);
 			}
+
+			// -- Name of the analysis
+			try {
+
+				// -- analysis name has priority over the MAPPING_AS_ANALYSIS_NAME
+				if (configuration.hasValue(ANALYSIS_NAME)) {
+					analysisName = configuration.getValue(ANALYSIS_NAME);
+				}
+
+			} catch (Exception e) {
+				throw new TurnusException("The given name has an issue", e);
+			}
 		}
 
 		AllocationCollector allocationCollector = new AllocationCollector(network, numberOfPEs);
@@ -318,8 +334,15 @@ public class DynamicRRPartitioningCli implements IApplication {
 					outputPath = createOutputDirectory("partitioning", configuration);
 				}
 
+				File xcfFile;
 				
-				File xcfFile = createFileWithTimeStamp(outputPath, TurnusExtensions.MAPPING);
+				if (analysisName.isEmpty()) {
+					xcfFile = createFileWithTimeStamp(outputPath, TurnusExtensions.MAPPING);
+				} else {
+					xcfFile = createFile(outputPath, analysisName, TurnusExtensions.MAPPING);
+				}
+				
+				
 				partitioning = allocationCollector.getPartitioning();
 				new XmlNetworkPartitioningWriter().write(partitioning, xcfFile);
 				File dotFile = changeExtension(xcfFile, TurnusExtensions.DOT);

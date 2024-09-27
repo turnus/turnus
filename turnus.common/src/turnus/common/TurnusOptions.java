@@ -260,6 +260,11 @@ public class TurnusOptions {
 	@Description("A text file repesenting a partition with each line a string identifying the instance and name and a number for the partition.")
 	public static final Option<File> TXT_PARTITION;
 	
+	@Description("Specifie the name of the analysis.")
+	public static final Option<String> ANALYSIS_NAME;
+	
+	@Description("Use the same name for the analysis as the mapping file name."	)
+	public static final Option<Boolean> MAPPING_AS_ANALYSIS_NAME;
 	
 //	@Description("Bandwidth in GHz. ")
 //	public static final Option<Double> BANDWIDTH;
@@ -700,7 +705,19 @@ public class TurnusOptions {
 				setLongName("turnus.txtPartition").//
 				setType(File.class).build();
 		
-
+		
+		ANALYSIS_NAME = Option.create().//
+				setName("name").//
+				setDescription("Specify the name of the analysis.").//
+				setLongName("turnus.analysis.name").//
+				setType(String.class).build();
+		
+		
+		MAPPING_AS_ANALYSIS_NAME = Option.create().//
+				setName("useMappingAsName").//
+				setDescription("Use the same name for the analysis as the mapping file name.").//
+				setLongName("turnus.analysis.use.xcf.as.name").//
+				setType(Boolean.class).build();
 		
 		ADDITIONAL_TOOL_ARGUMENTS = Option.create().//
 				setName("additionalArgs").//

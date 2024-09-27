@@ -40,6 +40,7 @@ import static turnus.common.TurnusExtensions.TRACEZ;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
 import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
+import static turnus.common.TurnusOptions.MAPPING_AS_ANALYSIS_NAME;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.RELEASE_BUFFERS_AFTER_PROCESSING;
 import static turnus.common.TurnusOptions.TRACE_FILE;
@@ -126,6 +127,7 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 		private WidgetCheckBox wRealeaseAfterProcessing;
 		private WidgetSelectFileCombo wCommunicationFile;
 		private WidgetCheckBox wUseCommunication;
+		private WidgetCheckBox wSameNameAsMapping;
 
 		private OptionsPage() {
 			super("Turnus Timeline using Chrome Tracing format");
@@ -211,6 +213,11 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 					"Release buffers after processing", true, container);
 			addWidget(wRealeaseAfterProcessing);
 			
+			wSameNameAsMapping = new WidgetCheckBox("Use the same name for the report as the mapping file",
+					"Use the same name for the report as the mapping file", false, container);
+			addWidget(wSameNameAsMapping);
+
+			
 			
 		}
 
@@ -229,6 +236,10 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 		public File getBufferSizeFile() {
 			
 			return wBufferSizeFile.getValue();
+		}
+		
+		public boolean getSameNameAsMapping() {
+			return wSameNameAsMapping.getValue();
 		}
 		
 		public boolean getRealeaseAfterProcessing() {
@@ -276,6 +287,7 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 		configuration.setValue(BUFFER_SIZE_FILE, optionsPage.getBufferSizeFile());
 		configuration.setValue(COMMUNICATION_WEIGHTS, optionsPage.getCommunicationWeightFile());
 		configuration.setValue(RELEASE_BUFFERS_AFTER_PROCESSING, optionsPage.getRealeaseAfterProcessing());
+		configuration.setValue(MAPPING_AS_ANALYSIS_NAME, optionsPage.getSameNameAsMapping());
 
 		final Job job = new Job("Inter partition communication and memory analysis") {
 			@Override

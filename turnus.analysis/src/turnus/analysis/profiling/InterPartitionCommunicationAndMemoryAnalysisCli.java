@@ -32,8 +32,10 @@
 package turnus.analysis.profiling;
 
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
+import static turnus.common.TurnusOptions.ANALYSIS_NAME;
 import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
 import static turnus.common.TurnusOptions.COMMUNICATION_WEIGHTS;
+import static turnus.common.TurnusOptions.MAPPING_AS_ANALYSIS_NAME;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
@@ -41,6 +43,7 @@ import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
+import static turnus.common.util.FileUtils.createFile;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
@@ -111,6 +114,8 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 				.setOption(MAPPING_FILE, true)//
 				.setOption(BUFFER_SIZE_FILE, true)//
 				.setOption(COMMUNICATION_WEIGHTS, false)//
+				.setOption(ANALYSIS_NAME, false)//
+				.setOption(MAPPING_AS_ANALYSIS_NAME, false)//
 				.setOption(OUTGOING_BUFFER_IS_OWNED_BY_SRC_PARTITION, false)//
 				.setOption(OUTPUT_DIRECTORY, false);
 
@@ -129,6 +134,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 		InterPartitionCommunicationAndMemoryReport report = null;
 		File mappingFile = null;
 		File bufferFile = null;
+		String analysisName = "";
 
 		{
 			// -- Step 1 : parse the configuration
@@ -179,6 +185,23 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 				outgoingBufferOwnedBySource = true;
 			}
 
+			// -- Name of the analysis
+			try {
+
+				if (configuration.hasValue(MAPPING_AS_ANALYSIS_NAME)) {
+					analysisName = mappingFile.getName();
+					analysisName = analysisName.substring(0, analysisName.lastIndexOf('.'));
+				}
+
+				// -- analysis name has priority over the MAPPING_AS_ANALYSIS_NAME
+				if (configuration.hasValue(ANALYSIS_NAME)) {
+					analysisName = configuration.getValue(ANALYSIS_NAME);
+				}
+
+			} catch (Exception e) {
+				throw new TurnusException("The given name has an issue", e);
+			}
+
 		}
 
 		{
@@ -205,7 +228,15 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 				} else {
 					outputPath = createOutputDirectory("profiling", configuration);
 				}
-				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.INTER_PARTITION_COMM_MEM_REPORT);
+				
+				File reportFile;
+				
+				if (analysisName.isEmpty()) {
+					reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.INTER_PARTITION_COMM_MEM_REPORT);
+				} else {
+					reportFile = createFile(outputPath, analysisName, TurnusExtensions.INTER_PARTITION_COMM_MEM_REPORT);
+				}
+				
 				File htmlReport = changeExtension(reportFile, "html");
 				// -- Set path of the partition file
 				report.setMappingFile(mappingFile.getName());
@@ -214,7 +245,7 @@ public class InterPartitionCommunicationAndMemoryAnalysisCli implements IApplica
 
 				// -- Store the report
 				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
-				Ipcomm2HtmlExporter htmlExporter = new Ipcomm2HtmlExporter(); 
+				Ipcomm2HtmlExporter htmlExporter = new Ipcomm2HtmlExporter();
 				htmlExporter.export(reportFile, htmlReport);
 				Logger.info("Inter-partition communication and memory report stored in \"%s\"", reportFile);
 

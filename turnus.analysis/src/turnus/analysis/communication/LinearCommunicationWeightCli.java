@@ -3,7 +3,10 @@ package turnus.analysis.communication;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.TRACE_FILE;
+import static turnus.common.TurnusOptions.ANALYSIS_NAME;
+import static turnus.common.TurnusOptions.MAPPING_AS_ANALYSIS_NAME;
 import static turnus.common.util.FileUtils.createDirectory;
+import static turnus.common.util.FileUtils.createFile;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
@@ -68,7 +71,7 @@ public class LinearCommunicationWeightCli implements IApplication {
 			setDescription("Fixed overhead latency")//
 			.setLongName("turnus.fixedlatency").//
 			setType(Double.class).build();
-	
+
 	public static final Option<Double> BANDWIDTH = Option.create().//
 			setName("bandwidth").//
 			setDescription("The Bandwidth in GB/s ")//
@@ -81,6 +84,8 @@ public class LinearCommunicationWeightCli implements IApplication {
 				.setOption(MAPPING_FILE, true)//
 				.setOption(BANDWIDTH, true) //
 				.setOption(FIXED_OVERHEAD_LATENCY, false) //
+				.setOption(ANALYSIS_NAME, false)//
+				.setOption(MAPPING_AS_ANALYSIS_NAME, false)//
 				.setOption(OUTPUT_DIRECTORY, false);
 		configuration = cliParser.parse(args);
 	}
@@ -91,6 +96,7 @@ public class LinearCommunicationWeightCli implements IApplication {
 		TraceProject project = null;
 		NetworkPartitioning partitioning = null;
 		File mappingFile = null;
+		String analysisName = "";
 
 		double bandwidthGBytes = 25.0;
 		double fixedOverheadLatency = 0.0;
@@ -132,6 +138,23 @@ public class LinearCommunicationWeightCli implements IApplication {
 				throw new TurnusException("The given bandwidth is not correct.", e);
 			}
 
+			// -- Name of the analysis
+			try {
+
+				if (configuration.hasValue(MAPPING_AS_ANALYSIS_NAME)) {
+					analysisName = mappingFile.getName();
+					analysisName = analysisName.substring(0, analysisName.lastIndexOf('.'));
+				}
+
+				// -- analysis name has priority over the MAPPING_AS_ANALYSIS_NAME
+				if (configuration.hasValue(ANALYSIS_NAME)) {
+					analysisName = configuration.getValue(ANALYSIS_NAME);
+				}
+
+			} catch (Exception e) {
+				throw new TurnusException("The given name has an issue", e);
+			}
+
 			// -- Get buffers crossing partitions
 			Network network = project.getNetwork();
 
@@ -167,7 +190,7 @@ public class LinearCommunicationWeightCli implements IApplication {
 			// -- Save the communication weights
 			CommunicationWeight communicationWeight = new CommunicationWeight();
 			communicationWeight.setNetworkName(network.getName());
-			//communicationWeight.setReadWeights(readWeights);
+			// communicationWeight.setReadWeights(readWeights);
 			communicationWeight.setWriteWeights(writeWeights);
 
 			{ // STEP 3 : Store the results
@@ -181,7 +204,13 @@ public class LinearCommunicationWeightCli implements IApplication {
 						outputPath = createOutputDirectory("communication", configuration);
 					}
 
-					File cxdfFile = createFileWithTimeStamp(outputPath, TurnusExtensions.COMMUNICATION_WEIGHT);
+					File cxdfFile;
+
+					if (analysisName.isEmpty()) {
+						cxdfFile = createFileWithTimeStamp(outputPath, TurnusExtensions.COMMUNICATION_WEIGHT);
+					} else {
+						cxdfFile = createFile(outputPath, analysisName, TurnusExtensions.COMMUNICATION_WEIGHT);
+					}
 					new XmlCommunicationWeightWriter().write(communicationWeight, network, cxdfFile);
 
 					Logger.info("Network communication weight stored in \"%s\"", cxdfFile);

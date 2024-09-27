@@ -32,6 +32,7 @@
 package turnus.analysis.partitioning;
 
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
+import static turnus.common.TurnusOptions.ANALYSIS_NAME;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.EXTERNAL_PARTITIONING_TOOL;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
@@ -41,6 +42,7 @@ import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
 import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
+import static turnus.common.util.FileUtils.createFile;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
@@ -112,7 +114,7 @@ public class HypergraphPartitioningCli implements IApplication {
 		TraceWeighter weighter = null;
 		String scheduling = null;
 		NetworkPartitioning fixedPartitioning = null;
-
+		String analysisName = "";
 		MetisPartitioningReport report = null;
 
 		// -- STEP 1 : parse the configuration
@@ -135,23 +137,36 @@ public class HypergraphPartitioningCli implements IApplication {
 			if (configuration.hasValue(MAPPING_FILE)) {
 				File mappingFile = configuration.getValue(MAPPING_FILE);
 				XmlNetworkPartitioningReader reader = new XmlNetworkPartitioningReader();
-				fixedPartitioning = reader.load(mappingFile);	
-			} 
-			
+				fixedPartitioning = reader.load(mappingFile);
+			}
+
 			if (configuration.hasValue(SCHEDULING_POLICY)) {
 				scheduling = configuration.getValue(SCHEDULING_POLICY);
 			} else {
 				scheduling = DEFAULT_SCHEDULING_POLICY;
 			}
+
+			// -- Name of the analysis
+			try {
+
+				// -- analysis name has priority over the MAPPING_AS_ANALYSIS_NAME
+				if (configuration.hasValue(ANALYSIS_NAME)) {
+					analysisName = configuration.getValue(ANALYSIS_NAME);
+				}
+
+			} catch (Exception e) {
+				throw new TurnusException("The given name has an issue", e);
+			}
+
 		}
 
 		// -- STEP 2 : Run the analysis
-		{ 
+		{
 			monitor.subTask("Runnis the analysis");
 			try {
 				analysis = new HypergraphPartitioning(project, weighter);
 				analysis.setConfiguration(configuration);
-				if(fixedPartitioning != null) {
+				if (fixedPartitioning != null) {
 					analysis.loadFixedPartitioning(fixedPartitioning);
 				}
 				report = analysis.run();
@@ -173,13 +188,19 @@ public class HypergraphPartitioningCli implements IApplication {
 					outputPath = createOutputDirectory("partitioning", configuration);
 				}
 
-				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.METIS_PARTITIONING_REPORT);
+				File reportFile; 
+				if (analysisName.isEmpty()) {
+					reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.METIS_PARTITIONING_REPORT);
+				} else {
+					reportFile = createFile(outputPath, analysisName, TurnusExtensions.METIS_PARTITIONING_REPORT);
+				}
+				
+				
 				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
 				Logger.info("Metis partitioning report stored in \"%s\"", reportFile);
 
 				NetworkPartitioning partitioning = new NetworkPartitioning(project.getNetwork());
 
-				
 				for (MetisPartitioning mp : report.getPartitions()) {
 					for (Actor actor : mp.getActors()) {
 						partitioning.setPartition(actor, mp.getPartitionId());
@@ -190,7 +211,8 @@ public class HypergraphPartitioningCli implements IApplication {
 					partitioning.setSchedulerToAll(scheduling);
 				Logger.info("Partitions created: " + report.getPartitions().size());
 
-				File xcfFile = changeExtension(reportFile, TurnusExtensions.NETWORK_PARTITIONING);
+				File xcfFile = changeExtension(reportFile, TurnusExtensions.MAPPING);
+					
 				File dotFile = changeExtension(reportFile, TurnusExtensions.DOT);
 				new XmlNetworkPartitioningWriter().write(partitioning, xcfFile);
 				new PartitionedNetworkToDot(project.getNetwork(), partitioning)
@@ -217,6 +239,7 @@ public class HypergraphPartitioningCli implements IApplication {
 				.setOption(MAPPING_FILE, false)//
 				.setOption(EXTERNAL_PARTITIONING_TOOL, false)//
 				.setOption(SCHEDULING_POLICY, false) //
+				.setOption(ANALYSIS_NAME, false)//
 				.setOption(ANALYSIS_PARTITIONING_UNITS, false) //
 				.setOption(OUTPUT_DIRECTORY, false);
 
