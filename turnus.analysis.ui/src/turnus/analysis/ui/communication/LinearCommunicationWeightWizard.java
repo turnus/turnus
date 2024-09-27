@@ -1,13 +1,12 @@
-package turnus.analysis.ui.partitioning;
+package turnus.analysis.ui.communication;
 
-import static turnus.common.TurnusExtensions.BUFFER_SIZE;
-import static turnus.common.TurnusExtensions.NETWORK_WEIGHT;
+import static turnus.common.TurnusExtensions.NETWORK_PARTITIONING;
 import static turnus.common.TurnusExtensions.TRACE;
 import static turnus.common.TurnusExtensions.TRACEZ;
-import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
-import static turnus.common.TurnusOptions.ANALYSIS_NAME;
-import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
-import static turnus.common.TurnusOptions.BUFFER_SIZE_FILE;
+import static turnus.common.TurnusOptions.BANDWIDTH;
+import static turnus.common.TurnusOptions.FIXED_OVERHEAD_LATENCY;
+import static turnus.common.TurnusOptions.MAPPING_AS_ANALYSIS_NAME;
+import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 
 import java.io.File;
@@ -27,22 +26,17 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
 
-import turnus.analysis.partitioning.DynamicRRPartitioningCli;
+import it.unimi.dsi.fastutil.doubles.DoubleSemiIndirectHeaps;
+import turnus.analysis.communication.LinearCommunicationWeightCli;
 import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
 import turnus.ui.util.EclipseUtils;
 import turnus.ui.widget.WidgetCheckBox;
 import turnus.ui.widget.WidgetSelectFileCombo;
-import turnus.ui.widget.WidgetSpinnerInteger;
 import turnus.ui.widget.WidgetText;
 import turnus.ui.wizard.AbstractWizardPage;
 
-/**
- * UI Wizard for the Dynamic Round Robin Partitioning
- * 
- * @author Endri Bezati
- */
-public class DynamicRoundRobinPartitioningWizard extends Wizard implements IWorkbenchWizard {
+public class LinearCommunicationWeightWizard extends Wizard implements IWorkbenchWizard {
 
 	private class ToggleListener implements ModifyListener {
 		final private WidgetText text;
@@ -84,11 +78,11 @@ public class DynamicRoundRobinPartitioningWizard extends Wizard implements IWork
 	private class OptionsPage extends AbstractWizardPage {
 
 		private WidgetSelectFileCombo wTraceFile;
-		private WidgetSelectFileCombo wWeightsFile;
-		private WidgetSelectFileCombo wBufferSizeFile;
-		private WidgetSpinnerInteger wUnits;
-		private WidgetCheckBox wUseName;
-		private WidgetText wName;
+		private WidgetSelectFileCombo wMappingFile;
+		private WidgetCheckBox wSetLatency;
+		private WidgetText wLatency;
+		private WidgetText wBandwidth;
+		private WidgetCheckBox wSameNameAsMapping;
 
 		protected OptionsPage() {
 			super("Dynamic Round Robin Partitioning");
@@ -112,113 +106,103 @@ public class DynamicRoundRobinPartitioningWizard extends Wizard implements IWork
 				wTraceFile.setChoices(initialTraceFiles.toArray(new String[0]));
 			addWidget(wTraceFile);
 
-			// -- Network weight file
-			String[] weightsExtension = { NETWORK_WEIGHT };
-			List<String> initialExdfFiles = new ArrayList<>();
+			// -- Network partition file
+			String[] mappingExtension = { NETWORK_PARTITIONING };
+			List<String> initialXcffFiles = new ArrayList<>();
 			if (project != null && project.isOpen()) {
-				initialExdfFiles = EclipseUtils.getPathsFromContainer(project, weightsExtension);
+				initialXcffFiles = EclipseUtils.getPathsFromContainer(project, mappingExtension);
 			}
-			wWeightsFile = new WidgetSelectFileCombo("Weights", "The network weight file", weightsExtension, null,
+
+			wMappingFile = new WidgetSelectFileCombo("Mapping configuration", "Mapping configuration file",
+					mappingExtension, null, container);
+			if (!initialXcffFiles.isEmpty())
+				wMappingFile.setChoices(initialXcffFiles.toArray(new String[0]));
+			addWidget(wMappingFile);
+
+
+			// -- Latency
+			wSetLatency = new WidgetCheckBox("Set fixed overhead latency", "Set fixed overhead latency", false,
 					container);
-			if (!initialExdfFiles.isEmpty())
-				wWeightsFile.setChoices(initialExdfFiles.toArray(new String[0]));
-			addWidget(wWeightsFile);
+			addWidget(wSetLatency);
+			wLatency = new WidgetText("Latency", "Fixed overhead latency", "", container);
+			wSetLatency.addModifyListener(new ToggleListener(wLatency, container));
+			addWidget(wLatency);
 
-			// -- Buffer File
-			String[] bufferExtension = { BUFFER_SIZE };
-			List<String> initialBxdffFiles = new ArrayList<>();
-			if (project != null && project.isOpen()) {
-				initialBxdffFiles = EclipseUtils.getPathsFromContainer(project, bufferExtension);
-			}
-			wBufferSizeFile = new WidgetSelectFileCombo("Buffer-size configuration", "Buffer-size configuration file",
-					bufferExtension, null, container);
-			if (!initialBxdffFiles.isEmpty())
-				wBufferSizeFile.setChoices(initialBxdffFiles.toArray(new String[0]));
+			// -- Bandwidth
+			wBandwidth = new WidgetText("Bandwidth", "Bandwidth", "", container);
+			addWidget(wBandwidth);
 
-			addWidget(wBufferSizeFile);
-
-			// -- Units
-			wUnits = new WidgetSpinnerInteger("Units", "Select the number of available units", 1, Integer.MAX_VALUE, 1,
-					2, container);
-			addWidget(wUnits);
-
-			// -- Name
-			wUseName = new WidgetCheckBox("Specify a name for this analysis", "Specify a name", false, container);
-			addWidget(wUseName);
-			wName = new WidgetText("Name", "Specify a name for this analysis", "", container);
-
-			wUseName.addModifyListener(new ToggleListener(wName, container));
-
-			addWidget(wName);
+			wSameNameAsMapping = new WidgetCheckBox("Use the same name for the report as the mapping file",
+					"Use the same name for the report as the mapping file", false, container);
+			addWidget(wSameNameAsMapping);
 
 		}
 
-		public File getWeightsFile() {
-			return wWeightsFile.getValue();
-		}
-
-		public File getBufferSizeFile() {
-			return wBufferSizeFile.getValue();
+		public File getMappingFile() {
+			return wMappingFile.getValue();
 		}
 
 		public File getTraceFile() {
 			return wTraceFile.getValue();
 		}
 
-		public int getUnits() {
-			return wUnits.getValue().intValue();
+		public String getLatency() {
+			if (!wSetLatency.getValue())
+				return "0.0";
+			return wLatency.getValue();
 		}
 
-		public String getName() {
-			if (!wUseName.getValue())
-				return "";
-			return wName.getValue();
+		public String getBandwidth() {
+			return wBandwidth.getValue();
+		}
+
+		public boolean getSameNameAsMapping() {
+			return wSameNameAsMapping.getValue();
 		}
 
 	}
 
 	private OptionsPage optionsPage;
 
-	public DynamicRoundRobinPartitioningWizard() {
-		super();
+	public LinearCommunicationWeightWizard() {
 		optionsPage = new OptionsPage();
 		setNeedsProgressMonitor(true);
 		EclipseUtils.openDefaultConsole();
 	}
-
+	
 	@Override
 	public void addPages() {
 		addPage(optionsPage);
 	}
 
+
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
+	
 	}
 
 	@Override
 	public boolean performFinish() {
 		final Configuration configuration = new Configuration();
 		configuration.setValue(TRACE_FILE, optionsPage.getTraceFile());
-		configuration.setValue(ACTION_WEIGHTS, optionsPage.getWeightsFile());
-		configuration.setValue(BUFFER_SIZE_FILE, optionsPage.getBufferSizeFile());
-		configuration.setValue(ANALYSIS_PARTITIONING_UNITS, optionsPage.getUnits());
-		configuration.setValue(ANALYSIS_NAME, optionsPage.getName());
-
-		final Job job = new Job("Dynamic Round Robin Partitioning") {
-
+		configuration.setValue(MAPPING_FILE, optionsPage.getMappingFile());
+		configuration.setValue(MAPPING_AS_ANALYSIS_NAME, optionsPage.getSameNameAsMapping());
+		configuration.setValue(BANDWIDTH, Double.valueOf(optionsPage.getBandwidth()));
+		configuration.setValue(FIXED_OVERHEAD_LATENCY, Double.valueOf(optionsPage.getLatency()));
+		
+		final Job job = new Job("Inter partition communication and memory analysis") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				try {
-					new DynamicRRPartitioningCli().start(configuration, monitor);
+					new LinearCommunicationWeightCli().start(configuration, monitor);
 					EclipseUtils.refreshWorkspace(monitor);
-				} catch (Exception e) {
+				}catch (Exception e) {
 					Logger.error(e.getMessage());
 				}
 				return Status.OK_STATUS;
 			}
-
 		};
-
+		
 		job.setUser(true);
 		job.schedule();
 

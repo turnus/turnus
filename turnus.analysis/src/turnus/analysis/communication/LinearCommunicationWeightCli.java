@@ -1,10 +1,12 @@
 package turnus.analysis.communication;
 
+import static turnus.common.TurnusOptions.ANALYSIS_NAME;
+import static turnus.common.TurnusOptions.BANDWIDTH;
+import static turnus.common.TurnusOptions.FIXED_OVERHEAD_LATENCY;
+import static turnus.common.TurnusOptions.MAPPING_AS_ANALYSIS_NAME;
 import static turnus.common.TurnusOptions.MAPPING_FILE;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.TRACE_FILE;
-import static turnus.common.TurnusOptions.ANALYSIS_NAME;
-import static turnus.common.TurnusOptions.MAPPING_AS_ANALYSIS_NAME;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFile;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
@@ -26,7 +28,6 @@ import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
 import turnus.common.configuration.Configuration.CliParser;
-import turnus.common.configuration.Option;
 import turnus.common.io.Logger;
 import turnus.model.ModelsRegister;
 import turnus.model.analysis.profiling.util.MemoryAndBuffers;
@@ -65,18 +66,6 @@ public class LinearCommunicationWeightCli implements IApplication {
 			Logger.error("Application error: %s", e.getMessage());
 		}
 	}
-
-	private final Option<Double> FIXED_OVERHEAD_LATENCY = Option.create().//
-			setName("latency").//
-			setDescription("Fixed overhead latency")//
-			.setLongName("turnus.fixedlatency").//
-			setType(Double.class).build();
-
-	public static final Option<Double> BANDWIDTH = Option.create().//
-			setName("bandwidth").//
-			setDescription("The Bandwidth in GB/s ")//
-			.setLongName("turnus.bandwidth").//
-			setType(Double.class).build();
 
 	private void parse(String[] args) throws TurnusException {
 		CliParser cliParser = new CliParser()//
@@ -142,8 +131,10 @@ public class LinearCommunicationWeightCli implements IApplication {
 			try {
 
 				if (configuration.hasValue(MAPPING_AS_ANALYSIS_NAME)) {
-					analysisName = mappingFile.getName();
-					analysisName = analysisName.substring(0, analysisName.lastIndexOf('.'));
+					if (configuration.getValue(MAPPING_AS_ANALYSIS_NAME)) {
+						analysisName = mappingFile.getName();
+						analysisName = analysisName.substring(0, analysisName.lastIndexOf('.'));
+					}
 				}
 
 				// -- analysis name has priority over the MAPPING_AS_ANALYSIS_NAME
