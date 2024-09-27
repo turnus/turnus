@@ -53,6 +53,8 @@ import java.util.Vector;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import com.google.common.collect.Lists;
+
 import turnus.analysis.Analysis;
 import turnus.analysis.buffer.BoundedBufferAnalysis;
 import turnus.common.TurnusException;
@@ -69,6 +71,7 @@ import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
 import turnus.model.dataflow.Port;
 import turnus.model.dataflow.util.ActorsSorter;
+import turnus.model.graph.SimpleGraph;
 import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.trace.Step;
@@ -133,8 +136,24 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 	private String metisDot(Network network, BufferSize minBufferConfiguration, Vector<Actor> actor_map, Map<String, Integer> nodeLabelsToIntegers) {
 
 		List<String> lines = new ArrayList<>();	
-			
+				
+		
+//		SimpleGraph<Actor> g = new SimpleGraph<>();
+//		for (Actor actor : actor_map) {
+//		//for (Actor actor : network.getActors()) {
+//			g.addNode(actor);
+//		}
+//
+//		for (Actor actor : network.getActors()) {
+//			for (Buffer outgoing : actor.getOutgoingBuffers()) {
+//				g.addEdge(actor, outgoing.getTarget().getOwner());
+//			}
+//		}
+//		
+//		g.detectAndRemoveCycles();
 	
+		
+		
 		lines.add("digraph  {\n");
 		System.out.println("strict digraph  {");
 		for (Actor actor : actor_map) {
@@ -155,6 +174,7 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 			}
 
 			lines.add(String.format("%s[work_weight=%d mem_weight=%s comm_weight=%s]\n", nodeLabelsToIntegers.get(actor.getName()), actorWeight, persistentMemory/8/1024/1024, transientMemory/8/1024/1024));
+			//lines.add(String.format("%s[work_weight=%d mem_weight=%s comm_weight=%s]\n", nodeLabelsToIntegers.get(actor.getName()), actorWeight, persistentMemory/8/1024/1024, 0));
 
 			//System.out.println(
 			//		String.format("%s [workload=%d, memory=%s]", actor.getName(), actorWeight, persistentMemory/8/1024/1024));
@@ -164,9 +184,18 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 			for (Port port : actor.getOutputPorts()) {
 				for (Buffer buffer : port.getOutputs()) {
 					String tagetActorLabel = buffer.getTarget().getOwner().getName();
-					Long bufferWeight = bufferVolume.get(buffer);
-					lines.add(String.format("%s->%s [comm_weight=%d]\n", nodeLabelsToIntegers.get(actor.getName()), nodeLabelsToIntegers.get(tagetActorLabel), bufferWeight/8/1024/1024 ));
 					
+					Long bufferWeight = bufferVolume.get(buffer);
+//					boolean found = false;
+//					for (Actor target : g.getEdges(actor)) {
+//						if (target == buffer.getTarget().getOwner()) {
+//							found = true;
+//						}
+//					}
+					
+//					if (found) {					
+					lines.add(String.format("%s->%s [comm_weight=%d]\n", nodeLabelsToIntegers.get(actor.getName()), nodeLabelsToIntegers.get(tagetActorLabel), bufferWeight/8/1024/1024 ));
+//					}	
 					//System.out
 					//		.println(String.format("%s -> %s [data=%d]", actor.getName(), tagetActorLabel, bufferWeight));
 				}
@@ -212,7 +241,8 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 		int i = 1;
 
 		// -- Topological sort actors
-		List<Actor> topologicalSort = ActorsSorter.topologicalOrder(network.getActors());
+		List<Actor> topologicalSort = ActorsSorter.topologicalOrder(network.getActors(), false);
+		//topologicalSort = Lists.reverse(topologicalSort);
 
 		Vector<Actor> actor_map = new Vector<Actor>(network.getActors().size());
 		

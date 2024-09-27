@@ -33,6 +33,7 @@ package turnus.model.graph;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -55,6 +56,18 @@ public class SimpleGraph<V> {
 
 	private ArrayList<V> vertices;
 	private Map<V, Collection<V>> edges;
+
+	public Map<V, Collection<V>> getEdges() {
+		return edges;
+	}
+
+	public Collection<V> getEdges(V object) {
+		if (edges.containsKey(object)) {
+			return edges.get(object);
+		} else {
+			return Collections.emptyList();
+		}
+	}
 
 	public SimpleGraph() {
 		vertices = new ArrayList<>();

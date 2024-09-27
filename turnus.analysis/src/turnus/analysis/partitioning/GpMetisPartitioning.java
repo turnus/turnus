@@ -277,7 +277,7 @@ public class GpMetisPartitioning extends Analysis<MetisPartitioningReport> {
 			//commands.add("-ufactor=1.001");
 			//commands.add("-ubvec=1.5 1.5");
 			commands.add("-ncuts=10");
-			commands.add("-contig");
+			//commands.add("-contig");
 
 			ProcessBuilder metisPB = new ProcessBuilder(commands);
 			metisPB.redirectErrorStream(true);
