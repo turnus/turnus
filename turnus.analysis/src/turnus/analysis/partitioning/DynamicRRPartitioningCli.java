@@ -311,7 +311,7 @@ public class DynamicRRPartitioningCli implements IApplication {
 				simulation.setBufferSize(bufferSize);
 				simulation.setCommunicationWeight(communication);
 				simulation.setSchedulingWeight(schWeight);
-				if (configuration.getValue(RELEASE_BUFFERS_AFTER_PROCESSING))
+				if (configuration.hasValue(RELEASE_BUFFERS_AFTER_PROCESSING))
 					simulation.setReleaseAfterProcessing();
 
 				simulation.addDataCollector(allocationCollector);
