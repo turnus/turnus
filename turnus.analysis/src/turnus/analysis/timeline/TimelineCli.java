@@ -226,8 +226,10 @@ public class TimelineCli implements IApplication {
 			try {
 
 				if (configuration.hasValue(MAPPING_AS_ANALYSIS_NAME)) {
-					analysisName = mappingFile.getName();
-					analysisName = analysisName.substring(0, analysisName.lastIndexOf('.'));
+					if (configuration.getValue(MAPPING_AS_ANALYSIS_NAME)) {
+						analysisName = mappingFile.getName();
+						analysisName = analysisName.substring(0, analysisName.lastIndexOf('.'));
+					}
 				}
 
 				// -- analysis name has priority over the MAPPING_AS_ANALYSIS_NAME
