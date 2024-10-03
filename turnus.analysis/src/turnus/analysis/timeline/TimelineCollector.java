@@ -169,7 +169,6 @@ public class TimelineCollector implements ActorDataCollector {
 
 	@Override
 	public void logStartProducing(Action action, long stepId, double time) {
-		
 
 	}
 
@@ -193,29 +192,29 @@ public class TimelineCollector implements ActorDataCollector {
 
 	@Override
 	public void logConsumeTokens(Action action, long stepId, Buffer buffer, int tokens, double time) {
-		if (this.outgoingBuffers.contains(buffer)) {
-			String outgoingPartition = partitioning.getPartition(buffer.getSource().getOwner());
-			String incomingPartition = partitioning.getPartition(buffer.getTarget().getOwner());
-
-			double duration = time - actionEnableTime.get(action);
-
-			traceEvents.add(Json.createObjectBuilder()//
-					.add("name", buffer.getSource().getOwner().getName() + "." + buffer.getSource().getName() + " -> "
-							+ buffer.getTarget().getOwner().getName() + "." + buffer.getTarget().getName())//
-					.add("ph", "X")//
-					.add("ts", actionEnableTime.get(action))//
-					.add("dur", duration)//
-					.add("pid", "communication, " + outgoingPartition + " --> " + incomingPartition)//
-					.add("tid", network.getBuffers().indexOf(buffer)));//
-			// .add("args", Json.createObjectBuilder().add("stepId", ss)));
-		}
+//		if (this.outgoingBuffers.contains(buffer)) {
+//			String outgoingPartition = partitioning.getPartition(buffer.getSource().getOwner());
+//			String incomingPartition = partitioning.getPartition(buffer.getTarget().getOwner());
+//
+//			double duration = time - actionEnableTime.get(action);
+//
+//			traceEvents.add(Json.createObjectBuilder()//
+//					.add("name", buffer.getSource().getOwner().getName() + "." + buffer.getSource().getName() + " -> "
+//							+ buffer.getTarget().getOwner().getName() + "." + buffer.getTarget().getName())//
+//					.add("ph", "X")//
+//					.add("ts", actionEnableTime.get(action))//
+//					.add("dur", duration)//
+//					.add("pid", "communication, " + outgoingPartition + " --> " + incomingPartition)//
+//					.add("tid", network.getBuffers().indexOf(buffer)));//
+//			// .add("args", Json.createObjectBuilder().add("stepId", ss)));
+//		}
 
 	}
 
 	@Override
 	public void logProduceTokens(Action action, long stepId, Buffer buffer, int tokens, double time) {
 		if (this.outgoingBuffers.contains(buffer)) {
-			bufferStartProducingTime.put(buffer,time);
+			bufferStartProducingTime.put(buffer, time);
 		}
 
 	}
@@ -252,7 +251,7 @@ public class TimelineCollector implements ActorDataCollector {
 
 	@Override
 	public void logEndProduceTokens(Action action, long stepId, Buffer buffer, double time) {
-		/*
+
 		if (this.outgoingBuffers.contains(buffer)) {
 			String outgoingPartition = partitioning.getPartition(buffer.getSource().getOwner());
 			String incomingPartition = partitioning.getPartition(buffer.getTarget().getOwner());
@@ -260,15 +259,17 @@ public class TimelineCollector implements ActorDataCollector {
 			double duration = time - bufferStartProducingTime.get(buffer);
 
 			traceEvents.add(Json.createObjectBuilder()//
-					.add("name", buffer.getSource().getOwner().getName())//
+					.add("name",
+							buffer.getSource().getOwner().getName() + "." + buffer.getSource().getName() + " -> "
+									+ buffer.getTarget().getOwner().getName() + "." + buffer.getTarget().getName())//
 					.add("ph", "X")//
 					.add("ts", bufferStartProducingTime.get(buffer))//
 					.add("dur", duration)//
-					.add("pid", "communication")//
-					.add("tid", outgoingPartition + " --> " + incomingPartition));//
+					.add("pid", "communication, " + outgoingPartition + " --> " + incomingPartition)//
+					.add("tid", network.getBuffers().indexOf(buffer)));//
 			// .add("args", Json.createObjectBuilder().add("stepId", ss)));
 		}
-		*/
+
 	}
 
 }

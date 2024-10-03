@@ -37,6 +37,7 @@ import java.util.Random;
 
 import adevs.Atomic;
 import adevs.Digraph.PortValue;
+import turnus.adevs.logging.AdevsDataLogger;
 import turnus.common.TurnusRuntimeException;
 import turnus.model.dataflow.Buffer;
 import turnus.model.mapping.data.MemoryAccess;
@@ -66,13 +67,17 @@ public class AtomicBuffer extends Atomic<PortValue> {
 
 	
 	public enum RxStatus {
-		DISABLED, IDLE, SEND_HAS_SPACE, RECEIVING, END_RECEIVING;
+		DISABLED, IDLE, SEND_HAS_SPACE, RECEIVING,  END_RECEIVING;
 	}
 
 	public enum TxStatus {
 		DISABLED, IDLE, SEND_HAS_TOKENS, SENDING, END_SENDING;
 	}
 
+	
+	/** the data logger */
+	private AdevsDataLogger dataLogger;
+	
 	/** buffer object in the network*/
 	private final Buffer buffer;
 	/** the buffer size */
@@ -400,5 +405,9 @@ public class AtomicBuffer extends Atomic<PortValue> {
 	
 	public int getMaxTokensInFifo() {
 		return maxTokensInFifo;
+	}
+	
+	public void setDataLogger(AdevsDataLogger dataLogger) {
+		this.dataLogger = dataLogger;
 	}
 }

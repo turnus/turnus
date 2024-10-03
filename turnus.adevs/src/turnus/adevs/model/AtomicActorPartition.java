@@ -44,6 +44,7 @@ import com.google.common.collect.ImmutableList;
 import adevs.Atomic;
 import adevs.Digraph.PortValue;
 import turnus.adevs.logging.AdevsDataLogger;
+import turnus.common.io.Logger;
 import turnus.common.util.Pair;
 import turnus.model.dataflow.Action;
 import turnus.model.dataflow.Actor;
@@ -139,14 +140,12 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 
 	@Override
 	public void delta_int() {
-		// Logger.debug("delta_int at %f : actor partition=%s", localTime,
-		// this.toString());
+		//Logger.info("delta_int at %f : actor partition=%s", localTime, this.toString());
 	}
 
 	@Override
 	public void delta_ext(double e, Collection<PortValue> xb) {
-		// Logger.debug("delta_ext at %f : actor partition=%s", localTime,
-		// this.toString());
+		//Logger.info("delta_ext at %f : actor partition=%s", localTime, this.toString());
 		localTime += e;
 		for (PortValue inPortValue : xb) {
 			int port = inPortValue.getPort();
@@ -202,10 +201,10 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 		runningActors.remove(actor);
 
 		if (actors.contains(actor)) {
-			for(Optional<Actor> opt : occupied) {
-				if(!opt.isEmpty()) {
+			for (Optional<Actor> opt : occupied) {
+				if (!opt.isEmpty()) {
 					Actor o = opt.get();
-					if (o.equals(actor)){
+					if (o.equals(actor)) {
 						occupied.set(occupied.indexOf(opt), Optional.empty());
 					}
 				}
@@ -247,8 +246,7 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 
 	@Override
 	public void output_func(Collection<PortValue> yb) {
-		// Logger.debug("output_func at %f : actor partition=%s", localTime,
-		// this.toString());
+		//Logger.info("output_func at %f : actor partition=%s", localTime, this.toString());
 		switch (status) {
 		case CHECK_SCHEDULABILITY: {
 			if (!actorsToCheck.isEmpty()) {
@@ -286,7 +284,7 @@ public abstract class AtomicActorPartition extends Atomic<PortValue> {
 					runningActors.add(actor);
 					schedulableActors.remove(actor);
 					int runOnCore = -1;
-					for(Optional<Actor> opt : occupied) {
+					for (Optional<Actor> opt : occupied) {
 						if (opt.isEmpty()) {
 							runOnCore = occupied.indexOf(opt);
 							occupied.set(occupied.indexOf(opt), Optional.of(actor));
