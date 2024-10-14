@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/jgrapht-core-1.5.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/fontbox-2.0.24.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/graphics2d-3.0.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/pdfbox-2.0.24.jar"/>
