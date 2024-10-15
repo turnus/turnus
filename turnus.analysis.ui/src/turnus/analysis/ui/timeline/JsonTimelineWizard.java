@@ -130,8 +130,8 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 		private WidgetCheckBox wSameNameAsMapping;
 
 		private OptionsPage() {
-			super("Turnus Timeline using Chrome Tracing format");
-			setTitle("Turnus Timeline");
+			super("Timeline using Chrome Tracing format");
+			setTitle("Timeline");
 			setDescription("Select the options and run the analysis");
 		}
 
@@ -289,7 +289,7 @@ public class JsonTimelineWizard extends Wizard implements IWorkbenchWizard {
 		configuration.setValue(RELEASE_BUFFERS_AFTER_PROCESSING, optionsPage.getRealeaseAfterProcessing());
 		configuration.setValue(MAPPING_AS_ANALYSIS_NAME, optionsPage.getSameNameAsMapping());
 
-		final Job job = new Job("Inter partition communication and memory analysis") {
+		final Job job = new Job("Timeline using Chrome Tracing format") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				try {

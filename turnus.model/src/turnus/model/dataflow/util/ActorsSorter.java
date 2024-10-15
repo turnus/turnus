@@ -53,7 +53,7 @@ import turnus.model.graph.SimpleGraph;
 public class ActorsSorter {
 
 	public static List<Actor> topologicalOrder(Collection<Actor> actors) {
-		return newTopologicalOrder(actors);
+		return topologicalOrder(actors, false);
 	}
 
 	public static List<Actor> topologicalOrder(Collection<Actor> actors, boolean removeCycles) {
