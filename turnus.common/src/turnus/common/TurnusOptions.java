@@ -272,13 +272,6 @@ public class TurnusOptions {
 	@Description("The bandwidth in GBytes.")
 	public static final Option<Double> BANDWIDTH;
 	
-//	@Description("Bandwidth in GHz. ")
-//	public static final Option<Double> BANDWIDTH;
-	
-	@Description("Additional tool argumetns for external tools.")
-	public static final Option<String> ADDITIONAL_TOOL_ARGUMENTS;
-	
-	
 	// options are initialized here in order to make this file more readable
 	static {
 		BENCHMARK_N_LOOPS = Option.create().setName("benchmark_n_loops").setDescription("Loop input stimulus N times")
