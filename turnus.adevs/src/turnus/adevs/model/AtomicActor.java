@@ -102,6 +102,8 @@ public class AtomicActor extends Atomic<PortValue> {
 	private double localTime = 0;
 
 	private ProgressPrinter progressPrinter;
+	
+	/** the data logger */
 	private AdevsDataLogger dataLogger;
 
 	private final Actor actor;
@@ -208,7 +210,7 @@ public class AtomicActor extends Atomic<PortValue> {
 
 	@Override
 	public void delta_int() {
-		// Logger.debug("delta_int at %f : actor=%s", localTime,
+		//Logger.info("delta_int at %f : actor=%s", localTime,
 		// actor.toString());
 
 		switch (status) {
@@ -294,8 +296,7 @@ public class AtomicActor extends Atomic<PortValue> {
 
 	@Override
 	public void delta_ext(double e, Collection<PortValue> xb) {
-		// Logger.debug("delta_ext at %f : actor=%s", localTime,
-		// actor.toString());
+		//Logger.info("delta_ext at %f : actor=%s", localTime, actor.toString());
 		localTime += e;
 
 		for (PortValue inPortValue : xb) {
@@ -407,8 +408,7 @@ public class AtomicActor extends Atomic<PortValue> {
 
 	@Override
 	public void output_func(Collection<PortValue> yb) {
-		// Logger.debug("output_func at %f : actor=%s", localTime,
-		// actor.toString());
+		//Logger.info("output_func at %f : actor=%s", localTime, actor.toString());
 
 		switch (status) {
 		case SEND_HAS_TOKENS: {

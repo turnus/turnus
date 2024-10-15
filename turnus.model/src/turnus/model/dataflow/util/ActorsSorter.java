@@ -37,6 +37,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DirectedMultigraph;
+import org.jgrapht.traverse.TopologicalOrderIterator;
+
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
 import turnus.model.graph.SimpleGraph;
@@ -49,9 +53,9 @@ import turnus.model.graph.SimpleGraph;
 public class ActorsSorter {
 
 	public static List<Actor> topologicalOrder(Collection<Actor> actors) {
-		return topologicalOrder(actors, false);	
+		return topologicalOrder(actors, false);
 	}
-	
+
 	public static List<Actor> topologicalOrder(Collection<Actor> actors, boolean removeCycles) {
 		SimpleGraph<Actor> g = new SimpleGraph<>();
 		for (Actor actor : actors) {
@@ -66,6 +70,29 @@ public class ActorsSorter {
 		if (removeCycles)
 			g.detectAndRemoveCycles();
 		return g.topologicalSort();
+	}
+
+	public static List<Actor> newTopologicalOrder(Collection<Actor> actors) {
+		DirectedMultigraph<Actor, DefaultEdge> g = new DirectedMultigraph<>(DefaultEdge.class);
+
+		for (Actor actor : actors) {
+			g.addVertex(actor);
+		}
+
+		for (Actor actor : actors) {
+			for (Buffer outgoing : actor.getOutgoingBuffers()) {
+				g.addEdge(actor, outgoing.getTarget().getOwner());
+			}
+		}
+
+		TopologicalOrderIterator<Actor, DefaultEdge> topoIterator = new TopologicalOrderIterator<>(g);
+
+		List<Actor> topologicalOrder = new ArrayList<>();
+		while (topoIterator.hasNext()) {
+			Actor actor = topoIterator.next();
+			topologicalOrder.add(actor);
+		}
+		return topologicalOrder;
 	}
 
 	public static List<Actor> alphabeticalOrder(Collection<Actor> actors) {

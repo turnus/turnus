@@ -40,17 +40,23 @@ import turnus.model.dataflow.Buffer;
 
 /**
  * 
- * @author Simone Casale-Brunet 
+ * @author Simone Casale-Brunet
  * @author Malgorzata Michalska
+ * @author Endri Bezati
  *
  */
 public class AdevsDataLogger {
 
-	private Collection<DataCollector> collectors = new HashSet<>();
-	private Collection<ActorDataCollector> actorDataCollectors = new HashSet<ActorDataCollector>();
-	private Collection<ActorPartitionDataCollector> actorPartitionDataCollectors = new HashSet<ActorPartitionDataCollector>();
+	private Collection<DataCollector> collectors;
+	private Collection<ActorDataCollector> actorDataCollectors;
+	private Collection<ActorPartitionDataCollector> actorPartitionDataCollectors;
+	private Collection<BufferDataCollector> bufferDataCollectors;
 
 	public AdevsDataLogger() {
+		collectors = new HashSet<>();
+		actorDataCollectors = new HashSet<ActorDataCollector>();
+		actorPartitionDataCollectors = new HashSet<ActorPartitionDataCollector>();
+		bufferDataCollectors = new HashSet<BufferDataCollector>();
 	}
 
 	public void addDataCollector(DataCollector collector) {
@@ -62,6 +68,10 @@ public class AdevsDataLogger {
 
 		if (collector instanceof ActorPartitionDataCollector) {
 			actorPartitionDataCollectors.add((ActorPartitionDataCollector) collector);
+		}
+
+		if (collector instanceof BufferDataCollector) {
+			bufferDataCollectors.add((BufferDataCollector) collector);
 		}
 	}
 
@@ -118,31 +128,31 @@ public class AdevsDataLogger {
 			collector.logEndProduceTokens(action, stepId, buffer, time);
 		}
 	}
-	
+
 	public void logScheduleActor(String partitionId, Actor actor, double time) {
 		for (ActorPartitionDataCollector collector : actorPartitionDataCollectors) {
 			collector.logScheduleActor(partitionId, actor, time);
 		}
 	}
-	
+
 	public void logCheckActor(String partitionId, Actor actor, double time) {
 		for (ActorPartitionDataCollector collector : actorPartitionDataCollectors) {
 			collector.logCheckActor(partitionId, actor, time);
 		}
 	}
-	
+
 	public void logCheckedConditions(Action action, long stepId, int conditionsChecked, boolean isInput, double time) {
 		for (ActorPartitionDataCollector collector : actorPartitionDataCollectors) {
 			collector.logCheckedConditions(action.getOwner(), conditionsChecked, isInput, time);
 		}
 	}
-	
+
 	public void logFailedConditions(Action action, long stepId, int conditionsFailed, boolean isInput, double time) {
 		for (ActorPartitionDataCollector collector : actorPartitionDataCollectors) {
 			collector.logFailedConditions(action.getOwner(), conditionsFailed, isInput, time);
 		}
 	}
-	
+
 	public void logActorTerminated(String partitionId, Actor actor, double time) {
 		for (ActorPartitionDataCollector collector : actorPartitionDataCollectors) {
 			collector.logActorTerminated(partitionId, actor, time);
@@ -154,7 +164,7 @@ public class AdevsDataLogger {
 			collector.logStartProcessing(action, stepId, time);
 		}
 	}
-	
+
 	public void logEndProcessing(Action action, long stepId, double time) {
 		for (ActorDataCollector collector : actorDataCollectors) {
 			collector.logEndProcessing(action, stepId, time);
@@ -166,14 +176,38 @@ public class AdevsDataLogger {
 			collector.logEndProcessingWithCore(action, stepId, core, time);
 		}
 	}
-	
+
 	public void logStartProducing(Action action, long stepId, double time) {
 		for (ActorDataCollector collector : actorDataCollectors) {
 			collector.logStartProducing(action, stepId, time);
 		}
 	}
-	
-	public void logEndSimulation(double endSimulationTime){
+
+	public void logStartReceiving(Buffer buffer, double time) {
+		for (BufferDataCollector collector : bufferDataCollectors) {
+			collector.logStartReceiving(buffer, time);
+		}
+	}
+
+	public void logEndReceiving(Buffer buffer, double time) {
+		for (BufferDataCollector collector : bufferDataCollectors) {
+			collector.logEndReceiving(buffer, time);
+		}
+	}
+
+	public void logStartTransmitting(Buffer buffer, double time) {
+		for (BufferDataCollector collector : bufferDataCollectors) {
+			collector.logStartTransmitting(buffer, time);
+		}
+	}
+
+	public void logEndTransmitting(Buffer buffer, double time) {
+		for (BufferDataCollector collector : bufferDataCollectors) {
+			collector.logEndTransmitting(buffer, time);
+		}
+	}
+
+	public void logEndSimulation(double endSimulationTime) {
 		for (DataCollector collector : collectors) {
 			collector.logEndSimulation(endSimulationTime);
 		}

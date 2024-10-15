@@ -34,6 +34,7 @@ package turnus.ui.wizard;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.eclipse.draw2d.GridData;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -94,6 +95,8 @@ public abstract class AbstractWizardPage extends WizardPage {
 	 *            the widget
 	 */
 	protected void addWidget(Widget widget) {
+		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+	    widget.setLayoutData(gridData);
 		widget.addModifyListener(listener);
 		widgets.add(widget);
 	}

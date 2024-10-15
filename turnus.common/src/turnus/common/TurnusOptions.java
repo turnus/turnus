@@ -266,6 +266,12 @@ public class TurnusOptions {
 	@Description("Use the same name for the analysis as the mapping file name."	)
 	public static final Option<Boolean> MAPPING_AS_ANALYSIS_NAME;
 	
+	@Description("The fixed overhead latency.")
+	public static final Option<Double> FIXED_OVERHEAD_LATENCY;
+	
+	@Description("The bandwidth in GBytes.")
+	public static final Option<Double> BANDWIDTH;
+	
 //	@Description("Bandwidth in GHz. ")
 //	public static final Option<Double> BANDWIDTH;
 	
@@ -719,12 +725,19 @@ public class TurnusOptions {
 				setLongName("turnus.analysis.use.xcf.as.name").//
 				setType(Boolean.class).build();
 		
-		ADDITIONAL_TOOL_ARGUMENTS = Option.create().//
-				setName("additionalArgs").//
-				setDescription("Additional external arguments.")//
-				.setLongName("turnus.analysis.external.tool.args").//
-				setType(String.class).build();
 		
+		
+		FIXED_OVERHEAD_LATENCY = Option.create().//
+				setName("latency").//
+				setDescription("Fixed overhead latency")//
+				.setLongName("turnus.fixedlatency").//
+				setType(Double.class).build();
+
+		BANDWIDTH = Option.create().//
+				setName("bandwidth").//
+				setDescription("The Bandwidth in GB/s ")//
+				.setLongName("turnus.bandwidth").//
+				setType(Double.class).build();
 		
 	}
 

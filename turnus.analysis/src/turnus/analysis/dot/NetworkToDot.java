@@ -78,8 +78,8 @@ public class NetworkToDot {
 			String in = i < actor.getInputPorts().size() ? actor.getInputPorts().get(i).getName() : "";
 			String out = i < actor.getOutputPorts().size() ? actor.getOutputPorts().get(i).getName() : "";
 			emitter.emit(
-					"<tr><td align=\"left\" port=\"%s\"> %1$s </td><td align=\"right\" port=\"%s\"> <font point-size=\"15\"> %2$s </font> </td></tr>",
-					in, out);
+					"<tr><td align=\"left\" port=\"%s\"> %s </td><td align=\"right\" port=\"%s\"> <font point-size=\"15\"> %s </font> </td></tr>",
+					in.replace(":", "_"),in, out.replace(":", "_"), out);
 		}
 
 		emitter.decreaseIndentation();
@@ -106,12 +106,14 @@ public class NetworkToDot {
 
 		// emitter.emit("%s:e -> %s:w [color=\"%s\", label=\"sz=%d\"];", source, target,
 		// encodeColor(hashColor(buffer)), connectionBufferSize(buffer));
-		connectionColor(hashColor(buffer), srcInstanceName, srcPort, tgtInstanceName, srcTgt);
+		connectionColor(hashColor(buffer), srcInstanceName, srcPort.replace(":", "_"), tgtInstanceName,
+				srcTgt.replace(":", "_"));
 
 	}
 
 	protected void connectionColor(Color color, String source, String srcPort, String target, String srcTgt) {
-		emitter.emit("\"%s\":%s:e -> \"%s\":%s:w [color=\"%s\"];", source, srcPort, target, srcTgt, encodeColor(color));
+		emitter.emit("\"%s\":\"%s\":e -> \"%s\":\"%s\":w [color=\"%s\"];", source, srcPort, target, srcTgt,
+				encodeColor(color));
 	}
 
 	/**

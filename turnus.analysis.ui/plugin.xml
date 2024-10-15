@@ -71,6 +71,11 @@
             name="Workload balance partitioning">
       </command>
       <command
+            defaultHandler="turnus.analysis.ui.partitioning.DynamicRoundRobinPartitioningHandler"
+            id="turnus.analysis.ui.command.analysis.partitionig.dynamicRR"
+            name="Dynamic Round Robin partitioning">
+      </command>
+      <command
             defaultHandler="turnus.analysis.ui.partitioning.BalancedPipelinePartitioningHandler"
             id="turnus.analysis.ui.command.analysis.partitionig.balancedPipeline"
             name="Balanced pipeline partitioning">
@@ -135,6 +140,12 @@
             id="turnus.analysis.ui.command.timeline.JsonTimeline"
             name="Json Timeline Simulation">
       </command>
+      <command
+            defaultHandler="turnus.analysis.ui.communication.LinearCommunicationWeightHandler"
+            id="turnus.analysis.ui.command.analysis.communication.LinearCommunicationWeight"
+            name="Linear Communication Weight">
+      </command>
+     
    </extension>
    
       <extension
@@ -251,7 +262,13 @@
                   style="push"
                   tooltip="Evaluate a partitioning configuration using the workload balance partitioning">
             </command>
-             <command
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.partitionig.dynamicRR"
+                  label="Dynamic Round Robin Partitioning"
+                  style="push"
+                  tooltip="Evaluate a partitioning configuration using the dynamic round robin scheduling">
+            </command>
+            <command
                   commandId="turnus.analysis.ui.command.analysis.partitionig.balancedPipeline"
                   label="Balanced pipeline partitioning"
                   style="push"
@@ -274,6 +291,26 @@
                   label="Tabu Search partitioning"
                   style="push"
                   tooltip="Evaluate and upgrade a partitioning configuration using the tabu search">
+            </command>
+         </menu>
+         <menu
+               id="turnus.ui.menu.main.analysies.communication"
+               label="Communication">
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.communication.LinearCommunicationWeight"
+                  label="Linear Communication Weight"
+                  style="push"
+                  tooltip="Generate a communication weight file based on a linear communication model">
+            </command>
+         </menu>
+         <menu
+               id="turnus.ui.menu.main.analysies.profiling"
+               label="Profiling">
+            <command
+                  commandId="turnus.analysis.ui.command.analysis.profiling.interPartitionCommMem"
+                  label="Inter-Partition communication and memory analysis"
+                  style="push"
+                  tooltip="Run the Inter-Partition communication and memory analysis">
             </command>
          </menu>
          <menu
@@ -316,16 +353,6 @@
                   label="Latency and Throughput analysis"
                   style="push"
                   tooltip="Run Latency and Throughput analysis">
-            </command>
-         </menu>
-         <menu
-               id="turnus.ui.menu.main.analysies.profiling"
-               label="Profiling">
-            <command
-                  commandId="turnus.analysis.ui.command.analysis.profiling.interPartitionCommMem"
-                  label="Inter-Partition communication and memory analysis"
-                  style="push"
-                  tooltip="Run the Inter-Partition communication and memory analysis">
             </command>
          </menu>
          <menu
