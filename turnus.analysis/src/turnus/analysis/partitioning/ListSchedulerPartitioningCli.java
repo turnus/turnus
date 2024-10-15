@@ -33,6 +33,7 @@ package turnus.analysis.partitioning;
 
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
 import static turnus.common.TurnusOptions.ADDITIONAL_TOOL_ARGUMENTS;
+import static turnus.common.TurnusOptions.ANALYSIS_NAME;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
@@ -40,6 +41,7 @@ import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
 import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
+import static turnus.common.util.FileUtils.createFile;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
@@ -74,9 +76,9 @@ import turnus.model.trace.weighter.WeighterUtils;
 /**
  * OneStopParallel graph partitioning Cli
  * 
- * @author Endri Bezati 
- * @author Toni Boehnlein 
- * @author Pal Andras Papp 
+ * @author Endri Bezati
+ * @author Toni Boehnlein
+ * @author Pal Andras Papp
  * @author Raphael S. Steiner
  */
 public class ListSchedulerPartitioningCli implements IApplication {
@@ -112,6 +114,7 @@ public class ListSchedulerPartitioningCli implements IApplication {
 		TraceProject project = null;
 		TraceWeighter weighter = null;
 		String scheduling = null;
+		String analysisName = "";
 
 		MetisPartitioningReport report = null;
 
@@ -137,7 +140,19 @@ public class ListSchedulerPartitioningCli implements IApplication {
 			} else {
 				scheduling = DEFAULT_SCHEDULING_POLICY;
 			}
-			
+
+			// -- Name of the analysis
+			try {
+
+				// -- analysis name has priority over the MAPPING_AS_ANALYSIS_NAME
+				if (configuration.hasValue(ANALYSIS_NAME)) {
+					analysisName = configuration.getValue(ANALYSIS_NAME);
+				}
+
+			} catch (Exception e) {
+				throw new TurnusException("The given name has an issue", e);
+			}
+
 		}
 
 		// -- STEP 2 : Run the analysis
@@ -165,7 +180,12 @@ public class ListSchedulerPartitioningCli implements IApplication {
 					outputPath = createOutputDirectory("partitioning", configuration);
 				}
 
-				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.METIS_PARTITIONING_REPORT);
+				File reportFile;
+				if (analysisName.isEmpty()) {
+					reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.METIS_PARTITIONING_REPORT);
+				} else {
+					reportFile = createFile(outputPath, analysisName, TurnusExtensions.METIS_PARTITIONING_REPORT);
+				}
 				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
 				Logger.info("List scheduler partitioning report stored in \"%s\"", reportFile);
 
@@ -209,6 +229,7 @@ public class ListSchedulerPartitioningCli implements IApplication {
 				.setOption(TRACE_WEIGHTER, false)//
 				.setOption(SCHEDULING_POLICY, false) //
 				.setOption(ANALYSIS_PARTITIONING_UNITS, false) //
+				.setOption(ANALYSIS_NAME, false)//
 				.setOption(OUTPUT_DIRECTORY, false) //
 				.setOption(ADDITIONAL_TOOL_ARGUMENTS, false);
 

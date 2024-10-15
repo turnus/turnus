@@ -95,11 +95,9 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 	private static final String METIS_APP = "gpmetis";
 	private TraceWeighter traceWeighter;
 	private int units;
-	private String machine_file = "mparam_2";
-	private String machine_file_path = "/home/toni/work/turnus-tools/mparam_2";
-	private String alg = "GreedyBsp";
+	private int memory_bound = 3000;
+	private String alg = "bsp";
 	private String additionalArguments;
-	private Boolean schedule = true;
 	private EScheduler schedulingPolicy;
 
 	private Map<Buffer, Long> bufferVolume;
@@ -238,7 +236,6 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 		NetworkPartitioning partitioning = new NetworkPartitioning(network);
 		Map<String, Integer> nodeLabelsToIntegers = new HashMap<>(network.getActors().size());
 		Map<Integer, String> integerToNodeLables = new HashMap<>(network.getActors().size());
-		int i = 1;
 
 		// -- Topological sort actors
 		List<Actor> topologicalSort = ActorsSorter.topologicalOrder(network.getActors(), false);
@@ -254,7 +251,6 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 			nodeLabelsToIntegers.put(actor.getName(), j);
 			integerToNodeLables.put(j, actor.getName());
 			j++;
-			i++;
 		}
 
 		String file_path = metisDot(network, minBufferConfiguration, actor_map, nodeLabelsToIntegers);
@@ -263,24 +259,20 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 			List<String> commands = new ArrayList<>();
 
 			// OneStopParallel variants
-			if (this.schedule) {
-				commands.add("OneStopParallel");
-			} else {
-				commands.add("OneStopParallel_Partition");
-			}
-
+//			if (this.schedule) {
+//				commands.add("OneStopParallel");
+//			} else {
+//				commands.add("OneStopParallel_Partition");
+//			}
+			
+			commands.add("osp_turnus");
 						
 			System.out.println(file_path);
-			
-			commands.add("-g");	
+				
 			commands.add(file_path);
-			
-			commands.add("-m");
-			commands.add(machine_file_path);
-//			commands.add(Integer.toString(units));
-			
-			 commands.add("--"+ this.alg);
-			 commands.add("-o");
+			commands.add(Integer.toString(units));
+			commands.add(Integer.toString(memory_bound));
+			commands.add(this.alg);
 			
 			System.out.println(commands);
 			
@@ -295,17 +287,16 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 
 			Logger.info("\n" + result);
 			// -- Read OneStopParallel output
-			
-		    int lastSeparator = file_path.lastIndexOf(".");
+
 		    
-		    String ospOutput;
-		    if (this.schedule) {
+		    String ospOutput = file_path + "_"+this.alg+"_schedule.txt";
+		    //if (this.schedule) {
 //				ospOutput = file_path.substring(0, lastSeparator) + "_p" + Integer.toString(units) + "_"+this.alg+"_schedule.txt";
-				ospOutput = file_path.substring(0, lastSeparator) + "_" + machine_file + "_"+this.alg+"_schedule.txt";			
-			} else {
+				//ospOutput = file_path.substring(0, lastSeparator) + "_" + machine_file + "_"+this.alg+"_schedule.txt";			
+			//} else {
 //				ospOutput = file_path.substring(0, lastSeparator) + "_p" + Integer.toString(units) + "_"+this.alg+"_partition.txt";
-				ospOutput = file_path.substring(0, lastSeparator) + "_" + machine_file + "_"+this.alg+"_partition.txt";				
-			}
+				//ospOutput = file_path.substring(0, lastSeparator) + "_" + machine_file + "_"+this.alg+"_partition.txt";				
+			//}
 			
 			
 			System.out.println(ospOutput);
@@ -401,12 +392,8 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 					this.alg = input[i+1];
 					//System.out.println("setting alg: " + this.alg);
 					i++;
-				} else if (input[i].equals("-schedule")) {
-					if (input[i+1].equals("true")) {
-						this.schedule = true;
-					} else {
-						this.schedule = false;
-					}
+				} else if (input[i].equals("-m")) {
+					this.memory_bound = Integer.valueOf(input[i+1]);
 					i++;
 				}
 			}
