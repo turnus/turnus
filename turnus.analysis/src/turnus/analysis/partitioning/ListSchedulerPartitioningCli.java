@@ -89,6 +89,13 @@ public class ListSchedulerPartitioningCli implements IApplication {
 	private IProgressMonitor monitor = new NullProgressMonitor();
 	private ListSchedulerPartitioning analysis;
 
+	private Option<File> ACTION_WEIGHTS;
+			ACTION_WEIGHTS = Option.create().//
+				setName("weight").//
+				setDescription("The action weights file. Supported file extensions is .exdf").//
+				setLongName("turnus.weight").//
+				setType(File.class).build();
+
 	public static void main(String[] args) {
 		ModelsRegister.init();
 
