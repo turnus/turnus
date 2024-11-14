@@ -32,7 +32,6 @@
 package turnus.analysis.partitioning;
 
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
-import static turnus.common.TurnusOptions.ADDITIONAL_TOOL_ARGUMENTS;
 import static turnus.common.TurnusOptions.ANALYSIS_NAME;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.OUTPUT_DIRECTORY;
@@ -58,6 +57,7 @@ import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
 import turnus.common.configuration.Configuration.CliParser;
+import turnus.common.configuration.Option;
 import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
 import turnus.model.ModelsRegister;
@@ -89,12 +89,17 @@ public class ListSchedulerPartitioningCli implements IApplication {
 	private IProgressMonitor monitor = new NullProgressMonitor();
 	private ListSchedulerPartitioning analysis;
 
-	private Option<File> ACTION_WEIGHTS;
-			ACTION_WEIGHTS = Option.create().//
-				setName("weight").//
-				setDescription("The action weights file. Supported file extensions is .exdf").//
-				setLongName("turnus.weight").//
-				setType(File.class).build();
+	private Option<String> ALGORITHM = Option.create().//
+			setName("alg_name").//
+			setDescription("Specify the name of the algorithm.").//
+			setLongName("turnus.analysis.osp.algorithm").//
+			setType(String.class).build();
+
+	private Option<Integer> MEMORY_BOUND = Option.create().//
+			setName("mem_bound").//
+			setDescription("Memory bound")//
+			.setLongName("turnus.analysis.osp.mem_bound").//
+			setType(Integer.class).build();
 
 	public static void main(String[] args) {
 		ModelsRegister.init();
@@ -122,6 +127,8 @@ public class ListSchedulerPartitioningCli implements IApplication {
 		TraceWeighter weighter = null;
 		String scheduling = null;
 		String analysisName = "";
+		String algorithm = "";
+		Integer memoryBound = 0;
 
 		MetisPartitioningReport report = null;
 
@@ -148,9 +155,16 @@ public class ListSchedulerPartitioningCli implements IApplication {
 				scheduling = DEFAULT_SCHEDULING_POLICY;
 			}
 
+			if (configuration.hasValue(ALGORITHM)) {
+				algorithm = configuration.getValue(ALGORITHM);
+			}
+
+			if (configuration.hasValue(MEMORY_BOUND)) {
+				memoryBound = configuration.getValue(MEMORY_BOUND);
+			}
+
 			// -- Name of the analysis
 			try {
-
 				// -- analysis name has priority over the MAPPING_AS_ANALYSIS_NAME
 				if (configuration.hasValue(ANALYSIS_NAME)) {
 					analysisName = configuration.getValue(ANALYSIS_NAME);
@@ -168,6 +182,8 @@ public class ListSchedulerPartitioningCli implements IApplication {
 			try {
 				analysis = new ListSchedulerPartitioning(project, weighter);
 				analysis.setConfiguration(configuration);
+				analysis.setAlgorithm(algorithm);
+				analysis.setMemoryBound(memoryBound);
 				report = analysis.run();
 				Logger.infoRaw(report.toString());
 			} catch (Exception e) {
@@ -238,7 +254,8 @@ public class ListSchedulerPartitioningCli implements IApplication {
 				.setOption(ANALYSIS_PARTITIONING_UNITS, false) //
 				.setOption(ANALYSIS_NAME, false)//
 				.setOption(OUTPUT_DIRECTORY, false) //
-				.setOption(ADDITIONAL_TOOL_ARGUMENTS, false);
+				.setOption(ALGORITHM, true) //
+				.setOption(MEMORY_BOUND, true);
 
 		configuration = cliParser.parse(args);
 	}

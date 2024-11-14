@@ -32,7 +32,6 @@
 
 package turnus.analysis.partitioning;
 
-import static turnus.common.TurnusOptions.ADDITIONAL_TOOL_ARGUMENTS;
 import static turnus.common.TurnusOptions.ANALYSIS_PARTITIONING_UNITS;
 import static turnus.common.TurnusOptions.SCHEDULING_POLICY;
 
@@ -53,8 +52,6 @@ import java.util.Vector;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import com.google.common.collect.Lists;
-
 import turnus.analysis.Analysis;
 import turnus.analysis.buffer.BoundedBufferAnalysis;
 import turnus.common.TurnusException;
@@ -71,7 +68,6 @@ import turnus.model.dataflow.Buffer;
 import turnus.model.dataflow.Network;
 import turnus.model.dataflow.Port;
 import turnus.model.dataflow.util.ActorsSorter;
-import turnus.model.graph.SimpleGraph;
 import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.trace.Step;
@@ -83,21 +79,20 @@ import turnus.model.trace.weighter.TraceWeighter;
 /**
  * Partitioning based on OneStopParalle graph partitioner
  * 
- * @author Endri Bezati 
- * @author Toni Boehnlein 
- * @author Pal Andras Papp 
+ * @author Endri Bezati
+ * @author Toni Boehnlein
+ * @author Pal Andras Papp
  * @author Raphael S. Steiner
  */
 public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport> {
 
 	public static final int DEFAULT_UNITS = 2;
 	public static final String DEFAULT_SCHEDULING_POLICY = "ROUND_ROBIN";
-	private static final String METIS_APP = "gpmetis";
+	private static final String OSP_APP = "osp_turnus";
 	private TraceWeighter traceWeighter;
-	private int units;
+	private int units = 2;
 	private int memory_bound = 3000;
-	private String alg = "bsp";
-	private String additionalArguments;
+	private String algorithm = "bsp";
 	private EScheduler schedulingPolicy;
 
 	private Map<Buffer, Long> bufferVolume;
@@ -112,7 +107,6 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 		this.actorWorkload = new HashMap<>();
 		this.bufferVolume = new HashMap<>();
 		this.decorator = project.getTraceDecorator();
-		this.additionalArguments = "";
 	}
 
 	private boolean execInPath(String exec) {
@@ -120,9 +114,12 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 				.anyMatch(path -> Files.exists(path.resolve(exec)));
 	}
 
-	private int bitsToMegaBytes(Long value) {
-		long ret = value / 8 / 1024;
-		return (int) (ret == 0L ? 1 : ret);
+	public void setAlgorithm(String alg_) {
+		this.algorithm = alg_;
+	}
+	
+	public void setMemoryBound(Integer value) {
+		this.memory_bound = value;
 	}
 
 	private long getTotalBitsOfBuffer(BufferSize bufferSize, Buffer buffer) {
@@ -131,91 +128,59 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 		return depth * bits;
 	}
 
-	private String metisDot(Network network, BufferSize minBufferConfiguration, Vector<Actor> actor_map, Map<String, Integer> nodeLabelsToIntegers) {
+	private String metisDot(Network network, BufferSize minBufferConfiguration, Vector<Actor> actor_map,
+			Map<String, Integer> nodeLabelsToIntegers) {
 
-		List<String> lines = new ArrayList<>();	
-				
-		
-//		SimpleGraph<Actor> g = new SimpleGraph<>();
-//		for (Actor actor : actor_map) {
-//		//for (Actor actor : network.getActors()) {
-//			g.addNode(actor);
-//		}
-//
-//		for (Actor actor : network.getActors()) {
-//			for (Buffer outgoing : actor.getOutgoingBuffers()) {
-//				g.addEdge(actor, outgoing.getTarget().getOwner());
-//			}
-//		}
-//		
-//		g.detectAndRemoveCycles();
-	
-		
-		
+		List<String> lines = new ArrayList<>();
+
 		lines.add("digraph  {\n");
 		System.out.println("strict digraph  {");
 		for (Actor actor : actor_map) {
 
 			long persistentMemory = MemoryAndBuffers.getActorPersistentMemmory(actor);
-			//System.out.println(actor);
-			
+
 			long transientMemory = 0;
-			
+
 			for (Buffer outgoing : actor.getOutgoingBuffers()) {
 				transientMemory += getTotalBitsOfBuffer(minBufferConfiguration, outgoing);
 			}
 
-	
 			int actorWeight = (int) (actorWorkload.get(actor).longValue());
 			if (actorWeight == 0) {
 				actorWeight = 1;
 			}
 
-			lines.add(String.format("%s[work_weight=%d mem_weight=%s comm_weight=%s]\n", nodeLabelsToIntegers.get(actor.getName()), actorWeight, persistentMemory/8/1024/1024, transientMemory/8/1024/1024));
-			//lines.add(String.format("%s[work_weight=%d mem_weight=%s comm_weight=%s]\n", nodeLabelsToIntegers.get(actor.getName()), actorWeight, persistentMemory/8/1024/1024, 0));
-
-			//System.out.println(
-			//		String.format("%s [workload=%d, memory=%s]", actor.getName(), actorWeight, persistentMemory/8/1024/1024));
+			lines.add(String.format("%s[work_weight=%d mem_weight=%s comm_weight=%s]\n",
+					nodeLabelsToIntegers.get(actor.getName()), actorWeight, persistentMemory / 8 / 1024 / 1024,
+					transientMemory / 8 / 1024 / 1024));
 		}
 
 		for (Actor actor : network.getActors()) {
 			for (Port port : actor.getOutputPorts()) {
 				for (Buffer buffer : port.getOutputs()) {
 					String tagetActorLabel = buffer.getTarget().getOwner().getName();
-					
+
 					Long bufferWeight = bufferVolume.get(buffer);
-//					boolean found = false;
-//					for (Actor target : g.getEdges(actor)) {
-//						if (target == buffer.getTarget().getOwner()) {
-//							found = true;
-//						}
-//					}
-					
-//					if (found) {					
-					lines.add(String.format("%s->%s [comm_weight=%d]\n", nodeLabelsToIntegers.get(actor.getName()), nodeLabelsToIntegers.get(tagetActorLabel), bufferWeight/8/1024/1024 ));
-//					}	
-					//System.out
-					//		.println(String.format("%s -> %s [data=%d]", actor.getName(), tagetActorLabel, bufferWeight));
+				
+					lines.add(String.format("%s->%s [comm_weight=%d]\n", nodeLabelsToIntegers.get(actor.getName()),
+							nodeLabelsToIntegers.get(tagetActorLabel), bufferWeight / 8 / 1024 / 1024));
+
 				}
 			}
 
 		}
-		
+
 		lines.add("}");
-		//System.out.println("}");
-		//System.out.println("total mem: " + total/8/1024/1024/1024);
-		
+
 		String ret = "";
-		
+
 		try {
 			File ospInput = FileUtils.createTempFile(network.getName(), ".dot", false);
 
 			FileWriter writer = new FileWriter(ospInput);
 			StringBuffer sb = new StringBuffer();
-			
-			
+
 			lines.stream().forEach(l -> {
-				// sb.append(String.valueOf(actor));
 				sb.append(l);
 			});
 
@@ -223,12 +188,12 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 			writer.write(sb.toString());
 			System.out.println("file written");
 			ret = ospInput.getAbsolutePath();
-			
+
 			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}			
-		
+		}
+
 		return ret;
 	}
 
@@ -239,43 +204,35 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 
 		// -- Topological sort actors
 		List<Actor> topologicalSort = ActorsSorter.topologicalOrder(network.getActors(), false);
-		//topologicalSort = Lists.reverse(topologicalSort);
+		// topologicalSort = Lists.reverse(topologicalSort);
 
 		Vector<Actor> actor_map = new Vector<Actor>(network.getActors().size());
-		
+
 		// -- Node labels to integers
 		int j = 0;
 		for (Actor actor : topologicalSort) {
 			actor_map.add(j, actor);
-			
+
 			nodeLabelsToIntegers.put(actor.getName(), j);
 			integerToNodeLables.put(j, actor.getName());
 			j++;
 		}
 
 		String file_path = metisDot(network, minBufferConfiguration, actor_map, nodeLabelsToIntegers);
-		
 
-			List<String> commands = new ArrayList<>();
+		List<String> commands = new ArrayList<>();
 
-			// OneStopParallel variants
-//			if (this.schedule) {
-//				commands.add("OneStopParallel");
-//			} else {
-//				commands.add("OneStopParallel_Partition");
-//			}
-			
-			commands.add("osp_turnus");
-						
-			System.out.println(file_path);
-				
-			commands.add(file_path);
-			commands.add(Integer.toString(units));
-			commands.add(Integer.toString(memory_bound));
-			commands.add(this.alg);
-			
-			System.out.println(commands);
-			
+		commands.add("osp_turnus");
+
+		System.out.println(file_path);
+
+		commands.add(file_path);
+		commands.add(Integer.toString(this.units));
+		commands.add(Integer.toString(this.memory_bound));
+		commands.add(this.algorithm);
+
+		System.out.println(commands);
+
 		try {
 			ProcessBuilder ospPB = new ProcessBuilder(commands);
 			ospPB.redirectErrorStream(true);
@@ -288,43 +245,29 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 			Logger.info("\n" + result);
 			// -- Read OneStopParallel output
 
-		    
-		    String ospOutput = file_path + "_"+this.alg+"_schedule.txt";
-		    //if (this.schedule) {
-//				ospOutput = file_path.substring(0, lastSeparator) + "_p" + Integer.toString(units) + "_"+this.alg+"_schedule.txt";
-				//ospOutput = file_path.substring(0, lastSeparator) + "_" + machine_file + "_"+this.alg+"_schedule.txt";			
-			//} else {
-//				ospOutput = file_path.substring(0, lastSeparator) + "_p" + Integer.toString(units) + "_"+this.alg+"_partition.txt";
-				//ospOutput = file_path.substring(0, lastSeparator) + "_" + machine_file + "_"+this.alg+"_partition.txt";				
-			//}
-			
-			
+			String ospOutput = file_path + "_" + this.algorithm + "_schedule.txt";
+
 			System.out.println(ospOutput);
-			
-		
+
 			try (BufferedReader br = new BufferedReader(new FileReader(ospOutput))) {
 				String line;
 				int actorIndex = 0;
-					
+
 				br.readLine();
 				br.readLine();
 
 				while ((line = br.readLine()) != null) {
 					try {
-
-		
 						String[] split = line.split(" ");
-						
+
 						if (split.length > 3) {
 							continue;
 						}
-						
+
 						int partition = Integer.parseInt(split[1]);
-						
+
 						String actor = integerToNodeLables.get(actorIndex);
-						
-			
-						
+
 						partitioning.setPartition(actor, "p" + partition);
 						actorIndex++;
 						if (actorIndex == network.getActors().size()) {
@@ -342,9 +285,9 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 
 			partitioning.setSchedulerToAll(schedulingPolicy.getName());
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return partitioning;
 
@@ -381,32 +324,16 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 	public MetisPartitioningReport run() throws TurnusException {
 		units = configuration.getValue(ANALYSIS_PARTITIONING_UNITS, DEFAULT_UNITS);
 		schedulingPolicy = EScheduler.get(configuration.getValue(SCHEDULING_POLICY, DEFAULT_SCHEDULING_POLICY));
-		if(configuration.hasValue(ADDITIONAL_TOOL_ARGUMENTS)) {
-			//System.out.println("Reading additinal arguments");
-			this.additionalArguments = configuration.getValue(ADDITIONAL_TOOL_ARGUMENTS);
-			String[] input = additionalArguments.split(" ");
-			for (int i = 0; i < input.length-1; i++) {
-				
-				//System.out.println(i+ " arg: " + input[i]);
-				if (input[i].equals("-alg")) {
-					this.alg = input[i+1];
-					//System.out.println("setting alg: " + this.alg);
-					i++;
-				} else if (input[i].equals("-m")) {
-					this.memory_bound = Integer.valueOf(input[i+1]);
-					i++;
-				}
-			}
-		}
-		
+
+
 		PartitioningFactory f = PartitioningFactory.eINSTANCE;
 		MetisPartitioningReport report = f.createMetisPartitioningReport();
 		report.setNetwork(project.getNetwork());
 		report.setAlgorithm("Metis partitioner");
 		report.setSchedulinPolicy(schedulingPolicy);
 
-		if (!execInPath(METIS_APP)) {
-			throw new TurnusException("gpmetis not found in the path, please install metis.");
+		if (!execInPath(OSP_APP)) {
+			throw new TurnusException("osp_turnus not found in the path, please install metis.");
 		}
 
 		// -- Run bounded buffer analysis for a total cost of memory
@@ -422,7 +349,7 @@ public class ListSchedulerPartitioning extends Analysis<MetisPartitioningReport>
 		// -- Calculate workload and total communication volume
 		processTrace();
 
-	    NetworkPartitioning partitioning = metisPartitioning(project.getNetwork(), minBufferConfiguration);
+		NetworkPartitioning partitioning = metisPartitioning(project.getNetwork(), minBufferConfiguration);
 		for (String partition : partitioning.asPartitionActorsMap().keySet()) {
 			MetisPartitioning mp = f.createMetisPartitioning();
 			Double workload = 0.0;
