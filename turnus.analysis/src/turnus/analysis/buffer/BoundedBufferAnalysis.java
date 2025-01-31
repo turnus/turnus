@@ -131,6 +131,10 @@ public class BoundedBufferAnalysis extends Analysis<BoundedBuffersReport> {
 			report.getBuffersData().add(data);
 
 			int size = buffer.getAttribute(MAX_TOKENS);
+			int initial = buffer.getInitialTokens();
+			
+			size = size + initial;
+			
 			if (pow2) {
 				size = nearestPowTwo(size);
 			}
@@ -299,8 +303,8 @@ public class BoundedBufferAnalysis extends Analysis<BoundedBuffersReport> {
 
 		// initialize the buffers
 		for (Buffer buffer : buffers) {
-			buffer.setAttribute(MAX_TOKENS, 0);
-			buffer.setAttribute(OCCUPANCY, 0);
+			buffer.setAttribute(MAX_TOKENS,0);
+			buffer.setAttribute(OCCUPANCY, buffer.getInitialTokens());
 			buffer.setAttribute(SATISFIED, false);
 		}
 

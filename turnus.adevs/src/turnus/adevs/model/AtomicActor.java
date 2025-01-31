@@ -227,6 +227,8 @@ public class AtomicActor extends Atomic<PortValue> {
 												// reading, no buffer release,
 												// go directly to processing
 				dataLogger.logStartProcessing(currentAction, currentStep.getId(), localTime);
+				dataLogger.logStartProcessingWithCore(currentAction, currentStep.getId(), attributedCore, localTime);
+
 				status = Status.PROCESSING;
 			}
 
@@ -245,6 +247,7 @@ public class AtomicActor extends Atomic<PortValue> {
 			} else { // writing must be done
 				outgoingBuffersNumber = out_tokensToWrite.elementSet().size();
 				dataLogger.logStartProducing(currentAction, currentStep.getId(), localTime);
+
 				status = Status.WRITING;
 			}
 			break;
@@ -254,6 +257,7 @@ public class AtomicActor extends Atomic<PortValue> {
 			localTime += ta();
 			if (!releaseAfterProcessing) {
 				dataLogger.logStartProcessing(currentAction, currentStep.getId(), localTime);
+				dataLogger.logStartProcessingWithCore(currentAction, currentStep.getId(), attributedCore, localTime);
 				status = Status.PROCESSING;
 			}
 
@@ -360,6 +364,7 @@ public class AtomicActor extends Atomic<PortValue> {
 						if (in_tokensToRead.isEmpty()) {
 							if (releaseAfterProcessing) {
 								dataLogger.logStartProcessing(currentAction, currentStep.getId(), localTime);
+								dataLogger.logStartProcessingWithCore(currentAction, currentStep.getId(), attributedCore, localTime);
 								status = Status.PROCESSING;
 							} else { // TODO: it should react every time a
 										// reading from fifo is finished (now
@@ -494,6 +499,7 @@ public class AtomicActor extends Atomic<PortValue> {
 				} else { // writing must be done
 					outgoingBuffersNumber = out_tokensToWrite.elementSet().size();
 					dataLogger.logStartProducing(currentAction, currentStep.getId(), localTime);
+
 					status = Status.WRITING;
 				}
 			}

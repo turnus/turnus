@@ -41,17 +41,20 @@ import static turnus.common.TurnusOptions.SCHEDULING_WEIGHTS;
 import static turnus.common.TurnusOptions.TRACE_FILE;
 import static turnus.common.TurnusOptions.TRACE_WEIGHTER;
 import static turnus.common.TurnusOptions.ACTION_WEIGHTS;
+import static turnus.common.util.FileUtils.changeExtension;
 import static turnus.common.util.FileUtils.createDirectory;
 import static turnus.common.util.FileUtils.createFileWithTimeStamp;
 import static turnus.common.util.FileUtils.createOutputDirectory;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
+import turnus.analysis.dot.BottleneckNetworkToDot;
 import turnus.common.TurnusException;
 import turnus.common.TurnusExtensions;
 import turnus.common.configuration.Configuration;
@@ -60,11 +63,13 @@ import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
 import turnus.model.ModelsRegister;
 import turnus.model.analysis.bottlenecks.BottlenecksWithSchedulingReport;
+import turnus.model.mapping.NetworkPartitioning;
 import turnus.model.trace.TraceProject;
 
 /**
  * 
  * @author Simone Casale-Brunet
+ * @author Endri Bezati
  *
  */
 public class ScheduledPartialCriticalPathAnalysisCli implements IApplication {
@@ -165,8 +170,13 @@ public class ScheduledPartialCriticalPathAnalysisCli implements IApplication {
 				} else {
 					outputPath = createOutputDirectory("bottlenecks", configuration);
 				}
-
+				
+				NetworkPartitioning partitioning = analysis.getPartitioning();
+				
 				File reportFile = createFileWithTimeStamp(outputPath, TurnusExtensions.SCHEDULED_BOTTLENECKS_REPORT);
+				File dotFile = changeExtension(reportFile, TurnusExtensions.DOT);
+				new BottleneckNetworkToDot(project.getNetwork(), report, partitioning)
+						.emit(FileSystems.getDefault().getPath(dotFile.getAbsolutePath()));
 				EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
 				Logger.info("Scheduled bottlenecks report stored in \"%s\"", reportFile);
 

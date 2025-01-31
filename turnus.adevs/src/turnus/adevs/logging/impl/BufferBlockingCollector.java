@@ -183,4 +183,10 @@ public class BufferBlockingCollector implements ActorDataCollector, Cloneable {
 		
 	}
 
+	@Override
+	public void logStartProcessingWithCore(Action action, long stepId, int core, double time) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

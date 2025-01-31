@@ -87,7 +87,7 @@ public class WeightedHyperGraph extends SimpleHyperGraph<WeightedActor, Weighted
 	}
 
 	public StringBuffer toPatoh() {
-		return toPatoh(true, true, true);
+		return toPatoh(true, true, false);
 	}
 
 	public StringBuffer toPatoh(boolean withNodeWeights, boolean withHyperedgeWeight, boolean withMemoryWeight) {

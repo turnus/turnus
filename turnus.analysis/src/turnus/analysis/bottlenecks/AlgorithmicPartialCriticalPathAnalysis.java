@@ -82,6 +82,7 @@ import turnus.model.trace.weighter.WeighterUtils;
  * only the execution time of each action are considered.
  * 
  * @author Simone Casale Brunet
+ * @author Endri Bezati
  *
  */
 public class AlgorithmicPartialCriticalPathAnalysis extends Analysis<BottlenecksReport> {
@@ -153,7 +154,10 @@ public class AlgorithmicPartialCriticalPathAnalysis extends Analysis<Bottlenecks
 				for (int i = 0; i < count; i++) {
 					Pcp pcpt = buffersMap.get(buffer).read();
 					if (!pcps.contains(pcpt)) {
-						pcps.add(pcpt);
+						// -- Check if it comes for initial tokens
+						if (!pcpt.isEmpty) {
+							pcps.add(pcpt);							
+						}
 					}
 				}
 			}
@@ -227,7 +231,9 @@ public class AlgorithmicPartialCriticalPathAnalysis extends Analysis<Bottlenecks
 		double pcpWeight = 0;
 		final Map<Action, Double> sumPcpVarianceMap;
 		final Map<Action, Double> sumPcpWeightMap;
-
+		boolean isEmpty = false;
+		
+		
 		private Pcp(Action action, double weight, double variance) {
 			pcpWeight = weight;
 			pcpVariance = variance;
@@ -242,6 +248,13 @@ public class AlgorithmicPartialCriticalPathAnalysis extends Analysis<Bottlenecks
 			sumPcpVarianceMap.put(action, variance);
 		}
 
+		private Pcp() {
+            pcpFirings = AtomicLongMap.create();
+            sumPcpWeightMap = new HashMap<>();
+            sumPcpVarianceMap = new HashMap<>();
+            isEmpty = true;
+		}
+		
 		private Pcp(Pcp o) {
 			pcpWeight = o.pcpWeight;
 			pcpVariance = o.pcpVariance;
@@ -411,6 +424,11 @@ public class AlgorithmicPartialCriticalPathAnalysis extends Analysis<Bottlenecks
 		buffersMap = new HashMap<>();
 		for (Buffer buffer : network.getBuffers()) {
 			BufferQueue queue = new BufferQueue();
+			
+			for(int i=0; i < buffer.getInitialTokens(); i++) {
+				queue.write(new Pcp());
+			}
+			
 			if (minimizeMemoryUsage) {
 				queue.setSize(bufferSize.getSize(buffer));
 			}

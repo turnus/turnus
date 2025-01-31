@@ -11,7 +11,7 @@ import turnus.model.dataflow.Network;
 
 public class NetworkToDot {
 
-	private Network network;
+	protected Network network;
 	protected Emitter emitter;
 
 	public NetworkToDot(Network network) {
@@ -35,7 +35,7 @@ public class NetworkToDot {
 		}
 	}
 
-	private void network() {
+	protected void network() {
 		emitter.emit("digraph \"%s\" {", network.getName());
 		emitter.increaseIndentation();
 
@@ -51,11 +51,18 @@ public class NetworkToDot {
 		for (Buffer buffer : network.getBuffers()) {
 			connection(buffer);
 		}
+		
+		// -- Scheduling connection
+		schedulingConnection();
 
 		emitter.decreaseIndentation();
 		emitter.emit("}");
 	}
 
+	protected void schedulingConnection() {
+		
+	}
+	
 	private void instance(Actor actor) {
 		emitter.emit("\"%s\" [label=<", actor.getName());
 		emitter.increaseIndentation();
@@ -103,19 +110,30 @@ public class NetworkToDot {
 
 		String srcPort = buffer.getSource().getName();
 		String srcTgt = buffer.getTarget().getName();
+		int delay = buffer.getInitialTokens();
 
 		// emitter.emit("%s:e -> %s:w [color=\"%s\", label=\"sz=%d\"];", source, target,
 		// encodeColor(hashColor(buffer)), connectionBufferSize(buffer));
+		
+		
 		connectionColor(hashColor(buffer), srcInstanceName, srcPort.replace(":", "_"), tgtInstanceName,
-				srcTgt.replace(":", "_"));
+					srcTgt.replace(":", "_"), delay);
+		
 
 	}
 
-	protected void connectionColor(Color color, String source, String srcPort, String target, String srcTgt) {
-		emitter.emit("\"%s\":\"%s\":e -> \"%s\":\"%s\":w [color=\"%s\"];", source, srcPort, target, srcTgt,
-				encodeColor(color));
+	protected void connectionColor(Color color, String source, String srcPort, String target, String srcTgt, int delay) {
+		if (delay > 0) {
+			emitter.emit("\"%s\":\"%s\":e -> \"%s\":\"%s\":w [color=\"%s\", label =\"(%s)\"];", source, srcPort, target,
+					srcTgt, encodeColor(color), delay);
+		} else {
+			emitter.emit("\"%s\":\"%s\":e -> \"%s\":\"%s\":w [color=\"%s\"];", source, srcPort, target, srcTgt,
+					encodeColor(color));
+		}
 	}
 
+	
+	
 	/**
 	 * Get an RGB color from object hash code
 	 *

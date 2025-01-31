@@ -47,7 +47,9 @@ public interface ActorDataCollector extends DataCollector {
 	public void logIsEnabled(Action action, long stepId, double time);
 
 	public void logStartProcessing(Action action, long stepId, double time);
-	
+
+	public void logStartProcessingWithCore(Action action, long stepId, int core, double time);
+
 	public void logEndProcessing(Action action, long stepId, double time);
 	
 	public void logEndProcessingWithCore(Action action, long stepId, int core, double time);

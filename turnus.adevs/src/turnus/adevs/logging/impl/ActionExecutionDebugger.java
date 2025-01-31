@@ -129,4 +129,10 @@ public class ActionExecutionDebugger implements ActorDataCollector{
 		
 	}
 
+	@Override
+	public void logStartProcessingWithCore(Action action, long stepId, int core, double time) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

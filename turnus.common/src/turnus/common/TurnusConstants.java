@@ -70,7 +70,7 @@ public class TurnusConstants {
 	/**
 	 * The default value for the minimizing memory usage of the analyzes
 	 */
-	public static boolean DEFAULT_MINIMIZE_MEMORY_USAGE = true;
+	public static boolean DEFAULT_MINIMIZE_MEMORY_USAGE = false;
 
 	/**
 	 * The default size for buffered streams (e.g {@link BufferedInputStream} or

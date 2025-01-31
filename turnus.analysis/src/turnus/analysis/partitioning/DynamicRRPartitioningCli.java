@@ -198,6 +198,12 @@ public class DynamicRRPartitioningCli implements IApplication {
 
 		}
 
+		@Override
+		public void logStartProcessingWithCore(Action action, long stepId, int core, double time) {
+			// TODO Auto-generated method stub
+			
+		}
+
 	}
 
 	private PostProcessingReport run() throws TurnusException {
@@ -245,7 +251,7 @@ public class DynamicRRPartitioningCli implements IApplication {
 			}
 
 			// -- Define the Scheduling policy and the number of the processing elements
-			partitioning.setScheduler("p1", "ROUND_ROBIN");
+			partitioning.setScheduler("p1", "FIFO");
 			partitioning.setProcessingElements("p1", numberOfPEs);
 
 			if (configuration.hasValue(BUFFER_SIZE_FILE)) {

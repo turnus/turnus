@@ -96,8 +96,8 @@ public enum EScheduler implements Enumerator {
 	 */
 	RANDOM(4, "RANDOM", "RANDOM"),
 	/**
-	 * The '<em><b>DISCREPANCY_BASIC</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>DISCREPANCY BASIC</b></em>' literal object. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 *
 	 * @see #DISCREPANCY_BASIC_VALUE
 	 * @generated
@@ -105,8 +105,8 @@ public enum EScheduler implements Enumerator {
 	 */
 	DISCREPANCY_BASIC(5, "DISCREPANCY_BASIC", "DISCREPANCY_BASIC"),
 	/**
-	 * The '<em><b>DISCREPANCY_MAX_LOCAL_CHILDREN</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>DISCREPANCY MAX LOCAL CHILDREN</b></em>' literal object. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 *
 	 * @see #DISCREPANCY_MAX_LOCAL_CHILDREN_VALUE
 	 * @generated
@@ -114,8 +114,8 @@ public enum EScheduler implements Enumerator {
 	 */
 	DISCREPANCY_MAX_LOCAL_CHILDREN(6, "DISCREPANCY_MAX_LOCAL_CHILDREN", "DISCREPANCY_MAX_LOCAL_CHILDREN"),
 	/**
-	 * The '<em><b>DISCREPANCY_TIME_WEIGHTED</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>DISCREPANCY TIME WEIGHTED</b></em>' literal object. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 *
 	 * @see #DISCREPANCY_TIME_WEIGHTED_VALUE
 	 * @generated
@@ -123,14 +123,24 @@ public enum EScheduler implements Enumerator {
 	 */
 	DISCREPANCY_TIME_WEIGHTED(7, "DISCREPANCY_TIME_WEIGHTED", "DISCREPANCY_TIME_WEIGHTED"),
 	/**
-	 * The '<em><b>DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>DISCREPANCY MAX LOCAL CHILDREN TIME WEIGHTED</b></em>' literal
+	 * object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 *
 	 * @see #DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED(8, "DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED", "DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED");
+	DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED(8, "DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED",
+			"DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED"),
+	/**
+	 * The '<em><b>FIFO</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
+	 * @see #FIFO_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	FIFO(9, "FIFO", "FIFO");
 
 	/**
 	 * The '<em><b>FULL PARALLEL</b></em>' literal value. <!-- begin-user-doc -->
@@ -200,8 +210,8 @@ public enum EScheduler implements Enumerator {
 	public static final int RANDOM_VALUE = 4;
 
 	/**
-	 * The '<em><b>DISCREPANCY_BASIC</b></em>' literal value. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>DISCREPANCY BASIC</b></em>' literal value. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 *
 	 * @see #DISCREPANCY_BASIC
 	 * @model
@@ -209,10 +219,10 @@ public enum EScheduler implements Enumerator {
 	 * @ordered
 	 */
 	public static final int DISCREPANCY_BASIC_VALUE = 5;
-	
+
 	/**
-	 * The '<em><b>DISCREPANCY_MAX_LOCAL_CHILDREN</b></em>' literal value. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>DISCREPANCY MAX LOCAL CHILDREN</b></em>' literal value. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 *
 	 * @see #DISCREPANCY_MAX_LOCAL_CHILDREN
 	 * @model
@@ -220,10 +230,10 @@ public enum EScheduler implements Enumerator {
 	 * @ordered
 	 */
 	public static final int DISCREPANCY_MAX_LOCAL_CHILDREN_VALUE = 6;
-	
+
 	/**
-	 * The '<em><b>DISCREPANCY_TIME_WEIGHTED</b></em>' literal value. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>DISCREPANCY TIME WEIGHTED</b></em>' literal value. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 *
 	 * @see #DISCREPANCY_TIME_WEIGHTED
 	 * @model
@@ -231,10 +241,10 @@ public enum EScheduler implements Enumerator {
 	 * @ordered
 	 */
 	public static final int DISCREPANCY_TIME_WEIGHTED_VALUE = 7;
-	
+
 	/**
-	 * The '<em><b>DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED</b></em>' literal value. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>DISCREPANCY MAX LOCAL CHILDREN TIME WEIGHTED</b></em>' literal
+	 * value. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 *
 	 * @see #DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED
 	 * @model
@@ -244,6 +254,17 @@ public enum EScheduler implements Enumerator {
 	public static final int DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED_VALUE = 8;
 
 	/**
+	 * The '<em><b>FIFO</b></em>' literal value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
+	 * @see #FIFO
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int FIFO_VALUE = 9;
+
+	/**
 	 * An array of all the '<em><b>EScheduler</b></em>' enumerators. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 *
@@ -251,7 +272,7 @@ public enum EScheduler implements Enumerator {
 	 */
 	private static final EScheduler[] VALUES_ARRAY = new EScheduler[] { FULL_PARALLEL, ROUND_ROBIN, NON_PREEMPTIVE,
 			DATA_DEMAND_DRIVEN, RANDOM, DISCREPANCY_BASIC, DISCREPANCY_MAX_LOCAL_CHILDREN, DISCREPANCY_TIME_WEIGHTED,
-			DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED };
+			DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED, FIFO, };
 
 	/**
 	 * A public read-only list of all the '<em><b>EScheduler</b></em>' enumerators.
@@ -323,6 +344,8 @@ public enum EScheduler implements Enumerator {
 			return DISCREPANCY_TIME_WEIGHTED;
 		case DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED_VALUE:
 			return DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED;
+		case FIFO_VALUE:
+			return FIFO;
 		}
 		return null;
 	}

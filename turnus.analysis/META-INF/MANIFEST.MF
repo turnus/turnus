@@ -14,6 +14,7 @@ Bundle-ActivationPolicy: lazy
 Export-Package: turnus.analysis,
  turnus.analysis.bottlenecks,
  turnus.analysis.buffer,
+ turnus.analysis.communication,
  turnus.analysis.partitioning,
  turnus.analysis.partitioning.tabusearch,
  turnus.analysis.pipelining,

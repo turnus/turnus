@@ -44,7 +44,7 @@ public class TimelineCollector implements ActorDataCollector {
 		this.partitioning = partitioning;
 		this.endSimulation = 0.0;
 
-		actorsTopologicalSorted = ActorsSorter.topologicalOrder(network.getActors());
+		actorsTopologicalSorted = new ArrayList<>(ActorsSorter.topologicalOrder(network.getActors()));
 
 		scheduledActors = new HashMap<>();
 
@@ -71,8 +71,8 @@ public class TimelineCollector implements ActorDataCollector {
 	public JsonObject getJsonObject(String fileName) {
 		JsonObjectBuilder trace = Json.createObjectBuilder();
 
-		trace.add("schemaVersion", 1);
-		trace.add("record_shapes", 1);
+		// trace.add("schemaVersion", 1);
+		// trace.add("record_shapes", 1);
 
 		// -- Actor process labels
 		for (Actor actor : actorsTopologicalSorted) {
@@ -106,7 +106,7 @@ public class TimelineCollector implements ActorDataCollector {
 		}
 
 		trace.add("traceEvents", traceEvents);
-		trace.add("traceName", fileName);
+		// trace.add("traceName", fileName);
 
 		return trace.build();
 	}
@@ -227,24 +227,25 @@ public class TimelineCollector implements ActorDataCollector {
 		String actionName = action.getName();
 		double duration = time - actionStartTime.get(action);
 
-		traceEvents.add(Json.createObjectBuilder()//
-				.add("name", actionName)//
-				.add("cat", "action")//
-				.add("ph", "X")//
-				.add("ts", actionStartTime.get(action))//
-				.add("dur", duration)//
-				.add("pid", pid)//
-				.add("tid", pid)//
-				.add("args", Json.createObjectBuilder().add("stepId", ss)));
+//		traceEvents.add(Json.createObjectBuilder()//
+//				.add("name", actionName)//
+//				.add("cat", "action")//
+//				.add("ph", "X")//
+//				.add("ts", actionStartTime.get(action))//
+//				.add("dur", duration)//
+//				.add("pid", pid)//
+//				.add("tid", pid)//
+//				.add("args", Json.createObjectBuilder().add("stepId", ss)));
 
 		String partition = partitioning.getPartition(actor);
 		traceEvents.add(Json.createObjectBuilder()//
 				.add("name", actor.getName())//
-				.add("ph", "X")//
-				.add("ts", actionStartTime.get(action))//
-				.add("dur", duration)//
-				.add("pid", "partitioning")//
-				.add("tid", partition + ":" + core)//
+				.add("ph", "E")//
+				.add("ts", time)//
+				// .add("ts", actionStartTime.get(action))//
+				// .add("dur", duration)//
+				.add("pid", partition)//
+				.add("tid", core)//
 				.add("args", Json.createObjectBuilder().add("stepId", ss)));
 
 	}
@@ -252,23 +253,37 @@ public class TimelineCollector implements ActorDataCollector {
 	@Override
 	public void logEndProduceTokens(Action action, long stepId, Buffer buffer, double time) {
 
-		if (this.outgoingBuffers.contains(buffer)) {
-			String outgoingPartition = partitioning.getPartition(buffer.getSource().getOwner());
-			String incomingPartition = partitioning.getPartition(buffer.getTarget().getOwner());
+//		if (this.outgoingBuffers.contains(buffer)) {
+//			String outgoingPartition = partitioning.getPartition(buffer.getSource().getOwner());
+//			String incomingPartition = partitioning.getPartition(buffer.getTarget().getOwner());
+//
+//			double duration = time - bufferStartProducingTime.get(buffer);
+//
+//			traceEvents.add(Json.createObjectBuilder()//
+//					.add("name",
+//							buffer.getSource().getOwner().getName() + "." + buffer.getSource().getName() + " -> "
+//									+ buffer.getTarget().getOwner().getName() + "." + buffer.getTarget().getName())//
+//					.add("ph", "X")//
+//					.add("ts", bufferStartProducingTime.get(buffer))//
+//					.add("dur", duration)//
+//					.add("pid", "communication, " + outgoingPartition + " --> " + incomingPartition)//
+//					.add("tid", network.getBuffers().indexOf(buffer)));//
+//			// .add("args", Json.createObjectBuilder().add("stepId", ss)));
+//		}
 
-			double duration = time - bufferStartProducingTime.get(buffer);
+	}
 
-			traceEvents.add(Json.createObjectBuilder()//
-					.add("name",
-							buffer.getSource().getOwner().getName() + "." + buffer.getSource().getName() + " -> "
-									+ buffer.getTarget().getOwner().getName() + "." + buffer.getTarget().getName())//
-					.add("ph", "X")//
-					.add("ts", bufferStartProducingTime.get(buffer))//
-					.add("dur", duration)//
-					.add("pid", "communication, " + outgoingPartition + " --> " + incomingPartition)//
-					.add("tid", network.getBuffers().indexOf(buffer)));//
-			// .add("args", Json.createObjectBuilder().add("stepId", ss)));
-		}
+	@Override
+	public void logStartProcessingWithCore(Action action, long stepId, int core, double time) {
+		Actor actor = action.getOwner();
+		String partition = partitioning.getPartition(actor);
+		traceEvents.add(Json.createObjectBuilder()//
+				.add("name", actor.getName())//
+				.add("ph", "B")//
+				.add("ts", time)//
+				.add("pid", partition)//
+				.add("tid", core)//
+				.add("args", Json.createObjectBuilder().add("stepId", stepId)));
 
 	}
 

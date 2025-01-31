@@ -526,6 +526,10 @@ public class CriticalPathCollector implements ActorDataCollector, ActorPartition
 		pcpTokens = new HashMap<>();
 		for (Buffer buffer : network.getBuffers()) {
 			pcpTokens.put(buffer, new ArrayDeque<>());
+			
+			for (int i = 0; i < buffer.getInitialTokens(); i++) {
+				pcpTokens.get(buffer).addLast(new Pcp("initial"));
+			}
 		}
 	}
 
@@ -669,6 +673,12 @@ public class CriticalPathCollector implements ActorDataCollector, ActorPartition
 
 	@Override
 	public void logEndProduceTokens(Action action, long stepId, Buffer buffer, double time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void logStartProcessingWithCore(Action action, long stepId, int core, double time) {
 		// TODO Auto-generated method stub
 		
 	}

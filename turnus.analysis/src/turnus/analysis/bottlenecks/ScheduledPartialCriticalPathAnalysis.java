@@ -128,6 +128,10 @@ public class ScheduledPartialCriticalPathAnalysis extends Analysis<BottlenecksWi
 		return report;
 	}
 
+	public NetworkPartitioning getPartitioning() {
+		return partitioning;
+	}
+	
 	@Override
 	public BottlenecksWithSchedulingReport run() throws TurnusException {
 		if (weighter == null) {

@@ -350,4 +350,10 @@ public class ActionStatisticsCollector implements ActorDataCollector {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void logStartProcessingWithCore(Action action, long stepId, int core, double time) {
+		// TODO Auto-generated method stub
+		
+	}
 }
