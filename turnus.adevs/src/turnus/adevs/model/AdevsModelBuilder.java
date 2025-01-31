@@ -47,6 +47,7 @@ import turnus.adevs.schedulers.FullParallelPartition;
 import turnus.adevs.schedulers.NonPreemptivePartition;
 import turnus.adevs.schedulers.RandomPartition;
 import turnus.adevs.schedulers.RoundRobinPartition;
+import turnus.adevs.schedulers.FIFOPartition;
 import turnus.common.TurnusRuntimeException;
 import turnus.model.dataflow.Actor;
 import turnus.model.dataflow.Buffer;
@@ -241,6 +242,8 @@ public class AdevsModelBuilder {
 		case "DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED":
 			return new DiscrepancyMaxLocalChildrenTimeWeighted(targetActors, partitionId, processingElements,
 					this.traceProject, this.traceWeighter);
+		case "FIFO":
+			return new FIFOPartition(targetActors, partitionId, processingElements);
 		default:
 			return new FullParallelPartition(targetActors, partitionId);
 		}

@@ -130,8 +130,17 @@ public enum EScheduler implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED(8, "DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED", "DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED");
-
+	DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED(8, "DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED", "DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED"),
+	/**
+	 * The '<em><b>FIFO</b></em>' literal object. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @see #FIFO_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	FIFO(9, "FIFO", "FIFO");
+	
 	/**
 	 * The '<em><b>FULL PARALLEL</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
@@ -242,6 +251,17 @@ public enum EScheduler implements Enumerator {
 	 * @ordered
 	 */
 	public static final int DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED_VALUE = 8;
+	
+	/**
+	 * The '<em><b>FIFO</b></em>' literal value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 *
+	 * @see #FIFO
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int FIFO_VALUE = 9;
 
 	/**
 	 * An array of all the '<em><b>EScheduler</b></em>' enumerators. <!--
@@ -323,6 +343,8 @@ public enum EScheduler implements Enumerator {
 			return DISCREPANCY_TIME_WEIGHTED;
 		case DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED_VALUE:
 			return DISCREPANCY_MAX_LOCAL_CHILDREN_TIME_WEIGHTED;
+		case FIFO_VALUE:
+			return FIFO;
 		}
 		return null;
 	}

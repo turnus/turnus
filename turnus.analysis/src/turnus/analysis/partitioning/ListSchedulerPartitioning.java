@@ -77,7 +77,7 @@ import turnus.model.trace.TraceProject;
 import turnus.model.trace.weighter.TraceWeighter;
 
 /**
- * Partitioning based on OneStopParalle graph partitioner
+ * Partitioning based on OneStopParallel graph partitioner
  * 
  * @author Endri Bezati
  * @author Toni Boehnlein
