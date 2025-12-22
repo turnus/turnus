@@ -39,6 +39,14 @@
         <!-- Apache POI -->
         <poi.version>5.3.0</poi.version>
         
+        <!-- Graph and Collections Libraries -->
+        <jgrapht.version>1.5.2</jgrapht.version>
+        <fastutil.version>8.5.13</fastutil.version>
+        <jgit.version>6.10.0.202406032230-r</jgit.version>
+        
+        <!-- Markdown Processing -->
+        <flexmark.version>0.64.8</flexmark.version>
+        
         <!-- Logging -->
         <slf4j.version>2.0.16</slf4j.version>
         <logback.version>1.5.7</logback.version>
@@ -167,6 +175,54 @@
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
                 <version>${poi.version}</version>
+            </dependency>
+
+            <!-- JGraphT for graph operations -->
+            <dependency>
+                <groupId>org.jgrapht</groupId>
+                <artifactId>jgrapht-core</artifactId>
+                <version>${jgrapht.version}</version>
+            </dependency>
+
+            <!-- FastUtil for high-performance collections -->
+            <dependency>
+                <groupId>it.unimi.dsi</groupId>
+                <artifactId>fastutil</artifactId>
+                <version>${fastutil.version}</version>
+            </dependency>
+
+            <!-- JGit for Git operations -->
+            <dependency>
+                <groupId>org.eclipse.jgit</groupId>
+                <artifactId>org.eclipse.jgit</artifactId>
+                <version>${jgit.version}</version>
+            </dependency>
+
+            <!-- FlexMark for Markdown processing -->
+            <dependency>
+                <groupId>com.vladsch.flexmark</groupId>
+                <artifactId>flexmark</artifactId>
+                <version>${flexmark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vladsch.flexmark</groupId>
+                <artifactId>flexmark-ext-tables</artifactId>
+                <version>${flexmark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vladsch.flexmark</groupId>
+                <artifactId>flexmark-ext-autolink</artifactId>
+                <version>${flexmark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vladsch.flexmark</groupId>
+                <artifactId>flexmark-ext-gfm-strikethrough</artifactId>
+                <version>${flexmark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vladsch.flexmark</groupId>
+                <artifactId>flexmark-ext-gfm-tasklist</artifactId>
+                <version>${flexmark.version}</version>
             </dependency>
 
             <!-- ASM -->
