@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>co.turnus</groupId>
+        <artifactId>turnus-headless</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>turnus-adevs</artifactId>
+    <name>Turnus ADEVS Simulation Engine</name>
+    <description>ADEVS-based simulation engine for dataflow analysis - the heart of Turnus</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>co.turnus</groupId>
+            <artifactId>turnus-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>co.turnus</groupId>
+            <artifactId>turnus-model</artifactId>
+        </dependency>
+    </dependencies>
+</project>

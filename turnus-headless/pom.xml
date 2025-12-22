@@ -74,6 +74,7 @@
         <module>turnus-model</module>
         <module>turnus-common</module>
         <module>turnus-bundle</module>
+        <module>turnus-adevs</module>
         <module>turnus-analysis</module>
         <module>turnus-cli</module>
     </modules>
@@ -99,6 +100,11 @@
             <dependency>
                 <groupId>co.turnus</groupId>
                 <artifactId>turnus-bundle</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>co.turnus</groupId>
+                <artifactId>turnus-adevs</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
