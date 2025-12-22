@@ -1,0 +1,81 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] Tycho Version:  4.0.10 (34d2d6b5223a28191d552396774c226b8f40d522)
+[[1;34mINFO[m] Tycho Mode:     project
+[[1;34mINFO[m] Tycho Builder:  maven
+[[1;34mINFO[m] Build Threads:  1
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1mReactor Build Order:[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] turnus core                                                        [pom]
+[[1;34mINFO[m] turnus.bundle                                           [eclipse-plugin]
+[[1;34mINFO[m] turnus.common                                           [eclipse-plugin]
+[[1;34mINFO[m] turnus.model                                            [eclipse-plugin]
+[[1;34mINFO[m] turnus.adevs                                            [eclipse-plugin]
+[[1;34mINFO[m] turnus.analysis                                         [eclipse-plugin]
+[[1;34mINFO[m] turnus.ui                                               [eclipse-plugin]
+[[1;34mINFO[m] turnus.analysis.ui                                      [eclipse-plugin]
+[[1;34mINFO[m] turnus.target                                [eclipse-target-definition]
+[[1;34mINFO[m] turnus.feature                                         [eclipse-feature]
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------------------------< [0;36mturnus:turnus.core[0;1m >-------------------------[m
+[[1;34mINFO[m] [1mBuilding turnus core 1.0.0-SNAPSHOT                               [1/10][m
+[[1;34mINFO[m]   from pom.xml
+[[1;34mINFO[m] [1m--------------------------------[ pom ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mclean:3.2.0:clean[m [1m(default-clean)[m @ [36mturnus.core[0;1m ---[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mclean:3.2.0:clean[m [1m(auto-clean)[m @ [36mturnus.core[0;1m ---[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxtend:2.36.0:compile[m [1m(default)[m @ [36mturnus.core[0;1m ---[m
+[[1;34mINFO[m] skip compiling sources because the configured directory '[/home/endrix/git/dataflow/streamblocks/turnus/src]' does not exist.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m------------------------< [0;36mturnus:turnus.bundle[0;1m >------------------------[m
+[[1;34mINFO[m] [1mBuilding turnus.bundle 1.0.0-SNAPSHOT                             [2/10][m
+[[1;34mINFO[m]   from turnus.bundle/pom.xml
+[[1;34mINFO[m] [1m---------------------------[ eclipse-plugin ]---------------------------[m
+[[1;34mINFO[m] Resolving target definition file:/home/endrix/git/dataflow/streamblocks/turnus/turnus.target/turnus.target.target for environments=[macosx/cocoa/x86_64, macosx/cocoa/aarch64, win32/win32/x86_64, linux/gtk/x86_64], include source mode=honor, referenced repository mode =ignore, execution environment=StandardEEResolutionHints [executionEnvironment=OSGi profile 'JavaSE-17' { source level: 17, target level: 17}], remote p2 repository options=org.eclipse.tycho.p2maven.DefaultProvisioningAgent@5b751bab
+[[1;34mINFO[m] ### Using TychoRepositoryTransport for remote P2 access ###
+[[1;34mINFO[m]     Cache location:         /home/endrix/.m2/repository/.cache/tycho
+[[1;34mINFO[m]     Transport mode:         online
+[[1;34mINFO[m]     Http Transport type:    Java11Client
+[[1;34mINFO[m]     Update mode:            cache first
+[[1;34mINFO[m]     Minimum cache duration: 60 minutes
+[[1;34mINFO[m]       (you can configure this with -Dtycho.p2.transport.min-cache-minutes=<desired minimum cache duration>)
+[[1;34mINFO[m] Downloading from p2: https://download.eclipse.org/releases/2024-09/p2.index
+[[1;34mINFO[m] Downloaded from p2: https://download.eclipse.org/releases/2024-09/p2.index (122 bytes at 0 bytes/s)
+[[1;34mINFO[m] Downloading from p2: https://download.eclipse.org/technology/epp/packages/2024-09/p2.index
+[[1;34mINFO[m] Downloading from p2: https://download.eclipse.org/technology/epp/packages/2024-09/202409051200/p2.index
+[[1;34mINFO[m] Downloaded from p2: https://download.eclipse.org/technology/epp/packages/2024-09/202409051200/p2.index (365 bytes at 356 KB/s)
+[[1;34mINFO[m] Downloading from p2: https://download.eclipse.org/releases/2024-09/202409111000/p2.index
+[[1;34mINFO[m] Downloaded from p2: https://download.eclipse.org/releases/2024-09/202409111000/p2.index (140 bytes at 136 KB/s)
+[[1;34mINFO[m] Downloading from p2: https://download.eclipse.org/modeling/emft/mwe/updates/releases/2.18.0/p2.index
+[[1;34mINFO[m] Downloaded from p2: https://download.eclipse.org/modeling/emft/mwe/updates/releases/2.18.0/p2.index (172 bytes at 167 KB/s)
+[[1;34mINFO[m] Downloading from p2: https://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.36.0/p2.index
+[[1;34mINFO[m] Downloaded from p2: https://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.36.0/p2.index (172 bytes at 167 KB/s)
+[[1;34mINFO[m] Downloading from p2: https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-09/p2.index
+[[1;34mINFO[m] Downloaded from p2: https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-09/p2.index (126 bytes at 123 KB/s)
+[[1;34mINFO[m] Downloading from p2: https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.33.0/p2.index
+[[1;34mINFO[m] Downloaded from p2: https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.33.0/p2.index (172 bytes at 167 KB/s)
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1mReactor Summary for turnus core 1.0.0-SNAPSHOT:[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] turnus core ........................................ [1;32mSUCCESS[m [  2.557 s]
+[[1;34mINFO[m] turnus.bundle ...................................... [1;31mFAILURE[m [  2.809 s]
+[[1;34mINFO[m] turnus.common ...................................... [1;33mSKIPPED[m
+[[1;34mINFO[m] turnus.model ....................................... [1;33mSKIPPED[m
+[[1;34mINFO[m] turnus.adevs ....................................... [1;33mSKIPPED[m
+[[1;34mINFO[m] turnus.analysis .................................... [1;33mSKIPPED[m
+[[1;34mINFO[m] turnus.ui .......................................... [1;33mSKIPPED[m
+[[1;34mINFO[m] turnus.analysis.ui ................................. [1;33mSKIPPED[m
+[[1;34mINFO[m] turnus.target ...................................... [1;33mSKIPPED[m
+[[1;34mINFO[m] turnus.feature ..................................... [1;33mSKIPPED[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;31mBUILD FAILURE[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  11.143 s
+[[1;34mINFO[m] Finished at: 2025-12-22T11:06:26+01:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;31mERROR[m] Failed to resolve target definition file:/home/endrix/git/dataflow/streamblocks/turnus/turnus.target/turnus.target.target: Could not find "javax.inject/0.0.0" in the repositories of the current location
+[[1;31mERROR[m] 
+[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
+[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
