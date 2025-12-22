@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="architecture" nsURI="http://turnus.co/model/2015/architecture"
+    nsPrefix="turnus.model.architecture">
+  <eClassifiers xsi:type="ecore:EClass" name="Architecture" eSuperTypes="common.ecore#//Attributable">
+    <eOperations name="getProcessingUnit" eType="#//ProcessingUnit">
+      <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getMedium" eType="#//Medium">
+      <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getProcessingUnits" upperBound="-1" eType="#//ProcessingUnit">
+      <eParameters name="family" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="media" upperBound="-1"
+        eType="#//Medium" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processingUnits" upperBound="-1"
+        eType="#//ProcessingUnit" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
+        eType="#//Link" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessingUnit" abstract="true" eSuperTypes="common.ecore#//Attributable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
+        eType="#//Link" eOpposite="#//Link/processingUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="types" lowerBound="1" upperBound="-1"
+        eType="ecore:EEnum common.ecore#//EType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operators" lowerBound="1"
+        upperBound="-1" eType="ecore:EEnum common.ecore#//EOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="family" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="clockPeriod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Medium" eSuperTypes="common.ecore#//Attributable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
+        eType="#//Link" eOpposite="#//Link/medium"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="clockPeriodIn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="clockPeriodOut" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxBitPop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxBitPush" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxBitSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Link" eSuperTypes="common.ecore#//Attributable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processingUnit" lowerBound="1"
+        eType="#//ProcessingUnit" eOpposite="#//ProcessingUnit/links"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="medium" lowerBound="1"
+        eType="#//Medium" eOpposite="#//Medium/links"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CPU" eSuperTypes="#//ProcessingUnit">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cores" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="schedulers" lowerBound="1"
+        upperBound="-1" eType="ecore:EEnum common.ecore#//EScheduler"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FPGA" eSuperTypes="#//ProcessingUnit">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="clockRegions" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DSP" eSuperTypes="#//ProcessingUnit">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cores" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="schedulers" lowerBound="1"
+        upperBound="-1" eType="ecore:EEnum common.ecore#//EScheduler"/>
+  </eClassifiers>
+</ecore:EPackage>

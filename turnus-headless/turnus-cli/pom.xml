@@ -1,0 +1,1 @@
+<?xml version="1.0"?><project><modelVersion>4.0.0</modelVersion><parent><groupId>co.turnus</groupId><artifactId>turnus-headless</artifactId><version>1.0.0-SNAPSHOT</version></parent><artifactId>turnus-cli</artifactId><packaging>jar</packaging></project>

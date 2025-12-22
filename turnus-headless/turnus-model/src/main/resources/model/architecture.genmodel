@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/turnus.model/src" modelPluginID="turnus.model"
+    templateDirectory="/turnus.model/template" dynamicTemplates="true" modelName="Architecture"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" suppressEMFTypes="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    usedGenPackages="common.genmodel#//common" operationReflection="true" importOrganizing="true">
+  <foreignModel>architecture.ecore</foreignModel>
+  <genPackages prefix="Architecture" basePackage="turnus.model" disposableProviderFactory="true"
+      ecorePackage="architecture.ecore#/">
+    <genClasses ecoreClass="architecture.ecore#//Architecture">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//Architecture/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference architecture.ecore#//Architecture/media"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference architecture.ecore#//Architecture/processingUnits"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference architecture.ecore#//Architecture/links"/>
+      <genOperations ecoreOperation="architecture.ecore#//Architecture/getProcessingUnit">
+        <genParameters ecoreParameter="architecture.ecore#//Architecture/getProcessingUnit/name"/>
+      </genOperations>
+      <genOperations ecoreOperation="architecture.ecore#//Architecture/getMedium">
+        <genParameters ecoreParameter="architecture.ecore#//Architecture/getMedium/name"/>
+      </genOperations>
+      <genOperations ecoreOperation="architecture.ecore#//Architecture/getProcessingUnits">
+        <genParameters ecoreParameter="architecture.ecore#//Architecture/getProcessingUnits/family"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="architecture.ecore#//ProcessingUnit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//ProcessingUnit/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference architecture.ecore#//ProcessingUnit/links"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//ProcessingUnit/types"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//ProcessingUnit/operators"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//ProcessingUnit/family"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//ProcessingUnit/clockPeriod"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//ProcessingUnit/className"/>
+    </genClasses>
+    <genClasses ecoreClass="architecture.ecore#//Medium">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//Medium/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference architecture.ecore#//Medium/links"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//Medium/clockPeriodIn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//Medium/clockPeriodOut"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//Medium/maxBitPop"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//Medium/maxBitPush"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//Medium/maxBitSize"/>
+    </genClasses>
+    <genClasses ecoreClass="architecture.ecore#//Link">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference architecture.ecore#//Link/processingUnit"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference architecture.ecore#//Link/medium"/>
+    </genClasses>
+    <genClasses ecoreClass="architecture.ecore#//CPU">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//CPU/cores"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//CPU/schedulers"/>
+    </genClasses>
+    <genClasses ecoreClass="architecture.ecore#//FPGA">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//FPGA/clockRegions"/>
+    </genClasses>
+    <genClasses ecoreClass="architecture.ecore#//DSP">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//DSP/cores"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute architecture.ecore#//DSP/schedulers"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

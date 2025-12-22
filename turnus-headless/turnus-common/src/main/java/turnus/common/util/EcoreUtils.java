@@ -1,0 +1,206 @@
+/* 
+ * TURNUS - www.turnus.co
+ * 
+ * Copyright (C) 2010-2016 EPFL SCI STI MM
+ *
+ * This file is part of TURNUS.
+ *
+ * TURNUS is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TURNUS is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TURNUS.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * Additional permission under GNU GPL version 3 section 7
+ * 
+ * If you modify this Program, or any covered work, by linking or combining it
+ * with Eclipse (or a modified version of Eclipse or an Eclipse plugin or 
+ * an Eclipse library), containing parts covered by the terms of the 
+ * Eclipse Public License (EPL), the licensors of this Program grant you 
+ * additional permission to convey the resulting work.  Corresponding Source 
+ * for a non-source form of such a combination shall include the source code 
+ * for the parts of Eclipse libraries used as well as that of the  covered work.
+ * 
+ */
+package turnus.common.util;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.Collections;
+
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * This class contains some utilities methods for EMF.
+ * 
+ * @author Simone Casale Brunet
+ *
+ */
+public class EcoreUtils {
+	
+	private static final Logger logger = LoggerFactory.getLogger(EcoreUtils.class);
+
+	/**
+	 * Load an {@link EObject} given a {@link ResourceSet} and a {@link File}.
+	 * If the object cannot be loaded, <code>null</code> is returned without
+	 * throwing any exceptions.
+	 * 
+	 * @param set
+	 *            the resource set
+	 * @param file
+	 *            the file
+	 * @return the object if it has been loaded, <code>null</code> otherwise
+	 */
+	public static <T extends EObject> T loadEObject(ResourceSet set, File file) {
+		try {
+			URI uri = FileUtils.createFileURI(file);
+			return loadEObject(set, uri);
+		} catch (Exception e) {
+			logger.debug("LoadEObject from file \"{}\" exception", file, e);
+			return null;
+		}
+	}
+
+	/**
+	 * Load an {@link EObject} given a {@link ResourceSet} and a {@link URI}. If
+	 * the object cannot be loaded, <code>null</code> is returned without
+	 * throwing any exceptions.
+	 * 
+	 * @param set
+	 *            the resource set
+	 * @param uri
+	 *            the resource uri
+	 * @return the object if it has been loaded, <code>null</code> otherwise
+	 */
+	public static <T extends EObject> T loadEObject(ResourceSet set, URI uri) {
+		try {
+			Resource resource = set.getResource(uri, true);
+			EList<EObject> contents = resource.getContents();
+			if (contents.isEmpty()) {
+				return null;
+			}
+			@SuppressWarnings("unchecked")
+			T object = (T) contents.get(0);
+			EcoreUtil.resolveAll(set);
+			return object;
+		} catch (RuntimeException e) {
+			logger.debug("LoadEObject from URI \"{}\" exception", uri, e);
+			return null;
+		}
+
+	}
+
+	/**
+	 * Store an {@link EObject} using the given {@link ResourceSet} and
+	 * {@link File}. If the object cannot be store, <code>false</code> is
+	 * returned without throwing any exceptions.
+	 * 
+	 * @param object
+	 *            the object
+	 * @param set
+	 *            the resource set
+	 * @param file
+	 *            the file
+	 * @return <code>true</code> if the object has been stored,
+	 *         <code>false</code> otherwise
+	 */
+	public static boolean storeEObject(EObject object, ResourceSet set, File file) {
+		try {
+			URI uri = FileUtils.createFileURI(file);
+			return storeEObject(object, set, uri);
+		} catch (Exception e) {
+			logger.debug("Store Object to file \"{}\" exception", file, e);
+			return false;
+		}
+	}
+	
+	/**
+	 * Store an {@link EObject} using the given {@link ResourceSet} and
+	 * {@link File}. If the object cannot be store, <code>false</code> is
+	 * returned without throwing any exceptions.
+	 * 
+	 * @param object
+	 *            the object
+	 * @param set
+	 *            the resource set
+	 * @param file
+	 *            the file
+	 * @return <code>true</code> if the object has been stored,
+	 *         <code>false</code> otherwise
+	 */
+	public static boolean storeEObject(Collection<? extends EObject> object, ResourceSet set, File file) {
+		try {
+			URI uri = FileUtils.createFileURI(file);
+			return storeEObject(object, set, uri);
+		} catch (Exception e) {
+			logger.debug("Store Object to file \"{}\" exception", file, e);
+			return false;
+		}
+	}
+
+	/**
+	 * Store an {@link EObject} using the given {@link ResourceSet} and
+	 * {@link URI}. If the object cannot be store, <code>false</code> is
+	 * returned without throwing any exceptions.
+	 * 
+	 * @param object
+	 *            the object
+	 * @param set
+	 *            the resource set
+	 * @param uri
+	 *            the resource uri
+	 * @return <code>true</code> if the object has been stored,
+	 *         <code>false</code> otherwise
+	 */
+	public static boolean storeEObject(EObject object, ResourceSet set, URI uri) {
+		try {
+			Resource resource = set.createResource(uri);
+			resource.getContents().add(object);
+			resource.save(Collections.EMPTY_MAP);
+			return true;
+		} catch (Exception e) {
+			Logger.debug("StoreObject to URI \"%s\" exception: %s", uri, e);
+			return false;
+		}
+	}
+	
+	public static boolean storeEObject(Collection<? extends EObject> object, ResourceSet set, URI uri) {
+		try {
+			Resource resource = set.createResource(uri);
+			resource.getContents().addAll(object);
+			resource.save(Collections.EMPTY_MAP);
+			return true;
+		} catch (Exception e) {
+			Logger.debug("StoreObject to URI \"%s\" exception: %s", uri, e);
+			return false;
+		}
+	}
+
+}
+logger.debug("StoreObject to URI \"{}\" exception", uri, e);
+			return false;
+		}
+	}
+	
+	public static boolean storeEObject(Collection<? extends EObject> object, ResourceSet set, URI uri) {
+		try {
+			Resource resource = set.createResource(uri);
+			resource.getContents().addAll(object);
+			resource.save(Collections.EMPTY_MAP);
+			return true;
+		} catch (Exception e) {
+			logger.debug("StoreObject to URI \"{}\" exception
