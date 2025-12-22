@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.ui,
  turnus.common;bundle-version="1.0.0",
  turnus.model;bundle-version="1.0.0",
  com.google.guava
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Export-Package: adevs,
