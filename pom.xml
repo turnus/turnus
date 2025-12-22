@@ -10,8 +10,6 @@
 	<url>http://github.com/turnus/turnus</url>
 
 	<properties>
-		<xtextVersion>2.36.0</xtextVersion>
-		<mwe2Version>2.19.0</mwe2Version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
@@ -35,17 +33,7 @@
 		<module>turnus.feature</module>
 	</modules>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.eclipse.xtext</groupId>
-				<artifactId>xtext-dev-bom</artifactId>
-				<version>${xtextVersion}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+
 
 	<build>
 		<sourceDirectory>${basedir}/src</sourceDirectory>
@@ -139,11 +127,6 @@
 					</environments>
 					<dependency-resolution>
 						<extraRequirements>
-							<requirement>
-								<type>eclipse-plugin</type>
-								<id>org.eclipse.xtext.logging</id>
-								<versionRange>1.2.24</versionRange>
-							</requirement>
 							<!-- to get the org.eclipse.osgi.compatibility.state plugin if the target
 								platform is Luna or later. (backward compatible with kepler and previous
 								versions) see https://bugs.eclipse.org/bugs/show_bug.cgi?id=492149 -->
@@ -169,12 +152,6 @@
 						<configuration>
 							<filesets>
 								<fileset>
-									<directory>${basedir}/xtend-gen</directory>
-									<includes>
-										<include>**</include>
-									</includes>
-								</fileset>
-								<fileset>
 									<directory>${basedir}/src-gen</directory>
 									<includes>
 										<include>**</include>
@@ -190,23 +167,6 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.xtend</groupId>
-					<artifactId>xtend-maven-plugin</artifactId>
-					<version>${xtextVersion}</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>compile</goal>
-								<goal>testCompile</goal>
-							</goals>
-						</execution>
-					</executions>
-					<configuration>
-						<outputDirectory>${basedir}/xtend-gen</outputDirectory>
-						<testOutputDirectory>${basedir}/xtend-gen</testOutputDirectory>
-					</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>

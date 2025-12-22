@@ -11,8 +11,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  turnus.model;bundle-version="1.0.0";visibility:=reexport,
  turnus.common;bundle-version="1.0.0",
- org.eclipse.jgit;bundle-version="6.6.0",
- org.eclipse.xtend.lib;bundle-version="2.31.0"
+ org.eclipse.jgit;bundle-version="6.6.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: turnus.model,
  turnus.model.analysis,
