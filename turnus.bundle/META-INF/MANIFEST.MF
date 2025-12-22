@@ -4,26 +4,26 @@ Bundle-Name: Bundle
 Bundle-SymbolicName: turnus.bundle
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: turnus.bundle.Activator
-Require-Bundle: org.eclipse.core.runtime
+Require-Bundle: org.eclipse.core.runtime,
+ org.objectweb.asm;bundle-version="9.7.0";visibility:=reexport,
+ org.objectweb.asm.tree;bundle-version="9.7.0";visibility:=reexport,
+ org.objectweb.asm.tree.analysis;bundle-version="9.7.0";visibility:=reexport,
+ org.objectweb.asm.util;bundle-version="9.7.0";visibility:=reexport,
+ com.google.guava;bundle-version="33.0.0";visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
- lib/jgrapht-core-1.5.2.jar,
- lib/arpack_combined_all-0.1.jar,
- lib/asm-9.7.jar,
- lib/asm-analysis-9.7.jar,
- lib/asm-commons-9.7.jar,
- lib/asm-tree-9.7.jar,
- lib/asm-util-9.7.jar,
- lib/bounce-0.18.jar,
- lib/commons-cli-1.2.jar,
  lib/commons-codec-1.15.jar,
- lib/commons-compress-1.19.jar,
  lib/commons-lang3-3.10.jar,
- lib/commons-math3-3.2.jar,
- lib/commons-collections4-4.4.jar,
  lib/commons-logging-1.2.jar,
  lib/commons-io-2.16.1.jar,
+ lib/jgrapht-core-1.5.2.jar,
+ lib/arpack_combined_all-0.1.jar,
+ lib/bounce-0.18.jar,
+ lib/commons-cli-1.2.jar,
+ lib/commons-compress-1.19.jar,
+ lib/commons-math3-3.2.jar,
+ lib/commons-collections4-4.4.jar,
  lib/core-1.1.jar,
  lib/fastutil-7.0.6.jar,
  lib/java-cup-11b-2015.03.26.jar,
