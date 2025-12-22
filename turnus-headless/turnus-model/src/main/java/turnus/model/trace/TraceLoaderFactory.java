@@ -31,20 +31,20 @@
  */
 package turnus.model.trace;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.Platform;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 import turnus.common.io.Logger;
-import turnus.model.Activator;
+import turnus.model.trace.impl.inmemory.InMemoryTraceLoader;
+import turnus.model.trace.impl.splitted.SplittedTraceLoader;
 
 /**
- * This class defines the {@link TraceLoader} factory. Loaders registered in the
- * {@code turnus.model.traceLoader} extension point can be accessed by their
- * name using the {@link #getLoader(String)} method
+ * This class defines the {@link TraceLoader} factory. Loaders can be accessed 
+ * by their name using the {@link #getLoader(String)} method.
+ * 
+ * <p>In the headless (non-Eclipse) version, loaders are registered directly
+ * rather than through Eclipse extension points.</p>
  * 
  * @author Simone Casale Brunet
  *
@@ -54,39 +54,44 @@ public class TraceLoaderFactory {
 	/** the static instance */
 	public static final TraceLoaderFactory INSTANCE = new TraceLoaderFactory();
 
-	/**
-	 * the private list of loaders. This is a list in order to make the sorting
-	 * according to the insertion index
-	 */
-	private List<String> loaders;
+	/** Loader name constants */
+	public static final String LOADER_IN_MEMORY = "In memory trace loader";
+	public static final String LOADER_SPLITTED = "Splitted trace loader";
 
 	/**
-	 * Private constructor
+	 * Map of loader names to their factory suppliers
+	 */
+	private Map<String, Supplier<TraceLoader>> loaders;
+
+	/**
+	 * Private constructor - registers built-in loaders
 	 */
 	private TraceLoaderFactory() {
-		loaders = new ArrayList<>();
-		try {
-			IExtensionRegistry registry = Platform.getExtensionRegistry();
-			IConfigurationElement[] elements = registry
-					.getConfigurationElementsFor(Activator.PLUGIN_ID + ".traceLoader");
-			for (IConfigurationElement element : elements) {
-				try {
-					String name = element.getAttribute("name");
-					if (name == null) {
-						Logger.error("There is a trace loader without name. It cannot be registered");
-					} else if (loaders.contains(name)) {
-						Logger.error("There is already a trace loader named \"%s\"", name);
-					} else {
-						loaders.add(name);
-						Logger.debug("Trace loader \"%s\" has been registered", name);
-					}
-				} catch (Exception e) {
+		loaders = new LinkedHashMap<>();
+		
+		// Register built-in trace loaders
+		registerLoader(LOADER_IN_MEMORY, InMemoryTraceLoader::new);
+		registerLoader(LOADER_SPLITTED, SplittedTraceLoader::new);
+		
+		Logger.debug("Trace loader factory initialized with %d loaders", loaders.size());
+	}
 
-				}
-			}
-		} catch (Exception e) {
-			Logger.error("Error while initializing the trace loader factory. No loaders can be registered");
+	/**
+	 * Register a trace loader
+	 * 
+	 * @param name the loader name
+	 * @param supplier a supplier that creates new loader instances
+	 */
+	public void registerLoader(String name, Supplier<TraceLoader> supplier) {
+		if (name == null) {
+			Logger.error("Cannot register trace loader without name");
+			return;
 		}
+		if (loaders.containsKey(name)) {
+			Logger.warning("Overwriting existing trace loader named \"%s\"", name);
+		}
+		loaders.put(name, supplier);
+		Logger.debug("Trace loader \"%s\" has been registered", name);
 	}
 
 	/**
@@ -97,23 +102,15 @@ public class TraceLoaderFactory {
 	 * @return the loader, <code>null</code> if the loader cannot be found
 	 */
 	public TraceLoader getLoader(String name) {
-		try {
-			IExtensionRegistry registry = Platform.getExtensionRegistry();
-			IConfigurationElement[] elements = registry
-					.getConfigurationElementsFor(Activator.PLUGIN_ID + ".traceLoader");
-			for (IConfigurationElement element : elements) {
-				try {
-					if (name.equals(element.getAttribute("name"))) {
-						TraceLoader loader = (TraceLoader) element.createExecutableExtension("class");
-						return loader;
-					}
-				} catch (Exception e) {
-
-				}
+		Supplier<TraceLoader> supplier = loaders.get(name);
+		if (supplier != null) {
+			try {
+				return supplier.get();
+			} catch (Exception e) {
+				Logger.error("Error creating trace loader \"%s\": %s", name, e.getMessage());
 			}
-		} catch (Exception e) {
-
 		}
+		Logger.warning("No trace loader found with name \"%s\"", name);
 		return null;
 	}
 
@@ -123,7 +120,7 @@ public class TraceLoaderFactory {
 	 * @return the registered loader names
 	 */
 	public String[] getRegisteredLoaders() {
-		return loaders.toArray(new String[0]);
+		return loaders.keySet().toArray(new String[0]);
 	}
 
 }

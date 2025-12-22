@@ -14,10 +14,10 @@
 
     <properties>
         <!-- Java -->
-        <java.version>21</java.version>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <maven.compiler.release>21</maven.compiler.release>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -43,6 +43,9 @@
         <jgrapht.version>1.5.2</jgrapht.version>
         <fastutil.version>8.5.13</fastutil.version>
         <jgit.version>6.10.0.202406032230-r</jgit.version>
+        
+        <!-- XML Utilities -->
+        <stax-utils.version>20070216</stax-utils.version>
         
         <!-- Markdown Processing -->
         <flexmark.version>0.64.8</flexmark.version>
@@ -196,6 +199,19 @@
                 <groupId>org.eclipse.jgit</groupId>
                 <artifactId>org.eclipse.jgit</artifactId>
                 <version>${jgit.version}</version>
+            </dependency>
+
+            <!-- StAX Utilities for XML pretty printing -->
+            <dependency>
+                <groupId>net.java.dev.stax-utils</groupId>
+                <artifactId>stax-utils</artifactId>
+                <version>${stax-utils.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.bea.xml</groupId>
+                        <artifactId>jsr173-ri</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- FlexMark for Markdown processing -->

@@ -31,13 +31,10 @@
  */
 package turnus.model.versioning.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -45,7 +42,6 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 import turnus.common.io.Logger;
-import turnus.model.Activator;
 import turnus.model.versioning.Version;
 import turnus.model.versioning.Versioner;
 import turnus.model.versioning.VersioningFactory;
@@ -59,8 +55,12 @@ import turnus.model.versioning.VersioningPackage;
  */
 public class VersioningFactoryImpl extends EFactoryImpl implements VersioningFactory {
 
-	/** the set of names of the registered versioners */
-	private List<String> versioners;
+	/** Versioner name constants */
+	public static final String VERSIONER_GIT = "Git versioner";
+	public static final String VERSIONER_FILE_PROPERTIES = "File properties versioner";
+
+	/** Map of versioner names to their factory suppliers */
+	private Map<String, Supplier<Versioner>> versioners;
 
 	/**
 	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
@@ -90,29 +90,31 @@ public class VersioningFactoryImpl extends EFactoryImpl implements VersioningFac
 	public VersioningFactoryImpl() {
 		super();
 
-		versioners = new ArrayList<>();
-		try {
-			IExtensionRegistry registry = Platform.getExtensionRegistry();
-			IConfigurationElement[] elements = registry.getConfigurationElementsFor(Activator.PLUGIN_ID + ".versioner");
-			for (IConfigurationElement element : elements) {
-				try {
-					String name = element.getAttribute("name");
-					if (name == null) {
-						Logger.error("There is a versioner without name. It cannot be registered");
-					} else if (versioners.contains(name)) {
-						Logger.error("There is already a versioner named \"%s\"", name);
-					} else {
-						versioners.add(name);
-						Logger.debug("Versioner \"%s\" has been registered", name);
-					}
+		versioners = new LinkedHashMap<>();
+		
+		// Register built-in versioners
+		registerVersioner(VERSIONER_GIT, GitVersioner::new);
+		registerVersioner(VERSIONER_FILE_PROPERTIES, FilePropertiesVersioner::new);
+		
+		Logger.debug("Versioning factory initialized with %d versioners", versioners.size());
+	}
 
-				} catch (Exception e) {
-				}
-			}
-		} catch (Exception e) {
-			Logger.debug("Error while initializing the versioning factory. No versioners can be registered");
+	/**
+	 * Register a versioner
+	 * 
+	 * @param name the versioner name
+	 * @param supplier a supplier that creates new versioner instances
+	 */
+	public void registerVersioner(String name, Supplier<Versioner> supplier) {
+		if (name == null) {
+			Logger.error("Cannot register versioner without name");
+			return;
 		}
-
+		if (versioners.containsKey(name)) {
+			Logger.warning("Overwriting existing versioner named \"%s\"", name);
+		}
+		versioners.put(name, supplier);
+		Logger.debug("Versioner \"%s\" has been registered", name);
 	}
 
 	/**
@@ -162,33 +164,21 @@ public class VersioningFactoryImpl extends EFactoryImpl implements VersioningFac
 
 	@Override
 	public String[] getRegisteredVersioners() {
-		return versioners.toArray(new String[0]);
+		return versioners.keySet().toArray(new String[0]);
 	}
 
 	@Override
 	public Versioner getVersioner(String name) {
-		if (versioners.contains(name)) {
+		Supplier<Versioner> supplier = versioners.get(name);
+		if (supplier != null) {
 			try {
-				IExtensionRegistry registry = Platform.getExtensionRegistry();
-				IConfigurationElement[] elements = registry
-						.getConfigurationElementsFor(Activator.PLUGIN_ID + ".versioner");
-				for (IConfigurationElement element : elements) {
-					try {
-						if (name.equals(element.getAttribute("name"))) {
-							Versioner v = (Versioner) element.createExecutableExtension("class");
-							return v;
-						}
-					} catch (CoreException e) {
-						Logger.warning("Versioning factory: " + e.getMessage());
-					}
-				}
+				return supplier.get();
 			} catch (Exception e) {
-				Logger.error("Error while loading the versioning factory: " + e.getMessage());
+				Logger.error("Error creating versioner \"%s\": %s", name, e.getMessage());
 			}
-		} else {
-			Logger.error("No versioner with name \"%s\" is registered. The git versioner will be used", name);
 		}
-
+		
+		Logger.warning("No versioner found with name \"%s\". Using Git versioner as default.", name);
 		return new GitVersioner();
 	}
 
