@@ -17,10 +17,17 @@
     <description>EMF-based data models for Turnus</description>
 
     <dependencies>
-        <!-- Turnus Common API (for interfaces, exceptions, utilities) -->
+        <!-- Turnus Common API (for interfaces, exceptions) -->
         <dependency>
             <groupId>co.turnus</groupId>
             <artifactId>turnus-common-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Turnus Common (for utilities, file handling, configuration) -->
+        <dependency>
+            <groupId>co.turnus</groupId>
+            <artifactId>turnus-common</artifactId>
             <version>${project.version}</version>
         </dependency>
 

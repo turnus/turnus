@@ -34,8 +34,6 @@ package turnus.common;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 
-import turnus.common.configuration.Configuration.LaunchConfigurationParser;
-
 /**
  * This class contains the string constants used by TURNUS.
  * 
@@ -45,10 +43,8 @@ import turnus.common.configuration.Configuration.LaunchConfigurationParser;
 public class TurnusConstants {
 
 	/**
-	 * a launch configuration widget without associate option-id prefix. This
-	 * constant is used inside {@link LaunchConfigurationParser} to remove
-	 * mapped launch configuration options that are not associated to any TURNUS
-	 * option
+	 * A configuration widget prefix for undefined options that are not 
+	 * associated to any TURNUS option.
 	 */
 	public static final String CONFIGURATION_UNDEFINED_OPTION = "undefined.option.";
 
