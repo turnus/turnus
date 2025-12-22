@@ -32,8 +32,10 @@
 package turnus.common.util;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -41,17 +43,18 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class contains some utilities methods for EMF.
+ * This class contains some utilities methods for the Eclipse framework.
  * 
  * @author Simone Casale Brunet
  *
  */
 public class EcoreUtils {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(EcoreUtils.class);
 
 	/**
@@ -70,7 +73,7 @@ public class EcoreUtils {
 			URI uri = FileUtils.createFileURI(file);
 			return loadEObject(set, uri);
 		} catch (Exception e) {
-			logger.debug("LoadEObject from file \"{}\" exception", file, e);
+			logger.debug("LoadEObject from file \"%s\" exception: %s", file, e);
 			return null;
 		}
 	}
@@ -98,7 +101,7 @@ public class EcoreUtils {
 			EcoreUtil.resolveAll(set);
 			return object;
 		} catch (RuntimeException e) {
-			logger.debug("LoadEObject from URI \"{}\" exception", uri, e);
+			logger.debug("LoadEObject from URI \"%s\" exception: %s", uri, e);
 			return null;
 		}
 
@@ -123,7 +126,7 @@ public class EcoreUtils {
 			URI uri = FileUtils.createFileURI(file);
 			return storeEObject(object, set, uri);
 		} catch (Exception e) {
-			logger.debug("Store Object to file \"{}\" exception", file, e);
+			logger.debug("Store Object to file \"%s\" exception: %s", file, e);
 			return false;
 		}
 	}
@@ -147,22 +150,22 @@ public class EcoreUtils {
 			URI uri = FileUtils.createFileURI(file);
 			return storeEObject(object, set, uri);
 		} catch (Exception e) {
-			logger.debug("Store Object to file \"{}\" exception", file, e);
+			logger.debug("Store Object to file \"%s\" exception: %s", file, e);
 			return false;
 		}
 	}
 
 	/**
 	 * Store an {@link EObject} using the given {@link ResourceSet} and
-	 * {@link URI}. If the object cannot be store, <code>false</code> is
+	 * {@link IFile}. If the object cannot be store, <code>false</code> is
 	 * returned without throwing any exceptions.
 	 * 
 	 * @param object
 	 *            the object
 	 * @param set
 	 *            the resource set
-	 * @param uri
-	 *            the resource uri
+	 * @param file
+	 *            the file
 	 * @return <code>true</code> if the object has been stored,
 	 *         <code>false</code> otherwise
 	 */
@@ -173,7 +176,7 @@ public class EcoreUtils {
 			resource.save(Collections.EMPTY_MAP);
 			return true;
 		} catch (Exception e) {
-			Logger.debug("StoreObject to URI \"%s\" exception: %s", uri, e);
+			logger.debug("StoreObject to URI \"%s\" exception: %s", uri, e);
 			return false;
 		}
 	}
@@ -185,22 +188,9 @@ public class EcoreUtils {
 			resource.save(Collections.EMPTY_MAP);
 			return true;
 		} catch (Exception e) {
-			Logger.debug("StoreObject to URI \"%s\" exception: %s", uri, e);
+			logger.debug("StoreObject to URI \"%s\" exception: %s", uri, e);
 			return false;
 		}
 	}
 
 }
-logger.debug("StoreObject to URI \"{}\" exception", uri, e);
-			return false;
-		}
-	}
-	
-	public static boolean storeEObject(Collection<? extends EObject> object, ResourceSet set, URI uri) {
-		try {
-			Resource resource = set.createResource(uri);
-			resource.getContents().addAll(object);
-			resource.save(Collections.EMPTY_MAP);
-			return true;
-		} catch (Exception e) {
-			logger.debug("StoreObject to URI \"{}\" exception

@@ -20,7 +20,7 @@
         <!-- Internal -->
         <dependency>
             <groupId>co.turnus</groupId>
-            <artifactId>turnus-model</artifactId>
+            <artifactId>turnus-common-api</artifactId>
         </dependency>
 
         <!-- Apache Commons -->
@@ -47,6 +47,16 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- Apache POI (for PoiUtils) -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
         </dependency>
 
         <!-- Testing -->

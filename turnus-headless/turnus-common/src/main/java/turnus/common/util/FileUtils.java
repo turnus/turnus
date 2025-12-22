@@ -31,6 +31,9 @@
  */
 package turnus.common.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -233,15 +236,7 @@ public class FileUtils {
 		}
 	}
 
-	/**
-	 * Create an {@link URI} of the given {@link IFile} (i.e. see
-	 * {@link URI#createFileURI(String)}).
-	 * 
-	 * @param file
-	 *            the iFile
-	 * @return the URI
-	 * @throws TurnusException
-	 */
+
 
 	/**
 	 * Get a file name with a time stamp <code>yyyyMMddHHmmss</code> as name
@@ -406,24 +401,9 @@ public class FileUtils {
 		}
 	}
 
-	/**
-	 * Get a {@link File} from {@link IFile}.
-	 * 
-	 * @param file
-	 *            the iFile
-	 * @return the iFile
-	 * @throws TurnusException
-	 */
 
-	/**
-	 * Get the {@link IFile} from a <code>portablePath</code> (i.e. see
-	 * {@link EcoreUtils#getPortablePath(IFile)}).
-	 * 
-	 * @param portablePath
-	 *            the portable path
-	 * @return the iFile
-	 * @throws TurnusException
-	 */
+
+
 
 	/**
 	 * Get the name of the file file without any extension (e.g. for the file
@@ -460,25 +440,9 @@ public class FileUtils {
 
 	}
 
-	/**
-	 * Get the name of the file file without any extension (e.g. for the file
-	 * "/tmp/myFile.ext" the result is "myFile").
-	 * 
-	 * @param file
-	 *            the file
-	 * @return the file name without extension
-	 * @throws TurnusException
-	 */
 
-	/**
-	 * Return a platform-neutral string representation of the given
-	 * {@link IFile}.
-	 * 
-	 * @param file
-	 *            the iFile
-	 * @return the portable path
-	 * @throws TurnusException
-	 */
+
+
 
 	/**
 	 * Returns the qualified name of the given file, i.e. qualified.name.of.File
