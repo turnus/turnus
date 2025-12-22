@@ -16,9 +16,11 @@ Turnus Headless is a clean-room implementation of the Turnus analysis toolkit th
 | turnus-common-api | Base interfaces and exceptions | 2 |
 | turnus-common | Common utilities, configuration, I/O | 34 |
 | turnus-model | EMF models for dataflow, trace, analysis | 464 |
-| turnus-bundle | Bundle aggregator | - |
-| turnus-analysis | Analysis algorithms (impact, buffer, partitioning) | 104 |
+| turnus-adevs | ADEVS simulation engine - the heart of Turnus | 40 |
+| turnus-analysis | Analysis algorithms (impact, buffer, partitioning, simulation) | 127 |
 | turnus-cli | Command-line interface | 5 |
+
+**Total: 672 Java source files**
 
 ## Building
 
