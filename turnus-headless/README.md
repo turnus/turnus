@@ -6,8 +6,25 @@ Pure Maven headless version of the Turnus dataflow analysis toolkit - no Eclipse
 
 Turnus Headless is a clean-room implementation of the Turnus analysis toolkit that can be built and run without Eclipse. It uses:
 - **EMF (Eclipse Modeling Framework)** for data models - standalone EMF, no Eclipse runtime
+- **ADEVS** for discrete event simulation - the heart of Turnus
 - **picocli** for command-line interface
 - **Pure Maven** for build system
+
+## Module Architecture
+
+```
+turnus-common-api  (base interfaces)
+       ↓
+turnus-model       (EMF data models)
+       ↓
+turnus-common      (utilities, I/O)
+       ↓
+turnus-adevs       (simulation engine)
+       ↓
+turnus-analysis    (analysis algorithms)
+       ↓
+turnus-cli         (command-line interface)
+```
 
 ## Modules
 
@@ -18,7 +35,7 @@ Turnus Headless is a clean-room implementation of the Turnus analysis toolkit th
 | turnus-model | EMF models for dataflow, trace, analysis | 464 |
 | turnus-adevs | ADEVS simulation engine - the heart of Turnus | 40 |
 | turnus-analysis | Analysis algorithms (impact, buffer, partitioning, simulation) | 127 |
-| turnus-cli | Command-line interface | 5 |
+| turnus-cli | Command-line interface with picocli | 5 |
 
 **Total: 672 Java source files**
 
@@ -112,21 +129,28 @@ ImpactAnalysisReport report = analysis.run();
 
 ## Dependencies
 
-Key dependencies:
-- EMF 2.39+ (standalone)
+Key dependencies (all managed via Maven):
+- EMF 2.39+ (standalone, no Eclipse runtime)
 - picocli 4.7.5 (CLI framework)
 - JGraphT 1.5.2 (graph algorithms)
+- FastUtil 8.5.13 (high-performance collections)
 - Apache POI 5.3.0 (Excel export)
 - Apache Commons (IO, Math, CLI)
 - FlexMark 0.64.8 (Markdown processing)
 - JGit 6.10.0 (Git versioning)
+- javax.json 1.1.4 (JSON processing)
 
-## What's Not Included
+## What's Different from Eclipse Version
 
-The following components from the original Turnus are not yet included:
-- **turnus.adevs** - Simulation library (requires native ADEVS library)
-- **Eclipse UI components** - IDE integration
-- **Eclipse-based CLI classes** - Replaced with picocli commands
+| Feature | Eclipse Turnus | Turnus Headless |
+|---------|----------------|-----------------|
+| Build system | Eclipse Tycho | Pure Maven |
+| CLI framework | Eclipse IApplication | picocli |
+| Extension registry | Eclipse extension points | Direct factory registration |
+| UI | Eclipse RCP | None (headless) |
+| ADEVS simulation | ✓ | ✓ |
+| Trace loading | Extension point based | TraceLoaderFactory |
+| Versioning | Extension point based | VersioningFactoryImpl |
 
 ## License
 
