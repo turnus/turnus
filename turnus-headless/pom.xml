@@ -48,7 +48,7 @@
         <stax-utils.version>20070216</stax-utils.version>
         
         <!-- Markdown Processing -->
-        <flexmark.version>0.64.8</flexmark.version>
+        <commonmark.version>0.21.0</commonmark.version>
         
         <!-- Logging -->
         <slf4j.version>2.0.16</slf4j.version>
@@ -214,31 +214,31 @@
                 </exclusions>
             </dependency>
 
-            <!-- FlexMark for Markdown processing -->
+            <!-- CommonMark for Markdown processing -->
             <dependency>
-                <groupId>com.vladsch.flexmark</groupId>
-                <artifactId>flexmark</artifactId>
-                <version>${flexmark.version}</version>
+                <groupId>org.commonmark</groupId>
+                <artifactId>commonmark</artifactId>
+                <version>${commonmark.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.vladsch.flexmark</groupId>
-                <artifactId>flexmark-ext-tables</artifactId>
-                <version>${flexmark.version}</version>
+                <groupId>org.commonmark</groupId>
+                <artifactId>commonmark-ext-gfm-tables</artifactId>
+                <version>${commonmark.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.vladsch.flexmark</groupId>
-                <artifactId>flexmark-ext-autolink</artifactId>
-                <version>${flexmark.version}</version>
+                <groupId>org.commonmark</groupId>
+                <artifactId>commonmark-ext-autolink</artifactId>
+                <version>${commonmark.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.vladsch.flexmark</groupId>
-                <artifactId>flexmark-ext-gfm-strikethrough</artifactId>
-                <version>${flexmark.version}</version>
+                <groupId>org.commonmark</groupId>
+                <artifactId>commonmark-ext-gfm-strikethrough</artifactId>
+                <version>${commonmark.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.vladsch.flexmark</groupId>
-                <artifactId>flexmark-ext-gfm-tasklist</artifactId>
-                <version>${flexmark.version}</version>
+                <groupId>org.commonmark</groupId>
+                <artifactId>commonmark-ext-task-list-items</artifactId>
+                <version>${commonmark.version}</version>
             </dependency>
 
             <!-- ASM -->

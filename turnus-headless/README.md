@@ -136,7 +136,7 @@ Key dependencies (all managed via Maven):
 - FastUtil 8.5.13 (high-performance collections)
 - Apache POI 5.3.0 (Excel export)
 - Apache Commons (IO, Math, CLI)
-- FlexMark 0.64.8 (Markdown processing)
+- CommonMark 0.21.0 (Markdown processing)
 - JGit 6.10.0 (Git versioning)
 - javax.json 1.1.4 (JSON processing)
 

@@ -44,7 +44,7 @@ Successfully modernized the Turnus Eclipse RCP/Tycho project with Java 21 upgrad
 - JGraphT (graph algorithms)
 - Apache POI (Office documents)
 - Weka (machine learning)
-- FlexMark (Markdown)
+- CommonMark (Markdown)
 - FastUtil (collections)
 - ~20 other specialized libraries
 

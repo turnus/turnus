@@ -87,26 +87,26 @@
             <artifactId>stax-utils</artifactId>
         </dependency>
 
-        <!-- FlexMark for Markdown processing -->
+        <!-- CommonMark for Markdown processing -->
         <dependency>
-            <groupId>com.vladsch.flexmark</groupId>
-            <artifactId>flexmark</artifactId>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.vladsch.flexmark</groupId>
-            <artifactId>flexmark-ext-tables</artifactId>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.vladsch.flexmark</groupId>
-            <artifactId>flexmark-ext-autolink</artifactId>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark-ext-autolink</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.vladsch.flexmark</groupId>
-            <artifactId>flexmark-ext-gfm-strikethrough</artifactId>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-strikethrough</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.vladsch.flexmark</groupId>
-            <artifactId>flexmark-ext-gfm-tasklist</artifactId>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark-ext-task-list-items</artifactId>
         </dependency>
 
         <!-- Testing -->

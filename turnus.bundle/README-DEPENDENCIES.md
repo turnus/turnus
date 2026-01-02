@@ -16,7 +16,7 @@ This bundle uses a **hybrid approach** for dependency management:
 - JGraphT (graph algorithms)
 - Apache POI (Office document processing)
 - Weka (machine learning)
-- FlexMark (Markdown processing)
+- CommonMark (Markdown processing)
 - FastUtil (high-performance collections)
 - And ~20 other specialized libraries
 

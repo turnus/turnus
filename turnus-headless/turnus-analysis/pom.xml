@@ -84,16 +84,6 @@
             <artifactId>jgrapht-core</artifactId>
         </dependency>
 
-        <!-- FlexMark for Markdown processing -->
-        <dependency>
-            <groupId>com.vladsch.flexmark</groupId>
-            <artifactId>flexmark</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.vladsch.flexmark</groupId>
-            <artifactId>flexmark-ext-tables</artifactId>
-        </dependency>
-
         <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>

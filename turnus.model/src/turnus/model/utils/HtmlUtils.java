@@ -33,15 +33,16 @@ package turnus.model.utils;
 
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.List;
 
-import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
-import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
-import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
-import com.vladsch.flexmark.ext.tables.TablesExtension;
-import com.vladsch.flexmark.html.HtmlRenderer;
-import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.ast.Node;
-import com.vladsch.flexmark.util.data.MutableDataSet;
+import org.commonmark.Extension;
+import org.commonmark.ext.autolink.AutolinkExtension;
+import org.commonmark.ext.gfm.strikethrough.StrikethroughExtension;
+import org.commonmark.ext.gfm.tables.TablesExtension;
+import org.commonmark.ext.task.list.items.TaskListItemsExtension;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 
 import turnus.common.io.Logger;
 import turnus.common.util.FileUtils;
@@ -115,15 +116,15 @@ public class HtmlUtils {
 	 * @return
 	 */
 	public static String markdown2Html(String mdString) {
-		MutableDataSet options = new MutableDataSet().set(
-				Parser.EXTENSIONS, Arrays.asList(AutolinkExtension.create(),
-				StrikethroughExtension.create(), 
-				TaskListExtension.create(), 
-				TablesExtension.create()));
+		List<Extension> extensions = Arrays.asList(
+				TablesExtension.create(),
+				StrikethroughExtension.create(),
+				AutolinkExtension.create(),
+				TaskListItemsExtension.create());
 
-		Parser parser = Parser.builder(options).build();
-		HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+		Parser parser = Parser.builder().extensions(extensions).build();
 		Node document = parser.parse(mdString);
+		HtmlRenderer renderer = HtmlRenderer.builder().extensions(extensions).build();
 		return renderer.render(document);
 	}
 
