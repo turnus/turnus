@@ -50,6 +50,12 @@ import turnus.common.util.DateUtil;
  */
 public class Logger {
 
+	private static final String ANSI_RESET = "\u001B[0m";
+	private static final String ANSI_RED = "\u001B[31m";
+	private static final String ANSI_YELLOW = "\u001B[33m";
+	private static final String ANSI_GREEN = "\u001B[32m";
+	private static final String ANSI_CYAN = "\u001B[36m";
+
 	/**
 	 * This class defines a default console handler that make use of the
 	 * {@link System#out} and {@link System#err} streams
@@ -76,6 +82,11 @@ public class Logger {
 	 *
 	 */
 	private static class DefaultFormatter extends Formatter {
+		private final boolean useAnsiColors;
+
+		private DefaultFormatter(boolean useAnsiColors) {
+			this.useAnsiColors = useAnsiColors;
+		}
 
 		/**
 		 * Format the given log level and return the formatted string.
@@ -97,6 +108,27 @@ public class Logger {
 			}
 		}
 
+		private String maybeColorizeLevel(Level level, String formattedLevel) {
+			if (!useAnsiColors) {
+				return formattedLevel;
+			}
+
+			final String color;
+			if (level == Level.SEVERE) {
+				color = ANSI_RED;
+			} else if (level == Level.WARNING) {
+				color = ANSI_YELLOW;
+			} else if (level == Level.INFO) {
+				color = ANSI_GREEN;
+			} else if (level == Level.FINER) {
+				color = ANSI_CYAN;
+			} else {
+				color = ANSI_RESET;
+			}
+
+			return color + formattedLevel + ANSI_RESET;
+		}
+
 		@Override
 		public String format(LogRecord record) {
 			StringBuilder builder = new StringBuilder(1000);
@@ -105,7 +137,8 @@ public class Logger {
 				builder.append(formatMessage(record));
 			} else {
 				builder.append("[");
-				builder.append(formatLevel(record.getLevel()));
+				final String level = formatLevel(record.getLevel());
+				builder.append(maybeColorizeLevel(record.getLevel(), level));
 				builder.append("] ");
 				builder.append(DateUtil.now());
 				builder.append(" : ");
@@ -150,8 +183,8 @@ public class Logger {
 
 	/** the encapsulated logger */
 	private static java.util.logging.Logger logger;
-	/** the console formatter */
-	private static Formatter formatter = new DefaultFormatter();
+	/** the default console formatter */
+	private static Formatter formatter = new DefaultFormatter(isAnsiEnabledForConsole());
 	/** the raw log flag */
 	private static final String RAW_LOG_FLAG = "exelixi_raw_record";
 
@@ -184,7 +217,31 @@ public class Logger {
 	 */
 	public static void addHandler(Handler handler) {
 		logger.addHandler(handler);
-		handler.setFormatter(formatter);
+		if (handler instanceof FileHandler) {
+			handler.setFormatter(new DefaultFormatter(false));
+		} else {
+			handler.setFormatter(formatter);
+		}
+	}
+
+	private static boolean isAnsiEnabledForConsole() {
+		final String mode = System.getProperty("turnus.logger.color", "auto").trim().toLowerCase();
+		if ("true".equals(mode) || "always".equals(mode) || "on".equals(mode)) {
+			return true;
+		}
+		if ("false".equals(mode) || "never".equals(mode) || "off".equals(mode)) {
+			return false;
+		}
+
+		// auto: enable only when running on a real console and NO_COLOR isn't set
+		if (System.getenv("NO_COLOR") != null) {
+			return false;
+		}
+		final String term = System.getenv("TERM");
+		if (term == null || "dumb".equalsIgnoreCase(term)) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -350,7 +407,8 @@ public class Logger {
 		}
 
 		ConsoleHandler handler = new BlackConsoleHandler();
-		handler.setFormatter(new DefaultFormatter());
+		formatter = new DefaultFormatter(isAnsiEnabledForConsole());
+		handler.setFormatter(formatter);
 
 		logger = java.util.logging.Logger.getLogger("exelixi logger");
 		logger.addHandler(handler);
