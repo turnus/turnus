@@ -314,5 +314,9 @@ public class TabuSearch extends TabuSearchAbstract {
 			movesGenerator.updateTabuList(move, iteration, tab);
 		}
 	}
+
+	public NetworkPartitioning getBestPartitioning() {
+		return sStar;
+	}
 	
 }

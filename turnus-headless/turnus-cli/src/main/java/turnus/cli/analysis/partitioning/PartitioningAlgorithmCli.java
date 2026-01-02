@@ -18,28 +18,14 @@
  * You should have received a copy of the GNU General Public License
  * along with TURNUS.  If not, see <http://www.gnu.org/licenses/>.
  */
-package turnus.cli.analysis;
+package turnus.cli.analysis.partitioning;
 
 import java.util.concurrent.Callable;
 
-import picocli.CommandLine.Command;
-
 /**
- * CLI command for Partitioning Analysis.
- * This command acts as a container for specific partitioning algorithms.
+ * Interface for Partitioning Algorithm CLI commands.
+ * Implementations must be annotated with @Command.
  */
-@Command(
-    name = "partition",
-    description = "Run partitioning analysis",
-    mixinStandardHelpOptions = true
-)
-public class PartitioningCommand implements Callable<Integer> {
-
-    @Override
-    public Integer call() {
-        // This method will be called if no subcommand is specified
-        // We can print help or just return 0
-        System.out.println("Please specify a partitioning algorithm. Use --help for list.");
-        return 0;
-    }
+public interface PartitioningAlgorithmCli extends Callable<Integer> {
+    // Marker interface for ServiceLoader
 }

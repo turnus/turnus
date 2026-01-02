@@ -241,4 +241,8 @@ public class IdleLocalSearch extends Analysis<ActorStatisticsReport> {
 		});
 		return sortedActors;
 	}
+
+	public NetworkPartitioning getBestPartitioning() {
+		return bestPartitioning;
+	}
 }

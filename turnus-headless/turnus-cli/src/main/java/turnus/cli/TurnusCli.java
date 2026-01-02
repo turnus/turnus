@@ -20,6 +20,8 @@
  */
 package turnus.cli;
 
+import java.util.ServiceLoader;
+import turnus.cli.analysis.partitioning.PartitioningAlgorithmCli;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.HelpCommand;
@@ -27,6 +29,7 @@ import turnus.cli.analysis.ImpactAnalysisCommand;
 import turnus.cli.analysis.CriticalPathCommand;
 import turnus.cli.analysis.BufferAnalysisCommand;
 import turnus.cli.analysis.PartitioningCommand;
+import turnus.cli.analysis.SimulationCommand;
 import turnus.model.ModelsRegister;
 
 /**
@@ -44,7 +47,8 @@ import turnus.model.ModelsRegister;
         ImpactAnalysisCommand.class,
         CriticalPathCommand.class,
         BufferAnalysisCommand.class,
-        PartitioningCommand.class
+        PartitioningCommand.class,
+        SimulationCommand.class
     }
 )
 public class TurnusCli implements Runnable {
@@ -53,7 +57,18 @@ public class TurnusCli implements Runnable {
         // Initialize EMF models
         ModelsRegister.init();
         
-        int exitCode = new CommandLine(new TurnusCli()).execute(args);
+        CommandLine cmd = new CommandLine(new TurnusCli());
+        
+        // Dynamically register partitioning algorithms
+        CommandLine partitionCmd = cmd.getSubcommands().get("partition");
+        if (partitionCmd != null) {
+            ServiceLoader<PartitioningAlgorithmCli> loader = ServiceLoader.load(PartitioningAlgorithmCli.class);
+            for (PartitioningAlgorithmCli algo : loader) {
+                partitionCmd.addSubcommand(algo);
+            }
+        }
+        
+        int exitCode = cmd.execute(args);
         System.exit(exitCode);
     }
 

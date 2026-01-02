@@ -410,4 +410,8 @@ public class CommFreqLocalSearch extends Analysis<ActorStatisticsReport> {
 
 		return avg / stddev;
 	}
+
+	public NetworkPartitioning getBestPartitioning() {
+		return bestPartitioning;
+	}
 }

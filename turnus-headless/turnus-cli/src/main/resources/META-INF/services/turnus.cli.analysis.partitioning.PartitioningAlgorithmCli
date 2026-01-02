@@ -1,0 +1,9 @@
+turnus.cli.analysis.partitioning.CommunicationCostPartitioningCli
+turnus.cli.analysis.partitioning.WorkloadBalancePartitioningCli
+turnus.cli.analysis.partitioning.BalancedPipelinePartitioningCli
+turnus.cli.analysis.partitioning.GpMetisPartitioningCli
+turnus.cli.analysis.partitioning.HypergraphPartitioningCli
+turnus.cli.analysis.partitioning.DynamicRRPartitioningCli
+turnus.cli.analysis.partitioning.IdleLocalSearchCli
+turnus.cli.analysis.partitioning.CommFreqLocalSearchCli
+turnus.cli.analysis.partitioning.TabuSearchCli
