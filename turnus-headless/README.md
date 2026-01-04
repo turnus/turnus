@@ -72,8 +72,22 @@ java -jar turnus-cli-1.0.0-SNAPSHOT.jar --help
 java -jar turnus-cli-1.0.0-SNAPSHOT.jar help
 java -jar turnus-cli-1.0.0-SNAPSHOT.jar impact --help
 java -jar turnus-cli-1.0.0-SNAPSHOT.jar critical-path --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar scheduled-critical-path --help
 java -jar turnus-cli-1.0.0-SNAPSHOT.jar buffer --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar ipcomm --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar iacomm --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar latency --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar max-buffer --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar optimal-buffer-topdown --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar optimal-buffer-critical-blocking --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar optimal-buffer-heavy-blocking --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar varpipe --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar pimpact --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar amtrace --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar ctrace --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar dtraces --help
 java -jar turnus-cli-1.0.0-SNAPSHOT.jar partition --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar simulate --help
 ```
 
 ### Analysis Commands

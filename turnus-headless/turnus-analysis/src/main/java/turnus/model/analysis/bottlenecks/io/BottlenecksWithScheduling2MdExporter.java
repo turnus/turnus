@@ -85,23 +85,25 @@ public class BottlenecksWithScheduling2MdExporter
 		double cpFiringsPerc = ((double) netCpFirings) / netFirings * 100.0;
 		double cpWeightPerc = ((double) netcpWeights) / netWeight * 100.0;
 
-		b.append("\n| Overall ||| Critical Path |||||| ");
-		b.append("\n| Execution | Workload | Firings | Workload || Blocking | Firings||");
-		b.append("\n|---|---|---|---|---|---|---");
-		b.append(String.format("\n| %s | %s | %d | %s | %s | %s | %d | %s", format(time), format(netWeight), netFirings,
-				format(netcpWeights), format(cpWeightPerc) + "%", format(blocking), netCpFirings,
-				format((cpFiringsPerc)) + "%"));
-		b.append("\n[Summary]");
-		b.append("\n");
+		b.append("## Summary\n\n");
+		b.append("| Metric | Value |\n");
+		b.append("|---|---:|\n");
+		b.append(String.format("| Execution | %s |\n", format(time)));
+		b.append(String.format("| Total workload | %s |\n", format(netWeight)));
+		b.append(String.format("| Total firings | %d |\n", netFirings));
+		b.append(String.format("| Critical path workload | %s |\n", format(netcpWeights)));
+		b.append(String.format("| Critical path workload (%) | %s |\n", format(cpWeightPerc) + "%"));
+		b.append(String.format("| Critical path blocking | %s |\n", format(blocking)));
+		b.append(String.format("| Critical path firings | %d |\n", netCpFirings));
+		b.append(String.format("| Critical path firings (%) | %s |\n", format((cpFiringsPerc)) + "%"));
 
-		b.append("\n| Partition id | CP blocking ||");
-		b.append("\n|---|---|");
+		b.append("\n## Partitions blocking time\n\n");
+		b.append("| Partition id | CP blocking |\n");
+		b.append("|---|---:|\n");
 		for (String s : data.getCpPartitionsBlockingTime().keySet()) {
 			// if (data.getCpPartitionsBlockingTime().get(s) != 0)
-			b.append(String.format("\n| %s | %s |", s, format(data.getCpPartitionsBlockingTime().get(s))));
+			b.append(String.format("| %s | %s |\n", s, format(data.getCpPartitionsBlockingTime().get(s))));
 		}
-		b.append("\n[Partitions blocking time]");
-		b.append("\n");
 
 		List<ActionBottlenecksWithSchedulingData> actionsData = new ArrayList<>(data.getActionsData());
 		Collections.sort(actionsData, new Comparator<ActionBottlenecksWithSchedulingData>() {
@@ -130,9 +132,9 @@ public class BottlenecksWithScheduling2MdExporter
 			}
 		});
 
-		b.append("\n|   || Overall |||| Critical Path ||||| ");
-		b.append("\n| Actor | Action | Firings || Weight || Firings || Weight ||");
-		b.append("\n|---|---|---|---|---|---|---|---|---|---");
+		b.append("\n## Actions detail\n\n");
+		b.append("| Actor | Action | Total firings | Total firings (%) | Total weight | Total weight (%) | CP firings | CP firings (%) | CP weight | CP weight (%) |\n");
+		b.append("|---|---|---:|---:|---:|---:|---:|---:|---:|---:|\n");
 
 		for (ActionBottlenecksWithSchedulingData adata : actionsData) {
 			double cpWeights = adata.getCpWeight();
@@ -147,12 +149,19 @@ public class BottlenecksWithScheduling2MdExporter
 			String actor = adata.getAction().getOwner().getName();
 			String action = adata.getAction().getName();
 
-			b.append(String.format("\n|%s | %s | %d | %s | %s | %s | %d | %s | %s | %s ", actor, action, totalFirings,
-					format(totalFiringsPerc) + "%", format(totalWeight), format(totalWeightPerc) + "%", cpFirings,
-					format((cpFirings)), format(cpWeights), format(cpWeightPerc) + "%"));
+			b.append(String.format("| %s | %s | %d | %s | %s | %s | %d | %s | %s | %s |\n",
+					actor,
+					action,
+					totalFirings,
+					format(totalFiringsPerc) + "%",
+					format(totalWeight),
+					format(totalWeightPerc) + "%",
+					cpFirings,
+					format(cpFiringsPerc) + "%",
+					format(cpWeights),
+					format(cpWeightPerc) + "%"));
 
 		}
-		b.append("\n[Actions detail]");
 		b.append("\n");
 		return b;
 	}

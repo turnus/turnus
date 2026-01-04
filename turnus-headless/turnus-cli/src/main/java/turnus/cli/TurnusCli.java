@@ -25,11 +25,24 @@ import turnus.cli.analysis.partitioning.PartitioningAlgorithmCli;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.HelpCommand;
+import turnus.cli.analysis.AmtraceCommand;
 import turnus.cli.analysis.ImpactAnalysisCommand;
 import turnus.cli.analysis.CriticalPathCommand;
+import turnus.cli.analysis.CtraceCommand;
+import turnus.cli.analysis.DtracesCommand;
 import turnus.cli.analysis.BufferAnalysisCommand;
+import turnus.cli.analysis.IacommCommand;
+import turnus.cli.analysis.IpcommCommand;
+import turnus.cli.analysis.LatencyCommand;
+import turnus.cli.analysis.MaxBufferCommand;
+import turnus.cli.analysis.OptimalBufferCriticalBlockingCommand;
+import turnus.cli.analysis.OptimalBufferHeavyBlockingCommand;
+import turnus.cli.analysis.OptimalBufferTopDownCommand;
+import turnus.cli.analysis.PimpactCommand;
 import turnus.cli.analysis.PartitioningCommand;
+import turnus.cli.analysis.ScheduledCriticalPathCommand;
 import turnus.cli.analysis.SimulationCommand;
+import turnus.cli.analysis.VarpipeCommand;
 import turnus.model.ModelsRegister;
 
 /**
@@ -46,7 +59,20 @@ import turnus.model.ModelsRegister;
         HelpCommand.class,
         ImpactAnalysisCommand.class,
         CriticalPathCommand.class,
+        ScheduledCriticalPathCommand.class,
         BufferAnalysisCommand.class,
+        IpcommCommand.class,
+        IacommCommand.class,
+        LatencyCommand.class,
+        MaxBufferCommand.class,
+        OptimalBufferTopDownCommand.class,
+        OptimalBufferCriticalBlockingCommand.class,
+        OptimalBufferHeavyBlockingCommand.class,
+        VarpipeCommand.class,
+        PimpactCommand.class,
+        AmtraceCommand.class,
+        CtraceCommand.class,
+        DtracesCommand.class,
         PartitioningCommand.class,
         SimulationCommand.class
     }
