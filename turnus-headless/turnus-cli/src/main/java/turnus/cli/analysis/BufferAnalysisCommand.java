@@ -34,6 +34,7 @@ import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
 import turnus.common.util.FileUtils;
 import turnus.model.analysis.buffers.BoundedBuffersReport;
+import turnus.model.analysis.buffers.io.Boundbuffer2HtmlExporter;
 import turnus.model.trace.TraceProject;
 
 import static turnus.common.TurnusOptions.*;
@@ -87,6 +88,11 @@ public class BufferAnalysisCommand implements Callable<Integer> {
             File reportFile = new File(outDir, FileUtils.changeExtension(traceFile, "buffers").getName());
             EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
             Logger.info("Report saved to: %s", reportFile);
+
+			// Save HTML report
+			File htmlFile = new File(reportFile.getParentFile(), reportFile.getName() + ".html");
+			new Boundbuffer2HtmlExporter().export(report, htmlFile);
+			Logger.info("HTML report saved to: %s", htmlFile);
             
             return 0;
             

@@ -106,8 +106,8 @@ public class Impact2MdExporter implements FileExporter<ImpactAnalysisReport, Str
 				b.append(action.getName()).append(")");
 			}
 
-			b.append("\n\n| Weight-reduction | CriticalPath-reduction \n");
-			b.append("|:----|:----\n");
+			b.append("\n\n| Weight reduction | Critical path reduction |\n");
+			b.append("|---:|---:|\n");
 
 			Map<Double, Double> map = i.getCpReductionMap();
 			List<Double> ratios = new ArrayList<>(map.keySet());
@@ -117,7 +117,7 @@ public class Impact2MdExporter implements FileExporter<ImpactAnalysisReport, Str
 				String ratioStr = StringUtils.format(ratio);
 				b.append(String.format("| %s | %s |\n", ratioStr, reductionStr));
 			}
-			b.append("[the weight reduction and the corresponding critical path length reduction]\n");
+			b.append("\n*The weight reduction and the corresponding critical path length reduction.*\n");
 		}
 		return b;
 	}

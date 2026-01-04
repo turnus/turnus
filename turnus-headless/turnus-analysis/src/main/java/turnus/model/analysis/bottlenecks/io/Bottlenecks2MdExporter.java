@@ -63,6 +63,7 @@ public class Bottlenecks2MdExporter implements FileExporter<BottlenecksReport, S
 		b.append(String.format("* **Network**: %s\n", data.getNetwork().getName()));
 		b.append(String.format("* **Algorithms**: %s\n", data.getAlgorithm()));
 		b.append("\n");
+		b.append("## Summary\n\n");
 
 		double netcpWeights = data.getCpWeight();
 		double netCpVariance = data.getCpVariance();
@@ -73,14 +74,11 @@ public class Bottlenecks2MdExporter implements FileExporter<BottlenecksReport, S
 		double cpFiringsPerc = ((double) netCpFirings) / netFirings * 100.0;
 		double cpWeightPerc = ((double) netcpWeights) / netWeight * 100.0;
 
-		b.append("\n| Overall ||| Critical Path ||||| ");
-		b.append("\n| Firings | Weight| Variance | Firings || Weight || Variance ");
-		b.append("\n|---|---|---|---|---|---|---|---");
-		b.append(String.format("\n| %d | %s | %s | %d | %s | %s | %s | %s", netFirings, format(netWeight),
+		b.append("| Overall Firings | Overall Weight | Overall Variance | CP Firings | CP Firings % | CP Weight | CP Weight % | CP Variance |\n");
+		b.append("|---:|---:|---:|---:|---:|---:|---:|---:|\n");
+		b.append(String.format("| %d | %s | %s | %d | %s | %s | %s | %s\n\n", netFirings, format(netWeight),
 				format(netVariance), netCpFirings, format((cpFiringsPerc)) + "%", format(netcpWeights),
 				format(cpWeightPerc) + "%", format(netCpVariance)));
-		b.append("\n[Summary]");
-		b.append("\n");
 
 		List<ActionBottlenecksData> actionsData = new ArrayList<>(data.getActionsData());
 		Collections.sort(actionsData, new Comparator<ActionBottlenecksData>() {
@@ -109,9 +107,9 @@ public class Bottlenecks2MdExporter implements FileExporter<BottlenecksReport, S
 			}
 		});
 
-		b.append("\n|   || Overall ||||| Critical Path ||||| ");
-		b.append("\n| Actor | Action | Firings || Weight|| Variance | Firings || Weight || Variance ");
-		b.append("\n|---|---|---|---|---|---|---|---|---|---|---|---");
+		b.append("## Actions Detail\n\n");
+		b.append("| Actor | Action | Total Firings | Total Firings % | Total Weight | Total Weight % | Total Variance | CP Firings | CP Firings % | CP Weight | CP Weight % | CP Variance |\n");
+		b.append("|:---|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|\n");
 
 		for (ActionBottlenecksData adata : actionsData) {
 			double cpWeights = adata.getCpWeight();
@@ -128,13 +126,12 @@ public class Bottlenecks2MdExporter implements FileExporter<BottlenecksReport, S
 			String actor = adata.getAction().getOwner().getName();
 			String action = adata.getAction().getName();
 
-			b.append(String.format("\n|%s | %s | %d | %s | %s | %s | %s | %d | %s | %s | %s | %s", actor, action,
+			b.append(String.format("| %s | %s | %d | %s | %s | %s | %s | %d | %s | %s | %s | %s |\n", actor, action,
 					totalFirings, format(totalFiringsPerc) + "%", format(totalWeight), format(totalWeightPerc) + "%",
 					format(totalVariance), cpFirings, format((cpFiringsPerc)) + "%", format(cpWeights),
 					format(cpWeightPerc) + "%", format(cpVariance)));
 
 		}
-		b.append("\n[Actions detail]");
 		b.append("\n");
 
 		return b;

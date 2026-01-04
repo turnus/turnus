@@ -55,6 +55,18 @@ import turnus.common.util.FileUtils;
  */
 public class HtmlUtils {
 
+	private static String readHtmlResource(String filename) {
+		try {
+			InputStream is = new HtmlUtils().getClass().getClassLoader().getResource("html/" + filename).openStream();
+			String content = FileUtils.toString(is);
+			is.close();
+			return content;
+		} catch (Exception e) {
+			Logger.debug("Resource \"%s\" not added. Error: %s", filename, e.getMessage());
+			return "";
+		}
+	}
+
 	/**
 	 * Append the given java-script
 	 * 
@@ -67,13 +79,7 @@ public class HtmlUtils {
 		StringBuffer b = new StringBuffer();
 		b.append("<script language=\"javascript\" type=\"text/javascript\">");
 		for (String j : js) {
-			try {
-				InputStream is = new HtmlUtils().getClass().getClassLoader().getResource("/html/" + j).openStream();
-				b.append(FileUtils.toString(is));
-				is.close();
-			} catch (Exception e) {
-				Logger.debug("Java-Script \"%s\" not added. Error: %s", j, e.getMessage());
-			}
+			b.append(readHtmlResource(j));
 		}
 		b.append("</script>");
 		b.append(htmlContent);
@@ -92,13 +98,26 @@ public class HtmlUtils {
 		StringBuffer b = new StringBuffer();
 		b.append("<style>");
 		for (String c : css) {
-			try {
-				InputStream is = new HtmlUtils().getClass().getClassLoader().getResource("/html/" + c).openStream();
-				b.append(FileUtils.toString(is));
-				is.close();
-			} catch (Exception e) {
-				Logger.debug("Style \"%s\" not added. Error: %s", c, e.getMessage());
-			}
+			b.append(readHtmlResource(c));
+		}
+		b.append("</style>");
+		b.append(htmlContent);
+		return b.toString();
+	}
+
+	/**
+	 * Append CSS styles wrapped in a <style> tag with a media query.
+	 *
+	 * Example media: "(prefers-color-scheme: dark)"
+	 */
+	public static String appendStyleMedia(String htmlContent, String media, String... css) {
+		StringBuffer b = new StringBuffer();
+		if (media == null || media.trim().isEmpty()) {
+			return appendStyle(htmlContent, css);
+		}
+		b.append("<style media=\"").append(media).append("\">");
+		for (String c : css) {
+			b.append(readHtmlResource(c));
 		}
 		b.append("</style>");
 		b.append(htmlContent);

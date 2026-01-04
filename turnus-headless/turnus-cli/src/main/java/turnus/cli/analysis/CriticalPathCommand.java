@@ -34,6 +34,7 @@ import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
 import turnus.common.util.FileUtils;
 import turnus.model.analysis.bottlenecks.BottlenecksReport;
+import turnus.model.analysis.bottlenecks.io.Bottlenecks2HtmlExporter;
 import turnus.model.trace.TraceProject;
 
 import static turnus.common.TurnusOptions.*;
@@ -85,6 +86,11 @@ public class CriticalPathCommand implements Callable<Integer> {
             File reportFile = new File(outDir, FileUtils.changeExtension(traceFile, "bottlenecks").getName());
             EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
             Logger.info("Report saved to: %s", reportFile);
+
+			// Save HTML report
+			File htmlFile = new File(reportFile.getParentFile(), reportFile.getName() + ".html");
+			new Bottlenecks2HtmlExporter().export(report, htmlFile);
+			Logger.info("HTML report saved to: %s", htmlFile);
             
             return 0;
             

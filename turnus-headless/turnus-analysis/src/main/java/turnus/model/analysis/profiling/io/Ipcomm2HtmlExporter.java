@@ -17,8 +17,9 @@ public class Ipcomm2HtmlExporter extends Ipcomm2MdExporter {
 			String mdContent = b.toString();
 			
 			String mdToHtml = HtmlUtils.markdown2Html(mdContent);
-			mdToHtml = HtmlUtils.appendJs(mdToHtml, "basic.js");
+			mdToHtml = HtmlUtils.appendStyleMedia(mdToHtml, "(prefers-color-scheme: dark)", "darkmode.css");
 		    mdToHtml = HtmlUtils.appendStyle(mdToHtml, "basic.css");
+			mdToHtml = HtmlUtils.appendJs(mdToHtml, "basic.js");
 			
 			
 			FileWriter writer = new FileWriter(output);
