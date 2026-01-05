@@ -32,6 +32,8 @@ import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
 import turnus.common.util.FileUtils;
+import turnus.model.analysis.partitioning.io.WorkloadBalancePartition2HtmlExporter;
+import turnus.model.analysis.partitioning.io.WorkloadBalancePartition2MdExporter;
 import turnus.model.analysis.partitioning.WorkloadBalancePartitioningReport;
 import turnus.model.mapping.NetworkWeight;
 import turnus.model.mapping.io.XmlNetworkWeightReader;
@@ -106,6 +108,14 @@ public class WorkloadBalancePartitioningCli implements PartitioningAlgorithmCli 
             File reportFile = new File(outDir, FileUtils.changeExtension(traceFile, "partitioning").getName());
             EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
             Logger.info("Report saved to: %s", reportFile);
+
+			// Export Markdown + HTML
+			File mdFile = new File(outDir, reportFile.getName() + ".md");
+			File htmlFile = new File(outDir, reportFile.getName() + ".html");
+			new WorkloadBalancePartition2MdExporter().export(report, mdFile);
+			new WorkloadBalancePartition2HtmlExporter().export(report, htmlFile);
+			Logger.info("Markdown saved to: %s", mdFile);
+			Logger.info("HTML saved to: %s", htmlFile);
             
             return 0;
             

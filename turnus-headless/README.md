@@ -86,8 +86,12 @@ java -jar turnus-cli-1.0.0-SNAPSHOT.jar pimpact --help
 java -jar turnus-cli-1.0.0-SNAPSHOT.jar amtrace --help
 java -jar turnus-cli-1.0.0-SNAPSHOT.jar ctrace --help
 java -jar turnus-cli-1.0.0-SNAPSHOT.jar dtraces --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar cprof --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar dprof --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar mprof --help
 java -jar turnus-cli-1.0.0-SNAPSHOT.jar partition --help
 java -jar turnus-cli-1.0.0-SNAPSHOT.jar simulate --help
+java -jar turnus-cli-1.0.0-SNAPSHOT.jar to-dot --help
 ```
 
 ### Analysis Commands

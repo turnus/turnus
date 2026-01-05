@@ -42,6 +42,9 @@ import turnus.adevs.logging.impl.BufferBlockingCollector;
 import turnus.adevs.simulation.SimEngine;
 import turnus.common.io.Logger;
 import turnus.model.dataflow.Actor;
+import turnus.model.analysis.postprocessing.ActionStatisticsReport;
+import turnus.model.analysis.postprocessing.ActorStatisticsReport;
+import turnus.model.analysis.postprocessing.BufferBlockingReport;
 import turnus.model.mapping.BufferSize;
 import turnus.model.mapping.CommunicationWeight;
 import turnus.model.mapping.NetworkPartitioning;
@@ -57,6 +60,12 @@ import turnus.model.trace.Step;
 import turnus.model.trace.TraceProject;
 import turnus.model.trace.weighter.TraceWeighter;
 import turnus.model.trace.weighter.impl.AverageTraceWeighter;
+import turnus.model.analysis.postprocessing.io.ActionStatistics2HtmlExporter;
+import turnus.model.analysis.postprocessing.io.ActionStatistics2MdExporter;
+import turnus.model.analysis.postprocessing.io.ActorStatistics2HtmlExporter;
+import turnus.model.analysis.postprocessing.io.ActorStatistics2MdExporter;
+import turnus.model.analysis.postprocessing.io.BufferBlocking2HtmlExporter;
+import turnus.model.analysis.postprocessing.io.BufferBlocking2MdExporter;
 
 /**
  * CLI command for ADEVS Simulation.
@@ -184,19 +193,37 @@ public class SimulationCommand implements Callable<Integer> {
             if (enableStats) {
                 if (actionStats != null) {
                     File reportFile = new File(outputDir, "action_stats.xmi");
-                    saveReport(actionStats.generateReport(), reportFile);
+                    ActionStatisticsReport report = actionStats.generateReport();
+                    saveReport(report, reportFile);
+
+					File mdFile = new File(outputDir, "action_stats.md");
+					File htmlFile = new File(outputDir, "action_stats.html");
+					new ActionStatistics2MdExporter().export(report, mdFile);
+					new ActionStatistics2HtmlExporter().export(report, htmlFile);
                     Logger.info("Action statistics saved to " + reportFile.getName());
                 }
                 if (actorStats != null) {
                     File reportFile = new File(outputDir, "actor_stats.xmi");
-                    saveReport(actorStats.generateReport(), reportFile);
+                    ActorStatisticsReport report = actorStats.generateReport();
+                    saveReport(report, reportFile);
+
+					File mdFile = new File(outputDir, "actor_stats.md");
+					File htmlFile = new File(outputDir, "actor_stats.html");
+					new ActorStatistics2MdExporter().export(report, mdFile);
+					new ActorStatistics2HtmlExporter().export(report, htmlFile);
                     Logger.info("Actor statistics saved to " + reportFile.getName());
                 }
             }
 
             if (enableBlocking && bufferStats != null) {
                 File reportFile = new File(outputDir, "buffer_blocking.xmi");
-                saveReport(bufferStats.generateReport(), reportFile);
+                BufferBlockingReport report = (BufferBlockingReport) bufferStats.generateReport();
+                saveReport(report, reportFile);
+
+				File mdFile = new File(outputDir, "buffer_blocking.md");
+				File htmlFile = new File(outputDir, "buffer_blocking.html");
+				new BufferBlocking2MdExporter().export(report, mdFile);
+				new BufferBlocking2HtmlExporter().export(report, htmlFile);
                 Logger.info("Buffer blocking statistics saved to " + reportFile.getName());
             }
 

@@ -32,6 +32,8 @@ import turnus.common.configuration.Configuration;
 import turnus.common.io.Logger;
 import turnus.common.util.EcoreUtils;
 import turnus.common.util.FileUtils;
+import turnus.model.analysis.partitioning.io.Pcomm2HtmlExporter;
+import turnus.model.analysis.partitioning.io.Pcomm2MdExporter;
 import turnus.model.analysis.partitioning.ComCostPartitioningReport;
 import turnus.model.trace.TraceProject;
 
@@ -82,6 +84,14 @@ public class CommunicationCostPartitioningCli implements PartitioningAlgorithmCl
             File reportFile = new File(outDir, FileUtils.changeExtension(traceFile, "partitioning").getName());
             EcoreUtils.storeEObject(report, project.getResourceSet(), reportFile);
             Logger.info("Report saved to: %s", reportFile);
+
+			// Export Markdown + HTML
+			File mdFile = new File(outDir, reportFile.getName() + ".md");
+			File htmlFile = new File(outDir, reportFile.getName() + ".html");
+			new Pcomm2MdExporter().export(report, mdFile);
+			new Pcomm2HtmlExporter().export(report, htmlFile);
+			Logger.info("Markdown saved to: %s", mdFile);
+			Logger.info("HTML saved to: %s", htmlFile);
             
             return 0;
             

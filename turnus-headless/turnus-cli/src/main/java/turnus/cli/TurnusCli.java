@@ -31,10 +31,13 @@ import turnus.cli.analysis.CriticalPathCommand;
 import turnus.cli.analysis.CtraceCommand;
 import turnus.cli.analysis.DtracesCommand;
 import turnus.cli.analysis.BufferAnalysisCommand;
+import turnus.cli.analysis.CprofCommand;
 import turnus.cli.analysis.IacommCommand;
 import turnus.cli.analysis.IpcommCommand;
+import turnus.cli.analysis.DprofCommand;
 import turnus.cli.analysis.LatencyCommand;
 import turnus.cli.analysis.MaxBufferCommand;
+import turnus.cli.analysis.MprofCommand;
 import turnus.cli.analysis.OptimalBufferCriticalBlockingCommand;
 import turnus.cli.analysis.OptimalBufferHeavyBlockingCommand;
 import turnus.cli.analysis.OptimalBufferTopDownCommand;
@@ -42,6 +45,7 @@ import turnus.cli.analysis.PimpactCommand;
 import turnus.cli.analysis.PartitioningCommand;
 import turnus.cli.analysis.ScheduledCriticalPathCommand;
 import turnus.cli.analysis.SimulationCommand;
+import turnus.cli.analysis.ToDotCommand;
 import turnus.cli.analysis.VarpipeCommand;
 import turnus.model.ModelsRegister;
 
@@ -73,8 +77,12 @@ import turnus.model.ModelsRegister;
         AmtraceCommand.class,
         CtraceCommand.class,
         DtracesCommand.class,
+        CprofCommand.class,
+        DprofCommand.class,
+        MprofCommand.class,
         PartitioningCommand.class,
-        SimulationCommand.class
+        SimulationCommand.class,
+        ToDotCommand.class
     }
 )
 public class TurnusCli implements Runnable {
