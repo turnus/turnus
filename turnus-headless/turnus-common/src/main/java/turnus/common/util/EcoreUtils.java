@@ -109,7 +109,7 @@ public class EcoreUtils {
 
 	/**
 	 * Store an {@link EObject} using the given {@link ResourceSet} and
-	 * {@link File}. If the object cannot be store, <code>false</code> is
+	 * If the object cannot be stored, <code>false</code> is
 	 * returned without throwing any exceptions.
 	 * 
 	 * @param object

@@ -59,11 +59,9 @@ import turnus.common.TurnusOptions;
 import turnus.common.configuration.Configuration;
 
 /**
- * This class contains some utilities methods for {@link File}s, {@link IFile}s
- * and {@link URI}s.
+ * This class contains some utilities methods for {@link File}s and {@link URI}s.
  * 
  * @author Simone Casale Brunet
- *
  */
 public class FileUtils {
 	
